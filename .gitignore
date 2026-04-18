@@ -27,3 +27,11 @@ venv/
 
 # Claude Code 로컬 설정
 .claude/settings.local.json
+
+# 자격증명 (절대 커밋 금지)
+.credentials/
+*.pat
+*.token
+.env
+.env.local
+secrets.*

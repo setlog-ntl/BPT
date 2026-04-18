@@ -2,20 +2,25 @@
 
 이 파일은 `C:\Dev\bizpt` 폴더를 `https://github.com/habitree/BPT` 에 **처음 올릴 때**의 1회용 가이드입니다. 완료 후 삭제하거나 아카이브해도 됩니다.
 
-## TL;DR — 복붙 명령 (PowerShell 또는 Git Bash)
+## 현재 상태 (2026-04-18 업데이트)
+
+- ✅ 로컬 `C:\Dev\bizpt`: `git init`, 설정, **초기 커밋 완료**
+  - `user.name = 최동혁` / `user.email = cdhrich@gmail.com`
+  - `origin` = `https://github.com/habitree/BPT.git`
+  - 커밋 메시지: `feat: 비즈니스PT 1주차 학습 정리 초기 커밋`
+- ⚠️ 원격 `habitree/BPT`: Claude가 `main` 브랜치 부트스트랩용으로 만든 **README placeholder 커밋 1개** 존재
+  - 로컬 커밋과 history가 분리(unrelated histories)되어 있어 일반 `push` 는 거부됨
+
+## 한 줄 해결 (권장)
 
 ```bash
 cd C:\Dev\bizpt
-git init -b main
-git config user.name "최동혁"
-git config user.email "cdhrich@gmail.com"
-git add .
-git commit -m "Initial commit: 비즈니스PT 학습 정리 (1주차 종합)"
-git remote add origin https://github.com/habitree/BPT.git
-git push -u origin main
+git push -u origin main --force
 ```
 
-처음 푸시 시 GitHub 로그인 창이 뜨면 인증하세요. 이상이 있으면 아래 단계별 상세 설명 참조.
+`--force`는 원격의 placeholder를 로컬 커밋으로 **덮어씁니다**. placeholder는 임시 파일이므로 잃을 게 없습니다.
+
+인증 창이 뜨면 GitHub 계정(habitree)으로 로그인 (Git Credential Manager).
 
 ## 준비물 확인
 
