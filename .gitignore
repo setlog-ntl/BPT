@@ -1,0 +1,29 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node (혹시 추후 도구 추가 시)
+node_modules/
+*.log
+npm-debug.log*
+
+# Python (혹시 추후 도구 추가 시)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 임시 파일
+*.tmp
+*.bak
+
+# Claude Code 로컬 설정
+.claude/settings.local.json

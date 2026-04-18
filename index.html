@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>비지니스 PT 강의 정리</title>
+  <style>
+    /* ============================================
+       Business PT Notes - Modern Dark Theme (inlined)
+       ============================================ */
+    :root {
+      --bg-0: #0b0d10; --bg-1: #111418; --bg-2: #171b21; --bg-3: #1f252d;
+      --bg-hover: #232a33; --border: #262d36; --border-strong: #323b47;
+      --text-0: #e8edf4; --text-1: #b9c2cf; --text-2: #7f8a99; --text-3: #5a6472;
+      --accent: #6ea8ff; --accent-soft: rgba(110, 168, 255, 0.14); --accent-strong: #4f8dff;
+      --success: #4ade80; --warning: #fbbf24; --danger: #f87171;
+      --sidebar-w: 280px; --topbar-h: 56px; --radius: 10px; --radius-sm: 6px;
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard",
+        "Apple SD Gothic Neo", "Noto Sans KR", Roboto, sans-serif;
+      --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font-sans); background: var(--bg-0); color: var(--text-0);
+      line-height: 1.65; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    .app { display: grid; grid-template-columns: var(--sidebar-w) 1fr; min-height: 100vh; }
+
+    /* Sidebar */
+    .sidebar {
+      background: var(--bg-1); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; position: sticky; top: 0;
+      height: 100vh; overflow: hidden;
+    }
+    .sidebar__header {
+      padding: 18px 18px 14px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand__mark {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--accent) 0%, #8a5cff 100%);
+      border-radius: 8px; display: grid; place-items: center;
+      font-weight: 800; color: #0b0d10; font-size: 16px; letter-spacing: -0.5px;
+    }
+    .brand__title { font-size: 14px; font-weight: 600; color: var(--text-0); letter-spacing: 0.2px; }
+    .brand__subtitle { font-size: 11px; color: var(--text-2); margin-top: 2px; }
+
+    .sidebar__toggle {
+      display: none; background: transparent; border: none; color: var(--text-1);
+      cursor: pointer; padding: 6px; flex-direction: column; gap: 3px;
+    }
+    .sidebar__toggle span { width: 18px; height: 2px; background: currentColor; border-radius: 2px; }
+
+    .nav {
+      flex: 1; overflow-y: auto; padding: 14px 10px 20px;
+      scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent;
+    }
+    .nav::-webkit-scrollbar { width: 6px; }
+    .nav::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+    .nav__section { margin-bottom: 18px; }
+    .nav__heading {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: var(--text-3); padding: 6px 10px; font-weight: 600;
+    }
+    .nav__item {
+      display: block; padding: 8px 12px; margin: 2px 0;
+      color: var(--text-1); text-decoration: none; font-size: 13.5px;
+      border-radius: var(--radius-sm); border-left: 2px solid transparent;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      cursor: pointer;
+    }
+    .nav__item:hover { background: var(--bg-hover); color: var(--text-0); }
+    .nav__item.is-active {
+      background: var(--accent-soft); color: var(--accent);
+      border-left-color: var(--accent); font-weight: 500;
+    }
+
+    .sidebar__footer {
+      padding: 12px 16px; border-top: 1px solid var(--border);
+      font-size: 11px; color: var(--text-3);
+    }
+    .meta { display: flex; justify-content: space-between; }
+    .meta__label { color: var(--text-3); }
+    .meta__value { color: var(--text-1); font-family: var(--font-mono); }
+
+    /* Main */
+    .main { display: flex; flex-direction: column; min-width: 0; }
+    .topbar {
+      height: var(--topbar-h); background: var(--bg-1);
+      border-bottom: 1px solid var(--border); display: flex; align-items: center;
+      padding: 0 20px; gap: 16px; position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+    .topbar__menu {
+      display: none; background: transparent; border: 1px solid var(--border);
+      color: var(--text-1); width: 34px; height: 34px;
+      border-radius: var(--radius-sm); cursor: pointer; font-size: 16px;
+    }
+    .topbar__breadcrumb { font-size: 13px; color: var(--text-2); flex: 1; }
+    .topbar__breadcrumb strong { color: var(--text-0); font-weight: 500; }
+    .topbar__search input {
+      background: var(--bg-2); border: 1px solid var(--border); color: var(--text-0);
+      padding: 7px 12px; border-radius: var(--radius-sm); font-size: 13px;
+      width: 240px; outline: none;
+      transition: border-color 0.15s ease, background 0.15s ease;
+      font-family: inherit;
+    }
+    .topbar__search input:focus { border-color: var(--accent); background: var(--bg-3); }
+    .topbar__search input::placeholder { color: var(--text-3); }
+
+    .content { flex: 1; padding: 32px 48px 80px; max-width: 960px; width: 100%; margin: 0 auto; }
+
+    /* Typography */
+    .content h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; color: var(--text-0); }
+    .content h2 {
+      font-size: 22px; font-weight: 600; margin-top: 36px; margin-bottom: 14px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border); color: var(--text-0);
+    }
+    .content h3 { font-size: 17px; font-weight: 600; margin-top: 24px; margin-bottom: 10px; color: var(--text-0); }
+    .content h4 { font-size: 14.5px; font-weight: 600; margin-top: 18px; margin-bottom: 8px; color: var(--text-1); }
+    .content p { color: var(--text-1); margin-bottom: 14px; }
+    .content .lead { font-size: 16px; color: var(--text-1); margin-bottom: 24px; }
+    .content ul, .content ol { color: var(--text-1); padding-left: 22px; margin-bottom: 16px; }
+    .content li { margin: 4px 0; }
+    .content a {
+      color: var(--accent); text-decoration: none;
+      border-bottom: 1px solid transparent; transition: border-color 0.15s ease;
+    }
+    .content a:hover { border-bottom-color: var(--accent); }
+    .content strong { color: var(--text-0); font-weight: 600; }
+    .content em { color: var(--text-1); }
+    .content code {
+      background: var(--bg-2); border: 1px solid var(--border);
+      padding: 1px 6px; border-radius: 4px; font-family: var(--font-mono);
+      font-size: 0.88em; color: var(--accent);
+    }
+    .content pre {
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 14px 16px;
+      overflow-x: auto; margin: 16px 0;
+    }
+    .content pre code { background: transparent; border: none; padding: 0; color: var(--text-1); }
+    .content blockquote {
+      border-left: 3px solid var(--accent); background: var(--bg-2);
+      padding: 12px 16px; margin: 16px 0; color: var(--text-1);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 13.5px; }
+    .content th, .content td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+    .content th {
+      background: var(--bg-2); color: var(--text-0); font-weight: 600;
+      border-bottom-color: var(--border-strong);
+    }
+    .content tr:hover td { background: var(--bg-2); }
+    .content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+    /* Components */
+    .info-card, .tip-card, .warn-card, .key-card {
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 22px; margin: 20px 0;
+    }
+    .info-card h3, .tip-card h3, .warn-card h3, .key-card h3 {
+      margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: 0.8px;
+    }
+    .tip-card { border-left: 3px solid var(--success); }
+    .tip-card h3 { color: var(--success); }
+    .warn-card { border-left: 3px solid var(--warning); }
+    .warn-card h3 { color: var(--warning); }
+    .key-card { border-left: 3px solid var(--accent); }
+    .key-card h3 { color: var(--accent); }
+
+    .tag {
+      display: inline-block; padding: 3px 10px; font-size: 11px;
+      background: var(--bg-3); color: var(--text-1);
+      border-radius: 999px; border: 1px solid var(--border);
+      margin-right: 4px; letter-spacing: 0.3px;
+    }
+    .tag--accent { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px; margin: 18px 0;
+    }
+    .card {
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 18px;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+      cursor: pointer; text-decoration: none; color: inherit; display: block;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card__title { font-size: 15px; font-weight: 600; color: var(--text-0); margin-bottom: 6px; }
+    .card__desc { font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+
+    .placeholder h1 { margin-top: 0; }
+    .empty { text-align: center; padding: 80px 20px; color: var(--text-2); }
+    .empty__icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
+
+    .footer {
+      padding: 20px 48px; border-top: 1px solid var(--border);
+      color: var(--text-3); font-size: 12px; text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed; top: 0; left: 0; width: var(--sidebar-w);
+        transform: translateX(-100%); transition: transform 0.25s ease;
+        z-index: 100; box-shadow: var(--shadow-md);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .topbar__menu { display: inline-flex; align-items: center; justify-content: center; }
+      .sidebar__toggle { display: flex; }
+      .content { padding: 24px 20px 60px; }
+      .topbar__search input { width: 140px; }
+    }
+    @media (max-width: 540px) { .topbar__search { display: none; } }
+
+    .search-hit { background: rgba(250, 204, 21, 0.25); color: var(--text-0); border-radius: 2px; padding: 0 2px; }
+
+    /* ============================================
+       Traffic Calculator (트래픽 계산기 페이지 전용)
+       ============================================ */
+    .tc-panel {
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 22px; margin: 18px 0;
+    }
+    .tc-panel--results { border-color: var(--accent); background: linear-gradient(to bottom, var(--bg-1), var(--bg-2)); }
+    .tc-panel__title {
+      margin-top: 0; margin-bottom: 14px;
+      font-size: 14px; text-transform: uppercase; letter-spacing: 0.8px;
+      color: var(--accent);
+    }
+    .tc-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+    .tc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .tc-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 700px) {
+      .tc-grid, .tc-grid--3 { grid-template-columns: 1fr; }
+    }
+    .tc-label {
+      font-size: 12.5px; color: var(--text-1); font-weight: 500;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .tc-hint { font-size: 11px; color: var(--text-3); font-weight: 400; }
+    .tc-input {
+      background: var(--bg-2); border: 1px solid var(--border);
+      color: var(--text-0); padding: 8px 12px;
+      border-radius: var(--radius-sm); font-size: 14px;
+      font-family: var(--font-mono); outline: none; width: 100%;
+      transition: border-color 0.15s ease;
+    }
+    .tc-input:focus { border-color: var(--accent); background: var(--bg-3); }
+    .tc-input-suffix { position: relative; display: flex; align-items: center; }
+    .tc-input-suffix .tc-input { padding-right: 28px; }
+    .tc-suffix {
+      position: absolute; right: 10px; font-size: 12px; color: var(--text-2);
+      pointer-events: none; font-family: var(--font-mono);
+    }
+    .tc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .tc-btn {
+      background: var(--bg-2); border: 1px solid var(--border);
+      color: var(--text-0); padding: 8px 14px;
+      border-radius: var(--radius-sm); font-size: 13px; cursor: pointer;
+      font-family: inherit; transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .tc-btn:hover { background: var(--bg-3); border-color: var(--border-strong); }
+    .tc-btn--primary {
+      background: var(--accent-soft); border-color: transparent; color: var(--accent); font-weight: 500;
+    }
+    .tc-btn--primary:hover { background: rgba(110, 168, 255, 0.22); }
+    .tc-btn--danger { color: var(--danger); }
+    .tc-btn--danger:hover { background: rgba(248, 113, 113, 0.1); border-color: var(--danger); }
+    .tc-results-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+    .tc-result {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 12px 14px;
+    }
+    .tc-result--highlight { background: var(--accent-soft); border-color: transparent; }
+    .tc-result__label { font-size: 11.5px; color: var(--text-2); margin-bottom: 4px; }
+    .tc-result__value {
+      font-size: 20px; font-weight: 600;
+      font-family: var(--font-mono); color: var(--text-0);
+    }
+    .tc-result--highlight .tc-result__value { color: var(--accent); }
+    .tc-unit { font-size: 12px; color: var(--text-3); font-weight: 400; margin-left: 4px; }
+    .tc-scenario {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr auto auto;
+      gap: 10px; align-items: center;
+      padding: 10px 12px; background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); margin-bottom: 6px; font-size: 13px;
+    }
+    .tc-scenario__name { font-weight: 500; color: var(--text-0); }
+    .tc-scenario__meta { font-size: 12px; color: var(--text-2); font-family: var(--font-mono); }
+    .tc-scenario__btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-1); padding: 4px 10px; font-size: 12px;
+      border-radius: 4px; cursor: pointer; font-family: inherit;
+    }
+    .tc-scenario__btn:hover { background: var(--bg-3); color: var(--text-0); }
+    .tc-scenario__btn--del:hover { color: var(--danger); border-color: var(--danger); }
+    .tc-empty {
+      text-align: center; padding: 20px; color: var(--text-3);
+      background: var(--bg-2); border: 1px dashed var(--border);
+      border-radius: var(--radius-sm); font-size: 13px;
+    }
+    .tc-sort-btn.is-active {
+      background: var(--accent-soft); color: var(--accent);
+      border-color: transparent; font-weight: 500;
+    }
+    .tc-scenario__memo {
+      grid-column: 1 / -1;
+      font-size: 12px; color: var(--text-2);
+      padding-top: 6px; border-top: 1px dashed var(--border);
+      margin-top: 4px; white-space: pre-wrap;
+    }
+    @media (max-width: 700px) {
+      .tc-scenario { grid-template-columns: 1fr 1fr; }
+      .tc-scenario__meta { grid-column: span 2; }
+    }
+
+    /* ============================================
+       Diagram components — 도식 시각화
+       ============================================ */
+    /* Funnel — 깔때기 시각화 */
+    .funnel { margin: 18px 0; display: flex; flex-direction: column; align-items: center; }
+    .funnel__step {
+      width: var(--w, 100%); min-width: 180px;
+      padding: 14px 18px;
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); text-align: center;
+      transition: all 0.2s ease;
+    }
+    .funnel__step--accent {
+      background: linear-gradient(135deg, var(--accent-soft), rgba(138, 92, 255, 0.12));
+      border-color: var(--accent); color: var(--accent);
+    }
+    .funnel__label { font-size: 11.5px; color: var(--text-2); margin-bottom: 4px; letter-spacing: 0.3px; }
+    .funnel__value { font-size: 20px; font-weight: 700; font-family: var(--font-mono); color: var(--text-0); letter-spacing: -0.5px; }
+    .funnel__step--accent .funnel__value { color: var(--accent); }
+    .funnel__rate {
+      font-size: 11px; color: var(--text-2);
+      background: var(--bg-2); border: 1px solid var(--border);
+      padding: 3px 10px; border-radius: 999px;
+      margin: 6px 0; font-family: var(--font-mono);
+    }
+    .funnel__rate--key {
+      background: var(--accent-soft); color: var(--accent); border-color: transparent;
+    }
+
+    /* Horizontal flow chain */
+    .flow-chain {
+      display: flex; align-items: center; gap: 4px;
+      margin: 16px 0; overflow-x: auto; padding: 4px 2px 8px;
+    }
+    .flow-chain__step {
+      flex-shrink: 0; padding: 12px 16px;
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); min-width: 90px; text-align: center;
+      font-size: 13px; color: var(--text-0);
+    }
+    .flow-chain__step--first { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+    .flow-chain__arrow {
+      color: var(--border-strong); font-size: 18px;
+      flex-shrink: 0; user-select: none;
+    }
+
+    /* Bidirectional diagram (planning ← / production →) */
+    .bidir {
+      margin: 20px 0; padding: 18px;
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .bidir__row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 0;
+    }
+    .bidir__row + .bidir__row { border-top: 1px dashed var(--border); margin-top: 4px; }
+    .bidir__tag {
+      font-size: 11px; padding: 4px 10px;
+      border-radius: 4px; min-width: 84px; text-align: center;
+      letter-spacing: 0.4px; font-weight: 500; flex-shrink: 0;
+    }
+    .bidir__row--plan .bidir__tag { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); }
+    .bidir__row--prod .bidir__tag { background: rgba(74, 222, 128, 0.12); color: var(--success); border: 1px solid var(--success); }
+    .bidir__stages {
+      display: flex; align-items: center; gap: 6px; flex: 1;
+      overflow-x: auto; padding-bottom: 2px;
+    }
+    .bidir__stage {
+      padding: 8px 12px; background: var(--bg-2);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      font-size: 12.5px; color: var(--text-0); white-space: nowrap;
+    }
+    .bidir__stage--highlight { border-color: var(--accent); color: var(--accent); }
+    .bidir__stage--highlight-prod { border-color: var(--success); color: var(--success); }
+    .bidir__arrow { color: var(--text-3); font-size: 14px; flex-shrink: 0; }
+
+    /* Numbered stages stack */
+    .stages { margin: 18px 0; }
+    .stages__item {
+      display: flex; gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .stages__item--final {
+      background: var(--accent-soft); border-color: var(--accent);
+    }
+    .stages__num {
+      flex-shrink: 0; width: 30px; height: 30px;
+      background: var(--accent-soft); color: var(--accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px; font-family: var(--font-mono);
+    }
+    .stages__item--final .stages__num { background: var(--accent); color: var(--bg-0); }
+    .stages__body { flex: 1; }
+    .stages__title { font-size: 14.5px; font-weight: 600; color: var(--text-0); }
+    .stages__detail { font-size: 12.5px; color: var(--text-2); margin-top: 3px; }
+    .stages__formula {
+      font-family: var(--font-mono); font-size: 11.5px;
+      color: var(--accent); margin-top: 5px;
+    }
+    .stages__connector {
+      display: flex; align-items: center; justify-content: flex-start;
+      height: 16px; padding-left: 30px;
+    }
+    .stages__connector::before {
+      content: ""; width: 2px; height: 100%;
+      background: linear-gradient(to bottom, var(--border-strong), var(--border));
+      margin-left: 14px;
+    }
+
+    /* KPI grid (4 metrics visual) */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px; margin: 14px 0;
+    }
+    .kpi-card {
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 16px;
+    }
+    .kpi-card__label {
+      font-size: 11px; color: var(--text-2);
+      text-transform: uppercase; letter-spacing: 0.6px;
+      margin-bottom: 6px;
+    }
+    .kpi-card__value {
+      font-size: 24px; font-weight: 700;
+      font-family: var(--font-mono); color: var(--accent);
+      letter-spacing: -0.5px;
+    }
+    .kpi-card__sub { font-size: 11px; color: var(--text-3); margin-top: 4px; }
+
+    /* Comparison layout (1-4강 + 1-5강 overlay) */
+    .compare-box {
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px;
+      margin: 18px 0;
+    }
+    .compare-box__title {
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px;
+      color: var(--accent); margin-bottom: 10px;
+    }
+    .compare-box--second { border-color: var(--success); margin-top: 12px; }
+    .compare-box--second .compare-box__title { color: var(--success); }
+    .compare-box__link {
+      text-align: center; color: var(--text-3); font-size: 11px;
+      margin: 4px 0; font-family: var(--font-mono);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- 사이드바 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__header">
+        <div class="brand">
+          <span class="brand__mark">B</span>
+          <div class="brand__text">
+            <div class="brand__title">Business PT</div>
+            <div class="brand__subtitle">강의 정리 아카이브</div>
+          </div>
+        </div>
+        <button class="sidebar__toggle" id="sidebarToggle" aria-label="사이드바 토글">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <nav class="nav" id="nav"></nav>
+      <div class="sidebar__footer">
+        <div class="meta">
+          <span class="meta__label">최종 업데이트</span>
+          <span class="meta__value" id="lastUpdated">—</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 메인 -->
+    <main class="main" id="main">
+      <header class="topbar">
+        <button class="topbar__menu" id="menuToggle" aria-label="메뉴 열기">☰</button>
+        <div class="topbar__breadcrumb" id="breadcrumb">홈</div>
+        <div class="topbar__search">
+          <input type="search" id="searchInput" placeholder="현재 페이지 검색..." />
+        </div>
+      </header>
+      <section class="content" id="content"></section>
+      <footer class="footer"><span>© Business PT Notes</span></footer>
+    </main>
+  </div>
+
+  <!-- ============================================
+       콘텐츠 (템플릿으로 임베드 — fetch 없이 동작)
+       ============================================ -->
+
+  <template id="tpl-my-framework">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">내 관점</span>
+        <span class="tag">전체 프레임</span>
+        <span class="tag">학습 synthesis</span>
+      </header>
+      <h1>내 관점의 전체 프레임 — 유튜브 시장에서 수익화까지</h1>
+      <p class="lead">
+        지금까지 배운 강의(1-4강 · 1-5강)를 내 언어로 다시 정리한 문서.
+        강의 내용 전사가 아니라, <em>"내가 이렇게 이해했다"</em>는 관점으로 재구성한 개인 프레임.
+      </p>
+      <div class="key-card">
+        <h3>한 줄 명제</h3>
+        <p>
+          <strong>유튜브라는 가장 큰 시장</strong>에서 <strong>기획</strong>을 통해
+          유입 → 판매의 전체 로직을 세분화하고, 기준별로 <strong>목표 금액을 역산</strong>하여
+          <strong>수치화</strong>한 다음, 부족한 수치를 <strong>개선</strong>하면서
+          <strong>수익화</strong>하는 것이 기본이다.
+        </p>
+      </div>
+
+      <h2>1. 기본 명제 — 왜 이렇게 접근하는가</h2>
+      <p>콘텐츠를 "감"으로 만들지 않기 위해서다. 시장이 크다는 것은 기회도 크지만 경쟁도 많다는 뜻이다. 감으로 만든 영상은 운이 좋아야 수익이 나고, 재현할 수 없다. <strong>재현 가능성</strong>을 얻으려면 모든 단계가 <em>수치로 관찰 가능</em>해야 하고, 그러려면 먼저 단계를 쪼개야 한다.</p>
+
+      <h2>2. 첫 번째 목표 — 단위 쪼개기와 수치화</h2>
+      <div class="info-card">
+        <h3>하고 싶은 것</h3>
+        <p>각 단계별 단위를 쪼개고, 쪼개는 단위별로 <strong>수치화된 데이터</strong>를 만들어내는 것. 이것이 <em>첫 번째 목표</em>.</p>
+      </div>
+      <p>쪼개지 않으면 개선할 수 없다. "조회수가 낮다"는 관찰은 쓸모가 없다. "<strong>클릭률</strong>이 낮아서 조회수가 안 나오는 것"과 "<strong>30초 유지율</strong>이 낮아서 알고리즘이 더 안 태우는 것"은 완전히 다른 문제다. 쪼개야 무엇을 고쳐야 할지가 보인다.</p>
+
+      <h2>3. 기획 방향 — 역순으로 설계</h2>
+      <p>앞으로 교육이 다룰 기획의 순서:</p>
+      <div class="stages">
+        <div class="stages__item">
+          <div class="stages__num">①</div>
+          <div class="stages__body">
+            <div class="stages__title">수익화를 위한 아이템 선정</div>
+            <div class="stages__detail">무엇을 팔 것인지 먼저 정한다. 이것이 모든 것의 출발점.</div>
+          </div>
+        </div>
+        <div class="stages__connector"></div>
+        <div class="stages__item">
+          <div class="stages__num">②</div>
+          <div class="stages__body">
+            <div class="stages__title">키 콘텐츠 기획</div>
+            <div class="stages__detail">선정된 아이템을 구매하게 만드는 목적성 콘텐츠 설계.</div>
+          </div>
+        </div>
+        <div class="stages__connector"></div>
+        <div class="stages__item stages__item--final">
+          <div class="stages__num">③</div>
+          <div class="stages__body">
+            <div class="stages__title">풀링 콘텐츠 기획</div>
+            <div class="stages__detail">키 콘텐츠로 이어줄 유입 콘텐츠 설계.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>4. 제작 방향 — 정방향으로 실행</h2>
+      <p>기획은 역순이지만, 실제 제작은 사람이 모이는 순서대로:</p>
+      <div class="flow-chain">
+        <div class="flow-chain__step flow-chain__step--first">풀링 콘텐츠</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">키 콘텐츠</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">랜딩페이지</div>
+      </div>
+      <p>풀링 콘텐츠가 먼저 만들어져야 키 콘텐츠로 넘어올 사람이 생긴다. <strong>빈 깔때기에 수요를 만드는 것이 곧 풀링</strong>이다.</p>
+
+      <h2>5. 유튜브 알고리즘에 대한 내 이해</h2>
+      <div class="info-card">
+        <h3>요약</h3>
+        <p>유튜브 알고리즘은 <strong>주제의 아이템</strong>을 기반으로 채널을 홍보한다. 아이템의 <strong>디테일한 주제</strong>로 홈화면에서 <strong>썸네일</strong>을 통해 영상이 조회되고, 그 결과 채널이 홍보되어 <em>사람들을 모은다</em>.</p>
+      </div>
+      <p>즉 알고리즘은 "좋은 영상"을 띄우는 게 아니라 <strong>"이 사람이 관심 있을 만한 주제의 썸네일"</strong>을 띄운다. 그래서 내가 다루는 주제가 명확해야 하고, 그 주제 안에서 알고리즘이 학습할 수 있는 <strong>충분한 반복</strong>(최소량 = 정성적 KPI)이 필요하다.</p>
+
+      <h2>6. 지금까지의 강의 종합 정리</h2>
+      <div class="cards-grid">
+        <a class="card" href="#lecture-1" onclick="event.preventDefault(); navigate('lecture-1');">
+          <div class="card__title">1강 · 비즈니스PT 종합 정리</div>
+          <div class="card__desc">1-4강·1-5강 + 4.12·4.16 필사 노트를 주제별로 통합. 15개 섹션 (콘텐츠 유형·기획 방향·매출 공식·깔때기·트래픽 3분류·KPI·아이템 4요소·병목 분석 등).</div>
+        </a>
+      </div>
+
+      <h2>7. 이어질 학습 — 커리큘럼 내 위치</h2>
+      <p>전체 35주 커리큘럼에서 지금 정리한 내용은 <strong>1-4주차 "수익화 기획"</strong> 블록에 해당. 5주차부터는 풀링 콘텐츠 제작, 12주차부터 키 콘텐츠 제작, 19주차부터 랜딩페이지 제작으로 이어진다.</p>
+      <div class="flow-chain">
+        <div class="flow-chain__step flow-chain__step--first">1-4주차<br><span style="font-size: 10px; color: var(--accent); opacity: 0.8;">수익화 기획 (지금)</span></div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">5-11주차<br><span style="font-size: 10px; color: var(--text-3);">풀링 제작</span></div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">12-18주차<br><span style="font-size: 10px; color: var(--text-3);">키 제작</span></div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">19-24주차<br><span style="font-size: 10px; color: var(--text-3);">랜딩 제작</span></div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">25-35주차<br><span style="font-size: 10px; color: var(--text-3);">확장·치트키</span></div>
+      </div>
+
+      <div class="warn-card">
+        <h3>이 프레임을 쓰는 법</h3>
+        <p>이 문서는 강의 전사본이 아니라 <strong>내 사고의 앵커</strong>다. 새로운 강의를 들을 때 "이것이 ① ~ ④ 중 어디에 붙는 내용인가?"를 먼저 물어본다. 그러면 흩어지지 않는다.</p>
+      </div>
+
+      <hr />
+      <p style="font-size: 12px; color: var(--text-3);">
+        원본 자료: <code>raw/2026-04-18_사용자-synthesis/notes.md</code>
+      </p>
+    </article>
+  </template>
+
+  <template id="tpl-glossary">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">용어 정리</span>
+        <span class="tag">참고 문서</span>
+      </header>
+      <h1>용어 정리 — 비즈니스PT 학습 사전</h1>
+      <p class="lead">
+        강의와 내 정리에서 반복되는 용어들을 한 곳에 모은다. 새 강의를 들을 때 용어가 헷갈리면 이 페이지로 돌아온다.
+      </p>
+
+      <h2>비즈니스 기본 단위</h2>
+      <table>
+        <thead><tr><th style="width: 22%;">용어</th><th>정의</th></tr></thead>
+        <tbody>
+          <tr><td><strong>아이템</strong></td><td>내가 판매할 아이템. 수익을 만들어주는 <em>기본 단위</em>이며, 가격·품질·브랜드·정보를 기반으로 소비자가 필요한 것.</td></tr>
+          <tr><td><strong>단가 (P)</strong></td><td>판매 단가. 아이템 1개의 가격.</td></tr>
+          <tr><td><strong>수량 (Q)</strong></td><td>판매하는 수량. 매출 = P × Q.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>콘텐츠 유형</h2>
+      <table>
+        <thead><tr><th style="width: 22%;">용어</th><th>정의</th></tr></thead>
+        <tbody>
+          <tr><td><strong>풀링 콘텐츠</strong></td><td>제품을 구매할 만한 <em>잠재고객을 모으는</em> 콘텐츠. 홈화면 유입 또는 탐색을 통해 도달.</td></tr>
+          <tr><td><strong>키 콘텐츠</strong></td><td>모집된 고객이 <em>구매를 선택할 수 있게 만드는</em> 콘텐츠. 목적이 있어서 검색을 통해 유입됨.</td></tr>
+          <tr><td><strong>검색 서비스</strong></td><td>키 콘텐츠의 유입 경로. 네이버, 유튜브, 인스타그램, 쓰레드 등.</td></tr>
+          <tr><td><strong>홈화면</strong></td><td>유튜브의 기본 화면. 풀링 콘텐츠가 유입되는 지점. 알고리즘이 추천을 띄우는 곳.</td></tr>
+          <tr><td><strong>썸네일</strong></td><td>홈화면에서 보여지는 이미지. 클릭률을 결정하는 1차 게이트.</td></tr>
+          <tr><td><strong>본문 / 원고</strong></td><td>유튜브 영상의 내용과 원고. 시청 지속 시간과 유지율의 뼈대.</td></tr>
+          <tr><td><strong>랜딩페이지</strong></td><td>키 콘텐츠에서 유입된 최종 고객이 아이템을 <em>구매하는 페이지</em>.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>측정 지표</h2>
+      <table>
+        <thead><tr><th style="width: 22%;">용어</th><th>정의</th></tr></thead>
+        <tbody>
+          <tr><td><strong>전환율</strong></td><td>각 프로세스별로 다음 단계로 넘어가는 비율.</td></tr>
+          <tr><td><strong>클릭률 (CTR)</strong></td><td>썸네일에서 영상을 클릭하는 비율.</td></tr>
+          <tr><td><strong>도입부 유지</strong></td><td>썸네일 클릭 후 사용자가 시청하는 시간. <strong>30초</strong>가 기본 KPI.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>비즈니스PT 정량 KPI (기준값)</h3>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-card__label">클릭률</div>
+          <div class="kpi-card__value">10%</div>
+          <div class="kpi-card__sub">노출 → 클릭</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__label">도입부 유지</div>
+          <div class="kpi-card__value">60%</div>
+          <div class="kpi-card__sub">30초 시점 잔존</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__label">시청 지속</div>
+          <div class="kpi-card__value">4분</div>
+          <div class="kpi-card__sub">전체 대비 30%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__label">영상당 조회수</div>
+          <div class="kpi-card__value">1,000</div>
+          <div class="kpi-card__sub">기본 트래픽</div>
+        </div>
+      </div>
+
+      <h3>비즈니스PT 정성 KPI</h3>
+      <div class="info-card">
+        <h3>정의</h3>
+        <p>해당 주제에 관심 있는 사람의 <strong>최소량</strong>. 즉 <em>전체 파이</em>의 크기. 정량 KPI가 "얼마나 반응했는가"라면, 정성 KPI는 "얼마나 반응할 수 있는 사람이 있는가"를 본다.</p>
+        <p>내가 다루는 주제: <strong>AI</strong>, <strong>책</strong>. 각 주제의 하위 주제는 <a href="#topic-system" onclick="event.preventDefault(); navigate('topic-system');">주제 시스템</a>에서 관리.</p>
+      </div>
+
+      <h2>광고 유형</h2>
+      <table>
+        <thead><tr><th style="width: 22%;">용어</th><th>정의</th></tr></thead>
+        <tbody>
+          <tr><td><strong>프리롤 광고</strong></td><td>썸네일 클릭 후 가장 먼저 재생되는 광고.</td></tr>
+          <tr><td><strong>미드롤 광고</strong></td><td>8분 이상 영상에서 중간에 나오는 광고.</td></tr>
+          <tr><td><strong>앤드롤 광고</strong></td><td>영상 마지막에 재생되는 광고.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="tip-card">
+        <h3>용어 사용 원칙</h3>
+        <p>이 용어집에 없는 표현이 강의에 등장하면 <strong>raw/</strong>에 메모해두고 정리 요청 시 이 페이지에 추가한다.</p>
+      </div>
+
+      <hr />
+      <p style="font-size: 12px; color: var(--text-3);">
+        원본: <code>raw/2026-04-18_사용자-synthesis/notes.md</code>
+      </p>
+    </article>
+  </template>
+
+  <template id="tpl-topic-system">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">주제 시스템</span>
+        <span class="tag">정성 KPI 기반</span>
+        <span class="tag">AI · 책</span>
+      </header>
+      <h1>주제 시스템 — 내가 다룰 주제와 하위 주제</h1>
+      <p class="lead">
+        비즈니스PT의 <strong>정성 KPI</strong>(주제에 관심 있는 사람의 최소량)는 <em>내가 무엇을 다룰지</em>를 먼저 정해야 측정이 시작된다.
+        이 페이지는 그 "무엇"을 관리하는 공간 — <strong>대주제 2개와 각 하위 주제 4개씩</strong>.
+      </p>
+
+      <div class="key-card">
+        <h3>정성 KPI와의 연결</h3>
+        <p>정량 KPI(CTR, 유지율 등)는 <em>반응의 크기</em>를 측정하고, 정성 KPI는 <em>반응할 수 있는 사람의 풀(pool)</em>을 결정한다. 주제가 넓으면 알고리즘이 학습할 시그널이 흩어지고, 너무 좁으면 파이 자체가 작다. 하위 주제를 4개 내외로 묶는 건 그 균형점.</p>
+      </div>
+
+      <h2>주제 1 · AI</h2>
+      <p>기술 관련 주제. "쓰는 사람" 기반. 바이브코딩·도구 사용·실제 만들기로 세분화.</p>
+      <div class="cards-grid">
+        <div class="card"><div class="card__title">홈페이지 제작</div><div class="card__desc">AI 도구로 랜딩·블로그·포트폴리오를 빠르게 만드는 방법. 실제 결과물을 보여주기 좋음.</div></div>
+        <div class="card"><div class="card__title">바이브코딩</div><div class="card__desc">AI와 함께 작성하는 개발 스타일. 프롬프트와 IDE 통합, 실패와 재시도 흐름.</div></div>
+        <div class="card"><div class="card__title">클로드</div><div class="card__desc">Claude 활용법·Artifacts·MCP·Skills 등 특정 도구 중심.</div></div>
+        <div class="card"><div class="card__title">ChatGPT</div><div class="card__desc">GPT 계열 도구의 실무 프롬프트·GPTs·Tasks 활용.</div></div>
+      </div>
+
+      <h2>주제 2 · 책</h2>
+      <p>독서·기록 관련 주제. "읽는 사람" 기반. 지속 가능하고 정성 KPI가 안정적.</p>
+      <div class="cards-grid">
+        <div class="card"><div class="card__title">필사</div><div class="card__desc">좋은 문장을 옮겨 쓰는 과정, 필사 노트 루틴, 필사가 글쓰기에 미치는 영향.</div></div>
+        <div class="card"><div class="card__title">독서 기록</div><div class="card__desc">독서 노트 형식·도구·루틴. 기억에 남는 기록법.</div></div>
+        <div class="card"><div class="card__title">책 추천</div><div class="card__desc">특정 상황·관심사별 큐레이션. 시청자의 검색 의도가 가장 높은 구간.</div></div>
+        <div class="card"><div class="card__title">책 내용 정리</div><div class="card__desc">한 권을 요약·도식화·핵심 추출. 키 콘텐츠로 전환하기 좋은 형식.</div></div>
+      </div>
+
+      <h2>활용 방법 — 풀링·키 콘텐츠의 원천</h2>
+      <p>각 하위 주제는 <strong>풀링 콘텐츠의 소재</strong>이자 <strong>키 콘텐츠의 주제</strong>가 된다.</p>
+      <table>
+        <thead>
+          <tr><th>대주제</th><th>하위 주제</th><th>풀링 예시 (탐색형)</th><th>키 예시 (검색형)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="4"><strong>AI</strong></td><td>홈페이지 제작</td><td>"AI로 1시간만에 만든 웹사이트"</td><td>"AI 포트폴리오 만들기 완벽 가이드"</td></tr>
+          <tr><td>바이브코딩</td><td>"AI가 코딩하는 법 충격적"</td><td>"바이브코딩 시작하는 법"</td></tr>
+          <tr><td>클로드</td><td>"클로드가 이런 것도 된다고?"</td><td>"Claude Skills 사용법 정리"</td></tr>
+          <tr><td>ChatGPT</td><td>"ChatGPT 아직도 이렇게 쓴다고?"</td><td>"ChatGPT 프롬프트 베스트 20선"</td></tr>
+          <tr><td rowspan="4"><strong>책</strong></td><td>필사</td><td>"10년 필사하면 이렇게 된다"</td><td>"필사 제대로 하는 법"</td></tr>
+          <tr><td>독서 기록</td><td>"독서 노트가 인생을 바꿨다"</td><td>"독서 기록 템플릿 모음"</td></tr>
+          <tr><td>책 추천</td><td>"이 책 안 읽으면 후회합니다"</td><td>"AI 시대에 읽어야 할 책"</td></tr>
+          <tr><td>책 내용 정리</td><td>"15분 만에 OO 핵심 정리"</td><td>"『책 제목』 요약 · 핵심 정리"</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-card">
+        <h3>위 예시는 실제 콘텐츠 기획이 아님</h3>
+        <p>위 표는 <em>풀링/키 콘텐츠 포지셔닝의 차이</em>를 보여주기 위한 예시. 실제 기획은 키워드 검색량·경쟁도 등을 확인해 확정해야 하며, 1-5주차 이후 강의에서 다뤄질 예정.</p>
+      </div>
+
+      <h2>주제를 바꾸거나 늘리고 싶다면</h2>
+      <p>지금은 이 페이지가 <strong>정적 문서</strong>로 되어 있다. 주제가 바뀌거나 하위 주제가 추가되면 <code>content/topic-system.html</code> 또는 <code>index.html</code>의 <code>&lt;template id="tpl-topic-system"&gt;</code> 블록을 편집해서 반영하거나, 편집 요청을 주면 된다.</p>
+      <p>향후 주제가 자주 바뀌면 <strong>인터랙티브 관리 시스템</strong>(추가/편집/삭제 + localStorage 저장)으로 확장 가능.</p>
+
+      <hr />
+      <p style="font-size: 12px; color: var(--text-3);">
+        원본: <code>raw/2026-04-18_사용자-synthesis/notes.md</code>
+      </p>
+    </article>
+  </template>
+
+  <template id="tpl-about">
+    <article>
+      <h1>아카이브 소개</h1>
+      <p class="lead">
+        이 아카이브는 <strong>비지니스 PT 강의</strong>에서 배운 내용을 주제별로 구조화하여,
+        이후 복습·실무 적용·참고 자료로 활용하기 위한 개인 학습 공간입니다.
+      </p>
+      <h2>목적</h2>
+      <ul>
+        <li>강의에서 배운 흩어진 내용들을 <strong>연결된 구조</strong>로 정리하기</li>
+        <li>핵심 개념·프레임워크·사례를 빠르게 찾아볼 수 있는 <strong>검색 가능한 형태</strong>로 만들기</li>
+        <li>시간이 지나도 맥락이 유지되도록 <strong>보기 좋은 HTML 문서</strong>로 보존하기</li>
+      </ul>
+      <h2>폴더 구조</h2>
+      <pre><code>C:\Dev\bizpt\
+├── index.html              ← 단일 파일, 더블클릭으로 바로 실행
+├── content\                ← 정리된 강의 HTML 섹션 (편집용 원본)
+│   ├── about.html
+│   └── lecture-*.html
+├── raw\                    ← 원본 자료 (노트, 채팅, 스크린샷 등)
+└── assets\                 ← 외부 CSS/JS (참고용, 본 파일은 inline)
+</code></pre>
+      <h2>자료 반영 흐름</h2>
+      <ol>
+        <li><code>raw/</code> 폴더에 원본 자료를 저장하거나 채팅으로 전달</li>
+        <li>내용을 주제별로 분류하고 구조화</li>
+        <li><code>content/</code>에 정리된 HTML 섹션으로 변환</li>
+        <li>본 <code>index.html</code>의 <code>&lt;template&gt;</code>에 임베드 + 사이드바 목차에 추가</li>
+      </ol>
+      <div class="tip-card">
+        <h3>TIP</h3>
+        <p>이 파일은 <strong>서버 없이 더블클릭만으로</strong> 실행됩니다. 콘텐츠는 모두 이 한 파일 안에 임베드되어 있습니다.</p>
+      </div>
+    </article>
+  </template>
+
+  <template id="_archive_tpl-lecture-1-4" data-archived="true">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">1주차 · 4강</span>
+        <span class="tag">수익화 구조</span>
+        <span class="tag">콘텐츠 설계</span>
+      </header>
+
+      <h1>수익화 구조 — 기획은 역산, 제작은 정방향</h1>
+      <p class="lead">
+        매출은 <code>P × Q</code>라는 공식에서 출발한다. 이 공식이 콘텐츠 깔때기로 옮겨지면
+        "얼마를 벌고 싶은가"가 "몇 회의 풀링 콘텐츠가 필요한가"로 환산된다.
+        <strong>기획은 수익화부터 거꾸로 설계</strong>하고, <strong>제작은 사람이 모이는 풀링부터 정방향</strong>으로 만든다.
+      </p>
+
+      <div class="key-card">
+        <h3>한 줄 요약</h3>
+        <p>사람이 먼저 모여야 팔린다. 그러나 무엇을 팔지를 정해야 사람을 어떻게 모을지가 정해진다. 그래서 <em>설계는 뒤에서 앞으로</em>, <em>실행은 앞에서 뒤로</em>.</p>
+      </div>
+
+      <h2>1. 두 가지 콘텐츠 유형</h2>
+      <p>강의의 출발점은 콘텐츠를 두 종류로 구분하는 것이다. 시청자의 의도(목적) 유무가 기준이다.</p>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card__title">풀링(Pulling) 콘텐츠</div>
+          <div class="card__desc">
+            <strong>목적 없는 탐색</strong> 유입. 유튜브 홈화면 알고리즘이 띄워주는 영상.
+            유튜브 트래픽의 약 80% 이상이 홈화면에서 시작된다.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__title">키(Key) 콘텐츠</div>
+          <div class="card__desc">
+            <strong>목적 있는 검색</strong> 유입. 네이버·인스타·유튜브 검색을 통해
+            "그 주제를 알고 싶은" 사람이 직접 찾아옴.
+          </div>
+        </div>
+      </div>
+
+      <h2>2. 기획 순서 vs 제작 순서 — 방향이 정반대</h2>
+      <p>같은 세 단계지만 방향이 다르다. 이 비대칭이 이번 강의의 핵심 프레임이다.</p>
+      <table>
+        <thead>
+          <tr><th style="width: 30%;">구분</th><th>① 단계</th><th>② 단계</th><th>③ 단계</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>기획 순서</strong> (역방향 설계)</td>
+            <td>수익화 목표</td><td>키 콘텐츠</td><td>풀링 콘텐츠</td>
+          </tr>
+          <tr>
+            <td><strong>제작 순서</strong> (정방향 실행)</td>
+            <td>풀링 콘텐츠</td><td>키 콘텐츠</td><td>수익화</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-card">
+        <h3>WHY?</h3>
+        <p><strong>"사람이 모여야 팔지."</strong> 결국 매출이 목표이므로 설계는 매출에서 시작하지만, 손에 잡히는 결과물(영상)은 사람을 모으는 풀링부터 만들어야 한다.</p>
+      </div>
+
+      <h2>3. 수익화 구조 — 고객 단계</h2>
+      <p>"수익화"는 한 덩어리가 아니다. 깔때기를 통과한 사람들은 단계별로 나뉘며, 각 단계마다 다른 전환 전략이 필요하다.</p>
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
+        <div class="card"><div class="card__title">잠재고객</div><div class="card__desc">아직 거래 없음. 인지·관심 단계.</div></div>
+        <div class="card"><div class="card__title">무료고객</div><div class="card__desc">무료 콘텐츠/체험으로 진입.</div></div>
+        <div class="card"><div class="card__title">유료고객</div><div class="card__desc">실제 구매 1회 이상.</div></div>
+        <div class="card"><div class="card__title">재구매고객</div><div class="card__desc">반복 구매. 수익성의 핵심.</div></div>
+      </div>
+
+      <h2>4. 매출 공식과 깔때기</h2>
+      <p>"성공하는 채널은 업로드하는 목적이 있다." 그 목적을 숫자로 환산한 것이 바로 이 공식이다.</p>
+      <div class="key-card">
+        <h3>매출 공식</h3>
+        <p style="font-size: 18px; font-family: var(--font-mono); color: var(--text-0); margin: 8px 0;">
+          매출 = P (가격) × Q (수량)
+        </p>
+        <p style="margin-top: 12px;">예) <strong>3,000만원 = 10만원 × 10개</strong> — 목표 매출이 정해지면 도달해야 할 판매 수량(Q)이 자동으로 역산된다.</p>
+      </div>
+
+      <h3>깔때기 — 전환율로 역산하는 콘텐츠 규모</h3>
+      <p>10개를 팔기 위해 콘텐츠는 몇 회의 조회가 필요한가? 강의에서 제시된 표준 전환율은 다음과 같다.</p>
+
+      <div class="funnel">
+        <div class="funnel__step" style="--w: 100%">
+          <div class="funnel__label">풀링 콘텐츠</div>
+          <div class="funnel__value">2,000 회</div>
+        </div>
+        <div class="funnel__rate">↓ 10%</div>
+        <div class="funnel__step" style="--w: 72%">
+          <div class="funnel__label">키 콘텐츠</div>
+          <div class="funnel__value">200 회</div>
+        </div>
+        <div class="funnel__rate funnel__rate--key">↓ 10%  ·  "랜딩에 남기는 비율"</div>
+        <div class="funnel__step" style="--w: 50%">
+          <div class="funnel__label">랜딩페이지</div>
+          <div class="funnel__value">20 명</div>
+        </div>
+        <div class="funnel__rate">↓ 50%</div>
+        <div class="funnel__step funnel__step--accent" style="--w: 34%">
+          <div class="funnel__label">구매</div>
+          <div class="funnel__value">10 개</div>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>단계</th><th>수치</th><th>전환율</th></tr></thead>
+        <tbody>
+          <tr><td>풀링 콘텐츠 조회수</td><td>2,000</td><td>—</td></tr>
+          <tr><td>→ 키 콘텐츠 도달</td><td>200</td><td><strong>10%</strong></td></tr>
+          <tr><td>→ 랜딩페이지 진입</td><td>20명</td><td><strong>10%</strong></td></tr>
+          <tr><td>→ 구매 전환</td><td>10개</td><td><strong>50%</strong></td></tr>
+        </tbody>
+      </table>
+
+      <div class="tip-card">
+        <h3>인사이트</h3>
+        <p>키 콘텐츠 시청자 중 랜딩페이지로 넘어가는 비율은 <strong>약 10%</strong>. 이 수치를 기준으로 역산하면 <em>제작 규모(주당/월간 풀링 콘텐츠 개수)</em>를 합리적으로 정할 수 있다.</p>
+      </div>
+
+      <h2>5. 기획의 역방향 — 매출에서 시작하는 5단계</h2>
+      <p>매출 공식과 깔때기를 결합하면, 모든 콘텐츠 기획은 다음과 같은 역산 흐름으로 정리된다.</p>
+      <ol>
+        <li><strong>수익화 목표 설정</strong> — 예: 월 매출 3,000만원</li>
+        <li><strong>판매 수량 역산</strong> — Q = 매출 ÷ P → 10만원 객단가라면 Q = 10</li>
+        <li><strong>랜딩 진입 수 역산</strong> — 구매 전환율 50% → 20명 필요</li>
+        <li><strong>키 콘텐츠 조회수 역산</strong> — 랜딩 전환율 10% → 200회 필요</li>
+        <li><strong>풀링 콘텐츠 조회수 역산</strong> — 키 전환율 10% → 2,000회 필요</li>
+      </ol>
+
+      <h2>6. 제작 파이프라인 — 정방향 실행</h2>
+      <p>설계가 끝나면 실제로 만든다. 만들 때는 풀링 콘텐츠부터, 그리고 그 안에서도 <strong>썸네일·제목을 가장 먼저</strong> 확정한다.</p>
+      <div class="info-card">
+        <h3>제작 원칙: 썸네일·제목 우선</h3>
+        <p>썸네일과 제목을 먼저 짓고, 그 프레임 안에 들어갈 내용을 만든다. 제목이 약하면 아무리 좋은 내용도 클릭되지 않기 때문.</p>
+      </div>
+      <div class="flow-chain">
+        <div class="flow-chain__step flow-chain__step--first">썸네일·제목</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">원고 작성</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">촬영</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">편집</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">업로드</div>
+      </div>
+      <p>영상 자체의 흐름도 같은 원칙: <code>훅 → 썸네일/도입 → 중반부 → …</code> 순으로 시청자의 이탈 곡선을 따라 설계한다.</p>
+
+      <h2>7. 전체 흐름 한 장으로</h2>
+      <p>마지막으로 <strong>설계 방향과 실행 방향</strong>을 같은 그림에 겹쳐보면 이번 강의 전체가 한눈에 들어온다.</p>
+
+      <div class="bidir">
+        <div class="bidir__row bidir__row--plan">
+          <span class="bidir__tag">기획 ◄</span>
+          <div class="bidir__stages">
+            <div class="bidir__stage bidir__stage--highlight">수익화<br><span style="font-size:10px; color: var(--text-3);">P × Q</span></div>
+            <span class="bidir__arrow">◄</span>
+            <div class="bidir__stage">키 콘텐츠</div>
+            <span class="bidir__arrow">◄</span>
+            <div class="bidir__stage">풀링 콘텐츠</div>
+            <span class="bidir__arrow">◄</span>
+            <div class="bidir__stage">사람</div>
+          </div>
+        </div>
+        <div class="bidir__row bidir__row--prod">
+          <span class="bidir__tag">► 제작</span>
+          <div class="bidir__stages">
+            <div class="bidir__stage bidir__stage--highlight-prod">썸네일·제목</div>
+            <span class="bidir__arrow">►</span>
+            <div class="bidir__stage">원고</div>
+            <span class="bidir__arrow">►</span>
+            <div class="bidir__stage">촬영</div>
+            <span class="bidir__arrow">►</span>
+            <div class="bidir__stage">편집</div>
+            <span class="bidir__arrow">►</span>
+            <div class="bidir__stage">업로드</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="warn-card">
+        <h3>이번 강의의 한 줄 결론</h3>
+        <p><strong>매출 목표 → 깔때기 역산 → 콘텐츠 규모</strong>로 설계하고, <strong>썸네일·제목 → 풀링 → 키 → 수익화</strong>로 실행한다. 이 두 방향을 분리해서 인지하는 것이 1주차 4강의 핵심.</p>
+      </div>
+
+      <hr />
+      <p style="font-size: 12px; color: var(--text-3);">
+        원본 자료: <code>raw/2026-04-18_1주차-4강/notes.md</code> (필사 노트 + 강의 슬라이드 재구성 + 구술 요약)
+      </p>
+    </article>
+  </template>
+
+  <template id="_archive_tpl-lecture-1-5" data-archived="true">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">1주차 · 5강</span>
+        <span class="tag">KPI</span>
+        <span class="tag">트래픽 계산</span>
+        <span class="tag">제작 원칙</span>
+      </header>
+
+      <h1>목표를 숫자로 쪼개기 — KPI · 썸네일 우선 · 트래픽 계산</h1>
+      <p class="lead">
+        "열심히 한다"는 정성적 선언으로는 아무것도 측정되지 않는다.
+        이번 강의는 <strong>전체적인 맥락을 구분해서, 구체적인 수량·숫자로 환산하고, 영상 1개 단위까지 쪼개는</strong> 작업을 다룬다.
+        1-4강의 깔때기 역산이 "얼마를 벌고 싶은가"를 트래픽으로 바꿨다면, 이번 강의는 그 트래픽을 <em>실제 콘텐츠가 충족해야 할 KPI</em>로 한 번 더 쪼갠다.
+      </p>
+
+      <div class="key-card">
+        <h3>한 줄 요약</h3>
+        <p>맥락 → <strong>구분</strong> → <strong>구체적 숫자</strong> → <strong>쪼개기</strong>. 영상 1개에 KPI 4개가 붙는 순간, 노력의 방향이 측정 가능해진다.</p>
+      </div>
+
+      <h2>1. 이번 강의의 핵심 3가지</h2>
+      <p>이번 강의에서 반드시 가져가야 할 것은 다음 셋이다. 셋은 독립된 항목이 아니라 <strong>한 줄에 꿰어진다</strong> — 트래픽 계산이 KPI를 정의하고, KPI 달성을 위해 썸네일·제목이 먼저 확정되어야 한다.</p>
+
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+        <div class="card">
+          <div class="card__title">① 정량적 목표 (KPI)</div>
+          <div class="card__desc">조회수·CTR·시청 지속·초반 유지율을 숫자로 정의한다.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">② 썸네일·제목 우선</div>
+          <div class="card__desc">콘텐츠를 만들기 전에 썸네일과 제목부터 확정한다.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">③ 트래픽 계산</div>
+          <div class="card__desc">매출 목표를 영상 단위 트래픽으로 역산하고 쪼갠다.</div>
+        </div>
+      </div>
+
+      <h2>2. 정량적 목표 — 유튜브 영상 1개의 KPI</h2>
+      <p>강의에서 제시된 "이 정도는 나와야 한다"의 기준선. 이 네 가지가 동시에 충족되어야 영상이 깔때기의 입구 역할을 한다.</p>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-card__label">조회수</div>
+          <div class="kpi-card__value">1,000</div>
+          <div class="kpi-card__sub">뷰 / 영상</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__label">클릭률 (CTR)</div>
+          <div class="kpi-card__value">10%</div>
+          <div class="kpi-card__sub">노출 → 클릭</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__label">시청 지속</div>
+          <div class="kpi-card__value">4분</div>
+          <div class="kpi-card__sub">≈ 영상의 30%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__label">30초 유지율</div>
+          <div class="kpi-card__value">60%</div>
+          <div class="kpi-card__sub">초반 훅 성과</div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>지표</th><th>목표값</th><th>의미·역할</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>조회수</td><td><strong>1,000 뷰</strong></td><td>기본 트래픽 지표. 깔때기 입구의 최소 부피.</td></tr>
+          <tr><td>클릭률 (CTR)</td><td><strong>10%</strong></td><td>썸네일·제목의 성과. 노출 대비 클릭 비율.</td></tr>
+          <tr><td>시청 지속(절대값)</td><td><strong>4분 (≈ 30%)</strong></td><td>본문 콘텐츠의 흡인력. 영상 길이 대비 평균 시청 비율 약 30% 가정.</td></tr>
+          <tr><td>초반 30초 유지율</td><td><strong>60%</strong></td><td>도입부(훅)의 성과. 여기서 빠지면 그 뒤는 의미 없음.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-card">
+        <h3>네 지표의 연결 구조</h3>
+        <p><strong>CTR(10%)</strong>이 사람을 영상 안으로 끌고 오면 → <strong>초반 30초 유지율(60%)</strong>이 이탈을 막고 → <strong>시청 지속 4분(30%)</strong>이 알고리즘에 신호를 주고 → 그 결과 <strong>1,000 뷰</strong>가 만들어진다. <em>거꾸로 어느 한 단계가 무너지면 뒤가 자동으로 무너진다.</em></p>
+      </div>
+
+      <h2>3. 썸네일·제목부터 정하고 내용을 만든다</h2>
+      <p>1-4강에서 선언된 제작 원칙이 이번 강의에서 <strong>3대 핵심으로 다시 들어왔다</strong>. 그 이유는 위 KPI 표가 직접 보여준다.</p>
+      <div class="key-card">
+        <h3>왜 다시 강조되는가</h3>
+        <p>제목이 약하면 KPI 중 <strong>CTR 10%</strong>가 먼저 무너진다. CTR이 무너지면 노출이 줄고, 노출이 줄면 조회수도 시청 지속도 의미가 없어진다. 그래서 모든 KPI의 <em>출발점이자 1차 게이트</em>가 썸네일·제목.</p>
+      </div>
+      <p>실무 순서: <code>썸네일/제목 → 원고 작성 → 촬영 → 편집 → 업로드</code></p>
+
+      <h2>4. 트래픽 계산 — 매출에서 영상 KPI까지 3단 쪼개기</h2>
+      <p>1-4강의 깔때기 역산이 "<strong>매출 → 트래픽</strong>"이었다면, 이번 강의는 그 트래픽을 한 단계 더 내려서 "<strong>트래픽 → 영상 단위 KPI</strong>"로 환산한다. 즉, 전체 흐름은 <strong>3단 쪼개기</strong>가 된다.</p>
+
+      <div class="stages">
+        <div class="stages__item">
+          <div class="stages__num">①</div>
+          <div class="stages__body">
+            <div class="stages__title">매출 목표</div>
+            <div class="stages__detail">얼마를 벌지 먼저 정한다.</div>
+          </div>
+        </div>
+        <div class="stages__connector"></div>
+        <div class="stages__item">
+          <div class="stages__num">②</div>
+          <div class="stages__body">
+            <div class="stages__title">판매 수량 → 깔때기 역산 <span class="tag" style="font-size:10px; margin-left:6px;">1-4강</span></div>
+            <div class="stages__detail">구매 → 랜딩 → 키 → 풀링 조회수까지 역산.</div>
+            <div class="stages__formula">÷ P (객단가)  ·  ÷ 전환율 ×3</div>
+          </div>
+        </div>
+        <div class="stages__connector"></div>
+        <div class="stages__item">
+          <div class="stages__num">③</div>
+          <div class="stages__body">
+            <div class="stages__title">풀링 콘텐츠 트래픽</div>
+            <div class="stages__detail">예: 월 풀링 조회수 2,000회 필요.</div>
+          </div>
+        </div>
+        <div class="stages__connector"></div>
+        <div class="stages__item stages__item--final">
+          <div class="stages__num">④</div>
+          <div class="stages__body">
+            <div class="stages__title">영상 단위 KPI · 영상 개수 <span class="tag tag--accent" style="font-size:10px; margin-left:6px;">1-5강</span></div>
+            <div class="stages__detail">영상 1개의 KPI(조회수·CTR·유지율)가 합쳐져 풀링 총 트래픽을 만든다.</div>
+            <div class="stages__formula">÷ 영상당 조회수 = 필요 영상 개수</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>실제 계산 예시</h3>
+      <p>1-4강 예시(월 매출 3,000만원 → 풀링 콘텐츠 2,000회 조회 필요)에 이번 강의 KPI를 결합하면:</p>
+      <table>
+        <thead>
+          <tr><th>단계</th><th>계산</th><th>결과</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>풀링 콘텐츠 월 목표 트래픽</td><td>1-4강 역산</td><td><strong>2,000 뷰</strong></td></tr>
+          <tr><td>영상 1개당 목표 조회수</td><td>이번 강의 KPI</td><td><strong>1,000 뷰</strong></td></tr>
+          <tr><td>월 필요 영상 개수</td><td>2,000 ÷ 1,000</td><td><strong>최소 2개</strong></td></tr>
+          <tr><td>영상 1개의 충족 조건</td><td>—</td><td>CTR 10%, 30초 유지 60%, 4분 시청</td></tr>
+        </tbody>
+      </table>
+
+      <div class="tip-card">
+        <h3>인사이트</h3>
+        <p>"한 달에 영상 몇 개를 올려야 하나?"는 감으로 정하는 게 아니라 <strong>매출 목표에서 자동으로 떨어지는 결과</strong>다. KPI를 정해두면 영상 개수도, 제작 일정도 함께 결정된다.</p>
+      </div>
+
+      <h2>5. 정성적 목표 — KPI의 방향을 잡아주는 보조 축</h2>
+      <p>3대 핵심에는 들지 않지만 KPI의 <em>주제 범위</em>를 잡아주는 보조 지표로 함께 다뤄짐.</p>
+      <div class="info-card">
+        <h3>정성적 목표의 정의</h3>
+        <p><strong>특정 주제에 대한 최소량의 충족.</strong> 무한정 다루는 게 아니라 "이 주제에서 이 정도는 나와야 한다"는 콘텐츠 깊이·범위의 하한선.</p>
+      </div>
+      <p>현재 다루는 주제 2가지:</p>
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
+        <div class="card"><div class="card__title">AI</div><div class="card__desc">주제별 최소량 충족 기준 설정 필요.</div></div>
+        <div class="card"><div class="card__title">책</div><div class="card__desc">주제별 최소량 충족 기준 설정 필요.</div></div>
+      </div>
+
+      <h2>6. 1-4강과 연결되는 한 장 요약</h2>
+      <p>두 강의를 겹쳐 보면 <strong>설계 → 측정</strong>의 흐름이 한 장에 들어온다.</p>
+
+      <div class="compare-box">
+        <div class="compare-box__title">1-4강 · 매출 → 트래픽 (깔때기 역산)</div>
+        <div class="flow-chain">
+          <div class="flow-chain__step flow-chain__step--first">매출 P×Q<br><span style="font-size:10px; color: var(--accent); opacity:0.7;">3,000만</span></div>
+          <span class="flow-chain__arrow">→</span>
+          <div class="flow-chain__step">Q<br><span style="font-size:10px; color: var(--text-3);">10</span></div>
+          <span class="flow-chain__arrow">→</span>
+          <div class="flow-chain__step">랜딩<br><span style="font-size:10px; color: var(--text-3);">20</span></div>
+          <span class="flow-chain__arrow">→</span>
+          <div class="flow-chain__step">키<br><span style="font-size:10px; color: var(--text-3);">200</span></div>
+          <span class="flow-chain__arrow">→</span>
+          <div class="flow-chain__step">풀링<br><span style="font-size:10px; color: var(--text-3);">2,000회</span></div>
+        </div>
+      </div>
+
+      <div class="compare-box__link">↓ 한 단계 더 쪼개기 ↓</div>
+
+      <div class="compare-box compare-box--second">
+        <div class="compare-box__title">1-5강 · 트래픽 → 영상 단위 KPI</div>
+        <p style="margin: 4px 0 10px; font-size: 13px;">
+          <code>2,000회 ÷ (영상당 1,000뷰) = 영상 2개</code>
+        </p>
+        <div class="kpi-grid" style="grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));">
+          <div class="kpi-card"><div class="kpi-card__label">조회수</div><div class="kpi-card__value" style="font-size:18px;">1,000</div></div>
+          <div class="kpi-card"><div class="kpi-card__label">CTR</div><div class="kpi-card__value" style="font-size:18px;">10%</div></div>
+          <div class="kpi-card"><div class="kpi-card__label">30초 유지</div><div class="kpi-card__value" style="font-size:18px;">60%</div></div>
+          <div class="kpi-card"><div class="kpi-card__label">시청 지속</div><div class="kpi-card__value" style="font-size:18px;">4분</div></div>
+        </div>
+        <p style="text-align: center; font-size: 12px; color: var(--text-2); margin-top: 10px;">
+          ▲ 이 모든 KPI의 1차 게이트는 <strong style="color: var(--accent);">썸네일·제목</strong>
+        </p>
+      </div>
+
+      <div class="warn-card">
+        <h3>이번 강의의 한 줄 결론</h3>
+        <p><strong>맥락을 구분해서 → 숫자로 환산하고 → 영상 1개 단위까지 쪼개라.</strong> 그 결과물이 곧 영상 1개에 붙는 KPI 4개와, 그 KPI를 게이팅하는 썸네일·제목이다.</p>
+      </div>
+
+      <hr />
+      <p style="font-size: 12px; color: var(--text-3);">
+        원본 자료: <code>raw/2026-04-18_1주차-5강/notes.md</code> · 연결 강의: 1-4강 (수익화 구조)
+      </p>
+    </article>
+  </template>
+
+  <template id="tpl-lecture-1">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">1강 · 종합</span>
+        <span class="tag">1주차 통합</span>
+        <span class="tag">기획 · KPI · 트래픽</span>
+      </header>
+
+      <h1>비즈니스PT 1강 · 전체 종합 정리</h1>
+      <p class="lead">
+        1-4강 / 1-5강 및 4.12·4.16 필사 노트를 강 구분 없이 하나로 통합.
+        주제별로 재배열하여, 새 강의를 들을 때 "어느 섹션에 붙는 내용인가"를 바로 찾을 수 있게 구성했다.
+      </p>
+
+      <div class="key-card">
+        <h3>한 줄 명제</h3>
+        <p>
+          <strong>유튜브 시장</strong>에서 <strong>기획 → 세분화 → 역산 → 수치화 → 개선</strong>으로 수익화하는 것.
+          추상은 숫자로, 숫자는 단계별 KPI로, KPI는 병목으로 쪼개야 개선이 시작된다.
+        </p>
+      </div>
+
+      <h2>§1. 콘텐츠의 두 유형</h2>
+      <p>모든 기획의 출발점. 시청자의 <strong>의도(목적) 유무</strong>가 기준이다.</p>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card__title">풀링(Pulling) 콘텐츠</div>
+          <div class="card__desc">
+            <strong>고객 모집</strong>. 무목적 탐색 유입. 유튜브 홈화면 알고리즘이 띄워주는 영상.
+            유튜브 트래픽의 80% 이상이 홈화면에서 시작됨.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__title">키(Key) 콘텐츠</div>
+          <div class="card__desc">
+            <strong>판매 발생</strong>. 목적 있는 검색 유입. 네이버·유튜브·인스타 검색으로
+            "그 주제를 알고 싶은" 사람이 직접 찾아옴.
+          </div>
+        </div>
+      </div>
+
+      <h3>키 콘텐츠의 3요소</h3>
+      <table>
+        <thead><tr><th>영상 내 요소</th><th>대응되는 외부 형태</th><th>역할</th></tr></thead>
+        <tbody>
+          <tr><td><strong>썸네일</strong></td><td>배너</td><td>클릭률 결정의 1차 게이트</td></tr>
+          <tr><td><strong>내용/본문</strong></td><td>상세 페이지</td><td>유지율·구매 설득</td></tr>
+          <tr><td><strong>댓글/링크</strong></td><td>결제 링크</td><td>랜딩·구매로 연결</td></tr>
+        </tbody>
+      </table>
+
+      <h2>§2. 기획 vs 제작 — 방향이 정반대</h2>
+      <p>같은 4단계지만 방향이 반대. 이 <strong>비대칭</strong>이 전체 프레임의 핵심.</p>
+      <table>
+        <thead>
+          <tr><th style="width: 28%;">구분</th><th>① 단계</th><th>② 단계</th><th>③ 단계</th><th>④ 단계</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>기획 순서</strong> (역방향)</td>
+            <td>수익화 목표</td><td>아이템 선정</td><td>키 콘텐츠</td><td>풀링 콘텐츠</td>
+          </tr>
+          <tr>
+            <td><strong>제작 순서</strong> (정방향)</td>
+            <td>풀링 콘텐츠</td><td>키 콘텐츠</td><td>랜딩페이지</td><td>수익화</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="info-card">
+        <h3>WHY?</h3>
+        <p><strong>"사람이 모여야 팔지."</strong> 매출이 목표이므로 설계는 매출에서 시작하지만, 손에 잡히는 결과물(영상)은 사람을 모으는 풀링부터 만들어야 한다.</p>
+      </div>
+
+      <h3>제작 파이프라인 — 썸네일·제목 우선</h3>
+      <div class="flow-chain">
+        <div class="flow-chain__step flow-chain__step--first">썸네일·제목</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">원고 작성</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">촬영</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">편집</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">업로드</div>
+      </div>
+      <p>썸네일과 제목을 먼저 짓고, 그 프레임 안에 들어갈 내용을 만든다. 제목이 약하면 CTR이 먼저 무너진다.</p>
+
+      <h2>§3. 수익화 구조 — 고객 4단계</h2>
+      <p>"수익화"는 한 덩어리가 아니다. 깔때기를 통과한 사람들은 4단계로 나뉘며, 단계마다 다른 전환 전략이 필요.</p>
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
+        <div class="card"><div class="card__title">잠재고객</div><div class="card__desc">아직 거래 없음. 인지·관심 단계.</div></div>
+        <div class="card"><div class="card__title">무료고객</div><div class="card__desc">무료 콘텐츠·체험으로 진입.</div></div>
+        <div class="card"><div class="card__title">유료고객</div><div class="card__desc">실제 구매 1회 이상.</div></div>
+        <div class="card"><div class="card__title">재구매고객</div><div class="card__desc">반복 구매. 수익성의 핵심.</div></div>
+      </div>
+
+      <h2>§4. 매출 공식과 가능한 숫자</h2>
+      <div class="key-card">
+        <h3>매출 공식</h3>
+        <p style="font-size: 18px; font-family: var(--font-mono); color: var(--text-0); margin: 8px 0;">
+          매출 = P (가격) × Q (수량)
+        </p>
+        <p style="margin-top: 12px;">역산: <strong>목표 매출 ÷ P(객단가) = Q(수량)</strong></p>
+        <p style="margin-top: 6px;">예) <strong>3,000만원 = 10만원 × 10개</strong></p>
+      </div>
+      <div class="warn-card">
+        <h3>판단의 전제</h3>
+        <p>★ <strong>내가 팔 수 있는 가격과 숫자(= 가능한 숫자)를 알아야 판단이 가능하다.</strong> P·Q가 막연한 채 기획하면 모든 계산이 허상. 가능한 P 범위와 현실적 Q 상한을 먼저 확정해야 한다.</p>
+      </div>
+
+      <h2>§5. 깔때기와 트래픽 계산</h2>
+      <h3>깔때기 — 역산 (목표 전환율)</h3>
+      <p>목표 매출에서 시작해 역순으로 쪼개면 필요한 트래픽이 숫자로 환원된다. <em>1-5강 슬라이드 "트래픽 계산 방법" 기준 목표 전환율:</em></p>
+      <div class="funnel">
+        <div class="funnel__step" style="--w: 100%">
+          <div class="funnel__label">풀링 콘텐츠</div>
+          <div class="funnel__value">— 조회수</div>
+        </div>
+        <div class="funnel__rate funnel__rate--key">↓ 20%  ·  키 콘텐츠 연계율</div>
+        <div class="funnel__step" style="--w: 70%">
+          <div class="funnel__label">키 콘텐츠</div>
+          <div class="funnel__value">— 조회수</div>
+        </div>
+        <div class="funnel__rate funnel__rate--key">↓ 5%  ·  링크 클릭률</div>
+        <div class="funnel__step" style="--w: 45%">
+          <div class="funnel__label">랜딩페이지</div>
+          <div class="funnel__value">— 진입수</div>
+        </div>
+        <div class="funnel__rate funnel__rate--key">↓ 5%  ·  유료 전환율</div>
+        <div class="funnel__step funnel__step--accent" style="--w: 28%">
+          <div class="funnel__label">구매</div>
+          <div class="funnel__value">Q 개</div>
+        </div>
+      </div>
+      <p style="text-align: center;"><a href="#traffic-calculator" onclick="event.preventDefault(); navigate('traffic-calculator');" class="tc-btn tc-btn--primary" style="display: inline-block; text-decoration: none; margin: 8px 0;">→ 트래픽 계산기로 수치 넣고 역산하기</a></p>
+
+      <h3>3단 쪼개기 — 매출에서 영상 단위 KPI까지</h3>
+      <div class="stages">
+        <div class="stages__item">
+          <div class="stages__num">①</div>
+          <div class="stages__body">
+            <div class="stages__title">매출 목표</div>
+            <div class="stages__formula">÷ P (객단가) → Q</div>
+          </div>
+        </div>
+        <div class="stages__connector"></div>
+        <div class="stages__item">
+          <div class="stages__num">②</div>
+          <div class="stages__body">
+            <div class="stages__title">깔때기 역산</div>
+            <div class="stages__detail">구매 → 랜딩 → 키 → 풀링 조회수까지 역산.</div>
+            <div class="stages__formula">÷ 전환율 ×3</div>
+          </div>
+        </div>
+        <div class="stages__connector"></div>
+        <div class="stages__item stages__item--final">
+          <div class="stages__num">③</div>
+          <div class="stages__body">
+            <div class="stages__title">영상 단위 KPI · 영상 개수</div>
+            <div class="stages__formula">풀링 조회수 ÷ 영상당 조회수 = 필요 영상 개수</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>§6. 트래픽의 세 관점 — 비 · 농경 · 댐</h2>
+      <p>트래픽을 단순히 "많이 들어오는 것"으로 보지 않고, <strong>관점 3가지</strong>로 쪼개서 이해한다. (4.16 필사 노트 신규 개념)</p>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card__title">① 트래픽 믹스 <span class="tag" style="font-size:10px; margin-left:4px;">비</span></div>
+          <div class="card__desc">다양한 채널·주제에서 들어오는 <strong>유입의 구성</strong>. 비처럼 여러 곳에서 내리는 것을 받는다.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">② 트래픽 효율 <span class="tag" style="font-size:10px; margin-left:4px;">농경</span></div>
+          <div class="card__desc">받은 트래픽에서 <strong>전환율을 최적화</strong>. 농경처럼 씨를 뿌려 기르는 과정.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">③ 트래픽 관리 <span class="tag" style="font-size:10px; margin-left:4px;">댐</span></div>
+          <div class="card__desc"><strong>지속적 축적·재활용</strong>. 댐처럼 모아두고 필요할 때 흘려보낸다.</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <h3>시스템 관점</h3>
+        <p>트래픽 3분류는 결국 <strong>알고리즘 + back data</strong>를 관리하는 시스템의 문제로 귀결. 어떤 데이터를 모아두고, 어떻게 알고리즘에 다시 태울 것인가.</p>
+      </div>
+
+      <h2>§7. 영상 단위 KPI (정량)</h2>
+      <p>영상 1개가 깔때기 입구로 작동하기 위해 충족해야 할 네 가지 지표.</p>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-card__label">조회수</div>
+          <div class="kpi-card__value">1,000</div>
+          <div class="kpi-card__sub">뷰 / 영상</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__label">클릭률 (CTR)</div>
+          <div class="kpi-card__value">10%</div>
+          <div class="kpi-card__sub">노출 → 클릭</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__label">도입부 유지</div>
+          <div class="kpi-card__value">60%</div>
+          <div class="kpi-card__sub">30초 시점 잔존</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__label">시청 지속</div>
+          <div class="kpi-card__value">4분</div>
+          <div class="kpi-card__sub">전체 대비 30%</div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <h3>연결 구조</h3>
+        <p><strong>CTR(10%)</strong>이 사람을 끌고 오면 → <strong>30초 유지율(60%)</strong>이 이탈을 막고 → <strong>시청 지속 4분(30%)</strong>이 알고리즘에 신호를 주고 → 결과적으로 <strong>1,000 뷰</strong>. 한 단계 무너지면 뒤가 자동으로 무너진다.</p>
+      </div>
+      <h3>정성 KPI — 주제의 파이</h3>
+      <div class="info-card">
+        <p>정성 KPI = 해당 주제에 관심 있는 사람의 <strong>최소량</strong>. 즉 <em>파이의 크기</em>. 주제 범위가 적정해야 알고리즘이 학습할 수 있는 반복이 쌓인다.</p>
+        <p>내 주제 2축: <strong>AI / 책</strong>. → 세부 하위 주제는 <a href="#topic-system" onclick="event.preventDefault(); navigate('topic-system');">주제 시스템</a>에서 관리.</p>
+      </div>
+
+      <h2>§8. 아이템 4요소와 소비자 의사결정</h2>
+      <p>아이템은 4개 속성의 조합으로 소비자의 의사결정을 결정한다. (4.16 필사 노트)</p>
+      <table>
+        <thead><tr><th>요소</th><th>의미</th><th>예시 (펜, 필사용 노트, 책)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>가격</strong></td><td>지불 의향 범위</td><td>가격대별 라인업</td></tr>
+          <tr><td><strong>품질</strong></td><td>체감 성능</td><td>필기감·내구성·가독성</td></tr>
+          <tr><td><strong>브랜드</strong></td><td>신뢰·아이덴티티</td><td>제조사·편집자·저자</td></tr>
+          <tr><td><strong>정보</strong></td><td>결정 근거 자료</td><td>리뷰·스펙·추천 맥락</td></tr>
+        </tbody>
+      </table>
+      <div class="warn-card">
+        <h3>실무 연결</h3>
+        <p>아이템 4요소는 단순 분류가 아니라 <strong>키 콘텐츠의 본문 구성 요소</strong>이기도 하다. 시청자가 구매 결정을 하려면 영상 안에서 이 4개가 다뤄져야 한다.</p>
+      </div>
+
+      <h2>§9. 시청 → 구매 6단계 플로우 · 병목 분석</h2>
+      <p>최종 전환까지의 여정은 6단계로 쪼개진다. (4.16 필사 노트)</p>
+      <div class="flow-chain">
+        <div class="flow-chain__step flow-chain__step--first">썸네일</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">영상</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">내용</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">댓글</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">랜딩페이지</div>
+        <span class="flow-chain__arrow">→</span>
+        <div class="flow-chain__step">구매</div>
+      </div>
+      <div class="key-card">
+        <h3>병목 분석</h3>
+        <p>★ 어느 구간에서 이탈하는지 <strong>병목(bottleneck)</strong>을 파악해야 개선 대상이 정해진다. 그리고 병목을 파악하려면 <strong>data</strong>가 있어야 한다. 감으로는 알 수 없다.</p>
+        <p style="margin-top: 8px; font-size: 13px;"><strong>전환율의 본질</strong>: 모집된 대비 다음 단계로 넘어간 비율. 각 단계마다 다른 전환율이 있고, 이를 <em>비틀어</em>(조정) 개선한다.</p>
+      </div>
+
+      <h2>§10. 광고 유형 (프리롤 · 미드롤 · 엔드롤)</h2>
+      <table>
+        <thead><tr><th>유형</th><th>재생 시점</th><th>조건</th></tr></thead>
+        <tbody>
+          <tr><td><strong>프리롤</strong></td><td>썸네일 클릭 직후 가장 먼저</td><td>—</td></tr>
+          <tr><td><strong>미드롤</strong></td><td>영상 중간</td><td>8분 이상 영상에서만</td></tr>
+          <tr><td><strong>엔드롤</strong></td><td>영상 마지막</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p>광고는 시청자 이탈 지점이자 수익 지점. 프리롤은 도입부 유지율에 직접 영향을 주므로 <em>썸네일 → 본문 사이의 벽</em>으로 이해한다.</p>
+
+      <h2>§11. 주제 × 채널 매핑</h2>
+      <p>유튜브 알고리즘은 <strong>주제 기반</strong>으로 채널을 분류·추천한다. (4.12 필사 노트)</p>
+      <div class="info-card">
+        <h3>관계</h3>
+        <p>주제를 축(Y)으로, 채널을 축(X)으로 놓고 매핑하면 — <strong>주제가 명확할수록 채널 분류가 깨끗</strong>해지고, 그 결과 <em>디테일한 주제의 영상</em>이 홈 추천에 올라간다.</p>
+      </div>
+      <pre><code>Y축: 주제          │
+                    │
+                    │   ● 디테일 주제 1
+                    │
+                    │     ● 디테일 주제 2
+                    │
+   ─────────────────┼───────────────────► X축: 채널
+                    │</code></pre>
+      <p>= 주제 기반으로 채널 구분 → <strong>홍보 효율 상승</strong> → 디테일한 주제에서 홈 추천으로 노출.</p>
+
+      <h2>§12. 차별화 포인트 (개인 포지셔닝)</h2>
+      <div class="info-card">
+        <h3>4.12 노트의 핵심</h3>
+        <p>두 가지 주제 조합으로 차별화: <strong>AI + IT</strong> 축 / <strong>책</strong> 축. 이 둘을 동시에 다루는 사람이 적다는 데서 틈새가 생긴다.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card__title">AI + IT 축</div>
+          <div class="card__desc">바이브코딩, 홈페이지 제작, 클로드·ChatGPT 등 실무 도구 중심.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">책 축</div>
+          <div class="card__desc">필사, 책 소개·추천, 책 내용 정리 등 독서 기반.</div>
+        </div>
+      </div>
+      <p>→ 세부 하위 주제는 <a href="#topic-system" onclick="event.preventDefault(); navigate('topic-system');">주제 시스템</a>에서 관리.</p>
+
+      <h2>§13. 개인 역량 Self-assessment</h2>
+      <div class="warn-card">
+        <h3>강의 외 본인 메모</h3>
+        <p>4.12 필사 노트에는 사용자 본인의 역량 자평이 함께 기록돼 있음. <em>강의 콘텐츠가 아닌 자기 진단</em>이지만, 콘텐츠 제작 전략(글쓰기 vs 말하기 비중, 영상 형식 선택 등)의 근거가 되므로 함께 기록.</p>
+      </div>
+      <table>
+        <thead><tr><th>영역</th><th>자평</th><th>전략적 시사</th></tr></thead>
+        <tbody>
+          <tr><td>전문성</td><td>중상</td><td>깊이 있는 키 콘텐츠 제작 유리</td></tr>
+          <tr><td>서비스</td><td>상</td><td>실제 구현·사례 기반 콘텐츠 강점</td></tr>
+          <tr><td>글쓰기</td><td>중</td><td>원고·블로그 병행 시 보완 필요</td></tr>
+          <tr><td>말</td><td>하</td><td>편집 의존도 ↑ · 자막 활용 · 짧은 호흡 영상 고려</td></tr>
+        </tbody>
+      </table>
+
+      <h2>§14. 플랫폼·수익화 수단</h2>
+      <p>키 콘텐츠의 "링크" 끝단에 연결되는 수익 수단들. (4.12 필사 노트)</p>
+      <ul>
+        <li><strong>쿠팡 파트너스</strong> — 제품 링크 제휴 수수료</li>
+        <li><strong>브랜드커넥트</strong> — 유튜브 브랜드 제휴</li>
+        <li><strong>카테고리 (link 2)</strong> — 분류 기반 제휴 링크 <em>(추가 맥락 확인 필요)</em></li>
+        <li><strong>BT (옳음 매출)</strong> — 필체 해독 불확실 <em>(확인 필요)</em></li>
+      </ul>
+
+      <h2>§15. 한 장 요약</h2>
+      <div class="compare-box">
+        <div class="compare-box__title">설계 (기획) 방향 — 역산</div>
+        <div class="flow-chain">
+          <div class="flow-chain__step flow-chain__step--first">매출 P×Q</div>
+          <span class="flow-chain__arrow">←</span>
+          <div class="flow-chain__step">아이템</div>
+          <span class="flow-chain__arrow">←</span>
+          <div class="flow-chain__step">키 콘텐츠</div>
+          <span class="flow-chain__arrow">←</span>
+          <div class="flow-chain__step">풀링 콘텐츠</div>
+          <span class="flow-chain__arrow">←</span>
+          <div class="flow-chain__step">사람</div>
+        </div>
+      </div>
+      <div class="compare-box compare-box--second">
+        <div class="compare-box__title">실행 (제작) 방향 — 정방향</div>
+        <div class="flow-chain">
+          <div class="flow-chain__step flow-chain__step--first">풀링 제작</div>
+          <span class="flow-chain__arrow">→</span>
+          <div class="flow-chain__step">키 제작</div>
+          <span class="flow-chain__arrow">→</span>
+          <div class="flow-chain__step">랜딩 제작</div>
+          <span class="flow-chain__arrow">→</span>
+          <div class="flow-chain__step">수익화</div>
+        </div>
+      </div>
+      <div class="warn-card">
+        <h3>1강의 한 줄 결론</h3>
+        <p><strong>매출 목표 → 깔때기 역산 → 영상 단위 KPI</strong>로 설계하고, <strong>썸네일·제목 → 풀링 → 키 → 랜딩 → 수익화</strong>로 실행한다. 그 과정에서 병목이 생기면 <em>data</em>로 어디인지 찾아내고, 해당 단계의 전환율을 비틀어 개선한다.</p>
+      </div>
+
+      <hr />
+      <p style="font-size: 12px; color: var(--text-3);">
+        원본 자료:
+        <code>raw/2026-04-12_비즈니스PT-시작/notes.md</code> ·
+        <code>raw/2026-04-16_트래픽-시스템-정리/notes.md</code> ·
+        <code>raw/2026-04-18_1주차-4강/notes.md</code> ·
+        <code>raw/2026-04-18_1주차-5강/notes.md</code> ·
+        <code>raw/2026-04-18_사용자-synthesis/notes.md</code> ·
+        <code>raw/_이미지-인덱스.md</code>
+      </p>
+    </article>
+  </template>
+
+  <template id="tpl-traffic-calculator">
+    <article id="traffic-calculator-root">
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">도구</span>
+        <span class="tag">트래픽 계산기</span>
+        <span class="tag">시나리오 관리</span>
+      </header>
+      <h1>트래픽 계산기 — 매출 → 깔때기 역산</h1>
+      <p class="lead">
+        목표 매출을 입력하면 <strong>판매 수량 → 랜딩 진입 → 키 조회 → 풀링 조회 → 필요 영상 개수</strong>까지 자동 역산합니다.
+        시나리오에 이름을 붙여 저장·불러오기 가능하며, JSON 파일로 내보내 백업할 수 있습니다.
+        (1-5강 "트래픽 계산 방법" 슬라이드의 목표 전환율 20%·5%·5%를 기본값으로 사용)
+      </p>
+
+      <div class="tc-panel">
+        <h3 class="tc-panel__title">입력값</h3>
+        <div class="tc-row">
+          <label class="tc-label">시나리오 이름 <span class="tc-hint">저장 시 식별용</span></label>
+          <input id="tc-name" class="tc-input" type="text" placeholder="예: AI 주제 월 3천만원" />
+        </div>
+        <div class="tc-grid">
+          <div class="tc-row">
+            <label class="tc-label">목표 매출 (원)</label>
+            <input id="tc-revenue" class="tc-input" type="number" value="30000000" min="0" step="1000" />
+          </div>
+          <div class="tc-row">
+            <label class="tc-label">객단가 P (원)</label>
+            <input id="tc-aov" class="tc-input" type="number" value="100000" min="1" step="1000" />
+          </div>
+        </div>
+
+        <h4 style="margin-top: 18px;">전환율 (목표)</h4>
+        <div class="tc-actions" style="margin-top: 0; margin-bottom: 10px;">
+          <button class="tc-btn" data-preset="1-5">프리셋: 1-5강 목표 (20/5/5)</button>
+          <button class="tc-btn" data-preset="1-4">프리셋: 1-4강 예시 (10/10/50)</button>
+        </div>
+        <div class="tc-grid tc-grid--3">
+          <div class="tc-row">
+            <label class="tc-label">유료 전환율 <span class="tc-hint">랜딩 → 구매</span></label>
+            <div class="tc-input-suffix">
+              <input id="tc-paid-rate" class="tc-input" type="number" value="5" min="0" max="100" step="0.1" />
+              <span class="tc-suffix">%</span>
+            </div>
+          </div>
+          <div class="tc-row">
+            <label class="tc-label">링크 클릭률 <span class="tc-hint">키 → 랜딩</span></label>
+            <div class="tc-input-suffix">
+              <input id="tc-click-rate" class="tc-input" type="number" value="5" min="0" max="100" step="0.1" />
+              <span class="tc-suffix">%</span>
+            </div>
+          </div>
+          <div class="tc-row">
+            <label class="tc-label">키 연계율 <span class="tc-hint">풀링 → 키</span></label>
+            <div class="tc-input-suffix">
+              <input id="tc-key-rate" class="tc-input" type="number" value="20" min="0" max="100" step="0.1" />
+              <span class="tc-suffix">%</span>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 18px;">콘텐츠 단위 (영상당 KPI)</h4>
+        <div class="tc-row">
+          <label class="tc-label">영상 1개당 목표 조회수 <span class="tc-hint">1-5강 기본값 1,000</span></label>
+          <input id="tc-views" class="tc-input" type="number" value="1000" min="1" step="100" />
+        </div>
+
+        <div class="tc-row" style="margin-top: 14px;">
+          <label class="tc-label">메모 <span class="tc-hint">선택 — 가정·용도·주제</span></label>
+          <textarea id="tc-memo" class="tc-input" rows="2" placeholder="예: AI 주제, 2026년 1분기 목표 / 가정: 매주 영상 1개 업로드" style="font-family: inherit; resize: vertical;"></textarea>
+        </div>
+
+        <div class="tc-actions">
+          <button id="tc-save" class="tc-btn tc-btn--primary">현재 시나리오 저장</button>
+          <button id="tc-reset" class="tc-btn">기본값으로 초기화</button>
+          <span id="tc-draft-status" class="tc-hint" style="margin-left: auto; align-self: center;"></span>
+        </div>
+      </div>
+
+      <div class="tc-panel tc-panel--results">
+        <h3 class="tc-panel__title">역산 결과</h3>
+        <div class="tc-results-grid">
+          <div class="tc-result">
+            <div class="tc-result__label">판매 수량 <span class="tc-hint">Q = 매출 ÷ P</span></div>
+            <div class="tc-result__value"><span id="tc-q">—</span> <span class="tc-unit">개</span></div>
+          </div>
+          <div class="tc-result">
+            <div class="tc-result__label">랜딩페이지 진입</div>
+            <div class="tc-result__value"><span id="tc-landing">—</span> <span class="tc-unit">명</span></div>
+          </div>
+          <div class="tc-result">
+            <div class="tc-result__label">키 콘텐츠 조회수</div>
+            <div class="tc-result__value"><span id="tc-key">—</span> <span class="tc-unit">회</span></div>
+          </div>
+          <div class="tc-result">
+            <div class="tc-result__label">풀링 콘텐츠 조회수</div>
+            <div class="tc-result__value"><span id="tc-pulling">—</span> <span class="tc-unit">회</span></div>
+          </div>
+          <div class="tc-result tc-result--highlight">
+            <div class="tc-result__label">필요 풀링 영상 개수</div>
+            <div class="tc-result__value"><span id="tc-videos">—</span> <span class="tc-unit">개</span></div>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 18px;">단계별 역산 흐름</h4>
+        <div class="stages">
+          <div class="stages__item">
+            <div class="stages__num">①</div>
+            <div class="stages__body">
+              <div class="stages__title">목표 매출</div>
+              <div class="stages__formula">÷ P (객단가)</div>
+            </div>
+          </div>
+          <div class="stages__connector"></div>
+          <div class="stages__item">
+            <div class="stages__num">②</div>
+            <div class="stages__body">
+              <div class="stages__title">판매 수량 (Q)</div>
+              <div class="stages__formula">÷ 유료 전환율</div>
+            </div>
+          </div>
+          <div class="stages__connector"></div>
+          <div class="stages__item">
+            <div class="stages__num">③</div>
+            <div class="stages__body">
+              <div class="stages__title">랜딩 진입</div>
+              <div class="stages__formula">÷ 링크 클릭률</div>
+            </div>
+          </div>
+          <div class="stages__connector"></div>
+          <div class="stages__item">
+            <div class="stages__num">④</div>
+            <div class="stages__body">
+              <div class="stages__title">키 조회수</div>
+              <div class="stages__formula">÷ 키 연계율</div>
+            </div>
+          </div>
+          <div class="stages__connector"></div>
+          <div class="stages__item">
+            <div class="stages__num">⑤</div>
+            <div class="stages__body">
+              <div class="stages__title">풀링 조회수</div>
+              <div class="stages__formula">÷ 영상당 조회수</div>
+            </div>
+          </div>
+          <div class="stages__connector"></div>
+          <div class="stages__item stages__item--final">
+            <div class="stages__num">⑥</div>
+            <div class="stages__body">
+              <div class="stages__title">필요 영상 개수</div>
+              <div class="stages__detail">이 개수만큼 풀링 콘텐츠를 제작해야 목표 매출 달성 가능.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tc-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+          <h3 class="tc-panel__title" style="margin: 0;">저장된 시나리오 <span id="tc-count" class="tc-hint" style="text-transform: none; letter-spacing: normal;"></span></h3>
+          <div style="display: flex; gap: 6px;">
+            <button class="tc-btn tc-sort-btn" data-sort="recent">최근순</button>
+            <button class="tc-btn tc-sort-btn" data-sort="name">이름순</button>
+          </div>
+        </div>
+        <p class="tc-hint" style="margin-bottom: 10px;">
+          브라우저 로컬(localStorage)에 저장됩니다. 다른 기기로 옮기려면 <strong>JSON 내보내기</strong>를 이용하세요.
+        </p>
+        <div id="tc-list"></div>
+        <div class="tc-actions">
+          <button id="tc-export" class="tc-btn">JSON 내보내기</button>
+          <label for="tc-import" class="tc-btn" style="cursor: pointer;">JSON 불러오기</label>
+          <input id="tc-import" type="file" accept="application/json,.json" style="display: none;" />
+          <button id="tc-clear-all" class="tc-btn tc-btn--danger">전체 삭제</button>
+        </div>
+      </div>
+
+      <div class="info-card" style="margin-top: 28px;">
+        <h3>계산 로직 요약</h3>
+        <ul>
+          <li><strong>Q</strong> = 목표 매출 ÷ P</li>
+          <li><strong>랜딩</strong> = Q ÷ 유료 전환율</li>
+          <li><strong>키 조회</strong> = 랜딩 ÷ 링크 클릭률</li>
+          <li><strong>풀링 조회</strong> = 키 조회 ÷ 키 연계율</li>
+          <li><strong>영상 개수</strong> = 풀링 조회 ÷ 영상당 조회수</li>
+        </ul>
+      </div>
+    </article>
+  </template>
+
+  <!-- ============================================
+       JS — 템플릿 기반 라우터 (fetch 사용 안 함, file:// 동작)
+       ============================================ -->
+  <script>
+    const TOC = {
+      lastUpdated: "2026-04-18",
+      sections: [
+        {
+          heading: "시작하기",
+          items: [
+            { id: "home", title: "홈", tpl: null },
+            { id: "about", title: "아카이브 소개", tpl: "tpl-about" },
+          ],
+        },
+        {
+          heading: "정리 문서",
+          items: [
+            { id: "my-framework", title: "내 관점의 전체 프레임", tpl: "tpl-my-framework" },
+            { id: "glossary", title: "용어 정리", tpl: "tpl-glossary" },
+            { id: "topic-system", title: "주제 시스템 (AI · 책)", tpl: "tpl-topic-system" },
+          ],
+        },
+        {
+          heading: "강의 정리",
+          items: [
+            { id: "lecture-1", title: "1강 · 비즈니스PT 종합 정리 (1주차)", tpl: "tpl-lecture-1" },
+          ],
+        },
+        {
+          heading: "도구",
+          items: [
+            { id: "traffic-calculator", title: "트래픽 계산기", tpl: "tpl-traffic-calculator" },
+          ],
+        },
+      ],
+    };
+
+    // 페이지별 초기화 훅 — 템플릿 삽입 후 호출됨
+    const pageInits = {};
+
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[c]));
+    }
+    function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+    function renderNav() {
+      const nav = $("#nav");
+      nav.innerHTML = TOC.sections.map(section => {
+        const items = section.items.length
+          ? section.items.map(item =>
+              `<a class="nav__item" href="#${item.id}" data-id="${item.id}">${escapeHtml(item.title)}</a>`
+            ).join("")
+          : `<div class="nav__item" style="color: var(--text-3); font-style: italic; cursor: default;">자료 준비 중...</div>`;
+        return `<div class="nav__section">
+          <div class="nav__heading">${escapeHtml(section.heading)}</div>
+          ${items}
+        </div>`;
+      }).join("");
+      $("#lastUpdated").textContent = TOC.lastUpdated;
+
+      $$(".nav__item[data-id]").forEach(el => {
+        el.addEventListener("click", e => {
+          e.preventDefault();
+          navigate(el.dataset.id);
+          if (window.innerWidth <= 900) $("#sidebar").classList.remove("is-open");
+        });
+      });
+    }
+
+    function findItem(id) {
+      for (const s of TOC.sections)
+        for (const it of s.items)
+          if (it.id === id) return { section: s, item: it };
+      return null;
+    }
+
+    function navigate(id) {
+      const match = findItem(id) || findItem("home");
+      if (!match) return;
+
+      $$(".nav__item").forEach(el => el.classList.remove("is-active"));
+      const activeEl = $(`.nav__item[data-id="${match.item.id}"]`);
+      if (activeEl) activeEl.classList.add("is-active");
+
+      $("#breadcrumb").innerHTML =
+        `${escapeHtml(match.section.heading)} <span style="color: var(--text-3); margin: 0 6px;">›</span> ` +
+        `<strong>${escapeHtml(match.item.title)}</strong>`;
+
+      if (location.hash !== `#${match.item.id}`)
+        history.replaceState(null, "", `#${match.item.id}`);
+
+      const content = $("#content");
+      if (match.item.tpl) {
+        const tpl = document.getElementById(match.item.tpl);
+        if (tpl) {
+          content.innerHTML = "";
+          content.appendChild(tpl.content.cloneNode(true));
+          window.scrollTo({ top: 0, behavior: "instant" });
+          // 페이지별 초기화 (인터랙티브 요소가 있는 템플릿)
+          const init = pageInits[match.item.tpl];
+          if (typeof init === "function") {
+            try { init(); } catch (e) { console.error("페이지 init 오류:", e); }
+          }
+        } else {
+          content.innerHTML = `<div class="warn-card"><h3>템플릿 누락</h3><p>${escapeHtml(match.item.tpl)}</p></div>`;
+        }
+      } else {
+        content.innerHTML = homeHtml();
+      }
+    }
+
+    function homeHtml() {
+      const sectionCards = (heading) => {
+        const sec = TOC.sections.find(s => s.heading === heading);
+        if (!sec || !sec.items.length) return "";
+        return `<div class="cards-grid">${sec.items.map(it =>
+          `<a class="card" href="#${it.id}" onclick="event.preventDefault(); navigate('${it.id}');">
+            <div class="card__title">${escapeHtml(it.title)}</div>
+            <div class="card__desc">자세히 보기 →</div>
+          </a>`).join("")}</div>`;
+      };
+
+      return `<article class="placeholder">
+        <h1>비지니스 PT 강의 정리</h1>
+        <p class="lead">강의에서 배운 내용을 주제별로 구조화하여 정리하는 아카이브. 먼저 <strong>내 관점의 전체 프레임</strong>으로 큰 그림을 잡고, 강의별 상세로 들어가는 구조입니다.</p>
+
+        <h2 style="border: none; padding: 0; margin-top: 28px;">정리 문서</h2>
+        <p style="color: var(--text-2); font-size: 13px; margin-top: -4px;">강의 전체를 가로지르는 참고 문서</p>
+        ${sectionCards("정리 문서")}
+
+        <h2>강의 정리</h2>
+        ${sectionCards("강의 정리")}
+
+        <h2>도구</h2>
+        ${sectionCards("도구")}
+
+        <h2>사용 안내</h2>
+        <div class="info-card">
+          <h3>이용 방법</h3>
+          <ul>
+            <li>왼쪽 <strong>사이드바</strong>에서 주제를 선택하면 해당 페이지 내용을 볼 수 있습니다.</li>
+            <li>상단 <strong>검색창</strong>에서 키워드로 현재 페이지 내용을 빠르게 필터링할 수 있습니다.</li>
+            <li>이 페이지는 <strong>서버 없이 더블클릭만으로</strong> 실행됩니다 — 모든 콘텐츠가 단일 파일에 임베드되어 있습니다.</li>
+            <li>처음 오셨다면 <a href="#my-framework" onclick="event.preventDefault(); navigate('my-framework');"><strong>내 관점의 전체 프레임</strong></a>부터 보시는 걸 권합니다.</li>
+          </ul>
+        </div>
+      </article>`;
+    }
+
+    function setupSearch() {
+      $("#searchInput").addEventListener("input", e => {
+        const q = e.target.value.trim();
+        clearHighlights();
+        if (q.length >= 2) highlightInContent(q);
+      });
+    }
+    function clearHighlights() {
+      $$(".search-hit").forEach(el => {
+        const p = el.parentNode;
+        p.replaceChild(document.createTextNode(el.textContent), el);
+        p.normalize();
+      });
+    }
+    function highlightInContent(query) {
+      const root = $("#content");
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode: n => {
+          if (!n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          if (n.parentElement.closest("script, style")) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        },
+      });
+      const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+      const re = new RegExp(escapeRegExp(query), "gi");
+      nodes.forEach(node => {
+        const text = node.nodeValue;
+        if (!re.test(text)) return; re.lastIndex = 0;
+        const frag = document.createDocumentFragment();
+        let last = 0, m;
+        while ((m = re.exec(text)) !== null) {
+          if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+          const mark = document.createElement("span");
+          mark.className = "search-hit"; mark.textContent = m[0];
+          frag.appendChild(mark);
+          last = m.index + m[0].length;
+        }
+        if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+        node.parentNode.replaceChild(frag, node);
+      });
+    }
+
+    function setupSidebarToggle() {
+      $("#menuToggle").addEventListener("click", () => $("#sidebar").classList.toggle("is-open"));
+      $("#sidebarToggle").addEventListener("click", () => $("#sidebar").classList.remove("is-open"));
+    }
+
+    // ============================================
+    // 트래픽 계산기 초기화 로직
+    // ============================================
+    pageInits["tpl-traffic-calculator"] = () => {
+      const g = id => document.getElementById(id);
+      const STORAGE_KEY = "bizpt_traffic_scenarios_v1";
+      const DRAFT_KEY = "bizpt_traffic_draft_v1";
+      const SORT_KEY = "bizpt_traffic_sort_v1";
+      const DEFAULTS = {
+        revenue: 30000000, aov: 100000,
+        paidRate: 5, clickRate: 5, keyRate: 20,
+        viewsPerVid: 1000, memo: ""
+      };
+      const PRESETS = {
+        "1-5": { paidRate: 5, clickRate: 5, keyRate: 20, label: "1-5강 목표" },
+        "1-4": { paidRate: 50, clickRate: 10, keyRate: 10, label: "1-4강 예시" },
+      };
+      let sortMode = localStorage.getItem(SORT_KEY) || "recent"; // recent | name
+
+      function readInputs() {
+        return {
+          name: g("tc-name").value.trim(),
+          revenue: +g("tc-revenue").value || 0,
+          aov: +g("tc-aov").value || 0,
+          paidRate: +g("tc-paid-rate").value || 0,
+          clickRate: +g("tc-click-rate").value || 0,
+          keyRate: +g("tc-key-rate").value || 0,
+          viewsPerVid: +g("tc-views").value || 0,
+          memo: g("tc-memo").value,
+        };
+      }
+
+      function setInputs(v) {
+        if (v.name !== undefined) g("tc-name").value = v.name || "";
+        g("tc-revenue").value = v.revenue ?? DEFAULTS.revenue;
+        g("tc-aov").value = v.aov ?? DEFAULTS.aov;
+        g("tc-paid-rate").value = v.paidRate ?? DEFAULTS.paidRate;
+        g("tc-click-rate").value = v.clickRate ?? DEFAULTS.clickRate;
+        g("tc-key-rate").value = v.keyRate ?? DEFAULTS.keyRate;
+        g("tc-views").value = v.viewsPerVid ?? DEFAULTS.viewsPerVid;
+        g("tc-memo").value = v.memo ?? "";
+      }
+
+      function fmt(n) {
+        if (!isFinite(n) || isNaN(n)) return "—";
+        return Math.ceil(n).toLocaleString("ko-KR");
+      }
+
+      function calc() {
+        const v = readInputs();
+        const q = v.aov > 0 ? v.revenue / v.aov : 0;
+        const landing = v.paidRate > 0 ? q / (v.paidRate / 100) : 0;
+        const keyViews = v.clickRate > 0 ? landing / (v.clickRate / 100) : 0;
+        const pullingViews = v.keyRate > 0 ? keyViews / (v.keyRate / 100) : 0;
+        const videoCount = v.viewsPerVid > 0 ? pullingViews / v.viewsPerVid : 0;
+        g("tc-q").textContent = fmt(q);
+        g("tc-landing").textContent = fmt(landing);
+        g("tc-key").textContent = fmt(keyViews);
+        g("tc-pulling").textContent = fmt(pullingViews);
+        g("tc-videos").textContent = fmt(videoCount);
+      }
+
+      // Storage helpers
+      function loadAll() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+        catch (e) { return []; }
+      }
+      function saveAll(list) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); return true; }
+        catch (e) { alert("저장 실패: " + e.message); return false; }
+      }
+      function saveDraft() {
+        try {
+          const v = readInputs();
+          localStorage.setItem(DRAFT_KEY, JSON.stringify({ ...v, ts: Date.now() }));
+          const el = g("tc-draft-status");
+          if (el) {
+            el.textContent = "초안 자동 저장됨";
+            clearTimeout(saveDraft._t);
+            saveDraft._t = setTimeout(() => { el.textContent = ""; }, 1600);
+          }
+        } catch (e) {}
+      }
+      function loadDraft() {
+        try { return JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); }
+        catch (e) { return null; }
+      }
+
+      // Sorted list
+      function getSortedList() {
+        const list = loadAll();
+        const sorted = [...list];
+        if (sortMode === "name") {
+          sorted.sort((a, b) => (a.name || "").localeCompare(b.name || "", "ko"));
+        } else {
+          sorted.sort((a, b) => new Date(b.savedAt || 0) - new Date(a.savedAt || 0));
+        }
+        return { sorted, originalList: list };
+      }
+
+      function renderList() {
+        const { sorted, originalList } = getSortedList();
+        const box = g("tc-list");
+        g("tc-count").textContent = originalList.length ? `· ${originalList.length}개` : "";
+
+        // Update sort button active states
+        document.querySelectorAll(".tc-sort-btn").forEach(b => {
+          b.classList.toggle("is-active", b.dataset.sort === sortMode);
+        });
+
+        if (!sorted.length) {
+          box.innerHTML = `<div class="tc-empty">저장된 시나리오가 없습니다. 입력값을 채우고 <strong>현재 시나리오 저장</strong>을 눌러 보세요.</div>`;
+          return;
+        }
+
+        box.innerHTML = sorted.map((s) => {
+          const origIdx = originalList.findIndex(x => x.name === s.name);
+          const date = s.savedAt ? new Date(s.savedAt).toLocaleString("ko-KR", { year: "2-digit", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) : "";
+          const revenueKor = ((s.revenue || 0) / 10000).toLocaleString("ko-KR") + "만원";
+          const memoHtml = s.memo ? `<div class="tc-scenario__memo">${escapeHtml(s.memo)}</div>` : "";
+          return `<div class="tc-scenario" data-i="${origIdx}">
+            <div class="tc-scenario__name">${escapeHtml(s.name)}</div>
+            <div class="tc-scenario__meta">매출 ${revenueKor}</div>
+            <div class="tc-scenario__meta">${escapeHtml(date)}</div>
+            <button class="tc-scenario__btn" data-act="load" data-i="${origIdx}">불러오기</button>
+            <button class="tc-scenario__btn" data-act="dup" data-i="${origIdx}">복제</button>
+            <button class="tc-scenario__btn tc-scenario__btn--del" data-act="del" data-i="${origIdx}">삭제</button>
+            ${memoHtml}
+          </div>`;
+        }).join("");
+
+        box.querySelectorAll("button[data-act]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const idx = +btn.dataset.i;
+            const act = btn.dataset.act;
+            const list = loadAll();
+            if (act === "load") {
+              const s = list[idx];
+              if (s) { setInputs(s); calc(); saveDraft(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+            } else if (act === "dup") {
+              const s = list[idx];
+              if (!s) return;
+              let newName = s.name + " (복사)";
+              let n = 2;
+              while (list.some(x => x.name === newName)) { newName = s.name + ` (복사 ${n++})`; }
+              const copy = { ...s, name: newName, savedAt: new Date().toISOString() };
+              list.push(copy);
+              saveAll(list); renderList();
+            } else if (act === "del") {
+              if (!confirm(`"${list[idx].name}" 시나리오를 삭제할까요?`)) return;
+              list.splice(idx, 1);
+              saveAll(list); renderList();
+            }
+          });
+        });
+      }
+
+      // 이벤트 바인딩 — 입력 변경 시 자동 계산 + 자동 저장 (초안)
+      ["tc-revenue","tc-aov","tc-paid-rate","tc-click-rate","tc-key-rate","tc-views"].forEach(id => {
+        g(id).addEventListener("input", () => { calc(); saveDraft(); });
+      });
+      ["tc-name","tc-memo"].forEach(id => {
+        g(id).addEventListener("input", saveDraft);
+      });
+
+      // 프리셋 버튼 (전환율 3개만 변경)
+      document.querySelectorAll("button[data-preset]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const p = PRESETS[btn.dataset.preset];
+          if (!p) return;
+          g("tc-paid-rate").value = p.paidRate;
+          g("tc-click-rate").value = p.clickRate;
+          g("tc-key-rate").value = p.keyRate;
+          calc(); saveDraft();
+        });
+      });
+
+      // 정렬 토글
+      document.querySelectorAll(".tc-sort-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          sortMode = btn.dataset.sort;
+          localStorage.setItem(SORT_KEY, sortMode);
+          renderList();
+        });
+      });
+
+      g("tc-save").addEventListener("click", () => {
+        const v = readInputs();
+        if (!v.name) { alert("시나리오 이름을 입력하세요."); g("tc-name").focus(); return; }
+        if (v.aov <= 0) { alert("객단가는 0보다 커야 합니다."); return; }
+        const list = loadAll();
+        const existing = list.findIndex(s => s.name === v.name);
+        const entry = { ...v, savedAt: new Date().toISOString() };
+        if (existing >= 0) {
+          if (!confirm(`"${v.name}" 이름의 시나리오가 이미 있습니다. 덮어쓸까요?`)) return;
+          list[existing] = entry;
+        } else {
+          list.push(entry);
+        }
+        saveAll(list); renderList();
+        g("tc-draft-status").textContent = "저장 완료";
+        setTimeout(() => { g("tc-draft-status").textContent = ""; }, 2000);
+      });
+
+      g("tc-reset").addEventListener("click", () => {
+        if (!confirm("입력값을 기본값으로 초기화할까요? (저장된 시나리오는 유지됨)")) return;
+        setInputs({ name: "", ...DEFAULTS });
+        calc(); saveDraft();
+      });
+
+      g("tc-export").addEventListener("click", () => {
+        const list = loadAll();
+        if (!list.length) { alert("내보낼 시나리오가 없습니다."); return; }
+        const blob = new Blob([JSON.stringify(list, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        const stamp = new Date().toISOString().slice(0,10);
+        a.href = url; a.download = `bizpt-traffic-scenarios-${stamp}.json`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+
+      g("tc-import").addEventListener("change", e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+          try {
+            const data = JSON.parse(ev.target.result);
+            if (!Array.isArray(data)) throw new Error("배열이 아닙니다");
+            const existing = loadAll();
+            const merged = [...existing];
+            let added = 0, updated = 0;
+            data.forEach(s => {
+              if (!s.name) return;
+              const i = merged.findIndex(x => x.name === s.name);
+              if (i >= 0) { merged[i] = s; updated++; }
+              else { merged.push(s); added++; }
+            });
+            saveAll(merged); renderList();
+            alert(`불러오기 완료 — 추가 ${added}, 갱신 ${updated}`);
+          } catch (err) {
+            alert("JSON 파싱 실패: " + err.message);
+          }
+          e.target.value = "";
+        };
+        reader.readAsText(file);
+      });
+
+      g("tc-clear-all").addEventListener("click", () => {
+        const list = loadAll();
+        if (!list.length) { alert("삭제할 시나리오가 없습니다."); return; }
+        if (!confirm(`저장된 ${list.length}개 시나리오를 모두 삭제할까요? (되돌릴 수 없음)`)) return;
+        saveAll([]); renderList();
+      });
+
+      // 페이지 진입 시 초안 복원
+      const draft = loadDraft();
+      if (draft && Object.keys(draft).length > 1) {
+        setInputs(draft);
+        const draftEl = g("tc-draft-status");
+        if (draftEl) {
+          draftEl.textContent = "이전 작업 복원됨";
+          setTimeout(() => { draftEl.textContent = ""; }, 2500);
+        }
+      }
+
+      // 초기 계산 + 목록 렌더
+      calc();
+      renderList();
+    };
+
+    window.navigate = navigate;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderNav();
+      setupSidebarToggle();
+      setupSearch();
+      const hash = location.hash.replace("#", "") || "home";
+      navigate(hash);
+      window.addEventListener("hashchange", () => {
+        navigate(location.hash.replace("#", "") || "home");
+      });
+    });
+  </script>
+</body>
+</html>

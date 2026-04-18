@@ -1,0 +1,248 @@
+<article id="traffic-calculator-root">
+  <header style="margin-bottom: 8px;">
+    <span class="tag tag--accent">도구</span>
+    <span class="tag">트래픽 계산기</span>
+    <span class="tag">시나리오 관리</span>
+  </header>
+
+  <h1>트래픽 계산기 — 매출 → 깔때기 역산</h1>
+  <p class="lead">
+    목표 매출을 입력하면 <strong>판매 수량 → 랜딩 진입 → 키 조회 → 풀링 조회 → 필요 영상 개수</strong>까지 자동 역산합니다.
+    시나리오에 이름을 붙여 저장·불러오기 가능하며, JSON 파일로 내보내 백업할 수 있습니다.
+    (1-5강 "트래픽 계산 방법" 슬라이드의 목표 전환율 20%·5%·5%를 기본값으로 사용)
+  </p>
+
+  <!-- 입력 폼 -->
+  <div class="tc-panel">
+    <h3 class="tc-panel__title">입력값</h3>
+
+    <div class="tc-row">
+      <label class="tc-label">시나리오 이름 <span class="tc-hint">저장 시 식별용</span></label>
+      <input id="tc-name" class="tc-input" type="text" placeholder="예: AI 주제 월 3천만원" />
+    </div>
+
+    <div class="tc-grid">
+      <div class="tc-row">
+        <label class="tc-label">목표 매출 (원)</label>
+        <input id="tc-revenue" class="tc-input" type="number" value="30000000" min="0" step="1000" />
+      </div>
+      <div class="tc-row">
+        <label class="tc-label">객단가 P (원)</label>
+        <input id="tc-aov" class="tc-input" type="number" value="100000" min="1" step="1000" />
+      </div>
+    </div>
+
+    <h4 style="margin-top: 18px;">전환율 (목표)</h4>
+    <div class="tc-grid tc-grid--3">
+      <div class="tc-row">
+        <label class="tc-label">유료 전환율 <span class="tc-hint">랜딩 → 구매</span></label>
+        <div class="tc-input-suffix">
+          <input id="tc-paid-rate" class="tc-input" type="number" value="5" min="0" max="100" step="0.1" />
+          <span class="tc-suffix">%</span>
+        </div>
+      </div>
+      <div class="tc-row">
+        <label class="tc-label">링크 클릭률 <span class="tc-hint">키 → 랜딩</span></label>
+        <div class="tc-input-suffix">
+          <input id="tc-click-rate" class="tc-input" type="number" value="5" min="0" max="100" step="0.1" />
+          <span class="tc-suffix">%</span>
+        </div>
+      </div>
+      <div class="tc-row">
+        <label class="tc-label">키 연계율 <span class="tc-hint">풀링 → 키</span></label>
+        <div class="tc-input-suffix">
+          <input id="tc-key-rate" class="tc-input" type="number" value="20" min="0" max="100" step="0.1" />
+          <span class="tc-suffix">%</span>
+        </div>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 18px;">콘텐츠 단위 (영상당 KPI)</h4>
+    <div class="tc-row">
+      <label class="tc-label">영상 1개당 목표 조회수 <span class="tc-hint">1-5강 기본값 1,000</span></label>
+      <input id="tc-views" class="tc-input" type="number" value="1000" min="1" step="100" />
+    </div>
+
+    <div class="tc-actions">
+      <button id="tc-save" class="tc-btn tc-btn--primary">현재 시나리오 저장</button>
+      <button id="tc-reset" class="tc-btn">기본값으로 초기화</button>
+    </div>
+  </div>
+
+  <!-- 결과 -->
+  <div class="tc-panel tc-panel--results">
+    <h3 class="tc-panel__title">역산 결과</h3>
+
+    <div class="tc-results-grid">
+      <div class="tc-result">
+        <div class="tc-result__label">판매 수량 <span class="tc-hint">Q = 매출 ÷ P</span></div>
+        <div class="tc-result__value"><span id="tc-q">—</span> <span class="tc-unit">개</span></div>
+      </div>
+      <div class="tc-result">
+        <div class="tc-result__label">랜딩페이지 진입</div>
+        <div class="tc-result__value"><span id="tc-landing">—</span> <span class="tc-unit">명</span></div>
+      </div>
+      <div class="tc-result">
+        <div class="tc-result__label">키 콘텐츠 조회수</div>
+        <div class="tc-result__value"><span id="tc-key">—</span> <span class="tc-unit">회</span></div>
+      </div>
+      <div class="tc-result">
+        <div class="tc-result__label">풀링 콘텐츠 조회수</div>
+        <div class="tc-result__value"><span id="tc-pulling">—</span> <span class="tc-unit">회</span></div>
+      </div>
+      <div class="tc-result tc-result--highlight">
+        <div class="tc-result__label">필요 풀링 영상 개수</div>
+        <div class="tc-result__value"><span id="tc-videos">—</span> <span class="tc-unit">개</span></div>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 18px;">단계별 역산 흐름</h4>
+    <pre><code>목표 매출
+     │ ÷ P (객단가)
+     ▼
+  판매 수량 (Q)
+     │ ÷ 유료 전환율
+     ▼
+  랜딩 진입
+     │ ÷ 링크 클릭률
+     ▼
+  키 조회수
+     │ ÷ 키 연계율
+     ▼
+  풀링 조회수
+     │ ÷ 영상당 조회수
+     ▼
+  필요 영상 개수</code></pre>
+  </div>
+
+  <!-- 저장된 시나리오 -->
+  <div class="tc-panel">
+    <h3 class="tc-panel__title">저장된 시나리오</h3>
+    <p class="tc-hint" style="margin-bottom: 10px;">
+      브라우저 로컬(localStorage)에 저장됩니다. 다른 기기로 옮기려면 <strong>JSON 내보내기</strong>를 이용하세요.
+    </p>
+
+    <div id="tc-list"></div>
+
+    <div class="tc-actions">
+      <button id="tc-export" class="tc-btn">JSON 내보내기</button>
+      <label for="tc-import" class="tc-btn" style="cursor: pointer;">JSON 불러오기</label>
+      <input id="tc-import" type="file" accept="application/json,.json" style="display: none;" />
+      <button id="tc-clear-all" class="tc-btn tc-btn--danger">전체 삭제</button>
+    </div>
+  </div>
+
+  <div class="info-card" style="margin-top: 28px;">
+    <h3>계산 로직 요약</h3>
+    <ul>
+      <li><strong>Q</strong> = 목표 매출 ÷ P</li>
+      <li><strong>랜딩</strong> = Q ÷ 유료 전환율</li>
+      <li><strong>키 조회</strong> = 랜딩 ÷ 링크 클릭률</li>
+      <li><strong>풀링 조회</strong> = 키 조회 ÷ 키 연계율</li>
+      <li><strong>영상 개수</strong> = 풀링 조회 ÷ 영상당 조회수</li>
+    </ul>
+  </div>
+</article>
+
+<!-- 트래픽 계산기 전용 스타일 (페이지 내부에서만 사용) -->
+<style>
+  .tc-panel {
+    background: var(--bg-1); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 22px;
+    margin: 18px 0;
+  }
+  .tc-panel--results { border-color: var(--accent); background: linear-gradient(to bottom, var(--bg-1), var(--bg-2)); }
+  .tc-panel__title {
+    margin-top: 0; margin-bottom: 14px;
+    font-size: 14px; text-transform: uppercase; letter-spacing: 0.8px;
+    color: var(--accent);
+  }
+  .tc-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+  .tc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tc-grid--3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 700px) {
+    .tc-grid, .tc-grid--3 { grid-template-columns: 1fr; }
+  }
+  .tc-label {
+    font-size: 12.5px; color: var(--text-1); font-weight: 500;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tc-hint { font-size: 11px; color: var(--text-3); font-weight: 400; }
+  .tc-input {
+    background: var(--bg-2); border: 1px solid var(--border);
+    color: var(--text-0); padding: 8px 12px;
+    border-radius: var(--radius-sm); font-size: 14px;
+    font-family: var(--font-mono); outline: none; width: 100%;
+    transition: border-color 0.15s ease;
+  }
+  .tc-input:focus { border-color: var(--accent); background: var(--bg-3); }
+  .tc-input-suffix { position: relative; display: flex; align-items: center; }
+  .tc-input-suffix .tc-input { padding-right: 28px; }
+  .tc-suffix {
+    position: absolute; right: 10px; font-size: 12px; color: var(--text-2);
+    pointer-events: none; font-family: var(--font-mono);
+  }
+  .tc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .tc-btn {
+    background: var(--bg-2); border: 1px solid var(--border);
+    color: var(--text-0); padding: 8px 14px;
+    border-radius: var(--radius-sm); font-size: 13px; cursor: pointer;
+    font-family: inherit; transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .tc-btn:hover { background: var(--bg-3); border-color: var(--border-strong); }
+  .tc-btn--primary {
+    background: var(--accent-soft); border-color: transparent; color: var(--accent); font-weight: 500;
+  }
+  .tc-btn--primary:hover { background: rgba(110, 168, 255, 0.22); }
+  .tc-btn--danger { color: var(--danger); }
+  .tc-btn--danger:hover { background: rgba(248, 113, 113, 0.1); border-color: var(--danger); }
+
+  .tc-results-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .tc-result {
+    background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 12px 14px;
+  }
+  .tc-result--highlight {
+    background: var(--accent-soft); border-color: transparent;
+  }
+  .tc-result__label { font-size: 11.5px; color: var(--text-2); margin-bottom: 4px; }
+  .tc-result__value {
+    font-size: 20px; font-weight: 600;
+    font-family: var(--font-mono); color: var(--text-0);
+  }
+  .tc-result--highlight .tc-result__value { color: var(--accent); }
+  .tc-unit { font-size: 12px; color: var(--text-3); font-weight: 400; margin-left: 4px; }
+
+  .tc-scenario {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr auto auto;
+    gap: 10px; align-items: center;
+    padding: 10px 12px;
+    background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .tc-scenario__name { font-weight: 500; color: var(--text-0); }
+  .tc-scenario__meta { font-size: 12px; color: var(--text-2); font-family: var(--font-mono); }
+  .tc-scenario__btn {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-1); padding: 4px 10px; font-size: 12px;
+    border-radius: 4px; cursor: pointer; font-family: inherit;
+  }
+  .tc-scenario__btn:hover { background: var(--bg-3); color: var(--text-0); }
+  .tc-scenario__btn--del:hover { color: var(--danger); border-color: var(--danger); }
+
+  .tc-empty {
+    text-align: center; padding: 20px; color: var(--text-3);
+    background: var(--bg-2); border: 1px dashed var(--border);
+    border-radius: var(--radius-sm); font-size: 13px;
+  }
+
+  @media (max-width: 700px) {
+    .tc-scenario { grid-template-columns: 1fr 1fr; }
+    .tc-scenario__meta { grid-column: span 2; }
+  }
+</style>
