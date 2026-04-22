@@ -288,6 +288,122 @@
     }
     .tc-result--highlight .tc-result__value { color: var(--accent); }
     .tc-unit { font-size: 12px; color: var(--text-3); font-weight: 400; margin-left: 4px; }
+
+    /* Daily funnel diagram — 구매→랜딩→키→풀링 역산 live view */
+    .tc-diagram {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin: 14px 0; align-items: stretch;
+    }
+    .tc-diagram__stage {
+      flex: 1 1 170px; min-width: 150px;
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .tc-diagram__stage--start,
+    .tc-diagram__stage--end {
+      background: var(--accent-soft); border-color: var(--accent);
+    }
+    .tc-diagram__head { display: flex; align-items: center; gap: 8px; }
+    .tc-diagram__num {
+      flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--accent-soft); color: var(--accent);
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tc-diagram__stage--start .tc-diagram__num,
+    .tc-diagram__stage--end .tc-diagram__num {
+      background: var(--accent); color: var(--bg-0);
+    }
+    .tc-diagram__label { font-size: 12.5px; color: var(--text-2); font-weight: 500; }
+    .tc-diagram__value {
+      font-family: var(--font-mono); font-size: 22px; font-weight: 700;
+      color: var(--text-0); line-height: 1.2;
+    }
+    .tc-diagram__stage--start .tc-diagram__value,
+    .tc-diagram__stage--end .tc-diagram__value { color: var(--accent); }
+    .tc-diagram__unit {
+      font-size: 11.5px; color: var(--text-3); font-weight: 400; margin-left: 3px;
+    }
+    .tc-diagram__arrow {
+      flex: 0 0 auto; align-self: center;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      padding: 4px 4px; min-width: 72px;
+    }
+    .tc-diagram__rate {
+      font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+      color: var(--accent);
+    }
+    .tc-diagram__rate-sub {
+      font-size: 10px; color: var(--text-3);
+      letter-spacing: 0.3px;
+    }
+    .tc-diagram__chevron { color: var(--text-3); font-size: 16px; margin-top: 2px; }
+    @media (max-width: 780px) {
+      .tc-diagram__chevron { transform: rotate(90deg); }
+      .tc-diagram__stage { flex-basis: 100%; }
+      .tc-diagram__arrow { flex-direction: row; min-width: 0; }
+    }
+
+    /* Editable inputs inside diagram */
+    .tc-diagram__input {
+      font-family: var(--font-mono); font-size: 22px; font-weight: 700;
+      color: var(--text-0); background: transparent;
+      border: none; border-bottom: 1px dashed var(--border-strong);
+      padding: 0 2px; width: 90px;
+      outline: none;
+    }
+    .tc-diagram__input:focus { border-bottom: 1px solid var(--accent); }
+    .tc-diagram__stage--start .tc-diagram__input,
+    .tc-diagram__stage--end .tc-diagram__input { color: var(--accent); }
+    .tc-diagram__rate-input {
+      font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+      color: var(--accent); background: transparent;
+      border: none; border-bottom: 1px dashed var(--accent);
+      padding: 0; width: 42px; text-align: center;
+      outline: none;
+    }
+    .tc-diagram__rate-input:focus { border-bottom-style: solid; }
+    .tc-diagram__input::-webkit-inner-spin-button,
+    .tc-diagram__input::-webkit-outer-spin-button,
+    .tc-diagram__rate-input::-webkit-inner-spin-button,
+    .tc-diagram__rate-input::-webkit-outer-spin-button {
+      -webkit-appearance: none; margin: 0;
+    }
+    .tc-diagram__input[type=number],
+    .tc-diagram__rate-input[type=number] { -moz-appearance: textfield; }
+    .tc-diagram-toolbar {
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+      margin: 14px 0 8px;
+    }
+    .tc-input--sm { padding: 6px 10px; font-size: 13px; max-width: 260px; }
+
+    /* Saved templates page cards */
+    .st-card {
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+    .st-card__head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .st-card__name { font-size: 16px; font-weight: 700; color: var(--text-0); }
+    .st-card__meta { font-size: 11px; color: var(--text-3); font-family: var(--font-mono); margin-top: 3px; }
+    .st-card__actions { display: flex; gap: 4px; flex-wrap: wrap; }
+    .st-card__kpis {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px 14px; padding: 10px 14px;
+      background: var(--bg-2); border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+    }
+    .st-card__kpis > div { display: flex; flex-direction: column; font-size: 13px; }
+    .st-card__kpis strong { font-size: 14px; color: var(--text-0); font-family: var(--font-mono); margin-top: 2px; font-weight: 600; }
+    .st-card__memo {
+      font-size: 12.5px; color: var(--text-2); margin-top: 10px;
+      padding: 8px 12px; background: var(--bg-2); border-radius: var(--radius-sm);
+    }
+
     .tc-scenario {
       display: grid; grid-template-columns: 1.5fr 1fr 1fr auto auto;
       gap: 10px; align-items: center;
@@ -1625,7 +1741,7 @@
           <label class="tc-label">시나리오 이름 <span class="tc-hint">저장 시 식별용</span></label>
           <input id="tc-name" class="tc-input" type="text" placeholder="예: AI 주제 월 3천만원" />
         </div>
-        <div class="tc-grid">
+        <div class="tc-grid tc-grid--3">
           <div class="tc-row">
             <label class="tc-label">목표 매출 (원)</label>
             <input id="tc-revenue" class="tc-input" type="number" value="30000000" min="0" step="1000" />
@@ -1633,6 +1749,10 @@
           <div class="tc-row">
             <label class="tc-label">객단가 P (원)</label>
             <input id="tc-aov" class="tc-input" type="number" value="100000" min="1" step="1000" />
+          </div>
+          <div class="tc-row">
+            <label class="tc-label">판매 기간 (일) <span class="tc-hint">기본 30</span></label>
+            <input id="tc-days" class="tc-input" type="number" value="30" min="1" step="1" />
           </div>
         </div>
 
@@ -1667,8 +1787,17 @@
 
         <h4 style="margin-top: 18px;">콘텐츠 단위 (영상당 KPI)</h4>
         <div class="tc-row">
-          <label class="tc-label">영상 1개당 목표 조회수 <span class="tc-hint">1-5강 기본값 1,000</span></label>
-          <input id="tc-views" class="tc-input" type="number" value="1000" min="1" step="100" />
+          <label class="tc-label">기본 조회수 <span class="tc-hint">영상 1개당 · 기본 1,000 (수정 가능)</span></label>
+          <div class="tc-input-suffix">
+            <input id="tc-views" class="tc-input" type="number" value="1000" min="1" step="100" placeholder="1000" />
+            <span class="tc-suffix">회</span>
+          </div>
+          <div class="tc-actions" style="margin-top: 6px;">
+            <button type="button" class="tc-btn" data-views="500">500</button>
+            <button type="button" class="tc-btn" data-views="1000">1,000 (기본)</button>
+            <button type="button" class="tc-btn" data-views="3000">3,000</button>
+            <button type="button" class="tc-btn" data-views="10000">10,000</button>
+          </div>
         </div>
 
         <div class="tc-row" style="margin-top: 14px;">
@@ -1687,75 +1816,88 @@
         <h3 class="tc-panel__title">역산 결과</h3>
         <div class="tc-results-grid">
           <div class="tc-result">
-            <div class="tc-result__label">판매 수량 <span class="tc-hint">Q = 매출 ÷ P</span></div>
-            <div class="tc-result__value"><span id="tc-q">—</span> <span class="tc-unit">개</span></div>
+            <div class="tc-result__label">필요 구매 (Q) <span class="tc-hint">매출 ÷ 객단가</span></div>
+            <div class="tc-result__value"><span id="tc-q">—</span> <span class="tc-unit">명</span></div>
+          </div>
+          <div class="tc-result tc-result--highlight">
+            <div class="tc-result__label">하루 필요 구매 <span class="tc-hint" id="tc-daily-hint">÷ 30일</span></div>
+            <div class="tc-result__value"><span id="tc-daily">—</span> <span class="tc-unit">명/일</span></div>
           </div>
           <div class="tc-result">
-            <div class="tc-result__label">랜딩페이지 진입</div>
+            <div class="tc-result__label">랜딩페이지 진입 <span class="tc-hint" id="tc-landing-hint">÷ 5% (구매전환율)</span></div>
             <div class="tc-result__value"><span id="tc-landing">—</span> <span class="tc-unit">명</span></div>
           </div>
           <div class="tc-result">
-            <div class="tc-result__label">키 콘텐츠 조회수</div>
+            <div class="tc-result__label">키 콘텐츠 조회수 <span class="tc-hint" id="tc-key-hint">÷ 5% (링크클릭률)</span></div>
             <div class="tc-result__value"><span id="tc-key">—</span> <span class="tc-unit">회</span></div>
           </div>
           <div class="tc-result">
-            <div class="tc-result__label">풀링 콘텐츠 조회수</div>
+            <div class="tc-result__label">풀링 콘텐츠 조회수 <span class="tc-hint" id="tc-pulling-hint">÷ 20% (키연계율)</span></div>
             <div class="tc-result__value"><span id="tc-pulling">—</span> <span class="tc-unit">회</span></div>
           </div>
           <div class="tc-result tc-result--highlight">
-            <div class="tc-result__label">필요 풀링 영상 개수</div>
+            <div class="tc-result__label">풀링 콘텐츠 필요 수량 <span class="tc-hint" id="tc-videos-hint">÷ 1,000회/영상</span></div>
             <div class="tc-result__value"><span id="tc-videos">—</span> <span class="tc-unit">개</span></div>
           </div>
         </div>
 
-        <h4 style="margin-top: 18px;">단계별 역산 흐름</h4>
-        <div class="stages">
-          <div class="stages__item">
-            <div class="stages__num">①</div>
-            <div class="stages__body">
-              <div class="stages__title">목표 매출</div>
-              <div class="stages__formula">÷ P (객단가)</div>
+        <h4 style="margin-top: 18px;">하루 기준 도식 — 구매 → 랜딩 → 키 → 풀링 역산</h4>
+        <p class="tc-hint" style="margin-bottom: 4px;">
+          <strong>①·전환율은 도식에서 직접 수정</strong>할 수 있고, 이름을 지정해 템플릿으로 저장됩니다.
+          값을 바꾸면 상단 입력·결과와 함께 즉시 업데이트됩니다.
+        </p>
+        <div class="tc-diagram-toolbar">
+          <input id="tc-fd-name" class="tc-input tc-input--sm" type="text" placeholder="도식 템플릿 이름 (예: AI 주제 하루 10명)" />
+          <button id="tc-fd-save" class="tc-btn tc-btn--primary">도식 저장</button>
+          <a href="#saved-templates" onclick="event.preventDefault(); navigate('saved-templates');" class="tc-btn">저장된 템플릿 →</a>
+          <span id="tc-fd-status" class="tc-hint" style="margin-left: auto; align-self: center;"></span>
+        </div>
+        <div class="tc-diagram">
+          <div class="tc-diagram__stage tc-diagram__stage--start">
+            <div class="tc-diagram__head">
+              <div class="tc-diagram__num">①</div>
+              <div class="tc-diagram__label">하루 필요 구매</div>
+            </div>
+            <div class="tc-diagram__value">
+              <input id="tc-fd-q-input" class="tc-diagram__input" type="number" value="10" min="0" step="1" />
+              <span class="tc-diagram__unit">명/일</span>
             </div>
           </div>
-          <div class="stages__connector"></div>
-          <div class="stages__item">
-            <div class="stages__num">②</div>
-            <div class="stages__body">
-              <div class="stages__title">판매 수량 (Q)</div>
-              <div class="stages__formula">÷ 유료 전환율</div>
-            </div>
+          <div class="tc-diagram__arrow">
+            <div class="tc-diagram__rate">÷ <input id="tc-fd-paid-input" class="tc-diagram__rate-input" type="number" value="5" min="0.1" max="100" step="0.1" />%</div>
+            <div class="tc-diagram__rate-sub">구매 전환율</div>
+            <div class="tc-diagram__chevron">→</div>
           </div>
-          <div class="stages__connector"></div>
-          <div class="stages__item">
-            <div class="stages__num">③</div>
-            <div class="stages__body">
-              <div class="stages__title">랜딩 진입</div>
-              <div class="stages__formula">÷ 링크 클릭률</div>
+          <div class="tc-diagram__stage">
+            <div class="tc-diagram__head">
+              <div class="tc-diagram__num">②</div>
+              <div class="tc-diagram__label">하루 랜딩 진입</div>
             </div>
+            <div class="tc-diagram__value"><span id="tc-fd-landing">—</span><span class="tc-diagram__unit">명/일</span></div>
           </div>
-          <div class="stages__connector"></div>
-          <div class="stages__item">
-            <div class="stages__num">④</div>
-            <div class="stages__body">
-              <div class="stages__title">키 조회수</div>
-              <div class="stages__formula">÷ 키 연계율</div>
-            </div>
+          <div class="tc-diagram__arrow">
+            <div class="tc-diagram__rate">÷ <input id="tc-fd-click-input" class="tc-diagram__rate-input" type="number" value="5" min="0.1" max="100" step="0.1" />%</div>
+            <div class="tc-diagram__rate-sub">링크 클릭률</div>
+            <div class="tc-diagram__chevron">→</div>
           </div>
-          <div class="stages__connector"></div>
-          <div class="stages__item">
-            <div class="stages__num">⑤</div>
-            <div class="stages__body">
-              <div class="stages__title">풀링 조회수</div>
-              <div class="stages__formula">÷ 영상당 조회수</div>
+          <div class="tc-diagram__stage">
+            <div class="tc-diagram__head">
+              <div class="tc-diagram__num">③</div>
+              <div class="tc-diagram__label">하루 키 조회</div>
             </div>
+            <div class="tc-diagram__value"><span id="tc-fd-key">—</span><span class="tc-diagram__unit">회/일</span></div>
           </div>
-          <div class="stages__connector"></div>
-          <div class="stages__item stages__item--final">
-            <div class="stages__num">⑥</div>
-            <div class="stages__body">
-              <div class="stages__title">필요 영상 개수</div>
-              <div class="stages__detail">이 개수만큼 풀링 콘텐츠를 제작해야 목표 매출 달성 가능.</div>
+          <div class="tc-diagram__arrow">
+            <div class="tc-diagram__rate">÷ <input id="tc-fd-keyrate-input" class="tc-diagram__rate-input" type="number" value="20" min="0.1" max="100" step="0.1" />%</div>
+            <div class="tc-diagram__rate-sub">키 연계율</div>
+            <div class="tc-diagram__chevron">→</div>
+          </div>
+          <div class="tc-diagram__stage tc-diagram__stage--end">
+            <div class="tc-diagram__head">
+              <div class="tc-diagram__num">④</div>
+              <div class="tc-diagram__label">풀링 필요 시청수</div>
             </div>
+            <div class="tc-diagram__value"><span id="tc-fd-pulling">—</span><span class="tc-diagram__unit">회/일</span></div>
           </div>
         </div>
       </div>
@@ -1783,12 +1925,42 @@
       <div class="info-card" style="margin-top: 28px;">
         <h3>계산 로직 요약</h3>
         <ul>
-          <li><strong>Q</strong> = 목표 매출 ÷ P</li>
-          <li><strong>랜딩</strong> = Q ÷ 유료 전환율</li>
-          <li><strong>키 조회</strong> = 랜딩 ÷ 링크 클릭률</li>
-          <li><strong>풀링 조회</strong> = 키 조회 ÷ 키 연계율</li>
-          <li><strong>영상 개수</strong> = 풀링 조회 ÷ 영상당 조회수</li>
+          <li><strong>Q (필요 구매)</strong> = 목표 매출 ÷ 객단가 P</li>
+          <li><strong>하루 필요 구매</strong> = Q ÷ 판매 기간(일) <span class="tc-hint">(기본 30일 · 수정 가능)</span></li>
+          <li><strong>랜딩</strong> = Q ÷ 구매 전환율 <span class="tc-hint">(기본 5%)</span></li>
+          <li><strong>키 콘텐츠 조회</strong> = 랜딩 ÷ 링크 클릭률 <span class="tc-hint">(기본 5%)</span></li>
+          <li><strong>풀링 콘텐츠 조회</strong> = 키 조회 ÷ 키 연계율 <span class="tc-hint">(기본 20%)</span></li>
+          <li><strong>풀링 필요 수량</strong> = 풀링 조회 ÷ 영상 1개당 조회수 <span class="tc-hint">(기본 1,000회 · 수정 가능)</span></li>
         </ul>
+      </div>
+    </article>
+  </template>
+
+  <template id="tpl-saved-templates">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">도구</span>
+        <span class="tag">저장된 템플릿</span>
+      </header>
+      <h1>저장된 트래픽 도식 템플릿</h1>
+      <p class="lead">
+        트래픽 계산기 도식에서 <strong>이름을 지정해 저장한 모든 템플릿</strong>을 상세히 열람합니다.
+        입력값·결과·하루 기준 도식을 한 번에 확인하고, 불러와서 이어 작업할 수 있습니다.
+      </p>
+
+      <div class="tc-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+          <h3 class="tc-panel__title" style="margin: 0;">템플릿 <span id="st-count" class="tc-hint" style="text-transform: none; letter-spacing: normal;"></span></h3>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button class="tc-btn st-sort-btn" data-sort="recent">최근순</button>
+            <button class="tc-btn st-sort-btn" data-sort="name">이름순</button>
+            <a href="#traffic-calculator" onclick="event.preventDefault(); navigate('traffic-calculator');" class="tc-btn tc-btn--primary">← 계산기로 돌아가기</a>
+          </div>
+        </div>
+        <p class="tc-hint" style="margin-bottom: 10px;">
+          트래픽 계산기의 <strong>도식 저장</strong> 버튼으로 저장된 데이터를 여기서 상세히 확인할 수 있습니다.
+        </p>
+        <div id="st-list"></div>
       </div>
     </article>
   </template>
@@ -1825,6 +1997,7 @@
           heading: "도구",
           items: [
             { id: "traffic-calculator", title: "트래픽 계산기", tpl: "tpl-traffic-calculator" },
+            { id: "saved-templates", title: "저장된 템플릿", tpl: "tpl-saved-templates" },
           ],
         },
       ],
@@ -2003,7 +2176,7 @@
       const DRAFT_KEY = "bizpt_traffic_draft_v1";
       const SORT_KEY = "bizpt_traffic_sort_v1";
       const DEFAULTS = {
-        revenue: 30000000, aov: 100000,
+        revenue: 30000000, aov: 100000, days: 30,
         paidRate: 5, clickRate: 5, keyRate: 20,
         viewsPerVid: 1000, memo: ""
       };
@@ -2018,10 +2191,11 @@
           name: g("tc-name").value.trim(),
           revenue: +g("tc-revenue").value || 0,
           aov: +g("tc-aov").value || 0,
+          days: +g("tc-days").value || DEFAULTS.days,
           paidRate: +g("tc-paid-rate").value || 0,
           clickRate: +g("tc-click-rate").value || 0,
           keyRate: +g("tc-key-rate").value || 0,
-          viewsPerVid: +g("tc-views").value || 0,
+          viewsPerVid: +g("tc-views").value || DEFAULTS.viewsPerVid,
           memo: g("tc-memo").value,
         };
       }
@@ -2030,10 +2204,11 @@
         if (v.name !== undefined) g("tc-name").value = v.name || "";
         g("tc-revenue").value = v.revenue ?? DEFAULTS.revenue;
         g("tc-aov").value = v.aov ?? DEFAULTS.aov;
+        g("tc-days").value = (v.days == null || v.days <= 0) ? DEFAULTS.days : v.days;
         g("tc-paid-rate").value = v.paidRate ?? DEFAULTS.paidRate;
         g("tc-click-rate").value = v.clickRate ?? DEFAULTS.clickRate;
         g("tc-key-rate").value = v.keyRate ?? DEFAULTS.keyRate;
-        g("tc-views").value = v.viewsPerVid ?? DEFAULTS.viewsPerVid;
+        g("tc-views").value = (v.viewsPerVid == null || v.viewsPerVid <= 0) ? DEFAULTS.viewsPerVid : v.viewsPerVid;
         g("tc-memo").value = v.memo ?? "";
       }
 
@@ -2045,15 +2220,45 @@
       function calc() {
         const v = readInputs();
         const q = v.aov > 0 ? v.revenue / v.aov : 0;
+        const daily = v.days > 0 ? q / v.days : 0;
         const landing = v.paidRate > 0 ? q / (v.paidRate / 100) : 0;
         const keyViews = v.clickRate > 0 ? landing / (v.clickRate / 100) : 0;
         const pullingViews = v.keyRate > 0 ? keyViews / (v.keyRate / 100) : 0;
         const videoCount = v.viewsPerVid > 0 ? pullingViews / v.viewsPerVid : 0;
+        // 하루 기준 도식 값 (역산의 하루치)
+        const dLanding = v.paidRate > 0 ? daily / (v.paidRate / 100) : 0;
+        const dKey = v.clickRate > 0 ? dLanding / (v.clickRate / 100) : 0;
+        const dPulling = v.keyRate > 0 ? dKey / (v.keyRate / 100) : 0;
+
         g("tc-q").textContent = fmt(q);
+        g("tc-daily").textContent = fmt(daily);
         g("tc-landing").textContent = fmt(landing);
         g("tc-key").textContent = fmt(keyViews);
         g("tc-pulling").textContent = fmt(pullingViews);
         g("tc-videos").textContent = fmt(videoCount);
+        g("tc-daily-hint").textContent = `÷ ${v.days || DEFAULTS.days}일`;
+        g("tc-landing-hint").textContent = `÷ ${v.paidRate}% (구매전환율)`;
+        g("tc-key-hint").textContent = `÷ ${v.clickRate}% (링크클릭률)`;
+        g("tc-pulling-hint").textContent = `÷ ${v.keyRate}% (키연계율)`;
+        g("tc-videos-hint").textContent = `÷ ${(v.viewsPerVid || DEFAULTS.viewsPerVid).toLocaleString("ko-KR")}회/영상`;
+
+        // 도식 업데이트 (활성 포커스 입력은 덮어쓰지 않음 — 타이핑 방해 방지)
+        const focused = document.activeElement && document.activeElement.id;
+        if (focused !== "tc-fd-q-input") {
+          g("tc-fd-q-input").value = isFinite(daily) ? Math.round(daily) : 0;
+        }
+        if (focused !== "tc-fd-paid-input") g("tc-fd-paid-input").value = v.paidRate;
+        if (focused !== "tc-fd-click-input") g("tc-fd-click-input").value = v.clickRate;
+        if (focused !== "tc-fd-keyrate-input") g("tc-fd-keyrate-input").value = v.keyRate;
+        g("tc-fd-landing").textContent = fmt(dLanding);
+        g("tc-fd-key").textContent = fmt(dKey);
+        g("tc-fd-pulling").textContent = fmt(dPulling);
+
+        // 도식 이름 입력과 시나리오 이름 동기화 표시
+        if (document.activeElement && document.activeElement.id !== "tc-fd-name") {
+          const n = g("tc-name").value || "";
+          if (g("tc-fd-name").value !== n) g("tc-fd-name").value = n;
+        }
       }
 
       // Storage helpers
@@ -2152,7 +2357,7 @@
       }
 
       // 이벤트 바인딩 — 입력 변경 시 자동 계산 + 자동 저장 (초안)
-      ["tc-revenue","tc-aov","tc-paid-rate","tc-click-rate","tc-key-rate","tc-views"].forEach(id => {
+      ["tc-revenue","tc-aov","tc-days","tc-paid-rate","tc-click-rate","tc-key-rate","tc-views"].forEach(id => {
         g(id).addEventListener("input", () => { calc(); saveDraft(); });
       });
       ["tc-name","tc-memo"].forEach(id => {
@@ -2169,6 +2374,65 @@
           g("tc-key-rate").value = p.keyRate;
           calc(); saveDraft();
         });
+      });
+
+      // 기본 조회수 빠른 선택
+      document.querySelectorAll("button[data-views]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          g("tc-views").value = +btn.dataset.views || DEFAULTS.viewsPerVid;
+          calc(); saveDraft();
+        });
+      });
+
+      // 도식 내 편집 입력 — 상단 입력과 양방향 동기화
+      g("tc-fd-q-input").addEventListener("input", () => {
+        const daily = +g("tc-fd-q-input").value || 0;
+        const aov = +g("tc-aov").value || 0;
+        const days = +g("tc-days").value || DEFAULTS.days;
+        if (aov > 0 && days > 0) g("tc-revenue").value = Math.round(daily * aov * days);
+        calc(); saveDraft();
+      });
+      g("tc-fd-paid-input").addEventListener("input", () => {
+        g("tc-paid-rate").value = +g("tc-fd-paid-input").value || 0;
+        calc(); saveDraft();
+      });
+      g("tc-fd-click-input").addEventListener("input", () => {
+        g("tc-click-rate").value = +g("tc-fd-click-input").value || 0;
+        calc(); saveDraft();
+      });
+      g("tc-fd-keyrate-input").addEventListener("input", () => {
+        g("tc-key-rate").value = +g("tc-fd-keyrate-input").value || 0;
+        calc(); saveDraft();
+      });
+      g("tc-fd-name").addEventListener("input", () => {
+        g("tc-name").value = g("tc-fd-name").value;
+        saveDraft();
+      });
+
+      // 도식에서 저장 — 상단 저장과 동일 로직, 이름은 도식 이름 우선
+      g("tc-fd-save").addEventListener("click", () => {
+        const diagramName = g("tc-fd-name").value.trim();
+        if (diagramName) g("tc-name").value = diagramName;
+        const v = readInputs();
+        if (!v.name) {
+          alert("도식 템플릿 이름을 입력하세요.");
+          g("tc-fd-name").focus();
+          return;
+        }
+        if (v.aov <= 0) { alert("객단가는 0보다 커야 합니다."); return; }
+        const list = loadAll();
+        const existing = list.findIndex(s => s.name === v.name);
+        const entry = { ...v, savedAt: new Date().toISOString() };
+        if (existing >= 0) {
+          if (!confirm(`"${v.name}" 이름의 템플릿이 이미 있습니다. 덮어쓸까요?`)) return;
+          list[existing] = entry;
+        } else {
+          list.push(entry);
+        }
+        saveAll(list); renderList();
+        const st = g("tc-fd-status");
+        st.textContent = `"${v.name}" 템플릿으로 저장됨`;
+        setTimeout(() => { st.textContent = ""; }, 2400);
       });
 
       // 정렬 토글
@@ -2263,6 +2527,170 @@
 
       // 초기 계산 + 목록 렌더
       calc();
+      renderList();
+    };
+
+    // ============================================
+    // 저장된 템플릿 페이지 초기화
+    // ============================================
+    pageInits["tpl-saved-templates"] = () => {
+      const STORAGE_KEY = "bizpt_traffic_scenarios_v1";
+      const DRAFT_KEY = "bizpt_traffic_draft_v1";
+      const SORT_KEY = "bizpt_traffic_sort_v1";
+      let sortMode = localStorage.getItem(SORT_KEY) || "recent";
+
+      function loadAll() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+        catch (e) { return []; }
+      }
+      function saveAll(list) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); return true; }
+        catch (e) { alert("저장 실패: " + e.message); return false; }
+      }
+      function fmt(n) {
+        if (!isFinite(n) || isNaN(n)) return "—";
+        return Math.ceil(n).toLocaleString("ko-KR");
+      }
+      function computeFunnel(s) {
+        const aov = +s.aov || 0;
+        const days = +s.days || 30;
+        const revenue = +s.revenue || 0;
+        const q = aov > 0 ? revenue / aov : 0;
+        const daily = days > 0 ? q / days : 0;
+        const dLanding = s.paidRate > 0 ? daily / (s.paidRate / 100) : 0;
+        const dKey = s.clickRate > 0 ? dLanding / (s.clickRate / 100) : 0;
+        const dPulling = s.keyRate > 0 ? dKey / (s.keyRate / 100) : 0;
+        const landing = s.paidRate > 0 ? q / (s.paidRate / 100) : 0;
+        const keyViews = s.clickRate > 0 ? landing / (s.clickRate / 100) : 0;
+        const pullingViews = s.keyRate > 0 ? keyViews / (s.keyRate / 100) : 0;
+        const viewsPer = +s.viewsPerVid > 0 ? +s.viewsPerVid : 1000;
+        const videoCount = viewsPer > 0 ? pullingViews / viewsPer : 0;
+        return { q, daily, dLanding, dKey, dPulling, videoCount, days, aov, revenue, viewsPer };
+      }
+
+      function renderList() {
+        const list = loadAll();
+        const sorted = [...list];
+        if (sortMode === "name") {
+          sorted.sort((a, b) => (a.name || "").localeCompare(b.name || "", "ko"));
+        } else {
+          sorted.sort((a, b) => new Date(b.savedAt || 0) - new Date(a.savedAt || 0));
+        }
+        document.querySelectorAll(".st-sort-btn").forEach(b => {
+          b.classList.toggle("is-active", b.dataset.sort === sortMode);
+        });
+        const countEl = document.getElementById("st-count");
+        if (countEl) countEl.textContent = list.length ? `· ${list.length}개` : "";
+
+        const box = document.getElementById("st-list");
+        if (!box) return;
+        if (!sorted.length) {
+          box.innerHTML = `<div class="tc-empty">저장된 템플릿이 없습니다. <a href="#traffic-calculator" onclick="event.preventDefault(); navigate('traffic-calculator');">트래픽 계산기</a>의 도식에서 이름을 입력하고 <strong>도식 저장</strong>을 눌러 보세요.</div>`;
+          return;
+        }
+
+        box.innerHTML = sorted.map(s => {
+          const f = computeFunnel(s);
+          const origIdx = list.findIndex(x => x.name === s.name);
+          const date = s.savedAt ? new Date(s.savedAt).toLocaleString("ko-KR", { year: "2-digit", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) : "";
+          const revenueKor = ((f.revenue) / 10000).toLocaleString("ko-KR") + "만원";
+          const aovKor = f.aov.toLocaleString("ko-KR") + "원";
+          const memoHtml = s.memo ? `<div class="st-card__memo">${escapeHtml(s.memo)}</div>` : "";
+          return `<div class="st-card" data-i="${origIdx}">
+            <div class="st-card__head">
+              <div>
+                <div class="st-card__name">${escapeHtml(s.name || "(무제)")}</div>
+                <div class="st-card__meta">저장 ${escapeHtml(date)}</div>
+              </div>
+              <div class="st-card__actions">
+                <button class="tc-btn" data-act="load" data-i="${origIdx}">불러오기</button>
+                <button class="tc-btn" data-act="dup" data-i="${origIdx}">복제</button>
+                <button class="tc-btn tc-btn--danger" data-act="del" data-i="${origIdx}">삭제</button>
+              </div>
+            </div>
+            <div class="st-card__kpis">
+              <div><span class="tc-hint">목표 매출</span><strong>${revenueKor}</strong></div>
+              <div><span class="tc-hint">객단가</span><strong>${aovKor}</strong></div>
+              <div><span class="tc-hint">판매 기간</span><strong>${f.days}일</strong></div>
+              <div><span class="tc-hint">필요 구매 (Q)</span><strong>${fmt(f.q)}명</strong></div>
+              <div><span class="tc-hint">하루 필요 구매</span><strong>${fmt(f.daily)}명/일</strong></div>
+              <div><span class="tc-hint">풀링 필요 영상</span><strong>${fmt(f.videoCount)}개</strong></div>
+            </div>
+            <div class="tc-diagram">
+              <div class="tc-diagram__stage tc-diagram__stage--start">
+                <div class="tc-diagram__head"><div class="tc-diagram__num">①</div><div class="tc-diagram__label">하루 필요 구매</div></div>
+                <div class="tc-diagram__value">${fmt(f.daily)}<span class="tc-diagram__unit">명/일</span></div>
+              </div>
+              <div class="tc-diagram__arrow">
+                <div class="tc-diagram__rate">÷ ${s.paidRate}%</div>
+                <div class="tc-diagram__rate-sub">구매 전환율</div>
+                <div class="tc-diagram__chevron">→</div>
+              </div>
+              <div class="tc-diagram__stage">
+                <div class="tc-diagram__head"><div class="tc-diagram__num">②</div><div class="tc-diagram__label">하루 랜딩</div></div>
+                <div class="tc-diagram__value">${fmt(f.dLanding)}<span class="tc-diagram__unit">명/일</span></div>
+              </div>
+              <div class="tc-diagram__arrow">
+                <div class="tc-diagram__rate">÷ ${s.clickRate}%</div>
+                <div class="tc-diagram__rate-sub">링크 클릭률</div>
+                <div class="tc-diagram__chevron">→</div>
+              </div>
+              <div class="tc-diagram__stage">
+                <div class="tc-diagram__head"><div class="tc-diagram__num">③</div><div class="tc-diagram__label">하루 키 조회</div></div>
+                <div class="tc-diagram__value">${fmt(f.dKey)}<span class="tc-diagram__unit">회/일</span></div>
+              </div>
+              <div class="tc-diagram__arrow">
+                <div class="tc-diagram__rate">÷ ${s.keyRate}%</div>
+                <div class="tc-diagram__rate-sub">키 연계율</div>
+                <div class="tc-diagram__chevron">→</div>
+              </div>
+              <div class="tc-diagram__stage tc-diagram__stage--end">
+                <div class="tc-diagram__head"><div class="tc-diagram__num">④</div><div class="tc-diagram__label">풀링 필요 시청수</div></div>
+                <div class="tc-diagram__value">${fmt(f.dPulling)}<span class="tc-diagram__unit">회/일</span></div>
+              </div>
+            </div>
+            ${memoHtml}
+          </div>`;
+        }).join("");
+
+        box.querySelectorAll("button[data-act]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const idx = +btn.dataset.i;
+            const act = btn.dataset.act;
+            const cur = loadAll();
+            if (act === "load") {
+              const s = cur[idx];
+              if (!s) return;
+              try {
+                localStorage.setItem(DRAFT_KEY, JSON.stringify({ ...s, ts: Date.now() }));
+              } catch (e) {}
+              navigate("traffic-calculator");
+            } else if (act === "dup") {
+              const s = cur[idx];
+              if (!s) return;
+              let newName = (s.name || "무제") + " (복사)";
+              let n = 2;
+              while (cur.some(x => x.name === newName)) { newName = (s.name || "무제") + ` (복사 ${n++})`; }
+              const copy = { ...s, name: newName, savedAt: new Date().toISOString() };
+              cur.push(copy);
+              saveAll(cur); renderList();
+            } else if (act === "del") {
+              if (!confirm(`"${cur[idx].name}" 템플릿을 삭제할까요?`)) return;
+              cur.splice(idx, 1);
+              saveAll(cur); renderList();
+            }
+          });
+        });
+      }
+
+      document.querySelectorAll(".st-sort-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          sortMode = btn.dataset.sort;
+          localStorage.setItem(SORT_KEY, sortMode);
+          renderList();
+        });
+      });
+
       renderList();
     };
 
