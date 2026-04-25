@@ -813,6 +813,65 @@
     }
     .ln-card__expand:hover { text-decoration: underline; }
 
+    /* 와이드 페이지 (강의 노트 등 입력형 페이지 전용) */
+    .content.is-wide { max-width: 1280px; }
+    @media (min-width: 1100px) {
+      .content.is-wide { padding-left: 60px; padding-right: 60px; }
+    }
+
+    /* 인라인 편집 모드 */
+    .ln-card.is-editing {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft) inset;
+    }
+    .ln-card__edit-row {
+      display: grid; gap: 10px; margin-bottom: 10px;
+    }
+    .ln-card__edit-row--two {
+      grid-template-columns: 200px 1fr;
+    }
+    @media (max-width: 640px) {
+      .ln-card__edit-row--two { grid-template-columns: 1fr; }
+    }
+    .ln-card__edit-field label {
+      display: block; font-size: 11px; color: var(--text-2);
+      text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .ln-card__edit-field input[type="date"],
+    .ln-card__edit-field input[type="text"],
+    .ln-card__edit-field textarea {
+      width: 100%;
+      background: var(--bg-2); border: 1px solid var(--border);
+      color: var(--text-0); padding: 8px 11px;
+      border-radius: var(--radius-sm); font-size: 13.5px;
+      font-family: inherit; outline: none; line-height: 1.55;
+    }
+    .ln-card__edit-field input:focus, .ln-card__edit-field textarea:focus {
+      border-color: var(--accent); background: var(--bg-3);
+    }
+    .ln-card__edit-field textarea { resize: vertical; min-height: 160px; }
+
+    .ln-card__edit-drop {
+      border: 1.5px dashed var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      text-align: center; color: var(--text-2); font-size: 12.5px;
+      cursor: pointer; user-select: none;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .ln-card__edit-drop:hover, .ln-card__edit-drop.is-drag {
+      border-color: var(--accent); background: var(--accent-soft); color: var(--accent);
+    }
+    .ln-card__edit-drop input[type="file"] { display: none; }
+    .ln-card__edit-drop strong { color: var(--text-0); }
+
+    .ln-card__edit-actions {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
     /* Lightbox */
     .ln-lightbox {
       position: fixed; inset: 0; z-index: 1000;
@@ -2462,10 +2521,10 @@
         나중에 정리 문서로 옮길 때 재료로 활용하세요.
       </p>
 
-      <!-- 입력 폼 -->
+      <!-- 입력 폼 (새 노트 작성 전용 — 기존 노트 수정은 카드 안에서 직접) -->
       <section class="ln-form" id="ln-form">
         <div class="ln-form__title">
-          <span><span class="ln-form__title-tag" id="ln-form-mode">새 노트</span> <span id="ln-editing-title" style="color: var(--text-2); margin-left: 6px; font-size: 12px;"></span></span>
+          <span><span class="ln-form__title-tag">새 노트 작성</span> <span style="color: var(--text-3); margin-left: 6px; font-size: 11.5px;">기존 노트 수정은 카드의 <strong style="color: var(--text-2);">편집</strong> 버튼</span></span>
           <span class="ln-form__status" id="ln-form-status"></span>
         </div>
 
@@ -2501,7 +2560,6 @@
 
         <div class="ln-form__actions">
           <button class="ln-btn ln-btn--primary" id="ln-save">저장</button>
-          <button class="ln-btn" id="ln-cancel" style="display: none;">편집 취소</button>
           <button class="ln-btn ln-btn--ghost" id="ln-clear">폼 초기화</button>
           <span style="flex: 1;"></span>
           <button class="ln-btn ln-btn--ghost" id="ln-export" title="모든 노트를 JSON 파일로 내보내기">내보내기</button>
@@ -3419,8 +3477,10 @@
       }
 
       // ---------- 상태 ----------
-      let editingId = null; // null이면 새 노트, 아니면 수정 중인 노트 id
-      let pendingImages = []; // [{ id, name, type, size, blob }]
+      let pendingImages = []; // 새 노트 폼용 임시 이미지
+      let inlineEditId = null; // 인라인 편집 중인 노트 id
+      let inlineEditImages = []; // 인라인 편집 중인 임시 이미지
+      let inlineEditDraft = null; // 재렌더 시 입력값 보존용 (date/title/content)
       let cachedNotes = [];
       let sortMode = localStorage.getItem(SORT_KEY) || "recent"; // recent | date-desc | date-asc
       let searchQuery = "";
@@ -3469,31 +3529,13 @@
         if (msg) status._t = setTimeout(() => { el.textContent = ""; }, 2400);
       }
 
-      // ---------- 폼 ----------
+      // ---------- 새 노트 폼 ----------
       function resetForm() {
-        editingId = null;
         pendingImages = [];
         g("ln-date").value = todayStr();
         g("ln-title").value = "";
         g("ln-content").value = "";
-        g("ln-form-mode").textContent = "새 노트";
-        g("ln-editing-title").textContent = "";
-        g("ln-cancel").style.display = "none";
-        g("ln-save").textContent = "저장";
         renderPreview();
-      }
-      function loadIntoForm(note) {
-        editingId = note.id;
-        pendingImages = (note.images || []).map(img => ({ ...img })); // shallow copy
-        g("ln-date").value = note.date || todayStr();
-        g("ln-title").value = note.title || "";
-        g("ln-content").value = note.content || "";
-        g("ln-form-mode").textContent = "수정 중";
-        g("ln-editing-title").textContent = note.title ? `「${note.title}」` : "";
-        g("ln-cancel").style.display = "";
-        g("ln-save").textContent = "수정 저장";
-        renderPreview();
-        g("ln-form").scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
       function renderPreview() {
@@ -3546,14 +3588,11 @@
         }
 
         const now = Date.now();
-        const note = editingId
-          ? { ...(cachedNotes.find(n => n.id === editingId) || {}), id: editingId, date, title, content, images: pendingImages, updatedAt: now }
-          : { id: uid("note"), date, title, content, images: pendingImages, createdAt: now, updatedAt: now };
-        if (!note.createdAt) note.createdAt = now;
+        const note = { id: uid("note"), date, title, content, images: pendingImages, createdAt: now, updatedAt: now };
 
         try {
           await dbPut(note);
-          status(editingId ? "수정 저장됨" : "새 노트가 저장되었습니다");
+          status("새 노트가 저장되었습니다");
           resetForm();
           await refresh();
         } catch (e) {
@@ -3569,11 +3608,107 @@
         if (!confirm(`"${label}" 노트를 삭제할까요? (되돌릴 수 없습니다)`)) return;
         try {
           await dbDelete(id);
-          if (editingId === id) resetForm();
+          if (inlineEditId === id) { inlineEditId = null; inlineEditImages = []; }
           await refresh();
         } catch (e) {
           alert("삭제 실패: " + (e?.message || e));
         }
+      }
+
+      // ---------- 인라인 편집 ----------
+      function enterInlineEdit(id) {
+        if (inlineEditId && inlineEditId !== id) {
+          if (!confirm("다른 노트를 편집 중입니다. 변경사항을 버리고 이 노트로 이동할까요?")) return;
+        }
+        const note = cachedNotes.find(n => n.id === id);
+        if (!note) return;
+        inlineEditId = id;
+        inlineEditImages = (note.images || []).map(img => ({ ...img }));
+        renderList();
+        const card = document.querySelector(`.ln-card[data-id="${id}"]`);
+        if (card) {
+          card.scrollIntoView({ behavior: "smooth", block: "center" });
+          card.querySelector(".ln-card__edit-field input[type='text']")?.focus();
+        }
+      }
+
+      function exitInlineEdit() {
+        inlineEditId = null;
+        inlineEditImages = [];
+        renderList();
+      }
+
+      async function saveInlineEdit() {
+        const id = inlineEditId;
+        if (!id) return;
+        const card = document.querySelector(`.ln-card[data-id="${id}"]`);
+        if (!card) return;
+        const date = card.querySelector(".ln-edit-date").value;
+        const title = card.querySelector(".ln-edit-title").value.trim();
+        const content = card.querySelector(".ln-edit-content").value;
+
+        if (!date) { alert("강의 일자를 입력하세요."); return; }
+        if (!title && !content && !inlineEditImages.length) {
+          alert("제목·내용·이미지 중 하나는 입력하세요.");
+          return;
+        }
+
+        const original = cachedNotes.find(n => n.id === id);
+        const now = Date.now();
+        const note = {
+          ...(original || {}),
+          id,
+          date, title, content,
+          images: inlineEditImages,
+          createdAt: original?.createdAt || now,
+          updatedAt: now,
+        };
+
+        try {
+          await dbPut(note);
+          inlineEditId = null;
+          inlineEditImages = [];
+          await refresh();
+          status("수정 저장됨");
+        } catch (e) {
+          console.error(e);
+          alert("저장 실패: " + (e?.message || e));
+        }
+      }
+
+      function addInlineImages(fileList) {
+        const files = [...fileList].filter(f => f && f.type && f.type.startsWith("image/"));
+        if (!files.length) return;
+        files.forEach(f => {
+          inlineEditImages.push({
+            id: uid("img"),
+            name: f.name || "pasted-image.png",
+            type: f.type, size: f.size, blob: f,
+          });
+        });
+        renderInlinePreview();
+      }
+
+      function renderInlinePreview() {
+        const card = document.querySelector(`.ln-card[data-id="${inlineEditId}"]`);
+        if (!card) return;
+        const box = card.querySelector(".ln-edit-preview");
+        if (!box) return;
+        box.innerHTML = inlineEditImages.map((img, i) => `
+          <div class="ln-preview__item">
+            <img src="${makeUrl(img.blob)}" alt="${escapeHtml(img.name || "")}" />
+            <button class="ln-preview__remove" data-rm="${i}" title="제거" aria-label="이미지 제거">×</button>
+            <div class="ln-preview__name">${escapeHtml(img.name || "untitled")}</div>
+          </div>
+        `).join("");
+        box.querySelectorAll("[data-rm]").forEach(btn => {
+          btn.addEventListener("click", e => {
+            e.preventDefault();
+            const i = +btn.dataset.rm;
+            inlineEditImages.splice(i, 1);
+            renderInlinePreview();
+          });
+        });
       }
 
       // ---------- 검색·정렬 ----------
@@ -3582,6 +3717,7 @@
         let arr = notes.slice();
         if (q) {
           arr = arr.filter(n =>
+            n.id === inlineEditId || // 편집 중인 카드는 항상 포함
             (n.title || "").toLowerCase().includes(q) ||
             (n.content || "").toLowerCase().includes(q)
           );
@@ -3596,8 +3732,20 @@
         return arr;
       }
 
+      function captureInlineDraft() {
+        if (!inlineEditId) return;
+        const card = document.querySelector(`.ln-card[data-id="${inlineEditId}"]`);
+        if (!card) return;
+        inlineEditDraft = {
+          date: card.querySelector(".ln-edit-date")?.value,
+          title: card.querySelector(".ln-edit-title")?.value,
+          content: card.querySelector(".ln-edit-content")?.value,
+        };
+      }
+
       // ---------- 목록 렌더 ----------
       function renderList() {
+        captureInlineDraft();
         const box = g("ln-list");
         const list = filterAndSort(cachedNotes);
         const tag = g("ln-count-tag");
@@ -3620,56 +3768,18 @@
         }
 
         box.innerHTML = list.map(n => {
-          const imgs = n.images || [];
-          const imgsHtml = imgs.length
-            ? `<div class="ln-card__images ln-card__images--thumb" data-img-id="${n.id}">${
-                imgs.slice(0, 6).map((img, i) => `
-                  <div class="ln-thumb" data-note="${n.id}" data-idx="${i}" title="${escapeHtml(img.name || "")}">
-                    <img src="${makeUrl(img.blob)}" alt="${escapeHtml(img.name || "")}" />
-                  </div>
-                `).join("")
-              }${imgs.length > 6
-                ? `<div class="ln-thumb" data-note="${n.id}" data-idx="6" style="display: grid; place-items: center; color: var(--text-2); font-size: 13px;">+${imgs.length - 6}</div>`
-                : ""}</div>`
-            : "";
-          const updated = n.updatedAt && n.updatedAt !== n.createdAt
-            ? `· 수정 ${new Date(n.updatedAt).toLocaleString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })}`
-            : "";
-          const created = n.createdAt
-            ? new Date(n.createdAt).toLocaleString("ko-KR", { year: "2-digit", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
-            : "";
-          return `
-            <article class="ln-card" data-id="${n.id}">
-              <div class="ln-card__head">
-                <div class="ln-card__meta">
-                  <span class="ln-card__date">${escapeHtml(formatDate(n.date))}</span>
-                  <span class="ln-card__title">${escapeHtml(n.title || "(제목 없음)")}</span>
-                </div>
-                <div class="ln-card__actions">
-                  <button class="ln-btn" data-act="edit">편집</button>
-                  <button class="ln-btn ln-btn--danger" data-act="del">삭제</button>
-                </div>
-              </div>
-              ${n.content
-                ? `<div class="ln-card__content ln-card__content--collapsed" data-content>${escapeHtml(n.content)}</div>
-                   <button class="ln-card__expand" data-act="toggle">전체 보기</button>`
-                : ""}
-              ${imgsHtml}
-              <div class="ln-card__footer">
-                <span>등록 ${escapeHtml(created)} ${escapeHtml(updated)}</span>
-                <span>${imgs.length ? `🖼️ ${imgs.length}장` : ""}</span>
-              </div>
-            </article>
-          `;
+          if (n.id === inlineEditId) return renderEditCardHtml(n);
+          return renderViewCardHtml(n);
         }).join("");
 
         // 카드 액션 바인딩
         box.querySelectorAll(".ln-card").forEach(card => {
           const id = card.dataset.id;
-          card.querySelector('[data-act="edit"]')?.addEventListener("click", () => {
-            const note = cachedNotes.find(x => x.id === id);
-            if (note) loadIntoForm(note);
-          });
+          if (id === inlineEditId) {
+            bindEditCard(card);
+            return;
+          }
+          card.querySelector('[data-act="edit"]')?.addEventListener("click", () => enterInlineEdit(id));
           card.querySelector('[data-act="del"]')?.addEventListener("click", () => deleteNote(id));
           const toggleBtn = card.querySelector('[data-act="toggle"]');
           const contentEl = card.querySelector("[data-content]");
@@ -3686,6 +3796,143 @@
               openLightbox(note.images || [], +t.dataset.idx);
             });
           });
+        });
+
+        // 인라인 편집 카드의 미리보기 렌더 (DOM 삽입 후)
+        if (inlineEditId) renderInlinePreview();
+        // 임시 보존된 입력값을 1회 사용 후 비움 (저장·취소·진입 시점에는 자동으로 새 값 사용)
+        inlineEditDraft = null;
+      }
+
+      function renderViewCardHtml(n) {
+        const imgs = n.images || [];
+        const imgsHtml = imgs.length
+          ? `<div class="ln-card__images ln-card__images--thumb">${
+              imgs.slice(0, 6).map((img, i) => `
+                <div class="ln-thumb" data-note="${n.id}" data-idx="${i}" title="${escapeHtml(img.name || "")}">
+                  <img src="${makeUrl(img.blob)}" alt="${escapeHtml(img.name || "")}" />
+                </div>
+              `).join("")
+            }${imgs.length > 6
+              ? `<div class="ln-thumb" data-note="${n.id}" data-idx="6" style="display: grid; place-items: center; color: var(--text-2); font-size: 13px;">+${imgs.length - 6}</div>`
+              : ""}</div>`
+          : "";
+        const updated = n.updatedAt && n.updatedAt !== n.createdAt
+          ? `· 수정 ${new Date(n.updatedAt).toLocaleString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })}`
+          : "";
+        const created = n.createdAt
+          ? new Date(n.createdAt).toLocaleString("ko-KR", { year: "2-digit", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
+          : "";
+        return `
+          <article class="ln-card" data-id="${n.id}">
+            <div class="ln-card__head">
+              <div class="ln-card__meta">
+                <span class="ln-card__date">${escapeHtml(formatDate(n.date))}</span>
+                <span class="ln-card__title">${escapeHtml(n.title || "(제목 없음)")}</span>
+              </div>
+              <div class="ln-card__actions">
+                <button class="ln-btn" data-act="edit">편집</button>
+                <button class="ln-btn ln-btn--danger" data-act="del">삭제</button>
+              </div>
+            </div>
+            ${n.content
+              ? `<div class="ln-card__content ln-card__content--collapsed" data-content>${escapeHtml(n.content)}</div>
+                 <button class="ln-card__expand" data-act="toggle">전체 보기</button>`
+              : ""}
+            ${imgsHtml}
+            <div class="ln-card__footer">
+              <span>등록 ${escapeHtml(created)} ${escapeHtml(updated)}</span>
+              <span>${imgs.length ? `🖼️ ${imgs.length}장` : ""}</span>
+            </div>
+          </article>
+        `;
+      }
+
+      function renderEditCardHtml(n) {
+        const draft = inlineEditDraft;
+        const date = draft?.date ?? n.date ?? "";
+        const title = draft?.title ?? n.title ?? "";
+        const content = draft?.content ?? n.content ?? "";
+        return `
+          <article class="ln-card is-editing" data-id="${n.id}">
+            <div class="ln-card__head">
+              <div class="ln-card__meta">
+                <span class="ln-card__date" style="background: var(--accent); color: #0b0d10;">편집 중</span>
+                <span class="ln-card__title" style="color: var(--text-2); font-weight: 500; font-size: 13px;">아래에서 직접 수정한 뒤 <strong style="color: var(--accent);">저장</strong>을 누르세요</span>
+              </div>
+            </div>
+            <div class="ln-card__edit-row ln-card__edit-row--two">
+              <div class="ln-card__edit-field">
+                <label>강의 일자</label>
+                <input type="date" class="ln-edit-date" value="${escapeHtml(date)}" />
+              </div>
+              <div class="ln-card__edit-field">
+                <label>강의 제목</label>
+                <input type="text" class="ln-edit-title" value="${escapeHtml(title)}" placeholder="제목" />
+              </div>
+            </div>
+            <div class="ln-card__edit-field">
+              <label>강의 내용</label>
+              <textarea class="ln-edit-content" placeholder="내용을 입력하세요. Ctrl/Cmd+Enter로 저장">${escapeHtml(content)}</textarea>
+            </div>
+            <div class="ln-card__edit-field">
+              <label>캡쳐 자료</label>
+              <label class="ln-card__edit-drop">
+                <input type="file" accept="image/*" multiple class="ln-edit-file" />
+                <div>
+                  <strong>이미지 추가</strong> · 드래그·클릭·붙여넣기(<kbd>Ctrl</kbd>+<kbd>V</kbd>)
+                </div>
+              </label>
+              <div class="ln-preview ln-edit-preview" style="margin-top: 10px;"></div>
+            </div>
+            <div class="ln-card__edit-actions">
+              <button class="ln-btn ln-btn--primary" data-act="save-edit">저장</button>
+              <button class="ln-btn" data-act="cancel-edit">취소</button>
+              <span style="flex: 1;"></span>
+              <button class="ln-btn ln-btn--danger" data-act="del">삭제</button>
+            </div>
+          </article>
+        `;
+      }
+
+      function bindEditCard(card) {
+        const id = card.dataset.id;
+        card.querySelector('[data-act="save-edit"]').addEventListener("click", saveInlineEdit);
+        card.querySelector('[data-act="cancel-edit"]').addEventListener("click", () => {
+          if (!confirm("편집 내용을 버리고 닫을까요?")) return;
+          exitInlineEdit();
+        });
+        card.querySelector('[data-act="del"]').addEventListener("click", () => deleteNote(id));
+
+        // 파일 입력
+        card.querySelector(".ln-edit-file").addEventListener("change", e => {
+          addInlineImages(e.target.files);
+          e.target.value = "";
+        });
+
+        // 드래그 앤 드롭
+        const drop = card.querySelector(".ln-card__edit-drop");
+        ["dragenter", "dragover"].forEach(ev => {
+          card.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("is-drag"); });
+        });
+        ["dragleave", "drop"].forEach(ev => {
+          card.addEventListener(ev, e => {
+            if (ev === "drop") { e.preventDefault(); addInlineImages(e.dataTransfer.files); }
+            if (ev === "dragleave" && e.target !== card) return;
+            drop.classList.remove("is-drag");
+          });
+        });
+
+        // Ctrl/Cmd+Enter 저장 (textarea), Esc 취소
+        const ta = card.querySelector(".ln-edit-content");
+        ta.addEventListener("keydown", e => {
+          if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+            e.preventDefault();
+            saveInlineEdit();
+          } else if (e.key === "Escape") {
+            e.preventDefault();
+            if (confirm("편집 내용을 버리고 닫을까요?")) exitInlineEdit();
+          }
         });
       }
 
@@ -3823,11 +4070,9 @@
 
       // ---------- 이벤트 바인딩 ----------
       g("ln-save").addEventListener("click", saveNote);
-      g("ln-cancel").addEventListener("click", () => { resetForm(); status("편집 취소됨", "warn"); });
       g("ln-clear").addEventListener("click", () => {
-        if (editingId) {
-          if (!confirm("편집 중인 변경사항을 버리고 폼을 초기화할까요?")) return;
-        }
+        const hasInput = g("ln-title").value.trim() || g("ln-content").value.trim() || pendingImages.length;
+        if (hasInput && !confirm("작성 중인 내용을 버리고 폼을 초기화할까요?")) return;
         resetForm();
       });
 
@@ -3850,9 +4095,14 @@
         });
       });
 
-      // 클립보드 붙여넣기 (폼 영역에 포커스되어 있을 때)
+      // 클립보드 붙여넣기 — 폼 또는 인라인 편집 카드에 포커스가 있을 때
       const pasteHandler = e => {
-        if (!formEl.contains(document.activeElement) && document.activeElement !== document.body) return;
+        const active = document.activeElement;
+        const editCard = inlineEditId ? document.querySelector(`.ln-card[data-id="${inlineEditId}"]`) : null;
+        const inForm = formEl.contains(active);
+        const inEditCard = editCard && editCard.contains(active);
+        if (!inForm && !inEditCard && active !== document.body) return;
+
         const items = e.clipboardData?.items;
         if (!items) return;
         const files = [];
@@ -3862,8 +4112,11 @@
             if (f) files.push(f);
           }
         }
-        if (files.length) {
-          e.preventDefault();
+        if (!files.length) return;
+        e.preventDefault();
+        if (inEditCard) {
+          addInlineImages(files);
+        } else {
           addFiles(files);
           status(`${files.length}장 붙여넣음`);
         }
@@ -3903,19 +4156,24 @@
         e.target.value = "";
       });
 
+      // 페이지 와이드 모드
+      const contentEl = document.getElementById("content");
+      contentEl.classList.add("is-wide");
+
       // 페이지 이탈 정리 — 다음 navigate가 호출되어 #content가 비워지면 핸들러도 제거
       const cleanup = () => {
         document.removeEventListener("paste", pasteHandler);
         document.removeEventListener("keydown", saveKey);
         document.removeEventListener("keydown", lbKeyHandler);
         revokeAllUrls();
+        contentEl.classList.remove("is-wide");
         observer.disconnect();
       };
       const observer = new MutationObserver(() => {
         // 폼이 DOM에서 제거되면 cleanup
         if (!document.body.contains(formEl)) cleanup();
       });
-      observer.observe(document.getElementById("content"), { childList: true });
+      observer.observe(contentEl, { childList: true });
 
       // ---------- 초기화 ----------
       // 정렬 버튼 초기 활성 상태
