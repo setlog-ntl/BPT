@@ -404,6 +404,23 @@
       padding: 8px 12px; background: var(--bg-2); border-radius: var(--radius-sm);
     }
 
+    /* 매출 공식 도식 (P × Q + 깔때기 역산 시각화) — 2-2강 이미지 재현 */
+    .tc-formula-diagram {
+      background: #0a0a0a; border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px 16px; margin: 18px 0 28px;
+      overflow-x: auto;
+    }
+    .tc-formula-diagram svg {
+      display: block; width: 100%; height: auto;
+      min-width: 860px;
+    }
+    .tc-formula-diagram__caption {
+      font-size: 12.5px; color: var(--text-3);
+      margin-top: 12px; text-align: center; line-height: 1.5;
+    }
+    .tc-formula-diagram__caption strong { color: var(--text-2); }
+
     .tc-scenario {
       display: grid; grid-template-columns: 1.5fr 1fr 1fr auto auto;
       gap: 10px; align-items: center;
@@ -589,6 +606,327 @@
     .compare-box__link {
       text-align: center; color: var(--text-3); font-size: 11px;
       margin: 4px 0; font-family: var(--font-mono);
+    }
+
+    /* ============================================
+       Lecture Notes (강의 노트)
+       ============================================ */
+    .ln-toolbar {
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+      margin-bottom: 14px;
+    }
+    .ln-toolbar input[type="search"] {
+      flex: 1; min-width: 200px;
+      background: var(--bg-2); border: 1px solid var(--border);
+      color: var(--text-0); padding: 8px 12px;
+      border-radius: var(--radius-sm); font-size: 13.5px;
+      font-family: inherit; outline: none;
+    }
+    .ln-toolbar input[type="search"]:focus { border-color: var(--accent); background: var(--bg-3); }
+
+    .ln-btn {
+      background: var(--bg-2); border: 1px solid var(--border);
+      color: var(--text-0); padding: 7px 14px;
+      border-radius: var(--radius-sm); font-size: 13px;
+      cursor: pointer; font-family: inherit;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .ln-btn:hover { background: var(--bg-hover); border-color: var(--border-strong); }
+    .ln-btn--primary {
+      background: var(--accent); border-color: var(--accent);
+      color: #0b0d10; font-weight: 600;
+    }
+    .ln-btn--primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+    .ln-btn--danger { color: var(--danger); }
+    .ln-btn--danger:hover { background: rgba(248, 113, 113, 0.1); border-color: var(--danger); }
+    .ln-btn--ghost { background: transparent; }
+    .ln-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .ln-btn.is-active {
+      background: var(--accent-soft); border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Form panel */
+    .ln-form {
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      margin-bottom: 24px;
+    }
+    .ln-form__title {
+      font-size: 14px; font-weight: 600; color: var(--text-0);
+      margin-bottom: 14px; display: flex; align-items: center;
+      gap: 10px; justify-content: space-between;
+    }
+    .ln-form__title-tag {
+      font-size: 11px; color: var(--accent); background: var(--accent-soft);
+      padding: 2px 8px; border-radius: 999px; font-weight: 500;
+    }
+    .ln-row { display: grid; gap: 10px; margin-bottom: 12px; }
+    .ln-row--two { grid-template-columns: 200px 1fr; }
+    @media (max-width: 640px) {
+      .ln-row--two { grid-template-columns: 1fr; }
+    }
+    .ln-field label {
+      display: block; font-size: 11px; color: var(--text-2);
+      text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .ln-field input[type="date"],
+    .ln-field input[type="text"],
+    .ln-field textarea {
+      width: 100%;
+      background: var(--bg-2); border: 1px solid var(--border);
+      color: var(--text-0); padding: 9px 12px;
+      border-radius: var(--radius-sm); font-size: 13.5px;
+      font-family: inherit; outline: none; line-height: 1.55;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .ln-field input:focus, .ln-field textarea:focus {
+      border-color: var(--accent); background: var(--bg-3);
+    }
+    .ln-field textarea { resize: vertical; min-height: 140px; }
+
+    .ln-drop {
+      border: 1.5px dashed var(--border-strong);
+      border-radius: var(--radius);
+      padding: 18px;
+      text-align: center;
+      color: var(--text-2);
+      font-size: 13px;
+      transition: border-color 0.15s ease, background 0.15s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .ln-drop:hover, .ln-drop.is-drag {
+      border-color: var(--accent); background: var(--accent-soft); color: var(--accent);
+    }
+    .ln-drop strong { color: var(--text-0); }
+    .ln-drop kbd {
+      display: inline-block; padding: 1px 6px;
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-bottom-width: 2px; border-radius: 3px;
+      font-size: 11px; font-family: var(--font-mono); color: var(--text-1);
+      margin: 0 1px;
+    }
+    .ln-drop input[type="file"] { display: none; }
+
+    .ln-preview {
+      display: grid; gap: 10px; margin-top: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    .ln-preview__item {
+      position: relative; aspect-ratio: 1;
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); overflow: hidden;
+    }
+    .ln-preview__item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .ln-preview__remove {
+      position: absolute; top: 4px; right: 4px;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: rgba(11, 13, 16, 0.85); color: var(--danger);
+      border: 1px solid var(--border-strong);
+      cursor: pointer; font-size: 14px; line-height: 1;
+      display: grid; place-items: center;
+    }
+    .ln-preview__remove:hover { background: var(--danger); color: #0b0d10; border-color: var(--danger); }
+    .ln-preview__name {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(11, 13, 16, 0.9));
+      padding: 14px 6px 4px; font-size: 10px; color: var(--text-1);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .ln-form__actions {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-top: 16px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .ln-form__status { color: var(--success); font-size: 12px; align-self: center; }
+
+    /* Note list */
+    .ln-list { display: flex; flex-direction: column; gap: 14px; }
+    .ln-empty {
+      text-align: center; padding: 60px 20px;
+      color: var(--text-3); border: 1px dashed var(--border);
+      border-radius: var(--radius); background: var(--bg-1);
+    }
+    .ln-empty__icon { font-size: 36px; margin-bottom: 10px; opacity: 0.6; }
+
+    .ln-card {
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 20px;
+      transition: border-color 0.15s ease;
+    }
+    .ln-card:hover { border-color: var(--border-strong); }
+    .ln-card__head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 8px;
+    }
+    .ln-card__meta { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .ln-card__date {
+      font-family: var(--font-mono); font-size: 12px; color: var(--accent);
+      background: var(--accent-soft); padding: 2px 8px; border-radius: 4px;
+    }
+    .ln-card__title {
+      font-size: 16px; font-weight: 600; color: var(--text-0);
+      letter-spacing: -0.2px;
+    }
+    .ln-card__actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .ln-card__actions .ln-btn { padding: 5px 10px; font-size: 12px; }
+    .ln-card__content {
+      color: var(--text-1); font-size: 13.5px; line-height: 1.6;
+      white-space: pre-wrap; word-break: break-word;
+      margin: 8px 0;
+    }
+    .ln-card__content--collapsed {
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .ln-card__images {
+      display: grid; gap: 8px; margin-top: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    .ln-card__images--thumb {
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      max-width: 480px;
+    }
+    .ln-thumb {
+      aspect-ratio: 1; background: var(--bg-2);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      overflow: hidden; cursor: zoom-in;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .ln-thumb:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .ln-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .ln-card__footer {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 10px; flex-wrap: wrap;
+      font-size: 11.5px; color: var(--text-3); margin-top: 10px;
+      padding-top: 10px; border-top: 1px solid var(--border);
+    }
+    .ln-card__expand {
+      background: transparent; border: none; color: var(--accent);
+      cursor: pointer; font-size: 12px; padding: 4px 0;
+      font-family: inherit;
+    }
+    .ln-card__expand:hover { text-decoration: underline; }
+
+    /* Lightbox */
+    .ln-lightbox {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      display: grid; place-items: center; padding: 30px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+    .ln-lightbox.is-open { opacity: 1; pointer-events: auto; }
+    .ln-lightbox img {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain; box-shadow: var(--shadow-md);
+    }
+    .ln-lightbox__close {
+      position: absolute; top: 16px; right: 20px;
+      background: var(--bg-2); border: 1px solid var(--border-strong);
+      color: var(--text-0); width: 36px; height: 36px;
+      border-radius: 50%; cursor: pointer; font-size: 18px;
+    }
+    .ln-lightbox__nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: var(--bg-2); border: 1px solid var(--border-strong);
+      color: var(--text-0); width: 44px; height: 44px;
+      border-radius: 50%; cursor: pointer; font-size: 20px;
+    }
+    .ln-lightbox__nav--prev { left: 16px; }
+    .ln-lightbox__nav--next { right: 16px; }
+    .ln-lightbox__caption {
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      background: var(--bg-2); border: 1px solid var(--border);
+      padding: 6px 12px; border-radius: var(--radius-sm);
+      font-size: 12px; color: var(--text-1);
+      max-width: 80%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    /* ============================================
+       Term Input (용어 입력) — 일부 .ln-* 클래스 재사용
+       ============================================ */
+    .ti-group {
+      margin-top: 22px;
+    }
+    .ti-group__head {
+      display: flex; align-items: baseline; gap: 10px;
+      padding: 8px 4px; border-bottom: 1px solid var(--border);
+      margin-bottom: 10px;
+    }
+    .ti-group__name {
+      font-size: 14px; font-weight: 600; color: var(--accent);
+      letter-spacing: 0.2px;
+    }
+    .ti-group__count {
+      font-size: 11px; color: var(--text-3); font-family: var(--font-mono);
+    }
+    .ti-card {
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 14px 18px;
+      margin-bottom: 10px;
+      transition: border-color 0.15s ease;
+    }
+    .ti-card:hover { border-color: var(--border-strong); }
+    .ti-card__head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 6px;
+    }
+    .ti-card__term {
+      font-size: 15.5px; font-weight: 700; color: var(--text-0);
+      letter-spacing: -0.1px;
+    }
+    .ti-card__cat {
+      display: inline-block; font-size: 10.5px; color: var(--text-2);
+      background: var(--bg-3); padding: 2px 8px; border-radius: 999px;
+      border: 1px solid var(--border);
+      text-transform: uppercase; letter-spacing: 0.4px;
+      margin-right: 6px;
+    }
+    .ti-card__definition {
+      color: var(--text-1); font-size: 13.5px; line-height: 1.65;
+      white-space: pre-wrap; word-break: break-word;
+      margin: 4px 0 6px;
+    }
+    .ti-card__meta {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      font-size: 11.5px; color: var(--text-3);
+      margin-top: 8px; padding-top: 8px;
+      border-top: 1px dashed var(--border);
+    }
+    .ti-card__meta strong { color: var(--text-1); font-weight: 500; }
+    .ti-card__actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .ti-card__actions .ln-btn { padding: 4px 9px; font-size: 11.5px; }
+
+    /* 카테고리 칩 필터 */
+    .ti-chips {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;
+    }
+    .ti-chip {
+      background: var(--bg-2); border: 1px solid var(--border);
+      color: var(--text-1); padding: 4px 10px;
+      border-radius: 999px; font-size: 12px; cursor: pointer;
+      font-family: inherit;
+    }
+    .ti-chip:hover { background: var(--bg-hover); color: var(--text-0); }
+    .ti-chip.is-active {
+      background: var(--accent-soft); border-color: var(--accent); color: var(--accent);
+    }
+    .ti-chip__count {
+      font-size: 10px; color: var(--text-3); margin-left: 4px;
+      font-family: var(--font-mono);
+    }
+    .ti-chip.is-active .ti-chip__count { color: var(--accent); }
+
+    .ti-highlight {
+      background: rgba(110, 168, 255, 0.18);
+      color: var(--text-0);
+      border-radius: 2px; padding: 0 2px;
     }
   </style>
 </head>
@@ -1730,10 +2068,149 @@
       </header>
       <h1>트래픽 계산기 — 매출 → 깔때기 역산</h1>
       <p class="lead">
-        목표 매출을 입력하면 <strong>판매 수량 → 랜딩 진입 → 키 조회 → 풀링 조회 → 필요 영상 개수</strong>까지 자동 역산합니다.
+        목표 매출을 입력하면 <strong>목표 매출 = 객단가(P) × 유료 고객 수(Q)</strong> 공식을 기반으로
+        <strong>Q → 랜딩 접속 → 키콘텐츠 조회 → 풀링콘텐츠 조회 → 필요 영상 개수</strong>까지 자동 역산합니다.
         시나리오에 이름을 붙여 저장·불러오기 가능하며, JSON 파일로 내보내 백업할 수 있습니다.
-        (1-5강 "트래픽 계산 방법" 슬라이드의 목표 전환율 20%·5%·5%를 기본값으로 사용)
+        (2-2강 기준 기본 전환율 <strong>구매 5% / 링크 클릭 5% / 키콘텐츠 연계 20%</strong> · 모든 수치는 수정 가능)
       </p>
+
+      <!-- 매출 = P × Q 깔때기 도식 (2-2강 시각 재현 · 라이브) -->
+      <div class="tc-formula-diagram" role="img" aria-label="목표 매출 = P × Q 깔때기 역산 도식">
+        <svg viewBox="0 0 1280 460" xmlns="http://www.w3.org/2000/svg">
+          <!-- 우상단 서브타이틀 배지 (이미지와 구분되는 자체 표식) -->
+          <g transform="translate(1060, 18)">
+            <rect x="0" y="0" width="200" height="26" rx="13" fill="#1f1f1f" stroke="#ea3737" stroke-width="1"/>
+            <text x="100" y="18" fill="#ea3737" font-size="12" font-weight="700" text-anchor="middle">매출 = 가격 × 수량 · 역산</text>
+          </g>
+
+          <!-- 좌상단 플로우 인디케이터 -->
+          <text x="40" y="34" fill="#777" font-size="11" font-weight="500" letter-spacing="0.5">① 가격(P) · ② 수량(Q) → 트래픽 역산</text>
+
+          <!-- 목표 매출 (적색 타이틀, 2줄) -->
+          <text x="40" y="106" fill="#ff2d2d" font-size="62" font-weight="900">목표</text>
+          <text x="40" y="176" fill="#ff2d2d" font-size="62" font-weight="900">매출</text>
+
+          <!-- = -->
+          <text x="215" y="148" fill="#e8e8e8" font-size="56" font-weight="700">=</text>
+
+          <!-- P (객단가) -->
+          <text x="290" y="150" fill="#f5f5f5" font-size="72" font-weight="800">P</text>
+          <circle cx="345" cy="182" r="28" fill="#d4c821" stroke="#7a6f0f" stroke-width="1"/>
+          <text x="345" y="188" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">객단가</text>
+
+          <!-- × -->
+          <text x="435" y="148" fill="#e8e8e8" font-size="56" font-weight="700">×</text>
+
+          <!-- Q (유료 고객 수) -->
+          <text x="510" y="150" fill="#f5f5f5" font-size="72" font-weight="800">Q</text>
+          <text x="512" y="212" fill="#e8e8e8" font-size="17" font-weight="500">유료 고객 수 (Q)</text>
+
+          <!-- 랜딩페이지 아이콘 (문서형) -->
+          <g transform="translate(700, 80)">
+            <rect x="0" y="0" width="80" height="108" rx="6" fill="#8f8f8f"/>
+            <circle cx="18" cy="24" r="6" fill="#efefef"/>
+            <rect x="30" y="20" width="42" height="8" rx="2" fill="#efefef"/>
+            <circle cx="18" cy="52" r="6" fill="#efefef"/>
+            <rect x="30" y="48" width="42" height="8" rx="2" fill="#efefef"/>
+            <circle cx="18" cy="80" r="6" fill="#efefef"/>
+            <rect x="30" y="76" width="42" height="8" rx="2" fill="#efefef"/>
+            <text x="40" y="134" fill="#f5f5f5" font-size="15" font-weight="500" text-anchor="middle">랜딩페이지</text>
+            <text x="40" y="154" fill="#f5f5f5" font-size="15" font-weight="500" text-anchor="middle">접속수</text>
+          </g>
+
+          <!-- 키콘텐츠 아이콘 (단일 유튜브 스타일) -->
+          <g transform="translate(865, 80)">
+            <rect x="0" y="12" width="120" height="84" rx="18" fill="#8f8f8f"/>
+            <polygon points="45,36 45,72 82,54" fill="#ffffff"/>
+            <text x="60" y="134" fill="#f5f5f5" font-size="15" font-weight="500" text-anchor="middle">키콘텐츠</text>
+            <text x="60" y="154" fill="#f5f5f5" font-size="15" font-weight="500" text-anchor="middle">조회수</text>
+          </g>
+
+          <!-- 풀링콘텐츠 아이콘 (스택형 3겹) -->
+          <g transform="translate(1055, 80)">
+            <rect x="-18" y="-6" width="120" height="84" rx="18" fill="#555"/>
+            <rect x="-9" y="3" width="120" height="84" rx="18" fill="#727272"/>
+            <rect x="0" y="12" width="120" height="84" rx="18" fill="#8f8f8f"/>
+            <polygon points="45,36 45,72 82,54" fill="#ffffff"/>
+            <text x="60" y="142" fill="#f5f5f5" font-size="15" font-weight="500" text-anchor="middle">풀링콘텐츠</text>
+            <text x="60" y="162" fill="#f5f5f5" font-size="15" font-weight="500" text-anchor="middle">조회수</text>
+          </g>
+
+          <!-- ═══ 하단 흐름 (값 입력 박스 + 적색 화살표) ═══ -->
+          <!-- 목표 매출 박스 -->
+          <rect x="30" y="258" width="200" height="54" rx="4" fill="#ffffff"/>
+          <text id="tcf-revenue" x="130" y="293" fill="#111" font-size="19" font-weight="700" text-anchor="middle" font-family="Consolas, ui-monospace, monospace">3,000만원/30일</text>
+
+          <!-- = -->
+          <text x="245" y="298" fill="#e8e8e8" font-size="32" font-weight="700">=</text>
+
+          <!-- P 박스 (객단가) -->
+          <rect x="285" y="258" width="130" height="54" rx="4" fill="#ffffff"/>
+          <text id="tcf-aov" x="350" y="293" fill="#111" font-size="19" font-weight="700" text-anchor="middle" font-family="Consolas, ui-monospace, monospace">?원</text>
+
+          <!-- × -->
+          <text x="425" y="298" fill="#e8e8e8" font-size="32" font-weight="700">×</text>
+
+          <!-- Q 박스 -->
+          <rect x="465" y="258" width="170" height="54" rx="4" fill="#ffffff"/>
+          <text id="tcf-q" x="550" y="293" fill="#111" font-size="19" font-weight="700" text-anchor="middle" font-family="Consolas, ui-monospace, monospace">?명/월</text>
+
+          <!-- ← 5% (구매 전환율) -->
+          <g transform="translate(645, 268)">
+            <path d="M-14,17 L0,2 L54,2 L54,32 L0,32 Z" fill="#ea3737"/>
+            <text id="tcf-paid-rate" x="27" y="23" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle">5%</text>
+          </g>
+
+          <!-- 랜딩 박스 -->
+          <rect x="710" y="258" width="130" height="54" rx="4" fill="#ffffff"/>
+          <text id="tcf-landing" x="775" y="293" fill="#111" font-size="19" font-weight="700" text-anchor="middle" font-family="Consolas, ui-monospace, monospace">?명</text>
+
+          <!-- ← 5% (링크 클릭률) -->
+          <g transform="translate(850, 268)">
+            <path d="M-14,17 L0,2 L54,2 L54,32 L0,32 Z" fill="#ea3737"/>
+            <text id="tcf-click-rate" x="27" y="23" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle">5%</text>
+          </g>
+
+          <!-- 키 박스 -->
+          <rect x="915" y="258" width="130" height="54" rx="4" fill="#ffffff"/>
+          <text id="tcf-key" x="980" y="293" fill="#111" font-size="19" font-weight="700" text-anchor="middle" font-family="Consolas, ui-monospace, monospace">?회</text>
+
+          <!-- ← 20% (키콘텐츠 연계율) -->
+          <g transform="translate(1055, 268)">
+            <path d="M-14,17 L0,2 L62,2 L62,32 L0,32 Z" fill="#ea3737"/>
+            <text id="tcf-key-rate" x="31" y="23" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle">20%</text>
+          </g>
+
+          <!-- 풀링 박스 -->
+          <rect x="1125" y="258" width="130" height="54" rx="4" fill="#ffffff"/>
+          <text id="tcf-pulling" x="1190" y="293" fill="#111" font-size="19" font-weight="700" text-anchor="middle" font-family="Consolas, ui-monospace, monospace">?회</text>
+
+          <!-- ═══ 전환율 라벨 (적색 테두리 다크 박스) ═══ -->
+          <!-- 구매 전환율 -->
+          <g transform="translate(668, 336)">
+            <rect x="0" y="0" width="146" height="52" fill="#141414" stroke="#ea3737" stroke-width="2" rx="4"/>
+            <text x="73" y="22" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">구매 전환율</text>
+            <text x="73" y="42" fill="#bbbbbb" font-size="10" text-anchor="middle">(유료고객 전환율)</text>
+          </g>
+
+          <!-- 링크 클릭률 -->
+          <g transform="translate(873, 345)">
+            <rect x="0" y="0" width="146" height="38" fill="#141414" stroke="#ea3737" stroke-width="2" rx="4"/>
+            <text x="73" y="25" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">링크 클릭률</text>
+          </g>
+
+          <!-- 키콘텐츠 연계율 -->
+          <g transform="translate(1073, 345)">
+            <rect x="0" y="0" width="164" height="38" fill="#141414" stroke="#ea3737" stroke-width="2" rx="4"/>
+            <text x="82" y="25" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">키콘텐츠 연계율</text>
+          </g>
+        </svg>
+        <div class="tc-formula-diagram__caption">
+          <strong>매출 공식 역산</strong> — <code style="color: var(--accent);">목표 매출 = P(객단가) × Q(유료 고객 수)</code>
+          에서 출발해, 필요한 <strong>Q</strong>를 만들기 위한 트래픽을 오른쪽(풀링콘텐츠 조회수)에서 왼쪽(구매)으로 단계별 전환율로 역산합니다.
+          아래 입력을 수정하면 박스 값이 실시간 갱신됩니다. <span class="tc-hint">(2-2강 "1.가격 2.수량" 개념 기반 · 본 사이트 자체 생성 도식)</span>
+        </div>
+      </div>
 
       <div class="tc-panel">
         <h3 class="tc-panel__title">입력값</h3>
@@ -1763,21 +2240,21 @@
         </div>
         <div class="tc-grid tc-grid--3">
           <div class="tc-row">
-            <label class="tc-label">유료 전환율 <span class="tc-hint">랜딩 → 구매</span></label>
+            <label class="tc-label">구매 전환율 <span class="tc-hint">유료고객 · 랜딩 → 구매</span></label>
             <div class="tc-input-suffix">
               <input id="tc-paid-rate" class="tc-input" type="number" value="5" min="0" max="100" step="0.1" />
               <span class="tc-suffix">%</span>
             </div>
           </div>
           <div class="tc-row">
-            <label class="tc-label">링크 클릭률 <span class="tc-hint">키 → 랜딩</span></label>
+            <label class="tc-label">링크 클릭률 <span class="tc-hint">키콘텐츠 → 랜딩</span></label>
             <div class="tc-input-suffix">
               <input id="tc-click-rate" class="tc-input" type="number" value="5" min="0" max="100" step="0.1" />
               <span class="tc-suffix">%</span>
             </div>
           </div>
           <div class="tc-row">
-            <label class="tc-label">키 연계율 <span class="tc-hint">풀링 → 키</span></label>
+            <label class="tc-label">키콘텐츠 연계율 <span class="tc-hint">풀링 → 키콘텐츠</span></label>
             <div class="tc-input-suffix">
               <input id="tc-key-rate" class="tc-input" type="number" value="20" min="0" max="100" step="0.1" />
               <span class="tc-suffix">%</span>
@@ -1816,7 +2293,7 @@
         <h3 class="tc-panel__title">역산 결과</h3>
         <div class="tc-results-grid">
           <div class="tc-result">
-            <div class="tc-result__label">필요 구매 (Q) <span class="tc-hint">매출 ÷ 객단가</span></div>
+            <div class="tc-result__label">유료 고객 수 (Q) <span class="tc-hint">매출 ÷ 객단가(P)</span></div>
             <div class="tc-result__value"><span id="tc-q">—</span> <span class="tc-unit">명</span></div>
           </div>
           <div class="tc-result tc-result--highlight">
@@ -1824,15 +2301,15 @@
             <div class="tc-result__value"><span id="tc-daily">—</span> <span class="tc-unit">명/일</span></div>
           </div>
           <div class="tc-result">
-            <div class="tc-result__label">랜딩페이지 진입 <span class="tc-hint" id="tc-landing-hint">÷ 5% (구매전환율)</span></div>
+            <div class="tc-result__label">랜딩페이지 접속수 <span class="tc-hint" id="tc-landing-hint">÷ 5% (구매 전환율)</span></div>
             <div class="tc-result__value"><span id="tc-landing">—</span> <span class="tc-unit">명</span></div>
           </div>
           <div class="tc-result">
-            <div class="tc-result__label">키 콘텐츠 조회수 <span class="tc-hint" id="tc-key-hint">÷ 5% (링크클릭률)</span></div>
+            <div class="tc-result__label">키콘텐츠 조회수 <span class="tc-hint" id="tc-key-hint">÷ 5% (링크 클릭률)</span></div>
             <div class="tc-result__value"><span id="tc-key">—</span> <span class="tc-unit">회</span></div>
           </div>
           <div class="tc-result">
-            <div class="tc-result__label">풀링 콘텐츠 조회수 <span class="tc-hint" id="tc-pulling-hint">÷ 20% (키연계율)</span></div>
+            <div class="tc-result__label">풀링콘텐츠 조회수 <span class="tc-hint" id="tc-pulling-hint">÷ 20% (키콘텐츠 연계율)</span></div>
             <div class="tc-result__value"><span id="tc-pulling">—</span> <span class="tc-unit">회</span></div>
           </div>
           <div class="tc-result tc-result--highlight">
@@ -1871,7 +2348,7 @@
           <div class="tc-diagram__stage">
             <div class="tc-diagram__head">
               <div class="tc-diagram__num">②</div>
-              <div class="tc-diagram__label">하루 랜딩 진입</div>
+              <div class="tc-diagram__label">하루 랜딩 접속</div>
             </div>
             <div class="tc-diagram__value"><span id="tc-fd-landing">—</span><span class="tc-diagram__unit">명/일</span></div>
           </div>
@@ -1883,13 +2360,13 @@
           <div class="tc-diagram__stage">
             <div class="tc-diagram__head">
               <div class="tc-diagram__num">③</div>
-              <div class="tc-diagram__label">하루 키 조회</div>
+              <div class="tc-diagram__label">하루 키콘텐츠 조회</div>
             </div>
             <div class="tc-diagram__value"><span id="tc-fd-key">—</span><span class="tc-diagram__unit">회/일</span></div>
           </div>
           <div class="tc-diagram__arrow">
             <div class="tc-diagram__rate">÷ <input id="tc-fd-keyrate-input" class="tc-diagram__rate-input" type="number" value="20" min="0.1" max="100" step="0.1" />%</div>
-            <div class="tc-diagram__rate-sub">키 연계율</div>
+            <div class="tc-diagram__rate-sub">키콘텐츠 연계율</div>
             <div class="tc-diagram__chevron">→</div>
           </div>
           <div class="tc-diagram__stage tc-diagram__stage--end">
@@ -1923,13 +2400,20 @@
       </div>
 
       <div class="info-card" style="margin-top: 28px;">
-        <h3>계산 로직 요약</h3>
+        <h3>계산 로직 요약 <span class="tc-hint" style="font-weight: 400; text-transform: none; letter-spacing: normal;">· 2-2강 "목표 매출 = 가격 × 수량" 기준</span></h3>
+        <p style="margin: 0 0 12px; font-size: 14px; color: var(--text-1);">
+          <strong>핵심 공식:</strong>
+          <code style="color: var(--accent); background: var(--bg-2); padding: 3px 8px; border-radius: 4px; font-size: 13px;">목표 매출 = P(객단가) × Q(유료 고객 수)</code>
+          <span class="tc-hint" style="display: block; margin-top: 6px; text-transform: none; letter-spacing: normal;">
+            → 매출 목표가 정해지면 필요한 <strong>유료 고객 수 Q</strong>가 결정되고, 그 Q를 만들기 위한 트래픽을 <strong>오른쪽(풀링 조회수)에서 왼쪽(구매)으로 역산</strong>합니다.
+          </span>
+        </p>
         <ul>
-          <li><strong>Q (필요 구매)</strong> = 목표 매출 ÷ 객단가 P</li>
+          <li><strong>Q (유료 고객 수)</strong> = 목표 매출 ÷ 객단가(P)</li>
           <li><strong>하루 필요 구매</strong> = Q ÷ 판매 기간(일) <span class="tc-hint">(기본 30일 · 수정 가능)</span></li>
-          <li><strong>랜딩</strong> = Q ÷ 구매 전환율 <span class="tc-hint">(기본 5%)</span></li>
-          <li><strong>키 콘텐츠 조회</strong> = 랜딩 ÷ 링크 클릭률 <span class="tc-hint">(기본 5%)</span></li>
-          <li><strong>풀링 콘텐츠 조회</strong> = 키 조회 ÷ 키 연계율 <span class="tc-hint">(기본 20%)</span></li>
+          <li><strong>랜딩페이지 접속수</strong> = Q ÷ 구매 전환율 <span class="tc-hint">(기본 5% · 유료고객 전환율)</span></li>
+          <li><strong>키콘텐츠 조회수</strong> = 랜딩 ÷ 링크 클릭률 <span class="tc-hint">(기본 5%)</span></li>
+          <li><strong>풀링콘텐츠 조회수</strong> = 키콘텐츠 ÷ 키콘텐츠 연계율 <span class="tc-hint">(기본 20%)</span></li>
           <li><strong>풀링 필요 수량</strong> = 풀링 조회 ÷ 영상 1개당 조회수 <span class="tc-hint">(기본 1,000회 · 수정 가능)</span></li>
         </ul>
       </div>
@@ -1965,6 +2449,168 @@
     </article>
   </template>
 
+  <template id="tpl-lecture-notes">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">강의 노트</span>
+        <span class="tag" id="ln-count-tag">0개</span>
+      </header>
+      <h1>강의 노트</h1>
+      <p class="lead">
+        강의 일자·제목·내용과 캡쳐 이미지를 한 번에 기록하는 작업 공간입니다.
+        브라우저 안에 안전하게 저장되며, JSON으로 백업·복원할 수 있습니다.
+        나중에 정리 문서로 옮길 때 재료로 활용하세요.
+      </p>
+
+      <!-- 입력 폼 -->
+      <section class="ln-form" id="ln-form">
+        <div class="ln-form__title">
+          <span><span class="ln-form__title-tag" id="ln-form-mode">새 노트</span> <span id="ln-editing-title" style="color: var(--text-2); margin-left: 6px; font-size: 12px;"></span></span>
+          <span class="ln-form__status" id="ln-form-status"></span>
+        </div>
+
+        <div class="ln-row ln-row--two">
+          <div class="ln-field">
+            <label for="ln-date">강의 일자</label>
+            <input type="date" id="ln-date" />
+          </div>
+          <div class="ln-field">
+            <label for="ln-title">강의 제목</label>
+            <input type="text" id="ln-title" placeholder="예: 2주차 1강 - 매출 공식과 풀링콘텐츠" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="ln-field">
+          <label for="ln-content">강의 내용</label>
+          <textarea id="ln-content" placeholder="배운 내용, 핵심 키워드, 떠오른 생각, 액션 아이템 등을 자유롭게 기록하세요. 단축키: Ctrl/Cmd+S 저장, Ctrl/Cmd+V 이미지 붙여넣기"></textarea>
+        </div>
+
+        <div class="ln-field">
+          <label>캡쳐 자료</label>
+          <label class="ln-drop" id="ln-drop">
+            <input type="file" id="ln-file" accept="image/*" multiple />
+            <div>
+              <strong>이미지 파일을 드래그하거나 클릭</strong>해서 추가
+              <div style="font-size: 11.5px; color: var(--text-3); margin-top: 4px;">
+                여러 장 동시 선택 가능 · 클립보드 붙여넣기(<kbd>Ctrl</kbd>+<kbd>V</kbd>)도 지원
+              </div>
+            </div>
+          </label>
+          <div class="ln-preview" id="ln-preview"></div>
+        </div>
+
+        <div class="ln-form__actions">
+          <button class="ln-btn ln-btn--primary" id="ln-save">저장</button>
+          <button class="ln-btn" id="ln-cancel" style="display: none;">편집 취소</button>
+          <button class="ln-btn ln-btn--ghost" id="ln-clear">폼 초기화</button>
+          <span style="flex: 1;"></span>
+          <button class="ln-btn ln-btn--ghost" id="ln-export" title="모든 노트를 JSON 파일로 내보내기">내보내기</button>
+          <label class="ln-btn ln-btn--ghost" style="cursor: pointer;">
+            가져오기
+            <input type="file" id="ln-import" accept="application/json,.json" style="display: none;" />
+          </label>
+        </div>
+      </section>
+
+      <!-- 목록 영역 -->
+      <section>
+        <div class="ln-toolbar">
+          <input type="search" id="ln-search" placeholder="제목·내용에서 검색..." />
+          <button class="ln-btn ln-sort-btn is-active" data-sort="recent">최근 등록순</button>
+          <button class="ln-btn ln-sort-btn" data-sort="date-desc">강의일 최신</button>
+          <button class="ln-btn ln-sort-btn" data-sort="date-asc">강의일 오래된 순</button>
+        </div>
+
+        <div class="ln-list" id="ln-list"></div>
+      </section>
+
+      <!-- 라이트박스 -->
+      <div class="ln-lightbox" id="ln-lightbox" role="dialog" aria-modal="true">
+        <button class="ln-lightbox__close" id="ln-lb-close" aria-label="닫기">×</button>
+        <button class="ln-lightbox__nav ln-lightbox__nav--prev" id="ln-lb-prev" aria-label="이전">‹</button>
+        <img id="ln-lb-img" alt="" />
+        <button class="ln-lightbox__nav ln-lightbox__nav--next" id="ln-lb-next" aria-label="다음">›</button>
+        <div class="ln-lightbox__caption" id="ln-lb-caption"></div>
+      </div>
+    </article>
+  </template>
+
+  <template id="tpl-term-input">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">용어 입력</span>
+        <span class="tag" id="ti-count-tag">0개</span>
+      </header>
+      <h1>용어 입력</h1>
+      <p class="lead">
+        강의에서 등장한 새 용어를 직접 입력해 사전을 키워나갑니다.
+        카테고리별로 묶어 관리하고, 검색·정렬·내보내기/가져오기를 지원합니다.
+        정리된 용어는 추후 <a href="#glossary" onclick="event.preventDefault(); navigate('glossary');">용어 정리</a> 문서로 옮길 재료가 됩니다.
+      </p>
+
+      <!-- 입력 폼 -->
+      <section class="ln-form" id="ti-form">
+        <div class="ln-form__title">
+          <span><span class="ln-form__title-tag" id="ti-form-mode">새 용어</span> <span id="ti-editing-title" style="color: var(--text-2); margin-left: 6px; font-size: 12px;"></span></span>
+          <span class="ln-form__status" id="ti-form-status"></span>
+        </div>
+
+        <div class="ln-row ln-row--two">
+          <div class="ln-field">
+            <label for="ti-category">카테고리</label>
+            <input type="text" id="ti-category" list="ti-cat-list" placeholder="예: 비즈니스 기본 단위" autocomplete="off" />
+            <datalist id="ti-cat-list"></datalist>
+          </div>
+          <div class="ln-field">
+            <label for="ti-term">용어 *</label>
+            <input type="text" id="ti-term" placeholder="예: 풀링 콘텐츠" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="ln-field">
+          <label for="ti-definition">정의 *</label>
+          <textarea id="ti-definition" placeholder="이 용어가 무엇을 의미하는지, 강의에서 어떻게 쓰였는지 설명하세요." style="min-height: 110px;"></textarea>
+        </div>
+
+        <div class="ln-row ln-row--two">
+          <div class="ln-field">
+            <label for="ti-source">출처 (선택)</label>
+            <input type="text" id="ti-source" placeholder="예: 1주차 1강, raw/2026-04-18 등" autocomplete="off" />
+          </div>
+          <div class="ln-field">
+            <label for="ti-note">메모 (선택)</label>
+            <input type="text" id="ti-note" placeholder="예시·뉘앙스·관련 용어 등" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="ln-form__actions">
+          <button class="ln-btn ln-btn--primary" id="ti-save">저장</button>
+          <button class="ln-btn" id="ti-cancel" style="display: none;">편집 취소</button>
+          <button class="ln-btn ln-btn--ghost" id="ti-clear">폼 초기화</button>
+          <span style="flex: 1;"></span>
+          <button class="ln-btn ln-btn--ghost" id="ti-export" title="모든 용어를 JSON 파일로 내보내기">내보내기</button>
+          <label class="ln-btn ln-btn--ghost" style="cursor: pointer;">
+            가져오기
+            <input type="file" id="ti-import" accept="application/json,.json" style="display: none;" />
+          </label>
+        </div>
+      </section>
+
+      <!-- 목록 -->
+      <section>
+        <div class="ln-toolbar">
+          <input type="search" id="ti-search" placeholder="용어·정의·메모에서 검색..." />
+          <button class="ln-btn ti-sort-btn is-active" data-sort="recent">최근 등록순</button>
+          <button class="ln-btn ti-sort-btn" data-sort="term-asc">용어 가나다순</button>
+          <button class="ln-btn ti-sort-btn" data-sort="category">카테고리별</button>
+        </div>
+
+        <div class="ti-chips" id="ti-chips"></div>
+        <div id="ti-list"></div>
+      </section>
+    </article>
+  </template>
+
   <!-- ============================================
        JS — 템플릿 기반 라우터 (fetch 사용 안 함, file:// 동작)
        ============================================ -->
@@ -1984,6 +2630,7 @@
           items: [
             { id: "my-framework", title: "내 관점의 전체 프레임", tpl: "tpl-my-framework" },
             { id: "glossary", title: "용어 정리", tpl: "tpl-glossary" },
+            { id: "term-input", title: "용어 입력", tpl: "tpl-term-input" },
             { id: "topic-system", title: "주제 시스템 (AI · 책)", tpl: "tpl-topic-system" },
           ],
         },
@@ -1991,6 +2638,12 @@
           heading: "강의 정리",
           items: [
             { id: "lecture-1", title: "1강 · 비즈니스PT 종합 정리 (1주차)", tpl: "tpl-lecture-1" },
+          ],
+        },
+        {
+          heading: "강의 노트",
+          items: [
+            { id: "lecture-notes", title: "강의 노트 (날짜별 기록)", tpl: "tpl-lecture-notes" },
           ],
         },
         {
@@ -2237,9 +2890,9 @@
         g("tc-pulling").textContent = fmt(pullingViews);
         g("tc-videos").textContent = fmt(videoCount);
         g("tc-daily-hint").textContent = `÷ ${v.days || DEFAULTS.days}일`;
-        g("tc-landing-hint").textContent = `÷ ${v.paidRate}% (구매전환율)`;
-        g("tc-key-hint").textContent = `÷ ${v.clickRate}% (링크클릭률)`;
-        g("tc-pulling-hint").textContent = `÷ ${v.keyRate}% (키연계율)`;
+        g("tc-landing-hint").textContent = `÷ ${v.paidRate}% (구매 전환율)`;
+        g("tc-key-hint").textContent = `÷ ${v.clickRate}% (링크 클릭률)`;
+        g("tc-pulling-hint").textContent = `÷ ${v.keyRate}% (키콘텐츠 연계율)`;
         g("tc-videos-hint").textContent = `÷ ${(v.viewsPerVid || DEFAULTS.viewsPerVid).toLocaleString("ko-KR")}회/영상`;
 
         // 도식 업데이트 (활성 포커스 입력은 덮어쓰지 않음 — 타이핑 방해 방지)
@@ -2258,6 +2911,22 @@
         if (document.activeElement && document.activeElement.id !== "tc-fd-name") {
           const n = g("tc-name").value || "";
           if (g("tc-fd-name").value !== n) g("tc-fd-name").value = n;
+        }
+
+        // 매출 공식 도식(SVG) 값 주입 — 2-2강 스타일
+        const tcf = id => document.getElementById(id);
+        if (tcf("tcf-revenue")) {
+          const days = v.days || DEFAULTS.days;
+          const revMan = (v.revenue || 0) / 10000;
+          tcf("tcf-revenue").textContent = `${revMan.toLocaleString("ko-KR")}만원/${days}일`;
+          tcf("tcf-aov").textContent = (v.aov || 0).toLocaleString("ko-KR") + "원";
+          tcf("tcf-q").textContent = `${fmt(q)}명/${days}일`;
+          tcf("tcf-landing").textContent = `${fmt(landing)}명`;
+          tcf("tcf-key").textContent = `${fmt(keyViews)}회`;
+          tcf("tcf-pulling").textContent = `${fmt(pullingViews)}회`;
+          tcf("tcf-paid-rate").textContent = `${v.paidRate}%`;
+          tcf("tcf-click-rate").textContent = `${v.clickRate}%`;
+          tcf("tcf-key-rate").textContent = `${v.keyRate}%`;
         }
       }
 
@@ -2627,7 +3296,7 @@
                 <div class="tc-diagram__chevron">→</div>
               </div>
               <div class="tc-diagram__stage">
-                <div class="tc-diagram__head"><div class="tc-diagram__num">②</div><div class="tc-diagram__label">하루 랜딩</div></div>
+                <div class="tc-diagram__head"><div class="tc-diagram__num">②</div><div class="tc-diagram__label">하루 랜딩 접속</div></div>
                 <div class="tc-diagram__value">${fmt(f.dLanding)}<span class="tc-diagram__unit">명/일</span></div>
               </div>
               <div class="tc-diagram__arrow">
@@ -2636,12 +3305,12 @@
                 <div class="tc-diagram__chevron">→</div>
               </div>
               <div class="tc-diagram__stage">
-                <div class="tc-diagram__head"><div class="tc-diagram__num">③</div><div class="tc-diagram__label">하루 키 조회</div></div>
+                <div class="tc-diagram__head"><div class="tc-diagram__num">③</div><div class="tc-diagram__label">하루 키콘텐츠 조회</div></div>
                 <div class="tc-diagram__value">${fmt(f.dKey)}<span class="tc-diagram__unit">회/일</span></div>
               </div>
               <div class="tc-diagram__arrow">
                 <div class="tc-diagram__rate">÷ ${s.keyRate}%</div>
-                <div class="tc-diagram__rate-sub">키 연계율</div>
+                <div class="tc-diagram__rate-sub">키콘텐츠 연계율</div>
                 <div class="tc-diagram__chevron">→</div>
               </div>
               <div class="tc-diagram__stage tc-diagram__stage--end">
@@ -2692,6 +3361,944 @@
       });
 
       renderList();
+    };
+
+    // ============================================
+    // 강의 노트 페이지 초기화 (IndexedDB 기반)
+    // ============================================
+    pageInits["tpl-lecture-notes"] = () => {
+      const DB_NAME = "bizpt-lecture-notes";
+      const DB_VERSION = 1;
+      const STORE = "notes";
+      const SORT_KEY = "bizpt_lecture_notes_sort_v1";
+
+      const g = id => document.getElementById(id);
+      const objectUrls = new Set(); // 페이지 이탈 시 정리할 URL들
+
+      // ---------- IndexedDB 헬퍼 ----------
+      function openDb() {
+        return new Promise((resolve, reject) => {
+          const req = indexedDB.open(DB_NAME, DB_VERSION);
+          req.onupgradeneeded = () => {
+            const db = req.result;
+            if (!db.objectStoreNames.contains(STORE)) {
+              db.createObjectStore(STORE, { keyPath: "id" });
+            }
+          };
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        });
+      }
+      async function dbGetAll() {
+        const db = await openDb();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(STORE, "readonly");
+          const req = tx.objectStore(STORE).getAll();
+          req.onsuccess = () => resolve(req.result || []);
+          req.onerror = () => reject(req.error);
+          tx.oncomplete = () => db.close();
+        });
+      }
+      async function dbPut(note) {
+        const db = await openDb();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(STORE, "readwrite");
+          tx.objectStore(STORE).put(note);
+          tx.oncomplete = () => { db.close(); resolve(); };
+          tx.onerror = () => reject(tx.error);
+        });
+      }
+      async function dbDelete(id) {
+        const db = await openDb();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(STORE, "readwrite");
+          tx.objectStore(STORE).delete(id);
+          tx.oncomplete = () => { db.close(); resolve(); };
+          tx.onerror = () => reject(tx.error);
+        });
+      }
+
+      // ---------- 상태 ----------
+      let editingId = null; // null이면 새 노트, 아니면 수정 중인 노트 id
+      let pendingImages = []; // [{ id, name, type, size, blob }]
+      let cachedNotes = [];
+      let sortMode = localStorage.getItem(SORT_KEY) || "recent"; // recent | date-desc | date-asc
+      let searchQuery = "";
+      let lbImages = [];
+      let lbIdx = 0;
+
+      // ---------- 유틸 ----------
+      function uid(prefix) {
+        return prefix + "_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8);
+      }
+      function todayStr() {
+        const d = new Date();
+        const m = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        return `${d.getFullYear()}-${m}-${day}`;
+      }
+      function formatDate(iso) {
+        if (!iso) return "—";
+        try {
+          const d = new Date(iso + "T00:00:00");
+          return d.toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", weekday: "short" });
+        } catch (e) { return iso; }
+      }
+      function fileSize(n) {
+        if (n < 1024) return n + " B";
+        if (n < 1024 * 1024) return (n / 1024).toFixed(1) + " KB";
+        return (n / (1024 * 1024)).toFixed(1) + " MB";
+      }
+      function makeUrl(blob) {
+        const url = URL.createObjectURL(blob);
+        objectUrls.add(url);
+        return url;
+      }
+      function revokeAllUrls() {
+        objectUrls.forEach(u => URL.revokeObjectURL(u));
+        objectUrls.clear();
+      }
+      function status(msg, type) {
+        const el = g("ln-form-status");
+        if (!el) return;
+        el.textContent = msg;
+        el.style.color = type === "error" ? "var(--danger)"
+                       : type === "warn" ? "var(--warning)"
+                       : "var(--success)";
+        clearTimeout(status._t);
+        if (msg) status._t = setTimeout(() => { el.textContent = ""; }, 2400);
+      }
+
+      // ---------- 폼 ----------
+      function resetForm() {
+        editingId = null;
+        pendingImages = [];
+        g("ln-date").value = todayStr();
+        g("ln-title").value = "";
+        g("ln-content").value = "";
+        g("ln-form-mode").textContent = "새 노트";
+        g("ln-editing-title").textContent = "";
+        g("ln-cancel").style.display = "none";
+        g("ln-save").textContent = "저장";
+        renderPreview();
+      }
+      function loadIntoForm(note) {
+        editingId = note.id;
+        pendingImages = (note.images || []).map(img => ({ ...img })); // shallow copy
+        g("ln-date").value = note.date || todayStr();
+        g("ln-title").value = note.title || "";
+        g("ln-content").value = note.content || "";
+        g("ln-form-mode").textContent = "수정 중";
+        g("ln-editing-title").textContent = note.title ? `「${note.title}」` : "";
+        g("ln-cancel").style.display = "";
+        g("ln-save").textContent = "수정 저장";
+        renderPreview();
+        g("ln-form").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function renderPreview() {
+        const box = g("ln-preview");
+        if (!pendingImages.length) { box.innerHTML = ""; return; }
+        box.innerHTML = pendingImages.map((img, i) => `
+          <div class="ln-preview__item">
+            <img src="${makeUrl(img.blob)}" alt="${escapeHtml(img.name || "")}" />
+            <button class="ln-preview__remove" data-rm="${i}" title="제거" aria-label="이미지 제거">×</button>
+            <div class="ln-preview__name">${escapeHtml(img.name || "untitled")}</div>
+          </div>
+        `).join("");
+        box.querySelectorAll("[data-rm]").forEach(btn => {
+          btn.addEventListener("click", e => {
+            e.preventDefault();
+            const i = +btn.dataset.rm;
+            pendingImages.splice(i, 1);
+            renderPreview();
+          });
+        });
+      }
+
+      // ---------- 이미지 추가 ----------
+      function addFiles(fileList) {
+        const files = [...fileList].filter(f => f && f.type && f.type.startsWith("image/"));
+        if (!files.length) return;
+        files.forEach(f => {
+          pendingImages.push({
+            id: uid("img"),
+            name: f.name || "pasted-image.png",
+            type: f.type,
+            size: f.size,
+            blob: f,
+          });
+        });
+        renderPreview();
+      }
+
+      // ---------- 저장/불러오기/삭제 ----------
+      async function saveNote() {
+        const date = g("ln-date").value;
+        const title = g("ln-title").value.trim();
+        const content = g("ln-content").value;
+
+        if (!date) { status("강의 일자를 입력하세요.", "error"); g("ln-date").focus(); return; }
+        if (!title && !content && !pendingImages.length) {
+          status("제목·내용·이미지 중 하나는 입력하세요.", "error");
+          g("ln-title").focus();
+          return;
+        }
+
+        const now = Date.now();
+        const note = editingId
+          ? { ...(cachedNotes.find(n => n.id === editingId) || {}), id: editingId, date, title, content, images: pendingImages, updatedAt: now }
+          : { id: uid("note"), date, title, content, images: pendingImages, createdAt: now, updatedAt: now };
+        if (!note.createdAt) note.createdAt = now;
+
+        try {
+          await dbPut(note);
+          status(editingId ? "수정 저장됨" : "새 노트가 저장되었습니다");
+          resetForm();
+          await refresh();
+        } catch (e) {
+          console.error(e);
+          status("저장 실패: " + (e?.message || e), "error");
+        }
+      }
+
+      async function deleteNote(id) {
+        const n = cachedNotes.find(x => x.id === id);
+        if (!n) return;
+        const label = n.title || formatDate(n.date) || "이 노트";
+        if (!confirm(`"${label}" 노트를 삭제할까요? (되돌릴 수 없습니다)`)) return;
+        try {
+          await dbDelete(id);
+          if (editingId === id) resetForm();
+          await refresh();
+        } catch (e) {
+          alert("삭제 실패: " + (e?.message || e));
+        }
+      }
+
+      // ---------- 검색·정렬 ----------
+      function filterAndSort(notes) {
+        const q = searchQuery.trim().toLowerCase();
+        let arr = notes.slice();
+        if (q) {
+          arr = arr.filter(n =>
+            (n.title || "").toLowerCase().includes(q) ||
+            (n.content || "").toLowerCase().includes(q)
+          );
+        }
+        if (sortMode === "date-desc") {
+          arr.sort((a, b) => (b.date || "").localeCompare(a.date || "") || (b.createdAt || 0) - (a.createdAt || 0));
+        } else if (sortMode === "date-asc") {
+          arr.sort((a, b) => (a.date || "").localeCompare(b.date || "") || (a.createdAt || 0) - (b.createdAt || 0));
+        } else {
+          arr.sort((a, b) => (b.updatedAt || b.createdAt || 0) - (a.updatedAt || a.createdAt || 0));
+        }
+        return arr;
+      }
+
+      // ---------- 목록 렌더 ----------
+      function renderList() {
+        const box = g("ln-list");
+        const list = filterAndSort(cachedNotes);
+        const tag = g("ln-count-tag");
+        if (tag) tag.textContent = `${cachedNotes.length}개`;
+
+        if (!list.length) {
+          if (!cachedNotes.length) {
+            box.innerHTML = `
+              <div class="ln-empty">
+                <div class="ln-empty__icon">📝</div>
+                <div>아직 저장된 노트가 없습니다.</div>
+                <div style="font-size: 12px; margin-top: 6px; color: var(--text-3);">
+                  위 폼에서 첫 강의 노트를 작성해보세요.
+                </div>
+              </div>`;
+          } else {
+            box.innerHTML = `<div class="ln-empty"><div class="ln-empty__icon">🔍</div>검색 결과가 없습니다.</div>`;
+          }
+          return;
+        }
+
+        box.innerHTML = list.map(n => {
+          const imgs = n.images || [];
+          const imgsHtml = imgs.length
+            ? `<div class="ln-card__images ln-card__images--thumb" data-img-id="${n.id}">${
+                imgs.slice(0, 6).map((img, i) => `
+                  <div class="ln-thumb" data-note="${n.id}" data-idx="${i}" title="${escapeHtml(img.name || "")}">
+                    <img src="${makeUrl(img.blob)}" alt="${escapeHtml(img.name || "")}" />
+                  </div>
+                `).join("")
+              }${imgs.length > 6
+                ? `<div class="ln-thumb" data-note="${n.id}" data-idx="6" style="display: grid; place-items: center; color: var(--text-2); font-size: 13px;">+${imgs.length - 6}</div>`
+                : ""}</div>`
+            : "";
+          const updated = n.updatedAt && n.updatedAt !== n.createdAt
+            ? `· 수정 ${new Date(n.updatedAt).toLocaleString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })}`
+            : "";
+          const created = n.createdAt
+            ? new Date(n.createdAt).toLocaleString("ko-KR", { year: "2-digit", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
+            : "";
+          return `
+            <article class="ln-card" data-id="${n.id}">
+              <div class="ln-card__head">
+                <div class="ln-card__meta">
+                  <span class="ln-card__date">${escapeHtml(formatDate(n.date))}</span>
+                  <span class="ln-card__title">${escapeHtml(n.title || "(제목 없음)")}</span>
+                </div>
+                <div class="ln-card__actions">
+                  <button class="ln-btn" data-act="edit">편집</button>
+                  <button class="ln-btn ln-btn--danger" data-act="del">삭제</button>
+                </div>
+              </div>
+              ${n.content
+                ? `<div class="ln-card__content ln-card__content--collapsed" data-content>${escapeHtml(n.content)}</div>
+                   <button class="ln-card__expand" data-act="toggle">전체 보기</button>`
+                : ""}
+              ${imgsHtml}
+              <div class="ln-card__footer">
+                <span>등록 ${escapeHtml(created)} ${escapeHtml(updated)}</span>
+                <span>${imgs.length ? `🖼️ ${imgs.length}장` : ""}</span>
+              </div>
+            </article>
+          `;
+        }).join("");
+
+        // 카드 액션 바인딩
+        box.querySelectorAll(".ln-card").forEach(card => {
+          const id = card.dataset.id;
+          card.querySelector('[data-act="edit"]')?.addEventListener("click", () => {
+            const note = cachedNotes.find(x => x.id === id);
+            if (note) loadIntoForm(note);
+          });
+          card.querySelector('[data-act="del"]')?.addEventListener("click", () => deleteNote(id));
+          const toggleBtn = card.querySelector('[data-act="toggle"]');
+          const contentEl = card.querySelector("[data-content]");
+          if (toggleBtn && contentEl) {
+            toggleBtn.addEventListener("click", () => {
+              const collapsed = contentEl.classList.toggle("ln-card__content--collapsed");
+              toggleBtn.textContent = collapsed ? "전체 보기" : "접기";
+            });
+          }
+          card.querySelectorAll(".ln-thumb[data-idx]").forEach(t => {
+            t.addEventListener("click", () => {
+              const note = cachedNotes.find(x => x.id === id);
+              if (!note) return;
+              openLightbox(note.images || [], +t.dataset.idx);
+            });
+          });
+        });
+      }
+
+      // ---------- 라이트박스 ----------
+      function openLightbox(images, idx) {
+        if (!images.length) return;
+        lbImages = images;
+        lbIdx = Math.max(0, Math.min(idx, images.length - 1));
+        const lb = g("ln-lightbox");
+        showLb();
+        lb.classList.add("is-open");
+      }
+      function closeLightbox() {
+        const lb = g("ln-lightbox");
+        lb.classList.remove("is-open");
+      }
+      function showLb() {
+        const img = lbImages[lbIdx];
+        if (!img) return;
+        g("ln-lb-img").src = makeUrl(img.blob);
+        g("ln-lb-img").alt = img.name || "";
+        g("ln-lb-caption").textContent = `${img.name || "이미지"} · ${fileSize(img.size || 0)} · ${lbIdx + 1}/${lbImages.length}`;
+        g("ln-lb-prev").style.visibility = lbImages.length > 1 ? "" : "hidden";
+        g("ln-lb-next").style.visibility = lbImages.length > 1 ? "" : "hidden";
+      }
+      g("ln-lb-close").addEventListener("click", closeLightbox);
+      g("ln-lb-prev").addEventListener("click", () => { lbIdx = (lbIdx - 1 + lbImages.length) % lbImages.length; showLb(); });
+      g("ln-lb-next").addEventListener("click", () => { lbIdx = (lbIdx + 1) % lbImages.length; showLb(); });
+      g("ln-lightbox").addEventListener("click", e => { if (e.target === e.currentTarget) closeLightbox(); });
+      const lbKeyHandler = e => {
+        if (!g("ln-lightbox").classList.contains("is-open")) return;
+        if (e.key === "Escape") closeLightbox();
+        else if (e.key === "ArrowLeft") g("ln-lb-prev").click();
+        else if (e.key === "ArrowRight") g("ln-lb-next").click();
+      };
+      document.addEventListener("keydown", lbKeyHandler);
+
+      // ---------- 새로고침 ----------
+      async function refresh() {
+        try {
+          // 이전 URL들은 재렌더 후 어차피 재생성되므로 여기서 정리
+          revokeAllUrls();
+          cachedNotes = await dbGetAll();
+          renderList();
+          renderPreview(); // 폼에도 URL 재발급
+        } catch (e) {
+          console.error(e);
+          g("ln-list").innerHTML = `<div class="warn-card"><h3>저장소 접근 실패</h3><p>${escapeHtml(e?.message || String(e))}</p></div>`;
+        }
+      }
+
+      // ---------- 가져오기/내보내기 ----------
+      function blobToDataUrl(blob) {
+        return new Promise((resolve, reject) => {
+          const r = new FileReader();
+          r.onload = () => resolve(r.result);
+          r.onerror = () => reject(r.error);
+          r.readAsDataURL(blob);
+        });
+      }
+      function dataUrlToBlob(dataUrl) {
+        const [meta, b64] = dataUrl.split(",");
+        const m = /data:([^;]+);base64/.exec(meta);
+        const type = m ? m[1] : "application/octet-stream";
+        const bin = atob(b64);
+        const arr = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+        return new Blob([arr], { type });
+      }
+
+      async function exportAll() {
+        if (!cachedNotes.length) { alert("내보낼 노트가 없습니다."); return; }
+        try {
+          const data = [];
+          for (const n of cachedNotes) {
+            const images = [];
+            for (const img of (n.images || [])) {
+              images.push({
+                id: img.id, name: img.name, type: img.type, size: img.size,
+                dataUrl: await blobToDataUrl(img.blob),
+              });
+            }
+            data.push({ ...n, images });
+          }
+          const payload = { version: 1, exportedAt: new Date().toISOString(), notes: data };
+          const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          const stamp = new Date().toISOString().slice(0, 10);
+          a.href = url; a.download = `bizpt-lecture-notes-${stamp}.json`;
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          status(`${data.length}개 노트를 내보냈습니다`);
+        } catch (e) {
+          alert("내보내기 실패: " + (e?.message || e));
+        }
+      }
+
+      async function importFile(file) {
+        try {
+          const text = await file.text();
+          const payload = JSON.parse(text);
+          const notes = Array.isArray(payload) ? payload : payload.notes;
+          if (!Array.isArray(notes)) throw new Error("형식이 올바르지 않습니다");
+
+          let added = 0, updated = 0;
+          for (const n of notes) {
+            if (!n || !n.id) continue;
+            const images = (n.images || []).map(img => {
+              if (img.blob instanceof Blob) return img;
+              if (typeof img.dataUrl === "string") {
+                return { id: img.id || uid("img"), name: img.name || "image", type: img.type || "image/png", size: img.size || 0, blob: dataUrlToBlob(img.dataUrl) };
+              }
+              return null;
+            }).filter(Boolean);
+            const existing = cachedNotes.find(x => x.id === n.id);
+            const merged = {
+              id: n.id,
+              date: n.date || todayStr(),
+              title: n.title || "",
+              content: n.content || "",
+              images,
+              createdAt: n.createdAt || Date.now(),
+              updatedAt: n.updatedAt || Date.now(),
+            };
+            await dbPut(merged);
+            if (existing) updated++; else added++;
+          }
+          await refresh();
+          alert(`가져오기 완료 — 신규 ${added}, 갱신 ${updated}`);
+        } catch (e) {
+          alert("가져오기 실패: " + (e?.message || e));
+        }
+      }
+
+      // ---------- 이벤트 바인딩 ----------
+      g("ln-save").addEventListener("click", saveNote);
+      g("ln-cancel").addEventListener("click", () => { resetForm(); status("편집 취소됨", "warn"); });
+      g("ln-clear").addEventListener("click", () => {
+        if (editingId) {
+          if (!confirm("편집 중인 변경사항을 버리고 폼을 초기화할까요?")) return;
+        }
+        resetForm();
+      });
+
+      g("ln-file").addEventListener("change", e => {
+        addFiles(e.target.files);
+        e.target.value = "";
+      });
+
+      // 드래그 앤 드롭 — 폼 전체에서 동작
+      const drop = g("ln-drop");
+      const formEl = g("ln-form");
+      ["dragenter", "dragover"].forEach(ev => {
+        formEl.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("is-drag"); });
+      });
+      ["dragleave", "drop"].forEach(ev => {
+        formEl.addEventListener(ev, e => {
+          if (ev === "drop") { e.preventDefault(); addFiles(e.dataTransfer.files); }
+          if (ev === "dragleave" && e.target !== formEl) return;
+          drop.classList.remove("is-drag");
+        });
+      });
+
+      // 클립보드 붙여넣기 (폼 영역에 포커스되어 있을 때)
+      const pasteHandler = e => {
+        if (!formEl.contains(document.activeElement) && document.activeElement !== document.body) return;
+        const items = e.clipboardData?.items;
+        if (!items) return;
+        const files = [];
+        for (const it of items) {
+          if (it.kind === "file" && it.type.startsWith("image/")) {
+            const f = it.getAsFile();
+            if (f) files.push(f);
+          }
+        }
+        if (files.length) {
+          e.preventDefault();
+          addFiles(files);
+          status(`${files.length}장 붙여넣음`);
+        }
+      };
+      document.addEventListener("paste", pasteHandler);
+
+      // 단축키 Ctrl/Cmd+S 저장
+      const saveKey = e => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+          if (formEl.contains(document.activeElement)) {
+            e.preventDefault();
+            saveNote();
+          }
+        }
+      };
+      document.addEventListener("keydown", saveKey);
+
+      // 정렬 토글
+      document.querySelectorAll(".ln-sort-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          sortMode = btn.dataset.sort;
+          localStorage.setItem(SORT_KEY, sortMode);
+          document.querySelectorAll(".ln-sort-btn").forEach(b => b.classList.toggle("is-active", b.dataset.sort === sortMode));
+          renderList();
+        });
+      });
+
+      g("ln-search").addEventListener("input", e => {
+        searchQuery = e.target.value;
+        renderList();
+      });
+
+      g("ln-export").addEventListener("click", exportAll);
+      g("ln-import").addEventListener("change", e => {
+        const f = e.target.files[0];
+        if (f) importFile(f);
+        e.target.value = "";
+      });
+
+      // 페이지 이탈 정리 — 다음 navigate가 호출되어 #content가 비워지면 핸들러도 제거
+      const cleanup = () => {
+        document.removeEventListener("paste", pasteHandler);
+        document.removeEventListener("keydown", saveKey);
+        document.removeEventListener("keydown", lbKeyHandler);
+        revokeAllUrls();
+        observer.disconnect();
+      };
+      const observer = new MutationObserver(() => {
+        // 폼이 DOM에서 제거되면 cleanup
+        if (!document.body.contains(formEl)) cleanup();
+      });
+      observer.observe(document.getElementById("content"), { childList: true });
+
+      // ---------- 초기화 ----------
+      // 정렬 버튼 초기 활성 상태
+      document.querySelectorAll(".ln-sort-btn").forEach(b => b.classList.toggle("is-active", b.dataset.sort === sortMode));
+      resetForm();
+      refresh();
+    };
+
+    // ============================================
+    // 용어 입력 페이지 초기화 (localStorage 기반)
+    // ============================================
+    pageInits["tpl-term-input"] = () => {
+      const STORAGE_KEY = "bizpt_terms_v1";
+      const SORT_KEY = "bizpt_terms_sort_v1";
+      const FILTER_KEY = "bizpt_terms_filter_v1";
+
+      const g = id => document.getElementById(id);
+
+      let editingId = null;
+      let cachedTerms = [];
+      let sortMode = localStorage.getItem(SORT_KEY) || "recent"; // recent | term-asc | category
+      let categoryFilter = localStorage.getItem(FILTER_KEY) || ""; // "" = 전체
+      let searchQuery = "";
+
+      // ---------- 저장소 ----------
+      function loadAll() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+        catch (e) { return []; }
+      }
+      function saveAll(list) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); return true; }
+        catch (e) { alert("저장 실패: " + e.message); return false; }
+      }
+
+      function uid() {
+        return "term_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8);
+      }
+      function status(msg, type) {
+        const el = g("ti-form-status");
+        if (!el) return;
+        el.textContent = msg;
+        el.style.color = type === "error" ? "var(--danger)"
+                       : type === "warn" ? "var(--warning)"
+                       : "var(--success)";
+        clearTimeout(status._t);
+        if (msg) status._t = setTimeout(() => { el.textContent = ""; }, 2400);
+      }
+
+      // ---------- 폼 ----------
+      function resetForm() {
+        editingId = null;
+        g("ti-category").value = "";
+        g("ti-term").value = "";
+        g("ti-definition").value = "";
+        g("ti-source").value = "";
+        g("ti-note").value = "";
+        g("ti-form-mode").textContent = "새 용어";
+        g("ti-editing-title").textContent = "";
+        g("ti-cancel").style.display = "none";
+        g("ti-save").textContent = "저장";
+      }
+      function loadIntoForm(t) {
+        editingId = t.id;
+        g("ti-category").value = t.category || "";
+        g("ti-term").value = t.term || "";
+        g("ti-definition").value = t.definition || "";
+        g("ti-source").value = t.source || "";
+        g("ti-note").value = t.note || "";
+        g("ti-form-mode").textContent = "수정 중";
+        g("ti-editing-title").textContent = t.term ? `「${t.term}」` : "";
+        g("ti-cancel").style.display = "";
+        g("ti-save").textContent = "수정 저장";
+        g("ti-form").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function saveTerm() {
+        const category = g("ti-category").value.trim();
+        const term = g("ti-term").value.trim();
+        const definition = g("ti-definition").value.trim();
+        const source = g("ti-source").value.trim();
+        const note = g("ti-note").value.trim();
+
+        if (!term) { status("용어를 입력하세요.", "error"); g("ti-term").focus(); return; }
+        if (!definition) { status("정의를 입력하세요.", "error"); g("ti-definition").focus(); return; }
+
+        const list = loadAll();
+        const now = Date.now();
+
+        // 중복 검사 (편집 중인 것 제외, 같은 카테고리 안에서)
+        const dup = list.find(t =>
+          t.id !== editingId &&
+          t.term.toLowerCase() === term.toLowerCase() &&
+          (t.category || "").toLowerCase() === category.toLowerCase()
+        );
+        if (dup) {
+          if (!confirm(`동일한 용어가 이미 있습니다 (${dup.category || "(미분류)"} > ${dup.term}). 그래도 추가할까요?`)) return;
+        }
+
+        if (editingId) {
+          const i = list.findIndex(t => t.id === editingId);
+          if (i >= 0) {
+            list[i] = { ...list[i], category, term, definition, source, note, updatedAt: now };
+          }
+        } else {
+          list.push({
+            id: uid(), category, term, definition, source, note,
+            createdAt: now, updatedAt: now,
+          });
+        }
+        if (!saveAll(list)) return;
+        status(editingId ? "수정 저장됨" : "새 용어가 저장되었습니다");
+        resetForm();
+        refresh();
+      }
+
+      function deleteTerm(id) {
+        const list = loadAll();
+        const t = list.find(x => x.id === id);
+        if (!t) return;
+        if (!confirm(`"${t.term}" 용어를 삭제할까요? (되돌릴 수 없습니다)`)) return;
+        const next = list.filter(x => x.id !== id);
+        saveAll(next);
+        if (editingId === id) resetForm();
+        refresh();
+      }
+
+      // ---------- 검색·필터·정렬 ----------
+      function highlight(text, q) {
+        if (!q || !text) return escapeHtml(text || "");
+        const re = new RegExp(escapeRegExp(q), "gi");
+        return escapeHtml(text).replace(
+          new RegExp(escapeRegExp(escapeHtml(q)), "gi"),
+          m => `<span class="ti-highlight">${m}</span>`
+        );
+      }
+
+      function applyFiltersAndSort(terms) {
+        const q = searchQuery.trim().toLowerCase();
+        let arr = terms.slice();
+        if (categoryFilter) {
+          arr = arr.filter(t => (t.category || "") === categoryFilter);
+        }
+        if (q) {
+          arr = arr.filter(t =>
+            (t.term || "").toLowerCase().includes(q) ||
+            (t.definition || "").toLowerCase().includes(q) ||
+            (t.note || "").toLowerCase().includes(q) ||
+            (t.source || "").toLowerCase().includes(q) ||
+            (t.category || "").toLowerCase().includes(q)
+          );
+        }
+        if (sortMode === "term-asc") {
+          arr.sort((a, b) => (a.term || "").localeCompare(b.term || "", "ko"));
+        } else if (sortMode === "category") {
+          arr.sort((a, b) => {
+            const ca = (a.category || "ㅎ미분류").localeCompare(b.category || "ㅎ미분류", "ko");
+            if (ca !== 0) return ca;
+            return (a.term || "").localeCompare(b.term || "", "ko");
+          });
+        } else {
+          arr.sort((a, b) => (b.updatedAt || b.createdAt || 0) - (a.updatedAt || a.createdAt || 0));
+        }
+        return arr;
+      }
+
+      function renderChips() {
+        const counts = new Map();
+        cachedTerms.forEach(t => {
+          const k = t.category || "(미분류)";
+          counts.set(k, (counts.get(k) || 0) + 1);
+        });
+        const cats = [...counts.keys()].sort((a, b) => a.localeCompare(b, "ko"));
+        const box = g("ti-chips");
+        if (!cats.length) { box.innerHTML = ""; return; }
+        const allActive = !categoryFilter ? "is-active" : "";
+        const total = cachedTerms.length;
+        box.innerHTML = `<button class="ti-chip ${allActive}" data-cat="">전체<span class="ti-chip__count">${total}</span></button>` +
+          cats.map(c => {
+            const real = c === "(미분류)" ? "" : c;
+            const active = categoryFilter === real ? "is-active" : "";
+            return `<button class="ti-chip ${active}" data-cat="${escapeHtml(real)}">${escapeHtml(c)}<span class="ti-chip__count">${counts.get(c)}</span></button>`;
+          }).join("");
+        box.querySelectorAll(".ti-chip").forEach(btn => {
+          btn.addEventListener("click", () => {
+            categoryFilter = btn.dataset.cat || "";
+            localStorage.setItem(FILTER_KEY, categoryFilter);
+            renderChips();
+            renderList();
+          });
+        });
+      }
+
+      function renderCatDatalist() {
+        const cats = [...new Set(cachedTerms.map(t => t.category).filter(Boolean))]
+          .sort((a, b) => a.localeCompare(b, "ko"));
+        g("ti-cat-list").innerHTML = cats.map(c => `<option value="${escapeHtml(c)}"></option>`).join("");
+      }
+
+      function renderList() {
+        const box = g("ti-list");
+        const list = applyFiltersAndSort(cachedTerms);
+        const tag = g("ti-count-tag");
+        if (tag) tag.textContent = `${cachedTerms.length}개`;
+
+        if (!list.length) {
+          if (!cachedTerms.length) {
+            box.innerHTML = `
+              <div class="ln-empty">
+                <div class="ln-empty__icon">📚</div>
+                <div>아직 입력된 용어가 없습니다.</div>
+                <div style="font-size: 12px; margin-top: 6px; color: var(--text-3);">
+                  위 폼에서 첫 용어를 추가해 보세요.
+                </div>
+              </div>`;
+          } else {
+            box.innerHTML = `<div class="ln-empty"><div class="ln-empty__icon">🔍</div>조건에 맞는 용어가 없습니다.</div>`;
+          }
+          return;
+        }
+
+        const q = searchQuery.trim();
+        const renderCard = t => {
+          const cat = t.category || "(미분류)";
+          const meta = [];
+          if (t.source) meta.push(`<span><strong>출처</strong> ${highlight(t.source, q)}</span>`);
+          if (t.note) meta.push(`<span><strong>메모</strong> ${highlight(t.note, q)}</span>`);
+          const updated = t.updatedAt ? new Date(t.updatedAt).toLocaleDateString("ko-KR", { year: "2-digit", month: "2-digit", day: "2-digit" }) : "";
+          meta.push(`<span style="margin-left: auto; color: var(--text-3);">${updated}</span>`);
+          return `
+            <div class="ti-card" data-id="${t.id}">
+              <div class="ti-card__head">
+                <div>
+                  <span class="ti-card__cat">${escapeHtml(cat)}</span>
+                  <span class="ti-card__term">${highlight(t.term, q)}</span>
+                </div>
+                <div class="ti-card__actions">
+                  <button class="ln-btn" data-act="edit">편집</button>
+                  <button class="ln-btn ln-btn--danger" data-act="del">삭제</button>
+                </div>
+              </div>
+              <div class="ti-card__definition">${highlight(t.definition, q)}</div>
+              ${meta.length ? `<div class="ti-card__meta">${meta.join("")}</div>` : ""}
+            </div>
+          `;
+        };
+
+        if (sortMode === "category") {
+          // 카테고리별 그룹핑
+          const groups = new Map();
+          list.forEach(t => {
+            const k = t.category || "(미분류)";
+            if (!groups.has(k)) groups.set(k, []);
+            groups.get(k).push(t);
+          });
+          box.innerHTML = [...groups.entries()].map(([cat, items]) => `
+            <div class="ti-group">
+              <div class="ti-group__head">
+                <div class="ti-group__name">${escapeHtml(cat)}</div>
+                <div class="ti-group__count">${items.length}개</div>
+              </div>
+              ${items.map(renderCard).join("")}
+            </div>
+          `).join("");
+        } else {
+          box.innerHTML = list.map(renderCard).join("");
+        }
+
+        // 액션 바인딩
+        box.querySelectorAll(".ti-card").forEach(card => {
+          const id = card.dataset.id;
+          card.querySelector('[data-act="edit"]')?.addEventListener("click", () => {
+            const t = cachedTerms.find(x => x.id === id);
+            if (t) loadIntoForm(t);
+          });
+          card.querySelector('[data-act="del"]')?.addEventListener("click", () => deleteTerm(id));
+        });
+      }
+
+      function refresh() {
+        cachedTerms = loadAll();
+        renderCatDatalist();
+        renderChips();
+        renderList();
+      }
+
+      // ---------- 가져오기/내보내기 ----------
+      function exportAll() {
+        if (!cachedTerms.length) { alert("내보낼 용어가 없습니다."); return; }
+        const payload = { version: 1, exportedAt: new Date().toISOString(), terms: cachedTerms };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        const stamp = new Date().toISOString().slice(0, 10);
+        a.href = url; a.download = `bizpt-terms-${stamp}.json`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        status(`${cachedTerms.length}개 용어를 내보냈습니다`);
+      }
+
+      async function importFile(file) {
+        try {
+          const text = await file.text();
+          const data = JSON.parse(text);
+          const incoming = Array.isArray(data) ? data : data.terms;
+          if (!Array.isArray(incoming)) throw new Error("형식이 올바르지 않습니다");
+
+          const list = loadAll();
+          let added = 0, updated = 0;
+          incoming.forEach(t => {
+            if (!t || !t.term) return;
+            const norm = {
+              id: t.id || uid(),
+              category: t.category || "",
+              term: t.term,
+              definition: t.definition || "",
+              source: t.source || "",
+              note: t.note || "",
+              createdAt: t.createdAt || Date.now(),
+              updatedAt: t.updatedAt || Date.now(),
+            };
+            const i = list.findIndex(x => x.id === norm.id);
+            if (i >= 0) { list[i] = norm; updated++; }
+            else { list.push(norm); added++; }
+          });
+          saveAll(list);
+          refresh();
+          alert(`가져오기 완료 — 신규 ${added}, 갱신 ${updated}`);
+        } catch (e) {
+          alert("가져오기 실패: " + (e?.message || e));
+        }
+      }
+
+      // ---------- 이벤트 ----------
+      g("ti-save").addEventListener("click", saveTerm);
+      g("ti-cancel").addEventListener("click", () => { resetForm(); status("편집 취소됨", "warn"); });
+      g("ti-clear").addEventListener("click", () => {
+        if (editingId && !confirm("편집 중인 변경사항을 버리고 폼을 초기화할까요?")) return;
+        resetForm();
+      });
+      g("ti-export").addEventListener("click", exportAll);
+      g("ti-import").addEventListener("change", e => {
+        const f = e.target.files[0];
+        if (f) importFile(f);
+        e.target.value = "";
+      });
+
+      g("ti-search").addEventListener("input", e => {
+        searchQuery = e.target.value;
+        renderList();
+      });
+
+      document.querySelectorAll(".ti-sort-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          sortMode = btn.dataset.sort;
+          localStorage.setItem(SORT_KEY, sortMode);
+          document.querySelectorAll(".ti-sort-btn").forEach(b => b.classList.toggle("is-active", b.dataset.sort === sortMode));
+          renderList();
+        });
+      });
+
+      // 폼 안에서 Ctrl/Cmd+S 저장
+      const formEl = g("ti-form");
+      const saveKey = e => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+          if (formEl.contains(document.activeElement)) {
+            e.preventDefault();
+            saveTerm();
+          }
+        }
+      };
+      document.addEventListener("keydown", saveKey);
+      const observer = new MutationObserver(() => {
+        if (!document.body.contains(formEl)) {
+          document.removeEventListener("keydown", saveKey);
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.getElementById("content"), { childList: true });
+
+      // 초기화
+      document.querySelectorAll(".ti-sort-btn").forEach(b => b.classList.toggle("is-active", b.dataset.sort === sortMode));
+      resetForm();
+      refresh();
     };
 
     window.navigate = navigate;
