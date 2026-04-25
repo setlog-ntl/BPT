@@ -813,10 +813,13 @@
     }
     .ln-card__expand:hover { text-decoration: underline; }
 
-    /* 와이드 페이지 (강의 노트 등 입력형 페이지 전용) */
-    .content.is-wide { max-width: 1280px; }
+    /* 와이드 페이지 — 기록된 자료의 양에 맞춰 JS가 --content-w를 갱신하면 자동 폭 조절 */
+    .content.is-wide {
+      max-width: var(--content-w, 960px);
+      transition: max-width 0.25s ease;
+    }
     @media (min-width: 1100px) {
-      .content.is-wide { padding-left: 60px; padding-right: 60px; }
+      .content.is-wide { padding-left: 56px; padding-right: 56px; }
     }
 
     /* 인라인 편집 모드 */
@@ -3743,6 +3746,55 @@
         };
       }
 
+      // ---------- 자동 폭 조절 ----------
+      // 기록된 자료(이미지 개수, 본문 라인 길이, 제목 길이)를 기반으로
+      // #content의 max-width를 동적으로 계산. 뷰포트 한계 안에서만 확장.
+      function adaptContentWidth() {
+        const content = document.getElementById("content");
+        if (!content || !content.classList.contains("is-wide")) return;
+
+        const vw = window.innerWidth;
+        const sidebarW = vw > 900 ? 280 : 0;
+        const sidePad = 80;
+        const viewportCap = Math.max(720, vw - sidebarW - sidePad);
+
+        // 노트가 비어 있으면 기본값 (좁은 입력 폼만 보일 때)
+        const minW = 760;
+        const hardCap = 1800;
+        let need = minW;
+
+        // 인라인 편집 카드도 고려 (입력 중인 텍스트는 캐시에 없을 수 있음)
+        const editCardImgs = inlineEditId ? inlineEditImages.length : 0;
+        const editCardContent = (inlineEditDraft?.content || "");
+        const editCardTitle = (inlineEditDraft?.title || "");
+
+        const consider = (text, charPx, padding, cap) => {
+          if (!text) return;
+          const longest = text.split("\n").reduce((m, l) => Math.max(m, l.length), 0);
+          const w = longest * charPx + padding;
+          need = Math.max(need, Math.min(w, cap));
+        };
+        const considerImgCount = (count) => {
+          if (count <= 0) return;
+          const thumbW = 80, gap = 8, cardPad = 60;
+          const cols = Math.min(count, 14);
+          need = Math.max(need, cardPad + cols * (thumbW + gap));
+        };
+
+        cachedNotes.forEach(n => {
+          consider(n.content, 9.5, 80, 1500);
+          consider(n.title, 11, 240, 1200);
+          considerImgCount((n.images || []).length);
+        });
+        // 편집 중 카드의 작업 중 데이터도 반영
+        consider(editCardContent, 9.5, 80, 1500);
+        consider(editCardTitle, 11, 240, 1200);
+        considerImgCount(editCardImgs);
+
+        const final = Math.min(Math.max(need, minW), viewportCap, hardCap);
+        content.style.setProperty("--content-w", final + "px");
+      }
+
       // ---------- 목록 렌더 ----------
       function renderList() {
         captureInlineDraft();
@@ -3802,6 +3854,8 @@
         if (inlineEditId) renderInlinePreview();
         // 임시 보존된 입력값을 1회 사용 후 비움 (저장·취소·진입 시점에는 자동으로 새 값 사용)
         inlineEditDraft = null;
+        // 데이터 폭에 맞춰 페이지 폭 갱신
+        adaptContentWidth();
       }
 
       function renderViewCardHtml(n) {
@@ -4160,13 +4214,44 @@
       const contentEl = document.getElementById("content");
       contentEl.classList.add("is-wide");
 
+      // 윈도우 리사이즈 시 폭 재계산 (뷰포트 한계 변경 반영)
+      let resizeTimer;
+      const resizeHandler = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(adaptContentWidth, 80);
+      };
+      window.addEventListener("resize", resizeHandler);
+
+      // 폼 입력 시에도 폭 갱신 (긴 제목/본문 입력 → 즉시 확장)
+      const inputAdapt = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(adaptContentWidth, 120);
+      };
+      ["ln-title", "ln-content"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener("input", inputAdapt);
+      });
+
+      // 인라인 편집 카드 입력 변화도 폭에 반영 (위임)
+      const listEl = document.getElementById("ln-list");
+      if (listEl) {
+        listEl.addEventListener("input", e => {
+          if (e.target.matches(".ln-edit-title, .ln-edit-content")) {
+            captureInlineDraft();
+            inputAdapt();
+          }
+        });
+      }
+
       // 페이지 이탈 정리 — 다음 navigate가 호출되어 #content가 비워지면 핸들러도 제거
       const cleanup = () => {
         document.removeEventListener("paste", pasteHandler);
         document.removeEventListener("keydown", saveKey);
         document.removeEventListener("keydown", lbKeyHandler);
+        window.removeEventListener("resize", resizeHandler);
         revokeAllUrls();
         contentEl.classList.remove("is-wide");
+        contentEl.style.removeProperty("--content-w");
         observer.disconnect();
       };
       const observer = new MutationObserver(() => {
