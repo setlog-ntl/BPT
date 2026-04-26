@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>비지니스 PT — 아이템 선정 워크시트</title>
+<style>
+  :root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --text-soft: #4b5563;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --accent-soft: #dbeafe;
+    --like: #ec4899;
+    --like-soft: #fce7f3;
+    --want: #f59e0b;
+    --want-soft: #fef3c7;
+    --good: #10b981;
+    --good-soft: #d1fae5;
+    --shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 30px -10px rgba(37,99,235,0.35);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 28px 16px 64px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* HEADER */
+  header.page {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%);
+    color: white;
+    padding: 36px 36px 32px;
+    border-radius: 18px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  header.page::after {
+    content: "";
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%);
+    border-radius: 50%;
+  }
+  header.page h1 {
+    margin: 0 0 6px;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  header.page p.lead {
+    margin: 0;
+    opacity: 0.92;
+    font-size: 14px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 13px;
+    position: relative;
+    z-index: 1;
+  }
+  .meta-chip {
+    background: rgba(255,255,255,0.16);
+    padding: 7px 14px;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+  }
+  .meta-chip [contenteditable="true"] {
+    outline: none;
+    border-bottom: 1px dashed rgba(255,255,255,0.4);
+    padding: 0 4px;
+    min-width: 30px;
+    display: inline-block;
+  }
+  .meta-chip [contenteditable="true"]:focus {
+    background: rgba(255,255,255,0.2);
+    border-bottom-color: white;
+  }
+
+  /* TOOLBAR */
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  button.btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    font-family: inherit;
+  }
+  button.btn:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+  button.btn.secondary {
+    background: white;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+  }
+  button.btn.secondary:hover { background: #f9fafb; }
+  .toolbar-hint {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* CATEGORY SECTION */
+  section.category {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .category-badge {
+    width: 14px; height: 14px;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+  .badge-like { background: var(--like); }
+  .badge-want { background: var(--want); }
+  .badge-good { background: var(--good); }
+  .category-header h2 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+  .category-header h2 .en {
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 14px;
+    margin-left: 6px;
+  }
+  .category-header .sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: fixed;
+  }
+  thead th {
+    background: #f9fafb;
+    text-align: left;
+    padding: 11px 12px;
+    font-weight: 600;
+    color: var(--text-soft);
+    border-bottom: 2px solid var(--border);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  tbody td {
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    word-break: break-word;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #fafbfc; }
+
+  td[contenteditable="true"] {
+    outline: none;
+    cursor: text;
+    border-radius: 4px;
+    transition: background 0.1s;
+  }
+  td[contenteditable="true"]:hover { background: #f3f4f6 !important; }
+  td[contenteditable="true"]:focus {
+    background: var(--accent-soft) !important;
+    box-shadow: inset 0 0 0 2px var(--accent);
+  }
+
+  th.col-num, td.col-num { width: 48px; text-align: center; color: var(--muted); font-weight: 700; }
+  th.col-item, td.col-item { width: 22%; }
+  td.col-item { font-weight: 600; }
+  th.col-detail, td.col-detail { width: 38%; color: var(--text-soft); }
+  th.col-note, td.col-note { width: 28%; color: var(--muted); font-size: 13px; }
+  th.col-action, td.col-action { width: 50px; text-align: center; }
+
+  .row-delete {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: all 0.15s;
+  }
+  tbody tr:hover .row-delete { opacity: 1; }
+  .row-delete:hover { background: #fee2e2; color: #dc2626; }
+
+  /* INTERSECTION SECTION */
+  section.intersection {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 24px 26px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  h2.section-title {
+    font-size: 20px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+  .section-sub {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 20px;
+  }
+  .candidate {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    transition: all 0.15s;
+  }
+  .candidate:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 14px -4px rgba(37,99,235,0.18);
+  }
+  .candidate.priority-1 { border-left: 4px solid var(--accent); background: #fafcff; }
+  .candidate.priority-2 { border-left: 4px solid #8b5cf6; }
+  .candidate.priority-3 { border-left: 4px solid #6b7280; }
+
+  .candidate-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .candidate-title {
+    font-weight: 700;
+    font-size: 16px;
+    flex: 1;
+  }
+  .candidate-title .num-tag {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .stars {
+    color: #f59e0b;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .candidate-rows {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 8px 14px;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .candidate-rows .label {
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .candidate-rows .value { color: var(--text-soft); }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    font-weight: 500;
+  }
+  .tag-like { background: var(--like-soft); color: #be185d; }
+  .tag-want { background: var(--want-soft); color: #b45309; }
+  .tag-good { background: var(--good-soft); color: #047857; }
+
+  .yt-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fef3c7;
+    color: #b45309;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* NOTES SECTION */
+  section.notes {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .notes-area {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px 14px;
+    border: 1px dashed var(--border-strong);
+    border-radius: 8px;
+    color: var(--text-soft);
+    font-size: 14px;
+    line-height: 1.7;
+    outline: none;
+    background: #fafbfc;
+  }
+  .notes-area:focus {
+    border-color: var(--accent);
+    background: white;
+    border-style: solid;
+  }
+
+  .footer-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: white; padding: 0; font-size: 11px; }
+    .toolbar { display: none; }
+    section.category, section.intersection, section.notes {
+      box-shadow: none;
+      page-break-inside: avoid;
+      border: 1px solid #ccc;
+    }
+    header.page { box-shadow: none; }
+    .row-delete { display: none; }
+  }
+
+  @media (max-width: 720px) {
+    th.col-note, td.col-note { display: none; }
+    th.col-item, td.col-item { width: 30%; }
+    th.col-detail, td.col-detail { width: 60%; }
+    header.page { padding: 28px 22px; }
+    section.category, section.intersection { padding: 18px 16px; }
+    .candidate-rows { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="page">
+    <h1>비지니스 PT — 아이템 선정 워크시트</h1>
+    <p class="lead">좋아하는것 · 하고싶은것 · 잘하는것 10×10×10 정리표 + 교집합 분석</p>
+    <div class="meta">
+      <div class="meta-chip">📅 작성일 <span contenteditable="true">2026-04-26</span></div>
+      <div class="meta-chip">👤 작성자 <span contenteditable="true">최동혁</span></div>
+      <div class="meta-chip">🎯 목적 <span contenteditable="true">유튜브 판매 사업 아이템 선정</span></div>
+      <div class="meta-chip">📍 단계 <span contenteditable="true">기초 단계 — 아이템 후보 도출</span></div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <button class="btn" onclick="saveAsHTML()">💾 변경사항 저장 (HTML 다운로드)</button>
+    <button class="btn secondary" onclick="window.print()">🖨️ 인쇄 / PDF</button>
+    <button class="btn secondary" onclick="addRow('like-table')">＋ 좋아하는것</button>
+    <button class="btn secondary" onclick="addRow('want-table')">＋ 하고싶은것</button>
+    <button class="btn secondary" onclick="addRow('good-table')">＋ 잘하는것</button>
+    <span class="toolbar-hint">셀을 클릭하면 바로 수정할 수 있습니다</span>
+  </div>
+
+  <!-- 1. 좋아하는것 -->
+  <section class="category">
+    <div class="category-header">
+      <span class="category-badge badge-like"></span>
+      <h2>좋아하는것 <span class="en">Love</span></h2>
+      <span class="sub">지속 가능한 에너지의 원천</span>
+    </div>
+    <table id="like-table">
+      <thead>
+        <tr>
+          <th class="col-num">#</th>
+          <th class="col-item">카테고리 / 항목</th>
+          <th class="col-detail">디테일 내용</th>
+          <th class="col-note">비고</th>
+          <th class="col-action"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-num">1</td>
+          <td class="col-item" contenteditable="true">책 (독서)</td>
+          <td class="col-detail" contenteditable="true">자기계발·비즈니스서 위주, 정리하며 읽는 스타일</td>
+          <td class="col-note" contenteditable="true">콘텐츠 큐레이션·서평·정리 기반 채널과 연결 가능</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">2</td>
+          <td class="col-item" contenteditable="true">러닝</td>
+          <td class="col-detail" contenteditable="true">정기적으로 즐기는 유산소 운동</td>
+          <td class="col-note" contenteditable="true">습관·건강 콘텐츠와 연계 강함 (본인 진성 사용자)</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">3</td>
+          <td class="col-item" contenteditable="true">볼링</td>
+          <td class="col-detail" contenteditable="true">취미로 즐기는 실내 스포츠</td>
+          <td class="col-note" contenteditable="true">희소성 ↑ — 마니아 커뮤니티 형성 가능성</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">4</td>
+          <td class="col-item" contenteditable="true">음식</td>
+          <td class="col-detail" contenteditable="true">먹기·맛집 탐방 (요리/식재료 여부 추후 확인)</td>
+          <td class="col-note" contenteditable="true">메인 아이템보다는 라이프스타일 보조 소재</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">5</td>
+          <td class="col-item" contenteditable="true">개발 · 코딩</td>
+          <td class="col-detail" contenteditable="true">새로운 기술·툴 학습을 즐김 (AI/바이브코딩 등)</td>
+          <td class="col-note" contenteditable="true">본업과 직결, 콘텐츠화 가장 쉬움 — 핵심 자산</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">6</td>
+          <td class="col-item" contenteditable="true">자동차 · 드라이빙</td>
+          <td class="col-detail" contenteditable="true">운전 자체를 좋아함</td>
+          <td class="col-note" contenteditable="true">차박/여행과 결합 시 시너지</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">7</td>
+          <td class="col-item" contenteditable="true">여행</td>
+          <td class="col-detail" contenteditable="true">국내·해외 여행 모두 선호</td>
+          <td class="col-note" contenteditable="true">드라이빙·차박과 결합 시 차별화</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">8</td>
+          <td class="col-item" contenteditable="true">카페 · 커피</td>
+          <td class="col-detail" contenteditable="true">공간·분위기 선호</td>
+          <td class="col-note" contenteditable="true">디지털 노마드/작업 공간 콘텐츠 보조</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">9</td>
+          <td class="col-item" contenteditable="true">영화 · 드라마 감상</td>
+          <td class="col-detail" contenteditable="true">콘텐츠 소비를 통한 휴식·아이디어 수집</td>
+          <td class="col-note" contenteditable="true">감상·정리 콘텐츠 보조 소재</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">10</td>
+          <td class="col-item" contenteditable="true">글쓰기 · 정리 · 기록</td>
+          <td class="col-detail" contenteditable="true">강의 내용·아이디어를 구조화하는 능력</td>
+          <td class="col-note" contenteditable="true">강의/전자책/정리 콘텐츠와 즉시 연결</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 2. 하고싶은것 -->
+  <section class="category">
+    <div class="category-header">
+      <span class="category-badge badge-want"></span>
+      <h2>하고싶은것 <span class="en">Want</span></h2>
+      <span class="sub">미래 비전 · 사업적 욕망</span>
+    </div>
+    <table id="want-table">
+      <thead>
+        <tr>
+          <th class="col-num">#</th>
+          <th class="col-item">카테고리 / 항목</th>
+          <th class="col-detail">디테일 내용</th>
+          <th class="col-note">비고</th>
+          <th class="col-action"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-num">1</td>
+          <td class="col-item" contenteditable="true">책 · 독서</td>
+          <td class="col-detail" contenteditable="true">독서를 더 깊이 있게 — 정리·서평·콘텐츠로 확장 (전자책 출간 포함 가능)</td>
+          <td class="col-note" contenteditable="true">"좋아함"과 일치 → 가장 지속 가능한 활동. 강의/콘텐츠 신뢰도 제고 자산</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">2</td>
+          <td class="col-item" contenteditable="true">자동차 · 드라이빙 콘텐츠/서비스</td>
+          <td class="col-detail" contenteditable="true">드라이빙코스, 차박, 차문화 콘텐츠</td>
+          <td class="col-note" contenteditable="true">"좋아함"과 일치 → 동기 강함</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">3</td>
+          <td class="col-item" contenteditable="true">여행</td>
+          <td class="col-detail" contenteditable="true">국내/해외/차박/시니어 동반 등 컨셉 분기</td>
+          <td class="col-note" contenteditable="true">차량 + 여행 결합 시 차별화 ↑</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">4</td>
+          <td class="col-item" contenteditable="true">습관 형성 서비스</td>
+          <td class="col-detail" contenteditable="true">앱 / SaaS 형태로 사용자 습관 관리</td>
+          <td class="col-note" contenteditable="true">본인이 진성 사용자라면 진정성 ↑ (러닝·독서)</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">5</td>
+          <td class="col-item" contenteditable="true">AI 서비스 — Linkmap</td>
+          <td class="col-detail" contenteditable="true">AI 기반 자체 SaaS 서비스</td>
+          <td class="col-note" contenteditable="true">AI/바이브코딩(잘함)과 정확히 일치 — 핵심 자산</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">6</td>
+          <td class="col-item" contenteditable="true">시니어 서비스 — Appatree</td>
+          <td class="col-detail" contenteditable="true">시니어 대상 디지털/IT 서비스</td>
+          <td class="col-note" contenteditable="true">본업 여부에 따라 가중치 변동 (확인 필요)</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">7</td>
+          <td class="col-item" contenteditable="true">헬스</td>
+          <td class="col-detail" contenteditable="true">손목 부담 적은 방식 (머신·홈트 위주)</td>
+          <td class="col-note" contenteditable="true">"IT인의 운동" 컨셉으로 풀 경우 콘텐츠 가능</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">8</td>
+          <td class="col-item" contenteditable="true">수영</td>
+          <td class="col-detail" contenteditable="true">새로 시작하고 싶은 운동</td>
+          <td class="col-note" contenteditable="true">라이프스타일 보조 소재</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">9</td>
+          <td class="col-item" contenteditable="true">부동산</td>
+          <td class="col-detail" contenteditable="true">부동산 투자 · 자산 형성 (관심·학습 단계)</td>
+          <td class="col-note" contenteditable="true">시니어(Appatree) 자산관리 콘텐츠와 결합 가능</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">10</td>
+          <td class="col-item" contenteditable="true">투자 (주식 / 코인)</td>
+          <td class="col-detail" contenteditable="true">주식 · 암호화폐 투자</td>
+          <td class="col-note" contenteditable="true">데이터 분석·자동화(잘함)와 결합 시 콘텐츠化 가능 — 퀀트/AI 트레이딩 방향</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3. 잘하는것 -->
+  <section class="category">
+    <div class="category-header">
+      <span class="category-badge badge-good"></span>
+      <h2>잘하는것 <span class="en">Strong</span></h2>
+      <span class="sub">실행 가능 역량 · 차별화 자산</span>
+    </div>
+    <table id="good-table">
+      <thead>
+        <tr>
+          <th class="col-num">#</th>
+          <th class="col-item">카테고리 / 항목</th>
+          <th class="col-detail">디테일 내용</th>
+          <th class="col-note">비고</th>
+          <th class="col-action"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-num">1</td>
+          <td class="col-item" contenteditable="true">IT 전반</td>
+          <td class="col-detail" contenteditable="true">시스템 · 인프라 · 솔루션 전반의 이해</td>
+          <td class="col-note" contenteditable="true">모든 사업의 운영 효율 ↑</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">2</td>
+          <td class="col-item" contenteditable="true">ERP</td>
+          <td class="col-detail" contenteditable="true">기업 자원 관리 솔루션 (구체 솔루션명 추가)</td>
+          <td class="col-note" contenteditable="true">실무 컨설팅·강의 잠재 영역</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">3</td>
+          <td class="col-item" contenteditable="true">AI 활용 · 기획</td>
+          <td class="col-detail" contenteditable="true">AI 서비스 기획 + 활용 능력</td>
+          <td class="col-note" contenteditable="true">현재 시장 트렌드와 정확히 일치</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">4</td>
+          <td class="col-item" contenteditable="true">바이브코딩 (AI 활용 개발)</td>
+          <td class="col-detail" contenteditable="true">AI를 통한 빠른 개발 · 통합시스템 구축</td>
+          <td class="col-note" contenteditable="true">★ 가장 큰 차별화 자산 — 1순위 활용 무기</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">5</td>
+          <td class="col-item" contenteditable="true">독서와 필사</td>
+          <td class="col-detail" contenteditable="true">책을 깊이 읽고 손으로 필사·정리하며 체화하는 학습 능력</td>
+          <td class="col-note" contenteditable="true">★ "좋아함" + "하고싶음(책·독서 #1)"과 동시에 일치 — 가장 강한 3중 교집합 자산</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">6</td>
+          <td class="col-item" contenteditable="true">통합시스템 설계 · 구축</td>
+          <td class="col-detail" contenteditable="true">시스템 간 연결·통합 (ERP/AI 결합)</td>
+          <td class="col-note" contenteditable="true">희소성 높은 영역 — 컨설팅·B2B 잠재력</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">7</td>
+          <td class="col-item" contenteditable="true">업무 자동화</td>
+          <td class="col-detail" contenteditable="true">반복 업무를 AI/스크립트로 자동화</td>
+          <td class="col-note" contenteditable="true">1인 사업·SaaS와 직결</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">8</td>
+          <td class="col-item" contenteditable="true">기획 · PM</td>
+          <td class="col-detail" contenteditable="true">요건 정의 · 프로세스 설계</td>
+          <td class="col-note" contenteditable="true">사업 운영의 핵심 — 기술과 비즈니스를 잇는 능력</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">9</td>
+          <td class="col-item" contenteditable="true">문서화 · 구조화</td>
+          <td class="col-detail" contenteditable="true">복잡한 내용을 정리해 전달하는 능력</td>
+          <td class="col-note" contenteditable="true">강의/책/콘텐츠 친화적 — 즉시 활용 가능</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+        <tr>
+          <td class="col-num">10</td>
+          <td class="col-item" contenteditable="true">교육 · 가르치기</td>
+          <td class="col-detail" contenteditable="true">실무 경험을 쉽게 풀어 설명하는 능력</td>
+          <td class="col-note" contenteditable="true">유튜브와 직결 — 채널 운영의 기본기</td>
+          <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 교집합 분석 -->
+  <section class="intersection">
+    <h2 class="section-title">🎯 교집합 분석 — 비즈니스 아이템 후보</h2>
+    <p class="section-sub">세 영역이 동시에 만나는 지점일수록 사업 지속력이 높습니다. 유튜브 판매 적합성(콘텐츠화 용이성·타깃 명확성·차별화)을 함께 평가했습니다.</p>
+
+    <div class="candidate priority-1">
+      <div class="candidate-header">
+        <div class="candidate-title"><span class="num-tag">후보 1</span>독서 · 필사 기반 AI 지식관리 도구 + 독서 콘텐츠</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="candidate-rows">
+        <div class="label"><span class="tag tag-like">좋아함</span></div>
+        <div class="value" contenteditable="true">책·독서, 글쓰기·정리·기록, 개발</div>
+        <div class="label"><span class="tag tag-want">하고싶음</span></div>
+        <div class="value" contenteditable="true">책·독서 (#1), AI 서비스 Linkmap</div>
+        <div class="label"><span class="tag tag-good">잘함</span></div>
+        <div class="value" contenteditable="true">독서와 필사, 문서화·구조화, AI·바이브코딩</div>
+        <div class="label">유튜브 적합성</div>
+        <div class="value"><span class="yt-rating">★★★★★ 매우 높음</span></div>
+        <div class="label">차별점</div>
+        <div class="value" contenteditable="true">본인이 진성 사용자(필사 실천 중) + AI 자동화 능력 + Linkmap 컨셉 응용 — 진정성과 기술의 결합이 동시에 가능한 유일한 후보</div>
+        <div class="label">비고</div>
+        <div class="value" contenteditable="true">★ 세 영역(좋아함·하고싶음·잘함)에 모두 가장 강하게 걸림. Linkmap의 컨셉을 "독서·필사 전용"으로 좁혀 MVP로 시작 가능. 콘텐츠는 본인 독서 루틴·필사 노트를 그대로 보여주는 형태로 즉시 시작 가능.</div>
+      </div>
+    </div>
+
+    <div class="candidate priority-1">
+      <div class="candidate-header">
+        <div class="candidate-title"><span class="num-tag">후보 2</span>바이브코딩 / AI 통합시스템 강의 콘텐츠</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="candidate-rows">
+        <div class="label"><span class="tag tag-like">좋아함</span></div>
+        <div class="value" contenteditable="true">개발·코딩, 학습, 글쓰기·정리</div>
+        <div class="label"><span class="tag tag-want">하고싶음</span></div>
+        <div class="value" contenteditable="true">책·독서, AI 서비스 Linkmap (강의/콘텐츠 제작은 하고싶은것 목록에서 빠짐 — 약해짐)</div>
+        <div class="label"><span class="tag tag-good">잘함</span></div>
+        <div class="value" contenteditable="true">AI, 바이브코딩, 통합시스템, 교육</div>
+        <div class="label">유튜브 적합성</div>
+        <div class="value"><span class="yt-rating">★★★★★ 매우 높음</span></div>
+        <div class="label">차별점</div>
+        <div class="value" contenteditable="true">"ERP·통합시스템 백그라운드를 가진 사람의 바이브코딩"은 흔치 않음</div>
+        <div class="label">비고</div>
+        <div class="value" contenteditable="true">시작 비용 낮고 강의·전자책·멤버십까지 즉시 확장 가능. 메인 채널 1순위 후보.</div>
+      </div>
+    </div>
+
+    <div class="candidate priority-2">
+      <div class="candidate-header">
+        <div class="candidate-title"><span class="num-tag">후보 3</span>시니어 대상 AI · 바이브코딩 가이드 (Appatree 연계)</div>
+        <div class="stars">★★★★☆</div>
+      </div>
+      <div class="candidate-rows">
+        <div class="label"><span class="tag tag-like">좋아함</span></div>
+        <div class="value" contenteditable="true">책·정리, 글쓰기 (쉽게 풀어내는 능력)</div>
+        <div class="label"><span class="tag tag-want">하고싶음</span></div>
+        <div class="value" contenteditable="true">시니어 서비스 (Appatree), 강의</div>
+        <div class="label"><span class="tag tag-good">잘함</span></div>
+        <div class="value" contenteditable="true">IT, AI, 교육, 문서화</div>
+        <div class="label">유튜브 적합성</div>
+        <div class="value"><span class="yt-rating">★★★★ 높음</span></div>
+        <div class="label">차별점</div>
+        <div class="value" contenteditable="true">시니어 + AI 트렌드 결합 — 경쟁자 적고 타깃 명확</div>
+        <div class="label">비고</div>
+        <div class="value" contenteditable="true">"좋아함" 연결이 약함 → 책/정리 성향을 "쉽게 풀어 가르치기"로 연결하면 보강됨. Appatree와 직결.</div>
+      </div>
+    </div>
+
+    <div class="candidate priority-2">
+      <div class="candidate-header">
+        <div class="candidate-title"><span class="num-tag">후보 4</span>본인 AI 서비스 — Linkmap (자체 제품 + 유튜브 마케팅)</div>
+        <div class="stars">★★★★☆</div>
+      </div>
+      <div class="candidate-rows">
+        <div class="label"><span class="tag tag-like">좋아함</span></div>
+        <div class="value" contenteditable="true">개발, 정리·기록</div>
+        <div class="label"><span class="tag tag-want">하고싶음</span></div>
+        <div class="value" contenteditable="true">AI 서비스 Linkmap, 책·독서</div>
+        <div class="label"><span class="tag tag-good">잘함</span></div>
+        <div class="value" contenteditable="true">AI, 바이브코딩, 통합시스템</div>
+        <div class="label">유튜브 적합성</div>
+        <div class="value"><span class="yt-rating">★★★★ 높음</span></div>
+        <div class="label">차별점</div>
+        <div class="value" contenteditable="true">자체 SaaS 보유 — "Build in Public" 콘텐츠 가능 (개발 과정 공개)</div>
+        <div class="label">비고</div>
+        <div class="value" contenteditable="true">제품 완성도와 콘텐츠 운영을 동시에 끌고 가야 해서 부담 큼. 후보 1과 결합 운영 가능.</div>
+      </div>
+    </div>
+
+    <div class="candidate priority-3">
+      <div class="candidate-header">
+        <div class="candidate-title"><span class="num-tag">후보 5</span>러닝 · 독서 습관 트래커 (습관 서비스)</div>
+        <div class="stars">★★★☆☆</div>
+      </div>
+      <div class="candidate-rows">
+        <div class="label"><span class="tag tag-like">좋아함</span></div>
+        <div class="value" contenteditable="true">러닝, 책, 정리</div>
+        <div class="label"><span class="tag tag-want">하고싶음</span></div>
+        <div class="value" contenteditable="true">습관 형성 서비스</div>
+        <div class="label"><span class="tag tag-good">잘함</span></div>
+        <div class="value" contenteditable="true">바이브코딩, 통합시스템</div>
+        <div class="label">유튜브 적합성</div>
+        <div class="value"><span class="yt-rating">★★★ 보통</span></div>
+        <div class="label">차별점</div>
+        <div class="value" contenteditable="true">본인이 진성 사용자 → 진정성 있음. 다만 습관 앱 시장은 레드오션</div>
+        <div class="label">비고</div>
+        <div class="value" contenteditable="true">"개발자/IT인의 러닝+독서 루틴"처럼 좁힌 컨셉이면 살아남음.</div>
+      </div>
+    </div>
+
+    <div class="candidate priority-3">
+      <div class="candidate-header">
+        <div class="candidate-title"><span class="num-tag">후보 6</span>드라이빙 · 차박 + AI 자동화 여행 콘텐츠</div>
+        <div class="stars">★★★☆☆</div>
+      </div>
+      <div class="candidate-rows">
+        <div class="label"><span class="tag tag-like">좋아함</span></div>
+        <div class="value" contenteditable="true">자동차·드라이빙, 여행, 카페</div>
+        <div class="label"><span class="tag tag-want">하고싶음</span></div>
+        <div class="value" contenteditable="true">자동차/여행 콘텐츠</div>
+        <div class="label"><span class="tag tag-good">잘함</span></div>
+        <div class="value" contenteditable="true">AI 통합시스템 (여행 루트 자동화, 차박 정보 큐레이션 등)</div>
+        <div class="label">유튜브 적합성</div>
+        <div class="value"><span class="yt-rating">★★★ 보통</span></div>
+        <div class="label">차별점</div>
+        <div class="value" contenteditable="true">콘텐츠화는 매우 쉬움. IT 전문성과의 연결고리가 약해 차별화 어려움.</div>
+        <div class="label">비고</div>
+        <div class="value" contenteditable="true">서브 콘텐츠 또는 라이프스타일 채널로 활용 가능.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 권장 우선순위 -->
+  <section class="intersection">
+    <h2 class="section-title">📌 권장 우선순위 (유튜브 판매 관점)</h2>
+    <p class="section-sub">본 과정이 "유튜브 판매"인 점을 감안한 추천 순서</p>
+    <div class="candidate-rows" style="grid-template-columns: 100px 1fr;">
+      <div class="label" style="color: var(--accent-dark); font-weight:700;">메인 후보</div>
+      <div class="value" contenteditable="true"><strong>후보 1</strong> — 독서·필사 기반 AI 지식관리 도구 + 독서 콘텐츠. 세 영역(좋아함·하고싶음·잘함)에 모두 강하게 걸린 유일한 후보. 본인의 필사 실천이 그대로 콘텐츠와 진정성으로 연결됨.</div>
+      <div class="label" style="color: #8b5cf6; font-weight:700;">연계/서브</div>
+      <div class="value" contenteditable="true"><strong>후보 4</strong> — Linkmap. 후보 1과 같은 AI 서비스 라인 — 함께 운영 시 자연스러운 빌드 인 퍼블릭 시너지</div>
+      <div class="label" style="color: var(--good); font-weight:700;">장기 자산</div>
+      <div class="value" contenteditable="true"><strong>후보 3</strong> — 시니어 AI 가이드 (Appatree 연계). 본업과 직접 연결되는 장기 사업 자산</div>
+    </div>
+  </section>
+
+  <!-- 자유 메모 -->
+  <section class="notes">
+    <h2 class="section-title">📝 자유 메모 / 추가 아이디어</h2>
+    <p class="section-sub">강의 진행 중 떠오르는 생각·피드백을 자유롭게 기록</p>
+    <div class="notes-area" contenteditable="true">여기에 자유롭게 추가 아이디어, 강사 코멘트, 본인 생각을 작성하세요.
+
+예)
+- 후보 1과 후보 3을 결합하면? Linkmap을 만드는 과정 자체를 바이브코딩 강의 시리즈로 …
+- 시니어 시장에서 "자녀가 부모에게 선물하는 디지털 가이드" 컨셉도 검토
+- 차박 + AI 컨셉은 메인이 아닌 사이드 채널 형태로 시도</div>
+  </section>
+
+  <div class="footer-note">
+    비지니스 PT 정리자료 · 셀을 클릭해 직접 수정하고 [변경사항 저장] 버튼으로 다운로드하세요.
+  </div>
+
+</div>
+
+<script>
+  // 변경된 HTML 그대로 다운로드
+  function saveAsHTML() {
+    // 현재 DOM 상태를 그대로 직렬화
+    const doctype = '<!DOCTYPE html>\n';
+    const html = doctype + document.documentElement.outerHTML;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const date = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = `비지니스PT_아이템선정_${date}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  // 행 추가
+  function addRow(tableId) {
+    const tbody = document.querySelector('#' + tableId + ' tbody');
+    const num = tbody.children.length + 1;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="col-num">${num}</td>
+      <td class="col-item" contenteditable="true">새 항목</td>
+      <td class="col-detail" contenteditable="true">디테일 내용을 입력하세요</td>
+      <td class="col-note" contenteditable="true">비고</td>
+      <td class="col-action"><button class="row-delete" onclick="deleteRow(this)" title="삭제">×</button></td>
+    `;
+    tbody.appendChild(tr);
+    // 새 행의 첫 편집 가능 셀로 포커스
+    tr.querySelector('.col-item').focus();
+  }
+
+  // 행 삭제
+  function deleteRow(btn) {
+    if (!confirm('이 행을 삭제하시겠습니까?')) return;
+    const tr = btn.closest('tr');
+    const tbody = tr.parentNode;
+    tr.remove();
+    // 번호 재정렬
+    Array.from(tbody.children).forEach((r, i) => {
+      const numCell = r.querySelector('.col-num');
+      if (numCell) numCell.textContent = i + 1;
+    });
+  }
+
+  // Ctrl/Cmd + S 단축키로 저장
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      saveAsHTML();
+    }
+  });
+</script>
+</body>
+</html>
