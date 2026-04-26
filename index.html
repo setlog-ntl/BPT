@@ -2121,6 +2121,276 @@
     </article>
   </template>
 
+  <template id="tpl-lecture-2">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">2강 · 종합</span>
+        <span class="tag">2주차 통합</span>
+        <span class="tag">수익화 기획 · 아이템 선정 · 시장</span>
+      </header>
+
+      <h1>비즈니스PT 2강 · 수익화 기획 종합 정리</h1>
+      <p class="lead">
+        1강이 트래픽·전환의 <strong>구조(골조)</strong>였다면, 2강은 그 안에 무엇을 채울지 — <strong>아이템 선정·문제 정의·시장성</strong>이 주제. 2-1 ~ 2-5 다섯 차시를 강 구분 대신 주제별로 재배열했다.
+        <br /><span style="color: var(--text-3); font-size: 13px;">원본: <code>docs/bizpt-lecture-notes-2026-04-26.md</code> (강의 노트 페이지에서 내보낸 정리본)</span>
+      </p>
+
+      <div class="key-card">
+        <h3>한 줄 명제</h3>
+        <p>
+          답을 팔지 말고 <strong>문제를 가진 사람</strong>을 모아라. <strong>객단가 × 시장 크기</strong>로 매출 가능성을 미리 검증한 뒤,
+          <strong>본질을 건드리는 콘텐츠</strong>로 그 카테고리의 시장을 선점한다.
+        </p>
+      </div>
+
+      <h2>§1. 매출 공식과 역산 — 무엇을 팔지부터 정한다 <span class="tag" style="font-size: 11px; vertical-align: middle;">2-1</span></h2>
+      <p>
+        먼저 <strong>무엇을 팔지</strong>를 정하고 <strong>목표 매출</strong>을 세운 뒤, <strong>단가</strong>를 기준으로 필요한 고객 수를 산정한다.
+        막연한 P·Q로 시작하면 모든 계산이 허상이 되므로, <em>가능한 단가 범위</em>와 <em>현실적 수량</em>을 먼저 확정한다.
+      </p>
+      <div class="key-card">
+        <h3>매출 공식</h3>
+        <p style="font-size: 18px; font-family: var(--font-mono); color: var(--text-0); margin: 8px 0;">
+          매출 = P (단가) × Q (수량)
+        </p>
+        <p style="margin-top: 12px;">기획은 <strong>역방향</strong>: 목표 매출 → ÷ 단가 → 필요 Q → 깔때기 역산 → 풀링 조회수까지.</p>
+        <p style="margin-top: 6px; color: var(--text-2); font-size: 13px;">
+          깔때기는 1강 §5에서 이미 다뤘다. <strong>랜딩 ← 키 ← 풀링</strong> 순으로 전환율을 곱해 영상 단위 KPI까지 환산.
+        </p>
+      </div>
+      <p style="text-align: center;">
+        <a href="#traffic-calculator" onclick="event.preventDefault(); navigate('traffic-calculator');"
+           class="tc-btn tc-btn--primary" style="display: inline-block; text-decoration: none; margin: 8px 0;">
+          → 트래픽 계산기로 P·Q 넣고 역산하기
+        </a>
+      </p>
+
+      <h2>§2. 객단가 × 시장 크기 — 무엇을 골라야 좋은가 <span class="tag" style="font-size: 11px; vertical-align: middle;">2-2</span></h2>
+      <p>
+        같은 노력이라면 <strong>객단가가 높고 시장이 큰 영역</strong>이 절대적으로 유리하다. 그 둘을 동시에 만족하는 후보부터 흝는다.
+      </p>
+
+      <h3>객단가가 낮을 때 — 묶어서 올린다</h3>
+      <div class="info-card">
+        <p>객단가가 낮으면 <strong>세트 상품</strong>이나 <strong>보조 상품</strong>으로 결합 단가를 끌어올린다.</p>
+        <p style="margin-top: 6px;">예) <code>readtree</code> 기록 서비스 + 책 + 책조명 + 노트 등 책과 관련된 용품 구성.</p>
+      </div>
+
+      <h3>객단가를 높이는 진짜 이유 — 레버리지</h3>
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+        <div class="card"><div class="card__title">① 필요 조회수 ↓</div><div class="card__desc">같은 매출 달성에 필요한 Q가 줄어 풀링 조회수 부담이 작아진다.</div></div>
+        <div class="card"><div class="card__title">② 업무량 ↓</div><div class="card__desc">제작·운영해야 할 영상 개수가 줄어든다.</div></div>
+        <div class="card"><div class="card__title">③ 시간 확보</div><div class="card__desc">남은 시간으로 본질·전문성에 재투자 — 이것이 <strong>레버리지</strong>.</div></div>
+      </div>
+
+      <h3>시장 크기 추정 — 뷰트랩 기준</h3>
+      <table>
+        <thead><tr><th>지표</th><th>기준값</th><th>해석</th></tr></thead>
+        <tbody>
+          <tr><td><strong>잠재 시청자</strong></td><td>~1억</td><td>해당 카테고리 전체 도달 가능 인원의 대략 상한선</td></tr>
+          <tr><td><strong>결 맞는 콘텐츠 비중</strong></td><td>20% 이상</td><td>"문제의 본질을 건드리는" 영상이 차지하는 비율 임계값</td></tr>
+        </tbody>
+      </table>
+      <p style="color: var(--text-2); font-size: 13px;">미디어 시장은 <strong>문제를 정의하고 사람을 모으는 자가 카테고리를 선점</strong>하는 방향으로 재편되고 있다. 기존 미디어의 파이를 가져오는 게임이 된 만큼, 카테고리 선점 자체가 핵심.</p>
+
+      <h2>§3. 답이 아닌 "문제"를 팔아라 <span class="tag" style="font-size: 11px; vertical-align: middle;">2-2 · 2-3</span></h2>
+      <p>2강 전체를 관통하는 단일 명제. 표면을 보지 말고 <strong>왜 사는지</strong>의 동기를 보라.</p>
+
+      <h3>타겟 정의 룰</h3>
+      <table>
+        <thead><tr><th style="width: 25%;">기준</th><th>잘못된 타겟</th><th>옳은 타겟</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>책 영역</strong></td>
+            <td>책을 <em>기록하는</em> 사람들 (행동 기반)</td>
+            <td>책을 <em>봐야 하는 이유</em>가 있는 사람 (동기·문제 기반)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>욕구 카테고리 — 6가지 분류</h3>
+      <p>"왜 사는가"를 분류할 때 출발점으로 쓰는 6가지 욕구.</p>
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));">
+        <div class="card"><div class="card__title">지적 호기심</div><div class="card__desc">새로운 개념·세계를 알고 싶다</div></div>
+        <div class="card"><div class="card__title">지적 허영심</div><div class="card__desc">남에게 보여줄 지식을 갖고 싶다</div></div>
+        <div class="card"><div class="card__title">돈 (수익)</div><div class="card__desc">실질적 경제 이득을 원한다</div></div>
+        <div class="card"><div class="card__title">앎의 욕구</div><div class="card__desc">원하는 것을 파악·이해하고 싶다</div></div>
+        <div class="card"><div class="card__title">인정 욕구</div><div class="card__desc">타인에게 인정받고 싶다</div></div>
+        <div class="card"><div class="card__title">성취 욕구</div><div class="card__desc">스스로의 목표를 이루고 싶다</div></div>
+      </div>
+
+      <h3>겪고 있는 문제를 정의하기 <span class="tag" style="font-size: 11px;">2-3</span></h3>
+      <p>고객이 <strong>왜 사는지</strong>를 묻고, 그들이 실제로 겪고 있는 문제를 정의하고 해결하는 것이 핵심.</p>
+      <table>
+        <thead><tr><th style="width: 22%;">서비스</th><th>겪고 있는 문제</th><th>해결 형태</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>READTREE</strong></td>
+            <td>책은 읽었지만 머리에 남지 않고 기억이 나지 않는다</td>
+            <td>기록 서비스 (책 통한 글씨개선·필사·사유·통찰·글쓰기·맥락 이해)</td>
+          </tr>
+          <tr>
+            <td><strong>ERP UID</strong> <span class="tag" style="font-size: 10px;">예시</span></td>
+            <td>IT 담당자의 ERP 계정·전문성 관리 문제</td>
+            <td>심플리 서비스 대체 — 계정관리 서비스</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>§4. 본질화 — 콘텐츠의 흐름 <span class="tag" style="font-size: 11px; vertical-align: middle;">2-4</span></h2>
+      <div class="key-card">
+        <h3>본질의 정의</h3>
+        <p><strong>형태가 바뀌어도, 시간이 지나도 변하지 않으며,</strong> 다양한 문제에서 한 가지 답을 끄집어내 단순화시키는 것.</p>
+      </div>
+
+      <h3>본질화 콘텐츠 5단계</h3>
+      <div class="stages">
+        <div class="stages__item">
+          <div class="stages__num">①</div>
+          <div class="stages__body">
+            <div class="stages__title">현상 관찰</div>
+            <div class="stages__detail">표면에 드러난 문제·사례를 모은다.</div>
+          </div>
+        </div>
+        <div class="stages__connector"></div>
+        <div class="stages__item">
+          <div class="stages__num">②</div>
+          <div class="stages__body">
+            <div class="stages__title">본질화</div>
+            <div class="stages__detail">현상을 관통하는 한 가지 원리로 단순화.</div>
+          </div>
+        </div>
+        <div class="stages__connector"></div>
+        <div class="stages__item">
+          <div class="stages__num">③</div>
+          <div class="stages__body">
+            <div class="stages__title">본질에 대한 답변</div>
+            <div class="stages__detail">정의된 본질에 대해 자기만의 답을 정리.</div>
+          </div>
+        </div>
+        <div class="stages__connector"></div>
+        <div class="stages__item">
+          <div class="stages__num">④</div>
+          <div class="stages__body">
+            <div class="stages__title">다시 현상화</div>
+            <div class="stages__detail">그 답을 청자가 이해할 수 있는 현상·언어로 풀어쓴다.</div>
+          </div>
+        </div>
+        <div class="stages__connector"></div>
+        <div class="stages__item stages__item--final">
+          <div class="stages__num">⑤</div>
+          <div class="stages__body">
+            <div class="stages__title">실증 사례</div>
+            <div class="stages__detail">결과·증거를 보여 신뢰를 쌓는다 — 다음 콘텐츠의 자산이 된다.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>커뮤니티 → 검증 → 증거</h3>
+      <ol>
+        <li>문제를 겪고 있는 <strong>사람들을 모은다</strong> → 결이 맞는 사람들의 풀.</li>
+        <li>그 문제를 <strong>해결하는 과정·결과·증거</strong>를 보여준다.</li>
+        <li>증거를 <strong>다음 콘텐츠와 판매의 자산</strong>으로 활용한다.</li>
+      </ol>
+
+      <h2>§5. 시장성 = 욕구 — 사고 싶은 사람이 있어야 한다 <span class="tag" style="font-size: 11px; vertical-align: middle;">2-4</span></h2>
+      <p>판매는 곧 <strong>상호작용</strong>이다. 사고 싶은 사람이 있어야 거래가 성립하므로, <em>시장성 = 사람들의 욕구 강도</em>로 봐야 한다.</p>
+
+      <h3>문제의식 공유 집단 찾기 — 책 영역</h3>
+      <div class="cards-grid">
+        <div class="card"><div class="card__title">트레바리</div><div class="card__desc">독서 모임 커뮤니티</div></div>
+        <div class="card"><div class="card__title">스터디언</div><div class="card__desc">함께 배우는 학습 커뮤니티</div></div>
+        <div class="card"><div class="card__title">책 모임</div><div class="card__desc">자발적 독서 회동</div></div>
+        <div class="card"><div class="card__title">필사 모임</div><div class="card__desc">필사 중심 커뮤니티</div></div>
+      </div>
+      <p>이미 모여 있는 곳을 보면 <strong>욕구의 강도</strong>가 보인다. 이들에게 <strong>대체제</strong>(예: 필사노트와 책)를 팔아보는 것만으로도 시장 검증이 가능하다.</p>
+
+      <h3>본인 사례 — 3개 아이템</h3>
+      <table>
+        <thead><tr><th style="width: 18%;">아이템</th><th>주제 · 문제</th><th>제공 형태</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>readtree</strong></td>
+            <td>읽어도 남지 않는다 · 기록·사유·통찰</td>
+            <td>책 통한 글씨개선, 필사, 사유, 통찰, 글쓰기, 맥락 이해</td>
+          </tr>
+          <tr>
+            <td><strong>linkmap</strong></td>
+            <td>AI 도구를 어떻게 엮어 쓸지 모름</td>
+            <td>AI 서비스 가시화, 환경변수 관리, 바이브코딩, AI 서비스 만드는 방법 (블로그)</td>
+          </tr>
+          <tr>
+            <td><strong>habitree</strong></td>
+            <td>습관을 만들고 유지하기 어렵다</td>
+            <td>습관 개선 서비스</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>§6. 크리에이터 가치 모델 <span class="tag" style="font-size: 11px; vertical-align: middle;">2-5</span></h2>
+      <div class="info-card">
+        <h3>크리에이터 시장의 특수성</h3>
+        <p><strong>시장 크기 = 팬덤 크기</strong>. 가격 차이에 둔감 (팬은 5,000원을 깎으려 떠나지 않는다). 따라서 <em>1인당 가치 (LTV)</em>를 끌어올리는 게 효율적.</p>
+      </div>
+
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+        <div class="card">
+          <div class="card__title">재구매 = LTV ↑</div>
+          <div class="card__desc">시청자 1명이 반복 구매하도록 설계 (서비스형: <code>readtree</code>·<code>linkmap</code>).</div>
+        </div>
+        <div class="card">
+          <div class="card__title">시장가 + 프리미엄</div>
+          <div class="card__desc">단순 시장가가 아니라 <strong>플러스 알파</strong>가 있어야 한다. 예: <code>readtree</code> 포인트 제공.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">제품 보유 ≠ 필수</div>
+          <div class="card__desc">실제 제품을 직접 만들거나 갖지 않아도 추천·중개로 판매 가능.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">전문성이 핵심</div>
+          <div class="card__desc">결국 <strong>전문성</strong>이 가치를 만든다. IT · 러닝 · 볼링 · 헬스 등.</div>
+        </div>
+      </div>
+
+      <h3>전문성 + 문제 영역 사례 — 손목통증</h3>
+      <p>한 영역에서 전문성을 갖추면 그 영역의 <strong>문제 클러스터 전체</strong>를 다룰 수 있다.</p>
+      <div class="info-card">
+        <p><strong>손목통증</strong> 영역에서 가능한 아이템 군:</p>
+        <ul>
+          <li>볼마우스 (대체 디바이스)</li>
+          <li>손목 아대 (예방·완화)</li>
+          <li>류마티스 약 / 진통제 (의약품)</li>
+          <li>병원 (전문 진료 연결)</li>
+        </ul>
+      </div>
+
+      <h2>§7. 책 영역의 본질 메시지 — 사례 모음 <span class="tag" style="font-size: 11px; vertical-align: middle;">2-2</span></h2>
+      <p>"본질을 건드리는 영상"의 후보로 거론된 책 영역 키 콘텐츠 아이디어. 카피 그대로 메모해둔다.</p>
+      <ul>
+        <li>가난한 사람도 부자와 동등하게 할 수 있는 취미 → <strong>독서</strong></li>
+        <li>세상에서 가장 저렴하면서도 효과적인 강의 = <strong>독서 · 사유 · 필사</strong></li>
+        <li>초보 독서가가 알아야 할 다섯 가지</li>
+        <li>어린왕자, 크고 나서 다시 보면 다르게 보이는 이유 — <em>알게 될수록 알게 된다</em></li>
+      </ul>
+
+      <h2>§8. 1강과의 연결</h2>
+      <div class="info-card">
+        <h3>구조 ↔ 내용</h3>
+        <p>1강이 <strong>"어떻게 트래픽이 매출이 되는가"의 골조</strong>였다면, 2강은 <strong>"그 골조 안에 무엇을 채울지"</strong>다. 트래픽 계산기에 시나리오를 넣기 전에 2강의 <em>문제 정의 → 아이템 선정</em>이 선행되어야 한다.</p>
+        <ul>
+          <li>1강 매출 공식의 <strong>P (단가)</strong> · <strong>Q (수량)</strong> 가능 범위는 → 2강에서 결정.</li>
+          <li>1강 깔때기의 <strong>풀링·키 콘텐츠 주제</strong>는 → 2강의 본질화 5단계로 채움.</li>
+          <li>1강 KPI 4종(클릭률·도입부·시청 지속·영상당 조회수)은 → 2강에서 정한 카테고리 안에서 측정·개선.</li>
+        </ul>
+      </div>
+
+      <hr />
+      <p style="font-size: 12px; color: var(--text-3);">
+        원본: <code>docs/bizpt-lecture-notes-2026-04-26.md</code> · 강의 노트 페이지의 <a href="#lecture-notes" onclick="event.preventDefault(); navigate('lecture-notes');">5개 차시 노트(2-1 ~ 2-5)</a>
+      </p>
+    </article>
+  </template>
+
   <template id="tpl-traffic-calculator">
     <article id="traffic-calculator-root">
       <header style="margin-bottom: 8px;">
@@ -2700,6 +2970,7 @@
           heading: "강의 정리",
           items: [
             { id: "lecture-1", title: "1강 · 비즈니스PT 종합 정리 (1주차)", tpl: "tpl-lecture-1" },
+            { id: "lecture-2", title: "2강 · 수익화 기획 종합 정리 (2주차)", tpl: "tpl-lecture-2" },
           ],
         },
         {
