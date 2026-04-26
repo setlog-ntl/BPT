@@ -2565,8 +2565,9 @@
           <button class="ln-btn ln-btn--primary" id="ln-save">저장</button>
           <button class="ln-btn ln-btn--ghost" id="ln-clear">폼 초기화</button>
           <span style="flex: 1;"></span>
-          <button class="ln-btn ln-btn--ghost" id="ln-export" title="모든 노트를 JSON 파일로 내보내기">내보내기</button>
-          <label class="ln-btn ln-btn--ghost" style="cursor: pointer;">
+          <button class="ln-btn" id="ln-export-md" title="모든 노트를 Markdown(.md) 한 파일로 내보내기 — 이미지 포함">전체 정리본 내보내기</button>
+          <button class="ln-btn ln-btn--ghost" id="ln-export" title="모든 노트를 JSON 파일로 백업 (가져오기와 호환)">JSON 백업</button>
+          <label class="ln-btn ln-btn--ghost" style="cursor: pointer;" title="JSON 백업 파일 가져오기">
             가져오기
             <input type="file" id="ln-import" accept="application/json,.json" style="display: none;" />
           </label>
@@ -4085,6 +4086,105 @@
         }
       }
 
+      // ---------- Markdown 일괄 내보내기 ----------
+      async function exportMarkdown() {
+        if (!cachedNotes.length) { alert("내보낼 노트가 없습니다."); return; }
+        const includeImages = confirm(
+          "이미지를 본문에 포함할까요?\n\n" +
+          "[확인] 이미지 base64 임베드 — 한 파일로 휴대 가능 (파일 크기 큼)\n" +
+          "[취소] 텍스트만 — 가볍지만 캡쳐는 빠짐"
+        );
+        try {
+          status("정리본 생성 중...", "warn");
+          // 강의 일자 오름차순 (학습 흐름 순)
+          const notes = cachedNotes.slice().sort((a, b) =>
+            (a.date || "").localeCompare(b.date || "") ||
+            (a.createdAt || 0) - (b.createdAt || 0)
+          );
+
+          const lines = [];
+          const now = new Date();
+          lines.push(`# 강의 노트 정리본`);
+          lines.push("");
+          lines.push(`> 내보낸 시각: ${now.toLocaleString("ko-KR")}  `);
+          lines.push(`> 노트 수: **${notes.length}개**${includeImages ? "" : " · 이미지 제외"}`);
+          lines.push("");
+          lines.push(`---`);
+          lines.push("");
+
+          // 목차
+          if (notes.length > 1) {
+            lines.push(`## 목차`);
+            lines.push("");
+            notes.forEach((n, i) => {
+              const t = (n.title || "(제목 없음)").replace(/\n/g, " ");
+              lines.push(`${i + 1}. **${n.date || "—"}** · ${t}`);
+            });
+            lines.push("");
+            lines.push(`---`);
+            lines.push("");
+          }
+
+          for (let i = 0; i < notes.length; i++) {
+            const n = notes[i];
+            const date = n.date || "(일자 미기재)";
+            const created = n.createdAt ? new Date(n.createdAt).toLocaleString("ko-KR") : "—";
+            const updated = n.updatedAt && n.updatedAt !== n.createdAt
+              ? new Date(n.updatedAt).toLocaleString("ko-KR") : null;
+            const imgs = n.images || [];
+
+            lines.push(`## ${i + 1}. ${n.title || "(제목 없음)"}`);
+            lines.push("");
+            lines.push(`- **강의 일자**: ${date}`);
+            lines.push(`- **등록**: ${created}${updated ? ` · 수정: ${updated}` : ""}`);
+            if (imgs.length) lines.push(`- **이미지**: ${imgs.length}장`);
+            lines.push("");
+
+            if (n.content && n.content.trim()) {
+              lines.push(n.content);
+              lines.push("");
+            }
+
+            if (imgs.length) {
+              lines.push(`### 캡쳐 자료`);
+              lines.push("");
+              for (let j = 0; j < imgs.length; j++) {
+                const img = imgs[j];
+                const safeName = (img.name || `image-${j + 1}`).replace(/[\[\]()<>|]/g, "_");
+                if (includeImages) {
+                  const dataUrl = await blobToDataUrl(img.blob);
+                  lines.push(`![${safeName}](${dataUrl})`);
+                } else {
+                  const sizeKb = img.size ? `${(img.size / 1024).toFixed(0)}KB` : "";
+                  lines.push(`- 📎 \`${safeName}\` ${sizeKb}`);
+                }
+                lines.push("");
+              }
+            }
+
+            lines.push(`---`);
+            lines.push("");
+          }
+
+          const md = lines.join("\n");
+          const blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          const stamp = now.toISOString().slice(0, 10);
+          a.href = url;
+          a.download = `bizpt-lecture-notes-${stamp}${includeImages ? "" : "-text"}.md`;
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+
+          const sizeKb = (blob.size / 1024).toFixed(0);
+          status(`${notes.length}개 노트를 Markdown으로 내보냈습니다 (${sizeKb}KB)`);
+        } catch (e) {
+          console.error(e);
+          alert("정리본 내보내기 실패: " + (e?.message || e));
+          status("");
+        }
+      }
+
       async function importFile(file) {
         try {
           const text = await file.text();
@@ -4204,6 +4304,7 @@
       });
 
       g("ln-export").addEventListener("click", exportAll);
+      g("ln-export-md").addEventListener("click", exportMarkdown);
       g("ln-import").addEventListener("change", e => {
         const f = e.target.files[0];
         if (f) importFile(f);
