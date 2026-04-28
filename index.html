@@ -5332,7 +5332,7 @@
     };
 
     pageInits["tpl-item-categories"] = () => {
-      const STORAGE_KEY = "bizpt_item_categories_v2";
+      const STORAGE_KEY = "bizpt_item_categories_v3";
       const g = id => document.getElementById(id);
 
       const DEFAULTS = [
@@ -5349,34 +5349,34 @@
         {
           id: "readtree", title: "readtree 서비스", role: "메인", candidate: "후보 1",
           color: "var(--accent)", tagClass: "tag tag--accent",
-          items: ["연간 프리미엄 멤버십","기업·도서관 B2B 라이선스","1:1 독서 코칭","오프라인 프리미엄 독서모임","작가 강연·북콘서트 패키지"]
+          items: ["연간 프리미엄 멤버십","오프라인 프리미엄 독서모임","작가 강연·북콘서트 패키지"]
         },
         {
           id: "linkmap", title: "linkmap 서비스", role: "연계", candidate: "후보 4",
           color: "#8b5cf6",
           tagStyle: "background: rgba(139, 92, 246, 0.15); color: #a78bfa; border-color: rgba(139, 92, 246, 0.3);",
-          items: ["Pro 연간 구독","기업 팀 라이선스","API 엔터프라이즈 플랜","화이트라벨 솔루션","도입·온보딩 컨설팅"]
+          items: ["Pro 연간 구독","기업 팀 라이선스"]
         },
         {
           id: "vibecoding", title: "바이브코딩", role: "메인", candidate: "후보 2",
           color: "var(--accent)", tagClass: "tag tag--accent",
-          items: ["AI 활용","바이브코딩 교육","AI 코딩 1:1 코칭","사이드프로젝트 부트캠프","기업 출강·워크숍"]
+          items: ["바이브코딩 교육","AI 코딩 1:1 코칭","사이드프로젝트 부트캠프","기업 출강·워크숍"]
         },
         {
           id: "it-work", title: "IT업무", role: "잘함", candidate: "후보 2",
           color: "var(--accent)", tagClass: "tag tag--accent",
-          items: ["마우스","키보드","PC 주변기기","듀얼모니터","스탠딩 데스크 컨버터"]
+          items: ["마우스","키보드","PC,노트북","주변기기"]
         },
         {
           id: "erp", title: "ERP기업 업무", role: "잘함", candidate: "후보 2",
           color: "var(--accent)", tagClass: "tag tag--accent",
-          items: ["ERP교육","업무관련 교육","ERP 도입 컨설팅","중소기업 DX 컨설팅","사내 직무교육 프로그램"]
+          items: ["ERP교육","업무관련 교육","ERP 도입 컨설팅","중소기업 DX 컨설팅"]
         },
         {
           id: "appatree", title: "appatree 서비스", role: "장기", candidate: "후보 3",
           color: "#10b981",
           tagStyle: "background: rgba(74, 222, 128, 0.15); color: #4ade80; border-color: rgba(74, 222, 128, 0.3);",
-          items: ["부모님을 위한 시니어서비스","시니어 헬스케어 디바이스","노인 안전·낙상 알림 서비스","효도 영상통화 키트","시니어 스마트폰 사용법 강의"]
+          items: ["부모님을 위한 시니어서비스"]
         }
       ];
 
