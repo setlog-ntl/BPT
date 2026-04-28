@@ -990,6 +990,117 @@
       color: var(--text-0);
       border-radius: 2px; padding: 0 2px;
     }
+
+    /* 최종 선정 카테고리 — 아이템 편집 */
+    .ic-toolbar {
+      display: flex; gap: 8px; align-items: center;
+      margin-bottom: 16px; padding: 10px 12px;
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .ic-toolbar__status {
+      font-size: 12px; color: var(--text-2);
+      transition: color 0.15s;
+    }
+    .ic-card {
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      background: var(--bg-2);
+    }
+    .ic-card__head {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .ic-card__title {
+      font-size: 15px; font-weight: 600; color: var(--text-0);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ic-card__count {
+      margin-left: auto;
+      font-size: 12px; color: var(--text-3);
+    }
+    .ic-card__items {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 10px;
+    }
+    .ic-item {
+      display: inline-flex; align-items: center; gap: 2px;
+      padding: 4px 4px 4px 10px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 12.5px; color: var(--text-1);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .ic-item:hover { border-color: var(--border-strong); background: var(--bg-hover); }
+    .ic-item__name {
+      padding: 0 2px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .ic-item__name:hover { color: var(--accent); }
+    .ic-item__input {
+      background: var(--bg-1);
+      border: 1px solid var(--accent);
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-size: 12.5px;
+      color: var(--text-0);
+      font-family: inherit;
+      min-width: 120px;
+      outline: none;
+    }
+    .ic-item__btn {
+      background: transparent;
+      border: none;
+      color: var(--text-3);
+      padding: 2px 5px;
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1;
+      border-radius: 3px;
+    }
+    .ic-item__btn:hover { color: var(--text-0); background: rgba(255, 255, 255, 0.05); }
+    .ic-item__btn--del:hover { color: var(--danger); }
+    .ic-card__empty {
+      font-size: 12px; color: var(--text-3);
+      padding: 6px 0;
+      font-style: italic;
+    }
+    .ic-card__add {
+      display: flex; gap: 6px; align-items: center;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .ic-card__add input {
+      flex: 1;
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 9px;
+      font-size: 13px;
+      color: var(--text-0);
+      font-family: inherit;
+    }
+    .ic-card__add input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .ic-card__add button {
+      padding: 6px 12px; font-size: 12px;
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: 4px; color: var(--text-1); cursor: pointer;
+      white-space: nowrap;
+    }
+    .ic-card__add button:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
   </style>
 </head>
 <body>
@@ -1311,6 +1422,40 @@
       <hr />
       <p style="font-size: 12px; color: var(--text-3);">
         원본(편집형 워크시트): <a href="docs/아이템선정_워크시트.html" target="_blank" rel="noopener" style="color: var(--accent);">docs/아이템선정_워크시트.html</a> — 셀 직접 수정 후 [변경사항 저장] 버튼으로 다운로드 가능
+      </p>
+    </article>
+  </template>
+
+  <template id="tpl-item-categories">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">최종 선정 카테고리</span>
+        <span class="tag" id="ic-count-tag">8개 카테고리</span>
+        <span class="tag">아이템 편집 가능</span>
+      </header>
+      <h1>최종 선정 8개 카테고리 — 판매·서비스 아이템</h1>
+      <p class="lead">
+        <a href="#topic-selection" onclick="event.preventDefault(); navigate('topic-selection');">주제 선정</a>의 교집합 후보를 실제 콘텐츠·판매 라인업으로 풀어낸 결과.
+        각 카테고리는 유튜브 영상 주제군이자 동시에 추천·판매할 아이템의 집합이다.
+        아이템은 <strong>클릭하여 수정</strong>, <strong>×로 삭제</strong>, 하단 입력칸으로 <strong>새 아이템 추가</strong> 가능. 변경사항은 브라우저에 자동 저장된다.
+      </p>
+
+      <div class="ic-toolbar">
+        <button class="ln-btn" id="ic-add-default-all" title="기본 아이템 목록을 현재 상태에 다시 채워넣기 (중복 제외)">기본값 다시 불러오기</button>
+        <button class="ln-btn ln-btn--danger" id="ic-reset" title="모든 변경사항 폐기 후 기본값으로 초기화">전체 초기화</button>
+        <span class="ic-toolbar__status" id="ic-status"></span>
+        <span style="flex: 1;"></span>
+        <button class="ln-btn ln-btn--ghost" id="ic-export" title="현재 데이터를 JSON 파일로 내보내기">JSON 내보내기</button>
+        <label class="ln-btn ln-btn--ghost" style="cursor: pointer;" title="JSON 파일 가져오기">
+          가져오기
+          <input type="file" id="ic-import" accept="application/json,.json" style="display: none;" />
+        </label>
+      </div>
+
+      <div id="ic-list"></div>
+
+      <p style="font-size: 12px; color: var(--text-3); margin-top: 16px;">
+        원본 문서: <a href="docs/최종선정10개.md" target="_blank" rel="noopener" style="color: var(--accent);">docs/최종선정10개.md</a>
       </p>
     </article>
   </template>
@@ -3130,6 +3275,7 @@
           items: [
             { id: "my-framework", title: "내 관점의 전체 프레임", tpl: "tpl-my-framework" },
             { id: "topic-selection", title: "주제 선정 (좋아함·하고싶음·잘함)", tpl: "tpl-topic-selection" },
+            { id: "item-categories", title: "최종 선정 카테고리 (편집)", tpl: "tpl-item-categories" },
             { id: "glossary", title: "용어 정리", tpl: "tpl-glossary" },
             { id: "term-input", title: "용어 입력", tpl: "tpl-term-input" },
             { id: "topic-system", title: "주제 시스템 (AI · 책)", tpl: "tpl-topic-system" },
@@ -5183,6 +5329,313 @@
       document.querySelectorAll(".ti-sort-btn").forEach(b => b.classList.toggle("is-active", b.dataset.sort === sortMode));
       resetForm();
       refresh();
+    };
+
+    pageInits["tpl-item-categories"] = () => {
+      const STORAGE_KEY = "bizpt_item_categories_v2";
+      const g = id => document.getElementById(id);
+
+      const DEFAULTS = [
+        {
+          id: "books", title: "책/독서/필사", role: "메인", candidate: "후보 1·5",
+          color: "var(--accent)", tagClass: "tag tag--accent",
+          items: ["전자책","눕서대","필사노트","독서등","기타필기구"]
+        },
+        {
+          id: "running", title: "러닝/운동", role: "서브", candidate: "후보 5",
+          color: "var(--text-3)", tagClass: "tag",
+          items: ["손목통증 아대","러닝제품","러닝 워치","마사지건","카본 러닝화"]
+        },
+        {
+          id: "readtree", title: "readtree 서비스", role: "메인", candidate: "후보 1",
+          color: "var(--accent)", tagClass: "tag tag--accent",
+          items: ["연간 프리미엄 멤버십","기업·도서관 B2B 라이선스","1:1 독서 코칭","오프라인 프리미엄 독서모임","작가 강연·북콘서트 패키지"]
+        },
+        {
+          id: "linkmap", title: "linkmap 서비스", role: "연계", candidate: "후보 4",
+          color: "#8b5cf6",
+          tagStyle: "background: rgba(139, 92, 246, 0.15); color: #a78bfa; border-color: rgba(139, 92, 246, 0.3);",
+          items: ["Pro 연간 구독","기업 팀 라이선스","API 엔터프라이즈 플랜","화이트라벨 솔루션","도입·온보딩 컨설팅"]
+        },
+        {
+          id: "vibecoding", title: "바이브코딩", role: "메인", candidate: "후보 2",
+          color: "var(--accent)", tagClass: "tag tag--accent",
+          items: ["AI 활용","바이브코딩 교육","AI 코딩 1:1 코칭","사이드프로젝트 부트캠프","기업 출강·워크숍"]
+        },
+        {
+          id: "it-work", title: "IT업무", role: "잘함", candidate: "후보 2",
+          color: "var(--accent)", tagClass: "tag tag--accent",
+          items: ["마우스","키보드","PC 주변기기","듀얼모니터","스탠딩 데스크 컨버터"]
+        },
+        {
+          id: "erp", title: "ERP기업 업무", role: "잘함", candidate: "후보 2",
+          color: "var(--accent)", tagClass: "tag tag--accent",
+          items: ["ERP교육","업무관련 교육","ERP 도입 컨설팅","중소기업 DX 컨설팅","사내 직무교육 프로그램"]
+        },
+        {
+          id: "appatree", title: "appatree 서비스", role: "장기", candidate: "후보 3",
+          color: "#10b981",
+          tagStyle: "background: rgba(74, 222, 128, 0.15); color: #4ade80; border-color: rgba(74, 222, 128, 0.3);",
+          items: ["부모님을 위한 시니어서비스","시니어 헬스케어 디바이스","노인 안전·낙상 알림 서비스","효도 영상통화 키트","시니어 스마트폰 사용법 강의"]
+        }
+      ];
+
+      let editingItem = null; // { catId, idx }
+      let cats = [];
+
+      function loadStored() {
+        try {
+          const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+          return raw && typeof raw === "object" ? raw : null;
+        } catch (e) { return null; }
+      }
+      function saveStored(obj) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); return true; }
+        catch (e) { alert("저장 실패: " + e.message); return false; }
+      }
+      function getCategories() {
+        const stored = loadStored();
+        return DEFAULTS.map(def => ({
+          ...def,
+          items: stored && Array.isArray(stored[def.id]) ? stored[def.id].slice() : def.items.slice()
+        }));
+      }
+      function persist() {
+        const out = {};
+        cats.forEach(c => { out[c.id] = c.items; });
+        saveStored(out);
+      }
+
+      function status(msg, type) {
+        const el = g("ic-status");
+        if (!el) return;
+        el.textContent = msg || "";
+        el.style.color = type === "error" ? "var(--danger)"
+                       : type === "warn" ? "var(--warning)"
+                       : "var(--success)";
+        clearTimeout(status._t);
+        if (msg) status._t = setTimeout(() => { el.textContent = ""; }, 2400);
+      }
+
+      function render() {
+        cats = getCategories();
+        const total = cats.reduce((s, c) => s + c.items.length, 0);
+        const tag = g("ic-count-tag");
+        if (tag) tag.textContent = `8개 카테고리 / ${total}개 아이템`;
+
+        const box = g("ic-list");
+        box.innerHTML = cats.map((c, ci) => {
+          const tagAttr = c.tagStyle
+            ? `class="tag" style="${c.tagStyle} font-size: 10px; margin-left: 4px;"`
+            : `class="${c.tagClass}" style="font-size: 10px; margin-left: 4px;"`;
+
+          const itemsHtml = c.items.length
+            ? c.items.map((it, idx) => {
+                const isEdit = editingItem && editingItem.catId === c.id && editingItem.idx === idx;
+                if (isEdit) {
+                  return `
+                    <span class="ic-item" data-cat="${escapeHtml(c.id)}" data-idx="${idx}">
+                      <input class="ic-item__input" type="text" value="${escapeHtml(it)}" data-edit="1" />
+                      <button class="ic-item__btn" data-act="save" title="저장 (Enter)">✓</button>
+                      <button class="ic-item__btn" data-act="cancel" title="취소 (Esc)">×</button>
+                    </span>`;
+                }
+                return `
+                  <span class="ic-item" data-cat="${escapeHtml(c.id)}" data-idx="${idx}">
+                    <span class="ic-item__name" data-act="edit" title="클릭하여 수정">${escapeHtml(it)}</span>
+                    <button class="ic-item__btn ic-item__btn--del" data-act="del" title="삭제">×</button>
+                  </span>`;
+              }).join("")
+            : `<div class="ic-card__empty">아이템이 없습니다. 아래 입력칸으로 추가하세요.</div>`;
+
+          return `
+            <div class="ic-card" data-cat="${escapeHtml(c.id)}" style="border-top-color: ${c.color};">
+              <div class="ic-card__head">
+                <div class="ic-card__title">${ci + 1}. ${escapeHtml(c.title)} <span ${tagAttr}>${escapeHtml(c.role)} / ${escapeHtml(c.candidate)}</span></div>
+                <div class="ic-card__count">${c.items.length}개</div>
+              </div>
+              <div class="ic-card__items">${itemsHtml}</div>
+              <form class="ic-card__add" data-cat="${escapeHtml(c.id)}">
+                <input type="text" placeholder="새 아이템 추가..." autocomplete="off" />
+                <button type="submit">+ 추가</button>
+              </form>
+            </div>`;
+        }).join("");
+
+        bindEvents();
+
+        if (editingItem) {
+          const sel = `.ic-item[data-cat="${editingItem.catId}"][data-idx="${editingItem.idx}"] input[data-edit="1"]`;
+          const inp = document.querySelector(sel);
+          if (inp) { inp.focus(); inp.select(); }
+        }
+      }
+
+      function bindEvents() {
+        document.querySelectorAll(".ic-card").forEach(card => {
+          const catId = card.dataset.cat;
+
+          card.querySelectorAll(".ic-item").forEach(itemEl => {
+            const idx = Number(itemEl.dataset.idx);
+
+            itemEl.querySelector('[data-act="edit"]')?.addEventListener("click", () => {
+              editingItem = { catId, idx };
+              render();
+            });
+            itemEl.querySelector('[data-act="del"]')?.addEventListener("click", () => deleteItem(catId, idx));
+
+            const input = itemEl.querySelector('input[data-edit="1"]');
+            if (input) {
+              input.addEventListener("keydown", e => {
+                if (e.key === "Enter") { e.preventDefault(); commitEdit(catId, idx, input.value); }
+                else if (e.key === "Escape") { e.preventDefault(); editingItem = null; render(); }
+              });
+            }
+            itemEl.querySelector('[data-act="save"]')?.addEventListener("mousedown", e => {
+              e.preventDefault();
+              if (input) commitEdit(catId, idx, input.value);
+            });
+            itemEl.querySelector('[data-act="cancel"]')?.addEventListener("mousedown", e => {
+              e.preventDefault();
+              editingItem = null;
+              render();
+            });
+          });
+
+          const form = card.querySelector(".ic-card__add");
+          form?.addEventListener("submit", e => {
+            e.preventDefault();
+            const inp = form.querySelector("input");
+            addItem(catId, inp.value);
+            inp.value = "";
+            inp.focus();
+          });
+        });
+      }
+
+      function addItem(catId, raw) {
+        const v = (raw || "").trim();
+        if (!v) return;
+        const cat = cats.find(c => c.id === catId);
+        if (!cat) return;
+        if (cat.items.includes(v)) {
+          status(`"${v}"는 이미 있는 아이템입니다`, "warn");
+          return;
+        }
+        cat.items.push(v);
+        persist();
+        status(`"${v}" 추가됨`);
+        render();
+      }
+
+      function deleteItem(catId, idx) {
+        const cat = cats.find(c => c.id === catId);
+        if (!cat) return;
+        const item = cat.items[idx];
+        if (item == null) return;
+        if (!confirm(`"${item}" 아이템을 삭제할까요?`)) return;
+        cat.items.splice(idx, 1);
+        persist();
+        status(`"${item}" 삭제됨`, "warn");
+        if (editingItem && editingItem.catId === catId && editingItem.idx === idx) editingItem = null;
+        render();
+      }
+
+      function commitEdit(catId, idx, raw) {
+        const v = (raw || "").trim();
+        const cat = cats.find(c => c.id === catId);
+        if (!cat) return;
+        const old = cat.items[idx];
+        if (!v || v === old) {
+          editingItem = null;
+          render();
+          return;
+        }
+        const dup = cat.items.find((x, i) => i !== idx && x === v);
+        if (dup) {
+          status(`"${v}"는 이미 있는 아이템입니다`, "warn");
+          return;
+        }
+        cat.items[idx] = v;
+        persist();
+        editingItem = null;
+        status("수정 저장됨");
+        render();
+      }
+
+      function resetAll() {
+        if (!confirm("모든 변경사항을 폐기하고 8개 카테고리·기본 아이템 목록으로 초기화할까요?")) return;
+        localStorage.removeItem(STORAGE_KEY);
+        editingItem = null;
+        status("기본값으로 초기화됨", "warn");
+        render();
+      }
+
+      function addDefaultMissing() {
+        let added = 0;
+        cats.forEach(cat => {
+          const def = DEFAULTS.find(d => d.id === cat.id);
+          if (!def) return;
+          def.items.forEach(it => {
+            if (!cat.items.includes(it)) {
+              cat.items.push(it);
+              added++;
+            }
+          });
+        });
+        if (added === 0) { status("추가할 기본 아이템이 없습니다", "warn"); return; }
+        persist();
+        status(`기본 아이템 ${added}개 추가됨`);
+        render();
+      }
+
+      function exportData() {
+        const payload = {
+          version: 1,
+          exportedAt: new Date().toISOString(),
+          categories: cats.map(c => ({ id: c.id, title: c.title, items: c.items }))
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        const stamp = new Date().toISOString().slice(0, 10);
+        a.href = url; a.download = `bizpt-item-categories-${stamp}.json`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        status("내보내기 완료");
+      }
+
+      async function importFromFile(file) {
+        try {
+          const text = await file.text();
+          const data = JSON.parse(text);
+          const out = {};
+          if (data && Array.isArray(data.categories)) {
+            data.categories.forEach(c => {
+              if (c && c.id && Array.isArray(c.items)) out[c.id] = c.items;
+            });
+          } else if (data && typeof data === "object") {
+            DEFAULTS.forEach(d => { if (Array.isArray(data[d.id])) out[d.id] = data[d.id]; });
+          }
+          if (!Object.keys(out).length) throw new Error("형식이 올바르지 않습니다");
+          saveStored(out);
+          render();
+          alert("가져오기 완료");
+        } catch (e) {
+          alert("가져오기 실패: " + (e?.message || e));
+        }
+      }
+
+      g("ic-reset").addEventListener("click", resetAll);
+      g("ic-add-default-all").addEventListener("click", addDefaultMissing);
+      g("ic-export").addEventListener("click", exportData);
+      g("ic-import").addEventListener("change", e => {
+        const f = e.target.files[0];
+        if (f) importFromFile(f);
+        e.target.value = "";
+      });
+
+      render();
     };
 
     window.navigate = navigate;
