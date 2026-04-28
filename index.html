@@ -1101,6 +1101,119 @@
       color: var(--accent);
       border-color: var(--accent);
     }
+
+    /* 사이드바 — 하위레벨(트리) 표시 */
+    .nav__item--nested {
+      padding-left: 24px;
+      position: relative;
+      font-size: 13px;
+    }
+    .nav__item--nested::before {
+      content: "";
+      position: absolute;
+      left: 12px; top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .nav__item--nested::after {
+      content: "";
+      position: absolute;
+      left: 12px; top: 50%;
+      width: 8px; height: 1px;
+      background: var(--border);
+    }
+    .nav__item--nested.is-active::before,
+    .nav__item--nested.is-active::after { background: var(--accent); }
+
+    /* 단가 분석 — 카테고리 → 아이템 트리 카드 */
+    .ip-cat {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+    }
+    .ip-cat--accent { border-left-color: var(--accent); }
+    .ip-cat--purple { border-left-color: #8b5cf6; }
+    .ip-cat--neutral { border-left-color: var(--text-3); }
+    .ip-cat--green { border-left-color: #10b981; }
+
+    .ip-cat__head {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .ip-cat__title {
+      margin: 0; font-size: 16px; font-weight: 600; color: var(--text-0);
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .ip-cat__meta {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; color: var(--text-2); flex-wrap: wrap;
+    }
+    .ip-cat__total {
+      font-weight: 700; color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 14px;
+    }
+    .ip-cat--purple .ip-cat__total { color: #a78bfa; }
+    .ip-cat--neutral .ip-cat__total { color: var(--text-1); }
+    .ip-cat--green .ip-cat__total { color: #4ade80; }
+
+    .ip-items {
+      display: flex; flex-direction: column; gap: 8px;
+      padding-left: 14px;
+      border-left: 2px solid var(--border);
+      margin-left: 4px;
+    }
+
+    .ip-item {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      position: relative;
+    }
+    .ip-item::before {
+      content: "";
+      position: absolute;
+      left: -16px; top: 22px;
+      width: 14px; height: 1px;
+      background: var(--border);
+    }
+    .ip-item__head {
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap;
+    }
+    .ip-item__name {
+      font-weight: 600; color: var(--text-0); font-size: 14px;
+      flex: 1; min-width: 140px;
+    }
+    .ip-item__price {
+      font-weight: 700; color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      white-space: nowrap;
+    }
+    .ip-item__rule {
+      font-size: 10.5px; padding: 2px 8px; border-radius: 10px;
+      background: var(--bg-3); color: var(--text-2);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .ip-item__rule--over {
+      background: rgba(110, 168, 255, 0.12); color: var(--accent);
+      border-color: rgba(110, 168, 255, 0.3);
+    }
+    .ip-item__detail {
+      margin-top: 6px;
+      font-size: 12.5px; color: var(--text-2); line-height: 1.65;
+      display: flex; flex-wrap: wrap; gap: 4px 14px;
+    }
+    .ip-item__detail b { color: var(--text-1); font-weight: 500; }
   </style>
 </head>
 <body>
@@ -1456,6 +1569,334 @@
 
       <p style="font-size: 12px; color: var(--text-3); margin-top: 16px;">
         원본 문서: <a href="docs/최종선정10개.md" target="_blank" rel="noopener" style="color: var(--accent);">docs/최종선정10개.md</a>
+      </p>
+    </article>
+  </template>
+
+  <template id="tpl-item-pricing">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">단가 분석</span>
+        <span class="tag">16개 아이템 P값</span>
+        <span class="tag">2026-04-28 조사</span>
+      </header>
+      <h1>최종 선정 카테고리 — 단가(P) 분석</h1>
+      <p class="lead">
+        <a href="#item-categories" onclick="event.preventDefault(); navigate('item-categories');">아이템 편집</a> 탭의 8개 카테고리 16개 아이템에 대한
+        <strong>한국 시장 판매 단가</strong> 조사 결과. 비즈니스PT 매출 공식 <code>매출 = P × Q</code>의
+        P 입력값으로 사용. 출처는 네이버쇼핑·다나와·블로그 후기·플랫폼 공식가.
+      </p>
+
+      <div class="key-card">
+        <h3>가격 산정 규칙</h3>
+        <ul style="margin: 0; padding-left: 20px; color: var(--text-1);">
+          <li><strong>25만원 미만 시장</strong> → "적당하면서 가장 높은" 단가 (저가 제외, 적정 품질 상위 가격대)</li>
+          <li><strong>25만원 이상 시장</strong> → "가장 많이 팔린/일반적으로 거래되는" 단가</li>
+          <li>USD 표시 SaaS는 1 USD = 1,400원 환산 적용</li>
+        </ul>
+      </div>
+
+      <h2>§1. 카테고리별 단가 분석 (8 카테고리 · 16 아이템)</h2>
+      <p style="color: var(--text-2); font-size: 13px; margin-top: -4px;">카테고리는 좌측 색상 바와 헤더에 표시. 각 카테고리 헤더의 합계 P는 풀세트 1회 환산 참고치이며, 아이템은 트리 구조로 그 아래에 표시된다.</p>
+
+      <!-- 1. 책/독서/필사 -->
+      <div class="ip-cat ip-cat--accent">
+        <div class="ip-cat__head">
+          <h3 class="ip-cat__title">1. 책/독서/필사 <span class="tag tag--accent">메인 · 후보 1·5</span></h3>
+          <div class="ip-cat__meta"><span>4개 아이템</span><span>합계 <strong class="ip-cat__total">342,000원</strong></span><span>1회성 구매</span></div>
+        </div>
+        <div class="ip-items">
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">전자책 (단말기)</span>
+              <span class="ip-item__price">199,000원</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 9만 ~ 35만</span>
+              <span><b>베스트셀러</b> 크레마S · 리디 페이퍼 4 (20만대)</span>
+              <span><b>사유</b> 25만 미만 베스트셀러 상위</span>
+            </div>
+          </div>
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">눕서대</span>
+              <span class="ip-item__price">79,000원</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 2만 ~ 10만</span>
+              <span><b>베스트셀러</b> 4축 관절형 5~8만</span>
+              <span><b>사유</b> 견고한 중상위 후기 만족도</span>
+            </div>
+          </div>
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">필사노트</span>
+              <span class="ip-item__price">15,000원</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 5천 ~ 2.5만</span>
+              <span><b>베스트셀러</b> 글입다 · 루카랩 1.2~1.8만</span>
+              <span><b>사유</b> 만년필 친화 중상위</span>
+            </div>
+          </div>
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">독서등</span>
+              <span class="ip-item__price">49,000원</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 1만 ~ 15만</span>
+              <span><b>베스트셀러</b> 충전식 LED 4~6만</span>
+              <span><b>사유</b> 광원 안정성·다단조절 기준</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 러닝/운동 -->
+      <div class="ip-cat ip-cat--neutral">
+        <div class="ip-cat__head">
+          <h3 class="ip-cat__title">2. 러닝/운동 <span class="tag">서브 · 후보 5</span></h3>
+          <div class="ip-cat__meta"><span>4개 아이템</span><span>합계 <strong class="ip-cat__total">1,144,000원</strong></span><span>워치+카본화 포함</span></div>
+        </div>
+        <div class="ip-items">
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">손목통증 아대</span>
+              <span class="ip-item__price">35,000원</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 3천 ~ 5만</span>
+              <span><b>베스트셀러</b> 의료용 2.5~3.5만</span>
+              <span><b>사유</b> 에이더 · 널핏 의료용 상위</span>
+            </div>
+          </div>
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">러닝제품 (대표)</span>
+              <span class="ip-item__price">159,000원</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 7.9만 ~ 20.9만</span>
+              <span><b>베스트셀러</b> 중급 13.9~15.9만</span>
+              <span><b>사유</b> 페가수스 41 · 노바블라스트 5</span>
+            </div>
+          </div>
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">러닝 워치</span>
+              <span class="ip-item__price">650,000원</span>
+              <span class="ip-item__rule ip-item__rule--over">25만 이상</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 25만 ~ 108만</span>
+              <span><b>베스트셀러</b> 포러너 265 65~80만</span>
+              <span><b>사유</b> 가민 베스트셀러 실거래가</span>
+            </div>
+          </div>
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">카본 러닝화</span>
+              <span class="ip-item__price">300,000원</span>
+              <span class="ip-item__rule ip-item__rule--over">25만 이상</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 20만 ~ 36만</span>
+              <span><b>베스트셀러</b> 알파플라이 30~33만</span>
+              <span><b>사유</b> 대회용 표준 실거래가</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. readtree -->
+      <div class="ip-cat ip-cat--accent">
+        <div class="ip-cat__head">
+          <h3 class="ip-cat__title">3. readtree 서비스 <span class="tag tag--accent">메인 · 후보 1</span></h3>
+          <div class="ip-cat__meta"><span>1개 아이템</span><span>합계 <strong class="ip-cat__total">129,000원/년</strong></span><span>연간 멤버십</span></div>
+        </div>
+        <div class="ip-items">
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">연간 프리미엄 멤버십</span>
+              <span class="ip-item__price">129,000원/년</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 8.7만 ~ 14.3만/년</span>
+              <span><b>비교</b> 밀리(8.7) · 윌라(11.9) · 리디(14.3)</span>
+              <span><b>사유</b> 리디셀렉트 직전 심리 가격선</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. linkmap -->
+      <div class="ip-cat ip-cat--purple">
+        <div class="ip-cat__head">
+          <h3 class="ip-cat__title">4. linkmap 서비스 <span class="tag" style="background: rgba(139, 92, 246, 0.15); color: #a78bfa; border-color: rgba(139, 92, 246, 0.3);">연계 · 후보 4</span></h3>
+          <div class="ip-cat__meta"><span>1개 아이템</span><span>합계 <strong class="ip-cat__total">198,000원/년</strong></span><span>개인 Pro 구독</span></div>
+        </div>
+        <div class="ip-items">
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">Pro 연간 구독</span>
+              <span class="ip-item__price">198,000원/년</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 12만 ~ 21.5만/년</span>
+              <span><b>비교</b> Notion Plus(16.8) · Heptabase Pro(15.1)</span>
+              <span><b>사유</b> Heptabase Premium 아래</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. 바이브코딩 -->
+      <div class="ip-cat ip-cat--accent">
+        <div class="ip-cat__head">
+          <h3 class="ip-cat__title">5. 바이브코딩 <span class="tag tag--accent">메인 · 후보 2</span></h3>
+          <div class="ip-cat__meta"><span>2개 아이템</span><span>합계 <strong class="ip-cat__total">340,000원</strong></span><span>그룹+코칭</span></div>
+        </div>
+        <div class="ip-items">
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">바이브코딩 교육 (그룹·VOD)</span>
+              <span class="ip-item__price">240,000원</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 5만 ~ 89만 (할인 19~29만)</span>
+              <span><b>비교</b> 패캠 바이브코딩 바이블 단과</span>
+              <span><b>사유</b> 25만 직전 가격 저항 최소화</span>
+            </div>
+          </div>
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">AI 코딩 1:1 코칭</span>
+              <span class="ip-item__price">100,000원/시간</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 시간당 4 ~ 10만</span>
+              <span><b>비교</b> 크몽 현직 개발자 8~12만</span>
+              <span><b>사유</b> 차별화 프리미엄 적용</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. IT업무 -->
+      <div class="ip-cat ip-cat--accent">
+        <div class="ip-cat__head">
+          <h3 class="ip-cat__title">6. IT업무 <span class="tag tag--accent">잘함 · 후보 2</span></h3>
+          <div class="ip-cat__meta"><span>1개 아이템</span><span>합계 <strong class="ip-cat__total">150,000원</strong></span><span>마우스</span></div>
+        </div>
+        <div class="ip-items">
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">마우스</span>
+              <span class="ip-item__price">150,000원</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 3만 ~ 18만</span>
+              <span><b>베스트셀러</b> MX Master 3S 13~15만</span>
+              <span><b>사유</b> 다나와 사무직 인기 1위</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. ERP기업 업무 -->
+      <div class="ip-cat ip-cat--accent">
+        <div class="ip-cat__head">
+          <h3 class="ip-cat__title">7. ERP기업 업무 <span class="tag tag--accent">잘함 · 후보 2</span></h3>
+          <div class="ip-cat__meta"><span>2개 아이템</span><span>합계 <strong class="ip-cat__total">30,240,000원</strong></span><span>DX 컨설팅이 견인</span></div>
+        </div>
+        <div class="ip-items">
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">업무관련 교육 (회계·세무·엑셀·RPA·DX)</span>
+              <span class="ip-item__price">240,000원</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 15만 ~ 50만</span>
+              <span><b>거래 단가</b> 단과 20~24만</span>
+              <span><b>사유</b> 패캠 RPA · DX 단과 상한</span>
+            </div>
+          </div>
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">중소기업 DX 컨설팅</span>
+              <span class="ip-item__price">30,000,000원</span>
+              <span class="ip-item__rule ip-item__rule--over">25만 이상</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>관찰</b> 200만 ~ 5,000만</span>
+              <span><b>거래 단가</b> 지자체 평균 3,000만</span>
+              <span><b>사유</b> NIPA 바우처 매칭 사이즈</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. appatree -->
+      <div class="ip-cat ip-cat--green">
+        <div class="ip-cat__head">
+          <h3 class="ip-cat__title">8. appatree 서비스 <span class="tag" style="background: rgba(74, 222, 128, 0.15); color: #4ade80; border-color: rgba(74, 222, 128, 0.3);">장기 · 후보 3</span></h3>
+          <div class="ip-cat__meta"><span>1개 아이템</span><span>합계 <strong class="ip-cat__total">240,000원/년</strong></span><span>연 구독</span></div>
+        </div>
+        <div class="ip-items">
+          <div class="ip-item">
+            <div class="ip-item__head">
+              <span class="ip-item__name">시니어 서비스 (연간 통합 패키지)</span>
+              <span class="ip-item__price">240,000원/년</span>
+              <span class="ip-item__rule">25만 미만</span>
+            </div>
+            <div class="ip-item__detail">
+              <span><b>구성</b> 안심콜·낙상 + 영상통화 키트 + 분기 디지털 코칭</span>
+              <span><b>월 환산</b> 약 2만원</span>
+              <span><b>사유</b> 자녀 부담 없는 진입가, 25만 직전 위치</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>§2. 객단가 그룹 분류 (P×Q 영업 전략)</h2>
+      <p>P 구간이 다르면 콘텐츠·영업 전략도 달라진다. Q(판매 수량)는 트래픽 계산기에서 시청자 → 구매 전환 시나리오로 도출.</p>
+      <table>
+        <thead><tr><th style="width: 14%;">P 구간</th><th style="width: 46%;">카테고리·아이템</th><th>영업 전략 시사점</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1만 ~ 5만</strong></td><td>필사노트·독서등·아대·시니어 디바이스 단품</td><td>충동 구매 가능, 풀링 콘텐츠 친화. Q를 크게 잡아야 매출 의미</td></tr>
+          <tr><td><strong>5만 ~ 15만</strong></td><td>눕서대·러닝제품·readtree 멤버십·linkmap Pro·마우스</td><td>검토 후 구매. 키 콘텐츠로 신뢰 확보 필요</td></tr>
+          <tr><td><strong>15만 ~ 30만</strong></td><td>전자책·카본 러닝화·교육 단과·시니어 서비스(연)</td><td>"한 번 결심" 구매. 본질 메시지 + 사례가 결정타</td></tr>
+          <tr><td><strong>65만</strong></td><td>러닝 워치</td><td>비교·검토 길게. 리뷰·실사용·전후 비교 콘텐츠 효과 큼</td></tr>
+          <tr><td><strong>3,000만+</strong></td><td>중소기업 DX 컨설팅</td><td>연 1~2건이면 사업 성립. 콘텐츠는 인바운드 리드 깔때기</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-card" style="margin-top: 14px;">
+        <h3>설계 메모 — P 역할 분류</h3>
+        <ul style="margin: 6px 0 0 0; padding-left: 20px; color: var(--text-1);">
+          <li><strong>메인 P (객단가 견인)</strong>: DX 컨설팅(3,000만) · 러닝 워치(65만) — 매출 절대 크기 확보</li>
+          <li><strong>루프 P (LTV 견인)</strong>: readtree 멤버십(연 12.9만) · linkmap Pro(연 19.8만) · 시니어 서비스(연 24만) — 반복 매출</li>
+          <li><strong>확산 P (콘텐츠 친화)</strong>: 책/독서/필사·러닝 제품군 — 콘텐츠 1편당 도달·체험 진입점</li>
+        </ul>
+      </div>
+
+      <hr />
+      <p style="font-size: 12px; color: var(--text-3);">
+        원본 분석 문서: <a href="docs/카테고리_단가분석_2026-04-28.md" target="_blank" rel="noopener" style="color: var(--accent);">docs/카테고리_단가분석_2026-04-28.md</a>
+        · 데이터 스냅샷: <a href="docs/bizpt-item-categories-2026-04-28.json" target="_blank" rel="noopener" style="color: var(--accent);">docs/bizpt-item-categories-2026-04-28.json</a>
       </p>
     </article>
   </template>
@@ -3275,10 +3716,17 @@
           items: [
             { id: "my-framework", title: "내 관점의 전체 프레임", tpl: "tpl-my-framework" },
             { id: "topic-selection", title: "주제 선정 (좋아함·하고싶음·잘함)", tpl: "tpl-topic-selection" },
-            { id: "item-categories", title: "최종 선정 카테고리 (편집)", tpl: "tpl-item-categories" },
             { id: "glossary", title: "용어 정리", tpl: "tpl-glossary" },
             { id: "term-input", title: "용어 입력", tpl: "tpl-term-input" },
             { id: "topic-system", title: "주제 시스템 (AI · 책)", tpl: "tpl-topic-system" },
+          ],
+        },
+        {
+          heading: "최종 선정 카테고리",
+          nested: true,
+          items: [
+            { id: "item-categories", title: "아이템 편집", tpl: "tpl-item-categories" },
+            { id: "item-pricing", title: "단가 분석 (P 산정)", tpl: "tpl-item-pricing" },
           ],
         },
         {
@@ -3320,9 +3768,10 @@
     function renderNav() {
       const nav = $("#nav");
       nav.innerHTML = TOC.sections.map(section => {
+        const itemCls = section.nested ? "nav__item nav__item--nested" : "nav__item";
         const items = section.items.length
           ? section.items.map(item =>
-              `<a class="nav__item" href="#${item.id}" data-id="${item.id}">${escapeHtml(item.title)}</a>`
+              `<a class="${itemCls}" href="#${item.id}" data-id="${item.id}">${escapeHtml(item.title)}</a>`
             ).join("")
           : `<div class="nav__item" style="color: var(--text-3); font-style: italic; cursor: default;">자료 준비 중...</div>`;
         return `<div class="nav__section">
@@ -5332,51 +5781,51 @@
     };
 
     pageInits["tpl-item-categories"] = () => {
-      const STORAGE_KEY = "bizpt_item_categories_v3";
+      const STORAGE_KEY = "bizpt_item_categories_v7";
       const g = id => document.getElementById(id);
 
       const DEFAULTS = [
         {
           id: "books", title: "책/독서/필사", role: "메인", candidate: "후보 1·5",
           color: "var(--accent)", tagClass: "tag tag--accent",
-          items: ["전자책","눕서대","필사노트","독서등","기타필기구"]
+          items: ["전자책","눕서대","필사노트","독서등"]
         },
         {
           id: "running", title: "러닝/운동", role: "서브", candidate: "후보 5",
           color: "var(--text-3)", tagClass: "tag",
-          items: ["손목통증 아대","러닝제품","러닝 워치","마사지건","카본 러닝화"]
+          items: ["손목통증 아대","러닝제품","러닝 워치","카본 러닝화"]
         },
         {
           id: "readtree", title: "readtree 서비스", role: "메인", candidate: "후보 1",
           color: "var(--accent)", tagClass: "tag tag--accent",
-          items: ["연간 프리미엄 멤버십","오프라인 프리미엄 독서모임","작가 강연·북콘서트 패키지"]
+          items: ["연간 프리미엄 멤버십"]
         },
         {
           id: "linkmap", title: "linkmap 서비스", role: "연계", candidate: "후보 4",
           color: "#8b5cf6",
           tagStyle: "background: rgba(139, 92, 246, 0.15); color: #a78bfa; border-color: rgba(139, 92, 246, 0.3);",
-          items: ["Pro 연간 구독","기업 팀 라이선스"]
+          items: ["Pro 연간 구독"]
         },
         {
           id: "vibecoding", title: "바이브코딩", role: "메인", candidate: "후보 2",
           color: "var(--accent)", tagClass: "tag tag--accent",
-          items: ["바이브코딩 교육","AI 코딩 1:1 코칭","사이드프로젝트 부트캠프","기업 출강·워크숍"]
+          items: ["바이브코딩 교육","AI 코딩 1:1 코칭"]
         },
         {
           id: "it-work", title: "IT업무", role: "잘함", candidate: "후보 2",
           color: "var(--accent)", tagClass: "tag tag--accent",
-          items: ["마우스","키보드","PC,노트북","주변기기"]
+          items: ["마우스"]
         },
         {
           id: "erp", title: "ERP기업 업무", role: "잘함", candidate: "후보 2",
           color: "var(--accent)", tagClass: "tag tag--accent",
-          items: ["ERP교육","업무관련 교육","ERP 도입 컨설팅","중소기업 DX 컨설팅"]
+          items: ["업무관련 교육","중소기업 DX 컨설팅"]
         },
         {
           id: "appatree", title: "appatree 서비스", role: "장기", candidate: "후보 3",
           color: "#10b981",
           tagStyle: "background: rgba(74, 222, 128, 0.15); color: #4ade80; border-color: rgba(74, 222, 128, 0.3);",
-          items: ["부모님을 위한 시니어서비스"]
+          items: ["시니어 서비스"]
         }
       ];
 
