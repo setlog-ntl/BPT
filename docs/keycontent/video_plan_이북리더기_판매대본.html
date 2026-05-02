@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이북리더기·전자책 판매대본 — 영상 기획서 (6편 시리즈)</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2; --accent:#ffd166; --accent-2:#06d6a0;
+    --warn:#ef476f; --info:#118ab2; --chip:#2a2f3a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:48px 28px 80px}
+  header.hero{padding:36px 32px;border-radius:20px;
+    background:radial-gradient(1200px 400px at 10% -10%,rgba(255,209,102,.18),transparent 50%),
+               radial-gradient(900px 380px at 110% 10%,rgba(6,214,160,.14),transparent 55%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line); position:relative; overflow:hidden}
+  .hero .eyebrow{display:inline-block;font-size:12px;letter-spacing:.18em;color:var(--accent);
+    background:rgba(255,209,102,.12);border:1px solid rgba(255,209,102,.3);
+    padding:6px 12px;border-radius:999px; text-transform:uppercase}
+  h1{font-size:38px;line-height:1.25;margin:18px 0 8px;letter-spacing:-0.02em;font-weight:800}
+  h1 .accent{color:var(--accent)}
+  .hero p.lede{color:var(--muted);font-size:16px;margin:8px 0 22px;max-width:820px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:var(--chip);border:1px solid var(--line);color:var(--text);
+    font-size:12.5px;padding:6px 12px;border-radius:999px}
+  section{margin-top:40px}
+  h2{font-size:22px;letter-spacing:-.01em;margin:0 0 16px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--accent)}
+  h3{font-size:16px;margin:18px 0 8px;color:#fff}
+  .grid{display:grid;gap:16px}
+  .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media(max-width:760px){.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}.wrap{padding:24px 16px 60px}h1{font-size:28px}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card.alt{background:var(--panel-2)}
+  .card h4{margin:0 0 6px;font-size:15px;color:#fff}
+  .card .sub{color:var(--muted);font-size:13px}
+  .kpi{font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+  table{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top;text-align:left}
+  th{background:#1b1f28;color:#fff;font-weight:600;font-size:12px;letter-spacing:.04em}
+  tbody tr:nth-child(even){background:#161a22}
+  .timecode{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:600;white-space:nowrap}
+  .pill{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11.5px;font-weight:600}
+  .pill.hook{background:rgba(239,71,111,.15);color:#ff6b8a}
+  .pill.body{background:rgba(17,138,178,.18);color:#5cc4e0}
+  .pill.cta{background:rgba(6,214,160,.15);color:#33d8a3}
+  .pill.intro{background:rgba(255,209,102,.18);color:#ffd166}
+  blockquote.q{margin:0;padding:14px 16px;border-left:3px solid var(--accent);
+    background:#181c25;border-radius:0 10px 10px 0;color:#dadde3;font-size:14.5px}
+  /* 썸네일 */
+  .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:860px){.thumbs{grid-template-columns:1fr}}
+  .thumb{aspect-ratio:16/9;border-radius:12px;border:1px solid var(--line);
+    position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:14px}
+  .thumb.vertical{aspect-ratio:9/16;max-width:230px;margin:0 auto}
+  .thumb .t-label{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.55);
+    font-size:11px;padding:3px 8px;border-radius:6px;color:#fff;letter-spacing:.06em}
+  .thumb-1{background:linear-gradient(135deg,#1c1f29 0%,#0c0e13 100%)}
+  .thumb-1 .big{font-size:28px;font-weight:900;color:#fff;line-height:1.05;letter-spacing:-.02em}
+  .thumb-1 .red{color:#ff476f}
+  .thumb-2{background:radial-gradient(circle at 30% 30%,#2d6cdf 0%,#0c0e13 70%)}
+  .thumb-2 .big{font-size:26px;font-weight:900;color:#ffd166;line-height:1.1}
+  .thumb-2 .small{color:#fff;font-size:13px;margin-top:6px;opacity:.85}
+  .thumb-3{background:linear-gradient(135deg,#0c2a1c 0%,#0c0e13 100%)}
+  .thumb-3 .big{font-size:24px;font-weight:900;color:#fff;line-height:1.15}
+  .thumb-3 .accent-line{height:4px;width:60px;background:#06d6a0;margin:10px auto;border-radius:2px}
+  .thumb-3 .small{color:#9aa3b2;font-size:12px}
+  .thumb-note{font-size:12.5px;color:var(--muted);margin-top:8px}
+  ul.clean{padding-left:18px;margin:6px 0}
+  ul.clean li{margin:4px 0;font-size:13.5px}
+  .copybox{background:#0c0e13;border:1px dashed #2a3040;border-radius:10px;
+    padding:14px 16px;font-size:13px;color:#c8ccd4;white-space:pre-wrap;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .tag-list{display:flex;flex-wrap:wrap;gap:6px}
+  .tag-list .chip{font-size:12px;padding:4px 9px}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 14px}
+  .footer{margin-top:54px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);
+    padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .anchor{position:sticky;top:0;background:rgba(15,17,21,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);z-index:20;margin:-48px -28px 28px;padding:12px 28px;
+    overflow-x:auto;white-space:nowrap}
+  .anchor a{color:var(--muted);font-size:13px;text-decoration:none;margin-right:14px}
+  .anchor a:hover{color:#fff}
+  .anchor a.hot{color:var(--accent)}
+  .callout{border-left:4px solid var(--accent-2);background:#13241e;color:#cfe9dd;
+    padding:14px 16px;border-radius:0 10px 10px 0;font-size:14px}
+  .callout.warn{border-left-color:var(--warn);background:#251418;color:#f0c8d2}
+  .pain-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+  @media(max-width:980px){.pain-grid{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:600px){.pain-grid{grid-template-columns:repeat(2,1fr)}}
+  .pain{padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel-2);
+    font-size:12px;text-align:center}
+  .pain.on{border-color:var(--accent);background:#2a2614;color:#ffd166}
+  .pain.sub{border-color:var(--info);background:#0e1f26;color:#9bd6e8}
+  /* 단계 칩 (5단계 사이클) */
+  .stage{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:700;color:#fff;letter-spacing:.3px}
+  .stage.s-phenomenon{background:#ef4444}
+  .stage.s-desire{background:#f59e0b}
+  .stage.s-plan{background:#3b82f6}
+  .stage.s-action{background:#8b5cf6}
+  .stage.s-reward{background:#10b981}
+  /* 편 아코디언 */
+  details.ep{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:0;margin-bottom:18px;overflow:hidden}
+  details.ep > summary{cursor:pointer;list-style:none;padding:18px 22px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    background:linear-gradient(180deg,#1a1e27 0%,#171a21 100%);border-bottom:1px solid var(--line)}
+  details.ep > summary::-webkit-details-marker{display:none}
+  details.ep > summary::after{content:"▾";color:var(--muted);margin-left:auto;font-size:14px;transition:transform .15s}
+  details.ep[open] > summary::after{transform:rotate(180deg)}
+  details.ep > summary .ep-title{font-size:16px;font-weight:700;color:#fff}
+  .ep-body{padding:20px 22px}
+  .ep-body > section + section{margin-top:24px}
+  .ep-body h3{margin-top:0}
+  /* 타임라인 표 */
+  .timeline-narration{color:#dadde3;font-size:13px;line-height:1.55}
+  .timeline-broll{color:#a8b3c2;font-size:12.5px;line-height:1.55}
+  .timeline-broll b{color:#ffd166;font-weight:600}
+  .ttag{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10.5px;font-weight:700;margin-right:4px}
+  .ttag.stock{background:rgba(17,138,178,.22);color:#7cd0e8}
+  .ttag.ai{background:rgba(255,209,102,.18);color:#ffd166}
+  .ttag.live{background:rgba(6,214,160,.18);color:#33d8a3}
+  .ttag.motion{background:rgba(139,92,246,.22);color:#c4b5fd}
+  .ttag.sfx{background:rgba(239,71,111,.18);color:#ff8aa5}
+  /* 강조어 */
+  .kw{display:inline-block;padding:2px 7px;border-radius:5px;background:rgba(255,209,102,.14);color:#ffd166;font-size:12px;font-weight:600;margin:2px 4px 2px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="anchor">
+    <a href="#master">시리즈 마스터</a>
+    <a href="#assets">공통 자산</a>
+    <a href="#ep1">EP1 페인(롱)</a>
+    <a href="#ep2">EP2 자기계발(롱)</a>
+    <a href="#ep3">EP3 가성비(롱)</a>
+    <a href="#ep4">EP4 페인(쇼츠)</a>
+    <a href="#ep5">EP5 자기계발(쇼츠)</a>
+    <a href="#ep6">EP6 가성비(쇼츠)</a>
+    <a href="#pain">8대 페인 매핑</a>
+    <a href="#ops">발행 운영표</a>
+    <a href="#checklist">제작 체크리스트</a>
+    <a href="#principles">원칙 자기평가</a>
+    <a href="#fullscripts" class="hot">원본 대본 →</a>
+  </nav>
+
+  <header class="hero">
+    <span class="eyebrow">YouTube Series Plan · 6 episodes</span>
+    <h1>이북리더기·전자책 <span class="accent">판매대본</span> 6편 시리즈 영상 기획서</h1>
+    <p class="lede">
+      1500자 정식편 3종(페인포인트 / 자기계발 / 가성비) + 350자 쇼츠 3종을 같은 채널 운영 사이클로 발행하기 위한 마스터 기획.
+      각 편의 썸네일·분초 단위 타임라인·B-roll·AI 이미지 프롬프트·자막·SFX·발행 일정·체크리스트까지 한 번에 정리한다.
+    </p>
+    <div class="meta-row">
+      <span class="chip">분량 1500자×3 (7~9분) + 350자×3 (60~90초)</span>
+      <span class="chip">타깃 25~45세 자기계발·가성비 검색층</span>
+      <span class="chip">톤 페인=공감 / 자기계발=진중 / 가성비=수치·실용</span>
+      <span class="chip">CTA 쿠팡파트너스 모델 비교 + 밀리의 서재 가입</span>
+      <span class="chip">시리즈 포지션 책/독서/필사 메인 라인 풀링·키 콘텐츠</span>
+      <span class="chip">기준 대본 <a href="scripts_이북리더기_판매대본.html" style="color:var(--accent)">scripts_이북리더기_판매대본.html</a></span>
+    </div>
+  </header>
+
+  <!-- ============================================ 1. 시리즈 마스터 ============================================ -->
+  <section id="master">
+    <h2>① 시리즈 마스터 컨셉</h2>
+    <div class="grid cols-2">
+      <div class="card">
+        <div class="kpi">Big Idea</div>
+        <h4>"이북리더기는 전자기기가 아니라 독서 환경이다"</h4>
+        <p class="sub">의지가 아닌 도구·환경으로 독서 습관을 회복시키는 가장 작은 투자 — 어깨 통증·SNS 산만·돈·정체성·시간 다섯 결을 6편으로 펼친다.</p>
+      </div>
+      <div class="card">
+        <div class="kpi">6편 한 줄 요약</div>
+        <ul class="clean">
+          <li><strong>EP1 페인(롱):</strong> "200g 하나로 끝나는 어깨·눈·SNS 3중 통증"</li>
+          <li><strong>EP2 자기계발(롱):</strong> "1년 뒤 30권 — 의지가 아니라 도구의 차이"</li>
+          <li><strong>EP3 가성비(롱):</strong> "20만~100만원, 본전 뽑는 수학 + 밀리의 서재"</li>
+          <li><strong>EP4 페인(쇼츠):</strong> "200g, 한 달 배터리, 알림 없음"</li>
+          <li><strong>EP5 자기계발(쇼츠):</strong> "빌 게이츠가 50권 읽는 진짜 이유"</li>
+          <li><strong>EP6 가성비(쇼츠):</strong> "1년이면 본전 — 숫자 60초 요약"</li>
+        </ul>
+      </div>
+      <div class="card alt">
+        <div class="kpi">5단계 구매 사이클 매핑</div>
+        <p class="sub" style="margin-bottom:8px">한 영상당 1~2단계만 주력. 5단계 모두 넣으면 메시지가 흐려진다(3-1강 원칙).</p>
+        <ul class="clean">
+          <li><span class="stage s-phenomenon">현상</span> EP1·EP4 — "내 얘기네"로 풀(pool) 형성</li>
+          <li><span class="stage s-desire">욕구</span> EP2·EP5 — "바뀌고 싶다" 점화</li>
+          <li><span class="stage s-plan">계획</span> EP3·EP6 — "이렇게 하면 본전" 해결책</li>
+          <li><span class="stage s-action">행동</span> 모든 편 마지막 30초 CTA에서 보조</li>
+          <li><span class="stage s-reward">보상</span> EP1 마무리·아웃트로 카드에서 환기</li>
+        </ul>
+      </div>
+      <div class="card alt">
+        <div class="kpi">차별화 포인트</div>
+        <ul class="clean">
+          <li>경쟁 영상은 "스펙 비교" 일변도 → 본 시리즈는 <strong>페인·욕구를 1편씩 분리</strong>해 단계별 풀 형성</li>
+          <li>가성비편에 <strong>밀리의 서재 9,900원 무제한 구독</strong>까지 포함해 책값 0원 수렴 논리 완성</li>
+          <li>1500자·쇼츠 동일 관점 페어 발행 → 알고리즘 노출면 동시 확보</li>
+          <li>마지막 30초마다 다음 편 자연스러운 다리 → 시리즈 시청 시간 누적</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>발행 순서 · 단계 매핑 표</h3>
+    <table>
+      <thead><tr>
+        <th style="width:13%">편</th><th style="width:18%">관점</th><th>단계</th><th>온도</th>
+        <th>길이</th><th>발행 주차</th><th>다음 편 다리</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>EP1 (롱)</td><td>페인포인트</td><td><span class="stage s-phenomenon">현상</span> + <span class="stage s-reward">보상</span></td><td>Cold</td><td>7~9분</td><td>1주차 화</td><td>"의지가 아니라 도구다 → EP2"</td></tr>
+        <tr><td>EP4 (쇼츠)</td><td>페인포인트</td><td><span class="stage s-phenomenon">현상</span></td><td>Cold</td><td>60~90초</td><td>1주차 목</td><td>풀버전 EP1로 트래픽</td></tr>
+        <tr><td>EP2 (롱)</td><td>자기계발</td><td><span class="stage s-desire">욕구</span></td><td>Cold/Warm</td><td>7~9분</td><td>2주차 화</td><td>"본전은 어떻게 나오나 → EP3"</td></tr>
+        <tr><td>EP5 (쇼츠)</td><td>자기계발</td><td><span class="stage s-desire">욕구</span></td><td>Cold/Warm</td><td>60~90초</td><td>2주차 목</td><td>풀버전 EP2로 트래픽</td></tr>
+        <tr><td>EP3 (롱)</td><td>가성비</td><td><span class="stage s-plan">계획</span></td><td>Warm/Hot</td><td>7~9분</td><td>3주차 화</td><td>모델 비교 영상(차후)·랜딩</td></tr>
+        <tr><td>EP6 (쇼츠)</td><td>가성비</td><td><span class="stage s-plan">계획</span></td><td>Warm/Hot</td><td>60~90초</td><td>3주차 목</td><td>풀버전 EP3로 트래픽</td></tr>
+      </tbody>
+    </table>
+    <div class="callout" style="margin-top:14px">
+      <strong>발행 리듬:</strong> 주 2편 × 3주 = 총 6편을 21일 내 모두 노출. 1500자 편(화·19~21시) → 같은 주 쇼츠(목·정오/저녁) 페어 발행으로 알고리즘이 같은 페르소나에게 두 번 노출하도록 유도.
+    </div>
+  </section>
+
+  <!-- ============================================ 2. 공통 자산 ============================================ -->
+  <section id="assets">
+    <h2>② 공통 시각 자산 가이드 (1회 셋업 · 6편 재사용)</h2>
+    <div class="grid cols-3">
+
+      <div class="card">
+        <h4>① 무료 스톡 소스</h4>
+        <p class="sub">라이선스 무료(상업 사용 OK). 출처 표기 권장.</p>
+        <ul class="clean">
+          <li><strong>Pexels Video</strong>: "ereader hand", "kindle reading", "subway commute reading", "library bookshelf", "bedside reading lamp"</li>
+          <li><strong>Unsplash</strong>: "ebook reader flat lay", "minimalist desk", "stack of books", "coffee shop laptop"</li>
+          <li><strong>Mixkit</strong>: 짧은 transition 영상, 스마트폰 알림 모션</li>
+          <li><strong>Pixabay</strong>: 빌 게이츠 인용 그래픽 배경(인물 사진은 저작권 주의 → 실루엣/일러스트 사용)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>② 실촬 B-roll (6편 공통 풀)</h4>
+        <p class="sub">하루 몰아서 촬영해 6편에 분배.</p>
+        <ul class="clean">
+          <li>이북리더기 핸즈컷 (한 손, 양손, 가방에서 꺼내기)</li>
+          <li>종이책 무겁게 든 어깨·가방 클로즈업</li>
+          <li>카페·지하철·침대 3장소 독서 풀샷</li>
+          <li>책장 가득 vs 책상 위 단말기 1대 비교 컷</li>
+          <li>e-ink 화면 vs 폰 화면 색온도 비교 클로즈업</li>
+          <li>밀리의 서재 앱 화면 캡처(가입 화면·도서 목록)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>③ AI 이미지 프롬프트 라이브러리</h4>
+        <p class="sub">Midjourney / DALL·E / Stable Diffusion 공통. 한·영 페어로 24개 분배(편당 평균 4컷).</p>
+        <ul class="clean">
+          <li>"무거운 책 vs 200g 단말기, 무게 시각화" / "minimalist scale comparing thick book and slim ereader, dark moody lighting, product shot"</li>
+          <li>"카페에서 단말기 읽는 세련된 30대" / "stylish 30s reading on ereader at cafe, cinematic, soft window light"</li>
+          <li>"미래의 나, 책 30권 옆에 앉은 모습" / "future self sitting beside stack of 30 books, inspirational, warm tone"</li>
+          <li>"밀리의 서재 무한 도서관" / "infinite library of digital books glowing, blue gradient, magical realism"</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>④ 모션·자막 디자인</h4>
+        <ul class="clean">
+          <li>폰트: <strong>Pretendard Bold</strong> (한글) + Inter Black (영문·숫자)</li>
+          <li>사이즈: 롱폼 60px / 쇼츠 80px</li>
+          <li>외곽선: 검정 4px + 그림자 2px</li>
+          <li>안전영역: 상 10% / 하 12%</li>
+          <li>강조어 색: <span style="color:#FFD166;font-weight:700">#FFD166</span> 고정 / 일반 자막 #FFFFFF</li>
+          <li>1줄 21자 룰 — 넘으면 줄바꿈</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>⑤ SFX · BGM</h4>
+        <p class="sub">YouTube Audio Library / Mixkit 무료. 편 무드별 3 트랙 미리 픽.</p>
+        <ul class="clean">
+          <li><strong>페인 무드(EP1·4)</strong>: Lo-fi minor, 60~70 BPM, "Stale Mate" 류</li>
+          <li><strong>자기계발 무드(EP2·5)</strong>: Inspirational acoustic, 90~100 BPM, "Morning Light"</li>
+          <li><strong>가성비 무드(EP3·6)</strong>: Upbeat synth, 110~120 BPM, "Number Crunch"</li>
+          <li>SFX: <code>page-flip 0.3s</code> / <code>chime 0.5s</code> / <code>whoosh transition</code> / <code>cash register</code>(가성비편)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>⑥ 컬러 · 로고 시스템</h4>
+        <ul class="clean">
+          <li>채널 메인 컬러: 노랑 #FFD166 / 민트 #06D6A0 / 코랄 #EF476F (강조)</li>
+          <li>워터마크: 우상단 80×80px, 투명도 60%, 5초 페이드인 후 영상 내내 유지</li>
+          <li>아웃트로: 구독 카드(1500자 5초 / 쇼츠 0초)</li>
+          <li>썸네일 인물 표정: 페인=찡그림 / 자기계발=결심한 정면 / 가성비=놀란 입</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout warn" style="margin-top:18px">
+      <strong>⚠ 출처·인용 정책 (영상 설명란에 반드시 기재):</strong><br>
+      ① 빌 게이츠 "연 50권" / 워런 버핏 "하루 80% 독서" — 인터뷰 출처 URL 명시<br>
+      ② 도서관 전자책 무료 대여 — 국립중앙도서관·각 시도 도서관 통계 기준일 명시<br>
+      ③ 밀리의 서재 가격(월 9,900~15,900원) — <strong>캡처 일자 명시</strong> (가격 정책 변경 위험)<br>
+      ④ "최저가" "1위" 단정 표현 회피 → "내가 비교한 ○대 중 가장 저렴" 식으로 대체
+    </div>
+  </section>
+
+  <!-- ============================================ EP1 1500자 페인포인트 ============================================ -->
+  <section id="ep1">
+    <details class="ep" open>
+      <summary>
+        <span class="ep-title">EP1 · 1500자 페인포인트</span>
+        <span class="chip">롱폼 7~9분</span>
+        <span class="stage s-phenomenon">현상</span>
+        <span class="stage s-reward">보상</span>
+        <span class="chip">Cold</span>
+      </summary>
+      <div class="ep-body">
+
+        <h3>(1) 제목·키워드</h3>
+        <div class="grid cols-2">
+          <div class="card">
+            <div class="kpi">제목 후보 3</div>
+            <ul class="clean">
+              <li><strong>SEO형:</strong> "이북리더기 후기 — 어깨 통증·SNS 산만함 200g 하나로 해결"</li>
+              <li><strong>클릭형:</strong> "30권 쌓아두고 한 권도 못 끝낸 사람만 보세요"</li>
+              <li><strong>리스트형:</strong> "이북리더기로 사라진 3가지 — 어깨·눈 피로·인스타"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kpi">검색 키워드 (★우선)</div>
+            <div class="tag-list">
+              <span class="chip">★이북리더기 후기</span>
+              <span class="chip">★전자책 단말기 추천</span>
+              <span class="chip">★종이책 단점</span>
+              <span class="chip">독서 습관</span>
+              <span class="chip">디지털 디톡스</span>
+              <span class="chip">e-ink 후기</span>
+              <span class="chip">킨들 후기</span>
+              <span class="chip">크레마</span>
+              <span class="chip">독서 미니멀</span>
+              <span class="chip">출퇴근 책</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>(2) 썸네일 3안 (16:9)</h3>
+        <div class="thumbs">
+          <div class="thumb thumb-1">
+            <span class="t-label">A · 충돌형</span>
+            <div><div class="big">어깨 끊어집니다.</div>
+              <div style="margin-top:6px;font-size:14px;color:#ffd166">200g 하나면 끝.</div></div>
+          </div>
+          <div class="thumb thumb-2">
+            <span class="t-label">B · 비교형</span>
+            <div><div class="big">3권 vs 200g</div>
+              <div class="small">같은 가방, 다른 무게</div></div>
+          </div>
+          <div class="thumb thumb-3">
+            <span class="t-label">C · 인사이트형</span>
+            <div><div class="big">읽고 싶은데<br>못 읽는 이유</div>
+              <div class="accent-line"></div>
+              <div class="small">기기의 문제였습니다</div></div>
+          </div>
+        </div>
+        <p class="thumb-note">디자인 키워드: A 충돌(빨강 글자 + 검정 배경) / B 비교(가방·책 vs 단말기 합성) / C 인사이트(차분 그린 + 인물 정면). 모바일 가독성 — A안이 가장 강함, A·B를 A/B 테스트.</p>
+
+        <h3>(3) 분초 단위 타임라인 (8분 30초 기준)</h3>
+        <table>
+          <thead><tr>
+            <th style="width:8%">시간</th><th style="width:7%">파트</th>
+            <th style="width:30%">내레이션 (원본 인용 + 메모)</th>
+            <th style="width:18%">화면 지시</th>
+            <th style="width:25%">B-roll · 이미지</th>
+            <th style="width:12%">자막·SFX/BGM</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="timecode">00:00–00:05</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"가방 속 책 한 권 때문에 어깨 끊어진 적, 있으시죠?"<br><em class="sub">→ 통증을 1초 안에 시각·언어로 동시에 찌르기</em></td>
+              <td>인물 정면 클로즈업, 어깨 잡으며 찡그림</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 어깨 잡는 핸즈컷 (셀프)<br><span class="ttag stock">스톡</span> Pexels "shoulder pain commute"</td>
+              <td>자막 <span class="kw">어깨 끊어짐</span> · BGM in (페인 무드)</td></tr>
+            <tr><td class="timecode">00:05–00:15</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"스마트폰으로 읽자니 5분 만에 인스타로 넘어가고. 책장엔 안 읽은 책만 쌓여있고."</td>
+              <td>스마트폰 → 인스타 화면 전환, 책장 풀샷</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 핸드폰 잠금화면 → 인스타 스와이프<br><span class="ttag stock">스톡</span> Unsplash "messy bookshelf"</td>
+              <td>자막 <span class="kw">5분</span> · SFX 알림음 ×3</td></tr>
+            <tr><td class="timecode">00:15–00:30</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"이 모든 문제가 200g짜리 기기 하나로 끝난다면 어떨까요? 어깨 통증, 눈 피로, SNS 산만함까지 한 번에 해결하는 이북리더기 — 오늘 끝까지 보시면 왜 그런지 정확히 이해되실 겁니다."</td>
+              <td>이북리더기 손에 들고 위로 들어올림 (히어로샷)</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 단말기 히어로샷 (역광)<br><span class="ttag motion">모션</span> "200g" 숫자 카운터 1초</td>
+              <td>자막 <span class="kw">200g</span> · SFX chime</td></tr>
+            <tr><td class="timecode">00:30–01:00</td><td><span class="pill intro">INTRO</span></td>
+              <td class="timeline-narration">"저도 똑같았습니다. 책장에는 안 읽은 책이 30권 넘게 쌓여있고, 새 책을 사도 죄책감만 늘어가던 시기가 있었어요. 그때 만난 게 이북리더기였습니다."</td>
+              <td>본인 책장 풀샷 → 단말기 클로즈업으로 디졸브</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 본인 책장 (30권 강조)<br><span class="ttag ai">AI</span> "30권 쌓인 책장 옆 죄책감 표정 30대" / "guilty 30s beside stack of unread books, dim light"</td>
+              <td>자막 <span class="kw">30권</span> <span class="kw">죄책감</span></td></tr>
+            <tr><td class="timecode">01:00–02:30</td><td><span class="pill body">BODY 1</span></td>
+              <td class="timeline-narration">"이북리더기는 종이책 한 권보다도 가볍습니다. 200g 남짓, 손목이 전혀 부담스럽지 않아요. 화면은 e-ink 디스플레이라 종이와 거의 똑같은 질감의 빛을 냅니다. 두 시간, 세 시간을 읽어도 눈이 시리지 않아요."</td>
+              <td>저울 위에 책 vs 단말기, e-ink 화면 매크로</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 저울 그래픽 "450g vs 200g"<br><span class="ttag live">실촬</span> e-ink 화면 매크로 (자연광)<br><span class="ttag stock">스톡</span> Pexels "e-ink display close-up"</td>
+              <td>자막 <span class="kw">200g</span> <span class="kw">눈 안 시려요</span></td></tr>
+            <tr><td class="timecode">02:30–03:30</td><td><span class="pill body">BODY 2</span></td>
+              <td class="timeline-narration">"백라이트도 따뜻한 색온도로 조절되니 자기 전 침대에서 읽어도 수면에 방해되지 않습니다. 배터리는 충전 한 번에 길게는 한 달까지 갑니다."</td>
+              <td>침대 옆 단말기, 따뜻한 조명 / 배터리 한 달 그래픽</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 침대 사이드 독서 컷<br><span class="ttag motion">모션</span> 배터리 100%→ 30일 캘린더 카운터</td>
+              <td>자막 <span class="kw">한 달 배터리</span></td></tr>
+            <tr><td class="timecode">03:30–04:30</td><td><span class="pill body">BODY 3</span></td>
+              <td class="timeline-narration">"방수 기능까지 있어서 욕조, 수영장, 비 오는 날 카페 야외석, 어디서든 안심하고 읽을 수 있습니다."</td>
+              <td>욕조·카페 야외 컷 (쾌적한 무드)</td>
+              <td class="timeline-broll"><span class="ttag stock">스톡</span> Pexels "reading bath", "outdoor cafe rain"<br><span class="ttag ai">AI</span> "비 오는 카페 창가 단말기" / "ereader on cafe table by rainy window"</td>
+              <td>자막 <span class="kw">방수</span></td></tr>
+            <tr><td class="timecode">04:30–06:00</td><td><span class="pill body">BODY 4 (정점)</span></td>
+              <td class="timeline-narration">"가장 중요한 점. 알림이 없습니다. 카톡도, 인스타도, 유튜브도 안 들어옵니다. 오직 책 한 권과 나, 그것뿐. 집중력이 산산조각 난 현대인에게 이건 단순한 기기가 아니라 하나의 피난처입니다."</td>
+              <td>스마트폰 알림 폭격 → 단말기 고요함 대비</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 알림 팝업 ×7 폭격<br><span class="ttag live">실촬</span> 단말기 화면, 무음<br><span class="ttag ai">AI</span> "고요한 독서 피난처" / "quiet reading sanctuary, soft amber light, minimal"</td>
+              <td>자막 <span class="kw">알림 없음</span> <span class="kw">피난처</span> · BGM 페이드 다운 → 고요</td></tr>
+            <tr><td class="timecode">06:00–07:00</td><td><span class="pill body">BODY 5</span></td>
+              <td class="timeline-narration">"수천 권의 책을 손바닥 위에 들고 다닌다고 상상해보세요. 출장, 여행, 어떤 책을 챙겨갈지 고민할 필요가 없습니다."</td>
+              <td>손바닥 위 단말기 + 도서관 합성</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "손바닥 위 무한 도서관" / "infinite library inside palm, glowing books, magical realism"<br><span class="ttag stock">스톡</span> Pexels "library bookshelf"</td>
+              <td>자막 <span class="kw">손바닥 위 도서관</span></td></tr>
+            <tr><td class="timecode">07:00–07:45</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"'책 읽어야지' 하면서도 매번 미루는 분, 한 권을 한 달째 못 끝내는 분, 스마트폰만 잡으면 SNS에 빠지는 분 — 이 모든 고민을 이북리더기 하나가 해결합니다."</td>
+              <td>인물 정면, 페인 3가지 자막 1초씩 점멸</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 인물 정면 미디엄샷</td>
+              <td>자막 페인 3종 점멸</td></tr>
+            <tr><td class="timecode">07:45–08:20</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"지금 영상 설명란 링크에서 제가 직접 사용한 베스트 모델과 오늘만 적용되는 할인 코드 확인하세요. 망설이는 1분 사이에도 어깨는 무거워지고, 눈은 더 피로해집니다. 가장 작고 확실한 투자, 지금 시작하세요."</td>
+              <td>설명란 링크 화살표 모션 + 단말기 클로즈업</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "↓ 설명란 링크" 화살표 5초 루프<br><span class="ttag live">실촬</span> 단말기 핸즈컷</td>
+              <td>자막 <span class="kw">설명란 링크</span> · BGM in (보상 무드)</td></tr>
+            <tr><td class="timecode">08:20–08:30</td><td><span class="pill cta">OUTRO</span></td>
+              <td class="timeline-narration">[다음 편 다리] "근데 이북리더기 하나로 인생이 달라진다고? 그 진짜 이유는 다음 영상 — 1년 뒤 책 30권 읽은 자기 자신 만들기 — 에서 풀어드립니다."</td>
+              <td>EP2 썸네일 미리보기 카드</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 구독 카드 + EP2 카드</td>
+              <td>BGM out</td></tr>
+          </tbody>
+        </table>
+
+        <h3>(4) 자산 체크리스트</h3>
+        <div class="grid cols-2">
+          <div class="card alt">
+            <h4>촬영 컷 (실촬)</h4>
+            <ul class="clean">
+              <li>인물 정면 클로즈업 (어깨 잡기, 페인 표정)</li>
+              <li>스마트폰 잠금화면 → 인스타 스와이프</li>
+              <li>책장 풀샷 (30권 강조)</li>
+              <li>단말기 히어로샷 (역광 + 손에 들기)</li>
+              <li>e-ink 화면 매크로 (자연광)</li>
+              <li>침대·카페·욕조 3장소 독서 컷</li>
+              <li>설명란 화살표 손가락 가리키기</li>
+            </ul>
+          </div>
+          <div class="card alt">
+            <h4>다운로드 스톡 / AI 프롬프트</h4>
+            <ul class="clean">
+              <li>Pexels: shoulder pain, e-ink close-up, library bookshelf, reading bath</li>
+              <li>Unsplash: messy bookshelf, ereader flat lay</li>
+              <li>AI: "guilty 30s beside stack of unread books, dim light"</li>
+              <li>AI: "ereader on cafe table by rainy window"</li>
+              <li>AI: "quiet reading sanctuary, soft amber light, minimal"</li>
+              <li>AI: "infinite library inside palm, glowing books"</li>
+              <li>모션: 저울 그래픽, 배터리 30일 카운터, 알림 폭격</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>(5) 자막·강조 키워드</h3>
+        <div class="card">
+          <div class="legend">
+            <span class="kw">어깨 끊어짐</span><span class="kw">5분</span><span class="kw">200g</span>
+            <span class="kw">30권</span><span class="kw">한 달 배터리</span><span class="kw">알림 없음</span>
+            <span class="kw">피난처</span><span class="kw">손바닥 위 도서관</span><span class="kw">설명란 링크</span>
+          </div>
+          <p class="sub">강조 자막은 위 9개로 한정. 폰트 Pretendard Bold 60px / 외곽선 검정 4px / 노란색 #FFD166. 일반 자막은 흰색 1줄 21자 룰.</p>
+        </div>
+
+        <h3>(6) YouTube 본문</h3>
+        <div class="card">
+          <div class="copybox">[Description 초안]
+어깨 끊어진다는 말, 책 가방 들고 다녀본 사람이라면 압니다.
+스마트폰으로 읽자니 5분 만에 인스타로 넘어가고, 책장엔 안 읽은 책만 쌓여 있죠.
+이 모든 문제가 200g짜리 기기 하나로 끝난다면?
+
+오늘 영상은 이북리더기가 어떻게 어깨 통증·눈 피로·SNS 산만함을
+한 번에 해결하는지, 직접 1년 사용한 후기로 풀어봅니다.
+
+🛒 본 영상에서 사용한 모델 비교 + 오늘만 할인 쿠폰
+→ (쿠팡파트너스 링크 · 가격은 변동될 수 있음)
+
+📚 함께 보면 좋은 영상
+- EP2 1년 뒤 책 30권 읽은 나 만들기 →
+- EP3 20만~100만원, 본전 뽑는 수학 →
+
+⏱ 챕터
+00:00 어깨·눈·SNS 3중 통증
+00:30 30권 쌓아둔 책장 이야기
+01:00 200g·e-ink·눈 안 시려요
+02:30 한 달 배터리·따뜻한 백라이트
+03:30 방수 기능
+04:30 알림 없음 — 피난처
+06:00 손바닥 위 도서관
+07:00 행동 — 설명란 링크
+08:20 다음 편 예고
+
+#이북리더기 #전자책단말기 #독서습관 #디지털디톡스 #이북리더기추천
+
+※ 본 영상은 제휴(쿠팡파트너스) 링크를 포함하며, 구매 시 일정 수수료가 발생합니다.</div>
+          <div class="tag-list" style="margin-top:12px">
+            <span class="chip">이북리더기</span><span class="chip">전자책 단말기</span>
+            <span class="chip">이북리더기 추천</span><span class="chip">킨들</span>
+            <span class="chip">크레마</span><span class="chip">e-ink</span>
+            <span class="chip">독서 습관</span><span class="chip">디지털 디톡스</span>
+            <span class="chip">SNS 끊기</span><span class="chip">미니멀 독서</span>
+            <span class="chip">출퇴근 책</span><span class="chip">자기계발 도구</span>
+          </div>
+        </div>
+
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================ EP2 1500자 자기계발 ============================================ -->
+  <section id="ep2">
+    <details class="ep" open>
+      <summary>
+        <span class="ep-title">EP2 · 1500자 자기계발</span>
+        <span class="chip">롱폼 7~9분</span>
+        <span class="stage s-desire">욕구</span>
+        <span class="chip">Cold/Warm</span>
+      </summary>
+      <div class="ep-body">
+
+        <h3>(1) 제목·키워드</h3>
+        <div class="grid cols-2">
+          <div class="card">
+            <div class="kpi">제목 후보 3</div>
+            <ul class="clean">
+              <li><strong>SEO형:</strong> "1년에 책 30권 읽는 법 — 의지 아닌 도구의 차이 (이북리더기)"</li>
+              <li><strong>클릭형:</strong> "빌 게이츠가 50권 읽는 진짜 이유, 의지가 아니었습니다"</li>
+              <li><strong>리스트형:</strong> "독서 습관 못 잡는 사람의 공통점 1가지 — 환경"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kpi">검색 키워드 (★우선)</div>
+            <div class="tag-list">
+              <span class="chip">★독서 습관 만들기</span>
+              <span class="chip">★자기계발 책 추천</span>
+              <span class="chip">★빌게이츠 독서</span>
+              <span class="chip">자투리 시간 활용</span>
+              <span class="chip">미니멀 라이프</span>
+              <span class="chip">미래의 나</span>
+              <span class="chip">독서 환경</span>
+              <span class="chip">출퇴근 자기계발</span>
+              <span class="chip">매일 독서</span>
+              <span class="chip">킨들 자기계발</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>(2) 썸네일 3안 (16:9)</h3>
+        <div class="thumbs">
+          <div class="thumb thumb-1">
+            <span class="t-label">A · 권위형</span>
+            <div><div class="big">빌 게이츠 <span class="red">50권</span></div>
+              <div style="margin-top:6px;font-size:14px;color:#ffd166">우리는 1권</div></div>
+          </div>
+          <div class="thumb thumb-2">
+            <span class="t-label">B · 미래형</span>
+            <div><div class="big">1년 뒤 30권</div>
+              <div class="small">의지가 아니라 도구</div></div>
+          </div>
+          <div class="thumb thumb-3">
+            <span class="t-label">C · 인사이트형</span>
+            <div><div class="big">환경을 바꾸면<br>습관이 따라온다</div>
+              <div class="accent-line"></div>
+              <div class="small">독서만의 도구</div></div>
+          </div>
+        </div>
+        <p class="thumb-note">A안 권위(빌 게이츠 일러스트 실루엣 — 사진 저작권 회피) / B안 미래의 나 vs 현재 / C안 차분한 환경. 자기계발 채널은 A·B 강세.</p>
+
+        <h3>(3) 분초 단위 타임라인 (8분 30초 기준)</h3>
+        <table>
+          <thead><tr>
+            <th style="width:8%">시간</th><th style="width:7%">파트</th>
+            <th style="width:30%">내레이션</th><th style="width:18%">화면 지시</th>
+            <th style="width:25%">B-roll · 이미지</th><th style="width:12%">자막·SFX/BGM</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="timecode">00:00–00:15</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"1년 뒤 책 30권을 읽은 자기 자신이 되고 싶으세요? 그 차이를 만드는 건 의지가 아닙니다. 도구입니다."</td>
+              <td>빈 책장 → 책 30권 채워지는 모션</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 책장 채우기 0→30 카운터<br><span class="ttag ai">AI</span> "1년 뒤 책 30권 옆에 앉은 미래의 나" / "future self beside 30 books, inspirational warm tone"</td>
+              <td>자막 <span class="kw">30권</span> <span class="kw">도구</span> · BGM in (자기계발 무드)</td></tr>
+            <tr><td class="timecode">00:15–00:30</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"빌 게이츠가 1년에 50권을 읽고, 워런 버핏이 하루 80%를 독서에 쓰는 진짜 이유 — 그리고 우리도 똑같은 환경을 만들 수 있는 가장 확실한 방법을 지금부터 알려드립니다."</td>
+              <td>빌 게이츠 일러스트 실루엣 + "50권" 자막</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "빌 게이츠 실루엣 책 50권 옆에서" / "silhouette of bill gates beside 50 books, dramatic lighting"<br><span class="ttag motion">모션</span> "50권" 카운터</td>
+              <td>자막 <span class="kw">빌 게이츠 50권</span></td></tr>
+            <tr><td class="timecode">00:30–01:30</td><td><span class="pill intro">INTRO</span></td>
+              <td class="timeline-narration">"그런데 우리는 어떤가요? '올해는 책 좀 읽어야지' 다짐만 하고 12월이 되면 또 한 권도 못 끝낸 자신을 발견합니다. 문제는 의지가 아니에요. 환경입니다."</td>
+              <td>새해 다짐 메모 → 12월 달력 → 빈 독서 기록</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 다이어리 1월 vs 12월<br><span class="ttag stock">스톡</span> Pexels "calendar flip"</td>
+              <td>자막 <span class="kw">의지가 아니라 환경</span></td></tr>
+            <tr><td class="timecode">01:30–02:30</td><td><span class="pill body">BODY 1</span></td>
+              <td class="timeline-narration">"종이책은 무거워서 못 들고 다니고, 스마트폰은 알림 때문에 집중이 안 되고, 태블릿은 결국 유튜브 시청 도구가 되어버리죠. 진짜 독서 습관을 만들려면 '독서만을 위한 도구'가 필요합니다. 그게 바로 이북리더기예요."</td>
+              <td>3가지 실패 도구 → 단말기 솔루션 도출</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 무거운 종이책 / 폰 알림 / 태블릿 유튜브<br><span class="ttag motion">모션</span> 3개 X 표시 → 단말기 ✓</td>
+              <td>자막 <span class="kw">독서만의 도구</span></td></tr>
+            <tr><td class="timecode">02:30–04:00</td><td><span class="pill body">BODY 2</span></td>
+              <td class="timeline-narration">"이북리더기는 단순한 전자기기가 아닙니다. 라이프스타일의 전환점입니다. 출근길 지하철 10분, 점심시간 후 카페에서 15분, 자기 전 침대에서 20분. 자투리 시간을 모으면 한 달에 책 두세 권은 거뜬히 읽을 수 있습니다."</td>
+              <td>지하철·카페·침대 3장면 컷어웨이</td>
+              <td class="timeline-broll"><span class="ttag stock">스톡</span> Pexels "subway commute reading" "cafe lunch" "bedside lamp"<br><span class="ttag motion">모션</span> "10+15+20=45분/일" 카운터</td>
+              <td>자막 <span class="kw">자투리 45분</span></td></tr>
+            <tr><td class="timecode">04:00–05:30</td><td><span class="pill body">BODY 3</span></td>
+              <td class="timeline-narration">"미니멀리스트들이 사랑하는 이유도 있습니다. 책장이 사라집니다. 거실이 깔끔해지고, 이사할 때 박스가 줄고, 책 먼지로부터 자유로워집니다."</td>
+              <td>책장 가득 → 깔끔한 책상 위 단말기 1대</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "미니멀 책상 위 이북리더기 1대" / "minimalist desk with single ereader, scandinavian style"<br><span class="ttag stock">스톡</span> Pexels "minimalist living room"</td>
+              <td>자막 <span class="kw">미니멀</span></td></tr>
+            <tr><td class="timecode">05:30–06:15</td><td><span class="pill body">BODY 4</span></td>
+              <td class="timeline-narration">"카페에서 이북리더기로 책 읽는 사람, 세련되어 보이지 않나요? 그건 그 사람이 자신의 시간을 어떻게 쓰는지를 보여주는 상징이기 때문입니다."</td>
+              <td>카페 인물 풀샷, 단말기 들고 독서</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "카페에서 단말기 읽는 30대" / "stylish 30s reading on ereader at cafe, cinematic"</td>
+              <td>자막 <span class="kw">정체성</span></td></tr>
+            <tr><td class="timecode">06:15–07:15</td><td><span class="pill body">BODY 5</span></td>
+              <td class="timeline-narration">"전자책은 종이책보다 평균 20~40% 저렴하고, 형광펜·메모·사전 검색 기능까지 있어서 학습 효율이 두 배입니다."</td>
+              <td>형광펜·메모·사전 검색 화면 캡처</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 단말기 형광펜·사전 화면 캡처<br><span class="ttag motion">모션</span> "20~40% 저렴" 그래프</td>
+              <td>자막 <span class="kw">학습 효율 2배</span></td></tr>
+            <tr><td class="timecode">07:15–08:00</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"여러분이 1년 뒤 어떤 사람이 되고 싶으신가요? 지금과 똑같은 사람? 아니면 책 30권을 읽은 자기 자신? 그 차이를 만드는 건 거창한 결심이 아니라 작은 도구 하나에서 시작됩니다."</td>
+              <td>현재의 나 vs 미래의 나 좌우 분할</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "split screen — current self vs future self with 30 books"</td>
+              <td>자막 <span class="kw">미래의 나</span> · BGM swell</td></tr>
+            <tr><td class="timecode">08:00–08:20</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"지금 아래 링크에서 입문자에게 가장 추천하는 모델을 확인하세요. 미래의 나에게 가장 확실한 선물, 지금 결정하세요."</td>
+              <td>설명란 화살표 + 단말기 클로즈업</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "↓ 설명란" 화살표</td>
+              <td>자막 <span class="kw">설명란 링크</span></td></tr>
+            <tr><td class="timecode">08:20–08:30</td><td><span class="pill cta">OUTRO</span></td>
+              <td class="timeline-narration">[다리] "근데 가격이 부담된다고요? 다음 영상에서 20만원이든 100만원이든 본전 뽑는 수학을 — 밀리의 서재까지 포함해 — 풀어드립니다."</td>
+              <td>EP3 썸네일 미리보기</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 구독 카드 + EP3 카드</td>
+              <td>BGM out</td></tr>
+          </tbody>
+        </table>
+
+        <h3>(4) 자산 체크리스트</h3>
+        <div class="grid cols-2">
+          <div class="card alt">
+            <h4>촬영 컷 (실촬)</h4>
+            <ul class="clean">
+              <li>다이어리 1월 새해 다짐 vs 12월 빈 페이지</li>
+              <li>무거운 종이책 / 스마트폰 알림 / 태블릿 유튜브 3종</li>
+              <li>지하철·카페·침대 3장소 단말기 독서 (EP1과 공유)</li>
+              <li>단말기 형광펜·사전 검색 화면 캡처</li>
+              <li>인물 정면 미디엄샷 (CTA 구간)</li>
+            </ul>
+          </div>
+          <div class="card alt">
+            <h4>다운로드 스톡 / AI 프롬프트</h4>
+            <ul class="clean">
+              <li>Pexels: subway commute reading, cafe lunch, bedside lamp, calendar flip, minimalist living room</li>
+              <li>AI: "future self beside 30 books, inspirational warm tone"</li>
+              <li>AI: "silhouette of bill gates beside 50 books, dramatic lighting"</li>
+              <li>AI: "minimalist desk with single ereader, scandinavian style"</li>
+              <li>AI: "stylish 30s reading on ereader at cafe, cinematic"</li>
+              <li>AI: "split screen — current self vs future self with 30 books"</li>
+              <li>모션: 책장 0→30 채우기 / 50권 카운터 / 자투리 45분 합산</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>(5) 자막·강조 키워드</h3>
+        <div class="card">
+          <div class="legend">
+            <span class="kw">30권</span><span class="kw">도구</span><span class="kw">빌 게이츠 50권</span>
+            <span class="kw">의지가 아니라 환경</span><span class="kw">독서만의 도구</span>
+            <span class="kw">자투리 45분</span><span class="kw">미니멀</span><span class="kw">정체성</span>
+            <span class="kw">학습 효율 2배</span><span class="kw">미래의 나</span>
+          </div>
+          <p class="sub">자기계발편은 BGM이 BODY 4 후반에 swell되며 CTA에서 가장 큰 파동.</p>
+        </div>
+
+        <h3>(6) YouTube 본문</h3>
+        <div class="card">
+          <div class="copybox">[Description 초안]
+"올해는 책 좀 읽어야지" — 1월에 다짐만 하고 12월이 되면 또 한 권도 못 끝낸 자신, 발견하시죠?
+문제는 의지가 아닙니다. 환경입니다.
+
+빌 게이츠가 1년에 50권을 읽는 진짜 이유,
+그리고 우리도 똑같은 환경을 만드는 가장 확실한 방법을 풀어봅니다.
+
+🛒 입문자에게 추천하는 모델 비교 + 오늘만 할인 쿠폰
+→ (쿠팡파트너스 링크 · 가격은 변동될 수 있음)
+
+📚 함께 보면 좋은 영상
+- EP1 어깨·SNS 산만함 끝내기 →
+- EP3 본전 뽑는 수학 + 밀리의 서재 →
+
+⏱ 챕터
+00:00 1년 뒤 책 30권의 차이
+00:30 빌 게이츠 50권의 진짜 이유
+01:30 독서만을 위한 도구
+02:30 자투리 시간 45분
+04:00 미니멀 라이프
+05:30 정체성·이미지
+06:15 학습 효율 2배
+07:15 행동 — 미래의 나
+08:20 다음 편 예고
+
+#독서습관 #자기계발 #이북리더기 #빌게이츠 #자투리시간
+
+※ 본 영상은 제휴(쿠팡파트너스) 링크를 포함하며, 구매 시 일정 수수료가 발생합니다.</div>
+          <div class="tag-list" style="margin-top:12px">
+            <span class="chip">독서 습관</span><span class="chip">자기계발</span>
+            <span class="chip">이북리더기</span><span class="chip">빌 게이츠</span>
+            <span class="chip">자투리 시간</span><span class="chip">미니멀</span>
+            <span class="chip">정체성</span><span class="chip">미래의 나</span>
+            <span class="chip">출퇴근 독서</span><span class="chip">독서 환경</span>
+            <span class="chip">킨들 자기계발</span><span class="chip">학습 효율</span>
+          </div>
+        </div>
+
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================ EP3 1500자 가성비 (밀리의 서재 포함) ============================================ -->
+  <section id="ep3">
+    <details class="ep" open>
+      <summary>
+        <span class="ep-title">EP3 · 1500자 가성비 (밀리의 서재 포함)</span>
+        <span class="chip">롱폼 7~9분</span>
+        <span class="stage s-plan">계획</span>
+        <span class="chip">Warm/Hot</span>
+      </summary>
+      <div class="ep-body">
+
+        <h3>(1) 제목·키워드</h3>
+        <div class="grid cols-2">
+          <div class="card">
+            <div class="kpi">제목 후보 3</div>
+            <ul class="clean">
+              <li><strong>SEO형:</strong> "이북리더기 가성비 분석 — 20만원·100만원, 본전 뽑는 수학 (밀리의 서재까지)"</li>
+              <li><strong>클릭형:</strong> "이북리더기 100만원, 진짜 비싼 걸까요? 1년 본전 계산해드립니다"</li>
+              <li><strong>리스트형:</strong> "전자책 절약 5단계 — 밀리의 서재로 책값 0원 만드는 법"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kpi">검색 키워드 (★우선)</div>
+            <div class="tag-list">
+              <span class="chip">★이북리더기 가성비</span>
+              <span class="chip">★이북리더기 추천</span>
+              <span class="chip">★밀리의 서재 후기</span>
+              <span class="chip">전자책 가격</span>
+              <span class="chip">책값 절약</span>
+              <span class="chip">도서관 전자책</span>
+              <span class="chip">리디 셀렉트</span>
+              <span class="chip">YES24 북클럽</span>
+              <span class="chip">킨들 가격</span>
+              <span class="chip">크레마 가격</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>(2) 썸네일 3안 (16:9)</h3>
+        <div class="thumbs">
+          <div class="thumb thumb-1">
+            <span class="t-label">A · 숫자형</span>
+            <div><div class="big">20만원<br><span class="red">1년이면 본전</span></div></div>
+          </div>
+          <div class="thumb thumb-2">
+            <span class="t-label">B · 비교형</span>
+            <div><div class="big">18,000원 → 0원</div>
+              <div class="small">밀리의 서재 9,900원</div></div>
+          </div>
+          <div class="thumb thumb-3">
+            <span class="t-label">C · 충격형</span>
+            <div><div class="big">월 3,500원<br>책 한 권보다 싸다</div>
+              <div class="accent-line"></div>
+              <div class="small">5년 사용 기준</div></div>
+          </div>
+        </div>
+        <p class="thumb-note">A안 노란 숫자 강조 / B안 종이책 18,000원 → 0원 화살표 + 밀리 로고 / C안 충격 단가. 가성비 검색층은 A·B 강세.</p>
+
+        <h3>(3) 분초 단위 타임라인 (8분 30초 기준)</h3>
+        <table>
+          <thead><tr>
+            <th style="width:8%">시간</th><th style="width:7%">파트</th>
+            <th style="width:30%">내레이션</th><th style="width:18%">화면 지시</th>
+            <th style="width:25%">B-roll · 이미지</th><th style="width:12%">자막·SFX/BGM</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="timecode">00:00–00:15</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"이북리더기 20만 원에서 100만 원, 너무 비싸 보이죠? 그런데 1~2년이면 본체값을 뽑고, 그 이후로는 매달 2만 원씩 절약된다면요?"</td>
+              <td>가격표 → 본전 그래프 모션</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "20만 ~ 100만" 가격대 → "1~2년 본전" 그래프<br><span class="ttag stock">스톡</span> Pexels "calculator price tag"</td>
+              <td>자막 <span class="kw">1~2년 본전</span> · BGM in (가성비 무드, 110 BPM)</td></tr>
+            <tr><td class="timecode">00:15–00:30</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"오늘 숫자로 정확하게 계산해드립니다. 어떤 가격대를 골라도 결국 이득인 이유, 지금 보여드릴게요."</td>
+              <td>계산기 두드리는 손, 숫자 폭포</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 계산기 두드리는 핸즈컷<br><span class="ttag motion">모션</span> 숫자 폭포 (애프터 이펙트)</td>
+              <td>자막 <span class="kw">숫자로 계산</span> · SFX cash register</td></tr>
+            <tr><td class="timecode">00:30–02:00</td><td><span class="pill body">BODY 1 — 단가 비교</span></td>
+              <td class="timeline-narration">"종이책 한 권 평균 가격이 약 18,000원입니다. 전자책은요? 같은 책이 평균 12,000원, 할인 시 8,000원까지 떨어집니다. 한 권당 6,000~10,000원이 절약되는 거예요. 한 달 두 권만 읽어도 매달 12,000~20,000원, 1년이면 14만~24만 원입니다. 보급형 20만 원대 모델은 1~2년이면 본체값 회수, 50~100만 원대 프리미엄도 4~5년이면 본전을 뽑습니다."</td>
+              <td>가격 비교 표 + 누적 절약 그래프</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "18,000 vs 12,000" 가격 비교 표<br><span class="ttag motion">모션</span> 1년 24만원 누적 그래프<br><span class="ttag stock">스톡</span> Unsplash "book stack with price tag"</td>
+              <td>자막 <span class="kw">18,000원 vs 12,000원</span> <span class="kw">1년 24만원</span></td></tr>
+            <tr><td class="timecode">02:00–02:45</td><td><span class="pill body">BODY 2 — 도서관 보너스</span></td>
+              <td class="timeline-narration">"여기에 보너스가 있습니다. 도서관 전자책 무료 대여. 거의 모든 공공도서관이 베스트셀러까지 무료로 빌려줍니다. 활용하면 책값이 거의 0원에 수렴해요."</td>
+              <td>국립중앙도서관·시도 도서관 앱 화면</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 도서관 앱 화면 캡처<br><span class="ttag stock">스톡</span> Pexels "public library exterior"</td>
+              <td>자막 <span class="kw">도서관 0원</span></td></tr>
+            <tr><td class="timecode">02:45–04:15</td><td><span class="pill body">BODY 3 — 밀리의 서재 ★</span></td>
+              <td class="timeline-narration">"그리고 또 하나의 결정타 — 월 구독 서비스. 밀리의 서재는 월 9,900원부터 15,900원 한 가격에 베스트셀러·신간을 포함한 수십만 권을 무제한으로 읽을 수 있습니다. 종이책 한 권 값(18,000원)도 안 되는 돈으로 한 달 내내, 1년이면 수십 권을 읽는 셈이에요. 리디 셀렉트, YES24 북클럽까지 합치면 사실상 책값은 0원으로 수렴합니다. 이북리더기에 밀리의 서재 같은 구독을 결합하는 순간, 본체값 회수 기간은 절반 이하로 줄어듭니다."</td>
+              <td>밀리 앱 화면 + 9,900원 vs 18,000원 모션</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 밀리의 서재 앱 화면 캡처(가입·도서 목록·★캡처일 자막)<br><span class="ttag motion">모션</span> "9,900원 < 18,000원" 비교<br><span class="ttag ai">AI</span> "무한 도서관" / "infinite library of digital books glowing, blue gradient"</td>
+              <td>자막 <span class="kw">밀리 9,900원</span> <span class="kw">무제한</span> <span class="kw">본전 절반</span></td></tr>
+            <tr><td class="timecode">04:15–05:15</td><td><span class="pill body">BODY 4 — 공간 비용</span></td>
+              <td class="timeline-narration">"공간 비용도 생각해보세요. 서울 1평이 얼마인가요? 책장 하나가 차지하는 공간만 해도 수백만 원입니다. 이북리더기 하나면 책장이 통째로 사라집니다. 이사 박스, 책 먼지로 인한 청소 시간까지 다 줄어듭니다."</td>
+              <td>책장 → 단말기 1대 모션 (공간 사라짐)</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "책장에서 단말기 1대로 줄어드는 공간" / "bookshelf morphing into single ereader, before-after, minimal"<br><span class="ttag stock">스톡</span> Pexels "moving boxes"</td>
+              <td>자막 <span class="kw">공간 절약</span></td></tr>
+            <tr><td class="timecode">05:15–06:00</td><td><span class="pill body">BODY 5 — 무료 콘텐츠</span></td>
+              <td class="timeline-narration">"저작권 만료된 고전 명작들 — 셰익스피어, 톨스토이, 도스토옙스키 다 무료. 인터넷 PDF, 회사 보고서까지 다 넣어 볼 수 있어요. 사실상 휴대용 도서관 겸 문서 뷰어입니다."</td>
+              <td>고전 책 표지 콜라주 + PDF 화면</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 고전 표지 4장 슬라이드<br><span class="ttag live">실촬</span> 단말기 PDF 뷰어 화면</td>
+              <td>자막 <span class="kw">고전 무료</span> <span class="kw">PDF</span></td></tr>
+            <tr><td class="timecode">06:00–07:00</td><td><span class="pill body">BODY 6 — 본체 단가</span></td>
+              <td class="timeline-narration">"한 번 사면 5~7년 씁니다. 5년 사용 기준으로 본체값을 나누면, 20만 원대는 월 3,500원, 100만 원대 프리미엄도 월 16,000원. 책 한 권 값도 안 됩니다. 형광펜, 메모, 사전 검색, 단어장 자동 저장까지 — 학습 효율은 종이책 대비 두 배입니다."</td>
+              <td>월 단가 비교 표 + 형광펜·사전 화면</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "20만→월 3,500원" / "100만→월 16,000원"<br><span class="ttag live">실촬</span> 단말기 형광펜·단어장 화면</td>
+              <td>자막 <span class="kw">월 3,500원</span> <span class="kw">2배 학습</span></td></tr>
+            <tr><td class="timecode">07:00–08:00</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"정리하면 책값 절약(밀리의 서재까지 더하면 0원), 공간 절약, 시간 절약, 학습 효율 향상. 1~2년만 써도 본전 뽑고, 그 이후는 순수한 이익입니다."</td>
+              <td>4가지 절약 아이콘 그리드</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 4 아이콘 그리드(책값 0원·공간·시간·학습)</td>
+              <td>자막 <span class="kw">4가지 절약</span></td></tr>
+            <tr><td class="timecode">08:00–08:25</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"지금 아래 링크에서 20만 원대 가성비 1위부터 100만 원대 프리미엄까지 예산별 비교와 오늘만 적용되는 추가 할인 쿠폰을 챙겨놨으니 꼭 확인하세요. 똑똑한 소비, 오늘 시작하세요."</td>
+              <td>예산별 모델 3종 + 할인 쿠폰 카드</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "20만 / 50만 / 100만" 모델 카드 슬라이드<br><span class="ttag motion">모션</span> 할인 쿠폰 떠오름</td>
+              <td>자막 <span class="kw">설명란 링크</span></td></tr>
+            <tr><td class="timecode">08:25–08:30</td><td><span class="pill cta">OUTRO</span></td>
+              <td class="timeline-narration">[다리] "1500자 시리즈 마지막 편이었습니다. 60초로 압축한 쇼츠 3편도 함께 보시면 결정에 큰 도움이 됩니다."</td>
+              <td>구독 카드 + 쇼츠 3장 미리보기</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 쇼츠 EP4·5·6 카드</td>
+              <td>BGM out (cash chime)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>(4) 자산 체크리스트</h3>
+        <div class="grid cols-2">
+          <div class="card alt">
+            <h4>촬영 컷 (실촬)</h4>
+            <ul class="clean">
+              <li>계산기 두드리는 핸즈컷</li>
+              <li>도서관 앱 화면 캡처(국립중앙·서울도서관)</li>
+              <li>밀리의 서재 앱 가입·도서 목록 화면 (★캡처일 화면 모서리에 자막)</li>
+              <li>단말기 PDF 뷰어 / 형광펜 / 단어장 저장 화면 4종</li>
+              <li>예산별 모델 3종 단말기 풀샷 (가능 시 본인 보유 비교)</li>
+            </ul>
+          </div>
+          <div class="card alt">
+            <h4>다운로드 스톡 / AI 프롬프트 / 모션</h4>
+            <ul class="clean">
+              <li>Pexels: calculator price tag, public library exterior, moving boxes</li>
+              <li>Unsplash: book stack with price tag</li>
+              <li>AI: "infinite library of digital books glowing, blue gradient"</li>
+              <li>AI: "bookshelf morphing into single ereader, before-after, minimal"</li>
+              <li>모션: 가격 비교 표 / 1년 24만원 누적 그래프 / "9,900원 < 18,000원" / 월 단가 비교 / 4 아이콘 그리드 / 모델 3종 카드 슬라이드 / 할인 쿠폰</li>
+              <li>SFX: cash register (00:15·08:30) / coin drop (가격 등장 시)</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>(5) 자막·강조 키워드</h3>
+        <div class="card">
+          <div class="legend">
+            <span class="kw">1~2년 본전</span><span class="kw">18,000원 vs 12,000원</span>
+            <span class="kw">1년 24만원</span><span class="kw">도서관 0원</span>
+            <span class="kw">밀리 9,900원</span><span class="kw">무제한</span>
+            <span class="kw">본전 절반</span><span class="kw">월 3,500원</span>
+            <span class="kw">2배 학습</span><span class="kw">4가지 절약</span>
+          </div>
+          <p class="sub">가성비편은 자막에 숫자가 많아 정확히 표시. 모든 가격에 캡처일·기준일 작은 자막 병기.</p>
+        </div>
+
+        <h3>(6) YouTube 본문</h3>
+        <div class="card">
+          <div class="copybox">[Description 초안]
+"이북리더기 100만 원? 너무 비싸지 않나?"
+계산해보면 답이 다릅니다.
+
+종이책 18,000원 vs 전자책 12,000원 → 1년이면 24만원 절약.
+도서관 무료 대여 + 밀리의 서재 월 9,900원 무제한 구독까지 더하면
+책값은 사실상 0원, 본체값 회수 기간은 절반 이하.
+
+오늘은 20만 원대부터 100만 원대까지 예산별 본전 계산을
+숫자로 정확히 풀어드립니다.
+
+🛒 예산별 모델 비교 + 오늘만 할인 쿠폰
+→ (쿠팡파트너스 링크 · 가격은 변동될 수 있음)
+
+📚 밀리의 서재 가입(첫 달 무료 이벤트 시)
+→ (제휴 링크 · 가격은 캡처 시점 기준)
+
+⏱ 챕터
+00:00 20만~100만, 본전 가능?
+00:30 종이책 vs 전자책 단가
+02:00 도서관 무료 대여
+02:45 밀리의 서재 9,900원 무제한 ★
+04:15 공간 비용
+05:15 고전 무료 + PDF
+06:00 5년 본체 단가
+07:00 4가지 절약 정리
+08:00 행동 — 예산별 비교
+
+#이북리더기가성비 #밀리의서재 #전자책 #이북리더기추천 #책값절약
+
+※ 본 영상은 제휴(쿠팡파트너스·밀리의서재) 링크를 포함하며, 가격은 영상 촬영 시점(캡처일 자막 참조) 기준입니다. 현재 가격은 각 사이트에서 확인 부탁드립니다.</div>
+          <div class="tag-list" style="margin-top:12px">
+            <span class="chip">이북리더기 가성비</span><span class="chip">밀리의 서재</span>
+            <span class="chip">전자책</span><span class="chip">이북리더기 추천</span>
+            <span class="chip">책값 절약</span><span class="chip">도서관 전자책</span>
+            <span class="chip">리디 셀렉트</span><span class="chip">YES24 북클럽</span>
+            <span class="chip">킨들 가격</span><span class="chip">크레마 가격</span>
+            <span class="chip">전자책 구독</span><span class="chip">독서 절약</span>
+          </div>
+        </div>
+
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================ EP4 쇼츠 페인포인트 ============================================ -->
+  <section id="ep4">
+    <details class="ep" open>
+      <summary>
+        <span class="ep-title">EP4 · 350자 쇼츠 페인포인트</span>
+        <span class="chip">쇼츠 60초</span>
+        <span class="stage s-phenomenon">현상</span>
+        <span class="chip">Cold</span>
+      </summary>
+      <div class="ep-body">
+
+        <h3>(1) 제목·키워드</h3>
+        <div class="grid cols-2">
+          <div class="card">
+            <div class="kpi">제목 후보 3</div>
+            <ul class="clean">
+              <li><strong>SEO형:</strong> "200g짜리 하나로 끝나는 어깨·SNS 3중 통증"</li>
+              <li><strong>클릭형:</strong> "5분 만에 인스타로 넘어간 사람만 보세요"</li>
+              <li><strong>리스트형:</strong> "이북리더기 효과 3가지 #shorts"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kpi">검색 키워드 + 해시태그</div>
+            <div class="tag-list">
+              <span class="chip">#이북리더기</span><span class="chip">#독서</span>
+              <span class="chip">#디지털디톡스</span>
+            </div>
+            <p class="sub" style="margin-top:8px">쇼츠 해시태그는 <strong>3개 룰</strong> — 가장 강한 검색어만. 본문에는 추가 키워드 5~7개.</p>
+          </div>
+        </div>
+
+        <h3>(2) 썸네일 3안 (9:16)</h3>
+        <div class="thumbs">
+          <div class="thumb thumb-1 vertical">
+            <span class="t-label">A · 충돌</span>
+            <div><div class="big">5분 만에<br><span class="red">인스타</span></div></div>
+          </div>
+          <div class="thumb thumb-2 vertical">
+            <span class="t-label">B · 비교</span>
+            <div><div class="big">책 vs 200g</div>
+              <div class="small">가방 무게 차이</div></div>
+          </div>
+          <div class="thumb thumb-3 vertical">
+            <span class="t-label">C · 결과</span>
+            <div><div class="big">알림 0</div>
+              <div class="accent-line"></div>
+              <div class="small">독서만 남는다</div></div>
+          </div>
+        </div>
+        <p class="thumb-note">쇼츠 썸네일은 안전영역 상 10%·하 12% 외 글자 배치. 첫 1초가 자동 재생되므로 "5분 인스타" A안이 가장 강함.</p>
+
+        <h3>(3) 5초 단위 타임라인 (60초)</h3>
+        <table>
+          <thead><tr>
+            <th style="width:10%">시간</th><th style="width:8%">파트</th>
+            <th style="width:32%">내레이션</th><th style="width:18%">화면 지시</th>
+            <th style="width:22%">B-roll · 이미지</th><th style="width:10%">자막·SFX</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="timecode">00:00–00:03</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"종이책은 무겁고, 스마트폰은 산만하다면 정답은 200g짜리 이북리더기 하나입니다."</td>
+              <td>인물 정면 + 단말기 헤드샷</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 단말기 들어올림</td>
+              <td>자막 <span class="kw">200g</span> · BGM in</td></tr>
+            <tr><td class="timecode">00:03–00:10</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"가방 속 책 한 권 어깨 끊어진 적 있죠? 폰으로 읽자니 5분 만에 인스타."</td>
+              <td>어깨 잡기 → 폰 인스타 스와이프</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 어깨 컷 / 폰 화면<br><span class="ttag stock">스톡</span> Pexels "shoulder pain"</td>
+              <td>자막 <span class="kw">5분</span> · SFX 알림음</td></tr>
+            <tr><td class="timecode">00:10–00:25</td><td><span class="pill body">BODY</span></td>
+              <td class="timeline-narration">"한 달 가는 배터리, 눈 시리지 않은 e-ink 화면, 알림 없는 집중 환경."</td>
+              <td>3분할 — 배터리·화면·알림 X</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 3분할 그리드 (각 5초)<br><span class="ttag live">실촬</span> e-ink 매크로</td>
+              <td>자막 <span class="kw">한 달</span> <span class="kw">e-ink</span> <span class="kw">알림 0</span></td></tr>
+            <tr><td class="timecode">00:25–00:40</td><td><span class="pill body">BODY</span></td>
+              <td class="timeline-narration">"수천 권을 손바닥 위에 들고 다니는 셈이에요. '책 읽어야지' 매번 미루던 분이라면 이거 하나로 끝납니다."</td>
+              <td>손바닥 위 단말기 + 책 30권 모션</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "infinite library inside palm"<br><span class="ttag motion">모션</span> 책 0→수천 카운터</td>
+              <td>자막 <span class="kw">손바닥 도서관</span></td></tr>
+            <tr><td class="timecode">00:40–00:55</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"지금 아래 링크에서 베스트 모델과 오늘만 할인 코드 확인하세요. 망설이는 1분에도 독서 시간은 사라지고 있습니다."</td>
+              <td>설명란 화살표 + 단말기 클로즈업</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "↓ 설명란" 화살표 점멸</td>
+              <td>자막 <span class="kw">설명란 링크</span></td></tr>
+            <tr><td class="timecode">00:55–01:00</td><td><span class="pill cta">END</span></td>
+              <td class="timeline-narration">"풀버전은 채널에서 — 8분짜리 EP1으로."</td>
+              <td>EP1 카드 + 채널 핸들</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> EP1 카드</td>
+              <td>BGM out</td></tr>
+          </tbody>
+        </table>
+
+        <h3>(4) 자산·자막 (요약)</h3>
+        <div class="grid cols-2">
+          <div class="card alt">
+            <h4>자산 체크</h4>
+            <ul class="clean">
+              <li>실촬: 어깨 컷, 폰 인스타, 단말기 들어올림, e-ink 매크로 (모두 EP1과 공유 가능)</li>
+              <li>스톡: Pexels "shoulder pain"</li>
+              <li>AI: "infinite library inside palm" (EP1과 공유)</li>
+              <li>모션: 3분할 그리드, 책 카운터, 화살표 점멸, EP1 카드</li>
+            </ul>
+          </div>
+          <div class="card alt">
+            <h4>자막 강조어</h4>
+            <div class="legend">
+              <span class="kw">200g</span><span class="kw">5분</span>
+              <span class="kw">한 달</span><span class="kw">e-ink</span>
+              <span class="kw">알림 0</span><span class="kw">손바닥 도서관</span>
+            </div>
+            <p class="sub">쇼츠 자막 80px / 외곽선 4px / 안전영역 상 10%·하 12% 엄수.</p>
+          </div>
+        </div>
+
+        <h3>(5) YouTube Shorts 본문</h3>
+        <div class="card">
+          <div class="copybox">[쇼츠 본문]
+종이책은 무겁고, 스마트폰은 산만하다면?
+정답은 200g짜리 이북리더기 하나.
+한 달 가는 배터리, 눈 시리지 않은 e-ink, 알림 없는 집중.
+풀버전은 채널 EP1에서 →
+
+🛒 (쿠팡파트너스 링크)
+
+#이북리더기 #독서 #디지털디톡스</div>
+        </div>
+
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================ EP5 쇼츠 자기계발 ============================================ -->
+  <section id="ep5">
+    <details class="ep" open>
+      <summary>
+        <span class="ep-title">EP5 · 350자 쇼츠 자기계발</span>
+        <span class="chip">쇼츠 60초</span>
+        <span class="stage s-desire">욕구</span>
+        <span class="chip">Cold/Warm</span>
+      </summary>
+      <div class="ep-body">
+
+        <h3>(1) 제목·키워드</h3>
+        <div class="grid cols-2">
+          <div class="card">
+            <div class="kpi">제목 후보 3</div>
+            <ul class="clean">
+              <li><strong>SEO형:</strong> "1년에 책 30권 읽는 법 — 의지 아닌 도구"</li>
+              <li><strong>클릭형:</strong> "빌 게이츠 50권의 비밀 60초 #shorts"</li>
+              <li><strong>리스트형:</strong> "자투리 시간 45분으로 책 30권 #shorts"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kpi">해시태그</div>
+            <div class="tag-list">
+              <span class="chip">#독서습관</span><span class="chip">#자기계발</span><span class="chip">#이북리더기</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>(2) 썸네일 3안 (9:16)</h3>
+        <div class="thumbs">
+          <div class="thumb thumb-1 vertical">
+            <span class="t-label">A · 권위</span>
+            <div><div class="big">빌 게이츠<br><span class="red">50권</span></div></div>
+          </div>
+          <div class="thumb thumb-2 vertical">
+            <span class="t-label">B · 미래</span>
+            <div><div class="big">1년 뒤<br>30권의 나</div></div>
+          </div>
+          <div class="thumb thumb-3 vertical">
+            <span class="t-label">C · 차분</span>
+            <div><div class="big">의지가 아니라<br>도구</div>
+              <div class="accent-line"></div></div>
+          </div>
+        </div>
+
+        <h3>(3) 5초 단위 타임라인 (60초)</h3>
+        <table>
+          <thead><tr>
+            <th style="width:10%">시간</th><th style="width:8%">파트</th>
+            <th style="width:32%">내레이션</th><th style="width:18%">화면 지시</th>
+            <th style="width:22%">B-roll · 이미지</th><th style="width:10%">자막·SFX</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="timecode">00:00–00:05</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"1년 뒤 책 30권을 읽은 자기 자신이 되는 가장 확실한 방법, 알려드릴게요."</td>
+              <td>책장 0 → 30 채워지는 모션</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 책장 0→30 카운터</td>
+              <td>자막 <span class="kw">30권</span> · BGM in</td></tr>
+            <tr><td class="timecode">00:05–00:25</td><td><span class="pill body">BODY</span></td>
+              <td class="timeline-narration">"빌 게이츠가 매년 50권을 읽는 건 의지가 아니라 환경 때문이에요. 이북리더기는 '독서만을 위한 도구'."</td>
+              <td>빌 게이츠 실루엣 + 단말기 매크로</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "silhouette of bill gates beside 50 books"<br><span class="ttag live">실촬</span> 단말기 매크로</td>
+              <td>자막 <span class="kw">빌 게이츠 50권</span> <span class="kw">환경</span></td></tr>
+            <tr><td class="timecode">00:25–00:45</td><td><span class="pill body">BODY</span></td>
+              <td class="timeline-narration">"출근길 10분, 점심 후 15분, 자기 전 20분. 자투리 시간만 모아도 한 달 두세 권이 거뜬합니다."</td>
+              <td>지하철·카페·침대 3분할</td>
+              <td class="timeline-broll"><span class="ttag stock">스톡</span> Pexels 3장면 (EP2와 공유)<br><span class="ttag motion">모션</span> "10+15+20=45분" 합산</td>
+              <td>자막 <span class="kw">자투리 45분</span></td></tr>
+            <tr><td class="timecode">00:45–00:55</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"지금 링크에서 입문자 추천 모델 확인하시고, 미래의 나에게 가장 확실한 선물을 지금 주세요."</td>
+              <td>설명란 화살표 + 단말기 핸즈컷</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "↓ 설명란" 화살표</td>
+              <td>자막 <span class="kw">미래의 나</span></td></tr>
+            <tr><td class="timecode">00:55–01:00</td><td><span class="pill cta">END</span></td>
+              <td class="timeline-narration">"풀버전은 채널 EP2 — 8분 자기계발 영상."</td>
+              <td>EP2 카드</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> EP2 카드</td>
+              <td>BGM out</td></tr>
+          </tbody>
+        </table>
+
+        <h3>(4) 자산·자막 + 본문</h3>
+        <div class="grid cols-2">
+          <div class="card alt">
+            <h4>자산 체크 (대부분 EP2 공유)</h4>
+            <ul class="clean">
+              <li>실촬: 단말기 매크로</li>
+              <li>스톡: Pexels 지하철·카페·침대</li>
+              <li>AI: "silhouette of bill gates beside 50 books"</li>
+              <li>모션: 책장 0→30 / "10+15+20=45분" / 화살표 / EP2 카드</li>
+            </ul>
+          </div>
+          <div class="card alt">
+            <h4>자막 강조어</h4>
+            <div class="legend">
+              <span class="kw">30권</span><span class="kw">빌 게이츠 50권</span>
+              <span class="kw">환경</span><span class="kw">자투리 45분</span>
+              <span class="kw">미래의 나</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <div class="copybox">[쇼츠 본문]
+빌 게이츠가 매년 50권 읽는 건 의지가 아니라 환경.
+이북리더기는 '독서만을 위한 도구'.
+출근 10분 + 점심 15분 + 자기 전 20분 = 한 달 두세 권.
+풀버전은 EP2에서 →
+
+🛒 (쿠팡파트너스 링크)
+
+#독서습관 #자기계발 #이북리더기</div>
+        </div>
+
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================ EP6 쇼츠 가성비 ============================================ -->
+  <section id="ep6">
+    <details class="ep" open>
+      <summary>
+        <span class="ep-title">EP6 · 350자 쇼츠 가성비 (밀리의 서재 포함)</span>
+        <span class="chip">쇼츠 60초</span>
+        <span class="stage s-plan">계획</span>
+        <span class="chip">Warm/Hot</span>
+      </summary>
+      <div class="ep-body">
+
+        <h3>(1) 제목·키워드</h3>
+        <div class="grid cols-2">
+          <div class="card">
+            <div class="kpi">제목 후보 3</div>
+            <ul class="clean">
+              <li><strong>SEO형:</strong> "이북리더기 가성비 60초 — 밀리의 서재 포함"</li>
+              <li><strong>클릭형:</strong> "20만 원이 1년이면 본전, 숫자로 끝 #shorts"</li>
+              <li><strong>리스트형:</strong> "책값 0원 만드는 법 60초 #shorts"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kpi">해시태그</div>
+            <div class="tag-list">
+              <span class="chip">#이북리더기가성비</span><span class="chip">#밀리의서재</span><span class="chip">#책값절약</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>(2) 썸네일 3안 (9:16)</h3>
+        <div class="thumbs">
+          <div class="thumb thumb-1 vertical">
+            <span class="t-label">A · 숫자</span>
+            <div><div class="big">20만원<br><span class="red">1년 본전</span></div></div>
+          </div>
+          <div class="thumb thumb-2 vertical">
+            <span class="t-label">B · 비교</span>
+            <div><div class="big">18,000<br>→ 0원</div>
+              <div class="small">밀리 9,900원</div></div>
+          </div>
+          <div class="thumb thumb-3 vertical">
+            <span class="t-label">C · 충격</span>
+            <div><div class="big">월 3,500원<br>책 한 권보다 싸다</div>
+              <div class="accent-line"></div></div>
+          </div>
+        </div>
+
+        <h3>(3) 5초 단위 타임라인 (60초)</h3>
+        <table>
+          <thead><tr>
+            <th style="width:10%">시간</th><th style="width:8%">파트</th>
+            <th style="width:32%">내레이션</th><th style="width:18%">화면 지시</th>
+            <th style="width:22%">B-roll · 이미지</th><th style="width:10%">자막·SFX</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="timecode">00:00–00:05</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"20만 원짜리 이북리더기, 1년이면 본전 뽑습니다. 숫자로 계산해드릴게요."</td>
+              <td>가격 표시 → 본전 그래프</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "20만 → 1년 본전" 그래프</td>
+              <td>자막 <span class="kw">1년 본전</span> · BGM in (110 BPM) · SFX cash</td></tr>
+            <tr><td class="timecode">00:05–00:25</td><td><span class="pill body">BODY</span></td>
+              <td class="timeline-narration">"종이책 한 권 18,000원, 전자책은 같은 책이 8,000~12,000원. 한 달 두 권만 읽어도 1년 24만 원이 절약됩니다."</td>
+              <td>가격 비교 표 + 1년 누적</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "18,000 vs 12,000" / "1년 24만"</td>
+              <td>자막 <span class="kw">18,000원</span> <span class="kw">24만원</span></td></tr>
+            <tr><td class="timecode">00:25–00:45</td><td><span class="pill body">BODY ★</span></td>
+              <td class="timeline-narration">"도서관 무료 대여 + 밀리의 서재 월 9,900원 무제한 구독까지 더하면 책값은 사실상 0원, 5년 기준 본체 단가 월 3,500원으로 끝납니다."</td>
+              <td>밀리 앱 화면 + "0원" 충격 자막</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 밀리의 서재 앱 캡처(★캡처일)<br><span class="ttag motion">모션</span> "9,900원" / "월 3,500원"</td>
+              <td>자막 <span class="kw">밀리 9,900원</span> <span class="kw">월 3,500원</span></td></tr>
+            <tr><td class="timecode">00:45–00:55</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"지금 아래 링크에서 20만~100만 원대 예산별 추천 모델과 추가 할인 쿠폰 확인하세요. 똑똑한 소비는 오늘부터 시작됩니다."</td>
+              <td>예산별 모델 카드 + 할인 쿠폰</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 모델 3종 카드 + 쿠폰</td>
+              <td>자막 <span class="kw">설명란 링크</span></td></tr>
+            <tr><td class="timecode">00:55–01:00</td><td><span class="pill cta">END</span></td>
+              <td class="timeline-narration">"풀버전 EP3에서 5년 단가까지 — 채널에서."</td>
+              <td>EP3 카드</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> EP3 카드</td>
+              <td>BGM out (cash chime)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>(4) 자산·자막 + 본문</h3>
+        <div class="grid cols-2">
+          <div class="card alt">
+            <h4>자산 체크 (대부분 EP3 공유)</h4>
+            <ul class="clean">
+              <li>실촬: 밀리의 서재 앱 캡처(★캡처일 자막)</li>
+              <li>모션: 가격 비교 / 누적 절약 / "9,900원 < 18,000원" / 월 3,500원 / 모델 3종 카드 / 쿠폰</li>
+              <li>SFX: cash register · coin drop</li>
+            </ul>
+          </div>
+          <div class="card alt">
+            <h4>자막 강조어</h4>
+            <div class="legend">
+              <span class="kw">1년 본전</span><span class="kw">18,000원</span>
+              <span class="kw">24만원</span><span class="kw">밀리 9,900원</span>
+              <span class="kw">월 3,500원</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <div class="copybox">[쇼츠 본문]
+종이책 18,000원 → 전자책 12,000원.
+한 달 두 권만 읽어도 1년 24만 원 절약.
+도서관 + 밀리의 서재 9,900원 무제한까지 더하면
+책값은 사실상 0원, 본체 단가 월 3,500원.
+
+풀버전은 EP3 →
+
+🛒 (쿠팡파트너스 · 밀리의 서재 제휴 링크)
+※ 가격은 캡처 시점 기준
+
+#이북리더기가성비 #밀리의서재 #책값절약</div>
+        </div>
+
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================ 8대 페인 매핑 ============================================ -->
+  <section id="pain">
+    <h2>③ 8대 페인 매핑표</h2>
+    <p style="color:var(--muted);font-size:13.5px;margin:0 0 12px">
+      <code>전자책단말기_키컨텐츠_기획.html</code>의 8대 페인 분류를 6편이 어떻게 커버하는지. <span class="pain on" style="display:inline-block;padding:2px 8px;font-size:11px">노란=메인</span> · <span class="pain sub" style="display:inline-block;padding:2px 8px;font-size:11px">파란=서브</span> · 기본=다루지 않음. 빈 페인 없도록 분배 검증.
+    </p>
+    <table>
+      <thead><tr>
+        <th>8대 페인</th><th>EP1 페인(롱)</th><th>EP2 자기계발(롱)</th><th>EP3 가성비(롱)</th>
+        <th>EP4 페인(쇼츠)</th><th>EP5 자기계발(쇼츠)</th><th>EP6 가성비(쇼츠)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>① 신체적 불편</strong><br><span class="sub" style="color:var(--muted);font-size:12px">손목·눈·자세</span></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td>
+          <td></td><td></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td>
+          <td></td><td></td></tr>
+        <tr><td><strong>② 휴대성·이동</strong><br><span class="sub" style="color:var(--muted);font-size:12px">200g·도서관 휴대</span></td>
+          <td><span class="pain sub" style="display:inline-block;padding:4px 10px">○서브</span></td>
+          <td><span class="pain sub" style="display:inline-block;padding:4px 10px">○서브</span></td>
+          <td></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td>
+          <td><span class="pain sub" style="display:inline-block;padding:4px 10px">○서브</span></td>
+          <td></td></tr>
+        <tr><td><strong>③ 디지털 분산</strong><br><span class="sub" style="color:var(--muted);font-size:12px">SNS·알림</span></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td>
+          <td><span class="pain sub" style="display:inline-block;padding:4px 10px">○서브</span></td>
+          <td></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td>
+          <td></td><td></td></tr>
+        <tr><td><strong>④ 공간·보관</strong><br><span class="sub" style="color:var(--muted);font-size:12px">책장·이사</span></td>
+          <td><span class="pain sub" style="display:inline-block;padding:4px 10px">○서브</span></td>
+          <td><span class="pain sub" style="display:inline-block;padding:4px 10px">○서브</span></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td>
+          <td></td><td></td><td></td></tr>
+        <tr><td><strong>⑤ 자투리 시간·습관</strong><br><span class="sub" style="color:var(--muted);font-size:12px">10·15·20분</span></td>
+          <td></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td>
+          <td></td><td></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td>
+          <td></td></tr>
+        <tr><td><strong>⑥ 가성비·접근성</strong><br><span class="sub" style="color:var(--muted);font-size:12px">단가·구독</span></td>
+          <td></td><td></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td>
+          <td></td><td></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td></tr>
+        <tr><td><strong>⑦ 정체성·이미지</strong><br><span class="sub" style="color:var(--muted);font-size:12px">세련·미니멀</span></td>
+          <td></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td>
+          <td></td><td></td>
+          <td><span class="pain sub" style="display:inline-block;padding:4px 10px">○서브</span></td>
+          <td></td></tr>
+        <tr><td><strong>⑧ 종이 vs 전자 갈등</strong><br><span class="sub" style="color:var(--muted);font-size:12px">학습 효율·고전</span></td>
+          <td></td>
+          <td><span class="pain sub" style="display:inline-block;padding:4px 10px">○서브</span></td>
+          <td><span class="pain on" style="display:inline-block;padding:4px 10px">●메인</span></td>
+          <td></td><td></td>
+          <td><span class="pain sub" style="display:inline-block;padding:4px 10px">○서브</span></td></tr>
+      </tbody>
+    </table>
+    <div class="callout" style="margin-top:14px">
+      <strong>분배 검증:</strong> 8대 페인 중 1개 이상 메인 커버 ✓ (모든 페인 커버됨). 6편 중 메인 페인 없는 편 0건. 페인 ⑤·⑥은 자기계발·가성비편에서 강력하게 다뤄지므로 추후 시리즈 확장 시 ②·④·⑦ 단독편 추가 검토.
+    </div>
+  </section>
+
+  <!-- ============================================ 발행 운영표 ============================================ -->
+  <section id="ops">
+    <h2>④ 발행 운영표 — 주 2편 × 3주</h2>
+    <table>
+      <thead><tr>
+        <th>편</th><th>발행일</th><th>요일·시간</th><th>플랫폼</th>
+        <th>연결 영상(End Card)</th><th>랜딩 링크</th><th>UTM</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>EP1 (롱)</strong></td><td>주차 1 / 2일차</td><td>화 19:00</td><td>YouTube 본채널</td>
+          <td>EP2 / 채널 홈</td><td>쿠팡파트너스 모델 랜딩</td><td><code>utm=ep1_pain_long</code></td></tr>
+        <tr><td><strong>EP4 (쇼츠)</strong></td><td>주차 1 / 4일차</td><td>목 12:00 + 19:00</td><td>YouTube Shorts</td>
+          <td>EP1 카드</td><td>쿠팡 (단축)</td><td><code>utm=ep4_pain_short</code></td></tr>
+        <tr><td><strong>EP2 (롱)</strong></td><td>주차 2 / 9일차</td><td>화 19:00</td><td>YouTube 본채널</td>
+          <td>EP3 / EP1</td><td>쿠팡 입문자 추천 모델</td><td><code>utm=ep2_growth_long</code></td></tr>
+        <tr><td><strong>EP5 (쇼츠)</strong></td><td>주차 2 / 11일차</td><td>목 12:00 + 19:00</td><td>YouTube Shorts</td>
+          <td>EP2 카드</td><td>쿠팡 (단축)</td><td><code>utm=ep5_growth_short</code></td></tr>
+        <tr><td><strong>EP3 (롱)</strong></td><td>주차 3 / 16일차</td><td>화 19:00</td><td>YouTube 본채널</td>
+          <td>EP1·2 / 차후 모델 비교</td><td>쿠팡 예산별 + 밀리의 서재 가입</td><td><code>utm=ep3_value_long</code></td></tr>
+        <tr><td><strong>EP6 (쇼츠)</strong></td><td>주차 3 / 18일차</td><td>목 12:00 + 19:00</td><td>YouTube Shorts</td>
+          <td>EP3 카드</td><td>쿠팡 + 밀리 (단축)</td><td><code>utm=ep6_value_short</code></td></tr>
+      </tbody>
+    </table>
+    <div class="callout" style="margin-top:14px">
+      <strong>크로스 플랫폼:</strong> 쇼츠 발행분은 같은 날 인스타 릴스·쓰레드·틱톡 동시 업로드(자막 포함 영상 그대로 재사용). 본채널 1500자 편은 발행 24시간 후 커뮤니티 탭에 "오늘 새 영상 — 다음 편 예고" 카드 게시.
+    </div>
+  </section>
+
+  <!-- ============================================ 제작 통합 체크리스트 ============================================ -->
+  <section id="checklist">
+    <h2>⑤ 제작 통합 체크리스트</h2>
+    <div class="grid cols-2">
+
+      <div class="card">
+        <h4>출연·녹음</h4>
+        <ul class="clean">
+          <li>[ ] 음성 내레이션 vs 직접 출연 결정 (롱폼=출연, 쇼츠=내레이션 추천)</li>
+          <li>[ ] 마이크: 샷건(출연) / 라발리에(인터뷰)</li>
+          <li>[ ] 녹음 환경 노이즈 -50dB 이하 확인</li>
+          <li>[ ] 6편 의상·배경 통일 (1일 몰아촬영 권장)</li>
+          <li>[ ] 본인 보유 단말기 5종 사전 확인 (가성비편 비교용)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>인트로·아웃트로</h4>
+        <ul class="clean">
+          <li>[ ] 1500자 인트로 ≤ 3초 (채널 워터마크 페이드인)</li>
+          <li>[ ] 쇼츠 인트로 0초 (즉시 후킹)</li>
+          <li>[ ] 아웃트로 구독 카드 5초 (1500자만)</li>
+          <li>[ ] 다음 편 카드 우하단 4초 페이드</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>자막</h4>
+        <ul class="clean">
+          <li>[ ] 폰트 Pretendard Bold 확인 (한글)</li>
+          <li>[ ] 사이즈 롱폼 60px / 쇼츠 80px</li>
+          <li>[ ] 외곽선 검정 4px + 그림자 2px</li>
+          <li>[ ] 안전영역 상 10% / 하 12% (모바일 UI 가림 방지)</li>
+          <li>[ ] 강조어 #FFD166 고정, 일반 #FFFFFF</li>
+          <li>[ ] 1줄 21자 룰 — 넘으면 줄바꿈</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>썸네일</h4>
+        <ul class="clean">
+          <li>[ ] 16:9 (롱폼) + 9:16 (쇼츠) 둘 다 제작</li>
+          <li>[ ] A/B 2장 업로드 → 24시간 후 클릭률 좋은 안 유지</li>
+          <li>[ ] 인물 표정컷 권장 (페인=찡그림 / 자기계발=결심 / 가성비=놀란 입)</li>
+          <li>[ ] 글자 크기 모바일에서 가독 — 갤럭시 S/iPhone 미니에서 테스트</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>광고·협찬</h4>
+        <ul class="clean">
+          <li>[ ] 중간 광고 위치 4~5분 지점 (롱폼만)</li>
+          <li>[ ] 쿠팡파트너스 표시 의무 — Description 최하단 + 영상 내 자막 1회</li>
+          <li>[ ] "본 영상은 제휴(쿠팡파트너스·밀리의서재) 링크 포함" 한 줄 필수</li>
+          <li>[ ] 가격 자막에 ★캡처일 작은 표기</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>출처 표시</h4>
+        <ul class="clean">
+          <li>[ ] 빌 게이츠 "연 50권" 인용 출처 URL (Description)</li>
+          <li>[ ] 워런 버핏 "하루 80% 독서" 인용 출처</li>
+          <li>[ ] 도서관 전자책 통계 — 국립중앙·시도 도서관 기준일</li>
+          <li>[ ] 밀리의 서재 가격 — 캡처 일자 영상 내 모서리 자막</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>Affiliate 정책 / UTM</h4>
+        <ul class="clean">
+          <li>[ ] 6편 UTM 분리 (ep1_pain_long ~ ep6_value_short)</li>
+          <li>[ ] 클릭 추적 표 (Bitly / 쿠팡파트너스 통계) 주 1회 갱신</li>
+          <li>[ ] 밀리의 서재 제휴 링크 별도 추적</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>채널 일관성</h4>
+        <ul class="clean">
+          <li>[ ] 채널 색상(노랑·민트·코랄) 가이드 준수</li>
+          <li>[ ] 워터마크 우상단 80×80px 60% 투명도</li>
+          <li>[ ] 엔드 카드 다음 영상 링크 (시리즈 다리)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>법무·윤리</h4>
+        <ul class="clean">
+          <li>[ ] "최저가" "1위" 단정 표현 회피 → "내가 비교한 ○대 중"</li>
+          <li>[ ] 가격 시점 명시 ("2026-MM-DD 기준")</li>
+          <li>[ ] 의료 단정("어깨 통증 치료" X → "어깨 부담 줄이기")</li>
+          <li>[ ] 재무 단정("100% 본전" X → "1~2년 회수 가능")</li>
+          <li>[ ] AI 인물 이미지는 실명 인물 닮음 회피 — 실루엣만</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>발행</h4>
+        <ul class="clean">
+          <li>[ ] 1500자 평일 19~21시</li>
+          <li>[ ] 쇼츠 정오 + 저녁 두 차례</li>
+          <li>[ ] 주 2편 × 3주 = 6편 21일 내 완성</li>
+          <li>[ ] 발행 1시간 전 썸네일·제목·태그 최종 점검</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>후속 다리</h4>
+        <ul class="clean">
+          <li>[ ] EP1 끝 → "EP2 — 1년 뒤 책 30권" 자연 언급</li>
+          <li>[ ] EP2 끝 → "EP3 — 본전 + 밀리의 서재"</li>
+          <li>[ ] EP3 끝 → 쇼츠 3편 + 차후 모델 비교</li>
+          <li>[ ] 쇼츠 EP4·5·6 끝 → 풀버전 EP1·2·3로 트래픽 유도</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>데이터·사후 분석</h4>
+        <ul class="clean">
+          <li>[ ] 발행 24h CTR·평균 시청 지속 시간 기록</li>
+          <li>[ ] 7일·28일 클릭률·구매 전환 표 갱신</li>
+          <li>[ ] 6편 중 페인 vs 자기계발 vs 가성비 — 어느 관점이 우리 채널에 잘 통하는지 판정</li>
+          <li>[ ] 다음 시리즈 비율 조정 (예: 자기계발 강세면 자기계발 4편 + 페인 2편)</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ 원칙 자기평가 ============================================ -->
+  <section id="principles">
+    <h2>⑥ 강의 원칙 자기평가</h2>
+    <h3>5단계 적용 위치 (3-1강 키콘텐츠 기본개념)</h3>
+    <table>
+      <thead><tr>
+        <th>편</th><th>현상</th><th>욕구</th><th>계획</th><th>행동</th><th>보상</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>EP1 페인(롱)</td><td><span class="stage s-phenomenon">●메인</span></td><td></td><td></td><td>CTA 보조</td><td><span class="stage s-reward">●서브</span></td></tr>
+        <tr><td>EP2 자기계발(롱)</td><td>도입</td><td><span class="stage s-desire">●메인</span></td><td></td><td>CTA 보조</td><td>마무리 환기</td></tr>
+        <tr><td>EP3 가성비(롱)</td><td></td><td></td><td><span class="stage s-plan">●메인</span></td><td>CTA 보조</td><td>BODY 6 본전 그림</td></tr>
+        <tr><td>EP4 페인(쇼츠)</td><td><span class="stage s-phenomenon">●메인</span></td><td></td><td></td><td>CTA 보조</td><td></td></tr>
+        <tr><td>EP5 자기계발(쇼츠)</td><td></td><td><span class="stage s-desire">●메인</span></td><td></td><td>CTA 보조</td><td></td></tr>
+        <tr><td>EP6 가성비(쇼츠)</td><td></td><td></td><td><span class="stage s-plan">●메인</span></td><td>CTA 보조</td><td></td></tr>
+      </tbody>
+    </table>
+    <p class="sub" style="margin-top:8px">한 영상당 주력 1~2단계 원칙 준수 ✓ — 5단계를 한 영상에 다 넣은 편 0건.</p>
+
+    <h3 style="margin-top:24px">키콘텐츠 5원칙 자가 점검 (3-1강)</h3>
+    <div class="callout">
+      <ul class="clean" style="margin:0">
+        <li>✅ <strong>제품 장점 X, 문제 O:</strong> 모든 편이 페인·욕구·가성비 "문제"부터 제기. 단말기 스펙은 "그 문제를 해결하는 도구"로만 등장.</li>
+        <li>✅ <strong>공감 가능한 문제:</strong> 어깨 통증 / 5분 인스타 / 30권 못 읽음 / 책값 부담 — 모두 일반 시청자 1인칭 경험 범위.</li>
+        <li>✅ <strong>문제 공감 → 솔루션 공감 → 내 제품:</strong> 솔루션을 "이북리더기 일반"으로 제시한 뒤 CTA에서 "내가 비교한 모델"로 좁히는 2단 구조.</li>
+        <li>⚠ <strong>잠재고객 모수 점검:</strong> 페인편(EP1·4) Cold가 모수↑이지만 가성비편(EP3·6) Hot 전환에 의존 → 발행 후 1~2주 데이터로 페인편 추가 발행 vs 가성비편 강화 결정.</li>
+        <li>⚠ <strong>병목 진단(3-3강):</strong> EP3 진입자 수가 EP1 진입자의 30% 미만이면 → Cold(EP1·4·5)를 1편 더 추가해 윗단 보강.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================ Footer ============================================ -->
+  <div class="footer" id="fullscripts">
+    <div>
+      <strong>원본 자료</strong><br>
+      <a href="scripts_이북리더기_판매대본.html" style="color:var(--accent)">scripts_이북리더기_판매대본.html</a> (풀 대본 6종) ·
+      <a href="scripts_이북리더기_판매대본.md" style="color:var(--accent)">scripts_이북리더기_판매대본.md</a> (마크다운)
+    </div>
+    <div>
+      <strong>참조 강의·기획</strong><br>
+      <a href="전자책단말기_키컨텐츠_기획.html" style="color:var(--accent)">전자책단말기_키컨텐츠_기획</a> (8대 페인) ·
+      <a href="../../raw/2026-04-30_3주차-1강_키콘텐츠/" style="color:var(--accent)">3-1강 키콘텐츠</a> ·
+      <a href="../../raw/2026-05-01_3주차-3강_사이클단계전략/" style="color:var(--accent)">3-3강 사이클</a>
+    </div>
+    <div>이북리더기·전자책 판매대본 6편 시리즈 영상 기획서 · 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
