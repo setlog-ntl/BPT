@@ -1265,6 +1265,105 @@
     .ip-cat__note a:hover { text-decoration: underline; }
     .ip-cat__note__row { margin-top: 4px; }
     .ip-cat__note__row strong { color: var(--text-1); font-weight: 600; }
+
+    /* 판매대본 (sales-script) */
+    .ss-legend {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 14px 16px; margin-bottom: 18px;
+    }
+    .ss-legend__title {
+      font-size: 13px; font-weight: 600; color: var(--text-1); margin-bottom: 10px;
+    }
+    .ss-legend__grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 8px; font-size: 12px; color: var(--text-2);
+    }
+    .ss-legend__item { display: flex; align-items: center; gap: 8px; }
+    .ss-stage {
+      display: inline-block; padding: 2px 8px; border-radius: 4px;
+      font-size: 10.5px; font-weight: 700; color: #fff; letter-spacing: 0.3px;
+      flex-shrink: 0;
+    }
+    .ss-stage--phenomenon { background: #ef4444; }
+    .ss-stage--desire { background: #f59e0b; }
+    .ss-stage--plan { background: #3b82f6; }
+    .ss-stage--action { background: #8b5cf6; }
+    .ss-stage--reward { background: #10b981; }
+
+    .ss-section-title {
+      font-size: 14px; font-weight: 600; color: var(--text-1);
+      margin: 24px 0 12px; padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ss-section-title .tag { font-size: 10.5px; }
+
+    .ss-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 14px;
+    }
+    .ss-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 18px;
+      border-left: 4px solid var(--accent);
+      display: flex; flex-direction: column;
+    }
+    .ss-card--long { border-left-color: var(--accent); }
+    .ss-card--short { border-left-color: #f59e0b; }
+    .ss-card__badges {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;
+    }
+    .ss-card__title {
+      font-size: 14.5px; font-weight: 600; color: var(--text-0);
+      margin: 4px 0 10px; line-height: 1.45;
+    }
+    .ss-card__meta {
+      font-size: 12px; color: var(--text-2);
+      padding: 8px 10px; background: var(--bg-1); border-radius: 5px;
+      margin-bottom: 10px; line-height: 1.55;
+    }
+    .ss-card__meta__row {
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 4px;
+    }
+    .ss-card__meta__row:last-child { margin-bottom: 0; }
+    .ss-card__meta strong { color: var(--text-1); font-weight: 600; }
+
+    .ss-part {
+      margin-top: 8px; padding: 10px 12px;
+      background: var(--bg-1); border-radius: 5px;
+      font-size: 12.5px; line-height: 1.7; color: var(--text-1);
+      border-left: 3px solid;
+    }
+    .ss-part--opening { border-left-color: #f59e0b; }
+    .ss-part--middle  { border-left-color: #3b82f6; }
+    .ss-part--closing { border-left-color: #8b5cf6; }
+    .ss-part__head {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    .ss-part__label {
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px;
+      padding: 2px 8px; border-radius: 4px; color: #fff;
+    }
+    .ss-part--opening .ss-part__label { background: #d97706; }
+    .ss-part--middle  .ss-part__label { background: #2563eb; }
+    .ss-part--closing .ss-part__label { background: #7c3aed; }
+    .ss-part__hint { font-size: 11px; color: var(--text-3); }
+    .ss-part p { margin: 4px 0; color: var(--text-1); font-size: 12.5px; }
+    .ss-part p:last-child { margin-bottom: 0; }
+
+    .ss-tag-pain   { background: rgba(239, 68, 68, 0.15);  color: #fca5a5; border-color: rgba(239, 68, 68, 0.3); }
+    .ss-tag-growth { background: rgba(74, 222, 128, 0.15); color: #4ade80; border-color: rgba(74, 222, 128, 0.3); }
+    .ss-tag-value  { background: rgba(139, 92, 246, 0.15); color: #a78bfa; border-color: rgba(139, 92, 246, 0.3); }
+
+    .ss-tips {
+      margin-top: 24px; padding: 16px 18px;
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .ss-tips__title { font-size: 13px; font-weight: 600; color: var(--warning); margin-bottom: 10px; }
+    .ss-tips ul { padding-left: 20px; margin: 0; }
+    .ss-tips li { font-size: 13px; color: var(--text-1); line-height: 1.7; margin-bottom: 6px; }
+    .ss-tips strong { color: var(--text-0); font-weight: 600; }
   </style>
 </head>
 <body>
@@ -1649,7 +1748,7 @@
           <li class="ip-row"><span class="ip-row__name">독서등</span><span class="ip-row__price">49,000원</span></li>
         </ul>
         <div class="ip-cat__note">
-          📺 <a href="docs/keycontent/scripts_이북리더기_판매대본.html" target="_blank" rel="noopener">이북리더기·전자책 판매대본 모음</a>
+          📺 <a href="#sales-script" onclick="event.preventDefault(); navigate('sales-script');">이북리더기·전자책 판매대본</a>
           <span class="tag" style="font-size: 10px; margin-left: 4px;">1500자 ×3 + 350자 ×3</span>
           <div class="ip-cat__note__row"><strong>관점:</strong> ① 페인포인트(현상+보상) · ② 자기계발(욕구) · ③ 가성비(계획)</div>
           <div class="ip-cat__note__row"><strong>가성비 근거:</strong> 종이책 18,000원 vs 전자책 12,000원(할인 8,000원) → 월 2권 = 12~20k 절약, 1년 24만원</div>
@@ -1736,6 +1835,53 @@
       <hr />
       <p style="font-size: 12px; color: var(--text-3);">
         편집은 <a href="#item-categories" onclick="event.preventDefault(); navigate('item-categories');" style="color: var(--accent);">아이템 편집</a> 탭에서 가능 · 데이터: <a href="docs/item/bizpt-item-categories-2026-04-28.json" target="_blank" rel="noopener" style="color: var(--accent);">JSON 스냅샷</a>
+      </p>
+    </article>
+  </template>
+
+  <template id="tpl-sales-script">
+    <article>
+      <header style="margin-bottom: 8px;">
+        <span class="tag tag--accent">판매대본</span>
+        <span class="tag">이북리더기 · 전자책</span>
+        <span class="tag">1500자 ×3 · 350자 ×3</span>
+      </header>
+      <h1>판매대본 — 이북리더기·전자책 유튜브 6종</h1>
+      <p class="lead">
+        <a href="#item-pricing" onclick="event.preventDefault(); navigate('item-pricing');">단가 분석</a> 1번 카테고리(책/독서/필사)의 메인 라인을 판매로 연결하는 영상 대본 6종.
+        각 대본은 5단계(현상·욕구·계획·행동·보상) 중 1~2개 단계만 주력 — 시청자 진입 단계에 맞춰 골라 쓴다.
+      </p>
+
+      <div class="ss-legend">
+        <div class="ss-legend__title">5단계 의미 (대본별로 1~2개 단계만 주력)</div>
+        <div class="ss-legend__grid">
+          <div class="ss-legend__item"><span class="ss-stage ss-stage--phenomenon">현상</span><span>"내 얘기네" — 문제·상황 인지</span></div>
+          <div class="ss-legend__item"><span class="ss-stage ss-stage--desire">욕구</span><span>"바뀌고 싶다" — 변화 욕구 자극</span></div>
+          <div class="ss-legend__item"><span class="ss-stage ss-stage--plan">계획</span><span>"이렇게 하면 되네" — 해결책 제시</span></div>
+          <div class="ss-legend__item"><span class="ss-stage ss-stage--action">행동</span><span>"지금 사야지" — 구매 유도</span></div>
+          <div class="ss-legend__item"><span class="ss-stage ss-stage--reward">보상</span><span>"이런 게 생기네" — 결과·이점 그림</span></div>
+        </div>
+      </div>
+
+      <h3 class="ss-section-title">1500자 정식 영상용 <span class="tag">7~9분</span></h3>
+      <div class="ss-grid" id="ss-long"></div>
+
+      <h3 class="ss-section-title">350자 쇼츠/릴스용 <span class="tag">60~90초</span></h3>
+      <div class="ss-grid" id="ss-short"></div>
+
+      <div class="ss-tips">
+        <div class="ss-tips__title">대본 작성·활용 핵심 원칙</div>
+        <ul>
+          <li><strong>초반 30초가 전부다</strong> — 시청자가 가장 듣고 싶은 결론을 먼저, 설명은 그다음. 후킹 1줄에 "통증+결과" 또는 "결과+약속".</li>
+          <li><strong>한 영상에 모든 단계를 다 넣지 말 것</strong> — 1편당 주력 단계는 1~2개. 5단계를 다 넣으면 메시지가 흐려진다.</li>
+          <li><strong>대본별 단계 매칭</strong> — ① 페인포인트 → 현상+보상 / ② 자기계발 → 욕구 / ③ 가성비 → 계획.</li>
+          <li><strong>3단 구성</strong> — 초반(결론·후킹) → 중반(논리·디테일) → 마무리(CTA). 중반이 길어지면 한 번 더 결론을 환기.</li>
+        </ul>
+      </div>
+
+      <p style="font-size: 12px; color: var(--text-3); margin-top: 16px;">
+        원본 풀 페이지: <a href="docs/keycontent/scripts_이북리더기_판매대본.html" target="_blank" rel="noopener" style="color: var(--accent);">scripts_이북리더기_판매대본.html</a>
+        · 마크다운: <a href="docs/keycontent/scripts_이북리더기_판매대본.md" target="_blank" rel="noopener" style="color: var(--accent);">scripts_이북리더기_판매대본.md</a>
       </p>
     </article>
   </template>
@@ -3566,6 +3712,7 @@
           items: [
             { id: "item-categories", title: "아이템 편집", tpl: "tpl-item-categories" },
             { id: "item-pricing", title: "단가 분석 (P 산정)", tpl: "tpl-item-pricing" },
+            { id: "sales-script", title: "판매대본", tpl: "tpl-sales-script" },
           ],
         },
         {
@@ -5924,6 +6071,163 @@
       });
 
       render();
+    };
+
+    pageInits["tpl-sales-script"] = () => {
+      // keycontent HTML(scripts_이북리더기_판매대본.html)과 동일한 데이터를 SPA 다크 톤으로 렌더링
+      const SCRIPTS = {
+        long: [
+          {
+            angle: "페인포인트", angleClass: "ss-tag-pain",
+            title: "이 모든 불편함, 200g짜리 하나로 끝납니다",
+            stages: ["phenomenon", "reward"],
+            context: "시청자의 일상적 불편(어깨 통증·눈 피로·SNS 산만함)을 먼저 보여 \"내 얘기다\" 끌어당긴 뒤, 이북리더기가 만들어주는 결과(피난처 같은 집중 환경)를 그려주는 구조. 제품을 처음 접하는 일반 시청자가 타깃.",
+            opening: {
+              hint: "가장 중요한 메시지를 먼저 — 시청자의 통증을 한 줄로 찌르고 곧장 결과 제시",
+              text: ["가방 속 책 한 권 때문에 어깨 끊어진 적, 있으시죠? 스마트폰으로 읽자니 5분 만에 인스타로 넘어가고. 책장엔 안 읽은 책만 쌓여있고. 이 모든 문제가 200g짜리 기기 하나로 끝난다면 어떨까요? 어깨 통증, 눈 피로, SNS 산만함까지 한 번에 해결하는 이북리더기 — 오늘 끝까지 보시면 왜 그런지 정확히 이해되실 겁니다."]
+            },
+            middle: {
+              hint: "상세 스펙은 \"왜 그게 내 문제를 해결하는지\" 관점으로 설명",
+              text: [
+                "저도 똑같았습니다. 책장에는 안 읽은 책이 30권 넘게 쌓여있고, 새 책을 사도 죄책감만 늘어가던 시기가 있었어요. 그때 만난 게 이북리더기였습니다.",
+                "이북리더기는 종이책 한 권보다도 가볍습니다. 200그램 남짓, 손목이 전혀 부담스럽지 않아요. 화면은 e-ink 디스플레이라 종이와 거의 똑같은 질감의 빛을 냅니다. 두 시간, 세 시간을 읽어도 눈이 시리지 않아요. 백라이트도 따뜻한 색온도로 조절되니 자기 전 침대에서 읽어도 수면에 방해되지 않습니다.",
+                "배터리는 충전 한 번에 길게는 한 달까지 갑니다. 충전 케이블 들고 다닐 필요가 없어요. 방수 기능까지 있어서 욕조, 수영장, 비 오는 날 카페 야외석, 어디서든 안심하고 읽을 수 있습니다.",
+                "그리고 가장 중요한 점. 알림이 없습니다. 카톡도, 인스타도, 유튜브도 안 들어옵니다. 오직 책 한 권과 나, 그것뿐. 집중력이 산산조각 난 현대인에게 이건 단순한 기기가 아니라 하나의 피난처입니다. 수천 권의 책을 손바닥 위에 들고 다닌다고 상상해보세요. 출장, 여행, 어떤 책을 챙겨갈지 고민할 필요가 없습니다."
+              ]
+            },
+            closing: {
+              hint: "통증 환기 + 즉시 행동 유도",
+              text: ["\"책 읽어야지\" 하면서도 매번 미루는 분, 한 권을 한 달째 못 끝내는 분, 스마트폰만 잡으면 SNS에 빠지는 분 — 이 모든 고민을 이북리더기 하나가 해결합니다. 지금 영상 설명란 링크에서 제가 직접 사용한 베스트 모델과 오늘만 적용되는 할인 코드 확인하세요. 망설이는 1분 사이에도 어깨는 무거워지고, 눈은 더 피로해집니다. 가장 작고 확실한 투자, 지금 시작하세요."]
+            }
+          },
+          {
+            angle: "자기계발", angleClass: "ss-tag-growth",
+            title: "1년 뒤 책 30권을 읽은 자신이 되는 가장 확실한 방법",
+            stages: ["desire"],
+            context: "시청자가 이미 막연한 \"책 읽어야 하는데\" 욕구를 갖고 있을 때 그 욕구를 구체화하고 강화시키는 영상. 자기계발·성장 채널 톤과 잘 맞고, 미래의 자기 모습을 거울처럼 보여주는 구조.",
+            opening: {
+              hint: "가장 원하는 결과(미래의 나)를 먼저 던지고, 그게 의지가 아닌 도구의 문제임을 선언",
+              text: ["1년 뒤 책 30권을 읽은 자기 자신이 되고 싶으세요? 그 차이를 만드는 건 의지가 아닙니다. 도구입니다. 빌 게이츠가 1년에 50권을 읽고, 워런 버핏이 하루 80%를 독서에 쓰는 진짜 이유 — 그리고 우리도 똑같은 환경을 만들 수 있는 가장 확실한 방법을 지금부터 알려드립니다."]
+            },
+            middle: {
+              hint: "\"환경 vs 의지\" 프레임으로 시청자의 자책감을 풀어주고 도구 도입의 정당성 만들어주기",
+              text: [
+                "그런데 우리는 어떤가요? \"올해는 책 좀 읽어야지\" 다짐만 하고 12월이 되면 또 한 권도 못 끝낸 자신을 발견합니다. 문제는 의지가 아니에요. 환경입니다.",
+                "종이책은 무거워서 못 들고 다니고, 스마트폰은 알림 때문에 집중이 안 되고, 태블릿은 결국 유튜브 시청 도구가 되어버리죠. 진짜 독서 습관을 만들려면 '독서만을 위한 도구'가 필요합니다. 그게 바로 이북리더기예요.",
+                "이북리더기는 단순한 전자기기가 아닙니다. 라이프스타일의 전환점입니다. 출근길 지하철 10분, 점심시간 후 카페에서 15분, 자기 전 침대에서 20분. 자투리 시간을 모으면 한 달에 책 두세 권은 거뜬히 읽을 수 있습니다.",
+                "미니멀리스트들이 사랑하는 이유도 있습니다. 책장이 사라집니다. 거실이 깔끔해지고, 이사할 때 박스가 줄고, 책 먼지로부터 자유로워집니다. 카페에서 이북리더기로 책 읽는 사람, 세련되어 보이지 않나요? 그건 그 사람이 자신의 시간을 어떻게 쓰는지를 보여주는 상징이기 때문입니다.",
+                "전자책은 종이책보다 평균 20~40% 저렴하고, 형광펜·메모·사전 검색 기능까지 있어서 학습 효율이 두 배입니다."
+              ]
+            },
+            closing: {
+              hint: "미래 자아 vs 현재 자아 대비 + CTA",
+              text: ["여러분이 1년 뒤 어떤 사람이 되고 싶으신가요? 지금과 똑같은 사람? 아니면 책 30권을 읽은 자기 자신? 그 차이를 만드는 건 거창한 결심이 아니라 작은 도구 하나에서 시작됩니다. 지금 아래 링크에서 입문자에게 가장 추천하는 모델을 확인하세요. 미래의 나에게 가장 확실한 선물, 지금 결정하세요."]
+            }
+          },
+          {
+            angle: "가성비", angleClass: "ss-tag-value",
+            title: "20만 원이든 100만 원이든, 결국 본전 뽑는 이유",
+            stages: ["plan"],
+            context: "시청자가 이미 이북리더기에 관심은 있지만 가격에서 망설이고 있을 때 효과적. \"비교\", \"가성비\", \"추천\" 키워드로 검색해 들어온 시청자가 타깃이며, 숫자로 의사결정을 도와주는 구조.",
+            opening: {
+              hint: "가격 부담을 인정하고 즉시 결론(본전) 던지기 — 시청 이탈 막기",
+              text: ["이북리더기 20만 원에서 100만 원, 너무 비싸 보이죠? 그런데 1~2년이면 본체값을 뽑고, 그 이후로는 매달 2만 원씩 절약된다면요? 오늘 숫자로 정확하게 계산해드립니다. 어떤 가격대를 골라도 결국 이득인 이유, 지금 보여드릴게요."]
+            },
+            middle: {
+              hint: "숫자 → 보너스 → 사용 기간 단가 순으로 논리 누적",
+              text: [
+                "종이책 한 권 평균 가격이 약 18,000원입니다. 전자책은요? 같은 책이 평균 12,000원, 할인 시 8,000원까지 떨어집니다. 한 권당 6,000~10,000원이 절약되는 거예요. 한 달 두 권만 읽어도 매달 12,000~20,000원, 1년이면 14만~24만 원입니다. 보급형 20만 원대 모델은 1~2년이면 본체값 회수, 50~100만 원대 프리미엄도 4~5년이면 본전을 뽑습니다.",
+                "여기에 보너스가 있습니다. 도서관 전자책 무료 대여. 거의 모든 공공도서관이 베스트셀러까지 무료로 빌려줍니다. 활용하면 책값이 거의 0원에 수렴해요.",
+                "공간 비용도 생각해보세요. 서울 1평이 얼마인가요? 책장 하나가 차지하는 공간만 해도 수백만 원입니다. 이북리더기 하나면 책장이 통째로 사라집니다. 이사 박스, 책 먼지로 인한 청소 시간까지 다 줄어듭니다.",
+                "저작권 만료된 고전 명작들 — 셰익스피어, 톨스토이, 도스토옙스키 다 무료. 인터넷 PDF, 회사 보고서까지 다 넣어 볼 수 있어요. 사실상 휴대용 도서관 겸 문서 뷰어입니다.",
+                "한 번 사면 5~7년 씁니다. 5년 사용 기준으로 본체값을 나누면, 20만 원대는 월 3,500원, 100만 원대 프리미엄도 월 16,000원. 책 한 권 값도 안 됩니다. 형광펜, 메모, 사전 검색, 단어장 자동 저장까지 — 학습 효율은 종이책 대비 두 배입니다."
+              ]
+            },
+            closing: {
+              hint: "정리 → 예산별 옵션 → CTA",
+              text: ["정리하면 책값 절약, 공간 절약, 시간 절약, 학습 효율 향상. 1~2년만 써도 본전 뽑고, 그 이후는 순수한 이익입니다. 지금 아래 링크에서 20만 원대 가성비 1위부터 100만 원대 프리미엄까지 예산별 비교와 오늘만 적용되는 추가 할인 쿠폰을 챙겨놨으니 꼭 확인하세요. 똑똑한 소비, 오늘 시작하세요."]
+            }
+          }
+        ],
+        short: [
+          {
+            angle: "페인포인트", angleClass: "ss-tag-pain",
+            title: "200g짜리 하나로 끝나는 3가지 문제",
+            stages: ["phenomenon"],
+            context: "알고리즘이 무관심한 시청자에게 띄울 때 \"이게 내 얘기네\" 1초 만에 멈추게 하는 후킹용. 끝까지 시청률 끌어올리는 게 1순위.",
+            opening: { hint: "스크롤 멈추는 한 줄 — 통증 + 답", text: ["종이책은 무겁고, 스마트폰은 산만하다면 정답은 200g짜리 이북리더기 하나입니다."] },
+            middle: { hint: "", text: ["한 달 가는 배터리, 눈 시리지 않은 e-ink 화면, 알림 없는 집중 환경. 수천 권을 손바닥 위에 들고 다니는 셈이에요. \"책 읽어야지\" 하면서 매번 미루던 분이라면 이거 하나로 끝납니다."] },
+            closing: { hint: "", text: ["지금 아래 링크에서 베스트 모델과 오늘만 적용되는 할인 코드 확인하세요. 망설이는 1분에도 독서 시간은 사라지고 있습니다."] }
+          },
+          {
+            angle: "자기계발", angleClass: "ss-tag-growth",
+            title: "1년 뒤 책 30권을 읽은 나, 진짜 차이는 도구",
+            stages: ["desire"],
+            context: "자기계발·동기부여 콘텐츠 시청자에 노출되는 쇼츠. 미래 자아 자극 한 줄로 끌고 들어가는 구조.",
+            opening: { hint: "미래의 결과를 먼저, 가장 원하는 그림", text: ["1년 뒤 책 30권을 읽은 자기 자신이 되는 가장 확실한 방법, 알려드릴게요."] },
+            middle: { hint: "", text: ["빌 게이츠가 매년 50권을 읽는 건 의지가 아니라 환경 때문이에요. 이북리더기는 '독서만을 위한 도구'. 출근길 10분, 점심 후 15분, 자기 전 20분. 자투리 시간만 모아도 한 달 두세 권이 거뜬합니다."] },
+            closing: { hint: "", text: ["지금 링크에서 입문자 추천 모델 확인하시고, 미래의 나에게 가장 확실한 선물을 지금 주세요."] }
+          },
+          {
+            angle: "가성비", angleClass: "ss-tag-value",
+            title: "20만 원짜리, 1년이면 본전 뽑습니다",
+            stages: ["plan"],
+            context: "\"이북리더기 추천\", \"가성비\" 검색 유저나 이미 관심 있는 시청자에게 결정타 역할. 숫자 한 방으로 끌어들이는 구조.",
+            opening: { hint: "결론 먼저 — 본전이라는 핵심 한 줄", text: ["20만 원짜리 이북리더기, 1년이면 본전 뽑습니다. 숫자로 계산해드릴게요."] },
+            middle: { hint: "", text: ["종이책 한 권 18,000원, 전자책은 같은 책이 8,000~12,000원. 한 달 두 권만 읽어도 1년 24만 원이 절약됩니다. 도서관 무료 대여까지 더하면 5년 기준 월 3,500원, 책 한 권 값도 안 돼요."] },
+            closing: { hint: "", text: ["지금 아래 링크에서 20만~100만 원대 예산별 추천 모델과 추가 할인 쿠폰 확인하세요. 똑똑한 소비는 오늘부터 시작됩니다."] }
+          }
+        ]
+      };
+
+      const STAGE_LABEL = { phenomenon: "현상", desire: "욕구", plan: "계획", action: "행동", reward: "보상" };
+      const PART_LABEL = { opening: "초반", middle: "중반", closing: "마무리" };
+      const PART_TIME = {
+        long:  { opening: "0~30초", middle: "30초~7분", closing: "마지막 30초" },
+        short: { opening: "0~10초", middle: "10~50초", closing: "50~60초" }
+      };
+
+      function partHtml(card, key, kind) {
+        const part = card[key];
+        if (!part) return "";
+        const time = PART_TIME[kind][key];
+        const hintHtml = part.hint
+          ? `<span class="ss-part__hint">${escapeHtml(part.hint)}</span>` : "";
+        const paras = part.text.map(t => `<p>${escapeHtml(t)}</p>`).join("");
+        return `<div class="ss-part ss-part--${key}">
+          <div class="ss-part__head">
+            <span class="ss-part__label">${PART_LABEL[key]} (${time})</span>
+            ${hintHtml}
+          </div>
+          ${paras}
+        </div>`;
+      }
+
+      function cardHtml(card, kind) {
+        const lengthLabel = kind === "long" ? "1500자" : "350자";
+        const stageHtml = card.stages
+          .map(s => `<span class="ss-stage ss-stage--${s}">${STAGE_LABEL[s]}</span>`)
+          .join(" ");
+        return `<div class="ss-card ss-card--${kind}">
+          <div class="ss-card__badges">
+            <span class="tag">${lengthLabel}</span>
+            <span class="tag ${card.angleClass}">관점 · ${escapeHtml(card.angle)}</span>
+          </div>
+          <div class="ss-card__title">${escapeHtml(card.title)}</div>
+          <div class="ss-card__meta">
+            <div class="ss-card__meta__row"><strong>주력 단계:</strong> ${stageHtml}</div>
+            <div class="ss-card__meta__row"><strong>맥락:</strong> ${escapeHtml(card.context)}</div>
+          </div>
+          ${partHtml(card, "opening", kind)}
+          ${partHtml(card, "middle",  kind)}
+          ${partHtml(card, "closing", kind)}
+        </div>`;
+      }
+
+      const longBox = document.getElementById("ss-long");
+      const shortBox = document.getElementById("ss-short");
+      if (longBox)  longBox.innerHTML  = SCRIPTS.long .map(c => cardHtml(c, "long")).join("");
+      if (shortBox) shortBox.innerHTML = SCRIPTS.short.map(c => cardHtml(c, "short")).join("");
     };
 
     window.navigate = navigate;
