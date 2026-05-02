@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이북리더기 전자책 판매 유튜브 대본 모음</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    background: #f5f6f8;
+    color: #1f2330;
+    margin: 0;
+    padding: 40px 20px;
+    line-height: 1.75;
+  }
+  .container { max-width: 920px; margin: 0 auto; }
+
+  header {
+    background: linear-gradient(135deg, #4a6cf7 0%, #6f3ff5 100%);
+    color: #fff;
+    padding: 40px 36px;
+    border-radius: 16px;
+    margin-bottom: 28px;
+    box-shadow: 0 10px 30px rgba(74, 108, 247, 0.25);
+  }
+  header h1 { margin: 0 0 10px; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+  header p { margin: 0; font-size: 15px; opacity: 0.92; }
+
+  .legend {
+    background: #fff;
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+  .legend h2 { margin: 0 0 14px; font-size: 16px; font-weight: 700; }
+  .legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 10px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #555c6e;
+  }
+
+  .overview {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    border-left: 5px solid #4a6cf7;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+  .overview h2 { margin: 0 0 14px; font-size: 17px; color: #4a6cf7; }
+  .overview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .overview-table th, .overview-table td {
+    text-align: left;
+    padding: 10px 8px;
+    border-bottom: 1px solid #eee;
+  }
+  .overview-table th {
+    background: #f9fafc;
+    font-weight: 700;
+    color: #555c6e;
+    font-size: 13px;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 40px 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #1f2330;
+    color: #1f2330;
+  }
+  .section-title.short { color: #d97706; border-bottom-color: #d97706; }
+
+  .script-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 32px 34px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  }
+  .script-card.short { border-top: 4px solid #f59e0b; }
+  .script-card.long { border-top: 4px solid #4a6cf7; }
+
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .badge.length-long { background: #e0e8ff; color: #2548c7; }
+  .badge.length-short { background: #fef3c7; color: #92400e; }
+  .badge.angle-pain { background: #fee2e2; color: #b91c1c; }
+  .badge.angle-growth { background: #dcfce7; color: #166534; }
+  .badge.angle-value { background: #ede9fe; color: #5b21b6; }
+
+  .stage-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+  }
+  .stage-tag.s-phenomenon { background: #ef4444; }
+  .stage-tag.s-desire { background: #f59e0b; }
+  .stage-tag.s-plan { background: #3b82f6; }
+  .stage-tag.s-action { background: #8b5cf6; }
+  .stage-tag.s-reward { background: #10b981; }
+
+  .script-card h3 {
+    margin: 0 0 16px;
+    font-size: 19px;
+    color: #1f2330;
+    font-weight: 700;
+  }
+  .meta-box {
+    background: #f9fafc;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    font-size: 14px;
+    color: #555c6e;
+    line-height: 1.65;
+  }
+  .meta-box .label {
+    font-weight: 700;
+    color: #1f2330;
+    margin-right: 6px;
+  }
+  .meta-box .stage-row {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .part {
+    margin-top: 18px;
+    border-radius: 10px;
+    padding: 18px 20px;
+    border-left: 4px solid;
+  }
+  .part:first-of-type { margin-top: 0; }
+  .part.opening {
+    background: #fff8e6;
+    border-color: #f59e0b;
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.12);
+  }
+  .part.middle {
+    background: #f7faff;
+    border-color: #3b82f6;
+  }
+  .part.closing {
+    background: #f7f3ff;
+    border-color: #8b5cf6;
+  }
+  .part-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .part-label {
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 6px;
+    color: #fff;
+    letter-spacing: 0.3px;
+  }
+  .part.opening .part-label { background: #d97706; }
+  .part.middle .part-label { background: #2563eb; }
+  .part.closing .part-label { background: #7c3aed; }
+  .part-hint {
+    font-size: 12.5px;
+    color: #666c7d;
+  }
+  .part p {
+    margin: 0 0 10px;
+    font-size: 15px;
+    line-height: 1.85;
+    color: #2c3340;
+  }
+  .part p:last-child { margin-bottom: 0; }
+
+  .tips {
+    background: #1f2330;
+    color: #f5f6f8;
+    border-radius: 14px;
+    padding: 30px 32px;
+    margin-top: 40px;
+  }
+  .tips h2 { margin: 0 0 16px; font-size: 19px; color: #ffd166; }
+  .tips ul { margin: 0; padding-left: 20px; }
+  .tips li { margin-bottom: 10px; font-size: 14.5px; line-height: 1.7; }
+  .tips strong { color: #ffd166; }
+
+  footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 13px;
+    color: #8b93a7;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 20px 12px; }
+    header { padding: 28px 22px; }
+    header h1 { font-size: 22px; }
+    .script-card { padding: 24px 22px; }
+    .part { padding: 14px 16px; }
+    .part p { font-size: 14.5px; }
+    .overview-table { font-size: 13px; }
+    .overview-table th, .overview-table td { padding: 8px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>이북리더기 전자책 판매 유튜브 대본 모음</h1>
+    <p>1500자 3종 + 350자 3종 · 대본별 주력 단계 표시 · 초반/중반/마무리 3단 구성</p>
+  </header>
+
+  <div class="legend">
+    <h2>5단계 의미 (대본별로 1~2개 단계만 주력)</h2>
+    <div class="legend-grid">
+      <div class="legend-item"><span class="stage-tag s-phenomenon">현상</span><span>"내 얘기네" — 문제·상황 인지</span></div>
+      <div class="legend-item"><span class="stage-tag s-desire">욕구</span><span>"바뀌고 싶다" — 변화 욕구 자극</span></div>
+      <div class="legend-item"><span class="stage-tag s-plan">계획</span><span>"이렇게 하면 되네" — 해결책 제시</span></div>
+      <div class="legend-item"><span class="stage-tag s-action">행동</span><span>"지금 사야지" — 구매 유도</span></div>
+      <div class="legend-item"><span class="stage-tag s-reward">보상</span><span>"이런 게 생기네" — 결과·이점 그림</span></div>
+    </div>
+  </div>
+
+  <div class="overview">
+    <h2>대본별 주력 단계 한눈에 보기</h2>
+    <table class="overview-table">
+      <thead>
+        <tr>
+          <th>대본</th>
+          <th>관점</th>
+          <th>주력 단계</th>
+          <th>언제 효과적인가</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>① 1500자 / 쇼츠 ①</td>
+          <td>페인포인트</td>
+          <td><span class="stage-tag s-phenomenon">현상</span> + <span class="stage-tag s-reward">보상</span></td>
+          <td>제품을 모르는 일반 시청자에게 "이거 내 얘기네" 후킹</td>
+        </tr>
+        <tr>
+          <td>② 1500자 / 쇼츠 ②</td>
+          <td>자기계발</td>
+          <td><span class="stage-tag s-desire">욕구</span></td>
+          <td>이미 독서·성장 욕구가 있는 자기계발 시청자에 적합</td>
+        </tr>
+        <tr>
+          <td>③ 1500자 / 쇼츠 ③</td>
+          <td>가성비</td>
+          <td><span class="stage-tag s-plan">계획</span></td>
+          <td>구매 직전 가격에서 망설이는 비교·리뷰 검색 시청자에 적합</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-title">1500자 대본 (정식 영상용 · 7~9분)</h2>
+
+  <!-- ===== 대본 ① 페인포인트 ===== -->
+  <div class="script-card long">
+    <div class="badge-row">
+      <span class="badge length-long">1500자</span>
+      <span class="badge angle-pain">관점 ① 페인포인트</span>
+    </div>
+    <h3>대본 ① — "이 모든 불편함, 200g짜리 하나로 끝납니다"</h3>
+
+    <div class="meta-box">
+      <div class="stage-row">
+        <span class="label">주력 단계:</span>
+        <span class="stage-tag s-phenomenon">현상</span>
+        <span class="stage-tag s-reward">보상</span>
+      </div>
+      <div><span class="label">맥락:</span> 시청자의 일상적 불편(어깨 통증·눈 피로·SNS 산만함)을 먼저 보여 "내 얘기다" 끌어당긴 뒤, 이북리더기가 만들어주는 결과(피난처 같은 집중 환경)를 그려주는 구조. 제품을 처음 접하는 일반 시청자가 타깃.</div>
+    </div>
+
+    <div class="part opening">
+      <div class="part-header">
+        <span class="part-label">초반 (0~30초)</span>
+        <span class="part-hint">가장 중요한 메시지를 먼저 — 시청자의 통증을 한 줄로 찌르고 곧장 결과 제시</span>
+      </div>
+      <p>가방 속 책 한 권 때문에 어깨 끊어진 적, 있으시죠? 스마트폰으로 읽자니 5분 만에 인스타로 넘어가고. 책장엔 안 읽은 책만 쌓여있고. 이 모든 문제가 200g짜리 기기 하나로 끝난다면 어떨까요? 어깨 통증, 눈 피로, SNS 산만함까지 한 번에 해결하는 이북리더기 — 오늘 끝까지 보시면 왜 그런지 정확히 이해되실 겁니다.</p>
+    </div>
+
+    <div class="part middle">
+      <div class="part-header">
+        <span class="part-label">중반 (30초~7분)</span>
+        <span class="part-hint">상세 스펙은 "왜 그게 내 문제를 해결하는지" 관점으로 설명</span>
+      </div>
+      <p>저도 똑같았습니다. 책장에는 안 읽은 책이 30권 넘게 쌓여있고, 새 책을 사도 죄책감만 늘어가던 시기가 있었어요. 그때 만난 게 이북리더기였습니다.</p>
+      <p>이북리더기는 종이책 한 권보다도 가볍습니다. 200그램 남짓, 손목이 전혀 부담스럽지 않아요. 화면은 e-ink 디스플레이라 종이와 거의 똑같은 질감의 빛을 냅니다. 두 시간, 세 시간을 읽어도 눈이 시리지 않아요. 백라이트도 따뜻한 색온도로 조절되니 자기 전 침대에서 읽어도 수면에 방해되지 않습니다.</p>
+      <p>배터리는 충전 한 번에 길게는 한 달까지 갑니다. 충전 케이블 들고 다닐 필요가 없어요. 방수 기능까지 있어서 욕조, 수영장, 비 오는 날 카페 야외석, 어디서든 안심하고 읽을 수 있습니다.</p>
+      <p>그리고 가장 중요한 점. 알림이 없습니다. 카톡도, 인스타도, 유튜브도 안 들어옵니다. 오직 책 한 권과 나, 그것뿐. 집중력이 산산조각 난 현대인에게 이건 단순한 기기가 아니라 하나의 피난처입니다. 수천 권의 책을 손바닥 위에 들고 다닌다고 상상해보세요. 출장, 여행, 어떤 책을 챙겨갈지 고민할 필요가 없습니다.</p>
+    </div>
+
+    <div class="part closing">
+      <div class="part-header">
+        <span class="part-label">마무리 (마지막 30초)</span>
+        <span class="part-hint">통증 환기 + 즉시 행동 유도</span>
+      </div>
+      <p>"책 읽어야지" 하면서도 매번 미루는 분, 한 권을 한 달째 못 끝내는 분, 스마트폰만 잡으면 SNS에 빠지는 분 — 이 모든 고민을 이북리더기 하나가 해결합니다. 지금 영상 설명란 링크에서 제가 직접 사용한 베스트 모델과 오늘만 적용되는 할인 코드 확인하세요. 망설이는 1분 사이에도 어깨는 무거워지고, 눈은 더 피로해집니다. 가장 작고 확실한 투자, 지금 시작하세요.</p>
+    </div>
+  </div>
+
+  <!-- ===== 대본 ② 자기계발 ===== -->
+  <div class="script-card long">
+    <div class="badge-row">
+      <span class="badge length-long">1500자</span>
+      <span class="badge angle-growth">관점 ② 자기계발</span>
+    </div>
+    <h3>대본 ② — "1년 뒤 책 30권을 읽은 자신이 되는 가장 확실한 방법"</h3>
+
+    <div class="meta-box">
+      <div class="stage-row">
+        <span class="label">주력 단계:</span>
+        <span class="stage-tag s-desire">욕구</span>
+      </div>
+      <div><span class="label">맥락:</span> 시청자가 이미 막연한 "책 읽어야 하는데" 욕구를 갖고 있을 때 그 욕구를 구체화하고 강화시키는 영상. 자기계발·성장 채널 톤과 잘 맞고, 미래의 자기 모습을 거울처럼 보여주는 구조.</div>
+    </div>
+
+    <div class="part opening">
+      <div class="part-header">
+        <span class="part-label">초반 (0~30초)</span>
+        <span class="part-hint">가장 원하는 결과(미래의 나)를 먼저 던지고, 그게 의지가 아닌 도구의 문제임을 선언</span>
+      </div>
+      <p>1년 뒤 책 30권을 읽은 자기 자신이 되고 싶으세요? 그 차이를 만드는 건 의지가 아닙니다. 도구입니다. 빌 게이츠가 1년에 50권을 읽고, 워런 버핏이 하루 80%를 독서에 쓰는 진짜 이유 — 그리고 우리도 똑같은 환경을 만들 수 있는 가장 확실한 방법을 지금부터 알려드립니다.</p>
+    </div>
+
+    <div class="part middle">
+      <div class="part-header">
+        <span class="part-label">중반 (30초~7분)</span>
+        <span class="part-hint">"환경 vs 의지" 프레임으로 시청자의 자책감을 풀어주고 도구 도입의 정당성 만들어주기</span>
+      </div>
+      <p>그런데 우리는 어떤가요? "올해는 책 좀 읽어야지" 다짐만 하고 12월이 되면 또 한 권도 못 끝낸 자신을 발견합니다. 문제는 의지가 아니에요. 환경입니다.</p>
+      <p>종이책은 무거워서 못 들고 다니고, 스마트폰은 알림 때문에 집중이 안 되고, 태블릿은 결국 유튜브 시청 도구가 되어버리죠. 진짜 독서 습관을 만들려면 '독서만을 위한 도구'가 필요합니다. 그게 바로 이북리더기예요.</p>
+      <p>이북리더기는 단순한 전자기기가 아닙니다. 라이프스타일의 전환점입니다. 출근길 지하철 10분, 점심시간 후 카페에서 15분, 자기 전 침대에서 20분. 자투리 시간을 모으면 한 달에 책 두세 권은 거뜬히 읽을 수 있습니다.</p>
+      <p>미니멀리스트들이 사랑하는 이유도 있습니다. 책장이 사라집니다. 거실이 깔끔해지고, 이사할 때 박스가 줄고, 책 먼지로부터 자유로워집니다. 카페에서 이북리더기로 책 읽는 사람, 세련되어 보이지 않나요? 그건 그 사람이 자신의 시간을 어떻게 쓰는지를 보여주는 상징이기 때문입니다.</p>
+      <p>전자책은 종이책보다 평균 20~40% 저렴하고, 형광펜·메모·사전 검색 기능까지 있어서 학습 효율이 두 배입니다.</p>
+    </div>
+
+    <div class="part closing">
+      <div class="part-header">
+        <span class="part-label">마무리 (마지막 30초)</span>
+        <span class="part-hint">미래 자아 vs 현재 자아 대비 + CTA</span>
+      </div>
+      <p>여러분이 1년 뒤 어떤 사람이 되고 싶으신가요? 지금과 똑같은 사람? 아니면 책 30권을 읽은 자기 자신? 그 차이를 만드는 건 거창한 결심이 아니라 작은 도구 하나에서 시작됩니다. 지금 아래 링크에서 입문자에게 가장 추천하는 모델을 확인하세요. 미래의 나에게 가장 확실한 선물, 지금 결정하세요.</p>
+    </div>
+  </div>
+
+  <!-- ===== 대본 ③ 가성비 ===== -->
+  <div class="script-card long">
+    <div class="badge-row">
+      <span class="badge length-long">1500자</span>
+      <span class="badge angle-value">관점 ③ 가성비</span>
+    </div>
+    <h3>대본 ③ — "20만 원이든 100만 원이든, 결국 본전 뽑는 이유"</h3>
+
+    <div class="meta-box">
+      <div class="stage-row">
+        <span class="label">주력 단계:</span>
+        <span class="stage-tag s-plan">계획</span>
+      </div>
+      <div><span class="label">맥락:</span> 시청자가 이미 이북리더기에 관심은 있지만 가격에서 망설이고 있을 때 효과적. "비교", "가성비", "추천" 키워드로 검색해 들어온 시청자가 타깃이며, 숫자로 의사결정을 도와주는 구조.</div>
+    </div>
+
+    <div class="part opening">
+      <div class="part-header">
+        <span class="part-label">초반 (0~30초)</span>
+        <span class="part-hint">가격 부담을 인정하고 즉시 결론(본전) 던지기 — 시청 이탈 막기</span>
+      </div>
+      <p>이북리더기 20만 원에서 100만 원, 너무 비싸 보이죠? 그런데 1~2년이면 본체값을 뽑고, 그 이후로는 매달 2만 원씩 절약된다면요? 오늘 숫자로 정확하게 계산해드립니다. 어떤 가격대를 골라도 결국 이득인 이유, 지금 보여드릴게요.</p>
+    </div>
+
+    <div class="part middle">
+      <div class="part-header">
+        <span class="part-label">중반 (30초~7분)</span>
+        <span class="part-hint">숫자 → 보너스 → 사용 기간 단가 순으로 논리 누적</span>
+      </div>
+      <p>종이책 한 권 평균 가격이 약 18,000원입니다. 전자책은요? 같은 책이 평균 12,000원, 할인 시 8,000원까지 떨어집니다. 한 권당 6,000~10,000원이 절약되는 거예요. 한 달 두 권만 읽어도 매달 12,000~20,000원, 1년이면 14만~24만 원입니다. 보급형 20만 원대 모델은 1~2년이면 본체값 회수, 50~100만 원대 프리미엄도 4~5년이면 본전을 뽑습니다.</p>
+      <p>여기에 보너스가 있습니다. 도서관 전자책 무료 대여. 거의 모든 공공도서관이 베스트셀러까지 무료로 빌려줍니다. 활용하면 책값이 거의 0원에 수렴해요.</p>
+      <p>공간 비용도 생각해보세요. 서울 1평이 얼마인가요? 책장 하나가 차지하는 공간만 해도 수백만 원입니다. 이북리더기 하나면 책장이 통째로 사라집니다. 이사 박스, 책 먼지로 인한 청소 시간까지 다 줄어듭니다.</p>
+      <p>저작권 만료된 고전 명작들 — 셰익스피어, 톨스토이, 도스토옙스키 다 무료. 인터넷 PDF, 회사 보고서까지 다 넣어 볼 수 있어요. 사실상 휴대용 도서관 겸 문서 뷰어입니다.</p>
+      <p>한 번 사면 5~7년 씁니다. 5년 사용 기준으로 본체값을 나누면, 20만 원대는 월 3,500원, 100만 원대 프리미엄도 월 16,000원. 책 한 권 값도 안 됩니다. 형광펜, 메모, 사전 검색, 단어장 자동 저장까지 — 학습 효율은 종이책 대비 두 배입니다.</p>
+    </div>
+
+    <div class="part closing">
+      <div class="part-header">
+        <span class="part-label">마무리 (마지막 30초)</span>
+        <span class="part-hint">정리 → 예산별 옵션 → CTA</span>
+      </div>
+      <p>정리하면 책값 절약, 공간 절약, 시간 절약, 학습 효율 향상. 1~2년만 써도 본전 뽑고, 그 이후는 순수한 이익입니다. 지금 아래 링크에서 20만 원대 가성비 1위부터 100만 원대 프리미엄까지 예산별 비교와 오늘만 적용되는 추가 할인 쿠폰을 챙겨놨으니 꼭 확인하세요. 똑똑한 소비, 오늘 시작하세요.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title short">350자 대본 (쇼츠/릴스용 · 60~90초)</h2>
+
+  <!-- ===== 쇼츠 ① ===== -->
+  <div class="script-card short">
+    <div class="badge-row">
+      <span class="badge length-short">350자</span>
+      <span class="badge angle-pain">관점 ① 페인포인트</span>
+    </div>
+    <h3>쇼츠 ① — "200g짜리 하나로 끝나는 3가지 문제"</h3>
+
+    <div class="meta-box">
+      <div class="stage-row">
+        <span class="label">주력 단계:</span>
+        <span class="stage-tag s-phenomenon">현상</span>
+      </div>
+      <div><span class="label">맥락:</span> 알고리즘이 무관심한 시청자에게 띄울 때 "이게 내 얘기네" 1초 만에 멈추게 하는 후킹용. 끝까지 시청률 끌어올리는 게 1순위.</div>
+    </div>
+
+    <div class="part opening">
+      <div class="part-header">
+        <span class="part-label">초반 (0~10초)</span>
+        <span class="part-hint">스크롤 멈추는 한 줄 — 통증 + 답</span>
+      </div>
+      <p>종이책은 무겁고, 스마트폰은 산만하다면 정답은 200g짜리 이북리더기 하나입니다.</p>
+    </div>
+    <div class="part middle">
+      <div class="part-header"><span class="part-label">중반 (10~50초)</span></div>
+      <p>한 달 가는 배터리, 눈 시리지 않은 e-ink 화면, 알림 없는 집중 환경. 수천 권을 손바닥 위에 들고 다니는 셈이에요. "책 읽어야지" 하면서 매번 미루던 분이라면 이거 하나로 끝납니다.</p>
+    </div>
+    <div class="part closing">
+      <div class="part-header"><span class="part-label">마무리 (50~60초)</span></div>
+      <p>지금 아래 링크에서 베스트 모델과 오늘만 적용되는 할인 코드 확인하세요. 망설이는 1분에도 독서 시간은 사라지고 있습니다.</p>
+    </div>
+  </div>
+
+  <!-- ===== 쇼츠 ② ===== -->
+  <div class="script-card short">
+    <div class="badge-row">
+      <span class="badge length-short">350자</span>
+      <span class="badge angle-growth">관점 ② 자기계발</span>
+    </div>
+    <h3>쇼츠 ② — "1년 뒤 책 30권을 읽은 나, 진짜 차이는 도구"</h3>
+
+    <div class="meta-box">
+      <div class="stage-row">
+        <span class="label">주력 단계:</span>
+        <span class="stage-tag s-desire">욕구</span>
+      </div>
+      <div><span class="label">맥락:</span> 자기계발·동기부여 콘텐츠 시청자에 노출되는 쇼츠. 미래 자아 자극 한 줄로 끌고 들어가는 구조.</div>
+    </div>
+
+    <div class="part opening">
+      <div class="part-header">
+        <span class="part-label">초반 (0~10초)</span>
+        <span class="part-hint">미래의 결과를 먼저, 가장 원하는 그림</span>
+      </div>
+      <p>1년 뒤 책 30권을 읽은 자기 자신이 되는 가장 확실한 방법, 알려드릴게요.</p>
+    </div>
+    <div class="part middle">
+      <div class="part-header"><span class="part-label">중반 (10~50초)</span></div>
+      <p>빌 게이츠가 매년 50권을 읽는 건 의지가 아니라 환경 때문이에요. 이북리더기는 '독서만을 위한 도구'. 출근길 10분, 점심 후 15분, 자기 전 20분. 자투리 시간만 모아도 한 달 두세 권이 거뜬합니다.</p>
+    </div>
+    <div class="part closing">
+      <div class="part-header"><span class="part-label">마무리 (50~60초)</span></div>
+      <p>지금 링크에서 입문자 추천 모델 확인하시고, 미래의 나에게 가장 확실한 선물을 지금 주세요.</p>
+    </div>
+  </div>
+
+  <!-- ===== 쇼츠 ③ ===== -->
+  <div class="script-card short">
+    <div class="badge-row">
+      <span class="badge length-short">350자</span>
+      <span class="badge angle-value">관점 ③ 가성비</span>
+    </div>
+    <h3>쇼츠 ③ — "20만 원짜리, 1년이면 본전 뽑습니다"</h3>
+
+    <div class="meta-box">
+      <div class="stage-row">
+        <span class="label">주력 단계:</span>
+        <span class="stage-tag s-plan">계획</span>
+      </div>
+      <div><span class="label">맥락:</span> "이북리더기 추천", "가성비" 검색 유저나 이미 관심 있는 시청자에게 결정타 역할. 숫자 한 방으로 끌어들이는 구조.</div>
+    </div>
+
+    <div class="part opening">
+      <div class="part-header">
+        <span class="part-label">초반 (0~10초)</span>
+        <span class="part-hint">결론 먼저 — 본전이라는 핵심 한 줄</span>
+      </div>
+      <p>20만 원짜리 이북리더기, 1년이면 본전 뽑습니다. 숫자로 계산해드릴게요.</p>
+    </div>
+    <div class="part middle">
+      <div class="part-header"><span class="part-label">중반 (10~50초)</span></div>
+      <p>종이책 한 권 18,000원, 전자책은 같은 책이 8,000~12,000원. 한 달 두 권만 읽어도 1년 24만 원이 절약됩니다. 도서관 무료 대여까지 더하면 5년 기준 월 3,500원, 책 한 권 값도 안 돼요.</p>
+    </div>
+    <div class="part closing">
+      <div class="part-header"><span class="part-label">마무리 (50~60초)</span></div>
+      <p>지금 아래 링크에서 20만~100만 원대 예산별 추천 모델과 추가 할인 쿠폰 확인하세요. 똑똑한 소비는 오늘부터 시작됩니다.</p>
+    </div>
+  </div>
+
+  <div class="tips">
+    <h2>대본 작성·활용 핵심 원칙</h2>
+    <ul>
+      <li><strong>초반 30초가 전부다</strong> — 시청자가 가장 듣고 싶은 결론을 먼저 던지고, 설명은 그다음에. 후킹 1줄 안에 "통증 + 결과" 또는 "결과 + 약속"이 들어가야 합니다.</li>
+      <li><strong>한 영상에 모든 단계를 다 넣지 말 것</strong> — 1편당 주력 단계는 1~2개. 나머지는 보조 역할만 하면 충분합니다. 5단계를 다 넣으면 메시지가 흐려집니다.</li>
+      <li><strong>대본별 단계 매칭</strong> — ① 페인포인트 → 현상+보상 / ② 자기계발 → 욕구 / ③ 가성비 → 계획. 채널의 주 시청자 단계에 맞춰 어떤 대본을 더 자주 쓸지 정하세요.</li>
+      <li><strong>3단 구성</strong> — 초반(결론·후킹) → 중반(논리·디테일) → 마무리(CTA). 중반이 길어지면 중간에 한 번 더 결론을 짧게 환기시켜 주세요.</li>
+    </ul>
+  </div>
+
+  <footer>
+    이북리더기 전자책 판매 유튜브 대본 모음 · 주력 단계 표시 + 초반/중반/마무리 3단 구성 · 2026
+  </footer>
+
+</div>
+</body>
+</html>

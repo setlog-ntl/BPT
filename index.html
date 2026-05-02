@@ -1252,6 +1252,19 @@
     .ip-cat--purple .ip-row__price { color: #a78bfa; }
     .ip-cat--neutral .ip-row__price { color: var(--text-1); }
     .ip-cat--green .ip-row__price { color: #4ade80; }
+
+    .ip-cat__note {
+      margin-top: 12px; padding: 10px 12px;
+      background: var(--bg-1); border: 1px dashed var(--border-strong);
+      border-radius: 6px; font-size: 12px; color: var(--text-2);
+      line-height: 1.55;
+    }
+    .ip-cat__note a {
+      color: var(--accent); text-decoration: none; font-weight: 600;
+    }
+    .ip-cat__note a:hover { text-decoration: underline; }
+    .ip-cat__note__row { margin-top: 4px; }
+    .ip-cat__note__row strong { color: var(--text-1); font-weight: 600; }
   </style>
 </head>
 <body>
@@ -1572,7 +1585,7 @@
 
       <hr />
       <p style="font-size: 12px; color: var(--text-3);">
-        원본(편집형 워크시트): <a href="docs/아이템선정_워크시트.html" target="_blank" rel="noopener" style="color: var(--accent);">docs/아이템선정_워크시트.html</a> — 셀 직접 수정 후 [변경사항 저장] 버튼으로 다운로드 가능
+        원본(편집형 워크시트): <a href="docs/item/아이템선정_워크시트.html" target="_blank" rel="noopener" style="color: var(--accent);">docs/item/아이템선정_워크시트.html</a> — 셀 직접 수정 후 [변경사항 저장] 버튼으로 다운로드 가능
       </p>
     </article>
   </template>
@@ -1606,7 +1619,7 @@
       <div id="ic-list"></div>
 
       <p style="font-size: 12px; color: var(--text-3); margin-top: 16px;">
-        원본 문서: <a href="docs/최종선정10개.md" target="_blank" rel="noopener" style="color: var(--accent);">docs/최종선정10개.md</a>
+        원본 문서: <a href="docs/item/최종선정10개.md" target="_blank" rel="noopener" style="color: var(--accent);">docs/item/최종선정10개.md</a>
       </p>
     </article>
   </template>
@@ -1635,6 +1648,13 @@
           <li class="ip-row"><span class="ip-row__name">필사노트</span><span class="ip-row__price">35,000원</span></li>
           <li class="ip-row"><span class="ip-row__name">독서등</span><span class="ip-row__price">49,000원</span></li>
         </ul>
+        <div class="ip-cat__note">
+          📺 <a href="docs/keycontent/scripts_이북리더기_판매대본.html" target="_blank" rel="noopener">이북리더기·전자책 판매대본 모음</a>
+          <span class="tag" style="font-size: 10px; margin-left: 4px;">1500자 ×3 + 350자 ×3</span>
+          <div class="ip-cat__note__row"><strong>관점:</strong> ① 페인포인트(현상+보상) · ② 자기계발(욕구) · ③ 가성비(계획)</div>
+          <div class="ip-cat__note__row"><strong>가성비 근거:</strong> 종이책 18,000원 vs 전자책 12,000원(할인 8,000원) → 월 2권 = 12~20k 절약, 1년 24만원</div>
+          <div class="ip-cat__note__row"><strong>본체 단가대:</strong> 보급형 20만원대(5년 사용 시 월 3,500원) ~ 프리미엄 100만원대(월 16,000원)</div>
+        </div>
       </div>
 
       <!-- 2. 러닝/운동 -->
@@ -1715,7 +1735,7 @@
 
       <hr />
       <p style="font-size: 12px; color: var(--text-3);">
-        편집은 <a href="#item-categories" onclick="event.preventDefault(); navigate('item-categories');" style="color: var(--accent);">아이템 편집</a> 탭에서 가능 · 데이터: <a href="docs/bizpt-item-categories-2026-04-28.json" target="_blank" rel="noopener" style="color: var(--accent);">JSON 스냅샷</a>
+        편집은 <a href="#item-categories" onclick="event.preventDefault(); navigate('item-categories');" style="color: var(--accent);">아이템 편집</a> 탭에서 가능 · 데이터: <a href="docs/item/bizpt-item-categories-2026-04-28.json" target="_blank" rel="noopener" style="color: var(--accent);">JSON 스냅샷</a>
       </p>
     </article>
   </template>
@@ -2705,7 +2725,7 @@
       <h1>비즈니스PT 2강 · 수익화 기획 종합 정리</h1>
       <p class="lead">
         1강이 트래픽·전환의 <strong>구조(골조)</strong>였다면, 2강은 그 안에 무엇을 채울지 — <strong>아이템 선정·문제 정의·시장성</strong>이 주제. 2-1 ~ 2-5 다섯 차시를 강 구분 대신 주제별로 재배열했다.
-        <br /><span style="color: var(--text-3); font-size: 13px;">원본: <code>docs/bizpt-lecture-notes-2026-04-26.md</code> (강의 노트 페이지에서 내보낸 정리본)</span>
+        <br /><span style="color: var(--text-3); font-size: 13px;">원본: <code>docs/item/bizpt-lecture-notes-2026-04-26.md</code> (강의 노트 페이지에서 내보낸 정리본)</span>
       </p>
 
       <div class="key-card">
@@ -2959,7 +2979,7 @@
 
       <hr />
       <p style="font-size: 12px; color: var(--text-3);">
-        원본: <code>docs/bizpt-lecture-notes-2026-04-26.md</code> · 강의 노트 페이지의 <a href="#lecture-notes" onclick="event.preventDefault(); navigate('lecture-notes');">5개 차시 노트(2-1 ~ 2-5)</a>
+        원본: <code>docs/item/bizpt-lecture-notes-2026-04-26.md</code> · 강의 노트 페이지의 <a href="#lecture-notes" onclick="event.preventDefault(); navigate('lecture-notes');">5개 차시 노트(2-1 ~ 2-5)</a>
       </p>
     </article>
   </template>
