@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제목·썸네일 기획 — AI 시대 살아남는 세 종류의 인간</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#a78bfa; --ai:#6ea8fe;
+    --bg:#0d1117; --surface:#161b22; --surface2:#1c2230; --line:#2a313c;
+    --tx:#e6edf3; --tx2:#9aa7b4; --tx3:#6b7785;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.65;padding:32px 18px 80px}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+  h1 .sub{display:block;font-size:14px;font-weight:500;color:var(--tx2);margin-top:8px}
+  h2{font-size:19px;font-weight:700;margin:40px 0 16px;padding-left:12px;border-left:4px solid var(--growth)}
+  h3{font-size:15px;font-weight:700;margin:0 0 4px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 8px}
+  .chip{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--surface2);color:var(--tx2);border:1px solid var(--line)}
+  .chip.ai{color:var(--ai);border-color:#24507e}
+  .guard{background:rgba(239,71,111,.08);border:1px solid rgba(239,71,111,.35);border-radius:14px;padding:18px 20px;margin:22px 0}
+  .guard b{color:var(--pain)}
+  .gtable{width:100%;border-collapse:collapse;margin-top:12px;font-size:13.5px}
+  .gtable td{padding:8px 10px;border:1px solid var(--line);vertical-align:top}
+  .gtable td:first-child{color:var(--pain);width:46%}
+  .gtable td:last-child{color:var(--growth)}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .card.pick{border-color:var(--growth);box-shadow:0 0 0 1px var(--growth) inset}
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;margin-bottom:10px}
+  .b-a{background:rgba(110,168,254,.15);color:var(--ai)}
+  .b-b{background:rgba(6,214,160,.15);color:var(--growth)}
+  .b-c{background:rgba(167,139,250,.18);color:var(--rec)}
+  .b-d{background:rgba(255,209,102,.16);color:var(--value)}
+  .title-main{font-size:18px;font-weight:800;letter-spacing:-.02em;margin:2px 0 8px}
+  .count{font-size:12px;color:var(--tx3);font-weight:600}
+  .note{font-size:13px;color:var(--tx2);margin-top:8px}
+  .note b{color:var(--tx)}
+  /* 썸네일 목업 */
+  .thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:8px}
+  .thumb{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .thumb-img{position:relative;aspect-ratio:16/9;display:flex;align-items:stretch;background:linear-gradient(120deg,#0b3b34,#0e5247 55%,#10302b)}
+  .thumb-txt{flex:1;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;z-index:2}
+  .tag{display:inline-block;align-self:flex-start;font-size:11px;font-weight:700;background:#0a1f1b;color:var(--growth);padding:3px 8px;border-radius:5px;margin-bottom:8px}
+  .head{font-size:23px;font-weight:900;line-height:1.18;letter-spacing:-.03em;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.5)}
+  .head .hl{color:var(--value)}
+  .head .hl2{color:var(--growth)}
+  .head .hl3{color:var(--pain)}
+  .person{position:absolute;right:0;top:0;bottom:0;width:42%;background:radial-gradient(circle at 60% 40%,#2a3340,#10151c);clip-path:polygon(18% 0,100% 0,100% 100%,0 100%);display:flex;align-items:flex-end;justify-content:center}
+  .person::after{content:"";width:46%;height:70%;background:#3a4654;border-radius:50% 50% 0 0;opacity:.55}
+  .time{position:absolute;right:8px;bottom:8px;z-index:3;font-size:11px;font-weight:700;background:rgba(0,0,0,.75);color:#fff;padding:2px 6px;border-radius:4px}
+  .thumb-cap{padding:11px 14px;background:var(--surface);font-size:12.5px;color:var(--tx2)}
+  .thumb-cap b{color:var(--tx)}
+  .flow{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;font-size:14px;line-height:2.1}
+  .flow .step{color:var(--tx)}
+  .flow .ar{color:var(--growth);font-weight:800;margin:0 8px}
+  .flow .x{color:var(--pain);font-weight:700}
+  .flow .o{color:var(--growth);font-weight:700}
+  .flow .key{color:var(--value);font-weight:800}
+  .ref{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+  .ref .thumb{flex:0 0 300px}
+  .ref ul{margin:0;padding-left:18px;font-size:14px;color:var(--tx2);line-height:1.9}
+  .ref ul b{color:var(--tx)}
+  .seo{font-family:ui-monospace,monospace;font-size:12.5px;color:var(--growth);background:#0a1f1b;border:1px solid #14352e;border-radius:10px;padding:12px 14px;word-spacing:4px;line-height:1.8}
+  .next{font-size:14px;color:var(--tx2);line-height:1.9}
+  .next b{color:var(--value)}
+  footer{margin-top:48px;font-size:12px;color:var(--tx3);border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>제목 · 썸네일 기획 — AI 시대 살아남는 세 종류의 인간
+    <span class="sub">풀링 콘텐츠 · 6축: AI·사고력·문해력/독서·성장 · 결: ②(메인)+①+③ · 종착지: 키콘텐츠(독서 환경)→이북리더기</span>
+  </h1>
+  <div class="meta">
+    <span class="chip ai">#aiguide</span>
+    <span class="chip">제목 디벨롭 8단계</span>
+    <span class="chip">썸네일 6단계</span>
+    <span class="chip">참조 패턴 반영</span>
+  </div>
+
+  <div class="guard">
+    <h3>⚠️ 진정성 가드 — 이 주제의 최대 리스크</h3>
+    <p style="font-size:14px;color:var(--tx2)">채널 룰(§5.2)은 <b>"AI 적대·도태 공포" 프레임을 금지</b>한다. "살아남는다"를 <b>공포(밀려난다)</b>가 아니라 <b style="color:var(--growth)">자기분류 욕망(나는 어느 쪽? 어떻게 그쪽이 되지?)</b>으로 쓴다. 착지는 "AI가 무섭다"가 아니라 <b style="color:var(--growth)">"읽는 사람이 AI를 더 잘 쓴다"</b>.</p>
+    <table class="gtable">
+      <tr><td>"AI 시대 도태되는 사람" / "AI 모르면 망한다"</td><td>"AI 시대에 더 비싸지는 사람" / "AI가 절대 못 대체하는 사람"</td></tr>
+      <tr><td>위협으로 클릭 → 본 적대</td><td>호기심·자기분류로 클릭 → "나는 어느 쪽?"</td></tr>
+      <tr><td>로봇·해골·위협 이미지</td><td>챗GPT 화면 앞 손·갈림길 실루엣(페이스리스)</td></tr>
+    </table>
+  </div>
+
+  <h2>1. 참조 카드 분석</h2>
+  <div class="ref">
+    <div class="thumb" style="flex:0 0 320px">
+      <div class="thumb-img">
+        <div class="thumb-txt">
+          <span class="tag">프롬프트 작성법</span>
+          <div class="head">아직도 AI한테<br><span class="hl2">OO해줘</span>라고 질문하고 계…</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">07:21</div>
+      </div>
+      <div class="thumb-cap">「아직도 AI한테 OO해줘라고 질문하고 계신가요? ㅣAI가이드」<br>2026.05.28 · 댓글 65 · <b>#aiguide #ai가이드 #에이아이가이드</b></div>
+    </div>
+    <ul>
+      <li><b>패턴:</b> "아직도 [대상]한테 [흔한 나쁜 습관]하고 계신가요?" = <b>면죄부+질문형</b> 뷰트랩. 흔한 습관을 전제로 깔아 시청자 자기투영("어, 나도 그런데") 즉발.</li>
+      <li><b>썸네일 구성:</b> 좌상단 <b>[카테고리 태그]</b> + 큰 문구(핵심어 "OO해줘"만 색강조) + 인물 + 시간 배지.</li>
+      <li><b>SEO:</b> 같은 키워드 3변형 태그(#aiguide #ai가이드 #에이아이가이드)로 검색 커버리지 확대.</li>
+      <li><b>우리 적용:</b> 이 패턴을 <span style="color:var(--value)">D안 제목</span>으로 차용 — 살아남는 세 종류의 첫 갈림 = "질문하는 사람"과 직결.</li>
+    </ul>
+  </div>
+
+  <h2>2. 제목 후보 (8단계 디벨롭 · 35자 이내)</h2>
+  <div class="grid g2">
+    <div class="card pick">
+      <span class="badge b-a">A안 · 분류·자기투영 (메인·안전)</span>
+      <div class="title-main">AI 시대, 살아남는 사람은 딱 세 종류입니다</div>
+      <span class="count">21자 · 1차 업로드 추천</span>
+      <p class="note">기존 주제 직계. <b>"딱 세 종류"</b>가 분류 호기심("나는?")을 즉발. 도태 공포 없이 텐션 확보.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-b">B안 · 질문·브리지 직결 (CTR 실험)</span>
+      <div class="title-main">같은 챗GPT 쓰는데, 왜 누구만 살아남을까</div>
+      <span class="count">21자 · A/B 교체</span>
+      <p class="note">원고 브리지("같은 챗GPT 왜 결과 차이?")를 제목으로 끌어올림. <b>결 ②(쓰는데 차이 못 느끼는 사람)</b> 정조준.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-c">C안 · 긍정 욕망 (채널 정체성)</span>
+      <div class="title-main">AI가 절대 못 대체하는 사람의 3가지 조건</div>
+      <span class="count">22자 · A/B 교체</span>
+      <p class="note">진정성 가드 완전 충족(공포 0·욕망 100). 채널 시그니처 "AI는 답을, 읽는 사람은 질문을"과 정합.</p>
+    </div>
+    <div class="card" style="border-color:var(--value)">
+      <span class="badge b-d">D안 · 면죄부·질문형 (⭐ 참조 패턴 신규)</span>
+      <div class="title-main">아직도 챗GPT한테 "그냥 해줘"라고만 하세요?</div>
+      <span class="count">24자 · 강력 후보</span>
+      <p class="note">참조 카드 패턴 차용. <b>"아직도 ~하세요?"</b>가 자기점검 즉발. 살아남는 세 종류의 첫 갈림=질문하는 사람. <b>결 ①② 흡수력 최강.</b></p>
+    </div>
+  </div>
+  <p class="next" style="margin-top:14px">→ 1차 <b>A안</b>, 1주일 내 <b>B·C·D</b>로 A/B 교체(6주차 3개 제작·교체 룰). ⑥⑦⑧단계(트렌드·핫비디오·강력단어)는 라이브 뷰트랩 데이터 누적 후 적용(보류).</p>
+
+  <h2>3. 썸네일 시안 미리보기 (이미지 45 · 문구 45 · 디자인 10)</h2>
+  <div class="thumbs">
+    <div class="thumb">
+      <div class="thumb-img">
+        <div class="thumb-txt">
+          <span class="tag">AI 생존</span>
+          <div class="head">살아남는 사람은<br><span class="hl">딱 세 종류</span></div>
+        </div>
+        <div class="person"></div>
+        <div class="time">08:40</div>
+      </div>
+      <div class="thumb-cap"><b>① 분류형(메인)</b> · A안 정합 · "3" 숫자 + 갈림길 실루엣 · 자기분류 욕망</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-img" style="background:linear-gradient(120deg,#1a2740,#0e1b30)">
+        <div class="thumb-txt">
+          <span class="tag" style="background:#10203a;color:var(--ai)">같은 챗GPT</span>
+          <div class="head"><span class="hl3">평범한 답</span> vs<br><span class="hl2">날카로운 질문</span></div>
+        </div>
+        <div class="person"></div>
+        <div class="time">08:40</div>
+      </div>
+      <div class="thumb-cap"><b>② 대비형(브리지)</b> · B안 정합 · 같은 화면 앞 두 손 · 결 ② 정조준</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-img" style="background:linear-gradient(120deg,#2a1f3d,#161226)">
+        <div class="thumb-txt">
+          <span class="tag" style="background:#221a35;color:var(--rec)">AI 시대 생존</span>
+          <div class="head">AI가 <span class="hl">못 이기는</span><br>사람</div>
+          <div style="font-size:13px;color:var(--tx2);margin-top:8px;font-weight:700">당신은?</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">08:40</div>
+      </div>
+      <div class="thumb-cap"><b>③ 욕망형(정체성)</b> · C안 정합 · 막막한 손 클로즈업 · 공포 0</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-img">
+        <div class="thumb-txt">
+          <span class="tag">프롬프트</span>
+          <div class="head">아직도 <span class="hl2">"그냥 해줘"</span><br>라고만 하세요?</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">08:40</div>
+      </div>
+      <div class="thumb-cap"><b>④ 면죄부형(참조 패턴)</b> · D안 정합 · 핵심어만 색강조 · 결 ①② 흡수</div>
+    </div>
+  </div>
+  <p class="next" style="margin-top:14px">색 토큰: <span style="color:var(--pain)">밀려나는·평범한 답 = --pain</span> / <span style="color:var(--growth)">살아남는·질문 = --growth</span> / <span style="color:var(--value)">강조 1단어 = --value</span> / <span style="color:var(--ai)">AI 보조 = 블루</span>. 로봇·위협 이미지 금지, 페이스리스(손·뒷모습·실루엣) 원칙.</p>
+
+  <h2>3-2. 썸네일 문구 고도화 ⭐ — 면죄부 질문형 · 긍정 욕망(못 대체) 2축 집중</h2>
+  <p class="next" style="margin:0 0 18px">두 축으로 헤드를 변주한다. <b style="color:var(--value)">면죄부 질문형</b>은 "아직도 ~하세요?"로 <b>자기점검("어, 나도 그런데")</b>을 0.5초 안에 터뜨리고, <b style="color:var(--growth)">긍정 욕망(못 대체)</b>은 공포 없이 <b>"나는 그쪽이 되고 싶다"</b>는 자기분류를 건다. 헤드는 <b>두 줄 12~16자 / 한 줄 7~10자</b>(제목의 축약), 보조 1줄은 작게(헤드 50% 크기)·긍정 착지 전담.</p>
+
+  <!-- 축 1 : 면죄부 질문형 -->
+  <h3 style="font-size:16px;margin:0 0 4px;color:var(--value)">축 1 · 면죄부 질문형 — "아직도 ~하세요?" (결 ①②, D안 강화)</h3>
+  <p class="note" style="margin:0 0 14px">규칙: ①<b>흔한 나쁜 습관</b>을 핵심어로 깔고(=<span style="color:var(--pain)">--pain</span> 색강조) ②"아직도 ~?"로 자기투영 유도 ③보조 1줄로 <span style="color:var(--growth)">긍정 착지</span>(공포 아님). 핵심어 1개만 색강조 — 나머지는 흰색.</p>
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card pick">
+      <span class="badge b-d">1-A · 최강 추천 (가장 구체)</span>
+      <div class="title-main">아직도 챗GPT한테 “그냥 해줘”?</div>
+      <span class="count">헤드 두 줄: 「아직도 챗GPT한테 / <span style="color:var(--pain)">“그냥 해줘”</span>?」 (8+6자)</span>
+      <p class="note">핵심어 <b style="color:var(--pain)">“그냥 해줘”</b>만 색강조. 가장 흔한 습관을 그대로 박제 → 자기투영 즉발. 보조: <b style="color:var(--growth)">“살아남는 사람은 질문부터 다릅니다”</b>.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-d">1-B · 활용층 정조준 (결 ②)</span>
+      <div class="title-main">아직도 검색하듯 AI 쓰세요?</div>
+      <span class="count">헤드 두 줄: 「아직도 <span style="color:var(--pain)">검색하듯</span> / AI 쓰세요?」 (7+6자)</span>
+      <p class="note"><b style="color:var(--pain)">“검색하듯”</b> 강조 — 매일 쓰지만 평범한 답만 받는 결 ②의 정확한 습관. 보조: <b style="color:var(--ai)">“같은 챗GPT, 다른 결과”</b>.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-d">1-C · 입문층 흡수 (결 ①)</span>
+      <div class="title-main">아직도 AI한테 답만 받으세요?</div>
+      <span class="count">헤드 두 줄: 「아직도 AI한테 / <span style="color:var(--pain)">답만</span> 받으세요?」 (7+7자)</span>
+      <p class="note"><b style="color:var(--pain)">“답만”</b> 강조 → 채널 모토 “AI는 답을, 읽는 사람은 질문을”의 거울. 보조: <b style="color:var(--growth)">“질문하는 사람이 이깁니다”</b>.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-d">1-D · 행동 대비 (보조 실험)</span>
+      <div class="title-main">아직도 “써줘”라고만 하세요?</div>
+      <span class="count">헤드 두 줄: 「아직도 <span style="color:var(--pain)">“써줘”</span>라고만 / 하고 있나요?」 (8+7자)</span>
+      <p class="note">명령(“써줘”) vs 질문 대비를 전제. <b style="color:var(--pain)">“써줘”</b>만 강조. 보조: <b style="color:var(--growth)">“같은 도구, 갈리는 결과”</b>.</p>
+    </div>
+  </div>
+
+  <!-- 축 2 : 긍정 욕망(못 대체) -->
+  <h3 style="font-size:16px;margin:24px 0 4px;color:var(--growth)">축 2 · 긍정 욕망(못 대체) — 공포 0·욕망 100 (결 ②③, C안 강화)</h3>
+  <p class="note" style="margin:0 0 14px">규칙: ①<b>"못 대체/못 이기는/비싸지는"</b> 긍정어로 욕망 자극(<span style="color:var(--growth)">--growth</span>) ②자기분류 보조 <b>"당신은?"</b> ③숫자 "3"로 분류 증명(<span style="color:var(--value)">--value</span>). 도태·밀려남 단어 금지.</p>
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card pick">
+      <span class="badge b-c">2-A · 최강 추천 (가장 간결)</span>
+      <div class="title-main">AI가 못 이기는 사람</div>
+      <span class="count">헤드 두 줄: 「AI가 <span style="color:var(--growth)">못 이기는</span> / 사람」 (6+2자) + 보조 “당신은?”</span>
+      <p class="note">짧고 강함. <b style="color:var(--growth)">“못 이기는”</b>만 강조. 공포 0. 보조: <b style="color:var(--value)">“조건은 딱 3가지”</b> → 본편 세 종류와 직결.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-c">2-B · 정체성 정합 (모토 거울)</span>
+      <div class="title-main">AI가 절대 못 대체하는 사람</div>
+      <span class="count">헤드 두 줄: 「AI가 <span style="color:var(--growth)">절대 못 대체</span>하는 / 사람」 (9+2자)</span>
+      <p class="note"><b style="color:var(--growth)">“절대 못 대체”</b> 강조. “절대”가 확신 톤(과장 아님—본편 검증). 보조: <b style="color:var(--value)">“차이는 ‘질문’이었다”</b>.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-c">2-C · 욕망어 차별화 (값 프레임)</span>
+      <div class="title-main">AI 시대, 더 비싸지는 사람</div>
+      <span class="count">헤드 두 줄: 「AI 시대 / <span style="color:var(--value)">더 비싸지는</span> 사람」 (4+7자)</span>
+      <p class="note"><b style="color:var(--value)">“비싸지는”</b>=손해 회피 아닌 <b>이득</b> 프레임(가드 통과). 희소·차별 후보. 보조: <b style="color:var(--growth)">“비결은 읽는 힘”</b>.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-c">2-D · 갈림 대비 (자기분류 강화)</span>
+      <div class="title-main">시키는 사람 vs 묻는 사람</div>
+      <span class="count">헤드 두 줄: 「AI한테 <span style="color:var(--pain)">시키는 사람</span> / vs <span style="color:var(--growth)">묻는 사람</span>」 (9+6자)</span>
+      <p class="note">두 색 대비로 “나는 어느 쪽?” 직격. 보조: <b style="color:var(--value)">“살아남는 건 한쪽뿐”</b>. 결 ②③ 자기분류 최강.</p>
+    </div>
+  </div>
+
+  <!-- 고도화 목업 4종 -->
+  <h3 style="font-size:15px;margin:24px 0 8px">고도화 목업 (좌상단 문구 · 핵심어 1개만 색강조 · 페이스리스)</h3>
+  <div class="thumbs">
+    <div class="thumb">
+      <div class="thumb-img">
+        <div class="thumb-txt">
+          <span class="tag">프롬프트</span>
+          <div class="head">아직도 챗GPT한테<br><span class="hl3">“그냥 해줘”</span>?</div>
+          <div style="font-size:12.5px;color:var(--growth);margin-top:8px;font-weight:700">살아남는 사람은 질문부터 다릅니다</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">08:40</div>
+      </div>
+      <div class="thumb-cap"><b>1-A 면죄부 (메인)</b> · 핵심어 <span style="color:var(--pain)">“그냥 해줘”</span> 강조 · 결 ①② 흡수</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-img" style="background:linear-gradient(120deg,#1a2740,#0e1b30)">
+        <div class="thumb-txt">
+          <span class="tag" style="background:#10203a;color:var(--ai)">AI 활용</span>
+          <div class="head">아직도 <span class="hl3">검색하듯</span><br>AI 쓰세요?</div>
+          <div style="font-size:12.5px;color:var(--ai);margin-top:8px;font-weight:700">같은 챗GPT, 다른 결과</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">08:40</div>
+      </div>
+      <div class="thumb-cap"><b>1-B 면죄부 (결 ②)</b> · <span style="color:var(--pain)">“검색하듯”</span> 강조 · 활용층 정조준</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-img" style="background:linear-gradient(120deg,#2a1f3d,#161226)">
+        <div class="thumb-txt">
+          <span class="tag" style="background:#221a35;color:var(--rec)">AI 시대 생존</span>
+          <div class="head">AI가 <span class="hl2">못 이기는</span><br>사람</div>
+          <div style="font-size:12.5px;color:var(--value);margin-top:8px;font-weight:700">당신은? · 조건은 딱 3가지</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">08:40</div>
+      </div>
+      <div class="thumb-cap"><b>2-A 욕망 (메인)</b> · <span style="color:var(--growth)">“못 이기는”</span> 강조 · 공포 0</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-img" style="background:linear-gradient(120deg,#3a2f10,#1c1606)">
+        <div class="thumb-txt">
+          <span class="tag" style="background:#332a10;color:var(--value)">미래 역량</span>
+          <div class="head">AI 시대<br><span class="hl">더 비싸지는</span> 사람</div>
+          <div style="font-size:12.5px;color:var(--growth);margin-top:8px;font-weight:700">비결은 읽는 힘</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">08:40</div>
+      </div>
+      <div class="thumb-cap"><b>2-C 욕망 (값 프레임)</b> · <span style="color:var(--value)">“비싸지는”</span> 강조 · 이득 프레임</div>
+    </div>
+  </div>
+
+  <!-- 조합 매트릭스 -->
+  <h3 style="font-size:15px;margin:26px 0 8px">헤드 × 보조 1줄 조합 매트릭스 (썸네일 1장 = 헤드 1 + 보조 1)</h3>
+  <table class="gtable" style="font-size:13px">
+    <tr style="background:var(--surface2)">
+      <td style="color:var(--tx2);width:34%">헤드 (큰 글씨, 핵심어 색강조)</td>
+      <td style="color:var(--tx2);width:33%">보조 1줄 (작게, 긍정 착지)</td>
+      <td style="color:var(--tx2);width:33%">결·용도</td>
+    </tr>
+    <tr><td style="color:var(--tx)">아직도 챗GPT한테 <span style="color:var(--pain)">“그냥 해줘”</span>?</td><td style="color:var(--growth)">살아남는 사람은 질문부터 다릅니다</td><td style="color:var(--tx2)">① ② · <b style="color:var(--value)">1차 업로드 메인</b></td></tr>
+    <tr><td style="color:var(--tx)">아직도 <span style="color:var(--pain)">검색하듯</span> AI 쓰세요?</td><td style="color:var(--ai)">같은 챗GPT, 다른 결과</td><td style="color:var(--tx2)">② · A/B 교체 1</td></tr>
+    <tr><td style="color:var(--tx)">AI가 <span style="color:var(--growth)">못 이기는</span> 사람</td><td style="color:var(--value)">당신은? · 조건은 딱 3가지</td><td style="color:var(--tx2)">② ③ · A/B 교체 2</td></tr>
+    <tr><td style="color:var(--tx)">AI 시대, <span style="color:var(--value)">더 비싸지는</span> 사람</td><td style="color:var(--growth)">비결은 읽는 힘</td><td style="color:var(--tx2)">② ③ · 차별 실험</td></tr>
+    <tr><td style="color:var(--tx)">AI한테 <span style="color:var(--pain)">시키는</span> vs <span style="color:var(--growth)">묻는</span> 사람</td><td style="color:var(--value)">살아남는 건 한쪽뿐</td><td style="color:var(--tx2)">② ③ · 자기분류 강화</td></tr>
+  </table>
+  <p class="note" style="margin-top:12px">운영: <b>1차 = 1-A(면죄부 메인)</b> → 1주일 내 <b>2-A(욕망)</b>·<b>1-B(활용층)</b>로 6주차 3개 교체 룰 적용. 보조 1줄은 헤드와 <b>같은 축</b>일 필요 없음(헤드=면죄부 + 보조=긍정 착지가 가드 충족 최적).</p>
+
+  <div class="guard" style="background:rgba(6,214,160,.06);border-color:rgba(6,214,160,.3)">
+    <h3 style="color:var(--growth)">✅ 고도화 체크 — 마감 전</h3>
+    <p style="font-size:13.5px;color:var(--tx2)">• 핵심어 <b>1개만</b> 색강조(2개 이상 = 시선 분산 NG) &nbsp;•&nbsp; 헤드 자수 두 줄 12~16 / 한 줄 7~10 준수 &nbsp;•&nbsp; <b style="color:var(--pain)">도태·밀려남·망한다·충격·폭발</b> 0건 &nbsp;•&nbsp; “3종류·조건 3가지”는 본편에서 실제 설명(낚시 아님) &nbsp;•&nbsp; 보조 1줄은 항상 <b style="color:var(--growth)">긍정 착지</b>(질문·읽는 힘·이긴다) &nbsp;•&nbsp; 페이스리스(손·뒷모습·갈림길), 로봇·위협 이미지 금지</p>
+  </div>
+
+  <h2>4. 키콘텐츠 문제인식 연결</h2>
+  <div class="flow">
+    <div class="step"><b>[썸네일·제목]</b> 생존 불안 → "나는 살아남는 쪽일까?"</div>
+    <div class="step"><span class="ar">↓</span>살아남는 사람 = AI 사용법 많이 아는 사람 <span class="x">❌</span> / 생각·질문·연결하는 사람 <span class="o">⭕</span></div>
+    <div class="step"><span class="ar">↓</span>"같은 챗GPT 써도 왜 결과 차이?" <span style="color:var(--tx3);font-size:12px">← B·D안이 이 지점을 선점</span></div>
+    <div class="step"><span class="ar">↓</span>질문 수준 ← 사고력 ← 문해력 ← <span class="key">독서</span></div>
+    <div class="step"><span class="ar">↓</span>독서 중요성은 알지만 실패 → 문제는 <span class="key">독서가 지속되는 환경</span></div>
+    <div class="step"><span class="ar">↓</span><b>[키콘텐츠 진입]</b> AI 시대 경쟁력을 만드는 독서 습관·환경 → <span style="color:var(--value)">이북리더기</span></div>
+  </div>
+
+  <h2>5. SEO 보강 & 다음 단계</h2>
+  <div class="seo">AI시대 생존 챗GPT 활용법 AI 잘쓰는법 생성형AI 프롬프트 작성법 사고력 문해력 질문력 AI 대체 인공지능 자기계발 미래역량 독서습관 #aiguide #ai가이드</div>
+  <p class="next" style="margin-top:14px">남은 단계: <b>⑥⑦ 라이브 뷰트랩 캡처</b>("AI 생존 / 챗GPT 차이 / 미래직업" 조회수로 제목 최종 확정) → <b>30초 도입부 후크</b> 작성(수미상관: "나는 살아남는 쪽?" → 마무리 "당신은 이미 그쪽" 회수).</p>
+
+  <footer>SSOT: 대본/썸네일지침/03_훅_문구뱅크.md · 대본기획_기준.md §8.6/§8.7 · 산출물: 005_AI시대 살아남는 세 종류의 인간/정리본/01_후크_미리보기.md · 채널: AI보다 읽는 사람</footer>
+</div>
+</body>
+</html>
