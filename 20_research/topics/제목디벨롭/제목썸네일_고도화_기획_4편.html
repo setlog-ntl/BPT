@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>제목·썸네일 고도화 기획 — 그럼에도 한페이지 4편 (비포 → 애프터)</title>
+<style>
+  :root{
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --info:#5cc4e0;
+    --ink:#e9edf4; --muted:#9aa3b2; --line:#262b36; --card:#13161d;
+    --card2:#10141b;
+    --bg-dark:linear-gradient(135deg,#1c1f29 0%,#0c0e13 100%);
+    --bg-warm:radial-gradient(circle at 30% 30%,#3a2d18 0%,#0c0e13 70%);
+    --bg-green:linear-gradient(135deg,#0c2a1c 0%,#0c0e13 100%);
+    --bg-blue:radial-gradient(circle at 30% 30%,#21406e 0%,#0c0e13 70%);
+    --font:'Pretendard','Apple SD Gothic Neo','Noto Sans KR',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0c10;color:var(--ink);font-family:var(--font);line-height:1.62;
+    -webkit-font-smoothing:antialiased;padding:0 0 90px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+  a{color:var(--info);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* header */
+  header{padding:50px 22px 34px;border-bottom:1px solid var(--line);
+    background:radial-gradient(circle at 82% -25%,#1a2230 0%,transparent 60%)}
+  header .wrap{padding:0}
+  .eyebrow{font-size:13px;letter-spacing:.16em;color:var(--value);font-weight:800;text-transform:uppercase}
+  h1{font-size:31px;font-weight:900;letter-spacing:-.02em;margin:11px 0 8px;line-height:1.24}
+  h1 b{color:var(--value)}
+  .sub{color:var(--muted);font-size:15px;max-width:820px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;
+    background:#171b24;border:1px solid var(--line);color:var(--ink)}
+  .chip.pain{border-color:rgba(239,71,111,.4);color:#ff8aa6}
+  .chip.val{border-color:rgba(255,209,102,.4);color:var(--value)}
+  .chip.grow{border-color:rgba(6,214,160,.4);color:var(--growth)}
+  .chip.info{border-color:rgba(92,196,224,.4);color:var(--info)}
+
+  section{margin-top:52px}
+  .kicker{font-size:12.5px;letter-spacing:.14em;color:var(--muted);font-weight:800;text-transform:uppercase}
+  h2{font-size:23px;font-weight:900;letter-spacing:-.01em;margin:7px 0 5px}
+  h2 .num{color:var(--info)}
+  .lead{color:var(--muted);font-size:14.5px;margin-bottom:22px;max-width:820px}
+
+  /* generic cards */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .acard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px}
+  .acard .k{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:5px}
+  .acard .v{font-size:15px;font-weight:800;letter-spacing:-.01em}
+  .acard .v small{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:4px;line-height:1.5}
+
+  .insight{margin-top:16px;background:linear-gradient(135deg,#171108 0%,#0e1015 100%);
+    border:1px solid rgba(255,209,102,.25);border-radius:14px;padding:18px 20px}
+  .insight h3{font-size:15px;font-weight:900;color:var(--value);margin-bottom:8px}
+  .insight p{font-size:14px;color:#d4d9e2}
+  .insight p+p{margin-top:8px}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);
+    border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--card2);font-size:11.5px;letter-spacing:.04em;color:var(--muted);font-weight:800;text-transform:uppercase}
+  tr:last-child td{border-bottom:none}
+  td.c{text-align:center}
+  .tbl-scroll{overflow-x:auto}
+
+  /* step badges */
+  .steps{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 4px}
+  .st{font-size:11px;font-weight:800;padding:3px 9px;border-radius:7px;background:var(--card2);
+    border:1px solid var(--line);color:var(--muted)}
+  .st.on{color:#1a1205;background:var(--value);border-color:var(--value)}
+
+  /* video card */
+  .vid{margin-top:30px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .vid>.head{display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;
+    padding:16px 20px;border-bottom:1px solid var(--line);
+    background:radial-gradient(circle at 90% -40%,#1c2533 0%,transparent 60%)}
+  .vid>.head .id{font-size:18px;font-weight:900}
+  .vid>.head .id span{color:var(--info)}
+  .vid>.head .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tt{font-size:11px;font-weight:800;padding:3px 9px;border-radius:7px;background:var(--card2);border:1px solid var(--line);color:var(--muted)}
+  .tt.pull{color:var(--info);border-color:rgba(92,196,224,.35)}
+  .vid .pad{padding:20px}
+
+  /* before/after thumbnail */
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .ba .col h4{font-size:12.5px;letter-spacing:.04em;font-weight:800;text-transform:uppercase;margin-bottom:9px;display:flex;align-items:center;gap:7px}
+  .ba .col.before h4{color:var(--pain)}
+  .ba .col.after h4{color:var(--growth)}
+  .dot{width:8px;height:8px;border-radius:50%}
+  .dot.r{background:var(--pain)} .dot.g{background:var(--growth)}
+  .thumb{position:relative;width:100%;aspect-ratio:16/9;border-radius:11px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumbcap{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
+  .thumbcap b{color:var(--ink)}
+
+  /* mockup thumbnail (after) */
+  .mock{position:relative;width:100%;aspect-ratio:16/9;border-radius:11px;overflow:hidden;border:1px solid var(--line);
+    display:flex;flex-direction:column;justify-content:center;padding:7% 6%;color:#fff}
+  .mock .hl{font-weight:900;line-height:1.12;letter-spacing:-.01em;text-shadow:0 2px 10px rgba(0,0,0,.6);font-size:clamp(17px,3.3vw,30px)}
+  .mock .hl .y{color:var(--value)} .mock .hl .r{color:#ff5b78} .mock .hl .g{color:var(--growth)} .mock .hl .b{color:#7cd4f5}
+  .mock .sub{margin-top:7px;font-size:clamp(11px,1.7vw,15px);font-weight:800;color:#dfe5ee;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+  .mock .pin{position:absolute;top:9px;left:9px;font-size:10.5px;font-weight:900;padding:3px 8px;border-radius:6px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.18)}
+  .mock .num{position:absolute;right:6%;bottom:9%;font-weight:900;font-size:clamp(26px,5.5vw,52px);line-height:.9;color:var(--value);text-shadow:0 3px 12px rgba(0,0,0,.7)}
+  .mock .num small{font-size:42%;color:#fff}
+  .mock.dark{background:var(--bg-dark)} .mock.warm{background:var(--bg-warm)}
+  .mock.green{background:var(--bg-green)} .mock.blue{background:var(--bg-blue)}
+  .mock.split{flex-direction:row;padding:0}
+  .mock.split .halfL,.mock.split .halfR{flex:1;display:flex;align-items:center;justify-content:center;padding:6%;text-align:center;font-weight:900;font-size:clamp(13px,2.2vw,20px)}
+  .mock.split .halfL{background:linear-gradient(135deg,#3a1320,#1a0c10);color:#ffb3c2}
+  .mock.split .halfR{background:linear-gradient(135deg,#0c2a1c,#0c1a14);color:#8ef0cf}
+  .mock.split .arrow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(20px,4vw,40px);color:var(--value);z-index:2}
+  .mock.split .ovl{position:absolute;left:0;right:0;bottom:0;padding:6% 6% 7%;font-weight:900;font-size:clamp(15px,2.8vw,26px);
+    background:linear-gradient(transparent,rgba(0,0,0,.72));text-shadow:0 2px 8px #000;text-align:center}
+
+  .specs{margin-top:11px;font-size:12.5px}
+  .specs .row{display:flex;gap:8px;padding:6px 0;border-bottom:1px dashed var(--line)}
+  .specs .row:last-child{border-bottom:none}
+  .specs .row .lab{flex:0 0 78px;color:var(--muted);font-weight:700}
+  .specs .row .val{flex:1;color:#d4d9e2}
+  .specs .row .val b{color:var(--ink)}
+  .tokchip{display:inline-block;font-size:11px;font-weight:800;padding:1px 7px;border-radius:5px;margin:1px 3px 1px 0}
+  .tokchip.pain{background:rgba(239,71,111,.16);color:#ff8aa6}
+  .tokchip.grow{background:rgba(6,214,160,.16);color:var(--growth)}
+  .tokchip.val{background:rgba(255,209,102,.16);color:var(--value)}
+  .tokchip.info{background:rgba(92,196,224,.16);color:var(--info)}
+
+  /* title proposals */
+  .titles{margin-top:8px;display:grid;gap:11px}
+  .tcase{border:1px solid var(--line);border-radius:13px;padding:14px 16px;background:var(--card2)}
+  .tcase.safe{border-left:3px solid var(--growth)}
+  .tcase.boldA{border-left:3px solid var(--value)}
+  .tcase.boldB{border-left:3px solid var(--info)}
+  .tcase .tlab{font-size:11.5px;font-weight:900;letter-spacing:.03em;text-transform:uppercase;margin-bottom:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .tcase.safe .tlab{color:var(--growth)} .tcase.boldA .tlab{color:var(--value)} .tcase.boldB .tlab{color:var(--info)}
+  .tcase .main{font-size:17px;font-weight:900;letter-spacing:-.01em;color:#fff}
+  .tcase .cnt{font-size:11px;font-weight:800;color:var(--muted);background:var(--card);border:1px solid var(--line);padding:1px 7px;border-radius:6px}
+  .tcase .seo{font-size:12.5px;color:var(--muted);margin-top:5px}
+  .tcase .seo b{color:#c9d0db;font-weight:700}
+  .tcase .full{margin-top:8px;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+  .tcase .full .fl{display:block;font-size:10.5px;font-weight:900;letter-spacing:.05em;color:var(--info);text-transform:uppercase;margin-bottom:5px}
+  .tcase .full .ft{font-size:13px;color:#dfe5ee;font-weight:600;line-height:1.55;word-break:keep-all}
+  .tcase .full .ft b{color:#fff;font-weight:800}
+  .tcase .full .ft .sep{color:var(--value);font-weight:900}
+  .tcase .why{font-size:12.5px;color:#aeb6c2;margin-top:7px}
+  .tcase .why em{font-style:normal;color:var(--value)}
+
+  .before-title{background:linear-gradient(135deg,#1c1014,#0e1015);border:1px solid rgba(239,71,111,.3);
+    border-radius:12px;padding:13px 16px;font-size:13.5px}
+  .before-title .lab{font-size:11px;font-weight:900;color:var(--pain);letter-spacing:.05em;text-transform:uppercase}
+  .before-title .t{font-weight:700;color:#e7d6da;margin-top:5px;line-height:1.5}
+
+  /* checklist */
+  .check{display:grid;grid-template-columns:1fr 1fr;gap:7px 18px;margin-top:6px}
+  .check .ci{font-size:13px;display:flex;gap:8px;align-items:flex-start}
+  .check .ci .mk{color:var(--growth);font-weight:900;flex:0 0 auto}
+  .check .ci.warn .mk{color:var(--value)}
+  .check .ci.bad .mk{color:var(--pain)}
+
+  .diag{display:grid;gap:9px;margin-top:6px}
+  .di{display:flex;gap:11px;background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--pain);border-radius:10px;padding:11px 14px}
+  .di .n{font-weight:900;color:var(--pain);flex:0 0 auto}
+  .di .tx{font-size:13.5px}
+  .di .tx b{color:var(--ink)} .di .tx .fix{color:var(--growth);font-weight:700}
+
+  .callout{background:linear-gradient(135deg,#0c1f1a,#0c1015);border:1px solid rgba(6,214,160,.28);
+    border-radius:12px;padding:14px 17px;margin-top:14px;font-size:13.5px}
+  .callout b{color:var(--growth)}
+
+  .note{font-size:12px;color:var(--muted);margin-top:10px}
+  hr.sep{border:none;border-top:1px solid var(--line);margin:18px 0}
+  .foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  .foot b{color:var(--ink)}
+  @media(max-width:860px){
+    .grid3,.grid4{grid-template-columns:1fr 1fr}
+    .ba{grid-template-columns:1fr}
+    .check{grid-template-columns:1fr}
+  }
+  @media(max-width:520px){.grid3,.grid4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">제목 8단계 + 썸네일 6단계 · 뷰트랩 실데이터 · 100자 완성</div>
+    <h1>그럼에도 한페이지 — 게시된 <b>4편</b> 제목·썸네일 고도화 기획</h1>
+    <p class="sub">현재 게시된 4편의 제목·썸네일을 라이브로 추출해 <b>비포 → 애프터</b>로 재설계한다.
+      <b>제목 디벨롭 8단계</b>(<code>5주차</code>) · <b>썸네일 이미지 강화 6단계</b>(<code>6주차</code>) · 30초 후크 룰 · 썸네일지침 · <b>뷰트랩 실데이터</b>를 근거로,
+      각 영상마다 <b>제목 3안</b>(안전 1 + 도전 2 · <b>각 메인 35자 + 검색 키워드로 100자 완성</b>) · <b>썸네일 2안 + 6단계 적용</b>.</p>
+    <div class="meta">
+      <span class="chip val">4편 · 모두 풀링</span>
+      <span class="chip info">결 ① 읽으려는 · ② 읽고 있는</span>
+      <span class="chip grow">8축: 자기개발 · 문해력 · 책 읽는 습관</span>
+      <span class="chip pain">제목 100자 완성 · 썸네일 6단계</span>
+      <span class="chip">갱신 2026-06-06</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ 0. 한눈에 / 매핑 ============ -->
+<section id="map">
+  <div class="kicker">한눈에 · 대상 4편 매핑</div>
+  <h2><span class="num">0.</span> 대상 영상과 시리즈 구조</h2>
+  <p class="lead">유튜브 스튜디오 표시 순서(최신순)와 본 문서의 작업 순서(시리즈 논리순)를 함께 표기한다.
+    3편은 풀링 001 “평생 안 읽던 사람…” <b>3부작</b>(시야·사고·성장), 1편은 풀링 002 “독서습관 실패 공통점”.</p>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr>
+      <th>스튜디오 순서</th><th>본문 카드</th><th>게시일</th><th>길이</th><th>조회</th><th>현재 제목(메인부)</th><th>영상ID</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="c">①</td><td><b>D</b> · 풀링 002</td><td>2026.6.3</td><td>13:39</td><td class="c">2</td><td>독서습관 실패한 사람들의 99% 똑같은 공통점 3가지의 비밀</td><td>rJnzrqYjEI8</td></tr>
+      <tr><td class="c">②</td><td><b>C</b> · 001 <em>3편</em></td><td>2026.5.27</td><td>3:24</td><td class="c">2</td><td>매일매일 책을 읽었더니 생기는 놀라운 변화 / …3편</td><td>4YFEsJE_AqY</td></tr>
+      <tr><td class="c">③</td><td><b>B</b> · 001 <em>2편</em></td><td>2026.5.20</td><td>3:36</td><td class="c">10</td><td>평생 책을읽지 않으면 절대로 알수없는 엄청난 비밀 3가지 - 2편</td><td>RaF7UuWKV8o</td></tr>
+      <tr><td class="c">④</td><td><b>A</b> · 001 <em>1편</em></td><td>2026.5.13</td><td>5:14</td><td class="c">16</td><td>평생 책을읽지 않으면 절대로 알수없는 엄청난 비밀 3가지 - 1편</td><td>RGvfix73CvM</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">※ 같은 채널의 5번째 영상 「독서입문자를 위한 독서습관 만드는 방법」(2026.5.6)은 선택 4편에 포함되지 않아 본 기획 대상에서 제외(필요 시 동일 절차로 확장 가능).</p>
+</section>
+
+<!-- ============ 1. 공통 진단 ============ -->
+<section id="diag">
+  <div class="kicker">왜 고도화가 필요한가 · 4편 공통 진단</div>
+  <h2><span class="num">1.</span> 현재 제목·썸네일의 공통 문제 6</h2>
+  <p class="lead">개별 영상에 들어가기 전, 4편 전체에 걸친 구조적 문제를 먼저 진단한다. 근거는 모두 프로젝트 룰북이다.</p>
+  <div class="diag">
+    <div class="di"><div class="n">01</div><div class="tx"><b>제목 중복 — 카니발라이제이션.</b> 1편·2편이 “평생 책을읽지 않으면 절대로 알수없는 엄청난 비밀 3가지 - N편 | 인생을 바꾸는 …#문해력#성장…”으로 <b>거의 동일</b>. 같은 채널 안에서 검색·추천이 서로 잡아먹고, 시청자가 1편/2편/3편을 구분할 수 없다. <span class="fix">→ 편마다 ‘무엇이 다른지(시야·사고·성장)’를 제목으로 분리.</span></div></div>
+    <div class="di"><div class="n">02</div><div class="tx"><b>35자 룰 위반(<code>§8.6.3</code>).</b> 메인 메시지 뒤에 시리즈표기·설명절·해시태그가 전부 한 줄로 붙어 100자를 넘긴다. 유튜브에서 핵심이 잘린다. <span class="fix">→ 메인 35자 이내 + 그 뒤를 검색 키워드(SEO)로 분리.</span></div></div>
+    <div class="di"><div class="n">03</div><div class="tx"><b>답을 다 노출 — ⑤ 질문형 위반(<code>§8.6.2</code>).</b> “비밀 3가지”·“공통점 3가지”라며 썸네일에서 개수와 결론을 다 말해 머릿속 물음표가 안 생긴다. <span class="fix">→ 혜택·개수 항목을 숨긴 질문형으로.</span></div></div>
+    <div class="di"><div class="n">04</div><div class="tx"><b>낚시·위협 톤 — 진정성 라인 침범(<code>썸네일지침 §5.1</code>).</b> “절대로 알수없는 엄청난 비밀”, “또 책읽기 실패할껄?”, “99%”는 채널이 금지한 과장·위협·검증 안 된 숫자. 결 ①·②는 정확히 이 톤을 거른다. <span class="fix">→ 면죄부·동반자 톤으로 전환.</span></div></div>
+    <div class="di"><div class="n">05</div><div class="tx"><b>결 호명 부재(<code>썸네일지침 §4·문구뱅크 §2</code>).</b> “누구의 이야기인지”를 0.5초에 잡아주는 결 호명 단어(“평생 안 읽던”, “초보”, “10권째”)가 약하다. <span class="fix">→ 헤드 또는 부가 1줄에 결 호명 1개 고정.</span></div></div>
+    <div class="di"><div class="n">06</div><div class="tx"><b>저작권·맞춤법 리스크.</b> 1편 썸네일의 드라마 「도깨비」 스틸은 <code>§5.3</code> 저작권 인물 사진 라인 침범, 002 썸네일 “실패할껄”은 맞춤법 오류(→“실패할걸”). <span class="fix">→ 비저작권 이미지·실루엣·본인 컷으로 교체, 오타 수정.</span></div></div>
+  </div>
+  <div class="insight">
+    <h3>살릴 강점도 분명하다 — “지우기”가 아니라 “조준”</h3>
+    <p>현재 썸네일에는 채널 진정성의 핵심 자산이 이미 있다. <b>3편</b>의 손글씨 “처음엔 안 읽혀요. 괜찮아요.”는 시그니처 <b>‘정상이에요’ 면죄부</b> 그 자체이고, <b>2편</b>의 인덱스·필사가 빼곡한 실제 책 사진은 돈 주고 못 사는 진정성이다. <b>1편</b>의 비포→애프터 + 질문형 구도도 검증된 패턴이다. 고도화는 이 강점을 <b>유지</b>하면서 제목의 낚시·중복·35자만 도려내는 방향으로 간다.</p>
+  </div>
+</section>
+
+<!-- ============ 2. 방법론 ============ -->
+<section id="method">
+  <div class="kicker">고도화 방법론 · 프로젝트 룰북 적용</div>
+  <h2><span class="num">2.</span> 제목 8단계 + 썸네일 6단계 + 뷰트랩 실데이터</h2>
+  <p class="lead">모든 제목은 <b>제목 디벨롭 8단계</b>(<code>대본기획_기준 §8.6</code>), 모든 썸네일은 <b>이미지 강화 6단계</b>(<code>6-1강</code> 신규)로 디벨롭했다. ③ 넓은 용어는 <b>뷰트랩 실데이터(2026-05-16)</b>로 근거를 댔고, 제목은 <b>메인 35자 + 검색 키워드로 100자</b>까지 완성했다. ⑧ 강력 단어는 자기 채널 데이터 누적 <b>사후에만</b> — 본 기획 보류.</p>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>단계</th><th>방법</th><th>이번 4편에 어떻게 적용했나</th></tr></thead>
+    <tbody>
+      <tr><td class="c"><b>①</b></td><td>제목↔썸네일 교차 조합</td><td>현재 제목의 “비밀 3가지” × 썸네일의 “사람이 바뀔까?”를 섞어 새 조합 생성</td></tr>
+      <tr><td class="c"><b>②</b></td><td>쉬운 단어</td><td>“절대로 알수없는 엄청난 비밀” → “달라지는 것 / 생기는 일”, 한자·과장어 제거</td></tr>
+      <tr><td class="c"><b>③-1</b></td><td>더 넓은 용어(뷰트랩 조회수)</td><td><b>뷰트랩 실데이터</b>: ‘독서습관’ 1459만 → 상위어 <b>‘습관’ 1.1억(7배)</b>·‘작심삼일’ 5450만. ‘독서’ 1.7억·‘완독’ 6294만·‘문해력’ 4796만으로 풀 확장</td></tr>
+      <tr><td class="c"><b>③-2</b></td><td>반의어</td><td>“평생 안 읽던 ↔ 5년 매일 읽은” 대립쌍으로 변화의 폭 강조</td></tr>
+      <tr><td class="c"><b>④</b></td><td>강조 수식어</td><td>수식어 마스터(432편 분석)에서 <b>채널 톤 허용</b> 어휘만 — “진짜·결국·5년·가장 먼저”. 금지군(충격·경악·절대) 제외</td></tr>
+      <tr><td class="c"><b>⑤</b></td><td>답 숨긴 질문형</td><td>“3가지가 무엇인지”를 숨기고 “바뀔까? / 뭐가 달라질까?”로 물음표 생성</td></tr>
+      <tr><td class="c"><b>⑥</b></td><td>트렌드 벤치마킹</td><td>“~했더니 / ~하면 벌어지는” 등 노출확률 높은 현행 패턴으로 정렬</td></tr>
+      <tr><td class="c"><b>⑦</b></td><td>핫비디오 맞춤</td><td>검증된 변화·고백·면죄부 제목 형태로 최종 다듬기</td></tr>
+      <tr><td class="c" style="color:var(--muted)"><b>⑧</b></td><td style="color:var(--muted)">강력 단어(사후)</td><td style="color:var(--muted)"><b>보류</b> — 자기 채널 CTR 데이터 누적 후에만 적용(임의 적용 금지)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="insight">
+    <h3>③ 근거 · 뷰트랩 실데이터 (2026-05-16 · 조회수합계)</h3>
+    <p>좁은 단어는 더 넓은 풀로 확장 — <b>‘독서습관’ 1459만 → ‘습관’ 1.1억(7배)</b>. 큰 풀 순: 독서 1.7억 · 습관 1.1억 · 책추천 8974만 · 다독 7243만 · 완독 6294만 · 자기계발 5952만 · 작심삼일 5450만 · 문해력 4796만 · 독서법 1682만. → 100자 검색 키워드는 이 풀에서 뽑았다.</p>
+    <p><b>부정 프레임 통찰</b> — 부정·반의어가 긍정형보다 큰 모수일 수 있다(살 찝니다 <b>2.8억</b> &gt; 살 안 빠집니다 1.6억 &gt; 살 빠집니다 1억). 그래서 002는 ‘실패·3일·포기’ + ‘작심삼일’ 부정 프레임으로 재설계.</p>
+  </div>
+
+  <h3 style="font-size:18px;font-weight:900;margin:30px 0 5px">썸네일 이미지 강화 6단계 <span style="color:var(--info)">(6주차 신규 · 제목 8단계의 짝)</span></h3>
+  <p class="lead">썸네일 목표 = <b>클릭</b>, 핵심 = <b>공감</b>. 클릭률 = <b>이미지 45% · 문구 45% · 디자인 10%</b> — 예쁨이 아니라 “왜 클릭했는가”를 강화한다(<code>6-1강 §5</code>).</p>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>단계</th><th>방법</th><th>이번 4편 적용 방향</th></tr></thead>
+    <tbody>
+      <tr><td class="c"><b>①</b></td><td>확대</td><td>클릭 포인트만 남기고 제거·확대 — 졸음 인물 / 면죄부 손글씨 / 필사 책을 꽉 채움</td></tr>
+      <tr><td class="c"><b>②</b></td><td>증명</td><td>후킹의 <b>시각적 증거</b> — 인덱스 빼곡한 실제 책, 달력 X 3개(3일), ‘5년’의 흔적</td></tr>
+      <tr><td class="c"><b>③</b></td><td>궁금증</td><td>정답(3가지·해법)을 가리고 “왜?”만 — 제목 ⑤ 질문형과 짝</td></tr>
+      <tr><td class="c"><b>④</b></td><td>공감</td><td>예쁨 X, 겪는 상황. <b>시선은 왼쪽 위부터</b> → 공감 이미지·문구를 <b>좌상단</b></td></tr>
+      <tr><td class="c"><b>⑤</b></td><td>시청층 선호</td><td>2030~40 독서 입문·재시작 타깃 톤(과장 연출 X, 현실적 책상)</td></tr>
+      <tr><td class="c"><b>⑥</b></td><td>뷰트랩 학습</td><td>‘작심삼일·독서습관·문해력’ 맥락 성과도 상위 썸네일 구성 학습·반영</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout" style="margin-top:12px"><b>운영 3원칙(6주차):</b> ① 썸네일 <b>3개</b> 제작 → ② <b>업로드 1주일 내</b> 교체 테스트 → ③ <b>도입부 &gt; 썸네일</b>(썸네일 8점이면 도입부 9점). 문구는 작게 보여도 읽히게 <b>크게</b>.</div>
+
+  <div class="grid3" style="margin-top:18px">
+    <div class="acard"><div class="k">색 토큰 (고정)</div><div class="v"><span class="tokchip pain">--pain</span><span class="tokchip grow">--growth</span><span class="tokchip val">--value</span><span class="tokchip info">--info</span><small>다크 배경 위에서만 변형. 채널 자산 일관성(썸네일지침 §4).</small></div></div>
+    <div class="acard"><div class="k">헤드 글자수</div><div class="v">7~10자 한 줄 · 12~16자 두 줄<small>35자 제목의 축약·변주가 썸네일 헤드(문구뱅크 §0).</small></div></div>
+    <div class="acard"><div class="k">결 호명 · 시그니처</div><div class="v">결 1개 + 시그니처 1개<small>“평생 안 읽던 / 초보” + “그럼에도 불구하고 · 정상이에요 · 미래의 나” 중 1개만.</small></div></div>
+  </div>
+  <div class="callout"><b>읽는 법:</b> 영상별 카드는 <b>현재(비포)</b> → <b>진단</b> → <b>8축·결 매핑</b> → <b>제목 3안</b>(🟢안전 / 🟡도전A / 🔵도전B, <b>각 100자 전체 제목 포함</b>) → <b>썸네일 2안 + 6단계 적용</b> → <b>검증 체크</b> 순서다. 비포 썸네일은 유튜브 라이브 이미지를 불러오고, 애프터는 색·문구·구도 목업이다.</div>
+</section>
+
+<section id="cardA">
+  <div class="kicker">영상 카드 · 시리즈 진입</div>
+  <h2><span class="num">3-A.</span> 1편 — “평생 안 읽던 사람이 책을 읽기 시작하면”</h2>
+
+  <div class="vid">
+    <div class="head">
+      <div class="id">카드 <span>A</span> · 풀링 001 <span>1편</span> · 2026.5.13</div>
+      <div class="tags"><span class="tt pull">풀링</span><span class="tt">결 ① 읽으려는</span><span class="tt">자기개발·문해력·습관</span><span class="tt">5:14 · 16뷰</span></div>
+    </div>
+    <div class="pad">
+
+      <div class="before-title">
+        <div class="lab">현재 제목 (비포)</div>
+        <div class="t">평생 책을읽지 않으면 절대로 알수없는 엄청난 비밀 3가지 - 1편 | 인생을 바꾸는 독서 습관과 부자들의 책읽기 비밀 #문해력 #성장 #자기계발 #성공 #동기부여 #습관#시야</div>
+      </div>
+
+      <div class="ba" style="margin-top:16px">
+        <div class="col before">
+          <h4><span class="dot r"></span>현재 썸네일 (라이브)</h4>
+          <div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/RGvfix73CvM/maxresdefault.jpg" alt="1편 현재 썸네일"></div>
+          <div class="thumbcap"><b>“책 읽는다고 / 사람이 바뀔까?”</b> · 비포(멍한 남자)→애프터(책 읽는 남자) + 노란 화살표. <span style="color:var(--pain)">⚠ 우측 인물은 드라마 「도깨비」 스틸로 추정 → 저작권 라인(§5.3).</span></div>
+        </div>
+        <div class="col after">
+          <h4><span class="dot g"></span>진단 요약</h4>
+          <div class="check" style="grid-template-columns:1fr">
+            <div class="ci"><span class="mk">✓</span><span><b>강점</b> — 비포→애프터 + 질문형(“바뀔까?”)은 검증된 변화형. <b>구도는 유지</b>한다.</span></div>
+            <div class="ci bad"><span class="mk">✕</span><span>제목이 2편과 거의 동일 + “절대로 알수없는 엄청난 비밀” 낚시 + 100자 초과.</span></div>
+            <div class="ci warn"><span class="mk">!</span><span>드라마 스틸 → 비저작권 인물/실루엣/본인 컷으로 교체.</span></div>
+            <div class="ci warn"><span class="mk">!</span><span>결 호명 단어(“평생 안 읽던”)가 썸네일에 없음.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="sep">
+      <div class="grid3">
+        <div class="acard"><div class="k">성격 · 8축</div><div class="v">풀링<small>자기개발 + 문해력 + 책 읽는 습관(브리프 B2)</small></div></div>
+        <div class="acard"><div class="k">메인 결</div><div class="v">① 읽으려는 사람<small>서브 ③ 더 읽으려는 사람 흡수</small></div></div>
+        <div class="acard"><div class="k">핵심 메시지(살릴 진정성)</div><div class="v" style="font-size:13.5px">“세상이 바뀐 게 아니라,<br>제가 세상을 보는 방식이 바뀌었어요”<small>시그니처 ‘그럼에도 불구하고’ · 종착지 = 풀링(직접 노출 X)</small></div></div>
+      </div>
+
+      <div class="steps" style="margin-top:16px"><span class="st on">①교차</span><span class="st on">②쉬운말</span><span class="st on">③상위·반의어</span><span class="st on">④수식어(정말·5년)</span><span class="st on">⑤질문형</span><span class="st on">⑥⑦패턴</span><span class="st">⑧보류</span></div>
+
+      <div class="titles">
+        <div class="tcase safe">
+          <div class="tlab">🟢 안전안 · 현재 결 유지 정제 <span class="cnt">메인 29 · 전체 97자</span></div>
+          <div class="main">평생 안 읽던 사람이 5년간 매일 읽으면 생기는 변화</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 97/100자 (메인 29자 + 검색 65자)</span><span class="ft"><b>평생 안 읽던 사람이 5년간 매일 읽으면 생기는 변화</b><span class="sep"> | </span>독서습관 문해력 자기계발이 바꾼 시야·사고·성장 독서효과 독서변화 인생책 책읽는법 독서기록 책추천 완독 다독 (1편)</span></div>
+          <div class="why">중복·낚시·과장을 걷어내고 변화 약속만 남김. 결 호명 “평생 안 읽던” + 숫자 대비 “5년”. <em>문구뱅크 1-2 변화형</em> 계열.</div>
+        </div>
+        <div class="tcase boldA">
+          <div class="tlab">🟡 도전안 A · 질문형(썸네일 수미상관) <span class="cnt">메인 25 · 전체 97자</span></div>
+          <div class="main">책 읽는다고 정말 사람이 바뀔까? 5년의 기록</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 97/100자 (메인 25자 + 검색 69자)</span><span class="ft"><b>책 읽는다고 정말 사람이 바뀔까? 5년의 기록</b><span class="sep"> | </span>평생 안 읽던 사람이 매일 독서로 바뀐 시야·사고·성장 독서습관 자기계발 인생책 책읽는법 독서효과 완독 다독 책추천 (1편)</span></div>
+          <div class="why">현재 썸네일 카피를 제목으로 끌어올려 <em>제목↔썸네일 일치(①)</em>. “3가지”를 숨겨 ⑤ 질문형. 수식어 ‘정말’(=진짜 계열).</div>
+        </div>
+        <div class="tcase boldB">
+          <div class="tlab">🔵 도전안 B · 1인칭 고백·시야 캐치 <span class="cnt">메인 25 · 전체 95자</span></div>
+          <div class="main">평생 안 읽던 내가, 세상이 다르게 보이기까지</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 95/100자 (메인 25자 + 검색 67자)</span><span class="ft"><b>평생 안 읽던 내가, 세상이 다르게 보이기까지</b><span class="sep"> | </span>5년 독서가 바꾼 시야·사고·성장 문해력 독서효과 독서변화 인생책 자기계발 책읽는법 독서습관 완독 다독 독서기록 (1편)</span></div>
+          <div class="why">본문 1차(시야) 후크 “같은 세상이 수백 색으로”를 제목화. 진정성 1인칭. <em>30초 후크 변화 약속형</em>과 정합.</div>
+        </div>
+      </div>
+
+      <hr class="sep">
+      <h4 style="font-size:13px;color:var(--muted);font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:11px">썸네일 2안 (애프터 목업)</h4>
+      <div class="steps" style="margin:2px 0 10px"><span class="st on">①확대</span><span class="st on">②증명</span><span class="st on">③궁금증</span><span class="st on">④공감·좌상단</span><span class="st on">⑤선호</span><span class="st on">⑥뷰트랩</span></div>
+      <p class="note" style="margin:0 0 12px">①비포→애프터 꽉 채워 확대 · ②5년 변화를 인물 대비로 증명 · ③‘3가지’ 숨김 · ④좌상단 ‘평생 안 읽던’ 공감 · ⑤30~40대 재시작 톤 · ⑥변화·비포애프터 핫 썸네일 학습 (도깨비 스틸 → 비저작권 교체).</p>
+      <div class="ba">
+        <div class="col">
+          <h4><span class="dot g"></span>안전안 · 비포→애프터 유지(인물 교체)</h4>
+          <div class="mock split">
+            <div class="halfL">평생<br>안 읽던</div>
+            <div class="halfR">5년<br>매일 읽은</div>
+            <div class="arrow">➜</div>
+            <div class="ovl">책 읽는다고 사람이 바뀔까?</div>
+          </div>
+          <div class="specs">
+            <div class="row"><span class="lab">헤드</span><span class="val"><b>책 읽는다고 사람이 바뀔까?</b> (질문형 유지)</span></div>
+            <div class="row"><span class="lab">결 호명</span><span class="val">좌/우 라벨 “평생 안 읽던 → 5년 매일 읽은”</span></div>
+            <div class="row"><span class="lab">색 토큰</span><span class="val"><span class="tokchip pain">pain</span>비포 <span class="tokchip grow">growth</span>애프터 <span class="tokchip val">value</span>화살표</span></div>
+            <div class="row"><span class="lab">이미지</span><span class="val">도깨비 스틸 → <b>비저작권 인물/실루엣/본인 컷</b>으로 교체</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <h4><span class="dot g"></span>도전안 · 숫자·3축 변화 시각화</h4>
+          <div class="mock dark">
+            <span class="pin">도전안</span>
+            <div class="hl">5년 매일<br>읽었더니</div>
+            <div class="sub">평생 안 읽던 사람 → 바뀐 <span style="color:var(--value)">시야·사고·성장</span></div>
+            <div class="num">3<small>가지</small></div>
+          </div>
+          <div class="specs">
+            <div class="row"><span class="lab">헤드</span><span class="val"><b>5년 매일 읽었더니</b> + 큰 숫자 “3”</span></div>
+            <div class="row"><span class="lab">숫자 대비</span><span class="val">0(안 읽던) → 3축(시야·사고·성장), tabular-nums</span></div>
+            <div class="row"><span class="lab">색 토큰</span><span class="val"><span class="tokchip val">value</span>숫자 <span class="tokchip grow">growth</span>변화</span></div>
+            <div class="row"><span class="lab">이미지</span><span class="val">인물 없이 3축 아이콘/책더미 — 광고스러움 0%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout"><b>검증 ✓</b> 30초 후크(변화 약속·결 ①·8축 자기개발) 통과 · 금지문구 0 · 35자 룰 통과 · 정체성 카드 2개 이상 접촉(책·결·8축) · ⑧ 강력단어 보류.</div>
+    </div>
+  </div>
+</section>
+
+<section id="cardB">
+  <div class="kicker">영상 카드 · 1차 축 ‘시야’</div>
+  <h2><span class="num">3-B.</span> 2편 — “5년 읽으면 뭐가 달라질까 · 시야”</h2>
+
+  <div class="vid">
+    <div class="head">
+      <div class="id">카드 <span>B</span> · 풀링 001 <span>2편</span> · 2026.5.20</div>
+      <div class="tags"><span class="tt pull">풀링</span><span class="tt">결 ① 읽으려는</span><span class="tt">문해력·시야</span><span class="tt">3:36 · 10뷰</span></div>
+    </div>
+    <div class="pad">
+
+      <div class="before-title">
+        <div class="lab">현재 제목 (비포)</div>
+        <div class="t">평생 책을읽지 않으면 절대로 알수없는 엄청난 비밀 3가지 - 2편 | 인생을 바꾸는 독서 습관과 부자들의 책읽기 비밀 #문해력 #성장 #자기계발 #성공 #동기부여 #습관#시야</div>
+      </div>
+
+      <div class="ba" style="margin-top:16px">
+        <div class="col before">
+          <h4><span class="dot r"></span>현재 썸네일 (라이브)</h4>
+          <div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/RaF7UuWKV8o/maxresdefault.jpg" alt="2편 현재 썸네일"></div>
+          <div class="thumbcap"><b>“5년동안 매일 읽는다고 / 뭐가 달라질까?”</b> · 인덱스·필사가 빼곡한 <b>실제 책 사진</b> + 어깨 으쓱 ? 캐릭터.</div>
+        </div>
+        <div class="col after">
+          <h4><span class="dot g"></span>진단 요약</h4>
+          <div class="check" style="grid-template-columns:1fr">
+            <div class="ci"><span class="mk">✓</span><span><b>강점(최상)</b> — 돈 주고 못 사는 진정성. 실제 책 사진은 <b>반드시 유지</b>.</span></div>
+            <div class="ci"><span class="mk">✓</span><span>질문형 “뭐가 달라질까?”는 ⑤ 충족.</span></div>
+            <div class="ci bad"><span class="mk">✕</span><span>제목이 1편과 사실상 동일 → 시청자가 2편임을 못 알아챔.</span></div>
+            <div class="ci warn"><span class="mk">!</span><span>이 편의 차별점(‘시야’)이 제목·헤드에 드러나지 않음. ? 캐릭터는 톤상 선택적 제거.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="sep">
+      <div class="grid3">
+        <div class="acard"><div class="k">성격 · 8축</div><div class="v">풀링<small>문해력(중심) + 자기개발 — 1차 축 ‘시야’</small></div></div>
+        <div class="acard"><div class="k">메인 결</div><div class="v">① 읽으려는 사람<small>“보는 사람과 못 보는 사람의 차이는 단어에서”</small></div></div>
+        <div class="acard"><div class="k">핵심 메시지(살릴 진정성)</div><div class="v" style="font-size:13.5px">“같은 세상이 수백 가지 색으로 보인다”<small>호메로스 충격 카드 · 단어=문해력=시야</small></div></div>
+      </div>
+
+      <div class="steps" style="margin-top:16px"><span class="st on">①교차</span><span class="st on">②쉬운말</span><span class="st on">③상위어(문해력)</span><span class="st on">④5년·가장 먼저</span><span class="st on">⑤질문형</span><span class="st on">⑥⑦패턴</span><span class="st">⑧보류</span></div>
+
+      <div class="titles">
+        <div class="tcase safe">
+          <div class="tlab">🟢 안전안 · 차별점(시야) 분리 <span class="cnt">메인 23 · 전체 98자</span></div>
+          <div class="main">5년간 매일 읽으면 가장 먼저 달라지는 것</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 98/100자 (메인 23자 + 검색 72자)</span><span class="ft"><b>5년간 매일 읽으면 가장 먼저 달라지는 것</b><span class="sep"> | </span>평생 안 읽던 사람의 첫 변화 시야와 문해력 독서습관 독서법 완독 다독 책읽는법 어휘력 독서효과 책추천 독서기록 독서노트 (2편)</span></div>
+          <div class="why">1편과 분리되도록 “가장 먼저 달라지는 것”으로 <em>시야=1차 축</em> 암시. 수식어 ‘가장 먼저’(채널 톤 허용).</div>
+        </div>
+        <div class="tcase boldA">
+          <div class="tlab">🟡 도전안 A · 질문→부분답 <span class="cnt">메인 24 · 전체 94자</span></div>
+          <div class="main">5년 읽으면 뭐가 달라질까? 첫 번째, 시야</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 94/100자 (메인 24자 + 검색 67자)</span><span class="ft"><b>5년 읽으면 뭐가 달라질까? 첫 번째, 시야</b><span class="sep"> | </span>평생 안 읽던 사람이 5년 독서로 얻은 문해력·시야 독서습관 독서효과 책읽는법 어휘력 완독 다독 책추천 독서기록 (2편)</span></div>
+          <div class="why">현재 썸네일 카피를 제목으로(①). “시야”만 공개하고 내용은 숨겨 호기심 유지. 시리즈 ‘첫 번째/두 번째/세 번째’ 넘버링 통일.</div>
+        </div>
+        <div class="tcase boldB">
+          <div class="tlab">🔵 도전안 B · 충격 카드(호메로스) <span class="cnt">메인 25 · 전체 95자</span></div>
+          <div class="main">같은 세상이 수백 가지 색으로 보이기 시작했다</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 95/100자 (메인 25자 + 검색 67자)</span><span class="ft"><b>같은 세상이 수백 가지 색으로 보이기 시작했다</b><span class="sep"> | </span>평생 안 읽던 사람이 5년 독서로 얻은 시야 문해력 어휘력 독서효과 책읽는법 독서습관 완독 다독 책추천 독서노트 (2편)</span></div>
+          <div class="why">본문 최고 후크를 그대로 제목화. <em>30초 후크 ‘충격 카드형’</em>. 강한 호기심, 낚시 아님(본편에 등장).</div>
+        </div>
+      </div>
+
+      <hr class="sep">
+      <h4 style="font-size:13px;color:var(--muted);font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:11px">썸네일 2안 (애프터 목업)</h4>
+      <div class="steps" style="margin:2px 0 10px"><span class="st on">①확대</span><span class="st on">②증명</span><span class="st on">③궁금증</span><span class="st on">④공감·좌상단</span><span class="st on">⑤선호</span><span class="st on">⑥뷰트랩</span></div>
+      <p class="note" style="margin:0 0 12px">①인덱스 빼곡한 실제 책 클로즈업 확대 · ②그 책 자체가 증거 · ③‘시야’만 노출·내용 숨김 · ④좌상단 ‘평생 안 읽던’ 공감 · ⑤입문 타깃 톤 · ⑥‘문해력·독서’ 핫 구성 학습.</p>
+      <div class="ba">
+        <div class="col">
+          <h4><span class="dot g"></span>안전안 · 실제 책 사진 유지 + 시야 라벨</h4>
+          <div class="mock green">
+            <span class="pin">배경 = 현재 실제 책 사진</span>
+            <div class="hl">5년 읽으면<br><span class="y">뭐가 달라질까?</span></div>
+            <div class="sub">평생 안 읽던 사람 · ① 시야</div>
+          </div>
+          <div class="specs">
+            <div class="row"><span class="lab">헤드</span><span class="val"><b>5년 읽으면 뭐가 달라질까?</b> (질문 유지)</span></div>
+            <div class="row"><span class="lab">결 호명</span><span class="val">“평생 안 읽던 사람” + 시리즈 라벨 “① 시야”</span></div>
+            <div class="row"><span class="lab">색 토큰</span><span class="val"><span class="tokchip val">value</span>질문 강조 <span class="tokchip grow">growth</span>라벨</span></div>
+            <div class="row"><span class="lab">이미지</span><span class="val">현재 실제 책 사진 유지 · ? 캐릭터 제거(진정성↑)</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <h4><span class="dot g"></span>도전안 · 시야 비유(흑백→컬러)</h4>
+          <div class="mock blue">
+            <span class="pin">도전안</span>
+            <div class="hl"><span class="b">같은 세상</span>이<br>수백 가지 색으로</div>
+            <div class="sub">단어가 시야를 만든다 · ① 시야</div>
+          </div>
+          <div class="specs">
+            <div class="row"><span class="lab">헤드</span><span class="val"><b>같은 세상, 수백 가지 색</b></span></div>
+            <div class="row"><span class="lab">구도</span><span class="val">좌 흑백 / 우 컬러 분할 — 단어 자막 떠오름</span></div>
+            <div class="row"><span class="lab">색 토큰</span><span class="val"><span class="tokchip info">info</span>시야 <span class="tokchip val">value</span>핵심어</span></div>
+            <div class="row"><span class="lab">이미지</span><span class="val">무지개·단어 모티프(브리프 1차 ‘시야’ 비주얼)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout"><b>검증 ✓</b> 30초 후크(충격 카드·결 ①·문해력) 통과 · 금지문구 0 · 35자 통과 · 진정성(실제 책) 유지 · 시리즈 분리 확보 · ⑧ 보류.</div>
+    </div>
+  </div>
+</section>
+
+<section id="cardC">
+  <div class="kicker">영상 카드 · 3차 축 ‘성장’ + 면죄부</div>
+  <h2><span class="num">3-C.</span> 3편 — “매일 읽었더니 생기는 변화 · 성장”</h2>
+
+  <div class="vid">
+    <div class="head">
+      <div class="id">카드 <span>C</span> · 풀링 001 <span>3편</span> · 2026.5.27</div>
+      <div class="tags"><span class="tt pull">풀링</span><span class="tt">결 ①→② 읽고 있는</span><span class="tt">성장·습관</span><span class="tt">3:24 · 2뷰</span></div>
+    </div>
+    <div class="pad">
+
+      <div class="before-title">
+        <div class="lab">현재 제목 (비포)</div>
+        <div class="t">매일매일 책을 읽었더니 생기는 놀라운 변화 / 평생안읽던 사람이 바뀐 3가지 - 3편 | 인생을 바꾸는 독서 습관과 비밀 #문해력 #성장 #성공 #동기부여 #습관</div>
+      </div>
+
+      <div class="ba" style="margin-top:16px">
+        <div class="col before">
+          <h4><span class="dot r"></span>현재 썸네일 (라이브)</h4>
+          <div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/4YFEsJE_AqY/maxresdefault.jpg" alt="3편 현재 썸네일"></div>
+          <div class="thumbcap"><b>“매일매일 책 읽으면 / 벌어지는 놀라운 비밀”</b> · 따뜻한 조명의 책·찻잔·손 + 책에 손글씨 <b>“처음엔 안 읽혀요. 괜찮아요.”</b> ← 시그니처 <span style="color:var(--growth)">‘정상이에요’ 면죄부 그 자체.</span></div>
+        </div>
+        <div class="col after">
+          <h4><span class="dot g"></span>진단 요약</h4>
+          <div class="check" style="grid-template-columns:1fr">
+            <div class="ci"><span class="mk">✓</span><span><b>강점(채널 최고)</b> — 면죄부 손글씨 + 따뜻한 톤. <b>반드시 유지</b>.</span></div>
+            <div class="ci bad"><span class="mk">✕</span><span>제목이 두 개(“…놀라운 변화 / 평생안읽던…3가지-3편”) 합쳐져 메시지 분산.</span></div>
+            <div class="ci warn"><span class="mk">!</span><span>“놀라운 비밀/변화”는 약한 낚시 — 면죄부 톤과 충돌.</span></div>
+            <div class="ci warn"><span class="mk">!</span><span>이 편의 차별점(‘성장’)이 안 드러남.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="sep">
+      <div class="grid3">
+        <div class="acard"><div class="k">성격 · 8축</div><div class="v">풀링<small>책 읽는 습관 + 자기개발 — 3차 축 ‘성장’</small></div></div>
+        <div class="acard"><div class="k">메인 결</div><div class="v">①→② 읽고 있는 사람<small>면죄부로 ① 흡수 → 습관 단계 ②로 연결</small></div></div>
+        <div class="acard"><div class="k">핵심 메시지(살릴 진정성)</div><div class="v" style="font-size:13.5px">“지금 똑똑함은 출발선,<br>결승선은 누가 더 오래 단련했나”<small>시그니처 ‘정상이에요’ · 뇌 근육 비유</small></div></div>
+      </div>
+
+      <div class="steps" style="margin-top:16px"><span class="st on">①교차</span><span class="st on">②쉬운말</span><span class="st on">③상위어(습관)</span><span class="st on">④결국·5년</span><span class="st on">⑤질문/면죄부</span><span class="st on">⑥⑦패턴</span><span class="st">⑧보류</span></div>
+
+      <div class="titles">
+        <div class="tcase safe">
+          <div class="tlab">🟢 안전안 · 두 제목 통합·성장 분리 <span class="cnt">메인 28 · 전체 96자</span></div>
+          <div class="main">매일 읽었더니 5년 뒤 달라진 것 · 세 번째 성장</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 96/100자 (메인 28자 + 검색 65자)</span><span class="ft"><b>매일 읽었더니 5년 뒤 달라진 것 · 세 번째 성장</b><span class="sep"> | </span>평생 안 읽던 사람의 독서 습관과 성장 뇌 자기계발 문해력 완독 독서효과 독서법 책읽는법 책추천 다독 어휘력 (3편)</span></div>
+          <div class="why">합쳐진 두 제목을 하나로. 시리즈 넘버링 “세 번째 성장”으로 1·2편과 분리. ‘놀라운 비밀’ 삭제.</div>
+        </div>
+        <div class="tcase boldA">
+          <div class="tlab">🟡 도전안 A · 면죄부(썸네일 손글씨 수미상관) <span class="cnt">메인 27 · 전체 98자</span></div>
+          <div class="main">처음엔 안 읽혀요, 괜찮아요 — 5년이 만든 변화</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 98/100자 (메인 27자 + 검색 68자)</span><span class="ft"><b>처음엔 안 읽혀요, 괜찮아요 — 5년이 만든 변화</b><span class="sep"> | </span>평생 안 읽던 사람이 5년 독서로 성장하기까지 습관 문해력 자기계발 독서효과 완독 독서법 책읽는법 책추천 독서노트 (3편)</span></div>
+          <div class="why">썸네일 손글씨를 제목으로 끌어올려 <em>①교차 + 시그니처 ‘정상이에요’</em>. 면죄부·동반자 톤의 정점.</div>
+        </div>
+        <div class="tcase boldB">
+          <div class="tlab">🔵 도전안 B · 성장 캐치 <span class="cnt">메인 23 · 전체 96자</span></div>
+          <div class="main">지금 똑똑함은 출발선일 뿐, 5년 읽은 뇌</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 96/100자 (메인 23자 + 검색 70자)</span><span class="ft"><b>지금 똑똑함은 출발선일 뿐, 5년 읽은 뇌</b><span class="sep"> | </span>평생 안 읽던 사람이 5년 독서로 단련한 뇌 성장 뇌과학 자기계발 문해력 습관 독서효과 완독 책읽는법 책추천 독서노트 (3편)</span></div>
+          <div class="why">본문 성장 축 핵심 문장을 제목화. 결승선=오래 단련. <em>뷰트랩 G 뇌신경군</em>과 정합(뇌가소성·인지기능).</div>
+        </div>
+      </div>
+
+      <hr class="sep">
+      <h4 style="font-size:13px;color:var(--muted);font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:11px">썸네일 2안 (애프터 목업)</h4>
+      <div class="steps" style="margin:2px 0 10px"><span class="st on">①확대</span><span class="st on">②증명</span><span class="st on">③궁금증</span><span class="st on">④공감·좌상단</span><span class="st on">⑤선호</span><span class="st on">⑥뷰트랩</span></div>
+      <p class="note" style="margin:0 0 12px">①면죄부 손글씨 확대 · ②5년의 흔적이 증거 · ③‘성장’의 정체 숨김 · ④좌상단 손글씨 공감 · ⑤따뜻한 입문 톤 · ⑥‘습관·성장’ 핫 구성 학습 (4편 중 최고 자산 유지).</p>
+      <div class="ba">
+        <div class="col">
+          <h4><span class="dot g"></span>안전안 · 면죄부 손글씨 유지 + 헤드 정제</h4>
+          <div class="mock warm">
+            <span class="pin">배경 = 현재 따뜻한 책 사진</span>
+            <div class="hl">매일 읽으면<br><span class="y">5년 뒤 생기는 일</span></div>
+            <div class="sub">“처음엔 안 읽혀요, 괜찮아요” · ③ 성장</div>
+          </div>
+          <div class="specs">
+            <div class="row"><span class="lab">헤드</span><span class="val"><b>매일 읽으면 5년 뒤 생기는 일</b> (낚시어 제거)</span></div>
+            <div class="row"><span class="lab">면죄부</span><span class="val">손글씨 “처음엔 안 읽혀요, 괜찮아요” 유지 — 시그니처</span></div>
+            <div class="row"><span class="lab">색 토큰</span><span class="val"><span class="tokchip val">value</span>핵심 <span class="tokchip grow">growth</span>라벨 · 따뜻한 톤</span></div>
+            <div class="row"><span class="lab">이미지</span><span class="val">현재 책·찻잔·손글씨 그대로 — 4편 중 최고 자산</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <h4><span class="dot g"></span>도전안 · 성장 비유(시냇물→바다 / 뇌)</h4>
+          <div class="mock green">
+            <span class="pin">도전안</span>
+            <div class="hl">지금 똑똑함은<br><span class="y">출발선일 뿐</span></div>
+            <div class="sub">5년 매일 읽은 뇌 · ③ 성장</div>
+            <div class="num">5<small>년</small></div>
+          </div>
+          <div class="specs">
+            <div class="row"><span class="lab">헤드</span><span class="val"><b>지금 똑똑함은 출발선일 뿐</b></span></div>
+            <div class="row"><span class="lab">비유</span><span class="val">시냇물→강→바다 / 뇌 근육 — 성장 축 비주얼</span></div>
+            <div class="row"><span class="lab">색 토큰</span><span class="val"><span class="tokchip grow">growth</span>성장 <span class="tokchip val">value</span>숫자 ‘5년’</span></div>
+            <div class="row"><span class="lab">이미지</span><span class="val">인물 정면 X — 실루엣·뒷모습·손(Proof of Human)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout"><b>검증 ✓</b> 30초 후크(면죄부·결 ①→②·습관) 통과 · 금지문구 0 · 35자 통과 · 시그니처 ‘정상이에요’ 살림 · 두 제목 통합 · ⑧ 보류.</div>
+    </div>
+  </div>
+</section>
+
+<section id="cardD">
+  <div class="kicker">영상 카드 · 페인 진단형(독립)</div>
+  <h2><span class="num">3-D.</span> 002 — “독서습관 실패한 사람들의 공통점”</h2>
+
+  <div class="vid">
+    <div class="head">
+      <div class="id">카드 <span>D</span> · 풀링 002 · 2026.6.3</div>
+      <div class="tags"><span class="tt pull">풀링</span><span class="tt">결 ①·② 입문자</span><span class="tt">책 읽는 습관·독서법</span><span class="tt">13:39 · 2뷰</span></div>
+    </div>
+    <div class="pad">
+
+      <div class="before-title">
+        <div class="lab">현재 제목 (비포)</div>
+        <div class="t">독서습관 실패한 사람들의 99% 똑같은 공통점 3가지의 비밀</div>
+      </div>
+
+      <div class="ba" style="margin-top:16px">
+        <div class="col before">
+          <h4><span class="dot r"></span>현재 썸네일 (라이브)</h4>
+          <div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/rJnzrqYjEI8/maxresdefault.jpg" alt="002 현재 썸네일"></div>
+          <div class="thumbcap"><b>“그렇게 읽으면 또 책읽기 실패할껄?” / “책 못읽는 사람 공통점 3가지”</b> · 책에 엎드려 졸고 있는 여성 + 책더미. <span style="color:var(--pain)">⚠ 맞춤법 ‘실패할껄→실패할걸’ · 약올림/위협 톤 · ‘99%’ 과장.</span></div>
+        </div>
+        <div class="col after">
+          <h4><span class="dot g"></span>진단 요약</h4>
+          <div class="check" style="grid-template-columns:1fr">
+            <div class="ci"><span class="mk">✓</span><span><b>강점</b> — ‘졸음’ 페인 비주얼이 강하다. 입문자 공감 구도는 유지.</span></div>
+            <div class="ci bad"><span class="mk">✕</span><span>“99%·비밀” 과장 + 위협 톤(“실패할걸?”) → 결 ①·②가 거르는 톤(§5.1).</span></div>
+            <div class="ci bad"><span class="mk">✕</span><span>맞춤법 오류 ‘실패할껄’ → 진정성·품질 손상.</span></div>
+            <div class="ci warn"><span class="mk">!</span><span>“공통점 3가지” 답 노출 → ⑤ 위반. 면죄부 톤으로 전환 여지.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="sep">
+      <div class="grid3">
+        <div class="acard"><div class="k">성격 · 8축</div><div class="v">풀링<small>책 읽는 습관 + 독서법(초보 책 고르기)</small></div></div>
+        <div class="acard"><div class="k">메인 결</div><div class="v">①·② 입문자<small>“안 읽던 사람이 졸린 건 당연” — 동반자 톤</small></div></div>
+        <div class="acard"><div class="k">핵심 메시지(살릴 진정성)</div><div class="v" style="font-size:13.5px">“벽돌책 말고, 쉬운 책부터”<small>코스모스 선물 실패 · 어린왕자 추천 — 1인칭 경험</small></div></div>
+      </div>
+
+      <div class="steps" style="margin-top:16px"><span class="st on">①교차</span><span class="st on">②쉬운말</span><span class="st on">③상위어(독서습관)</span><span class="st on">④진짜·정말</span><span class="st on">⑤질문/면죄부</span><span class="st on">⑥⑦패턴</span><span class="st">⑧보류</span></div>
+
+      <div class="titles">
+        <div class="tcase safe">
+          <div class="tlab">🟢 안전안 · 뷰트랩 큰 풀 + 부정 프레임 · repo 채택 <span class="cnt">메인 24 · 전체 90자</span></div>
+          <div class="main">책 읽기 3일 만에 포기하는 사람들의 공통점</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 90/100자 (메인 24자 + 검색 63자)</span><span class="ft"><b>책 읽기 3일 만에 포기하는 사람들의 공통점</b><span class="sep"> | </span>독서습관 작심삼일 독서실패 책읽기 독서초보 책추천 완독 독서법 문해력 습관만들기 책읽는습관 다독 독서기록 자기계발</span></div>
+          <div class="why">뷰트랩 ③: ‘독서습관’ 1459만 → ‘습관’ 1.1억·‘작심삼일’ 5450만 큰 풀. ‘3일·포기’ 부정·숫자 프레임(살 찝니다 2.8억 &gt; 빠집니다 1억 통찰). <em>repo 002 정리본 채택안</em>.</div>
+        </div>
+        <div class="tcase boldA">
+          <div class="tlab">🟡 도전안 A · 면죄부 전환 <span class="cnt">메인 21 · 전체 91자</span></div>
+          <div class="main">책이 안 읽히는 건 당신 탓이 아닙니다</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 91/100자 (메인 21자 + 검색 67자)</span><span class="ft"><b>책이 안 읽히는 건 당신 탓이 아닙니다</b><span class="sep"> | </span>독서 초보가 놓치는 3가지와 쉬운 책 고르는 법 독서습관 작심삼일 독서법 문해력 책추천 완독 독서초보 책읽기 다독 인생책</span></div>
+          <div class="why">위협(“실패할걸”)을 면죄부로 180도. 결 ①·②가 좋아하는 동반자 톤. 시그니처 ‘정상이에요’ 계열.</div>
+        </div>
+        <div class="tcase boldB">
+          <div class="tlab">🔵 도전안 B · 부정 프레임 질문 · 작심삼일 <span class="cnt">메인 26 · 전체 92자</span></div>
+          <div class="main">책 읽는 습관, 왜 99%가 3일 만에 무너질까</div>
+          <div class="full"><span class="fl">전체 제목 · 복사용 · 92/100자 (메인 26자 + 검색 63자)</span><span class="ft"><b>책 읽는 습관, 왜 99%가 3일 만에 무너질까</b><span class="sep"> | </span>작심삼일 독서습관 독서실패 책읽기 독서초보 완독 독서법 책추천 습관만들기 문해력 책읽는습관 다독 자기계발 독서기록</span></div>
+          <div class="why">부정 프레임 질문형(③-2·⑤). ‘작심삼일’ 5450만 큰 풀 + ‘99%·3일’ 구체 숫자. 코스모스·정리하는 뇌 실패담은 본문·썸네일로.</div>
+        </div>
+      </div>
+
+      <hr class="sep">
+      <h4 style="font-size:13px;color:var(--muted);font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:11px">썸네일 2안 (애프터 목업)</h4>
+      <div class="steps" style="margin:2px 0 10px"><span class="st on">①확대</span><span class="st on">②증명</span><span class="st on">③궁금증</span><span class="st on">④공감·좌상단</span><span class="st on">⑤선호</span><span class="st on">⑥뷰트랩</span></div>
+      <p class="note" style="margin:0 0 12px">①방치된 책 더미·졸음 확대 · ②달력 X 3개로 ‘3일’ 증명 · ③해법(쉬운 책) 숨김 · ④좌상단 졸음 공감 · ⑤입문 현실 톤 · ⑥‘작심삼일’ 성과도 상위 학습 (repo 07 미드폼 정합).</p>
+      <div class="ba">
+        <div class="col">
+          <h4><span class="dot g"></span>안전안 · 졸음 유지 + 오타 수정·톤 완화</h4>
+          <div class="mock dark">
+            <span class="pin">배경 = 현재 졸음 사진</span>
+            <div class="hl">3일 만에<br><span class="r">또 덮는 이유</span></div>
+            <div class="sub">99%가 놓치는 공통점 · 당신 탓 아님</div>
+          </div>
+          <div class="specs">
+            <div class="row"><span class="lab">헤드</span><span class="val"><b>3일 만에 또 덮는 이유</b> (제목 ‘3일’과 일치)</span></div>
+            <div class="row"><span class="lab">수정</span><span class="val">‘실패할껄→포기해요’ · ‘99%’ 삭제</span></div>
+            <div class="row"><span class="lab">색 토큰</span><span class="val"><span class="tokchip pain">pain</span>페인 <span class="tokchip val">value</span>‘3가지’</span></div>
+            <div class="row"><span class="lab">이미지</span><span class="val">현재 졸음 사진 유지 — 입문자 공감 페인</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <h4><span class="dot g"></span>도전안 · 페인→해법 대비(책 고르기)</h4>
+          <div class="mock split">
+            <div class="halfL">벽돌책<br>(졸음)</div>
+            <div class="halfR">쉬운 책<br>(몰입)</div>
+            <div class="arrow">➜</div>
+            <div class="ovl">초보는 ‘책부터’ 잘못 고른다</div>
+          </div>
+          <div class="specs">
+            <div class="row"><span class="lab">헤드</span><span class="val"><b>초보는 책부터 잘못 고른다</b></span></div>
+            <div class="row"><span class="lab">구도</span><span class="val">좌 코스모스+졸음 / 우 어린왕자+몰입</span></div>
+            <div class="row"><span class="lab">색 토큰</span><span class="val"><span class="tokchip pain">pain</span>벽돌책 <span class="tokchip grow">growth</span>쉬운 책</span></div>
+            <div class="row"><span class="lab">이미지</span><span class="val">실제 두꺼운 책 vs 얇은 책 — 1인칭 경험 연결</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout"><b>검증 ✓</b> 30초 후크(페인·결 ①②·습관) 통과 · 금지문구 0(99%·위협 제거) · 35자 통과 · 맞춤법 수정 · 면죄부 전환 · ⑧ 보류.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. 시리즈 일관성 ============ -->
+<section id="series">
+  <div class="kicker">시리즈 일관성 · 채널 자산 축적</div>
+  <h2><span class="num">4.</span> 001 3부작 네이밍 통일 + 썸네일 시리즈 규칙</h2>
+  <p class="lead">개별 고도화만큼 중요한 게 “3편이 한 시리즈로 보이는가”다. 현재는 1·2편 제목이 같고 3편만 따로 노는 상태. 아래 골격으로 통일한다.</p>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>편</th><th>축</th><th>통일 제목(메인 35자 이내)</th><th>썸네일 시리즈 뱃지</th></tr></thead>
+    <tbody>
+      <tr><td class="c"><b>1편</b></td><td>변화 전체(예고)</td><td>평생 안 읽던 사람이 5년 읽으면 생기는 변화</td><td class="c">①</td></tr>
+      <tr><td class="c"><b>2편</b></td><td>시야</td><td>5년 읽으면 가장 먼저 달라지는 것 · 시야</td><td class="c">②</td></tr>
+      <tr><td class="c"><b>3편</b></td><td>성장</td><td>매일 읽었더니 5년 뒤 달라진 것 · 성장</td><td class="c">③</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="grid3" style="margin-top:14px">
+    <div class="acard"><div class="k">규칙 1 · 메인/SEO 분리</div><div class="v" style="font-size:14px">35자 메인 뒤에만 해시태그<small>#문해력#성장… 은 메인 메시지 밖으로. 검색 키워드는 “│” 뒤에.</small></div></div>
+    <div class="acard"><div class="k">규칙 2 · 시리즈 뱃지</div><div class="v" style="font-size:14px">우상단 ①②③ 고정<small>같은 위치·같은 폰트(Pretendard 900)·같은 색(value). 3초 안에 같은 시리즈 인식.</small></div></div>
+    <div class="acard"><div class="k">규칙 3 · 결 호명 고정</div><div class="v" style="font-size:14px">“평생 안 읽던 사람”<small>3편 모두 같은 결 호명 단어를 헤드 또는 부가 1줄에.</small></div></div>
+  </div>
+  <p class="note">※ 002(독서습관 실패)는 별개 풀링 라인(페인 진단형)이므로 시리즈 뱃지에서 제외. 독립 카피 유지.</p>
+</section>
+
+<!-- ============ 5. 추천 우선순위 ============ -->
+<section id="pick">
+  <div class="kicker">바로 적용 · 추천 1순위(A/B 페어)</div>
+  <h2><span class="num">5.</span> 영상별 “먼저 갈아끼울” 1순위</h2>
+  <p class="lead">조회수가 낮은 지금이 교체 실험의 적기다. 아래는 1순위 추천 + A/B 짝(<code>썸네일지침 §6</code> — 다른 톤끼리 짝지어야 데이터가 의미 있다).</p>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>영상</th><th>1순위 제목</th><th>1순위 썸네일</th><th>A/B 짝(측정 의도)</th></tr></thead>
+    <tbody>
+      <tr><td><b>1편</b></td><td>🟡 도전A “책 읽는다고 정말 사람이 바뀔까? 5년의 기록”</td><td>🟢 안전(비포→애프터, 인물 교체)</td><td>질문형 vs 숫자·3축 도전안</td></tr>
+      <tr><td><b>2편</b></td><td>🟢 안전 “5년간 매일 읽으면 가장 먼저 달라지는 것”</td><td>🟢 안전(실제 책 사진 유지)</td><td>차분 분리 vs 🔵충격 카드 “수백 가지 색”</td></tr>
+      <tr><td><b>3편</b></td><td>🟡 도전A “처음엔 안 읽혀요, 괜찮아요 — 5년이 만든 변화”</td><td>🟢 안전(면죄부 손글씨 유지)</td><td>면죄부 vs 🔵성장 캐치 “출발선일 뿐”</td></tr>
+      <tr><td><b>002</b></td><td>🟢 안전 “책 읽기 3일 만에 포기하는 사람들의 공통점” <span style="color:var(--info)">(repo 채택)</span></td><td>🟢 안전(졸음·달력 X3·‘3일’, 오타 수정)</td><td>부정 프레임 vs 🟡면죄부 “당신 탓 아님”</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout"><b>운영 팁:</b> 한 번에 <b>제목+썸네일을 동시에</b> 바꾸면 무엇이 효과였는지 모른다. ① 먼저 <b>썸네일만</b> 교체(안전안) → 1주 CTR 관찰 → ② 다음 <b>제목</b>을 도전안으로 → 변화 측정. 노출수가 적으면 “노출 대비 클릭률(CTR) + 평균 시청 지속(AVD)”을 함께 본다.</div>
+</section>
+
+<!-- ============ 6. 뷰트랩 캡처 TODO ============ -->
+<section id="todo">
+  <div class="kicker">다음 코워크 · 데이터로 ③단계 실측</div>
+  <h2><span class="num">6.</span> 뷰트랩 캡처 TODO (사람 → 클로드 루프)</h2>
+  <p class="lead">위 후보는 8단계 ③(넓은 용어/반의어)을 키워드 풀 기준으로 적용했다. <b>실제 조회수로 확정</b>하려면 아래 키워드를 뷰트랩에서 캡처해 비교한다(<code>뷰트랩_주제발굴_디벨롭_가이드 §1·D</code>).</p>
+  <div class="grid4">
+    <div class="acard"><div class="k">반의어/상위어 비교</div><div class="v" style="font-size:14px">독서 ↔ 책읽기<small>A군 — 어느 일상어가 조회수↑인지</small></div></div>
+    <div class="acard"><div class="k">습관·부정 프레임</div><div class="v" style="font-size:14px">작심삼일 · 독서실패<small>5450만 · 부정형이 더 큰 풀 — 002 핵심</small></div></div>
+    <div class="acard"><div class="k">변화/효과</div><div class="v" style="font-size:14px">문해력 · 성장<small>B군 — 시야·성장 축 검증</small></div></div>
+    <div class="acard"><div class="k">수식어 신선도</div><div class="v" style="font-size:14px">진짜 · 정말 · 결국<small>수식어 마스터 — 채널 톤 허용군만</small></div></div>
+  </div>
+  <p class="note">캡처 요청 예: <em>“뷰트랩에서 ‘독서습관’ ‘책읽기’ 검색하고 대시보드 갱신해줘”</em> → <code>뷰트랩 정리/단어/README.md §자동화 작업 흐름</code> 1~10 수행.</p>
+</section>
+
+<!-- ============ 근거 자료 ============ -->
+<section id="src">
+  <div class="kicker">근거 자료 · 단일 진실 원천</div>
+  <h2><span class="num">7.</span> 이 기획이 참조한 프로젝트 문서</h2>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>영역</th><th>문서</th><th>이 기획에서의 역할</th></tr></thead>
+    <tbody>
+      <tr><td>제목</td><td><code>대본/_기획기준/대본기획_기준.md §8.6</code></td><td>제목 디벨롭 8단계 · 35자 룰 · ⑧ 사후 보류</td></tr>
+      <tr><td>제목(코워크)</td><td><code>대본/_기획기준/뷰트랩_주제발굴_디벨롭_가이드.md</code></td><td>뷰트랩+클로드 5스텝 루프 · ③ 조회수 비교 절차</td></tr>
+      <tr><td><b>제목(강의·신규)</b></td><td><code>5주차/5-1강_제목_디벨롭_8단계.md</code> · <code>5주차_문제해설_정답키.md</code></td><td>제목 8단계 원전 · 반의어/부정 프레임 실데이터(살 찝니다 2.8억 &gt; 빠집니다 1억)</td></tr>
+      <tr><td><b>썸네일(강의·신규)</b></td><td><code>6주차_썸네일제작/6-1강_썸네일_이미지강화_6단계.md</code></td><td>썸네일 6단계(확대·증명·궁금증·공감·선호·뷰트랩) · 이미지45·문구45·디자인10 · 3개/1주일</td></tr>
+      <tr><td>후크</td><td><code>대본/_기획기준/30초_후크_룰_체크리스트.md</code></td><td>변화 약속·결 호명·8축·충격/변화/고백 후크 패턴</td></tr>
+      <tr><td>썸네일</td><td><code>대본/썸네일지침/01·03·05</code></td><td>정체성 카드 · 훅 문구뱅크(결·시그니처·숫자대비·금지문구) · A/B</td></tr>
+      <tr><td>수식어</td><td><code>뷰트랩 정리/수식어/수식어_마스터.md</code></td><td>432편 분석 강조어 — 채널 톤 허용군 선별(④)</td></tr>
+      <tr><td>키워드 <b>실데이터</b></td><td><code>뷰트랩 정리/단어/*/누적_데이터.csv</code> (2026-05-16)</td><td>독서 1.7억·습관 1.1억·작심삼일 5450만·문해력 4796만… 100자 SEO 출처(③)</td></tr>
+      <tr><td>콘텐츠 맥락</td><td><code>풀링 001 정리본/00_브리프.md</code> · <code>풀링 002 맥락.txt</code></td><td>각 영상의 8축·결·핵심 메시지·진정성 코어</td></tr>
+      <tr><td><b>적용 사례(repo)</b></td><td><code>_실행문제_5개_제목디벨롭.md</code> · <code>002 정리본/07_미드폼_제목썸네일_디벨롭.md</code></td><td>풀링 5개 8단계 + 002 채택 제목·썸네일 6단계 — 본 기획 002 정합 기준</td></tr>
+      <tr><td>정체성</td><td><code>프로젝트_방향성.md §1.1</code> · <code>CLAUDE.md</code></td><td>결 3그룹 · 8축 · 풀링 직접 노출 금지선</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<div class="foot">
+  <b>제목·썸네일 고도화 기획 — 그럼에도 한페이지 4편</b> · 작성 2026-06-06 · 갱신 2026-06-06 (5·6주차 보강 반영)<br>
+  비포: YouTube Studio 라이브 추출(제목·영상ID·썸네일) · 애프터: 제목 8단계(100자 완성) + 썸네일 6단계 + 뷰트랩 실데이터.<br>
+  저장 위치: <code>대본/제목썸네일_고도화/</code> · 풀링 직접 노출 0회(이북리더기·readtree는 정신적 떡밥만) 준수.
+</div>
+
+</div>
+</body>
+</html>

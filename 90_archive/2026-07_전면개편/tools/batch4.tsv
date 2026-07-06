@@ -1,0 +1,25 @@
+docs/lectures	50_knowledge/lectures
+docs/reference	50_knowledge/reference
+docs/claude-code/멀티페이지_허브구조_가이드.md	10_system/guides/멀티페이지_허브구조_가이드.md
+docs/claude-code/prompts/강의노트_정리.md	10_system/prompts/강의노트_정리.md
+docs/claude-code/prompts/외부_리서치.md	10_system/prompts/외부_리서치.md
+docs/claude-code/prompts/readingtree_인덱스_갱신.md	10_system/prompts/readingtree_인덱스_갱신.md
+docs/claude-code/prompts/유튜브_댓글_시청자분석.md	10_system/cowork_prompts/유튜브_댓글_시청자분석.md
+docs/claude-code/prompts/유튜브_참조영상_수집.md	10_system/cowork_prompts/유튜브_참조영상_수집.md
+docs/claude-code/prompts/전면개편_유튜브제작OS_마스터프롬프트.md	_migration/전면개편_유튜브제작OS_마스터프롬프트.md
+docs/claude-code/README.md	90_archive/구_프롬프트/claude-code_README.md
+docs/키컨텐츠	10_system/guides/키컨텐츠_설계
+docs/풀링컨텐츠	10_system/guides/풀링컨텐츠_설계
+대본/_기획기준/쇼츠_기획기준.md	10_system/guides/쇼츠_기획기준.md
+대본/_기획기준/뷰트랩_주제발굴_디벨롭_가이드.md	10_system/guides/뷰트랩_주제발굴_디벨롭_가이드.md
+대본/썸네일지침	10_system/guides/썸네일지침
+편집/_기획기준/편집기획_기준.md	10_system/guides/편집기획_기준.md
+편집/README.md	10_system/guides/편집_README.md
+자동화편집/04_프롬프트/자료수집_명령.md	10_system/prompts/자료수집_명령.md
+자동화편집/04_프롬프트/캡컷_패키지_생성.md	10_system/prompts/캡컷_패키지_생성.md
+자동화편집/04_프롬프트/README.md	90_archive/자동화편집_v1/04_프롬프트_README.md
+대본/_기획기준/template_풀링컨텐츠_기획서.html	90_archive/구_템플릿/template_풀링컨텐츠_기획서.html
+대본/_기획기준/template_키컨텐츠_기획서.html	90_archive/구_템플릿/template_키컨텐츠_기획서.html
+대본/풀링컨텐츠/_TEMPLATE_기획문서	90_archive/구_템플릿/_TEMPLATE_기획문서
+대본/풀링컨텐츠/풀링컨텐츠 기획문서	90_archive/구_템플릿/풀링컨텐츠 기획문서
+총괄기획	90_archive/총괄기획_v1

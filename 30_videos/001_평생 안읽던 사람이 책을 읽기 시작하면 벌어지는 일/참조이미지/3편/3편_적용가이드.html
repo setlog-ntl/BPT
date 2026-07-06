@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3편 — 성장·가능성·믿음 | 컷별 적용 가이드</title>
+<style>
+:root{
+  --bg:#0F1115; --bg-2:#161A22; --bg-3:#1E232E;
+  --line:#272E3B; --text:#E6EAF2; --text-mute:#9AA5B8;
+  --gold:#FFD166; --red:#EF476F; --green:#06D6A0; --blue:#56B7FF;
+  --pretendard: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html,body{background:var(--bg); color:var(--text); font-family:var(--pretendard); line-height:1.6; font-size:15px; -webkit-font-smoothing:antialiased}
+a{color:var(--gold); text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1280px; margin:0 auto; padding:48px 28px 96px}
+header{padding:64px 0 56px; border-bottom:1px solid var(--line); margin-bottom:48px}
+header .tag{display:inline-block; padding:6px 14px; border:1px solid var(--gold); color:var(--gold); border-radius:999px; font-size:12px; letter-spacing:1px; margin-bottom:18px; font-weight:700}
+h1{font-size:42px; font-weight:900; line-height:1.2; margin-bottom:14px}
+h1 .gold{color:var(--gold)}
+h1 .red{color:var(--red)}
+.subtitle{font-size:18px; color:var(--text-mute); max-width:760px; margin-bottom:24px}
+.meta{display:flex; flex-wrap:wrap; gap:14px; margin-top:18px}
+.meta-chip{background:var(--bg-2); border:1px solid var(--line); padding:8px 14px; border-radius:8px; font-size:13px; color:var(--text-mute)}
+.meta-chip strong{color:var(--text); font-weight:700}
+
+/* TIMELINE SUMMARY BAR */
+.timeline{background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:28px; margin-bottom:48px}
+.timeline-title{font-size:13px; letter-spacing:2px; color:var(--text-mute); font-weight:700; margin-bottom:18px; text-transform:uppercase}
+.timeline-bar{display:flex; height:64px; border-radius:8px; overflow:hidden; border:1px solid var(--line); background:#0a0d12}
+.tl-seg{flex:1; padding:8px 10px; border-right:1px solid #0a0d12; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-size:11px; color:#0F1115; font-weight:700; position:relative}
+.tl-seg:last-child{border-right:none}
+.tl-A{background:#7BA7E8}
+.tl-B{background:#C77BB0}
+.tl-C{background:var(--gold)}
+.tl-D{background:#FF8FA3}
+.tl-E{background:#7BD7C5}
+.tl-F{background:#F4A261}
+.tl-G{background:#90BE6D}
+.tl-H{background:#A78BFA}
+.tl-I{background:#FFB4A2}
+.tl-J{background:#FFD166}
+.tl-seg .tl-id{font-size:18px; font-weight:900}
+.tl-seg .tl-label{font-size:10px; font-weight:600}
+
+/* SECTION */
+section{margin-bottom:64px}
+.section-head{display:flex; align-items:flex-end; justify-content:space-between; padding-bottom:14px; margin-bottom:28px; border-bottom:2px solid var(--line)}
+.section-head h2{font-size:28px; font-weight:900}
+.section-head .stitle{color:var(--text-mute); font-size:13px}
+.section-head .time{font-family:'Courier New',monospace; color:var(--gold); font-weight:700}
+.section-intent{background:var(--bg-2); border-left:3px solid var(--gold); padding:14px 18px; margin-bottom:24px; font-size:14px; color:var(--text-mute); border-radius:0 8px 8px 0}
+.section-intent strong{color:var(--text); font-weight:700}
+
+/* CUT CARD */
+.cut{display:grid; grid-template-columns:480px 1fr; gap:28px; background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:24px; margin-bottom:22px; transition:border-color .15s ease}
+.cut:hover{border-color:#3a4256}
+.cut.signature{border:2px solid var(--gold); background:linear-gradient(180deg, rgba(255,209,102,.04), transparent)}
+.cut-img{background:#000; border-radius:8px; overflow:hidden; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; position:relative; border:1px solid var(--line)}
+.cut-img img{width:100%; height:100%; object-fit:cover; display:block}
+.cut-img .badge{position:absolute; top:10px; left:10px; background:rgba(0,0,0,.7); border:1px solid var(--line); color:var(--text); padding:4px 10px; border-radius:5px; font-size:11px; font-weight:700; backdrop-filter:blur(8px)}
+.cut-img .star{position:absolute; top:10px; right:10px; background:var(--gold); color:var(--bg); padding:4px 9px; border-radius:5px; font-size:11px; font-weight:900}
+.cut-info h3{font-size:19px; font-weight:800; margin-bottom:10px; color:var(--gold); display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.cut-info h3 .id{font-family:'Courier New',monospace; background:var(--bg-3); color:var(--text); padding:3px 9px; border-radius:5px; font-size:13px; font-weight:700}
+.cut-info h3 .duration{font-family:'Courier New',monospace; background:var(--bg-3); color:var(--blue); padding:3px 9px; border-radius:5px; font-size:13px; font-weight:700}
+.field{margin-bottom:14px}
+.field-label{font-size:11px; letter-spacing:1.5px; color:var(--text-mute); text-transform:uppercase; font-weight:700; margin-bottom:6px}
+.field-content{font-size:14px; color:var(--text); line-height:1.55}
+.vo{background:#0a0d12; border-left:3px solid var(--green); padding:11px 14px; border-radius:0 6px 6px 0; font-size:14px; color:var(--text); font-style:italic}
+.motion-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:13px}
+.motion-grid div{background:var(--bg-3); padding:9px 12px; border-radius:6px}
+.motion-grid .k{color:var(--text-mute); font-size:11px; display:block; margin-bottom:2px}
+.motion-grid .v{color:var(--text); font-weight:600}
+.tip{font-size:12px; color:var(--text-mute); border-top:1px dashed var(--line); padding-top:10px; margin-top:12px}
+.tip strong{color:var(--gold)}
+.files{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px}
+.files code{background:var(--bg-3); color:var(--text-mute); padding:3px 8px; border-radius:4px; font-size:11px; font-family:'Courier New',monospace}
+
+/* SCRIPT EXCERPT */
+.script-block{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:28px; margin-bottom:32px}
+.script-block h3{font-size:14px; color:var(--gold); margin-bottom:14px; letter-spacing:1.5px; text-transform:uppercase}
+.script-block p{font-size:15px; color:var(--text); line-height:1.85; margin-bottom:12px; padding-left:14px; border-left:2px solid var(--line)}
+
+/* APPLICATION SUMMARY */
+.app-summary{background:linear-gradient(180deg, var(--bg-2), var(--bg)); border:1px solid var(--gold); border-radius:14px; padding:32px; margin:48px 0}
+.app-summary h2{font-size:24px; margin-bottom:18px; color:var(--gold)}
+.app-summary ul{list-style:none; padding-left:0}
+.app-summary li{padding:10px 0 10px 32px; border-bottom:1px solid var(--line); position:relative; color:var(--text); font-size:14px}
+.app-summary li::before{content:'▸'; position:absolute; left:8px; color:var(--gold); font-size:18px}
+.app-summary li:last-child{border-bottom:none}
+.app-summary code{background:var(--bg-3); color:var(--text); padding:2px 8px; border-radius:4px; font-size:12px}
+
+/* STATS */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin:32px 0}
+.stat{background:var(--bg-2); border:1px solid var(--line); border-radius:10px; padding:22px; text-align:center}
+.stat .num{font-size:38px; font-weight:900; color:var(--gold); line-height:1}
+.stat .lbl{font-size:13px; color:var(--text-mute); margin-top:6px}
+
+/* FOOTER */
+footer{margin-top:64px; padding-top:32px; border-top:1px solid var(--line); color:var(--text-mute); font-size:13px; text-align:center}
+
+@media print{
+  body{background:#fff; color:#000}
+  header,.cut,.timeline,.app-summary,.script-block,.stat{background:#fff !important; color:#000 !important; border-color:#ccc !important}
+  .cut-info h3{color:#b88a00 !important}
+  .vo{background:#fafafa !important; color:#000 !important}
+}
+@media (max-width:1024px){
+  .cut{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="tag">PART 3 · GROWTH</div>
+  <h1>세 번째 — <span class="gold">가장 중요한 것</span><br>성장 · 가능성 · <span class="red">믿음</span></h1>
+  <p class="subtitle">평생 안 읽던 사람이 책을 읽기 시작하면 벌어지는 일 · 3편 컷별 적용 가이드. 캡션 라인별 비트 매핑, 시간 할당, 보이스오버 정렬, 모션·트랜지션 가이드를 한 페이지에 통합 정리했습니다.</p>
+  <div class="meta">
+    <span class="meta-chip">총 러닝타임 <strong>약 5:30</strong></span>
+    <span class="meta-chip">섹션 <strong>10개 (A~J)</strong></span>
+    <span class="meta-chip">컷 <strong>35개</strong></span>
+    <span class="meta-chip">완성 이미지 <strong>51장</strong></span>
+    <span class="meta-chip">화면비 <strong>16:9 / 1920×1080</strong></span>
+    <span class="meta-chip">팔레트 <strong>다크 · 골드 · 레드 · 그린</strong></span>
+  </div>
+</header>
+
+<!-- TIMELINE BAR -->
+<div class="timeline">
+  <div class="timeline-title">전체 타임라인 (5:30)</div>
+  <div class="timeline-bar">
+    <div class="tl-seg tl-A"><div class="tl-id">A</div><div class="tl-label">도입</div></div>
+    <div class="tl-seg tl-B"><div class="tl-id">B</div><div class="tl-label">자기고백</div></div>
+    <div class="tl-seg tl-C"><div class="tl-id">C</div><div class="tl-label">시그니처</div></div>
+    <div class="tl-seg tl-D"><div class="tl-id">D</div><div class="tl-label">10년비교</div></div>
+    <div class="tl-seg tl-E"><div class="tl-id">E</div><div class="tl-label">뇌과학</div></div>
+    <div class="tl-seg tl-F"><div class="tl-id">F</div><div class="tl-label">결승선</div></div>
+    <div class="tl-seg tl-G"><div class="tl-id">G</div><div class="tl-label">매일실천</div></div>
+    <div class="tl-seg tl-H"><div class="tl-id">H</div><div class="tl-label">변화정리</div></div>
+    <div class="tl-seg tl-I"><div class="tl-id">I</div><div class="tl-label">위로호명</div></div>
+    <div class="tl-seg tl-J"><div class="tl-id">J</div><div class="tl-label">CTA</div></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="num">35</div><div class="lbl">기획 컷</div></div>
+  <div class="stat"><div class="num">51</div><div class="lbl">생성 이미지</div></div>
+  <div class="stat"><div class="num">10</div><div class="lbl">섹션</div></div>
+  <div class="stat"><div class="num">5:30</div><div class="lbl">러닝타임</div></div>
+</div>
+
+<!-- ===================== SECTION A ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2><span style="color:#7BA7E8">A.</span> 도입부 — 세 번째, 가장 중요한 것</h2>
+      <div class="stitle">3가지 약속의 마지막 챕터 진입, 진정성 강조</div>
+    </div>
+    <div class="time">0:00 — 0:25</div>
+  </div>
+  <div class="section-intent"><strong>의도:</strong> 1·2편을 거쳐온 시청자에게 "이번이 가장 중요하다"는 톤을 만들고, "일반론이 아닌 내 진짜 이야기"라는 진정성 선언으로 다음 자기고백으로 부드럽게 연결.</div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_19.png" alt="챕터 타이틀"><span class="badge">CUT 03-01</span><span class="star">★ CHAPTER</span></div>
+    <div class="cut-info">
+      <h3>챕터 타이틀 <span class="id">03-01</span><span class="duration">0:00 – 0:10 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"세 번째 — 가장 중요한 거예요. 스스로의 성장과 가능성, 그리고 그에 대한 믿음."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">페이드 인 + 골드 라인 좌→우 그어짐</span></div>
+          <div><span class="k">키프레임</span><span class="v">"가장 중요한 것" 약간 확대 (1.0→1.05)</span></div>
+          <div><span class="k">퇴장</span><span class="v">크로스 디졸브 (0.4s) → 새싹 컷</span></div>
+          <div><span class="k">사운드</span><span class="v">묵직한 키 톤 + 약한 리버브</span></div>
+        </div>
+      </div>
+      <div class="tip"><strong>TIP:</strong> 1·2편 챕터 카드와 디자인 통일. 좌측 세로 ⋮⋮• 점 3개 중 마지막만 빛남 → "이게 마지막 약속" 시각화</div>
+      <div class="files"><code>chatgpt_3pyeon_full_19.png</code></div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="cut_03-02_seedling_sprout_A.png" alt="새싹"><span class="badge">CUT 03-02</span></div>
+    <div class="cut-info">
+      <h3>새싹 — 성장 메타포 <span class="id">03-02</span><span class="duration">0:10 – 0:20 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"이 부분이 저한테 있어서는 진짜로 가장 중요한 부분이라고 생각해요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">새싹 줄기 미세 흔들림 (대기 효과)</span></div>
+          <div><span class="k">카메라</span><span class="v">슬로우 줌인 (1.0→1.08, 8s)</span></div>
+          <div><span class="k">파티클</span><span class="v">먼지/포자 위로 흩날리기</span></div>
+          <div><span class="k">컬러</span><span class="v">상단 골드 빛 살짝 강조</span></div>
+        </div>
+      </div>
+      <div class="tip"><strong>TIP:</strong> A·B 두 종 중 더 강한 빛이 들어온 컷 선택. 너무 빛이 강하면 B(은은한 톤) 사용</div>
+      <div class="files"><code>cut_03-02_seedling_sprout_A.png</code> <code>cut_03-02_seedling_sprout_B.png</code></div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_19.png" alt="진정성"><span class="badge">CUT 03-01c</span></div>
+    <div class="cut-info">
+      <h3>진정성 선언 (자막 강조) <span class="id">03-01c</span><span class="duration">0:20 – 0:25 · 5초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"이건 일반론이 아니라 제 진짜 이야기거든요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">자막</span><span class="v">"제 진짜 이야기" 골드 컬러 강조 페이드인</span></div>
+          <div><span class="k">진입</span><span class="v">컷 03-02 위에 자막 오버레이</span></div>
+          <div><span class="k">퇴장</span><span class="v">자막 페이드 아웃 → 03-03 디졸브</span></div>
+          <div><span class="k">사운드</span><span class="v">화자 호흡 살짝 들리는 정도</span></div>
+        </div>
+      </div>
+      <div class="tip"><strong>TIP:</strong> 별도 컷 없이 03-02 위에 텍스트만 얹어도 OK. 시청자 몰입 유지</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION B ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2><span style="color:#C77BB0">B.</span> 자기 고백 — 5년, 그리고 잘못된 선택들</h2>
+      <div class="stitle">화자의 개인 서사. 진정성으로 시청자를 끌어들임</div>
+    </div>
+    <div class="time">0:25 — 0:55</div>
+  </div>
+  <div class="section-intent"><strong>의도:</strong> "마흔, 책 읽은 지 5년, 잘못된 선택, 인생 밑바닥" — 자기 노출의 코어. 이 섹션이 진심으로 닿아야 다음 시그니처 카드("그럼에도 불구하고")가 폭발한다.</div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_extra_05.png" onerror="this.src='chatgpt_3pyeon_full_03.png'" alt="5년 일기"><span class="badge">CUT 03-03</span></div>
+    <div class="cut-info">
+      <h3>5년 책 일기 <span class="id">03-03</span><span class="duration">0:25 – 0:40 · 15초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"이제 마흔을 바라보는 나이에, 저는 책을 읽은 지 한 5년 정도밖에 안 됐어요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">노트 위 손글씨가 적히는 라이브 모션 (가능 시)</span></div>
+          <div><span class="k">카메라</span><span class="v">위에서 아래로 미세 팬 (1.0→0.95 줌 아웃)</span></div>
+          <div><span class="k">자막</span><span class="v">우측 상단 "5년" 골드 텍스트 페이드인</span></div>
+          <div><span class="k">컬러</span><span class="v">웜 톤 보강, 종이 텍스처 살짝 강조</span></div>
+        </div>
+      </div>
+      <div class="files"><code>chatgpt_3pyeon_extra_05.png</code> (5년 동안... 손글씨) <code>chatgpt_3pyeon_full_03.png</code></div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="cut_03-04_well_bottom_hope.png" alt="인생 밑바닥"><span class="badge">CUT 03-04</span></div>
+    <div class="cut-info">
+      <h3>인생 밑바닥 — 깊은 우물 <span class="id">03-04</span><span class="duration">0:40 – 0:55 · 15초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"과거에 제 잘못된 선택들로 인해서 매우 좋지 않아요. 정말 인생에서 가장 밑바닥이죠."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">크로스 디졸브 (0.6s)</span></div>
+          <div><span class="k">카메라</span><span class="v">슬로우 줌아웃 (1.0→0.85, 12s) — 무력감</span></div>
+          <div><span class="k">사운드</span><span class="v">저음 드론, 약한 메아리</span></div>
+          <div><span class="k">자막</span><span class="v">없음 (이미지 자체로 충분)</span></div>
+        </div>
+      </div>
+      <div class="tip"><strong>TIP:</strong> 인물 실루엣은 작게 유지, 상단 빛만 강조. 음성이 "밑바닥" 단어를 누를 때 컷 최저점으로 줌아웃 도착</div>
+      <div class="files"><code>cut_03-04_well_bottom_hope.png</code> <code>chatgpt_3pyeon_full_17.png</code> <code>chatgpt_3pyeon_full_18.png</code></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION C ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2><span style="color:var(--gold)">C.</span> 시그니처 — 그럼에도 불구하고</h2>
+      <div class="stitle">채널 시그니처 카드 + 미래 약속</div>
+    </div>
+    <div class="time">0:55 — 1:25</div>
+  </div>
+  <div class="section-intent"><strong>의도:</strong> 채널 시그니처 카피의 결정타. 음성이 "그럼에도 불구하고"를 누르는 순간 카드가 등장. 이후 "미래가 기대되는 삶" 메시지를 길의 비주얼로 끌고 간다.</div>
+
+  <div class="cut signature">
+    <div class="cut-img"><img src="cut_03-05_signature_geuromedo.png" alt="그럼에도 불구하고"><span class="badge">CUT 03-05</span><span class="star">★ 시그니처</span></div>
+    <div class="cut-info">
+      <h3>그럼에도 불구하고 — 시그니처 카드 <span class="id">03-05</span><span class="duration">0:55 – 1:05 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"그럼에도 불구하고 — 저는 과거의 인생을 통틀어서 지금이 가장 미래가 기대되는 삶을 살고 있어요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">암전(0.3s) → 골드 라인 좌→우 그어짐(0.5s)</span></div>
+          <div><span class="k">키프레임</span><span class="v">"불구하고" 텍스트 레드 글로우 펄스 (2회)</span></div>
+          <div><span class="k">사운드</span><span class="v">키 톤 임팩트 + 깊은 베이스 펀치</span></div>
+          <div><span class="k">퇴장</span><span class="v">화이트 플래시 → 다음 컷</span></div>
+        </div>
+      </div>
+      <div class="tip"><strong>★ 마스터 자산:</strong> 모든 영상에서 재사용 가능한 채널 시그니처. v1(원본 클린) · v2(레드 글로우) · v3(드라마틱) 중 선택 — 본 영상에서는 v1 권장</div>
+      <div class="files"><code>cut_03-05_signature_geuromedo.png</code> <code>_v2.png</code> <code>_v3.png</code></div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_extra_04.png" onerror="this.src='chatgpt_3pyeon_full_07.png'" alt="미래 상승 그래프"><span class="badge">CUT 03-06</span></div>
+    <div class="cut-info">
+      <h3>미래가 기대되는 삶 — 상승 그래프 <span class="id">03-06</span><span class="duration">1:05 – 1:15 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"왜냐하면 이렇게 삶을 살아가다 보면 제 미래는 좋아질 수밖에 없을 테니까요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">"현재" 점에서 골드 곡선 우상향 자라남 (3s)</span></div>
+          <div><span class="k">자막</span><span class="v">"+ 10년 뒤" 골드 라벨 끝점에 도착하면 펄스</span></div>
+          <div><span class="k">카메라</span><span class="v">곡선을 따라 부드러운 패럴랙스</span></div>
+          <div><span class="k">사운드</span><span class="v">상승하는 라이저 톤</span></div>
+        </div>
+      </div>
+      <div class="files"><code>chatgpt_3pyeon_extra_04.png</code> (상승 그래프) <code>chatgpt_3pyeon_full_07.png</code></div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_20.png" alt="길과 발걸음"><span class="badge">CUT 03-06b</span></div>
+    <div class="cut-info">
+      <h3>미래로 향하는 길 (대안) <span class="id">03-06b</span><span class="duration">1:15 – 1:25 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"제 미래는 좋아질 수밖에 없을 테니까요." (반복 강조)</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">카메라</span><span class="v">길 따라 천천히 전진 (자동 트래킹)</span></div>
+          <div><span class="k">키프레임</span><span class="v">책 발판 하나씩 빛 켜짐 (왼→오)</span></div>
+          <div><span class="k">컬러</span><span class="v">좌측 다크블루 → 우측 골드 그라데이션 강조</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION D ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2><span style="color:#FF8FA3">D.</span> 10년 비교 — 추월의 약속</h2>
+      <div class="stitle">결정타 인포그래픽. 영상 전체에서 가장 임팩트 강한 약속 컷</div>
+    </div>
+    <div class="time">1:25 — 1:55</div>
+  </div>
+  <div class="section-intent"><strong>의도:</strong> "저보다 똑똑한 분도 멈춰 있다면 10년 뒤 따라잡힌다" — 채널의 핵심 약속. 좌측(지금)과 우측(10년 뒤)을 강하게 대비.</div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_extra_01.png" onerror="this.src='chatgpt_3pyeon_full_07.png'" alt="똑똑한 군중"><span class="badge">CUT 03-07</span></div>
+    <div class="cut-info">
+      <h3>똑똑한 분들 — 군중 비교 <span class="id">03-07</span><span class="duration">1:25 – 1:35 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"지금 시점에서 책을 한 권도 안 읽은 분이 저보다 똑똑하고 대단한 분들은 수도 없이 많죠."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">군중 실루엣들이 동시에 약간 흔들림 (대기)</span></div>
+          <div><span class="k">자막</span><span class="v">"수도 없이 많죠" 자막 우측에 페이드인</span></div>
+          <div><span class="k">컬러</span><span class="v">군중은 그레이, 우측 외로운 인물은 골드 라이트</span></div>
+        </div>
+      </div>
+      <div class="tip"><strong>TIP:</strong> 화자의 겸손함 — 시청자에게 "나도 너희와 같은 입장이야" 신호 보내기</div>
+    </div>
+  </div>
+
+  <div class="cut signature">
+    <div class="cut-img"><img src="cut_03-08_overtake_10years.png" alt="10년 추월"><span class="badge">CUT 03-08</span><span class="star">★ 결정타</span></div>
+    <div class="cut-info">
+      <h3>10년 뒤 추월 <span class="id">03-08</span><span class="duration">1:35 – 1:55 · 20초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"하지만 그분이 책을 단 한 권도 안 읽는다면, 제가 10년 뒤에는 그분을 앞설 수 있다는 것은 저는 확실하다고 생각해요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">"지금" 좌측 등장 → "+10년" 화살표 그어짐 → "10년 뒤" 우측 등장</span></div>
+          <div><span class="k">키프레임</span><span class="v">우측 인물 점점 커짐(0.7→1.0), 책 발판 빛남 트레일</span></div>
+          <div><span class="k">자막</span><span class="v">"확실하다" 골드 컬러 임팩트 자막</span></div>
+          <div><span class="k">사운드</span><span class="v">"+10년" 표시 시 키 톤 임팩트</span></div>
+        </div>
+      </div>
+      <div class="tip"><strong>★ 핵심 컷:</strong> 영상 전체에서 가장 길게(20초) 머무는 컷. 자막+모션이 음성과 정밀하게 동기화돼야 효과 극대화</div>
+      <div class="files"><code>cut_03-08_overtake_10years.png</code></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION E ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2><span style="color:#7BD7C5">E.</span> 뇌과학 코어 — 뇌는 근육이다</h2>
+      <div class="stitle">왜 추월이 가능한지의 근거. 뇌과학으로 약속 강화</div>
+    </div>
+    <div class="time">1:55 — 2:50</div>
+  </div>
+  <div class="section-intent"><strong>의도:</strong> "뇌=근육" 핵심 비유 → 통념 반전 → 80대 노인 dip 회복 → 신경 연결 → 위축 → 보디빌더 비유. 약속의 과학적 백업 섹션.</div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="cut_03-09_brain_muscle_A.png" alt="뇌=근육"><span class="badge">CUT 03-09</span><span class="star">★ 핵심 비유</span></div>
+    <div class="cut-info">
+      <h3>뇌는 근육과 똑같다 <span class="id">03-09</span><span class="duration">1:55 – 2:05 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"왜냐하면, 뇌는 근육과 똑같기 때문이죠."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">좌측 뇌 + 우측 근육 동시 페이드인, 중앙 "=" 뒤늦게 펄스</span></div>
+          <div><span class="k">키프레임</span><span class="v">뇌의 신경 라이트 천천히 깜박임</span></div>
+          <div><span class="k">자막</span><span class="v">"뇌 = 근육" 큰 자막 강조</span></div>
+        </div>
+      </div>
+      <div class="files"><code>cut_03-09_brain_muscle_A~D.png</code> (4종 변형)</div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_22.png" alt="뇌 통념"><span class="badge">CUT 03-10</span></div>
+    <div class="cut-info">
+      <h3>통념 반전 — 머리가 굳는다? <span class="id">03-10</span><span class="duration">2:05 – 2:15 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"우리는 흔히 나이가 들면 머리가 굳는다고 말하지만, 현대의 뇌과학은 이걸 정면으로 뒤집어요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">"굳는다?" 자막에 큰 X자 그어짐 (애니메이션)</span></div>
+          <div><span class="k">전환</span><span class="v">잠시 화면 진동 → 03-10c로 디졸브</span></div>
+          <div><span class="k">컬러</span><span class="v">차가운 블루 → 골드로 변화</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_23.png" alt="평생 자라남"><span class="badge">CUT 03-10c</span></div>
+    <div class="cut-info">
+      <h3>쓰는 만큼 평생 자라난다 <span class="id">03-10c</span><span class="duration">2:15 – 2:25 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"뇌는 늙습니다. 하지만 쓰는 만큼 평생 자라나는 유일한 장기입니다."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">골드 신경 줄기가 뇌 위로 뻗어나가는 그로우 애니메이션 (5s)</span></div>
+          <div><span class="k">자막</span><span class="v">"평생 자라나는 유일한 장기" 골드 강조</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut signature">
+    <div class="cut-img"><img src="cut_03-11_elderly_learning_hands.png" alt="80대 노인 학습"><span class="badge">CUT 03-11</span><span class="star">★ dip 회복</span></div>
+    <div class="cut-info">
+      <h3>80대 노인의 새 언어 학습 <span class="id">03-11</span><span class="duration">2:25 – 2:35 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"80대 노인이 새로운 언어를 배우면 그 영역의 뇌가 실제로 두꺼워지고, 책을 읽고 사유하는 사람의 뇌는 노년기에도 새로운 신경 연결이 만들어진다는 사실이 이미 밝혀졌어요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">카메라</span><span class="v">아주 느린 줌인 (1.0→1.05, 10s)</span></div>
+          <div><span class="k">컬러</span><span class="v">웜 톤 유지, 빛 강조 살짝</span></div>
+          <div><span class="k">사운드</span><span class="v">차분한 페이지 넘김 소리 미세 추가</span></div>
+        </div>
+      </div>
+      <div class="tip"><strong>★ dip 회복 컷:</strong> 영상 중반 시청자 이탈을 막는 강력한 비주얼. 페이스리스 노인 손 + 학습지가 정서적 임팩트</div>
+      <div class="files"><code>cut_03-11_elderly_learning_hands.png</code></div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="cut_03-13_synaptic_connection.png" alt="신경 연결"><span class="badge">CUT 03-13</span></div>
+    <div class="cut-info">
+      <h3>새 신경 연결 — 시냅스 <span class="id">03-13</span><span class="duration">2:35 – 2:42 · 7초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"노년기에도 새로운 신경 연결이 만들어진다는 사실이..."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">신경 가지 끝에서 새 시냅스 빛 펄스 (반복)</span></div>
+          <div><span class="k">파티클</span><span class="v">골드 입자 흩날리기</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_22.png" alt="뇌 위축"><span class="badge">CUT 03-14</span></div>
+    <div class="cut-info">
+      <h3>쓰지 않는 뇌는 시들어요 <span class="id">03-14</span><span class="duration">2:42 – 2:50 · 8초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"반대로 쓰지 않는 뇌는 빠르게 시들어요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">뇌 신경이 점점 끊기고 회색으로 시들어가는 모션 (5s)</span></div>
+          <div><span class="k">자막</span><span class="v">"위축" 레드 자막 페이드인</span></div>
+          <div><span class="k">사운드</span><span class="v">낮은 디스토션 톤</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_27.png" alt="보디빌더 단련·멈춤"><span class="badge">CUT 03-15</span></div>
+    <div class="cut-info">
+      <h3>보디빌더 근육 위축 비교 <span class="id">03-15</span><span class="duration">사용 — 03-14와 결합</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"마치 운동을 멈춘 보디빌더의 근육이 빠지듯이요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">좌측 단련 → 우측 위축 시퀀셜 페이드</span></div>
+          <div><span class="k">키프레임</span><span class="v">화살표가 좌→우 그어짐</span></div>
+        </div>
+      </div>
+      <div class="tip"><strong>TIP:</strong> 03-14(뇌 위축) 직후 0.3s 디졸브로 보디빌더 비유 컷 → 비유 강화</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION F ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2><span style="color:#F4A261">F.</span> 출발선 vs 결승선 — 결정타 선언</h2>
+      <div class="stitle">"현재의 똑똑함은 출발선일 뿐" — 영상의 클라이맥스</div>
+    </div>
+    <div class="time">2:50 — 3:20</div>
+  </div>
+  <div class="section-intent"><strong>의도:</strong> 약속의 결정타. "출발선·결승선"이라는 명료한 메타포로 시청자가 "지금 시작하면 이길 수 있다"는 확신을 가지게 한다.</div>
+
+  <div class="cut signature">
+    <div class="cut-img"><img src="cut_03-16_start_finish_track.png" alt="출발선 vs 결승선"><span class="badge">CUT 03-16</span><span class="star">★ 클라이맥스</span></div>
+    <div class="cut-info">
+      <h3>출발선 vs 결승선 — 책 발판 트랙 <span class="id">03-16</span><span class="duration">2:50 – 3:05 · 15초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"현재의 똑똑함은 출발선일 뿐이고, 결승선은 누가 더 오래 뇌를 단련하느냐가 결정한다."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">"출발선" 좌측 등장 → 책 발판 하나씩 빛남 → "결승선" 우측 도착</span></div>
+          <div><span class="k">키프레임</span><span class="v">결승선 골드 테이프 펄스 + 빛 흩날림</span></div>
+          <div><span class="k">자막</span><span class="v">"출발선일 뿐" / "결승선" 강조 자막</span></div>
+        </div>
+      </div>
+      <div class="files"><code>cut_03-16_start_finish_track.png</code> <code>_v2.png</code></div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_extra_01.png" onerror="this.src='cut_03-19_conveyor_backward_A.png'" alt="추월"><span class="badge">CUT 03-17</span></div>
+    <div class="cut-info">
+      <h3>멈춘 사람을 추월 <span class="id">03-17</span><span class="duration">3:05 – 3:12 · 7초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"지금 저보다 앞서 있는 사람도 멈춰 있다면 결국 저한테 따라잡힐 거예요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">우측 골드 실루엣이 좌측 그레이 실루엣을 동적으로 통과</span></div>
+          <div><span class="k">모션블러</span><span class="v">우측 인물에 강한 모션 블러</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_20.png" alt="매일 한 걸음"><span class="badge">CUT 03-18</span></div>
+    <div class="cut-info">
+      <h3>매일 한 걸음씩 <span class="id">03-18</span><span class="duration">3:12 – 3:16 · 4초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"책을 읽는 사람은 느려 보이지만 매일 한 걸음씩 한 걸음씩 앞으로 가고 있고..."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">발이 책 발판 위로 step (반복 2회)</span></div>
+          <div><span class="k">사운드</span><span class="v">한 걸음 소리 약하게</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="cut_03-19_conveyor_backward_A.png" alt="뒤로 밀려남"><span class="badge">CUT 03-19</span></div>
+    <div class="cut-info">
+      <h3>뒤로 밀려나고 있어요 <span class="id">03-19</span><span class="duration">3:16 – 3:20 · 4초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"안 읽는 사람은 그 자리에 서 있는 게 아니라 자기도 모르게 뒤로 밀려나고 있는 거죠."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">컨베이어 벨트 표면 좌→우 모션, 인물은 정지</span></div>
+          <div><span class="k">자막</span><span class="v">"뒤로 밀림" 레드 화살표 펄스</span></div>
+        </div>
+      </div>
+      <div class="files"><code>cut_03-19_conveyor_backward_A.png</code> <code>_B.png</code></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION G ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2><span style="color:#90BE6D">G.</span> 매일 실천 — 하루 한 단어</h2>
+      <div class="stitle">실행 가능한 최소 단위 제시. 부담 해소</div>
+    </div>
+    <div class="time">3:20 — 3:55</div>
+  </div>
+  <div class="section-intent"><strong>의도:</strong> "매일 한 권 다 읽으라는 게 아니다 — 한 단어, 한 문장, 한 페이지도 OK". 시청자가 "나도 할 수 있다"는 확신.</div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_20.png" alt="하루 한 단어"><span class="badge">CUT 03-20</span></div>
+    <div class="cut-info">
+      <h3>하루 한 단어 · 한 문장 · 한 페이지 <span class="id">03-20</span><span class="duration">3:20 – 3:35 · 15초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"매일 한 권을 다 읽으라는 게 아닙니다. 하루에 단어 하나, 하루에 한 문장, 하루에 한 페이지여도 상관없어요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">노란 → 그린 → 골드 포스트잇이 순차 표시</span></div>
+          <div><span class="k">자막</span><span class="v">"한 단어" "한 문장" "한 페이지" 순차 등장</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_21.png" alt="365"><span class="badge">CUT 03-21</span></div>
+    <div class="cut-info">
+      <h3>1년 365개의 새 연결 <span class="id">03-21</span><span class="duration">3:35 – 3:42 · 7초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"그게 1년이면 365개의 새로운 단어, 새로운 프레임, 새로운 신경이 연결됩니다."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">원 둘레 365개 점이 시계방향으로 하나씩 빛남 (5s)</span></div>
+          <div><span class="k">자막</span><span class="v">중앙 "365" 골드 카운트업 (1→365)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_28.png" alt="5년 그래프"><span class="badge">CUT 03-22</span></div>
+    <div class="cut-info">
+      <h3>5년이 지나면 — 격차 그래프 <span class="id">03-22</span><span class="duration">3:42 – 3:55 · 13초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"5년이 지나면 그 차이는 같은 자리에서 출발한 사람과 비교가 안 될 만큼 벌어져 있을 거예요. 제가 지금 그 자리에 와 있습니다."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">두 곡선이 출발점에서 분기되며 자라남 (5s)</span></div>
+          <div><span class="k">자막</span><span class="v">"제가 지금 여기" 화살표 끝점에 정착</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION H ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2><span style="color:#A78BFA">H.</span> 5년 변화 정리 — 같은 세상, 바뀐 나</h2>
+      <div class="stitle">실제 변화의 정리. 시야·사고·성장 3축</div>
+    </div>
+    <div class="time">3:55 — 4:25</div>
+  </div>
+  <div class="section-intent"><strong>의도:</strong> 화자가 5년간 무엇이 바뀌었는지 구체 정리. "세상이 아니라 내가 바뀌었다"로 마무리.</div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="cut_03-23_rainbow_expansion.png" alt="시야 7색 → 수백 색"><span class="badge">CUT 03-23</span></div>
+    <div class="cut-info">
+      <h3>시야 — 7색 → 수백 색 <span class="id">03-23</span><span class="duration">3:55 – 4:03 · 8초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"시야가 일곱 가지 색에서 수백 가지 색으로 넓어졌고..."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">좌측 7색 → 화살표 → 우측 수백색 폭발 (3s)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_15.png" alt="더닝 크루거"><span class="badge">CUT 03-24</span></div>
+    <div class="cut-info">
+      <h3>사고 — 우매함의 봉우리 → 절망의 계곡 <span class="id">03-24</span><span class="duration">4:03 – 4:13 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"사고가 우매함의 봉우리에서 절망의 계곡으로 내려와 깊어졌고..."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">곡선 위 인물이 봉우리→계곡으로 천천히 이동 (5s)</span></div>
+          <div><span class="k">자막</span><span class="v">단계별 라벨 순차 페이드인</span></div>
+        </div>
+      </div>
+      <div class="files"><code>chatgpt_3pyeon_full_14.png</code> (디테일 버전) <code>full_15.png</code> (클린)</div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_29.png" alt="같은 세상 바뀐 나"><span class="badge">CUT 03-25</span></div>
+    <div class="cut-info">
+      <h3>같은 세상, 바뀐 나 <span class="id">03-25</span><span class="duration">4:13 – 4:25 · 12초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"세상이 바뀐 게 아니라 같은 세상을 바라보는 제가 바뀐 겁니다."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">좌측(흐릿) 보유, 우측(생생)이 천천히 발광</span></div>
+          <div><span class="k">자막</span><span class="v">"내가 바뀐 겁니다" 골드 자막</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION I ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2><span style="color:#FFB4A2">I.</span> 위로 + 호명 — 누구든 지금 시작해도 괜찮다</h2>
+      <div class="stitle">시청자 직접 호명. 안심시키고 행동 유도</div>
+    </div>
+    <div class="time">4:25 — 5:00</div>
+  </div>
+  <div class="section-intent"><strong>의도:</strong> "30·40대도, 처음엔 안 읽혀도 괜찮다" → 3그룹 호명으로 시청자 소속감 부여.</div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_30.png" alt="30·40대 시니어"><span class="badge">CUT 03-26</span></div>
+    <div class="cut-info">
+      <h3>30·40대 · 시니어 누구든 OK <span class="id">03-26</span><span class="duration">4:25 – 4:35 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"30~40대 혹은 시니어 분들이라도 지금부터 시작해도 괜찮습니다."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">좌→중→우 세 실루엣 순차 페이드인</span></div>
+          <div><span class="k">자막</span><span class="v">"30대" "40대" "시니어" 라벨 동시 등장</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_31.png" alt="처음엔 안 읽혀요"><span class="badge">CUT 03-27</span></div>
+    <div class="cut-info">
+      <h3>처음에는 안 읽혀요, 괜찮아요 <span class="id">03-27</span><span class="duration">4:35 – 4:42 · 7초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"처음에는 안 읽혀요. 괜찮아요. 그게 정상이거든요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">자막</span><span class="v">"괜찮아요" 그린(#06D6A0) 자막 강조</span></div>
+          <div><span class="k">사운드</span><span class="v">부드러운 페이지 넘김 소리</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_32.png" alt="단어 물방울"><span class="badge">CUT 03-28</span></div>
+    <div class="cut-info">
+      <h3>단어·프레임·신경 — 천천히 스며들기 <span class="id">03-28</span><span class="duration">4:42 – 4:50 · 8초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"단어도 프레임도 신경도 연결도 다 천천히 들어가는 거니까요."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">세 물방울이 순차로 떨어지며 잔물결 (1, 2, 3...)</span></div>
+          <div><span class="k">사운드</span><span class="v">물방울 떨어지는 소리 ×3</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut signature">
+    <div class="cut-img"><img src="cut_03-29_three_reader_groups.png" alt="3그룹 호명"><span class="badge">CUT 03-29</span><span class="star">★ 호명</span></div>
+    <div class="cut-info">
+      <h3>3그룹 호명 — 읽으려는·읽고 있는·더 읽고 싶은 분 <span class="id">03-29</span><span class="duration">4:50 – 5:00 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"책을 읽으려는 분, 읽고 계신 분, 더 읽고 싶으신 분."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">3 카드 시퀀셜 등장 (각 음성 발화 타이밍)</span></div>
+          <div><span class="k">자막</span><span class="v">각 카드 라벨 골드 텍스트</span></div>
+          <div><span class="k">사운드</span><span class="v">각 호명마다 부드러운 톤</span></div>
+        </div>
+      </div>
+      <div class="tip"><strong>★ 시청자 소속감:</strong> 3그룹 호명은 영상의 정서적 클로저. 시청자가 자기 자신을 발견하게 만드는 컷</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION J ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2><span style="color:var(--gold)">J.</span> 마무리 + CTA</h2>
+      <div class="stitle">채널 약속 + 다음 영상 예고 + 구독·좋아요</div>
+    </div>
+    <div class="time">5:00 — 5:30</div>
+  </div>
+  <div class="section-intent"><strong>의도:</strong> "한 장씩 넘어가기 위해 이 채널을 만듭니다" — 채널 약속 → 다음 영상 티저 → CTA. 따뜻하게 마무리.</div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_extra_02.png" onerror="this.src='chatgpt_3pyeon_full_07.png'" alt="책장 넘기기"><span class="badge">CUT 03-30</span></div>
+    <div class="cut-info">
+      <h3>한 장씩 넘어가기 <span class="id">03-30</span><span class="duration">5:00 – 5:10 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"이 채널은 여러분들과 한 장씩 넘어가기 위해 만듭니다."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">책 페이지 한 장이 우→좌로 천천히 넘어감 (3s)</span></div>
+          <div><span class="k">파티클</span><span class="v">먼지 입자 살짝 흩날림</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_extra_03.png" onerror="this.src='chatgpt_3pyeon_full_19.png'" alt="다음 영상 예고"><span class="badge">CUT 03-31</span></div>
+    <div class="cut-info">
+      <h3>다음 영상 — 책을 읽는 방법 <span class="id">03-31</span><span class="duration">5:10 – 5:20 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"다음 영상은 책을 읽는 방법 이야기를 해 보려고 하니..."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">진입</span><span class="v">"NEXT VIDEO" 작은 캡스 → 메인 타이틀 페이드인</span></div>
+          <div><span class="k">키프레임</span><span class="v">물음표가 천천히 깜박</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cut">
+    <div class="cut-img"><img src="chatgpt_3pyeon_full_19.png" alt="구독·좋아요"><span class="badge">CUT 03-32</span></div>
+    <div class="cut-info">
+      <h3>구독 · 좋아요 — CTA <span class="id">03-32</span><span class="duration">5:20 – 5:30 · 10초</span></h3>
+      <div class="field"><div class="field-label">Voice-over</div><div class="vo">"구독과 좋아요 부탁드립니다."</div></div>
+      <div class="field"><div class="field-label">Motion</div>
+        <div class="motion-grid">
+          <div><span class="k">키프레임</span><span class="v">👍 아이콘 클릭 애니메이션 + 🔔 흔들림</span></div>
+          <div><span class="k">사운드</span><span class="v">부드러운 알림 톤</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== APPLICATION SUMMARY ===================== -->
+<div class="app-summary">
+  <h2>📋 적용 방식 — 전체 워크플로우</h2>
+  <ul>
+    <li><strong>편집 툴:</strong> CapCut 또는 Premiere Pro. 본 폴더의 PNG 파일을 16:9 타임라인에 배치</li>
+    <li><strong>컷 시퀀스:</strong> 위 섹션 A → J 순서대로 배열. 각 컷의 <code>duration</code> 필드를 기준으로 길이 조정</li>
+    <li><strong>보이스 정렬:</strong> 각 컷의 <code>Voice-over</code> 텍스트를 자막 트랙으로 추가, 음성 트랙과 타임코드 동기화</li>
+    <li><strong>모션 적용:</strong> <code>Motion</code> 필드의 키프레임을 CapCut의 "키프레임" 기능으로 구현 (위치·스케일·불투명도)</li>
+    <li><strong>트랜지션:</strong> 기본은 크로스 디졸브 0.3~0.6s. 시그니처(★) 컷 진입은 화이트 플래시 또는 키 톤 임팩트</li>
+    <li><strong>색상 일관성:</strong> 모든 자막은 골드(#FFD166), 강조 자막은 레드(#EF476F), 안심 자막은 그린(#06D6A0)</li>
+    <li><strong>★ 마스터 자산:</strong> 03-05(그럼에도 불구하고) 시그니처 카드는 모든 영상에서 재사용. 본 폴더의 v1/v2/v3 중 선택</li>
+    <li><strong>화면 안전 영역:</strong> 자막은 안전 영역 90% 안쪽. 모바일에서 잘리지 않도록 주의</li>
+    <li><strong>BGM:</strong> 차분한 피아노 또는 어쿠스틱 기타. 클라이맥스(03-08, 03-16)에서 볼륨 +3dB</li>
+    <li><strong>섬네일 출처:</strong> 03-05(시그니처) 또는 03-08(10년 추월) 컷 사용 권장</li>
+  </ul>
+</div>
+
+<div class="app-summary" style="border-color:var(--green)">
+  <h2 style="color:var(--green)">⚡ 빠른 컷 전환표 (편집자용)</h2>
+  <ul style="font-family:'Courier New',monospace; font-size:13px">
+    <li>00:00 — 03-01 챕터 타이틀 (10s)</li>
+    <li>00:10 — 03-02 새싹 (10s)</li>
+    <li>00:20 — 03-01c 진정성 자막 (5s)</li>
+    <li>00:25 — 03-03 5년 일기 (15s)</li>
+    <li>00:40 — 03-04 인생 밑바닥 (15s)</li>
+    <li>00:55 — <strong style="color:var(--gold)">03-05 그럼에도 불구하고 ★</strong> (10s)</li>
+    <li>01:05 — 03-06 상승 그래프 (10s)</li>
+    <li>01:15 — 03-06b 길 (10s)</li>
+    <li>01:25 — 03-07 똑똑한 군중 (10s)</li>
+    <li>01:35 — <strong style="color:var(--gold)">03-08 10년 추월 ★</strong> (20s)</li>
+    <li>01:55 — 03-09 뇌=근육 (10s)</li>
+    <li>02:05 — 03-10 통념 반전 (10s)</li>
+    <li>02:15 — 03-10c 평생 자라남 (10s)</li>
+    <li>02:25 — <strong style="color:var(--gold)">03-11 80대 노인 ★</strong> (10s)</li>
+    <li>02:35 — 03-13 신경 연결 (7s)</li>
+    <li>02:42 — 03-14 뇌 위축 (8s)</li>
+    <li>02:50 — <strong style="color:var(--gold)">03-16 출발선 vs 결승선 ★</strong> (15s)</li>
+    <li>03:05 — 03-17 추월 (7s)</li>
+    <li>03:12 — 03-18 매일 한 걸음 (4s)</li>
+    <li>03:16 — 03-19 뒤로 밀려남 (4s)</li>
+    <li>03:20 — 03-20 하루 한 단어 (15s)</li>
+    <li>03:35 — 03-21 365 (7s)</li>
+    <li>03:42 — 03-22 5년 그래프 (13s)</li>
+    <li>03:55 — 03-23 시야 확장 (8s)</li>
+    <li>04:03 — 03-24 더닝 크루거 (10s)</li>
+    <li>04:13 — 03-25 같은 세상 (12s)</li>
+    <li>04:25 — 03-26 3 연령 (10s)</li>
+    <li>04:35 — 03-27 처음엔 안 읽혀요 (7s)</li>
+    <li>04:42 — 03-28 단어 물방울 (8s)</li>
+    <li>04:50 — <strong style="color:var(--gold)">03-29 3그룹 호명 ★</strong> (10s)</li>
+    <li>05:00 — 03-30 한 장씩 (10s)</li>
+    <li>05:10 — 03-31 다음 영상 (10s)</li>
+    <li>05:20 — 03-32 CTA (10s)</li>
+    <li>05:30 — END</li>
+  </ul>
+</div>
+
+<footer>
+  3편 컷 적용 가이드 · 2026-05-27 작성 · 총 51 PNG / 35 컷 · 6 헬퍼 스크립트<br>
+  파일 경로: <code style="background:var(--bg-2); padding:3px 8px; border-radius:4px">C:\Dev\bizpt\대본\풀링컨텐츠\평생 안읽던 사람이 책을 읽기 시작하면 벌어지는 일\참조이미지\3편\</code>
+</footer>
+
+</div>
+</body>
+</html>

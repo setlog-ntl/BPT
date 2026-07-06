@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3편 자연 다큐 버전 — 컷별 적용 가이드</title>
+<style>
+:root{
+  --bg:#FAF7F2; --bg-2:#FFFFFF; --bg-3:#F0EBE2;
+  --line:#E5DDD0; --text:#2A2620; --text-mute:#7A6F60;
+  --warm:#C89B6C; --green:#7BA587; --rose:#D4856E; --gold:#B8956A;
+  --pretendard: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html,body{background:var(--bg); color:var(--text); font-family:var(--pretendard); line-height:1.7; font-size:15px; -webkit-font-smoothing:antialiased}
+a{color:var(--warm); text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1280px; margin:0 auto; padding:48px 28px 96px}
+
+header{padding:64px 0 56px; border-bottom:1px solid var(--line); margin-bottom:48px; text-align:center}
+.tag{display:inline-block; padding:6px 16px; background:var(--bg-2); border:1px solid var(--warm); color:var(--warm); border-radius:999px; font-size:12px; letter-spacing:2px; margin-bottom:22px; font-weight:600}
+h1{font-size:42px; font-weight:800; line-height:1.25; margin-bottom:16px; color:var(--text)}
+h1 .warm{color:var(--warm)}
+.subtitle{font-size:17px; color:var(--text-mute); max-width:720px; margin:0 auto 24px; line-height:1.7}
+.meta{display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; justify-content:center}
+.meta-chip{background:var(--bg-2); border:1px solid var(--line); padding:8px 16px; border-radius:6px; font-size:13px; color:var(--text-mute)}
+.meta-chip strong{color:var(--text); font-weight:700}
+
+.intro-note{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:28px; margin-bottom:48px; box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.intro-note h2{font-size:20px; margin-bottom:14px; color:var(--warm); font-weight:700}
+.intro-note p{font-size:15px; color:var(--text); margin-bottom:10px; line-height:1.75}
+.intro-note p strong{color:var(--text); font-weight:700}
+
+.comparison{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:48px}
+.comp-card{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:24px}
+.comp-card h3{font-size:15px; margin-bottom:14px; font-weight:700}
+.comp-card.dark h3{color:#5A4A3A}
+.comp-card.natural h3{color:var(--green)}
+.comp-card ul{list-style:none; padding-left:0}
+.comp-card li{padding:8px 0 8px 26px; position:relative; font-size:14px; color:var(--text); border-bottom:1px dotted var(--line)}
+.comp-card li:last-child{border-bottom:none}
+.comp-card.dark li::before{content:'■'; position:absolute; left:6px; color:#5A4A3A}
+.comp-card.natural li::before{content:'●'; position:absolute; left:6px; color:var(--green)}
+
+section{margin-bottom:64px}
+.section-head{display:flex; align-items:flex-end; justify-content:space-between; padding-bottom:14px; margin-bottom:28px; border-bottom:2px solid var(--warm)}
+.section-head h2{font-size:26px; font-weight:800}
+.section-head .stitle{color:var(--text-mute); font-size:13px}
+
+.grid{display:grid; grid-template-columns:1fr; gap:24px}
+
+.cut{display:grid; grid-template-columns:520px 1fr; gap:28px; background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:24px; transition:transform .2s ease, box-shadow .2s ease}
+.cut:hover{transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.cut-img{background:#000; border-radius:8px; overflow:hidden; aspect-ratio:16/9; position:relative}
+.cut-img img{width:100%; height:100%; object-fit:cover}
+.cut-img .badge{position:absolute; top:10px; left:10px; background:rgba(255,255,255,.92); border:1px solid var(--line); color:var(--text); padding:4px 10px; border-radius:5px; font-size:11px; font-weight:700; backdrop-filter:blur(8px)}
+
+.cut-info h3{font-size:19px; font-weight:800; margin-bottom:10px; color:var(--text)}
+.cut-info .file{font-family:'Courier New',monospace; font-size:12px; color:var(--text-mute); margin-bottom:14px}
+.field{margin-bottom:14px}
+.field-label{font-size:11px; letter-spacing:1.5px; color:var(--text-mute); text-transform:uppercase; font-weight:700; margin-bottom:5px}
+.field-content{font-size:14px; color:var(--text); line-height:1.65}
+.vo{background:#FAF7F2; border-left:3px solid var(--green); padding:10px 14px; border-radius:0 6px 6px 0; font-size:14px; color:var(--text); font-style:italic}
+.use-tag{display:inline-block; background:var(--bg-3); color:var(--text); padding:4px 12px; border-radius:14px; font-size:12px; margin:3px 4px 3px 0; font-weight:600}
+
+.bigblock{background:linear-gradient(180deg, var(--bg-2), var(--bg-3)); border:1px solid var(--warm); border-radius:14px; padding:32px; margin:48px 0}
+.bigblock h2{font-size:22px; margin-bottom:18px; color:var(--warm)}
+.bigblock ul{list-style:none; padding-left:0}
+.bigblock li{padding:12px 0 12px 28px; border-bottom:1px solid var(--line); position:relative; color:var(--text); font-size:14px; line-height:1.7}
+.bigblock li:last-child{border-bottom:none}
+.bigblock li::before{content:'✓'; position:absolute; left:6px; color:var(--green); font-weight:700; font-size:16px}
+.bigblock code{background:var(--bg); padding:2px 8px; border-radius:4px; font-size:12px; font-family:'Courier New',monospace}
+
+footer{margin-top:64px; padding-top:32px; border-top:1px solid var(--line); color:var(--text-mute); font-size:13px; text-align:center; line-height:1.8}
+
+@media (max-width:1024px){
+  .cut{grid-template-columns:1fr}
+  .comparison{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="tag">NATURAL · DOCUMENTARY · WARM</div>
+  <h1>3편 — <span class="warm">자연스러운 다큐 버전</span></h1>
+  <p class="subtitle">기존 다크·시그니처 카드 중심 컷에 더해, <strong>자연광·일상 공간·따뜻한 톤</strong>으로 시청자가 거부감 없이 자기 일상에 대입할 수 있는 20장의 보완 컷.</p>
+  <div class="meta">
+    <span class="meta-chip">컷 수 <strong>20장</strong></span>
+    <span class="meta-chip">스타일 <strong>다큐멘터리</strong></span>
+    <span class="meta-chip">조명 <strong>자연광</strong></span>
+    <span class="meta-chip">팔레트 <strong>크림 · 베이지 · 허니</strong></span>
+    <span class="meta-chip">화면비 <strong>16:9 1920×1080</strong></span>
+  </div>
+</header>
+
+<div class="intro-note">
+  <h2>🌿 왜 자연 버전인가?</h2>
+  <p>기존 다크 톤 · 페이스리스 실루엣 · 인포그래픽 중심 컷은 임팩트는 강하지만 일부 시청자에게 <strong>"인위적" "광고같다" "AI 생성티"</strong>가 날 수 있습니다. 자연 다큐 버전은 동일한 캡션 맥락을 유지하면서도 <strong>일상에서 본 듯한 따뜻한 사진</strong>으로 정서적 거부감을 낮추고 몰입을 높입니다.</p>
+  <p>두 버전은 <strong>대체</strong>가 아니라 <strong>병행</strong> 용도로 활용 가능합니다 — 시그니처 카드(03-05, 03-08, 03-16)는 다크 버전 유지, 자기고백·일상 비유·위로·CTA 섹션은 자연 버전 추천.</p>
+</div>
+
+<div class="comparison">
+  <div class="comp-card dark">
+    <h3>🌑 다크 시그니처 버전 (기존)</h3>
+    <ul>
+      <li>다크 배경 #0F1115 + 골드 #FFD166 임팩트</li>
+      <li>페이스리스 실루엣 (보편성)</li>
+      <li>인포그래픽·자막 카드 중심</li>
+      <li>강한 시각적 임팩트</li>
+      <li>시그니처 컷에 최적 (03-05, 03-08, 03-16, 03-29)</li>
+    </ul>
+  </div>
+  <div class="comp-card natural">
+    <h3>🌿 자연 다큐 버전 (신규)</h3>
+    <ul>
+      <li>크림·베이지·허니 톤 · 자연광</li>
+      <li>실제 손·책·창문·공간의 다큐 사진</li>
+      <li>편집 없이 그대로 인서트 가능</li>
+      <li>정서적 따뜻함, 거부감 낮음</li>
+      <li>자기고백·일상 비유·위로·CTA에 최적</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== INTRO/SELF-CONFESSION ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2>도입 + 자기 고백 (0:00 — 0:55)</h2>
+      <div class="stitle">캡션과 화자의 일상이 만나는 친밀한 다큐 컷</div>
+    </div>
+  </div>
+  <div class="grid">
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_01_cafe_book_morning.png" alt="아침 카페 책"><span class="badge">NATURAL 01</span></div>
+      <div class="cut-info">
+        <h3>아침 햇살 카페의 책</h3>
+        <div class="file">natural_01_cafe_book_morning.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-01 챕터 인트로 / 03-30 마무리 (재사용 가능)</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"세 번째 — 가장 중요한 거예요. 스스로의 성장과 가능성, 그리고 그에 대한 믿음."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">B-roll 인서트</span><span class="use-tag">슬로우 줌인</span><span class="use-tag">자막 오버레이</span> — 화자 음성과 5~10s 매칭</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_02_window_reader_silhouette.png" alt="창가 독서"><span class="badge">NATURAL 02</span></div>
+      <div class="cut-info">
+        <h3>창가의 독자 (자연 실루엣)</h3>
+        <div class="file">natural_02_window_reader_silhouette.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-01c "제 진짜 이야기" / 03-03 자기고백 시각화</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"이건 일반론이 아니라 제 진짜 이야기거든요."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">서서히 인물 등장</span><span class="use-tag">화자 보이스에 동기화</span> — 다크 페이스리스 컷의 따뜻한 대체</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_03_home_bookshelf.png" alt="홈 책장"><span class="badge">NATURAL 03</span></div>
+      <div class="cut-info">
+        <h3>5년의 흔적 — 홈 책장</h3>
+        <div class="file">natural_03_home_bookshelf.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-03 5년 책 일기 (대안 — 일기보다 책장 그 자체)</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"이제 마흔을 바라보는 나이에, 저는 책을 읽은 지 한 5년 정도밖에 안 됐어요."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">팬·줌</span><span class="use-tag">자막 "5년"</span> — 화자의 시간 경과를 따뜻하게 시각화</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_13_journal_dried_flowers.png" alt="일기장 + 드라이플라워"><span class="badge">NATURAL 13</span></div>
+      <div class="cut-info">
+        <h3>일기장 + 드라이플라워</h3>
+        <div class="file">natural_13_journal_dried_flowers.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-03b 손글씨 일기 디테일 / 03-04 과거 회상 (부드러운 톤)</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"과거에 제 잘못된 선택들로 인해서... 정말 인생에서 가장 밑바닥이죠."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">사색의 톤</span><span class="use-tag">팬·디테일 확대</span> — 우물 컷이 너무 강하다면 이 컷으로 대체</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== FUTURE/HOPE ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2>미래·희망 (0:55 — 1:55)</h2>
+      <div class="stitle">"그럼에도 불구하고" 이후 따뜻한 미래의 비주얼</div>
+    </div>
+  </div>
+  <div class="grid">
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_04_dawn_path_mountains.png" alt="새벽 산길"><span class="badge">NATURAL 04</span></div>
+      <div class="cut-info">
+        <h3>새벽 산길 — 미래로의 여정</h3>
+        <div class="file">natural_04_dawn_path_mountains.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-06 미래가 기대되는 삶 / 03-06b 길</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"제 미래는 좋아질 수밖에 없을 테니까요."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">슬로우 줌인</span><span class="use-tag">시그니처 직후</span> — 다크 골드 패스 컷의 자연 대체</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_15_mountain_sunrise.png" alt="산봉우리 일출"><span class="badge">NATURAL 15</span></div>
+      <div class="cut-info">
+        <h3>산봉우리 일출 — 결승선의 자연 메타포</h3>
+        <div class="file">natural_15_mountain_sunrise.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-16b 결승선 (자연 버전) / 03-22b 도달지점</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"결승선은 누가 더 오래 뇌를 단련하느냐가 결정한다."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">와이드샷</span><span class="use-tag">자막 "결승선"</span> — 인포그래픽 트랙의 풍경 대체</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_18_golden_grass_field.png" alt="황금빛 풀밭"><span class="badge">NATURAL 18</span></div>
+      <div class="cut-info">
+        <h3>황금빛 풀밭 — 평온한 도달</h3>
+        <div class="file">natural_18_golden_grass_field.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-08b 10년 후 도달 / 03-25 같은 세상 바뀐 나</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"세상이 바뀐 게 아니라 같은 세상을 바라보는 제가 바뀐 겁니다."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">트랜지션 인서트</span> — 강한 인포그래픽 직후 호흡 정리용</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== BRAIN/NATURE METAPHOR ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2>뇌과학 → 자연 메타포 (1:55 — 2:50)</h2>
+      <div class="stitle">의학 인포그래픽 대신 자연 사물로 신경·성장 비유</div>
+    </div>
+  </div>
+  <div class="grid">
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_06_pond_ripple_macro.png" alt="연못 파동"><span class="badge">NATURAL 06</span></div>
+      <div class="cut-info">
+        <h3>연못 위 빗방울 — 신경 연결의 자연 메타포</h3>
+        <div class="file">natural_06_pond_ripple_macro.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-13 시냅스 / 03-28 단어 물방울 (자연 대체)</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"노년기에도 새로운 신경 연결이 만들어진다는 사실이 이미 밝혀졌어요."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">슬로우 모션</span><span class="use-tag">잔물결 강조</span> — 의학 시냅스 일러스트의 자연스러운 대체</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_07_tree_roots_forest.png" alt="나무 뿌리"><span class="badge">NATURAL 07</span></div>
+      <div class="cut-info">
+        <h3>고목 뿌리 — 평생 자라는 신경</h3>
+        <div class="file">natural_07_tree_roots_forest.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-10c "쓰는 만큼 평생 자라난다" 자연 비유</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"뇌는 늙습니다. 하지만 쓰는 만큼 평생 자라나는 유일한 장기입니다."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">슬로우 줌인</span><span class="use-tag">뿌리 디테일 강조</span> — 뇌 일러스트의 자연 대체</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_14_sprout_in_pot.png" alt="화분 새싹"><span class="badge">NATURAL 14</span></div>
+      <div class="cut-info">
+        <h3>화분의 작은 새싹 — 일상 속 성장</h3>
+        <div class="file">natural_14_sprout_in_pot.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-02 새싹 (다큐 버전 / 더 친근함)</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"이 부분이 저한테 있어서는 진짜로 가장 중요한 부분이라고 생각해요."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">정적 인서트</span><span class="use-tag">5초</span> — 다크 새싹 컷의 일상적 대체</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_05_elderly_hands_page.png" alt="노인 손 + 책"><span class="badge">NATURAL 05</span></div>
+      <div class="cut-info">
+        <h3>노인의 손 + 책 — 평생 학습</h3>
+        <div class="file">natural_05_elderly_hands_page.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-11 80대 노인 학습 (더 자연스러운 톤)</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"노년기에도 새로운 신경 연결이 만들어진다는 사실이 이미 밝혀졌어요."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">★ dip 회복</span><span class="use-tag">슬로우 줌인</span> — 영상 중반 시청자 이탈 방지</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== DAILY PRACTICE ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2>매일 실천 (3:20 — 3:55)</h2>
+      <div class="stitle">"하루 한 단어"의 일상적 비주얼</div>
+    </div>
+  </div>
+  <div class="grid">
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_09_one_word_note.png" alt="하루 한 단어"><span class="badge">NATURAL 09</span></div>
+      <div class="cut-info">
+        <h3>하루 한 단어 — 노트 위</h3>
+        <div class="file">natural_09_one_word_note.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-20 하루 한 단어 (포스트잇 컷의 자연 대체)</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"하루에 단어 하나, 하루에 한 문장, 하루에 한 페이지여도 상관없어요."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">손글씨 디테일</span><span class="use-tag">슬로우 모션</span></div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_16_underline_with_pencil.png" alt="밑줄 긋는 손"><span class="badge">NATURAL 16</span></div>
+      <div class="cut-info">
+        <h3>밑줄 긋는 손 — 흡수의 순간</h3>
+        <div class="file">natural_16_underline_with_pencil.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-20b / 03-28 천천히 스며들기</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"단어도 프레임도 신경도 연결도 다 천천히 들어가는 거니까요."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">매크로 디테일</span> — 액티브 리딩 시각화</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_11_tabbed_book.png" alt="태브 가득한 책"><span class="badge">NATURAL 11</span></div>
+      <div class="cut-info">
+        <h3>포스트잇 가득한 책 — 누적된 시간</h3>
+        <div class="file">natural_11_tabbed_book.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-21 365 / 03-22 5년 격차</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"1년이면 365개의 새로운 단어, 새로운 프레임, 새로운 신경이 연결됩니다."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">정적 디테일</span> — 365 원형 그래프의 일상적 대체</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== LIBRARY/SPACE ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2>책 읽는 공간 (자유 인서트)</h2>
+      <div class="stitle">B-roll 백업. 어떤 섹션에든 호흡 정리용으로 삽입 가능</div>
+    </div>
+  </div>
+  <div class="grid">
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_10_library_nook.png" alt="도서관 nook"><span class="badge">NATURAL 10</span></div>
+      <div class="cut-info">
+        <h3>도서관 reading nook</h3>
+        <div class="file">natural_10_library_nook.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">B-roll / 03-29 3그룹 호명 배경</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">와이드샷</span><span class="use-tag">팬</span> — 시청자 자기 투영용 공간</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_08_autumn_path.png" alt="가을 산책로"><span class="badge">NATURAL 08</span></div>
+      <div class="cut-info">
+        <h3>가을 산책로 — 매일 한 걸음</h3>
+        <div class="file">natural_08_autumn_path.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-18 매일 한 걸음 / 03-08 시간의 경과</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"매일 한 걸음씩 한 걸음씩 앞으로 가고 있고..."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">트래킹</span><span class="use-tag">자막 "한 걸음"</span></div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_12_balcony_morning.png" alt="발코니 아침"><span class="badge">NATURAL 12</span></div>
+      <div class="cut-info">
+        <h3>발코니 아침 — 일상의 평온</h3>
+        <div class="file">natural_12_balcony_morning.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-06b / B-roll</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">정적 인서트</span> — 화자 음성 위에 5s 호흡</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_17_tea_and_book.png" alt="차와 책"><span class="badge">NATURAL 17</span></div>
+      <div class="cut-info">
+        <h3>차 한 잔과 책</h3>
+        <div class="file">natural_17_tea_and_book.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-27 처음엔 안 읽혀요 / B-roll</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"처음에는 안 읽혀요. 괜찮아요. 그게 정상이거든요."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">정적 디테일</span><span class="use-tag">위로 톤</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== CTA/CLOSING ===================== -->
+<section>
+  <div class="section-head">
+    <div>
+      <h2>마무리 (4:50 — 5:30)</h2>
+      <div class="stitle">"한 장씩 넘어가기" + 다음 영상 + 따뜻한 마무리</div>
+    </div>
+  </div>
+  <div class="grid">
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_19_evening_diary_candle.png" alt="저녁 일기 + 촛불"><span class="badge">NATURAL 19</span></div>
+      <div class="cut-info">
+        <h3>저녁 일기 + 촛불 — 하루의 마무리</h3>
+        <div class="file">natural_19_evening_diary_candle.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-30 한 장씩 / 03-27b 처음 페이지</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"이 채널은 여러분들과 한 장씩 넘어가기 위해 만듭니다."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">정적 인서트</span><span class="use-tag">촛불 흔들림</span> — 따뜻한 마무리 톤</div></div>
+      </div>
+    </div>
+
+    <div class="cut">
+      <div class="cut-img"><img src="natural_20_page_turn_cozy_home.png" alt="책장 넘기는 손"><span class="badge">NATURAL 20</span></div>
+      <div class="cut-info">
+        <h3>책장 넘기는 손 — 자연 마무리</h3>
+        <div class="file">natural_20_page_turn_cozy_home.png</div>
+        <div class="field"><div class="field-label">매핑 컷</div><div class="field-content">03-30 한 장씩 / 03-32 CTA 전</div></div>
+        <div class="field"><div class="field-label">Voice-over 적합</div><div class="vo">"이 채널은 여러분들과 한 장씩 넘어가기 위해 만듭니다. 다음 영상은..."</div></div>
+        <div class="field"><div class="field-label">활용</div><div class="field-content"><span class="use-tag">★ CTA 전</span><span class="use-tag">슬로우 모션</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== STRATEGY ===================== -->
+<div class="bigblock">
+  <h2>🎬 두 버전 병행 전략 (편집 가이드)</h2>
+  <ul>
+    <li><strong>시그니처 컷은 다크 유지:</strong> 03-05 그럼에도 불구하고, 03-08 10년 추월, 03-16 출발선 vs 결승선, 03-29 3그룹 호명 — 임팩트 강한 다크 인포그래픽 그대로 사용</li>
+    <li><strong>일상·자기고백·위로 섹션은 자연 컷으로 교체:</strong> 03-01 / 03-02 / 03-03 / 03-04 / 03-06 / 03-11 / 03-13 / 03-20 / 03-25 / 03-27 / 03-30 — 자연 버전이 정서적 거부감 낮음</li>
+    <li><strong>전환은 부드럽게:</strong> 다크→자연 전환 시 0.5~0.8s 크로스 디졸브로 톤 차이 완화</li>
+    <li><strong>BGM 일관성:</strong> 자연 컷 구간에서는 BGM 볼륨 -3dB 낮춰 호흡 만들기</li>
+    <li><strong>자막 색상 통일:</strong> 자연 컷 위 자막도 골드(#FFD166) 유지 → 채널 시그니처 일관성</li>
+    <li><strong>안전 영역:</strong> 자연 컷은 디테일이 많으므로 자막을 하단 1/4 영역에 배치, 디테일을 가리지 않도록</li>
+    <li><strong>섬네일 후보 추가:</strong> <code>natural_05_elderly_hands_page.png</code>, <code>natural_15_mountain_sunrise.png</code> — 따뜻한 톤 섬네일 옵션</li>
+    <li><strong>B-roll 백업:</strong> 10, 12, 17번 컷은 어떤 섹션에든 5초 인서트로 호흡 정리 가능</li>
+    <li><strong>같은 자연 컷 재사용 OK:</strong> 03-01과 03-30에 같은 카페 책 컷을 써도 시청자는 톤 통일감으로 인식</li>
+    <li><strong>화면 안정성:</strong> 자연 컷은 키프레임 모션을 최소화 (1.0→1.03 줌인 8s 정도) — 다큐 톤 살리기</li>
+  </ul>
+</div>
+
+<div class="bigblock" style="border-color:var(--green)">
+  <h2 style="color:var(--green)">📋 컷 ID ↔ 자연 파일 매핑 빠른표</h2>
+  <ul style="font-family:'Courier New',monospace; font-size:13px">
+    <li>03-01 챕터 → <code>natural_01_cafe_book_morning.png</code></li>
+    <li>03-01c 진정성 → <code>natural_02_window_reader_silhouette.png</code></li>
+    <li>03-02 새싹 → <code>natural_14_sprout_in_pot.png</code></li>
+    <li>03-03 5년 일기 → <code>natural_03_home_bookshelf.png</code> 또는 <code>natural_13_journal_dried_flowers.png</code></li>
+    <li>03-04 인생 밑바닥 → <code>natural_13_journal_dried_flowers.png</code> (부드러운 회상 톤)</li>
+    <li>03-06 미래 길 → <code>natural_04_dawn_path_mountains.png</code></li>
+    <li>03-06b 발코니 → <code>natural_12_balcony_morning.png</code></li>
+    <li>03-08 시간의 경과 → <code>natural_08_autumn_path.png</code></li>
+    <li>03-10c 평생 자라남 → <code>natural_07_tree_roots_forest.png</code></li>
+    <li>03-11 노인 학습 → <code>natural_05_elderly_hands_page.png</code></li>
+    <li>03-13 신경 연결 → <code>natural_06_pond_ripple_macro.png</code></li>
+    <li>03-16b 결승선 → <code>natural_15_mountain_sunrise.png</code></li>
+    <li>03-18 한 걸음 → <code>natural_08_autumn_path.png</code></li>
+    <li>03-20 한 단어 → <code>natural_09_one_word_note.png</code></li>
+    <li>03-20b 흡수 → <code>natural_16_underline_with_pencil.png</code></li>
+    <li>03-21 365 → <code>natural_11_tabbed_book.png</code></li>
+    <li>03-25 같은 세상 → <code>natural_18_golden_grass_field.png</code></li>
+    <li>03-27 처음엔 안 읽혀요 → <code>natural_17_tea_and_book.png</code></li>
+    <li>03-28 천천히 → <code>natural_06_pond_ripple_macro.png</code> 또는 <code>natural_16_underline_with_pencil.png</code></li>
+    <li>03-29 3그룹 호명 배경 → <code>natural_10_library_nook.png</code></li>
+    <li>03-30 한 장씩 → <code>natural_20_page_turn_cozy_home.png</code> 또는 <code>natural_19_evening_diary_candle.png</code></li>
+  </ul>
+</div>
+
+<footer>
+  3편 자연 다큐 버전 적용 가이드 · 2026-05-27 · 20장 PNG · 자연스러운_버전 폴더<br>
+  메인 가이드는 <code style="background:var(--bg-2); padding:3px 8px; border-radius:4px">../3편_적용가이드.html</code>에서 확인하세요
+</footer>
+
+</div>
+</body>
+</html>

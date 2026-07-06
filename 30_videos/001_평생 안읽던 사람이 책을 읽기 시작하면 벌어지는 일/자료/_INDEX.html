@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자료 큐레이션 — 평생 안읽던 사람이 책을 읽기 시작하면</title>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --surface-2: #f5f5f4;
+    --border: #e7e5e4;
+    --text: #1c1917;
+    --text-2: #57534e;
+    --text-3: #a8a29e;
+    /* 결 색상 토큰 (CLAUDE.md 표준) */
+    --pain: #dc2626;     /* 후크·고백 톤 */
+    --growth: #16a34a;   /* 성장·뇌 챕터 */
+    --value: #2563eb;    /* 시야·사고 챕터 */
+    --rec: #ea580c;      /* CTA·결 호명 */
+    --intro: #7c3aed;    /* 도입·욕구 점화 */
+    /* 라이선스 색 */
+    --lic-cc0: #16a34a;
+    --lic-cc-by: #ca8a04;
+    --lic-pd: #0891b2;
+    --lic-stock: #2563eb;
+    --lic-unknown: #78716c;
+    /* 채택 상태 */
+    --status-yes: #16a34a;
+    --status-hold: #ca8a04;
+    --status-no: #78716c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header.hero {
+    padding: 56px 0 32px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--surface-2);
+    color: var(--text-2);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .hero .sub {
+    font-size: 15px;
+    color: var(--text-2);
+    margin-bottom: 24px;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .stat-num { font-size: 24px; font-weight: 800; color: var(--text); }
+  .stat-label { font-size: 13px; color: var(--text-2); margin-top: 2px; }
+
+  /* Sticky nav */
+  nav.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+    margin-bottom: 32px;
+  }
+  .nav-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    padding: 8px 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2);
+    text-decoration: none;
+    transition: all .15s ease;
+    cursor: pointer;
+  }
+  .nav-btn:hover { background: #fff; color: var(--text); border-color: var(--text-3); }
+  .nav-btn .tc { color: var(--text-3); font-weight: 500; margin-right: 6px; font-size: 11px; }
+  .nav-btn[data-color="pain"]:hover { color: var(--pain); border-color: var(--pain); }
+  .nav-btn[data-color="intro"]:hover { color: var(--intro); border-color: var(--intro); }
+  .nav-btn[data-color="value"]:hover { color: var(--value); border-color: var(--value); }
+  .nav-btn[data-color="growth"]:hover { color: var(--growth); border-color: var(--growth); }
+  .nav-btn[data-color="rec"]:hover { color: var(--rec); border-color: var(--rec); }
+
+  /* Chapter section */
+  section.chapter {
+    margin-bottom: 56px;
+    scroll-margin-top: 80px;
+  }
+  .chapter-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid currentColor;
+    margin-bottom: 24px;
+  }
+  .chapter-head .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    background: currentColor;
+    color: white;
+  }
+  .chapter-head .badge span { color: white; }
+  .chapter-head h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .chapter-head .tc {
+    font-size: 13px;
+    color: var(--text-2);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
+  .chapter[data-color="pain"] .chapter-head { color: var(--pain); }
+  .chapter[data-color="intro"] .chapter-head { color: var(--intro); }
+  .chapter[data-color="value"] .chapter-head { color: var(--value); }
+  .chapter[data-color="growth"] .chapter-head { color: var(--growth); }
+  .chapter[data-color="rec"] .chapter-head { color: var(--rec); }
+
+  /* Scene card */
+  .scene-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 16px;
+  }
+  .scene-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow .15s ease, transform .15s ease;
+  }
+  .scene-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    transform: translateY(-1px);
+  }
+  .scene-tc {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+  }
+  .scene-tc .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .chapter[data-color="pain"] .scene-tc { color: var(--pain); }
+  .chapter[data-color="intro"] .scene-tc { color: var(--intro); }
+  .chapter[data-color="value"] .scene-tc { color: var(--value); }
+  .chapter[data-color="growth"] .scene-tc { color: var(--growth); }
+  .chapter[data-color="rec"] .scene-tc { color: var(--rec); }
+
+  .scene-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .scene-quote {
+    font-size: 13px;
+    color: var(--text-2);
+    background: var(--surface-2);
+    padding: 8px 10px;
+    border-radius: 8px;
+    border-left: 3px solid var(--border);
+  }
+  .keyword-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .chip {
+    font-size: 11px;
+    color: var(--text-2);
+    background: var(--surface-2);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: 'Menlo', 'Consolas', monospace;
+  }
+
+  /* Candidate links */
+  .candidates {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .candidates-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .candidate {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 13px;
+    transition: background .12s ease;
+  }
+  .candidate:hover { background: #fff; box-shadow: 0 0 0 1px var(--border); }
+  .candidate .src {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: white;
+    flex-shrink: 0;
+  }
+  .src[data-src="pexels"] { background: #05a081; }
+  .src[data-src="pixabay"] { background: #00a884; }
+  .src[data-src="unsplash"] { background: #111; }
+  .src[data-src="wikimedia"], .src[data-src="wikipedia"] { background: #0645ad; }
+  .src[data-src="metmuseum"], .src[data-src="britishmuseum"], .src[data-src="npg"] { background: #7c2d12; }
+  .src[data-src="local"] { background: var(--growth); }
+  .candidate .label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .candidate .lic {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--surface);
+    color: var(--text-2);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .scene-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-3);
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+  }
+  .status-pill {
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 700;
+    background: var(--surface-2);
+    color: var(--text-2);
+    cursor: pointer;
+    user-select: none;
+  }
+  .status-pill[data-status="yes"] { background: var(--status-yes); color: white; }
+  .status-pill[data-status="hold"] { background: var(--status-hold); color: white; }
+  .status-pill[data-status="no"] { background: var(--status-no); color: white; }
+
+  footer {
+    margin-top: 64px;
+    padding: 32px 0 48px;
+    border-top: 1px solid var(--border);
+    color: var(--text-2);
+    font-size: 13px;
+  }
+  footer .row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <span class="hero-tag">자료 큐레이션 인덱스 · v1 · 2026-05-10</span>
+    <h1>평생 안읽던 사람이 책을 읽기 시작하면 벌어지는 일</h1>
+    <p class="sub">풀링 EP02-v2 · 8~9분 · 시야 + 사고 + 성장 3축 통합. 장면별 비주얼 자료 후보 모음.</p>
+    <div class="hero-stats">
+      <div class="stat-card"><div class="stat-num">7</div><div class="stat-label">대본 챕터 (00 → 06)</div></div>
+      <div class="stat-card"><div class="stat-num">22</div><div class="stat-label">장면 (TC 단위)</div></div>
+      <div class="stat-card"><div class="stat-num">60+</div><div class="stat-label">후보 자료 링크</div></div>
+      <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">소스 사이트 (Pexels·Pixabay·Unsplash·Wikimedia·박물관)</div></div>
+    </div>
+  </div>
+</header>
+
+<nav class="sticky">
+  <div class="container">
+    <div class="nav-buttons">
+      <a class="nav-btn" data-color="pain" href="#hook"><span class="tc">0:00</span>⓪ 후크</a>
+      <a class="nav-btn" data-color="intro" href="#intro"><span class="tc">0:30</span>① 도입</a>
+      <a class="nav-btn" data-color="value" href="#vision"><span class="tc">3:00</span>③ 시야</a>
+      <a class="nav-btn" data-color="value" href="#thinking"><span class="tc">4:30</span>④ 사고</a>
+      <a class="nav-btn" data-color="growth" href="#growth"><span class="tc">6:00</span>⑤ 성장</a>
+      <a class="nav-btn" data-color="rec" href="#cta"><span class="tc">7:30</span>⑥⑦ 결·CTA</a>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+
+  <!-- ⓪ 후크 + 미리보기 -->
+  <section class="chapter" data-color="pain" id="hook">
+    <div class="chapter-head">
+      <span class="badge">⓪</span>
+      <h2>후크 + 미리보기</h2>
+      <span class="tc">0:00 – 0:30</span>
+    </div>
+    <div class="scene-grid">
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>0:00 – 0:05</div>
+        <div class="scene-title">"평생 책 한 권 안 읽던 제가" — 텅 빈 책장 / 셀프 인물</div>
+        <div class="scene-quote">평생 책 한 권 안 읽던 제가, 6년 만에 깨달은 게 하나 있어요.</div>
+        <div class="keyword-chips">
+          <span class="chip">empty bookshelf</span>
+          <span class="chip">텅 빈 책장</span>
+          <span class="chip">셀프 카메라</span>
+        </div>
+        <div class="candidates">
+          <div class="candidates-label">후보</div>
+          <a class="candidate" href="https://www.pexels.com/search/empty%20bookshelf/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Empty Bookshelf 컬렉션 (10,000+)</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://pixabay.com/images/search/empty%20bookshelf/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">Empty Bookshelf 9,000+</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>0:05 – 0:10</div>
+        <div class="scene-title">"세상이 바뀐 게 아니라" — 흑백→컬러 전환 / 안개 걷힘</div>
+        <div class="scene-quote">세상이 바뀐 게 아니라 — 제가 세상을 보는 방식이 바뀌었다는 겁니다.</div>
+        <div class="keyword-chips">
+          <span class="chip">monochrome to color</span>
+          <span class="chip">fog clearing city</span>
+          <span class="chip">perspective shift</span>
+        </div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (다음 라운드 검색 필요)</div>
+          <a class="candidate" href="https://www.pexels.com/search/videos/fog%20clearing/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Fog Clearing 비디오 검색</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/videos/sunrise/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Sunrise 비디오</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>0:10 – 0:30</div>
+        <div class="scene-title">"① 시야 ② 사고 ③ 성장" — 자막 카드 (자체 제작 권장)</div>
+        <div class="scene-quote">오늘 알려드릴 건 세 가지예요. ① 시야 ② 사고 ③ 성장.</div>
+        <div class="keyword-chips"><span class="chip">자체 자막 카드</span><span class="chip">3분할 아이콘</span></div>
+        <div class="candidates">
+          <div class="candidates-label">아이콘 보조</div>
+          <a class="candidate" href="https://pixabay.com/images/search/eye%20icon/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">Eye/Brain/Growth 아이콘</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ① 도입 + ② 욕구 점화 -->
+  <section class="chapter" data-color="intro" id="intro">
+    <div class="chapter-head">
+      <span class="badge">①②</span>
+      <h2>출발점(현상) + 욕구 점화</h2>
+      <span class="tc">0:30 – 3:00</span>
+    </div>
+    <div class="scene-grid">
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>0:30 – 1:00</div>
+        <div class="scene-title">"교과서를 빼면 책을 전혀 읽지 않던" — 학생 책상·교과서·골목</div>
+        <div class="scene-quote">조금은 가난한 집에서 태어나 흙수저 출신에, 독하지도 똑똑하지도 못해서…</div>
+        <div class="keyword-chips"><span class="chip">school desk</span><span class="chip">교과서</span><span class="chip">평범한 골목</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (다음 라운드)</div>
+          <a class="candidate" href="https://unsplash.com/s/photos/old-textbook" target="_blank"><span class="src" data-src="unsplash">UNS</span><span class="label">Old Textbook 검색</span><span class="lic">Unsplash</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/study%20desk/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Study Desk 컬렉션</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>1:00 – 2:00</div>
+        <div class="scene-title">"2020년부터 6년" — 책장 채워지는 타임랩스 / 책 쌓이는 손</div>
+        <div class="scene-quote">2020년부터 지금까지 6년 동안 책을 계속 읽었어요.</div>
+        <div class="keyword-chips"><span class="chip">stack of books</span><span class="chip">bookshelf timelapse</span><span class="chip">calendar pages</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보</div>
+          <a class="candidate" href="https://www.pexels.com/video/stack-of-books-3009534/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Stack of Books 비디오</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/videos/bookshelf/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Bookshelf 비디오 5,880+</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://unsplash.com/s/photos/stack-of-books" target="_blank"><span class="src" data-src="unsplash">UNS</span><span class="label">Stack of Books 30,000+</span><span class="lic">Unsplash</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>2:00 – 3:00</div>
+        <div class="scene-title">"시야 / 사고 / 성장" 3축 약속 — 3분할 카드</div>
+        <div class="scene-quote">①시야 ②사고 ③성장 — 한 번에 한 축씩.</div>
+        <div class="keyword-chips"><span class="chip">자체 카드</span><span class="chip">3분할 컴포지트</span></div>
+        <div class="candidates">
+          <div class="candidates-label">보조 비주얼</div>
+          <a class="candidate" href="https://pixabay.com/illustrations/search/icon%20set/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">아이콘 세트 일러스트</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ③ 시야 -->
+  <section class="chapter" data-color="value" id="vision">
+    <div class="chapter-head">
+      <span class="badge">③</span>
+      <h2>시야 — 무지개와 단어</h2>
+      <span class="tc">3:00 – 4:30 · 감정 코어 ①</span>
+    </div>
+    <div class="scene-grid">
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>3:00 – 3:15</div>
+        <div class="scene-title">무지개 7색 — 빨주노초파남보</div>
+        <div class="scene-quote">무지개는 몇 가지 색이죠? 빨, 주, 노, 초, 파, 남, 보 — 7색.</div>
+        <div class="keyword-chips"><span class="chip">rainbow seven colors</span><span class="chip">무지개</span><span class="chip">spectrum</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (★ 우선순위 1)</div>
+          <a class="candidate" href="https://www.pexels.com/video/rainbow-among-clouds-13070234/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">★ Rainbow Among Clouds (단일)</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/videos/rainbow%20sky/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Rainbow Sky 4K 비디오 4,962+</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/videos/rainbow%20colors/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Rainbow Colors 비디오</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/rainbow%20sky/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Rainbow Sky 사진 컬렉션</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>3:15 – 3:45</div>
+        <div class="scene-title">아프리카 라이베리아 바사족 — 두 가지 색 (ziza·hui)</div>
+        <div class="scene-quote">라이베리아의 바사족은 무지개를 단 두 가지 색으로만 봅니다.</div>
+        <div class="keyword-chips"><span class="chip">Liberia map</span><span class="chip">Bassa people</span><span class="chip">Africa village</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (지도 PD)</div>
+          <a class="candidate" href="https://commons.wikimedia.org/wiki/File:Liberia_location_map.svg" target="_blank"><span class="src" data-src="wikimedia">WMC</span><span class="label">★ Liberia location map.svg (PD)</span><span class="lic">PD</span></a>
+          <a class="candidate" href="https://en.wikipedia.org/wiki/Bassa_people_(Liberia)" target="_blank"><span class="src" data-src="wikipedia">WP</span><span class="label">Bassa people 본문 (이미지 추출)</span><span class="lic">파일별</span></a>
+          <a class="candidate" href="https://commons.wikimedia.org/wiki/Atlas_of_Liberia" target="_blank"><span class="src" data-src="wikimedia">WMC</span><span class="label">Atlas of Liberia</span><span class="lic">파일별</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>3:45 – 4:15</div>
+        <div class="scene-title">호메로스 + 일리아스/오디세이아 — '파란색' 0회</div>
+        <div class="scene-quote">호메로스의 일리아스와 오디세이아 전체에서 '파란색'이라는 단어가 단 한 번도 등장하지 않습니다.</div>
+        <div class="keyword-chips"><span class="chip">Homer bust</span><span class="chip">호메로스 흉상</span><span class="chip">Iliad</span><span class="chip">wine dark sea</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (박물관 + 위키)</div>
+          <a class="candidate" href="https://www.britishmuseum.org/collection/object/G_1805-0703-85" target="_blank"><span class="src" data-src="britishmuseum">BM</span><span class="label">★ Homer Portrait Bust (대영박물관)</span><span class="lic">정책 확인</span></a>
+          <a class="candidate" href="https://en.wikipedia.org/wiki/Homer" target="_blank"><span class="src" data-src="wikipedia">WP</span><span class="label">Homer 본문 (흉상 다수)</span><span class="lic">파일별</span></a>
+          <a class="candidate" href="https://en.wikipedia.org/wiki/Iliad" target="_blank"><span class="src" data-src="wikipedia">WP</span><span class="label">Iliad 본문 (필사본 이미지)</span><span class="lic">파일별</span></a>
+          <a class="candidate" href="https://www.metmuseum.org/art/collection/search/337338" target="_blank"><span class="src" data-src="metmuseum">MET</span><span class="label">Flaxman 일리아스 판화</span><span class="lic">PD/Open</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>4:15 – 4:30</div>
+        <div class="scene-title">글래드스턴 (영국 19C 총리) — 19세기 발견자</div>
+        <div class="scene-quote">19세기 영국 총리 글래드스턴이 처음 발견한 사실입니다.</div>
+        <div class="keyword-chips"><span class="chip">William Gladstone</span><span class="chip">Millais portrait</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (PD 풍부)</div>
+          <a class="candidate" href="https://commons.wikimedia.org/wiki/Category:William_Gladstone" target="_blank"><span class="src" data-src="wikimedia">WMC</span><span class="label">★ Category: William Gladstone (대량 PD)</span><span class="lic">PD</span></a>
+          <a class="candidate" href="https://en.wikipedia.org/wiki/Portrait_of_William_Ewart_Gladstone" target="_blank"><span class="src" data-src="wikipedia">WP</span><span class="label">Millais 1879 초상</span><span class="lic">PD</span></a>
+          <a class="candidate" href="https://en.wikipedia.org/wiki/William_Ewart_Gladstone" target="_blank"><span class="src" data-src="wikipedia">WP</span><span class="label">Gladstone 본문</span><span class="lic">파일별</span></a>
+          <a class="candidate" href="https://www.npg.org.uk/collections/search/person/mp01789/william-ewart-gladstone" target="_blank"><span class="src" data-src="npg">NPG</span><span class="label">National Portrait Gallery (329개)</span><span class="lic">정책 확인</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>마무리</div>
+        <div class="scene-title">"수백 가지 색으로 봅니다" — 색상 팔레트</div>
+        <div class="scene-quote">지금의 저는 같은 세상을 수백 가지 색으로 봅니다.</div>
+        <div class="keyword-chips"><span class="chip">color palette</span><span class="chip">paint chips</span><span class="chip">vibrant landscape</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (다음 라운드)</div>
+          <a class="candidate" href="https://www.pexels.com/search/color%20palette/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Color Palette 컬렉션</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/paint%20color%20chips/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Paint Color Chips</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ④ 사고 -->
+  <section class="chapter" data-color="value" id="thinking">
+    <div class="chapter-head">
+      <span class="badge">④</span>
+      <h2>사고 — 프레임과 마음의 창</h2>
+      <span class="tc">4:30 – 6:00 · 감정 코어 ②</span>
+    </div>
+    <div class="scene-grid">
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>4:30 – 4:45</div>
+        <div class="scene-title">책 인용 — "지혜는 한계를 인정하는 것"</div>
+        <div class="scene-quote">"지혜는 한계를 인정하는 것이다."</div>
+        <div class="keyword-chips"><span class="chip">open book</span><span class="chip">highlighted text</span><span class="chip">책 인용</span></div>
+        <div class="candidates">
+          <div class="candidates-label">★ 보유 자료 (이전 권장)</div>
+          <a class="candidate" href="../참조이미지/프레임_2차주제.png" target="_blank"><span class="src" data-src="local">LOC</span><span class="label">★ 프레임_2차주제.png (참조이미지)</span><span class="lic">자체</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/open%20book%20highlight/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Open Book Highlight 보강</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="yes" onclick="cycleStatus(this)">채택</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>4:45 – 5:15</div>
+        <div class="scene-title">프레임 = 마음의 창 — 다양한 창문</div>
+        <div class="scene-quote">건물 어느 곳에 창을 내느냐, 그 창만큼의 세상을 보게 되듯이…</div>
+        <div class="keyword-chips"><span class="chip">window frame</span><span class="chip">architecture</span><span class="chip">building views</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보</div>
+          <a class="candidate" href="https://www.pexels.com/photo/glass-window-frame-skyline-building-view-2905514/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">★ Glass Window Frame Skyline View</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/photo/window-with-building-on-view-622547/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Window With Building on View</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/video/view-of-glass-windows-of-a-building-4565688/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Glass Windows 비디오</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/window%20frame/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Window Frame 10,000+</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://pixabay.com/images/search/window%20frame/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">Window Frame 20,000+</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>5:15 – 5:45</div>
+        <div class="scene-title">같은 회의 두 사람 다른 시각 — 회의실/화이트보드</div>
+        <div class="scene-quote">잘 됐다 / 망했다 — 책 안 읽는 사람은 둘 중 하나로만…</div>
+        <div class="keyword-chips"><span class="chip">meeting two perspectives</span><span class="chip">whiteboard categorization</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (다음 라운드)</div>
+          <a class="candidate" href="https://www.pexels.com/search/business%20meeting/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Business Meeting 컬렉션</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/whiteboard/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Whiteboard 컬렉션</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>5:45 – 6:00</div>
+        <div class="scene-title">사고의 깊이와 넓이 — 더닝크루거 / 깊은 우물</div>
+        <div class="scene-quote">같은 사실을, 더 깊이 — 그리고 더 다양한 각도에서.</div>
+        <div class="keyword-chips"><span class="chip">Dunning-Kruger</span><span class="chip">deep well</span><span class="chip">wide lake</span></div>
+        <div class="candidates">
+          <div class="candidates-label">★ 보유 자료 + 보강</div>
+          <a class="candidate" href="../참조이미지/더닝크루거 효과.png" target="_blank"><span class="src" data-src="local">LOC</span><span class="label">★ 더닝크루거 효과.png (참조이미지)</span><span class="lic">자체</span></a>
+          <a class="candidate" href="https://commons.wikimedia.org/wiki/File:Dunning%E2%80%93Kruger_Effect_01.svg" target="_blank"><span class="src" data-src="wikimedia">WMC</span><span class="label">Dunning-Kruger Effect 01.svg</span><span class="lic">CC-BY-SA</span></a>
+          <a class="candidate" href="https://commons.wikimedia.org/wiki/File:Dunning%E2%80%93Kruger_effect_chart.svg" target="_blank"><span class="src" data-src="wikimedia">WMC</span><span class="label">Dunning-Kruger Effect Chart.svg</span><span class="lic">CC-BY-SA 4.0</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="yes" onclick="cycleStatus(this)">채택</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ⑤ 성장 -->
+  <section class="chapter" data-color="growth" id="growth">
+    <div class="chapter-head">
+      <span class="badge">⑤</span>
+      <h2>성장 — 뇌 근육과 그럼에도</h2>
+      <span class="tc">6:00 – 7:30 · 감정 코어 ③ · 보상</span>
+    </div>
+    <div class="scene-grid">
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>6:00 – 6:15</div>
+        <div class="scene-title">"그럼에도 불구하고" — 일출 / 산 정상</div>
+        <div class="scene-quote">스스로의 성장 가능성, 그리고 그에 대한 믿음.</div>
+        <div class="keyword-chips"><span class="chip">sunrise mountain</span><span class="chip">darkness to light</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (다음 라운드)</div>
+          <a class="candidate" href="https://www.pexels.com/search/videos/sunrise%20mountain/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Sunrise Mountain 비디오</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://unsplash.com/s/photos/sunrise-mountain" target="_blank"><span class="src" data-src="unsplash">UNS</span><span class="label">Sunrise Mountain 컬렉션</span><span class="lic">Unsplash</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>6:15 – 6:30</div>
+        <div class="scene-title">"마흔 / 인생 밑바닥" — 진지한 인물 / 거울</div>
+        <div class="scene-quote">과거의 잘못된 선택들 때문에 지금 — 솔직히 말해서 인생에서 가장 밑바닥에…</div>
+        <div class="keyword-chips"><span class="chip">man reflection</span><span class="chip">contemplation rainy</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (다음 라운드)</div>
+          <a class="candidate" href="https://unsplash.com/s/photos/man-reflection" target="_blank"><span class="src" data-src="unsplash">UNS</span><span class="label">Man Reflection 컬렉션</span><span class="lic">Unsplash</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/contemplation/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Contemplation 컬렉션</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>6:30 – 7:00</div>
+        <div class="scene-title">뇌 = 근육 / 80대 노인 학습 — 뇌 일러스트 + 노인</div>
+        <div class="scene-quote">80대 노인이 새로운 언어를 배우면 그 영역의 뇌가 실제로 두꺼워지고…</div>
+        <div class="keyword-chips"><span class="chip">brain neural network</span><span class="chip">synapse</span><span class="chip">elderly learning</span></div>
+        <div class="candidates">
+          <div class="candidates-label">★ 후보 (우선순위 4)</div>
+          <a class="candidate" href="https://www.pexels.com/video/neural-network-in-the-brain-18333010/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">★ Neural Network in the Brain 비디오</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://pixabay.com/vectors/nerve-cell-neuron-brain-neurons-3759541/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">★ Nerve Cell 벡터 (단일)</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://pixabay.com/illustrations/search/synapse/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">Synapse 일러스트 159+</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://pixabay.com/videos/search/neurons/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">Neurons 4K 비디오 45+</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://pixabay.com/images/search/neural%20network/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">Neural Network 10,000+</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/photo/photo-of-an-old-man-reading-a-book-7872625/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Old Man Reading a Book</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/photo/an-elderly-woman-taking-notes-while-sitting-behind-a-desk-9572660/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Elderly Woman Taking Notes</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/photo/elderly-man-sitting-on-chair-while-drinking-coffee-in-the-library-9572546/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Elderly Man Library Coffee</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>7:00 – 7:15</div>
+        <div class="scene-title">쓰지 않는 뇌 = 시드는 근육 — 보디빌더 / 시드는 식물</div>
+        <div class="scene-quote">운동을 멈춘 보디빌더의 근육이 빠지듯이.</div>
+        <div class="keyword-chips"><span class="chip">muscle atrophy</span><span class="chip">wilting plant</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (다음 라운드)</div>
+          <a class="candidate" href="https://www.pexels.com/search/bodybuilder/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Bodybuilder 컬렉션</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/wilting%20plant/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Wilting Plant 컬렉션</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>7:15 – 7:30</div>
+        <div class="scene-title">결승선 / 무빙워크 역방향 — 뒤로 밀린다</div>
+        <div class="scene-quote">안 읽는 사람은 그 자리에 서 있는 게 아니라 자기도 모르게 뒤로 밀리고 있어요.</div>
+        <div class="keyword-chips"><span class="chip">marathon finish line</span><span class="chip">moving walkway</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보</div>
+          <a class="candidate" href="https://unsplash.com/s/photos/marathon-finish" target="_blank"><span class="src" data-src="unsplash">UNS</span><span class="label">★ Marathon Finish 100+</span><span class="lic">Unsplash</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/running%20finish%20line/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Running Finish Line</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/marathon%20finish/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Marathon Finish 9,000+</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/videos/finish%20line/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Finish Line 비디오</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://pixabay.com/images/search/finish%20line/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">Finish Line & Race 10,000+</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ⑥⑦ 결 + CTA -->
+  <section class="chapter" data-color="rec" id="cta">
+    <div class="chapter-head">
+      <span class="badge">⑥⑦</span>
+      <h2>결 호명 + CTA</h2>
+      <span class="tc">7:30 – 9:15</span>
+    </div>
+    <div class="scene-grid">
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>7:30 – 8:00</div>
+        <div class="scene-title">결 3그룹 호명 — 다양한 독자 컷</div>
+        <div class="scene-quote">읽으려는 분, 지금 읽고 계신 분, 더 읽고 싶은 분.</div>
+        <div class="keyword-chips"><span class="chip">people reading cafe</span><span class="chip">cozy library</span><span class="chip">독서 카페</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보</div>
+          <a class="candidate" href="https://www.pexels.com/photo/people-reading-books-in-library-3779187/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">★ People Reading in Library</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://pixabay.com/photos/reading-cafe-reading-a-book-book-732540/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">Reading Cafe 사진</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://pixabay.com/images/search/people%20reading/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">People Reading 20,000+</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://unsplash.com/s/photos/reading-library" target="_blank"><span class="src" data-src="unsplash">UNS</span><span class="label">Reading Library</span><span class="lic">Unsplash</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>8:00 – 8:30</div>
+        <div class="scene-title">옆자리 — 두 사람 함께 책 읽기</div>
+        <div class="scene-quote">그분들 옆자리에 앉기 위해 만듭니다.</div>
+        <div class="keyword-chips"><span class="chip">reading together</span><span class="chip">companionship</span><span class="chip">함께 책</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보</div>
+          <a class="candidate" href="https://www.pexels.com/photo/people-sitting-on-a-couch-reading-books-together-6041285/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">★ Couple Reading on Couch</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/photo/a-couple-reading-a-book-in-the-library-9940205/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Couple Reading in Library</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://unsplash.com/s/photos/reading-together" target="_blank"><span class="src" data-src="unsplash">UNS</span><span class="label">Reading Together 100+</span><span class="lic">Unsplash</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>8:30 – 9:00</div>
+        <div class="scene-title">댓글 한 줄 — 키보드 / 휴대폰 댓글</div>
+        <div class="scene-quote">새로 만난 단어, 새로 빌린 프레임이 있다면 댓글로 한 줄만…</div>
+        <div class="keyword-chips"><span class="chip">comment animation</span><span class="chip">typing keyboard</span><span class="chip">phone comment</span></div>
+        <div class="candidates">
+          <div class="candidates-label">후보 (다음 라운드)</div>
+          <a class="candidate" href="https://www.pexels.com/search/typing%20keyboard/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Typing Keyboard 컬렉션</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/phone%20comment/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Phone 컬렉션</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+
+      <article class="scene-card">
+        <div class="scene-tc"><span class="dot"></span>9:00 – 9:15</div>
+        <div class="scene-title">다음 영상 떡밥 — 이북리더기 클로즈업</div>
+        <div class="scene-quote">어떤 책으로, 어떤 도구로, 하루 몇 분으로.</div>
+        <div class="keyword-chips"><span class="chip">e-reader Kindle</span><span class="chip">이북리더기</span><span class="chip">Crema</span></div>
+        <div class="candidates">
+          <div class="candidates-label">★ 후보 (우선순위 6 — 다음 키 콘텐츠 떡밥)</div>
+          <a class="candidate" href="https://unsplash.com/photos/2717nLvrpPg" target="_blank"><span class="src" data-src="unsplash">UNS</span><span class="label">★ Person Holding Kindle (단일)</span><span class="lic">Unsplash</span></a>
+          <a class="candidate" href="https://www.pexels.com/photo/person-holding-kindle-e-book-reader-76942/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Person Holding Kindle E-book</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://unsplash.com/photos/person-holding-black-amazon-kindle-e-book-reader-gm18kqu9TxQ" target="_blank"><span class="src" data-src="unsplash">UNS</span><span class="label">Black Amazon Kindle</span><span class="lic">Unsplash</span></a>
+          <a class="candidate" href="https://unsplash.com/s/photos/kindle" target="_blank"><span class="src" data-src="unsplash">UNS</span><span class="label">Kindle 100+</span><span class="lic">Unsplash</span></a>
+          <a class="candidate" href="https://unsplash.com/s/photos/ebook-reader" target="_blank"><span class="src" data-src="unsplash">UNS</span><span class="label">Ebook Reader</span><span class="lic">Unsplash</span></a>
+          <a class="candidate" href="https://pixabay.com/images/search/e-reader/" target="_blank"><span class="src" data-src="pixabay">PIX</span><span class="label">E-Reader & Kindle 3,000+</span><span class="lic">CC0급</span></a>
+          <a class="candidate" href="https://www.pexels.com/search/kindle/" target="_blank"><span class="src" data-src="pexels">PEX</span><span class="label">Kindle 컬렉션</span><span class="lic">CC0급</span></a>
+        </div>
+        <div class="scene-status"><span>채택 상태:</span><span class="status-pill" data-status="" onclick="cycleStatus(this)">미정</span></div>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div>
+        <strong>자료 폴더</strong> · 평생 안읽던 사람이 책을 읽기 시작하면 벌어지는 일 · v1 (2026-05-10)
+        <br><span style="font-size:12px;">상태 칩 클릭 → 미정 → 채택 → 보류 → 제외 순환. localStorage 저장 (브라우저별).</span>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:var(--pain)"></span>후크</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--intro)"></span>도입</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--value)"></span>시야·사고</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--growth)"></span>성장</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--rec)"></span>결·CTA</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 상태 토글: 미정 → 채택 → 보류 → 제외 → 미정
+  const STATUSES = [
+    { key: '', label: '미정' },
+    { key: 'yes', label: '채택' },
+    { key: 'hold', label: '보류' },
+    { key: 'no', label: '제외' }
+  ];
+
+  function getKey(pill) {
+    const card = pill.closest('.scene-card');
+    const tc = card.querySelector('.scene-tc').textContent.trim();
+    const title = card.querySelector('.scene-title').textContent.trim();
+    return 'status:' + tc + '|' + title;
+  }
+
+  function applyStatus(pill, status) {
+    pill.dataset.status = status;
+    const found = STATUSES.find(s => s.key === status) || STATUSES[0];
+    pill.textContent = found.label;
+  }
+
+  function cycleStatus(pill) {
+    const cur = pill.dataset.status || '';
+    const idx = STATUSES.findIndex(s => s.key === cur);
+    const next = STATUSES[(idx + 1) % STATUSES.length];
+    applyStatus(pill, next.key);
+    try { localStorage.setItem(getKey(pill), next.key); } catch(e) {}
+  }
+
+  // 초기 상태 복원
+  document.querySelectorAll('.status-pill').forEach(pill => {
+    try {
+      const saved = localStorage.getItem(getKey(pill));
+      if (saved !== null) applyStatus(pill, saved);
+    } catch(e) {}
+  });
+
+  window.cycleStatus = cycleStatus;
+</script>
+
+</body>
+</html>

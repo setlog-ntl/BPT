@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Habitree 사업확장 우선순위 v2 — 80개 통합 매트릭스</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --surface: #1a2129;
+    --surface-2: #232c36;
+    --primary: #4ade80;
+    --secondary: #fbbf24;
+    --accent: #60a5fa;
+    --pink: #f472b6;
+    --gray: #9ca3af;
+    --danger: #f87171;
+    --text: #e5e7eb;
+    --text-dim: #9ca3af;
+    --border: #2d3748;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+  .container { max-width: 1320px; margin: 0 auto; padding: 40px 28px 80px; }
+  header.hero {
+    background: linear-gradient(135deg, #1a2f1a 0%, #0f1f2e 60%, #2a1f2e 100%);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 44px 38px;
+    margin-bottom: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  header.hero::before {
+    content: "🌳";
+    position: absolute; top: -20px; right: -10px;
+    font-size: 180px; opacity: 0.08;
+  }
+  .badge {
+    display: inline-block;
+    padding: 5px 12px;
+    background: rgba(74,222,128,0.15);
+    color: var(--primary);
+    border-radius: 20px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.5px; margin-bottom: 14px;
+  }
+  h1 { margin: 0 0 12px; font-size: 32px; letter-spacing: -0.5px; }
+  .subtitle { color: var(--text-dim); font-size: 15px; margin: 0 0 20px; }
+  .profile-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+  .profile-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+  .profile-card .lab { color: var(--text-dim); font-size: 11px; margin-bottom: 4px; letter-spacing: 0.4px; }
+  .profile-card .val { color: var(--text); font-weight: 600; font-size: 14px; }
+  h2 {
+    font-size: 22px;
+    margin: 48px 0 8px;
+    padding-left: 14px;
+    border-left: 4px solid var(--primary);
+  }
+  h2.cat-A { border-left-color: var(--primary); }
+  h2.cat-B { border-left-color: var(--accent); }
+  h2.cat-C { border-left-color: var(--pink); }
+  h2.cat-D { border-left-color: var(--gray); }
+  h2 .num { color: var(--primary); margin-right: 8px; }
+  h2.cat-B .num { color: var(--accent); }
+  h2.cat-C .num { color: var(--pink); }
+  h2.cat-D .num { color: var(--gray); }
+  .section-desc { color: var(--text-dim); margin: 0 0 22px; font-size: 14px; }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .stat-card .label { color: var(--text-dim); font-size: 11.5px; margin-bottom: 6px; letter-spacing: 0.3px; }
+  .stat-card .value { font-size: 22px; font-weight: 700; color: var(--primary); }
+  .stat-card.b .value { color: var(--accent); }
+  .stat-card.c .value { color: var(--pink); }
+  .stat-card.d .value { color: var(--gray); }
+  .stat-card.gold .value { color: var(--secondary); }
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    font-size: 13px;
+    min-width: 1080px;
+  }
+  thead th {
+    background: var(--surface-2);
+    color: var(--text);
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 12px;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+  tbody td {
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  tbody tr:last-child td { border-bottom: none; }
+  td.idx { color: var(--text-dim); font-weight: 700; width: 42px; }
+  td.name { font-weight: 600; color: var(--text); min-width: 170px; }
+  td.note { color: var(--text-dim); font-size: 12px; }
+  .score {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    padding: 3px 7px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 11.5px;
+  }
+  .score.s5 { background: rgba(74,222,128,0.20); color: #4ade80; }
+  .score.s4 { background: rgba(96,165,250,0.20); color: #60a5fa; }
+  .score.s3 { background: rgba(251,191,36,0.18); color: #fbbf24; }
+  .score.s2 { background: rgba(251,146,60,0.18); color: #fb923c; }
+  .score.s1 { background: rgba(248,113,113,0.18); color: #f87171; }
+  .total-score {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--surface-2);
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 12.5px;
+  }
+  .total-score.high { background: rgba(74,222,128,0.20); color: #4ade80; }
+  .total-score.mid { background: rgba(251,191,36,0.18); color: #fbbf24; }
+  .total-score.low { background: rgba(156,163,175,0.18); color: #9ca3af; }
+  .rank {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    color: var(--text-dim);
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .rank.gold { background: linear-gradient(135deg, #fbbf24, #d97706); color: #1a1a1a; }
+  .rank.silver { background: linear-gradient(135deg, #d1d5db, #9ca3af); color: #1a1a1a; }
+  .rank.bronze { background: linear-gradient(135deg, #d97706, #92400e); color: #fff; }
+  .tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-size: 10.5px;
+    margin-left: 5px;
+    font-weight: 600;
+  }
+  .tag.A { background: rgba(74,222,128,0.16); color: #4ade80; }
+  .tag.B { background: rgba(96,165,250,0.16); color: #60a5fa; }
+  .tag.C { background: rgba(244,114,182,0.16); color: #f472b6; }
+  .tag.D { background: rgba(156,163,175,0.16); color: #9ca3af; }
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .insight {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--primary);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .insight.b { border-left-color: var(--accent); }
+  .insight.c { border-left-color: var(--pink); }
+  .insight.warn { border-left-color: var(--secondary); }
+  .insight.danger { border-left-color: var(--danger); }
+  .insight h3 { margin: 0 0 8px; font-size: 15px; }
+  .insight p { margin: 0; font-size: 13px; color: var(--text-dim); }
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 12px;
+    text-align: center;
+  }
+  .legend {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    font-size: 12.5px; color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+  .legend .swatch {
+    display: inline-block; width: 12px; height: 12px;
+    border-radius: 3px; vertical-align: middle; margin-right: 5px;
+  }
+  /* Matrix */
+  .matrix {
+    display: grid;
+    grid-template-columns: 90px repeat(5, 1fr);
+    grid-template-rows: 38px repeat(5, 110px);
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .matrix .col-h, .matrix .row-h {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-dim); font-size: 11.5px; font-weight: 600;
+    text-align: center;
+  }
+  .matrix .cell {
+    background: var(--surface-2);
+    border-radius: 6px;
+    padding: 5px 6px;
+    font-size: 10px;
+    line-height: 1.35;
+    overflow: auto;
+  }
+  .matrix .cell .item { display: block; margin-bottom: 1px; }
+  .matrix .cell .item.A { color: #4ade80; }
+  .matrix .cell .item.B { color: #60a5fa; }
+  .matrix .cell .item.C { color: #f472b6; }
+  .matrix .cell .item.D { color: #9ca3af; }
+  @media (max-width: 760px) {
+    .container { padding: 24px 16px 60px; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 17px; }
+    header.hero { padding: 26px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<header class="hero">
+  <span class="badge">BizPT · 사업확장 기획 v2</span>
+  <h1>Habitree 차세대 상품 우선순위 — 80개 통합 매트릭스</h1>
+  <p class="subtitle">현재 운영 중인 <b>Habitree(습관 트래커)</b> + 본업(<b>ERP/IT</b>) + 취미(<b>러닝·독서·필사</b>) 자산을 모두 활용한 사업확장 후보 80개를 한국 국내 시장 기준 객단가 × 시장크기로 평가합니다.</p>
+  <div class="profile-row">
+    <div class="profile-card"><div class="lab">CURRENT SERVICE</div><div class="val">🌳 Habitree · 습관 트래커 앱</div></div>
+    <div class="profile-card"><div class="lab">DAY JOB</div><div class="val">🖥️ 기업 IT 담당자 · ERP 운영</div></div>
+    <div class="profile-card"><div class="lab">HOBBY</div><div class="val">🏃 러닝 · 📚 독서 · ✍️ 필사</div></div>
+    <div class="profile-card"><div class="lab">TARGET MARKET</div><div class="val">🇰🇷 한국 국내</div></div>
+  </div>
+</header>
+
+<!-- SUMMARY -->
+<div class="summary-grid">
+  <div class="stat-card"><div class="label">총 평가 항목</div><div class="value">80개</div></div>
+  <div class="stat-card"><div class="label">A · Habitree 직결</div><div class="value">20</div></div>
+  <div class="stat-card b"><div class="label">B · 본업 IT/ERP</div><div class="value">10</div></div>
+  <div class="stat-card c"><div class="label">C · 취미 (러닝·독서·필사)</div><div class="value">10</div></div>
+  <div class="stat-card d"><div class="label">D · 전혀 무관 신사업</div><div class="value">40</div></div>
+  <div class="stat-card gold"><div class="label">TOP 15 점수 컷오프</div><div class="value">15점↑</div></div>
+</div>
+
+<!-- 평가 기준 -->
+<h2><span class="num">01</span>평가 기준</h2>
+<p class="section-desc">객단가(1~5) × 시장크기(1~5) = 종합점수(최대 25점). 동점 시 시너지(★) 가중. 본업·취미 경험으로 진입난이도가 낮아지는 항목엔 시너지 ★★★+ 부여.</p>
+<div class="insight-grid">
+  <div class="insight"><h3>💰 객단가 (AOV)</h3><p>5점 100만↑ · 4점 30~100만 · 3점 10~30만 · 2점 3~10만 · 1점 3만↓</p></div>
+  <div class="insight b"><h3>📊 시장크기 (한국 TAM)</h3><p>5점 5조↑ · 4점 1~5조 · 3점 3,000억~1조 · 2점 500~3,000억 · 1점 500억↓</p></div>
+  <div class="insight warn"><h3>🔗 시너지 / 진입난이도</h3><p>시너지: ★★★★★ 본인 자산(Habitree·ERP·취미) 직결 ↔ ★ 무관. 진입난이도: ★ 쉬움 ↔ ★★★★★ 매우 어려움</p></div>
+</div>
+
+<!-- A. Habitree 관련 20개 -->
+<h2 class="cat-A"><span class="num">A</span>Habitree 직접 관련 20개 <span class="tag A">SERVICE</span></h2>
+<p class="section-desc">기존 사용자·IP·데이터 자산을 그대로 또는 인접 확장한 상품군.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>상품·서비스</th><th>설명</th><th>객단가</th><th>시장크기(한국)</th><th>객단가</th><th>시장</th><th>시너지</th><th>난이도</th><th>종합</th></tr></thead>
+<tbody>
+<tr><td class="idx">A1</td><td class="name">프리미엄 구독 (월/연)</td><td class="note">앱 무제한·고급 통계·테마</td><td>월 4,900~9,900원</td><td>2~3,000억 자기계발 SaaS</td><td><span class="score s2">2</span></td><td><span class="score s3">3</span></td><td>★★★★★</td><td>★</td><td><span class="total-score mid">6</span></td></tr>
+<tr><td class="idx">A2</td><td class="name">습관 코칭 1:1 멘토링</td><td class="note">전문 코치 4~8주 1:1</td><td>30~80만원</td><td>약 1조 코칭+자기계발</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>★★★★★</td><td>★★★</td><td><span class="total-score high">16</span></td></tr>
+<tr><td class="idx">A3</td><td class="name">유료 그룹 챌린지</td><td class="note">갓생100일·보증금/상금</td><td>5~15만원</td><td>약 5,000억</td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td>★★★★★</td><td>★★</td><td><span class="total-score mid">9</span></td></tr>
+<tr><td class="idx">A4</td><td class="name">브랜드 다이어리·플래너</td><td class="note">트리 IP 굿즈, 연간</td><td>2~4만원</td><td>약 3,000억 다이어리</td><td><span class="score s2">2</span></td><td><span class="score s3">3</span></td><td>★★★★</td><td>★★</td><td><span class="total-score mid">6</span></td></tr>
+<tr><td class="idx">A5</td><td class="name">습관 스티커북·스탬프</td><td class="note">아날로그 트래킹 굿즈</td><td>5천~2만원</td><td>약 500억 틈새</td><td><span class="score s1">1</span></td><td><span class="score s2">2</span></td><td>★★★★</td><td>★</td><td><span class="total-score low">2</span></td></tr>
+<tr><td class="idx">A6</td><td class="name">명상·마인드풀 오디오</td><td class="note">앱 인앱 오디오북</td><td>월 4,900~12,000원</td><td>약 2,000억 마보·코끼리</td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td>★★★★</td><td>★★★</td><td><span class="total-score low">4</span></td></tr>
+<tr><td class="idx">A7</td><td class="name">습관 워크북·전자책</td><td class="note">PDF·eBook D2C</td><td>1.5~3만원</td><td>약 1,000억</td><td><span class="score s1">1</span></td><td><span class="score s2">2</span></td><td>★★★</td><td>★</td><td><span class="total-score low">2</span></td></tr>
+<tr><td class="idx">A8</td><td class="name">자기계발 VOD 강의 패키지</td><td class="note">21일 습관 부트캠프 등</td><td>15~50만원</td><td>약 9.9조 에듀테크</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>★★★★</td><td>★★★</td><td><span class="total-score high">20</span></td></tr>
+<tr><td class="idx">A9</td><td class="name">갓생 캠프 (오프라인)</td><td class="note">주말 1박 워크샵</td><td>20~50만원</td><td>약 1,500억 이벤트</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>★★★★</td><td>★★★★</td><td><span class="total-score mid">8</span></td></tr>
+<tr><td class="idx">A10</td><td class="name">식단·운동 트래킹 확장</td><td class="note">눔/플랜핏 영역</td><td>월 9,900~19,900원</td><td>약 1.5조 헬스앱</td><td><span class="score s2">2</span></td><td><span class="score s4">4</span></td><td>★★★★</td><td>★★★★</td><td><span class="total-score mid">8</span></td></tr>
+<tr><td class="idx">A11</td><td class="name">수면 트래킹·코칭</td><td class="note">웨어러블 연동</td><td>월 9,900원</td><td>약 3,000억 슬립테크</td><td><span class="score s2">2</span></td><td><span class="score s3">3</span></td><td>★★★</td><td>★★★★</td><td><span class="total-score mid">6</span></td></tr>
+<tr><td class="idx">A12</td><td class="name">감정 저널링 앱 (별도)</td><td class="note">멘탈케어 특화 SKU</td><td>월 6,900~9,900원</td><td>약 1,000억 멘탈케어</td><td><span class="score s2">2</span></td><td><span class="score s3">3</span></td><td>★★★★</td><td>★★★</td><td><span class="total-score mid">6</span></td></tr>
+<tr><td class="idx">A13</td><td class="name">가족·커플 공유 플랜</td><td class="note">2~5인 패밀리 구독</td><td>월 12,900~19,900원</td><td>약 500억 패밀리 SaaS</td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td>★★★★</td><td>★</td><td><span class="total-score low">4</span></td></tr>
+<tr><td class="idx">A14</td><td class="name">학습 플래너 SaaS (학원 B2B)</td><td class="note">학원·인강 학생 트래킹</td><td>학원당 50~300만원/연</td><td>약 7,000억 사교육 IT</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>★★★★</td><td>★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">A15</td><td class="name">기업 직원 웰니스 B2B</td><td class="note">사내 갓생 챌린지·리포트</td><td>200~2,000만원/연</td><td>약 4,000억 웰니스</td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>★★★★</td><td>★★★★★</td><td><span class="total-score high">15</span></td></tr>
+<tr><td class="idx">A16</td><td class="name">습관 보상 굿즈 박스</td><td class="note">달성시 월간 발송</td><td>월 19,900~29,900원</td><td>약 2,000억 서브박스</td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td>★★★</td><td>★★★</td><td><span class="total-score low">4</span></td></tr>
+<tr><td class="idx">A17</td><td class="name">멤버십 커뮤니티 (유료)</td><td class="note">디스코드/카톡 유료방</td><td>월 9,900~29,900원</td><td>약 800억 유료 커뮤니티</td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td>★★★★★</td><td>★★</td><td><span class="total-score low">4</span></td></tr>
+<tr><td class="idx">A18</td><td class="name">AI 습관 코치 챗봇 (프리미엄)</td><td class="note">GPT 기반 개인화</td><td>월 9,900~19,900원</td><td>약 5,000억 AI 컴패니언</td><td><span class="score s2">2</span></td><td><span class="score s3">3</span></td><td>★★★★★</td><td>★★★</td><td><span class="total-score mid">6</span></td></tr>
+<tr><td class="idx">A19</td><td class="name">캐릭터 IP 굿즈</td><td class="note">트리 캐릭터 라이선싱</td><td>1~5만원</td><td>약 1조 캐릭터</td><td><span class="score s2">2</span></td><td><span class="score s4">4</span></td><td>★★★</td><td>★★★★</td><td><span class="total-score mid">8</span></td></tr>
+<tr><td class="idx">A20</td><td class="name">강연·세미나 (오프라인)</td><td class="note">갓생 컨퍼런스</td><td>5~15만원/티켓</td><td>약 500억</td><td><span class="score s3">3</span></td><td><span class="score s2">2</span></td><td>★★★★</td><td>★★</td><td><span class="total-score mid">6</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- B. 본업 IT/ERP 10개 -->
+<h2 class="cat-B"><span class="num">B</span>본업 자산 활용 — ERP/IT 10개 <span class="tag B">DAY-JOB</span></h2>
+<p class="section-desc">현재 ERP 운영 경험과 IT 도메인 지식을 직접 매출로 전환하는 후보. 진입난이도가 본인 입장에선 크게 낮아짐.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>상품·서비스</th><th>설명</th><th>객단가</th><th>시장크기(한국)</th><th>객단가</th><th>시장</th><th>시너지</th><th>난이도</th><th>종합</th></tr></thead>
+<tbody>
+<tr><td class="idx">B1</td><td class="name">ERP 컨설팅 프리랜싱</td><td class="note">SAP/더존/영림원 외주 컨설</td><td>월 1,000~3,000만원</td><td>약 5,000억 ERP 컨설팅</td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>★★★★★</td><td>★★</td><td><span class="total-score high">15</span></td></tr>
+<tr><td class="idx">B2</td><td class="name">ERP 도입 PM·구축 외주</td><td class="note">중견기업 도입 PMO</td><td>프로젝트 1억~5억</td><td>약 1조 ERP 구축</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>★★★★★</td><td>★★★★</td><td><span class="total-score high">20</span></td></tr>
+<tr><td class="idx">B3</td><td class="name">중소기업용 클라우드 ERP SaaS</td><td class="note">자체 개발 모듈형 ERP</td><td>월 10~50만원</td><td>약 8,000억 중소 ERP</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>★★★★</td><td>★★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">B4</td><td class="name">ERP·IT 인강 (인프런/탈잉)</td><td class="note">실무 SAP·더존 강의</td><td>강의당 5~30만원</td><td>약 9.9조 에듀테크</td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td>★★★★</td><td>★</td><td><span class="total-score high">15</span></td></tr>
+<tr><td class="idx">B5</td><td class="name">RPA·업무자동화 컨설팅</td><td class="note">UiPath·Power Automate</td><td>프로젝트 1,000~5,000만원</td><td>약 3,000억 RPA</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>★★★★</td><td>★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">B6</td><td class="name">중소기업 IT 보안 점검</td><td class="note">취약점 진단·ISMS 컨설팅</td><td>회당 100~500만원</td><td>약 1조 정보보안</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>★★★</td><td>★★★★</td><td><span class="total-score high">16</span></td></tr>
+<tr><td class="idx">B7</td><td class="name">IT 헬프데스크 BPO</td><td class="note">중소기업 사내 IT 외주</td><td>월 200~1,000만원</td><td>약 3,000억 IT 운영</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>★★★★</td><td>★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">B8</td><td class="name">ERP 데이터 분석 대시보드</td><td class="note">Power BI/Tableau SaaS</td><td>월 30~100만원</td><td>약 5,000억 BI</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>★★★★</td><td>★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">B9</td><td class="name">IT 자격증 학원·스터디</td><td class="note">SQLD·정보처리·SAP 인증</td><td>30~150만원</td><td>약 5,000억 자격증</td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td>★★★</td><td>★★★</td><td><span class="total-score mid">9</span></td></tr>
+<tr><td class="idx">B10</td><td class="name">노션·G-Workspace 도입 컨설팅</td><td class="note">중소기업 SaaS 전환</td><td>건당 300~1,000만원</td><td>약 2,000억 SaaS 컨설팅</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>★★★</td><td>★★</td><td><span class="total-score mid">8</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- C. 취미 10개 -->
+<h2 class="cat-C"><span class="num">C</span>취미 자산 활용 — 러닝·독서·필사 10개 <span class="tag C">HOBBY</span></h2>
+<p class="section-desc">본인이 이미 사용자이자 잠재 고객이라 PMF 검증이 빠르고, Habitree 사용자층(자기계발층)과도 일부 겹침.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>상품·서비스</th><th>설명</th><th>객단가</th><th>시장크기(한국)</th><th>객단가</th><th>시장</th><th>시너지</th><th>난이도</th><th>종합</th></tr></thead>
+<tbody>
+<tr><td class="idx">C1</td><td class="name">러닝 의류·기어 D2C 브랜드</td><td class="note">티셔츠·바람막이·양말</td><td>5~30만원</td><td>약 1조 러닝화+ 6,000억 의류</td><td><span class="score s3">3</span></td><td><span class="score s4">4</span></td><td>★★★</td><td>★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">C2</td><td class="name">러닝 코칭 (5K/10K/하프)</td><td class="note">개인 트레이닝 플랜</td><td>패키지 30~80만원</td><td>약 500억 코칭 틈새</td><td><span class="score s4">4</span></td><td><span class="score s1">1</span></td><td>★★★★</td><td>★★</td><td><span class="total-score low">4</span></td></tr>
+<tr><td class="idx">C3</td><td class="name">러닝 크루 유료 멤버십</td><td class="note">월간 정기 크루 + 굿즈</td><td>월 3~10만원</td><td>약 200억 동호회</td><td><span class="score s2">2</span></td><td><span class="score s1">1</span></td><td>★★★★</td><td>★</td><td><span class="total-score low">2</span></td></tr>
+<tr><td class="idx">C4</td><td class="name">러닝 웨어러블·페이스메이커</td><td class="note">스마트밴드·러닝 디바이스</td><td>5~30만원</td><td>약 1,000억 스포츠웨어러블</td><td><span class="score s3">3</span></td><td><span class="score s2">2</span></td><td>★★★</td><td>★★★★★</td><td><span class="total-score mid">6</span></td></tr>
+<tr><td class="idx">C5</td><td class="name">마라톤 대회 운영·유료 참가</td><td class="note">10K 자체 브랜드 대회</td><td>참가비 5~10만원</td><td>약 800억 마라톤 시장</td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td>★★★</td><td>★★★★</td><td><span class="total-score low">4</span></td></tr>
+<tr><td class="idx">C6</td><td class="name">독서모임 유료 운영</td><td class="note">트레바리 모델 (소규모)</td><td>월 5~25만원</td><td>약 500억 유료 독서</td><td><span class="score s3">3</span></td><td><span class="score s1">1</span></td><td>★★★★</td><td>★★</td><td><span class="total-score low">3</span></td></tr>
+<tr><td class="idx">C7</td><td class="name">필사 문구·노트 D2C</td><td class="note">브랜드 노트·만년필 세트</td><td>1~3만원</td><td>약 3,000억 디자인 문구</td><td><span class="score s2">2</span></td><td><span class="score s3">3</span></td><td>★★★★</td><td>★★</td><td><span class="total-score mid">6</span></td></tr>
+<tr><td class="idx">C8</td><td class="name">큐레이션 도서 정기구독 박스</td><td class="note">월 1~2권 + 굿즈</td><td>월 2~5만원</td><td>약 200억 도서구독</td><td><span class="score s2">2</span></td><td><span class="score s1">1</span></td><td>★★★</td><td>★★</td><td><span class="total-score low">2</span></td></tr>
+<tr><td class="idx">C9</td><td class="name">필사 클래스·캘리그라피 워크샵</td><td class="note">오프라인 1~3시간 강좌</td><td>회당 5~15만원</td><td>약 200억 공방 시장</td><td><span class="score s3">3</span></td><td><span class="score s1">1</span></td><td>★★★★</td><td>★★</td><td><span class="total-score low">3</span></td></tr>
+<tr><td class="idx">C10</td><td class="name">도서 요약 앱·뉴스레터</td><td class="note">윌라/플라이북 모델</td><td>월 7,900~14,900원</td><td>약 1,000억 지식 콘텐츠</td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td>★★★</td><td>★★★</td><td><span class="total-score low">4</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- D. 무관 신사업 40개 -->
+<h2 class="cat-D"><span class="num">D</span>전혀 무관한 신사업 40개 <span class="tag D">UNRELATED</span></h2>
+<p class="section-desc">본인의 자산(서비스·본업·취미)과 직접 연결고리가 없는 후보. 시장 매력만으로 평가.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>상품·서비스</th><th>설명</th><th>객단가</th><th>시장크기(한국)</th><th>객단가</th><th>시장</th><th>시너지</th><th>난이도</th><th>종합</th></tr></thead>
+<tbody>
+<tr><td class="idx">D1</td><td class="name">반려동물 사료·간식 D2C</td><td class="note">프리미엄 펫푸드</td><td>월 5~15만원</td><td>약 6조 펫푸드</td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">15</span></td></tr>
+<tr><td class="idx">D2</td><td class="name">반려동물 보험 중개</td><td class="note">보험사 비교·가입</td><td>연 30~100만원</td><td>약 1조 펫보험</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">16</span></td></tr>
+<tr><td class="idx">D3</td><td class="name">캠핑·아웃도어 D2C</td><td class="note">텐트·기어 자체 브랜드</td><td>20~80만원</td><td>약 5,000억 캠핑</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">D4</td><td class="name">골프 레슨 매칭</td><td class="note">스크린골프·프로 매칭</td><td>회당 5~15만원</td><td>약 7조 골프</td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">15</span></td></tr>
+<tr><td class="idx">D5</td><td class="name">부동산 임대중개 SaaS</td><td class="note">공인중개사 SaaS</td><td>월 30~100만원</td><td>약 5,000억 프롭테크</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">D6</td><td class="name">F&amp;B 프랜차이즈 (밀키트 식당)</td><td class="note">오프라인 매장+본사</td><td>가맹비 5~10천만원</td><td>약 100조 외식</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">25</span></td></tr>
+<tr><td class="idx">D7</td><td class="name">밀키트·HMR D2C 구독</td><td class="note">정기배송 박스</td><td>월 5~12만원</td><td>약 5조 HMR</td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">15</span></td></tr>
+<tr><td class="idx">D8</td><td class="name">친환경 화장품 브랜드</td><td class="note">D2C+채널 입점</td><td>3~8만원</td><td>약 30조 화장품</td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">15</span></td></tr>
+<tr><td class="idx">D9</td><td class="name">스니커 리셀 마켓</td><td class="note">크림·스톡엑스 모델</td><td>20~50만원</td><td>약 7,000억 리셀</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">D10</td><td class="name">와인 큐레이션 구독</td><td class="note">월 2병 박스</td><td>월 5~10만원</td><td>약 2,000억 와인 D2C</td><td><span class="score s3">3</span></td><td><span class="score s2">2</span></td><td>★</td><td>★★★</td><td><span class="total-score mid">6</span></td></tr>
+<tr><td class="idx">D11</td><td class="name">골프웨어 D2C</td><td class="note">자체 브랜드 의류</td><td>10~30만원</td><td>약 6조 골프웨어</td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">15</span></td></tr>
+<tr><td class="idx">D12</td><td class="name">차량 정비·세차 예약</td><td class="note">O2O 예약·결제</td><td>3~15만원</td><td>약 1.5조 정비 O2O</td><td><span class="score s2">2</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★</td><td><span class="total-score mid">8</span></td></tr>
+<tr><td class="idx">D13</td><td class="name">소형 인테리어 가구 D2C</td><td class="note">1인 가구 타깃</td><td>10~50만원</td><td>약 15조 가구 전체</td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">15</span></td></tr>
+<tr><td class="idx">D14</td><td class="name">반려식물 D2C 구독</td><td class="note">월간 식물·관리키트</td><td>월 2~5만원</td><td>약 1,500억 반려식물</td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td>★</td><td>★★</td><td><span class="total-score low">4</span></td></tr>
+<tr><td class="idx">D15</td><td class="name">키즈 장난감 구독박스</td><td class="note">월령별 큐레이션</td><td>월 4~8만원</td><td>약 4,000억 키즈구독</td><td><span class="score s2">2</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★</td><td><span class="total-score mid">6</span></td></tr>
+<tr><td class="idx">D16</td><td class="name">시니어 돌봄 매칭</td><td class="note">방문 돌봄·간병인</td><td>월 50~150만원</td><td>약 5조 실버케어</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">25</span></td></tr>
+<tr><td class="idx">D17</td><td class="name">전동킥보드 공유</td><td class="note">단거리 공유 모빌</td><td>회당 1,500~5,000원</td><td>약 3,000억 마이크로</td><td><span class="score s1">1</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★★★</td><td><span class="total-score low">3</span></td></tr>
+<tr><td class="idx">D18</td><td class="name">결혼식 스드메 매칭</td><td class="note">스튜디오·드레스·메이크업</td><td>200~600만원</td><td>약 3조 웨딩</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">20</span></td></tr>
+<tr><td class="idx">D19</td><td class="name">헤어·뷰티 살롱 예약</td><td class="note">미용실 예약·결제</td><td>회당 5~15만원</td><td>약 8조 미용</td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">15</span></td></tr>
+<tr><td class="idx">D20</td><td class="name">N잡·부수입 마켓플레이스</td><td class="note">크몽/숨고 모델</td><td>건당 10~50만원</td><td>약 1조 긱 이코노미</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">16</span></td></tr>
+<tr><td class="idx">D21</td><td class="name">셀프 빨래방 무인매장</td><td class="note">가맹·다점포 운영</td><td>월매출 200~600만원</td><td>약 1조 무인 점포</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★</td><td><span class="total-score high">16</span></td></tr>
+<tr><td class="idx">D22</td><td class="name">무인 카페·아이스크림</td><td class="note">가맹점 운영</td><td>가맹비 3천~1억</td><td>약 5,000억 무인점포</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">D23</td><td class="name">무인 사진관·포토부스</td><td class="note">인생네컷 가맹</td><td>가맹비 5천~1억</td><td>약 3,000억 포토</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">D24</td><td class="name">코인노래방 운영</td><td class="note">2~3매장 다점포</td><td>회당 5천~1만원</td><td>약 5,000억 코노</td><td><span class="score s1">1</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★</td><td><span class="total-score low">3</span></td></tr>
+<tr><td class="idx">D25</td><td class="name">아트프린트·포스터 D2C</td><td class="note">디지털 아트 인쇄 판매</td><td>2~10만원</td><td>약 1,500억 아트 굿즈</td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td>★</td><td>★★★</td><td><span class="total-score low">4</span></td></tr>
+<tr><td class="idx">D26</td><td class="name">캠핑카 렌탈</td><td class="note">주말 캠핑카 임대</td><td>일 20~50만원</td><td>약 1,500억 캠핑카</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>★</td><td>★★★★</td><td><span class="total-score mid">8</span></td></tr>
+<tr><td class="idx">D27</td><td class="name">단기 카셰어링</td><td class="note">시간 단위 차량공유</td><td>시간 5천~3만원</td><td>약 1조 카셰어링</td><td><span class="score s2">2</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★★</td><td><span class="total-score mid">8</span></td></tr>
+<tr><td class="idx">D28</td><td class="name">친환경 세제 D2C</td><td class="note">리필·정기배송</td><td>1~3만원</td><td>약 5,000억 친환경 생활</td><td><span class="score s2">2</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★</td><td><span class="total-score mid">6</span></td></tr>
+<tr><td class="idx">D29</td><td class="name">1인가구 도시락 구독</td><td class="note">주 5회 도시락 배송</td><td>월 10~30만원</td><td>약 5조 HMR 일부</td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">15</span></td></tr>
+<tr><td class="idx">D30</td><td class="name">단백질·헬스 보충제 D2C</td><td class="note">프로틴 정기배송</td><td>월 5~15만원</td><td>약 5,000억 보충제</td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td>★★</td><td>★★★★</td><td><span class="total-score mid">9</span></td></tr>
+<tr><td class="idx">D31</td><td class="name">한방 건강식품 D2C</td><td class="note">홍삼·즙·환제품</td><td>월 5~20만원</td><td>약 1조 건강기능 일부</td><td><span class="score s3">3</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">D32</td><td class="name">향수·디퓨저 D2C 브랜드</td><td class="note">니치 향수</td><td>3~15만원</td><td>약 1조 니치 향수</td><td><span class="score s3">3</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">D33</td><td class="name">생리대·여성용품 D2C</td><td class="note">유기농·정기배송</td><td>월 1~3만원</td><td>약 5,000억 여성용품</td><td><span class="score s1">1</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★</td><td><span class="total-score low">3</span></td></tr>
+<tr><td class="idx">D34</td><td class="name">임산부·출산용품 큐레이션</td><td class="note">출산준비 박스</td><td>5~30만원</td><td>약 4,000억 임산부 시장</td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★★</td><td><span class="total-score mid">9</span></td></tr>
+<tr><td class="idx">D35</td><td class="name">스마트팜 채소 재배기</td><td class="note">가정용 식물재배기</td><td>30~100만원</td><td>약 1,500억 가정 스마트팜</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>★</td><td>★★★★</td><td><span class="total-score mid">8</span></td></tr>
+<tr><td class="idx">D36</td><td class="name">명품 시계 리세일 플랫폼</td><td class="note">롤렉스·오메가 거래</td><td>100만~수천만원</td><td>약 1조 명품 리세일</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">20</span></td></tr>
+<tr><td class="idx">D37</td><td class="name">중고차 직거래 플랫폼</td><td class="note">개인간 안전거래</td><td>1,000~3,000만원</td><td>약 30조 중고차</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">25</span></td></tr>
+<tr><td class="idx">D38</td><td class="name">농산물 D2C 산지직송</td><td class="note">새벽배송 신선식품</td><td>회당 5~10만원</td><td>약 3조 신선식품 D2C</td><td><span class="score s3">3</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">12</span></td></tr>
+<tr><td class="idx">D39</td><td class="name">안경·콘택트렌즈 구독</td><td class="note">정기배송·검안 연계</td><td>월 2~5만원</td><td>약 5,000억 콘택트렌즈</td><td><span class="score s2">2</span></td><td><span class="score s3">3</span></td><td>★</td><td>★★★</td><td><span class="total-score mid">6</span></td></tr>
+<tr><td class="idx">D40</td><td class="name">여행 패키지·티켓팅 플랫폼</td><td class="note">에어텔·국내여행 큐레이션</td><td>50~300만원</td><td>약 30조 여행</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">20</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2><span class="num">02</span>종합 우선순위 TOP 15</h2>
+<p class="section-desc">80개 중 종합점수 상위 15. 동점 시 시너지(★) 우선. 본인 자산을 직접 쓰는 항목(A·B·C 카테고리)이 실질 추천 후보입니다.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:48px">순위</th><th>상품·서비스</th><th>분류</th><th>객단가</th><th>시장</th><th>시너지</th><th>난이도</th><th>점수</th><th>핵심 코멘트</th></tr></thead>
+<tbody>
+<tr><td><span class="rank gold">1</span></td><td class="name">중고차 직거래 <span class="tag D">D37</span></td><td>무관</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">25</span></td><td class="note">시장 30조. 단, KB차차차·엔카 등 강자, 신뢰·검수 인프라 필수.</td></tr>
+<tr><td><span class="rank silver">1</span></td><td class="name">F&amp;B 프랜차이즈 <span class="tag D">D6</span></td><td>무관</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">25</span></td><td class="note">시장은 거대, 운영 노하우·자본 진입장벽 매우 큼.</td></tr>
+<tr><td><span class="rank bronze">1</span></td><td class="name">시니어 돌봄 매칭 <span class="tag D">D16</span></td><td>무관</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">25</span></td><td class="note">초고령화로 폭증. 규제·인력풀 필수, 분리법인 권장.</td></tr>
+<tr><td><span class="rank">4</span></td><td class="name">ERP 도입 PM·구축 외주 <span class="tag B">B2</span></td><td>본업</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>★★★★★</td><td>★★★★</td><td><span class="total-score high">20</span></td><td class="note"><b>본업 직결 최우선.</b> 본인이 가진 ERP 운영 경험·네트워크 그대로 매출화. 1~5억/건.</td></tr>
+<tr><td><span class="rank">5</span></td><td class="name">자기계발 VOD 강의 <span class="tag A">A8</span></td><td>Habitree</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>★★★★</td><td>★★★</td><td><span class="total-score high">20</span></td><td class="note"><b>본 서비스 확장 최우선.</b> Habitree 사용자 그대로 컨버전, 에듀테크 9.9조 시장.</td></tr>
+<tr><td><span class="rank">6</span></td><td class="name">결혼식 스드메 매칭 <span class="tag D">D18</span></td><td>무관</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★</td><td><span class="total-score high">20</span></td><td class="note">단가 매우 높지만 1회성, 영업이 무거움.</td></tr>
+<tr><td><span class="rank">7</span></td><td class="name">명품 시계 리세일 <span class="tag D">D36</span></td><td>무관</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">20</span></td><td class="note">검수 인프라·신뢰 비용 매우 큼. 자본집약.</td></tr>
+<tr><td><span class="rank">8</span></td><td class="name">여행 패키지 플랫폼 <span class="tag D">D40</span></td><td>무관</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">20</span></td><td class="note">야놀자·트리플 등 선점, 후발 진입 매우 어려움.</td></tr>
+<tr><td><span class="rank">9</span></td><td class="name">습관 코칭 1:1 <span class="tag A">A2</span></td><td>Habitree</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>★★★★★</td><td>★★★</td><td><span class="total-score high">16</span></td><td class="note"><b>강력 추천.</b> 동점 4개 중 시너지 최강. 코치 큐레이션만으로 빠른 출시 가능.</td></tr>
+<tr><td><span class="rank">10</span></td><td class="name">중소기업 IT 보안 점검 <span class="tag B">B6</span></td><td>본업</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>★★★</td><td>★★★★</td><td><span class="total-score high">16</span></td><td class="note">정보보안 1조 시장. ISMS 인증 필요, 본인 IT 백그라운드와 합 좋음.</td></tr>
+<tr><td><span class="rank">11</span></td><td class="name">셀프 빨래방 무인매장 <span class="tag D">D21</span></td><td>무관</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★</td><td><span class="total-score high">16</span></td><td class="note">진입 비교적 쉬움. 단, 포화 구간 진입.</td></tr>
+<tr><td><span class="rank">12</span></td><td class="name">반려동물 보험 중개 <span class="tag D">D2</span></td><td>무관</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">16</span></td><td class="note">금융 라이선스·제휴 필요.</td></tr>
+<tr><td><span class="rank">13</span></td><td class="name">N잡·부수입 마켓 <span class="tag D">D20</span></td><td>무관</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>★</td><td>★★★★★</td><td><span class="total-score high">16</span></td><td class="note">크몽·숨고 등 강자, 네트워크 효과 확보 관건.</td></tr>
+<tr><td><span class="rank">14</span></td><td class="name">ERP 컨설팅 프리랜싱 <span class="tag B">B1</span></td><td>본업</td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>★★★★★</td><td>★★</td><td><span class="total-score high">15</span></td><td class="note"><b>가장 빠른 현금 흐름.</b> 본업 그대로 사이드잡, 진입난이도 최저.</td></tr>
+<tr><td><span class="rank">15</span></td><td class="name">ERP·IT 인강 (인프런/탈잉) <span class="tag B">B4</span></td><td>본업</td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td>★★★★</td><td>★</td><td><span class="total-score high">15</span></td><td class="note"><b>한 번 만들면 자동매출.</b> 본인 SAP/더존 경험 영상화, 강의 1개로 월 패시브 인컴.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2><span class="num">03</span>객단가 × 시장크기 매트릭스 (80개 통합)</h2>
+<p class="section-desc">우상단(객단가↑·시장크기↑)이 가장 매력. 본인 자산이 닿는 색상(A·B·C)에 우선 베팅하는 게 합리적입니다.</p>
+<div class="legend">
+  <span><span class="swatch" style="background:#4ade80"></span>A · Habitree</span>
+  <span><span class="swatch" style="background:#60a5fa"></span>B · 본업 IT</span>
+  <span><span class="swatch" style="background:#f472b6"></span>C · 취미</span>
+  <span><span class="swatch" style="background:#9ca3af"></span>D · 무관</span>
+</div>
+<div class="matrix">
+  <div></div>
+  <div class="col-h">시장 1<br>500억↓</div>
+  <div class="col-h">시장 2<br>~3,000억</div>
+  <div class="col-h">시장 3<br>~1조</div>
+  <div class="col-h">시장 4<br>~5조</div>
+  <div class="col-h">시장 5<br>5조↑</div>
+
+  <div class="row-h">AOV 5<br>100만↑</div>
+  <div class="cell"></div>
+  <div class="cell"></div>
+  <div class="cell"><span class="item A">A15 기업B2B</span><span class="item B">B1 ERP컨설</span></div>
+  <div class="cell"><span class="item B">B2 ERP PM</span><span class="item D">D18 웨딩</span><span class="item D">D36 명품시계</span></div>
+  <div class="cell"><span class="item D">D6 F&amp;B</span><span class="item D">D16 시니어</span><span class="item D">D37 중고차</span></div>
+
+  <div class="row-h">AOV 4<br>30~100만</div>
+  <div class="cell"></div>
+  <div class="cell"><span class="item A">A9 캠프</span><span class="item D">D9 리셀</span><span class="item D">D26 캠핑카</span><span class="item D">D35 스마트팜</span></div>
+  <div class="cell"><span class="item A">A2 코칭</span><span class="item C">C2 러닝코칭</span><span class="item D">D2 펫보험</span><span class="item D">D20 N잡</span><span class="item D">D21 빨래방</span></div>
+  <div class="cell"><span class="item A">A8 VOD</span><span class="item B">B6 보안</span><span class="item D">D3 캠핑</span><span class="item D">D5 프롭</span><span class="item D">D22 무인카페</span><span class="item D">D23 사진관</span></div>
+  <div class="cell"><span class="item D">D40 여행</span></div>
+
+  <div class="row-h">AOV 3<br>10~30만</div>
+  <div class="cell"><span class="item A">A20 강연</span><span class="item C">C6 독서모임</span><span class="item C">C9 필사클래스</span></div>
+  <div class="cell"><span class="item A">A3 챌린지</span><span class="item D">D10 와인</span><span class="item D">D30 보충제</span><span class="item D">D34 임산부</span></div>
+  <div class="cell"><span class="item A">A14 학원SaaS</span><span class="item B">B3 중기ERP</span><span class="item B">B5 RPA</span><span class="item B">B7 헬프데스크</span><span class="item B">B8 ERP BI</span><span class="item B">B9 자격증</span><span class="item D">D31 한방</span><span class="item D">D32 향수</span><span class="item D">D38 농산물</span></div>
+  <div class="cell"><span class="item C">C1 러닝D2C</span></div>
+  <div class="cell"><span class="item B">B4 인강</span><span class="item D">D1 펫푸드</span><span class="item D">D4 골프레슨</span><span class="item D">D7 밀키트</span><span class="item D">D8 화장품</span><span class="item D">D11 골프웨어</span><span class="item D">D13 가구</span><span class="item D">D19 미용</span><span class="item D">D29 도시락</span></div>
+
+  <div class="row-h">AOV 2<br>3~10만</div>
+  <div class="cell"><span class="item A">A5 스티커</span><span class="item C">C3 러닝크루</span><span class="item C">C5 마라톤</span><span class="item C">C8 도서구독</span><span class="item D">D14 식물</span><span class="item D">D25 아트</span></div>
+  <div class="cell"><span class="item A">A1 구독</span><span class="item A">A4 다이어리</span><span class="item A">A6 명상</span><span class="item A">A12 저널링</span><span class="item A">A13 패밀리</span><span class="item A">A16 박스</span><span class="item A">A17 커뮤</span><span class="item B">B10 노션컨설</span><span class="item C">C4 웨어러블</span><span class="item C">C7 필사노트</span><span class="item C">C10 도서요약</span><span class="item D">D15 키즈</span><span class="item D">D28 친환경세제</span></div>
+  <div class="cell"><span class="item A">A11 수면</span><span class="item A">A18 AI코치</span><span class="item D">D27 카셰어</span><span class="item D">D33 생리대</span><span class="item D">D39 안경</span></div>
+  <div class="cell"><span class="item A">A10 식단</span><span class="item A">A19 캐릭터</span><span class="item D">D12 차량O2O</span></div>
+  <div class="cell"></div>
+
+  <div class="row-h">AOV 1<br>3만↓</div>
+  <div class="cell"><span class="item A">A7 워크북</span></div>
+  <div class="cell"></div>
+  <div class="cell"><span class="item D">D17 킥보드</span><span class="item D">D24 코노</span></div>
+  <div class="cell"></div>
+  <div class="cell"></div>
+</div>
+
+<h2><span class="num">04</span>실행 추천 시나리오 — 본인 맞춤형</h2>
+<div class="insight-grid">
+  <div class="insight"><h3>🥇 0~3개월 · 본업 사이드잡</h3><p><b>B1 ERP 컨설팅 프리랜싱</b> + <b>B4 ERP·IT 인강 1편</b> 동시 시작.<br>현금흐름은 B1, 패시브 매출은 B4. 둘 다 <b>본업 자료/네트워크</b> 그대로 활용.</p></div>
+  <div class="insight b"><h3>🥈 3~9개월 · 본 서비스 매출 다각화</h3><p><b>A8 VOD 강의</b> + <b>A2 1:1 코칭</b> 추가.<br>Habitree 사용자 LTV 즉시 상승. ERP 인강과 동일 플랫폼(인프런·탈잉) 활용 가능.</p></div>
+  <div class="insight c"><h3>🥉 6~12개월 · 취미 기반 검증</h3><p><b>C1 러닝 D2C</b> 또는 <b>C7 필사 문구 D2C</b> 중 1택.<br>본인이 사용자라 PMF 검증 빠름. Habitree 사용자(자기관리층)에 교차판매 가능.</p></div>
+  <div class="insight warn"><h3>⚠️ 신중 — B2 / A15</h3><p><b>B2 ERP 도입 PM(20점)</b>·<b>A15 기업 B2B(15점)</b>은 단가 큰 만큼 <b>영업 사이클이 6개월+</b>. 사이드 모드로는 부담, 본업과 충돌 가능.</p></div>
+  <div class="insight danger"><h3>❌ 보류 권장</h3><p>D6 F&amp;B·D16 시니어돌봄·D37 중고차는 점수 25점이지만 <b>자본·규제·풀타임 운영</b> 필요. 단독 진입 비추.<br>A5/A7/D17/D24/C3/C8 등 저점수 항목도 후순위.</p></div>
+  <div class="insight"><h3>🌳 통합 패키지 아이디어</h3><p>"습관(Habitree) + ERP(B1/B4) + 러닝(C1)" 묶어 <b>"갓생 직장인 풀패키지"</b>로 브랜딩 가능. Habitree 안에 ERP 학습 트랙·러닝 챌린지 트랙을 모듈로 추가.</p></div>
+</div>
+
+<footer>
+  Habitree 사업확장 우선순위 v2 · 80개 통합 매트릭스 · BizPT 정리 자료 · 2026-04-25<br>
+  ※ 출처: 에듀테크 9.9조(2025), 펫푸드 6조(KB), 디지털 멘탈케어 1,000억, 자기계발/코칭 1조, ERP 더존비즈온 매출 4,023억(2024), 무인점포 1조(2021), 러닝화 1조+ 운동화 4조(2025) 등.<br>
+  사업화 전 별도 1차 검증 필수.
+</footer>
+
+</div>
+</body>
+</html>

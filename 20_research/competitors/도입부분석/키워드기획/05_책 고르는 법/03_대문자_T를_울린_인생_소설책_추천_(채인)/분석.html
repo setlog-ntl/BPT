@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — 책 고르는 법 / 대문자 T를 울린 인생 소설책 추천 (채인)</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:24px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--ok)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:20px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · 책 고르는 법</p>
+    <h1>대문자 T를 밤새 울게 만든 인생 소설책 추천 (불호책까지 · 채인)</h1>
+    <p class="sub">"한 달 만에 책 소개 영상을 준비했다"는 친근한 인사로 열고 → "지난 영상과 다르게 '유명한데 내 취향은 아니네' 싶었던 불호책도 준비했다"는 차별화 + 꿀템·이벤트 예고 → 첫 책에서 "에세이 싫어하는데 이 책은 달랐다"는 솔직 고백·반전으로 끄는 친근 큐레이션 + 솔직 호불호형 도입.</p>
+    <div class="chips"><span class="chip">키워드 · 책 고르는 법</span><span class="chip">채널 · 채인 Chaein (3,530)</span><span class="chip">길이 · 21:52</span><span class="chip">썸끝 · 정답=좋음 ✅</span><span class="chip">분석일 · 2026-06-08</span><span class="chip"><a href="https://www.youtube.com/watch?v=rnWVmBuxl_Q">▶ 원본 영상</a></span></div>
+  </header>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:68"><div class="num"><b>68</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">B</span></h3><p>유형: 친근 큐레이션 + 솔직 호불호(불호책 포함) · 적합도 높음 · 후크 핵심: '유명한데 내 취향 아닌 책'도 솔직히 다루는 차별화 + 에세이 반전 고백</p></div></div>
+      <div class="grid"><div class="card"><div class="lab">후크 유형</div><div class="val">친근 큐레이션 + 솔직 호불호(불호책·반전 고백)</div></div><div class="card"><div class="lab">첫 발화</div><div class="val">"안녕하세요 채인입니다. 한 달 만에 또 책 소개 영상을 준비해 봤는데요…"</div></div><div class="card"><div class="lab">시각적 텐션</div><div class="val">⚠️ 보통 (12/20) — 책 표지 비주얼 + 자막, 차분한 vlog (◻ 캡처 보류)</div></div><div class="card"><div class="lab">우리 채널 적합도</div><div class="val">🟢 높음 — 책 추천·취향 큐레이션(8축), 성인 일반 독자</div></div></div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:70%"></i></span><span class="pts">14/20</span></div><div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div><div class="srow"><span class="nm">8축 키워드 1개+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:90%"></i></span><span class="pts">18/20</span></div><div class="srow"><span class="nm">결론 먼저</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div><div class="srow"><span class="nm">시각적 텐션</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div>
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 <b>68/100 (B)</b> · 근거: 책 추천·큐레이션(8축) 직결, '유명한데 내 취향 아닌 불호책까지'라는 솔직 차별화 + '에세이 싫어하는데 이 책은 달랐다' 반전 고백으로 신뢰. 도입 진입은 차분(결론·텐션 보통). 썸끝 정답=좋음.</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① 인사 + 호불호 책 큐레이션 예고(+꿀템·이벤트)</span><span class="arrow">→</span><span class="step">② 첫 책 + 솔직 고백(에세이 싫어함)</span><span class="arrow">→</span><span class="step turn">③ 반전: 이 책은 달랐다(몽글몽글)</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:00–0:22</span></td><td>인사 + 이번엔 '유명한데 내 취향 아닌 불호책'도 준비, 마지막에 꿀템·이벤트, 스포 없음</td><td>◻ talking-head + 책 표지(캡처 보류)</td><td>자막</td></tr><tr><td><span class="tt">0:31–0:46</span></td><td>첫 책 『어린이라는 세계』 — 사실 에세이를 싫어하는 편이라는 솔직 고백</td><td>◻ 책 표지(캡처 보류)</td><td>자막</td></tr><tr><td><span class="tt">0:54–1:10</span></td><td>그런데 이 책은 결이 달랐다 — 독서 교실 일기, 마음이 몽글몽글·따뜻</td><td>◻ (캡처 보류)</td><td>자막</td></tr>
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=유튜브 '스크립트 표시' 패널 실제 대본(한국어 자동자막, 비교적 깨끗). 화면·번인 자막 ◻ 캡처 보류.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (그럼에도 불구하고)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight">
+        <li>'유명한데 내 취향 아닌 불호책'까지 다루는 솔직 큐레이션 → 신뢰·차별화</li>
+        <li>'에세이 싫어하는데 이 책은 달랐다'는 반전 고백으로 설득력↑</li>
+        <li>제목의 감정 후크('밤새 울게 만든')로 클릭 유도 — 감정 후크 차용</li>
+      </ul></div>
+      <div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight">
+        <li>에세이 싫어하는 내가 울어버린 책</li>
+        <li>유명한데 내 취향 아닌 책 vs 인생책 — 솔직 큐레이션</li>
+      </ul></div></div></section>
+    <section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="ok-i">Y</span></td><td>책 추천·취향 큐레이션이 주제</td></tr><tr><td>② 결 3그룹</td><td><span class="ok-i">Y</span></td><td>'무슨 책 고를까/내 취향' 고민층</td></tr><tr><td>③ 8축</td><td><span class="ok-i">Y</span></td><td>책 추천 / 큐레이션</td></tr><tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>디바이스 무관</td></tr>
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">3축 해당 = 결 맞음(직접 차용 가능).</p></section>
+    <section><div class="note"><h3>⚙️ 대본·캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>✔ 실제 대본 확보 완료</b> — 유튜브 <b>'스크립트 표시' 패널</b>에서 도입부 대본을 직접 추출(한국어 자동자막, 비교적 깨끗). 소수 오인식(예: 체인→채인, 치향→취향, 꿀탱→꿀템)만 📝 대본에서 보정하고 📜 원문은 그대로 보존. 화면·번인 자막은 ◻ 캡처 보류.</p></div></section>
+  </div>
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="script-head"><span class="hint">유튜브 스크립트 패널 원문의 내용을 최대한 그대로 유지 · 오타와 말이 안 맞는(비문·오인식) 부분만 보정 → 맥락 단위 구분 → 구분별 대본 / 화면 / 자막</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+        <div class="unit"><div class="uhd"><span class="time">0:00–0:22</span><span class="utag">① 인사 + 호불호 책 큐레이션 예고</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">"안녕하세요, 채인입니다. 어, 한 달 만에 또 이렇게 책 소개 영상을 준비를 해 봤는데요. 이번 영상에는 지난 영상들과 조금 다르게, 어, '요거는 유명하던데 내 취향은 좀 아니네' 싶었던 책들도 조금 준비를 해 봤어요. 그리고 영상 마지막에는 간단한 독서 꿀템과, 어, 이벤트도 준비를 해 봤거든요. 그래서 이제 영상 마지막까지 시청을 해 주셨으면 좋겠고, 오늘 영상도 스포 없을 예정이니까 편하게 봐 주셨으면 좋겠습니다."</span></div><div class="ln"><span class="k">화면</span><span class="v">talking-head + 책 표지(채인, 캡처 보류)</span></div><div class="ln"><span class="k">자막</span><span class="v">자막</span></div></div>
+        <div class="unit"><div class="uhd"><span class="time">0:31–0:46</span><span class="utag">② 첫 책 + 솔직 고백(에세이 싫어함)</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">"그럼 바로 시작해 봅시다요. 어, 첫 번째 책은 『어린이라는 세계』라는 에세이 책이에요. 제가 진짜 에세이를 안 읽다 못해서, 조금 솔직하게 말하면 싫어하는 편에 약간 더 가깝거든요. 오늘 제가 성격이 좀 별로 안 좋아요. 그래 가지고 누가 좀 이래라저래라 하는 거를 선호하지는 않는 편이어 가지고 에세이는 조금 안 읽는 편인데,"</span></div><div class="ln"><span class="k">화면</span><span class="v">책 표지(캡처 보류)</span></div><div class="ln"><span class="k">자막</span><span class="v">자막</span></div></div>
+        <div class="unit"><div class="uhd"><span class="time">0:54–1:10</span><span class="utag">③ 반전 — 이 책은 달랐다</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">"요거는 그런 에세이들이랑 좀 다른 결의 책이더라고요. 이게 어린이를 대상으로 하는 독서 교실에서 일어나는 일들을 좀 일기처럼 기록해 둔 책인데, 진짜 마음이 너무 몽글몽글해지고 따뜻해지는 책이에요. 진짜 어린이를 너무 사랑하게 되는 책이라고 할까요?"</span></div><div class="ln"><span class="k">화면</span><span class="v">(캡처 보류)</span></div><div class="ln"><span class="k">자막</span><span class="v">자막</span></div></div>
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 대본은 유튜브 <b>스크립트 표시 패널 원문</b>의 내용을 최대한 그대로 유지하고 오인식·비문만 최소 보정. 원문 그대로(오탈자 포함)는 <b>📜 원문</b> 탭.</p>
+    </section>
+  </div>
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 유튜브 스크립트 패널 그대로</h2>
+      <div class="script-head"><span class="hint">YouTube '스크립트 표시' 패널 원문(자동자막, 오탈자·오인식 포함) — 손대지 않고 보존</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:00</span><span>안녕하세요. 체인입니다. 어, 한 달 만에 또 이렇게 책 소개 영상을 준비를 해 봤는데요. 이번 영상에는</span></li>
+        <li><span class="tt">0:08</span><span>지난 영상들과 조금 다르게 어, 요거는 유명하던데 내 치향은 좀 아니네 싶었던 책들도 조금 준비를 해</span></li>
+        <li><span class="tt">0:15</span><span>봤어요. 그리고 영상 마지막에는 간단한 독서 꿀탱과 어, 이벤트도 준비를 해 봤거든요. 그래서 이제</span></li>
+        <li><span class="tt">0:22</span><span>영상 마지막까지 시청을 해 주셨으면 좋겠고 오늘 영상도 스포 없을 예정이니까 편하게 봐 주셨으면 좋겠습니다. 그럼 바로 시작해</span></li>
+        <li><span class="tt">0:31</span><span>봅시다요. 어 첫 번째 책은 어린이라는 세계라는 에세이 책이에요.</span></li>
+        <li><span class="tt">0:37</span><span>제가 진짜 에세이를 안 읽다 못해서 조금 솔직하게 말하면 싫어하는 편에 약간 더 가깝거든요. 오늘 제가 성격이 좀 별로 안 좋아요.</span></li>
+        <li><span class="tt">0:46</span><span>그래가지고 누가 좀 이래라 저래라 하는 거를 선호하지는 않는 편이어 가지고 에세이는 조금 안 있는 편인데</span></li>
+        <li><span class="tt">0:54</span><span>요거는 그런 에세이들이랑 좀 다른 결의 책이더라고요. 이게 어린이를 대상으로 하는 독서 교실에서 일어나는</span></li>
+        <li><span class="tt">1:03</span><span>일들을 좀 일기처럼 기록해 둔 책인데 진짜 마음이 너무 몽글몽글해지고 따뜻해지는 책이에요.</span></li>
+        <li><span class="tt">1:10</span><span>진짜 어린이를 너무 사랑하게 돼 하는 책이라고 할까요? 어 저뿐만 아니라 진짜 어린이 시절은 진짜 모두</span></li>
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">출처: YouTube 스크립트 패널(한국어 자동자막). 도입부(0:00~1:10) 발췌, 오탈자·오인식 보존.</p>
+    </section>
+  </div>
+  <footer>키워드 기획 분석 · 2026-06-08 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../도입부분석_통합지침_(코워크용).md">통합지침</a><br>출처: <a href="https://www.youtube.com/watch?v=rnWVmBuxl_Q">YouTube — 채인 Chaein</a> · 썸끝 정답=좋음 · 내부 기획·학습용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='✓ 복사됨';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

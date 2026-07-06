@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — 몸값 올리는 독서법 / 책 읽기가 어려운 초보 독서러의 꾸준한 독서법</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:24px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--ok)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:20px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · 몸값 올리는 독서법</p>
+    <h1>책 읽기가 어려운 초보 독서러의 꾸준한 독서법</h1>
+    <p class="sub">&#x27;책을 좋아하기도, 안 좋아하기도 한다&#x27;는 솔직한 고백으로 시작해 → 어릴 적 다독 → 수능에 책을 놓음 → 최근 몇 년 한 권도 못 읽고 &#x27;바보가 되어가는&#x27; 정체감을 토로하며 &#x27;상식을 키워야겠다&#x27;는 동기로 잇는 자기고백형 브이로그.</p>
+    <div class="chips"><span class="chip">키워드 · 몸값 올리는 독서법</span><span class="chip">채널 · 브이로그 (책 읽는 일상)</span><span class="chip">길이 · 4:25</span><span class="chip">썸끝 · 정답=좋음 ✅</span><span class="chip">분석일 · 2026-06-08</span><span class="chip"><a href="https://www.youtube.com/watch?v=uaJC6BtPuJw">▶ 원본 영상</a></span></div>
+  </header>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:74"><div class="num"><b>74</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">B</span></h3><p>유형: 자기 고백(독서 권태) + 공감 · 적합도 매우 높음 · 후크 핵심: &#x27;읽고 싶지만 손이 안 가는&#x27; 결핍을 솔직하게 호명</p></div></div>
+      <div class="grid"><div class="card"><div class="lab">후크 유형</div><div class="val">자기 고백(독서 권태) + 공감</div></div><div class="card"><div class="lab">첫 발화</div><div class="val">&quot;저는 책 읽는 걸 좋아하기도 하고 안 좋아하기도 하는 것 같아요&quot;</div></div><div class="card"><div class="lab">시각적 텐션</div><div class="val">⚠️ 보통 (14/20) — 브이로그 B-roll + 내레이션, 잔잔한 음악 (◻ 캡처 보류)</div></div><div class="card"><div class="lab">우리 채널 적합도</div><div class="val">🟢 매우 높음 — &#x27;읽어야지 하지만 손이 안 가는&#x27;(결1/3) 직접 공감, 습관·동기(8축)</div></div></div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div><div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:90%"></i></span><span class="pts">18/20</span></div><div class="srow"><span class="nm">8축 키워드 1개+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div><div class="srow"><span class="nm">결론 먼저</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:70%"></i></span><span class="pts">14/20</span></div><div class="srow"><span class="nm">시각적 텐션</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:70%"></i></span><span class="pts">14/20</span></div>
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 74/100 (B) · 근거: &#x27;한 권도 못 읽었다 / 손이 안 갔다&#x27;는 결핍을 구체적으로 호명(결 호명 강함), 습관·동기(8축). 변화 약속은 도입 뒤로 미뤄짐. 썸끝 정답=좋음.</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① 솔직 고백(좋기도 싫기도)</span><span class="arrow">→</span><span class="step">② 다독→단절(수능 이후)</span><span class="arrow">→</span><span class="step turn">③ 정체감·각성(&#x27;상식을 키우자&#x27;)</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:02–0:16</span></td><td>어릴 땐 엄마 덕에 책을 많이 읽었다</td><td>◻ 브이로그 B-roll(캡처 보류)</td><td>자막</td></tr><tr><td><span class="tt">0:17–0:35</span></td><td>수능 준비로 책을 놓았다 / 오히려 고3 때 반기문 책을 사 봤다</td><td>◻ (캡처 보류)</td><td>자막</td></tr><tr><td><span class="tt">0:36–0:57</span></td><td>최근 몇 년 한 권도 안 읽었다 / 손이 안 가고 바빴다</td><td>◻ (캡처 보류)</td><td>자막</td></tr><tr><td><span class="tt">1:00–1:12</span></td><td>바보가 되어가는 느낌 → 상식을 키워야겠다 결심</td><td>◻ (캡처 보류)</td><td>자막</td></tr>
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=유튜브 '스크립트 표시' 패널 실제 대본(자동자막). 브이로그형, 화면·자막 ◻ 캡처 보류.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (그럼에도 불구하고)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight"><li>양가감정 솔직 고백(&quot;좋기도 싫기도&quot;)으로 진입장벽 낮추기</li><li>&#x27;한 권도 못 읽었다&#x27;는 결핍을 구체 시점으로 호명</li><li>&#x27;바보가 되어간다&#x27;는 위기감 → 각성 동기로 전환</li></ul></div>
+      <div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight"><li>몇 년째 한 권도 못 읽은 내가 다시 책을 든 이유</li><li>&#x27;책 좋아하세요?&#x27; — 좋기도 싫기도 한 당신에게</li></ul></div></div></section>
+    <section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="ok-i">Y</span></td><td>독서 습관이 주제</td></tr><tr><td>② 결 3그룹</td><td><span class="ok-i">Y</span></td><td>&#x27;읽고 싶지만 손이 안 가는&#x27; 결핍</td></tr><tr><td>③ 8축</td><td><span class="ok-i">Y</span></td><td>습관 / 동기</td></tr><tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>디바이스 무관</td></tr>
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">3축 해당 = 결 맞음(직접 차용 가능).</p></section>
+    <section><div class="note"><h3>⚙️ 대본·캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>✔ 실제 대본 확보</b> — 유튜브 '스크립트 표시' 패널 자동자막에서 도입부 추출. 브이로그형이며 화면 ◻ 캡처 보류. 오탈자는 <b>📜 원문</b> 탭 보존.</p></div></section>
+  </div>
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="script-head"><span class="hint">유튜브 스크립트 패널 원문을 오타·잘못된 단어만 보정 → 맥락 단위 구분 → 구분별 대본 / 화면 / 자막</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+        <div class="unit"><div class="uhd"><span class="time">0:02–0:16</span><span class="utag">① 솔직 고백</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">&quot;저는 책 읽는 걸 좋아하기도 하고 안 좋아하기도 하는 것 같아요. 생각해보면 어렸을 때는 책을 정말 많이 읽었던 것 같아요. 엄마가 항상 &#x27;책 사는 데에는 돈을 아끼면 안 된다&#x27;고 하시면서 책을 읽는 환경을 만들어 주셨어요.&quot;</span></div><div class="ln"><span class="k">화면</span><span class="v">브이로그 B-roll(캡처 보류)</span></div><div class="ln"><span class="k">자막</span><span class="v">자막</span></div></div><div class="unit"><div class="uhd"><span class="time">0:17–0:35</span><span class="utag">② 단절</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">&quot;하지만 대한민국의 학생이라면 누구나 그렇듯 대입 수능 준비에 올인해야 했고, 학습지가 아닌 책은 더 이상 볼 수 없게 되었죠. 그때는 오히려 책이 너무 읽고 싶어서 고3 때 반기문 총장님 책을 사서 봤었어요. 당장에 수능이 아니라 먼 미래를 꿈꾸면서 말이죠.&quot;</span></div><div class="ln"><span class="k">화면</span><span class="v">(캡처 보류)</span></div><div class="ln"><span class="k">자막</span><span class="v">자막</span></div></div><div class="unit"><div class="uhd"><span class="time">0:36–0:57</span><span class="utag">③ 권태</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">&quot;하지만 작년까지 최근 몇 년간 거의 책을 한 권도 읽지 않았더라고요. 책을 읽어야지 생각은 했지만 막상 손이 잘 안 갔어요. (음악) 읽어야 할 필요성도 잘 못 느꼈고 일상이 너무 바빴거든요. 매일 헤쳐나가야 할 문제들이 왜 이렇게 많은 건지, 하루살이처럼 하루하루 살아가는 삶이었어요.&quot;</span></div><div class="ln"><span class="k">화면</span><span class="v">(캡처 보류)</span></div><div class="ln"><span class="k">자막</span><span class="v">자막</span></div></div><div class="unit"><div class="uhd"><span class="time">1:00–1:12</span><span class="utag">④ 각성</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">&quot;그렇게 몇 년이 지속하다 보니 바보가 되어가는 것 같더라고요. 내가 움직이지 않고 멈춘 것 같은 느낌이었어요. 공부를 통해 학습하는 것이 아닌 저의 상식을 키워야겠다는 생각이 들었어요.&quot;</span></div><div class="ln"><span class="k">화면</span><span class="v">(캡처 보류)</span></div><div class="ln"><span class="k">자막</span><span class="v">자막</span></div></div>
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 대본은 유튜브 <b>스크립트 표시 패널 원문</b>에서 오타·잘못된 단어만 보정. 원문 그대로는 <b>📜 원문</b> 탭.</p>
+    </section>
+  </div>
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 유튜브 스크립트 패널 그대로</h2>
+      <div class="script-head"><span class="hint">YouTube '스크립트 표시' 패널 원문(자동자막, 오탈자 포함) — 손대지 않고 보존</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:02</span><span>저는 책 읽는 걸 좋아하기도 하고 안</span></li><li><span class="tt">0:05</span><span>좋아하기도 하는 것 같아요 생각해보면</span></li><li><span class="tt">0:07</span><span>어렸을 때는 책을 정말 많이 읽었던</span></li><li><span class="tt">0:09</span><span>것 같아요 엄마가</span></li><li><span class="tt">0:12</span><span>항상 책 사는 데에는 돈을 아끼면 안</span></li><li><span class="tt">0:14</span><span>된다고 하시면서</span></li><li><span class="tt">0:15</span><span>책을 읽는 환경을 만들어 주셨어요</span></li><li><span class="tt">0:17</span><span>하지만 대한민국의 학생이라면 누구나</span></li><li><span class="tt">0:20</span><span>그렇듯 대입 수능 준비에 올인해야</span></li><li><span class="tt">0:22</span><span>했고 학습지가 아닌 책은 더 이상 볼</span></li><li><span class="tt">0:25</span><span>수 없게 되었죠 그때는 오히려 책이</span></li><li><span class="tt">0:27</span><span>너무 읽고 싶어서</span></li><li><span class="tt">0:29</span><span>고3 때 반기문 총장님 책을 사서</span></li><li><span class="tt">0:31</span><span>봤었어요</span></li><li><span class="tt">0:33</span><span>당장에 수능이 아니라 먼 미래를</span></li><li><span class="tt">0:35</span><span>꿈꾸면서 말이죠</span></li><li><span class="tt">0:36</span><span>하지만 작년까지 최근 몇 년간 거의</span></li><li><span class="tt">0:40</span><span>책을 한 권도 읽지 않았더라고요</span></li><li><span class="tt">0:43</span><span>책을 읽어야지 생각은 했지만</span></li><li><span class="tt">0:45</span><span>막상 손이 잘 안 갔어요</span></li><li><span class="tt">0:46</span><span>[음악]</span></li><li><span class="tt">0:48</span><span>읽어야 할 필요성도 잘 못 느꼈고</span></li><li><span class="tt">0:50</span><span>일상이 너무 바빴거든요</span></li><li><span class="tt">0:53</span><span>매일 헤쳐나가야 할 문제들이 왜</span></li><li><span class="tt">0:55</span><span>이렇게 많은 건지 하루살이처럼</span></li><li><span class="tt">0:57</span><span>하루하루 살아가는 삶이었어요</span></li><li><span class="tt">1:00</span><span>그렇게 몇 년이 지속하다 보니 바보가</span></li><li><span class="tt">1:03</span><span>되어가는 것 같더라고요 내가</span></li><li><span class="tt">1:05</span><span>움직이지 않고</span></li><li><span class="tt">1:07</span><span>멈춘 것 같은 느낌이었어요 공부를</span></li><li><span class="tt">1:10</span><span>통해 학습하는 것이 아닌 저의 상식을</span></li><li><span class="tt">1:12</span><span>키워야겠다는 생각이 들었어요</span></li>
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">출처: YouTube 스크립트 패널(자동자막). 도입부(0:02~1:12) 발췌, 오탈자 보존.</p>
+    </section>
+  </div>
+  <footer>키워드 기획 분석 · 2026-06-08 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../도입부분석_통합지침_(코워크용).md">통합지침</a><br>출처: <a href="https://www.youtube.com/watch?v=uaJC6BtPuJw">YouTube — 브이로그 (책 읽는 일상)</a> · 썸끝 정답=좋음 · 내부 기획·학습용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='\u2713 \ubcf5\uc0ac\ub428';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

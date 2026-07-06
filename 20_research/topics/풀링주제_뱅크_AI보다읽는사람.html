@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>풀링 주제 뱅크 · AI보다 읽는 사람 · 6축 × 결 × 뷰트랩</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2;
+    --accent:#ffd166; --accent-2:#06d6a0; --warn:#ef476f;
+    --pull:#5cc4e0; --info:#5cc4e0; --brief:#c4b5fd; --ai:#6ea8fe;
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:var(--pull)}
+  .wrap{max-width:1280px;margin:0 auto;padding:24px 24px 140px}
+
+  .angle-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;padding:12px;
+    background:rgba(23,26,33,.92);border:1px solid var(--line);border-radius:12px;
+    position:sticky;top:0;z-index:30;backdrop-filter:blur(8px)}
+  .abtn{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:12.5px;font-weight:600;transition:all .15s;white-space:nowrap}
+  .abtn:hover{transform:translateY(-1px);background:#252a36;border-color:#34394a}
+  .abtn.home{color:var(--muted);background:transparent}
+  .abtn.ai{border-color:rgba(110,168,254,.4);color:#cfe0ff}
+
+  header.hero{padding:28px 32px;border-radius:18px;
+    background:radial-gradient(1200px 380px at 10% -10%,rgba(110,168,254,.20),transparent 50%),
+               radial-gradient(900px 360px at 110% 10%,rgba(6,214,160,.14),transparent 55%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line);margin-bottom:22px}
+  .eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.18em;color:var(--ai);
+    background:rgba(110,168,254,.12);border:1px solid rgba(110,168,254,.3);
+    padding:5px 11px;border-radius:999px;text-transform:uppercase}
+  h1{font-size:30px;line-height:1.25;margin:14px 0 10px;letter-spacing:-0.02em;font-weight:800}
+  .lede{color:var(--muted);font-size:14.5px;margin:6px 0 14px;max-width:960px}
+  .lede b{color:#cfd5e0}
+  .chain{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 12px;font-size:13px;font-weight:700}
+  .chain .node{padding:4px 10px;border-radius:8px;background:var(--panel-2);border:1px solid var(--line)}
+  .chain .node.in{color:#cfe0ff;border-color:rgba(110,168,254,.4)}
+  .chain .node.base{color:#bff3e2;border-color:rgba(6,214,160,.4)}
+  .chain .node.end{color:#ffe6a8;border-color:rgba(255,209,102,.4)}
+  .chain .arr{color:var(--muted)}
+  .meta-row{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:#2a2f3a;border:1px solid var(--line);color:var(--text);
+    font-size:12px;padding:5px 10px;border-radius:999px}
+
+  .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 22px}
+  @media(max-width:760px){.stats-bar{grid-template-columns:repeat(2,1fr)}.wrap{padding:18px 14px 100px}h1{font-size:24px}}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .stat .lab{font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  .stat .val{font-size:22px;font-weight:800;color:#fff;margin-top:4px;font-variant-numeric:tabular-nums}
+  .stat .sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+  section{margin-top:38px;scroll-margin-top:78px}
+  h2{font-size:21px;letter-spacing:-.01em;margin:0 0 6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  h2::before{content:"";width:6px;height:24px;border-radius:3px;background:var(--accent-2)}
+  h2.axis-in::before{background:var(--ai)}
+  h2 .num{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:.1em;margin-right:2px}
+  h2 .sec-tag{font-size:11px;background:var(--panel-2);color:var(--muted);padding:3px 9px;border-radius:6px;
+    border:1px solid var(--line);margin-left:auto;font-weight:600}
+  h2 .sec-tag.new{color:#cfe0ff;border-color:rgba(110,168,254,.4)}
+  .axis-meta{color:var(--muted);font-size:13px;margin:2px 0 12px}
+  .axis-meta b{color:#cfd5e0}
+
+  .info-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+  .info-card.how{border-left:4px solid var(--accent-2)}
+  .info-card.warn{border-left:4px solid var(--warn)}
+  .info-card.ai{border-left:4px solid var(--ai)}
+
+  table{width:100%;border-collapse:collapse;margin:8px 0 4px;font-size:13px;background:var(--panel);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--panel-2);color:var(--muted);font-size:11.5px;letter-spacing:.04em;font-weight:700;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td.id{color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}
+  td.title{color:#fff;font-weight:600}
+  .tag{display:inline-block;font-size:10.5px;padding:2px 7px;border-radius:999px;border:1px solid var(--line);
+    background:var(--panel-2);color:var(--muted);font-weight:700;white-space:nowrap}
+  .tag.eg{color:#0c0e13;background:var(--growth);border-color:var(--growth)}
+  .tag.ss{color:#0c0e13;background:var(--value);border-color:var(--value)}
+  .tag.daily{color:var(--growth);border-color:rgba(6,214,160,.4)}
+  .tag.hero{color:var(--value);border-color:rgba(255,209,102,.4)}
+  .tag.g1{color:#cfe0ff;border-color:rgba(110,168,254,.45)}
+  .tag.g2{color:#bff3e2;border-color:rgba(6,214,160,.45)}
+  .tag.g3{color:#ffe6a8;border-color:rgba(255,209,102,.45)}
+  .vt{color:var(--accent);font-weight:600}
+  .src{color:#6b7384;font-size:11.5px}
+  .dup{color:var(--warn);font-weight:700}
+
+  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  code{background:#0c0e13;border:1px solid #2a3040;border-radius:5px;padding:1px 6px;font-size:12px;color:#cfd5e0}
+
+  /* ===== 탭 ===== */
+  .tabbar{display:flex;gap:8px;margin:0 0 18px;padding:8px;background:rgba(15,17,21,.96);
+    border:1px solid var(--line);border-radius:12px;position:sticky;top:0;z-index:40;backdrop-filter:blur(8px)}
+  .tab-btn{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--muted);font-size:13.5px;font-weight:700;
+    cursor:pointer;transition:all .15s}
+  .tab-btn:hover{background:#252a36;color:var(--text)}
+  .tab-btn.active{background:var(--ai);border-color:var(--ai);color:#0c0e13}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+  #tab-bank .angle-nav{top:60px}
+
+  /* ===== 수동 작성 폼 ===== */
+  .form-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 22px}
+  .form-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:760px){.form-grid{grid-template-columns:repeat(2,1fr)}}
+  .field{display:flex;flex-direction:column;gap:5px}
+  .field.col-2{grid-column:span 2}
+  .field.col-full{grid-column:1/-1}
+  .field label{font-size:11px;letter-spacing:.06em;color:var(--muted);font-weight:700;text-transform:uppercase}
+  .field input,.field select,.field textarea{background:#0c0e13;border:1px solid #2a3040;border-radius:8px;
+    color:var(--text);font-size:13.5px;padding:9px 11px;font-family:inherit;width:100%}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--ai)}
+  .field textarea{resize:vertical;min-height:42px}
+  .form-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9px;font-size:13.5px;
+    font-weight:700;cursor:pointer;border:1px solid var(--line);background:var(--panel-2);color:var(--text);transition:all .15s}
+  .btn:hover{background:#252a36}
+  .btn.primary{background:var(--ai);border-color:var(--ai);color:#0c0e13}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.danger{color:var(--warn);border-color:rgba(239,71,111,.4)}
+  .btn.ghost{background:transparent;color:var(--muted)}
+  .form-hint{font-size:12px;color:var(--muted);margin:0 0 14px}
+  .form-hint b{color:#cfd5e0}
+  .row-del{background:transparent;border:1px solid rgba(239,71,111,.35);color:var(--warn);
+    border-radius:6px;font-size:11px;font-weight:700;padding:4px 9px;cursor:pointer}
+  .row-del:hover{background:rgba(239,71,111,.12)}
+  .empty-row td{text-align:center;color:var(--muted);padding:26px;font-size:13px}
+  .saved-flash{color:var(--accent-2);font-size:12.5px;font-weight:700;opacity:0;transition:opacity .2s}
+  .saved-flash.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="tabbar">
+    <button class="tab-btn active" data-tab="bank" type="button">📚 주제 뱅크 (51)</button>
+    <button class="tab-btn" data-tab="manual" type="button">✏️ 수동 작성</button>
+  </div>
+
+  <div id="tab-bank" class="tab-panel active">
+
+  <nav class="angle-nav">
+    <a class="abtn home" href="#top">▲ 위로</a>
+    <a class="abtn" href="#how">사용법</a>
+    <a class="abtn ai" href="#ax4">④ AI</a>
+    <a class="abtn ai" href="#ax5">⑤ 바이브코딩</a>
+    <a class="abtn ai" href="#ax3">③ 사고력</a>
+    <a class="abtn" href="#ax2">② 문해력</a>
+    <a class="abtn" href="#ax1">① 독서</a>
+    <a class="abtn" href="#ax6">⑥ 성장</a>
+    <a class="abtn" href="#appA">A 후킹번역</a>
+    <a class="abtn" href="#appB">B 기존작</a>
+    <a class="abtn" href="#appC">C 뷰트랩</a>
+    <a class="abtn" href="#appD">D 결매핑</a>
+  </nav>
+
+  <header class="hero" id="top">
+    <span class="eyebrow">PULLING TOPIC BANK · 재기획 2026-06-16</span>
+    <h1>풀링 주제 뱅크 · "AI보다 읽는 사람" · 6축 × 결 × 뷰트랩</h1>
+    <div class="chain">
+      <span class="node in">AI · 바이브코딩 (입구)</span><span class="arr">→</span>
+      <span class="node base">사고력 ← 문해력 ← 독서 (토대)</span><span class="arr">→</span>
+      <span class="node end">성장 (귀결)</span>
+    </div>
+    <p class="lede">
+      채널 전환(<b>"AI보다 읽는 사람"</b>, 2026-06-13)에 맞춰 풀링 주제를 <b>6축·신 결 3그룹</b>으로 새로 기획한 뱅크. 구판(8축·독서 위주)에 비어 있던 <b>입구 축(AI·바이브코딩·사고력)을 신규 30개</b> 추가하고, 독서·문해력·성장은 <b>AI 연결로 21개 재해석</b>했다.
+      모든 축은 <b>AI를 입구로 열어 책·문해력으로 귀결</b>시킨다 — 슬로건 <b>"AI는 답을 만든다. 읽는 사람은 질문을 만든다."</b>
+      제목은 5주차 <b>⑤ 질문형</b> 1차 디벨롭본 — 뷰트랩 검증 후 ③④⑥⑦로 추가 디벨롭한다.
+    </p>
+    <div class="meta-row">
+      <span class="chip">정체성: AI보다 읽는사람.MD</span>
+      <span class="chip">룰북: 대본기획_기준 §8.6·§8.7</span>
+      <span class="chip">데이터판: 풀링주제_뱅크_AI보다읽는사람_데이터.md</span>
+      <span class="chip">구판: 풀링주제_뱅크.html (아카이브)</span>
+    </div>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="lab">컨셉 6축</div><div class="val">6</div><div class="sub">독서·문해력·사고력·AI·바이브코딩·성장</div></div>
+    <div class="stat"><div class="lab">주제 후보</div><div class="val">51</div><div class="sub">입구 신규 30 + 재해석 21</div></div>
+    <div class="stat"><div class="lab">입구 축 비중</div><div class="val">59%</div><div class="sub">AI 12·바이브코딩 10·사고력 8</div></div>
+    <div class="stat"><div class="lab">우선 결</div><div class="val">②→①→③</div><div class="sub">단기 쓰는중 / 중기 안·못씀 / 장기 더잘쓰기</div></div>
+  </div>
+
+  <section id="how">
+    <h2><span class="num">§0</span> 사용법 <span class="sec-tag">주제 → 뷰트랩 → 디벨롭</span></h2>
+    <div class="info-card how">
+      <p style="margin:0">
+        <b>1)</b> 주제 1개 고르기 → <b>2)</b> 표의 <span class="vt">뷰트랩 키워드</span>로 검색(<code>app.viewtrap.com/video-search</code>) → <b>3)</b> 노출확률 <b>normal↑</b>·기여도/성과도 상위 영상에서 제목·썸네일 구성 학습 → <b>4)</b> 제목 <b>8단계</b>(<code>§8.6</code>)·썸네일 <b>6단계</b>(<code>§8.7</code>) 디벨롭 → <b>5)</b> <code>대본/풀링컨텐츠/&lt;번호&gt;_&lt;주제&gt;/</code> 폴더 생성.
+      </p>
+    </div>
+    <div class="info-card ai">
+      <p style="margin:0"><b>채널 가드(불변 안티컨셉)</b> — ① AI 적대 프레임 금지("AI 무섭다/나쁘다" ✕ → "읽는 사람이 AI를 더 잘 쓴다"는 긍정 구도) · ② 치트키·과장 약속 금지 · ③ 개발자 전용화 금지(코드 못 짜는 사람도 데려간다) · ④ 당위·감성 강매 금지("AI를 잘 쓰려니 필요하더라"는 실용 동기로 책을 권한다).</p>
+    </div>
+    <div class="info-card warn">
+      <p style="margin:0"><b>범례</b> — 관심도: <span class="tag eg">에버그린</span> <span class="tag ss">시즌성</span> · 제작: <span class="tag daily">데일리</span> <span class="tag hero">히어로</span> · 결: <span class="tag g1">① 안/못씀</span> <span class="tag g2">② 쓰는중</span> <span class="tag g3">③ 더잘쓰기</span> · <span class="vt">뷰트랩 키워드</span>. <b>입구 축 키워드는 라이브 확인 필요</b>(구판 조회수 캡처에 없음).</p>
+    </div>
+  </section>
+
+  <!-- §4 AI -->
+  <section id="ax4">
+    <h2 class="axis-in"><span class="num">④</span> AI — 입구 후크 <span class="sec-tag new">12개 · 신규</span></h2>
+    <p class="axis-meta">AI 활용·프롬프트·도구 = 채널의 입구. 우선 결: <b>② 쓰고 있는 · ① 안/못 쓰는</b>. 모든 주제는 "그래서 질문·읽기"로 귀결.</p>
+    <table>
+      <thead><tr><th>ID</th><th>제목 후보 (≤35자)</th><th>결</th><th>관심·제작</th><th>뷰트랩 키워드</th><th>근거(입구→귀결)</th></tr></thead>
+      <tbody>
+        <tr><td class="id">A01</td><td class="title">챗GPT 답이 늘 평범한 진짜 이유</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">챗GPT · 프롬프트</td><td class="src">평범한 답=평범한 질문 → 질문력←문해력</td></tr>
+        <tr><td class="id">A02</td><td class="title">같은 챗GPT인데 왜 누구는 잘 쓸까?</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">챗GPT 활용 · AI활용법</td><td class="src">도구 같고 질문 다름 → 질문=독해력</td></tr>
+        <tr><td class="id">A03</td><td class="title">AI한테 일 시켰는데 더 바빠진 이유</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">AI업무 · 생산성</td><td class="src">맥락·검증 못 줌 → 사고력</td></tr>
+        <tr><td class="id">A04</td><td class="title">프롬프트 잘 쓰는 사람들의 공통점은?</td><td><span class="tag g2">②</span> <span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">프롬프트 · 프롬프트엔지니어링</td><td class="src">좋은 프롬프트=좋은 글쓰기=문해력</td></tr>
+        <tr><td class="id">A05</td><td class="title">AI가 시키는 대로 했더니 벌어진 일</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">AI활용 · 챗GPT</td><td class="src">무비판 수용의 함정 → 검증·사고력</td></tr>
+        <tr><td class="id">A06</td><td class="title">AI 시대, 영어보다 먼저 길러야 할 능력?</td><td><span class="tag g1">①</span> <span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">AI시대 · 미래역량</td><td class="src">모국어 문해력이 프롬프트의 토대</td></tr>
+        <tr><td class="id">A07</td><td class="title">AI한테 책 요약 시키면 진짜 남을까?</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">AI요약 · 챗GPT</td><td class="src">요약 수신 vs 직접 읽기. <span class="dup">⚠️005·L03 인접→AI요약 각도</span></td></tr>
+        <tr><td class="id">A08</td><td class="title">월 30만원 AI 쓰는 사람은 뭐가 다를까</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">AI구독 · 클로드</td><td class="src">아이디어#1(헤비유저) 차용. 도구비 아닌 사고 차이</td></tr>
+        <tr><td class="id">A09</td><td class="title">AI를 안 쓰면 진짜 도태될까요?</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">AI시대 · 일자리</td><td class="src">못 쓰는 사람보다 생각 멈춘 사람이 먼저(005). 불안 흡수</td></tr>
+        <tr><td class="id">A10</td><td class="title">AI한테 물어보기 전에 해야 할 한 가지</td><td><span class="tag g1">①</span> <span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">AI활용 · 질문법</td><td class="src">질문 설계=문해력. 입구→토대</td></tr>
+        <tr><td class="id">A11</td><td class="title">검색은 끝났다? 이제 뭘 해야 하나</td><td><span class="tag g1">①</span> <span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">AI검색 · 퍼플렉시티</td><td class="src">정보 수용 → 능동 판단</td></tr>
+        <tr><td class="id">A12</td><td class="title">AI 답을 그대로 믿으면 안 되는 이유</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">할루시네이션 · AI</td><td class="src">환각·교차검증 → 사고력·문해력</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- §5 바이브코딩 -->
+  <section id="ax5">
+    <h2 class="axis-in"><span class="num">⑤</span> 바이브코딩 — 입구·정기 기둥 <span class="sec-tag new">10개 · 신규</span></h2>
+    <p class="axis-meta">자연어로 만드는 실습. <b>코드 못 짜는 사람도</b> 데려가는 대중 톤. 우선 결: <b>①②③ 전반</b>. "글로 시키기 = 문해력".</p>
+    <table>
+      <thead><tr><th>ID</th><th>제목 후보 (≤35자)</th><th>결</th><th>관심·제작</th><th>뷰트랩 키워드</th><th>근거(입구→귀결)</th></tr></thead>
+      <tbody>
+        <tr><td class="id">V01</td><td class="title">코딩 1도 몰라도 앱이 나왔습니다</td><td><span class="tag g1">①</span> <span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">바이브코딩 · 노코드</td><td class="src">진입장벽 해소. 비개발자 유입 후크</td></tr>
+        <tr><td class="id">V02</td><td class="title">말로만 했는데 프로그램이 만들어진다고?</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">바이브코딩 · AI코딩</td><td class="src">자연어=글로 시키기 → 문해력</td></tr>
+        <tr><td class="id">V03</td><td class="title">바이브코딩, 진짜 누구나 할 수 있을까?</td><td><span class="tag g1">①</span> <span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">바이브코딩 · 클로드코드</td><td class="src">체험 검증형(직접 해봤다)</td></tr>
+        <tr><td class="id">V04</td><td class="title">개발자 없이 내 서비스 만든 후기</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">바이브코딩 · 1인개발</td><td class="src">아이디어#5(AI로 나만의 서비스) 차용</td></tr>
+        <tr><td class="id">V05</td><td class="title">AI한테 코딩 시킬 때 막히는 진짜 이유</td><td><span class="tag g2">②</span> <span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">바이브코딩 · 프롬프트</td><td class="src">요구사항을 글로 못 씀 → 문해력</td></tr>
+        <tr><td class="id">V06</td><td class="title">비전공자가 바이브코딩으로 처음 만든 것</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">바이브코딩 · 노코드</td><td class="src">입문 체험. 결① 직격</td></tr>
+        <tr><td class="id">V07</td><td class="title">코드도 결국 읽을 줄 알아야 하는 이유</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">바이브코딩 · 코드리뷰</td><td class="src">읽기=검증. 문해력 메타포(읽는 사람)</td></tr>
+        <tr><td class="id">V08</td><td class="title">하루 만에 만든 앱, 어디까지 될까?</td><td><span class="tag g2">②</span> <span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">바이브코딩 · MVP</td><td class="src">시간압축+의심(타분야 번역)</td></tr>
+        <tr><td class="id">V09</td><td class="title">바이브코딩으로 돈 버는 사람은 뭘 다를까</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">바이브코딩 · 수익화</td><td class="src">기획·문제정의 = 읽고 생각하기</td></tr>
+        <tr><td class="id">V10</td><td class="title">기획서를 글로 못 쓰면 AI도 못 만든다?</td><td><span class="tag g2">②</span> <span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">바이브코딩 · 기획</td><td class="src">글쓰기·문해력이 코딩의 전제</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- §3 사고력 -->
+  <section id="ax3">
+    <h2 class="axis-in"><span class="num">③</span> 사고력 — 토대 전환(다리) <span class="sec-tag new">8개 · 신규</span></h2>
+    <p class="axis-meta">구조적 사고·판단력·AI 답 검증. 입구(AI)에서 토대(문해력·독서)로 넘기는 <b>다리 축</b>. 우선 결: <b>②③</b>.</p>
+    <table>
+      <thead><tr><th>ID</th><th>제목 후보 (≤35자)</th><th>결</th><th>관심·제작</th><th>뷰트랩 키워드</th><th>근거(입구→귀결)</th></tr></thead>
+      <tbody>
+        <tr><td class="id">T01</td><td class="title">AI 시대에 살아남는 사람의 한 가지 능력</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">AI시대 · 사고력</td><td class="src">005 가치사슬. 통념 비틀기. <span class="dup">⚠️005 채택→변주만</span></td></tr>
+        <tr><td class="id">T02</td><td class="title">똑같이 열심인데 왜 격차가 벌어질까?</td><td><span class="tag g2">②</span> <span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">사고력 · 자기계발(5952만)</td><td class="src">아이디어#3(열심히의 방향성). 방향=판단력</td></tr>
+        <tr><td class="id">T03</td><td class="title">AI가 답을 주는 시대, 질문은 누가 하나</td><td><span class="tag g2">②</span> <span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">질문력 · AI</td><td class="src">슬로건 직역. 질문력←문해력←독서</td></tr>
+        <tr><td class="id">T04</td><td class="title">새로 배우기 전에 먼저 해야 할 것은?</td><td><span class="tag g2">②</span> <span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">본질 · 사고력</td><td class="src">아이디어#4(근본 이해가 우선)</td></tr>
+        <tr><td class="id">T05</td><td class="title">정보는 넘치는데 왜 판단은 더 어려울까</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">정보과잉 · 판단력</td><td class="src">큐레이션 → 비판적 사고</td></tr>
+        <tr><td class="id">T06</td><td class="title">AI가 똑똑해질수록 더 중요해지는 것</td><td><span class="tag g1">①</span> <span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">AI시대 · 사고력</td><td class="src">아이디어#2(철학·사유·읽기). 채널 북극성</td></tr>
+        <tr><td class="id">T07</td><td class="title">복잡한 문제를 쪼개는 사람들의 사고법</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">사고력 · 문제해결</td><td class="src">추상→분해. 독서로 길러지는 구조화</td></tr>
+        <tr><td class="id">T08</td><td class="title">결론부터 말하는 사람이 일 잘하는 이유</td><td><span class="tag g2">②</span> <span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">사고력 · 커뮤니케이션</td><td class="src">구조적 사고 = 글 구조 이해(문해력)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- §2 문해력 -->
+  <section id="ax2">
+    <h2><span class="num">②</span> 문해력 — 토대 <span class="sec-tag">7개 · 재해석</span></h2>
+    <p class="axis-meta">어휘·개념·맥락·독해 = 좋은 프롬프트·판단의 토대. 구 P31~P37을 <b>AI 연결</b>로 재해석. 우선 결: <b>①②</b>.</p>
+    <table>
+      <thead><tr><th>ID</th><th>제목 후보 (≤35자)</th><th>결</th><th>관심·제작</th><th>뷰트랩 키워드</th><th>근거(재해석)</th></tr></thead>
+      <tbody>
+        <tr><td class="id">L01</td><td class="title">AI한테 시킬 때도 결국 어휘력이다?</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">문해력(4796만) · 어휘력(7326만)</td><td class="src">좋은 프롬프트=어휘. 구 P31/P35 재해석</td></tr>
+        <tr><td class="id">L02</td><td class="title">이 단어 모르면 AI 답도 못 알아본다</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">어휘력 · 문해력</td><td class="src">AI 답 독해=문해력. 구 P32 재해석</td></tr>
+        <tr><td class="id">L03</td><td class="title">술술 읽혔는데 왜 하나도 안 남을까</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">독서법 · 문해력</td><td class="src">유창성의 착각. 구 P33 유지. <span class="dup">⚠️A07 인접→심리 각도</span></td></tr>
+        <tr><td class="id">L04</td><td class="title">AI 시대인데 문해력이 왜 더 중요해질까</td><td><span class="tag g1">①</span> <span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">문해력 · AI시대</td><td class="src">아이디어#2. 구 P34 재해석</td></tr>
+        <tr><td class="id">L05</td><td class="title">프롬프트가 평범한 사람의 공통점</td><td><span class="tag g2">②</span> <span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">프롬프트 · 문해력</td><td class="src">글 못 쓰면 프롬프트도 평범. A04와 문해력 각도 차별</td></tr>
+        <tr><td class="id">L06</td><td class="title">긴 글이 안 읽히기 시작했다면 (위험신호)</td><td><span class="tag g1">①</span> <span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">문해력 · 집중력</td><td class="src">숏폼·AI요약 의존 부작용. 구 P36 재해석</td></tr>
+        <tr><td class="id">L07</td><td class="title">요약본만 읽으면 생기는 일</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">문해력 · 독서법</td><td class="src">AI요약 의존(부정형 진단). 구 P40 변주</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- §1 독서 -->
+  <section id="ax1">
+    <h2><span class="num">①</span> 독서 — 출발점 <span class="sec-tag">8개 · 재해석</span></h2>
+    <p class="axis-meta">책을 읽는 행위·이유·재미 = 깊이의 출발점. AI 시대 동기로 재해석. 우선 결: <b>① 안/못 쓰는</b>(입문 유입).</p>
+    <table>
+      <thead><tr><th>ID</th><th>제목 후보 (≤35자)</th><th>결</th><th>관심·제작</th><th>뷰트랩 키워드</th><th>근거(재해석)</th></tr></thead>
+      <tbody>
+        <tr><td class="id">R01</td><td class="title">AI 다 해주는데 왜 아직 책을 읽을까?</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">독서(1.7억) · AI시대</td><td class="src">슬로건 도입훅. 통념 비틀기</td></tr>
+        <tr><td class="id">R02</td><td class="title">책 끝까지 안 읽어도 괜찮은 이유</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">완독(6294만) · 독서법</td><td class="src">구 P01 유지(003 폴더 채택·기획완료)</td></tr>
+        <tr><td class="id">R03</td><td class="title">유튜브는 기분을, 책은 생각을 바꾼다</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">독서(1.7억) · 도파민</td><td class="src">구 P09 유지. AI 숏폼 시대 대비</td></tr>
+        <tr><td class="id">R04</td><td class="title">쇼츠 대신 책, AI 시대엔 더 어렵다?</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">도파민 · 독서습관</td><td class="src">구 P20 재해석(난도↑ 각도)</td></tr>
+        <tr><td class="id">R05</td><td class="title">딱 한 권이 사람을 바꾸는 순간</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">인생책 · 독서</td><td class="src">구 P10 유지</td></tr>
+        <tr><td class="id">R06</td><td class="title">성공한 사람들이 AI보다 책을 먼저 읽는 이유</td><td><span class="tag g2">②</span> <span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">독서법 · 부의비밀</td><td class="src">구 P17/P43 재해석 + 채널명 직역</td></tr>
+        <tr><td class="id">R07</td><td class="title">AI한테 책 추천받아 봤습니다</td><td><span class="tag g1">①</span> <span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">책추천 · AI활용</td><td class="src">AI 입구 → 독서 착지. 체험형</td></tr>
+        <tr><td class="id">R08</td><td class="title">평생 안 읽던 사람이 책을 펴면 생기는 일</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">독서 · 변화</td><td class="src"><span class="dup">⚠️001 진행 중 → 회피·각도 차별 필요</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- §6 성장 -->
+  <section id="ax6">
+    <h2><span class="num">⑥</span> 성장 — 귀결 <span class="sec-tag">6개 · 재해석</span></h2>
+    <p class="axis-meta">자기개발·습관·변화 = 모든 영상의 귀결 동기. readtree(기록·자산화) 떡밥과 연결. 우선 결: <b>②③</b>.</p>
+    <table>
+      <thead><tr><th>ID</th><th>제목 후보 (≤35자)</th><th>결</th><th>관심·제작</th><th>뷰트랩 키워드</th><th>근거(재해석)</th></tr></thead>
+      <tbody>
+        <tr><td class="id">G01</td><td class="title">AI를 잘 쓰는 사람은 결국 뭘 할까?</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">자기계발(5952만) · AI시대</td><td class="src">종착=읽는 사람. 채널 북극성 직역</td></tr>
+        <tr><td class="id">G02</td><td class="title">1년 후 가장 크게 벌어지는 격차는?</td><td><span class="tag g2">②</span> <span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">자기계발 · 성장</td><td class="src">복리·방향성. T02와 시간축 차별</td></tr>
+        <tr><td class="id">G03</td><td class="title">독서 또 작심삼일? 어디서 끊길까</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">작심삼일(5450만) · 독서습관</td><td class="src">구 P22 유지(002 기획완료)</td></tr>
+        <tr><td class="id">G04</td><td class="title">하루 15분 독서가 진짜 사람을 바꿀까</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">독서습관 · 루틴</td><td class="src">구 P23 재해석. 1차 판매(이북리더기) 직결</td></tr>
+        <tr><td class="id">G05</td><td class="title">부자의 88%가 매일 한다는 이 습관?</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">부의비밀 · 성공</td><td class="src">구 P15 유지</td></tr>
+        <tr><td class="id">G06</td><td class="title">읽은 걸 기록하면 진짜 남을까?</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">독서기록 · 습관</td><td class="src">구 P27 재해석. readtree 떡밥(기록→자산)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 부록 A -->
+  <section id="appA">
+    <h2><span class="num">부록 A</span> 타분야 후킹 공식 → AI·책 번역 <span class="sec-tag">7주차 차용 원칙</span></h2>
+    <table>
+      <thead><tr><th>타분야 공식</th><th>유형</th><th>본 뱅크 적용</th></tr></thead>
+      <tbody>
+        <tr><td>하루 10분 ~ 된다고요?</td><td>시간압축+의심</td><td class="vt">V08 · G04</td></tr>
+        <tr><td>이 한 가지가 인생을 바꿨다</td><td>반전(단일원인→큰결과)</td><td class="vt">T01 · A08</td></tr>
+        <tr><td>아무도 안 알려준 진짜 이유</td><td>부정+숨겨진 진실</td><td class="vt">A01 · A03 · A05</td></tr>
+        <tr><td>~한 사람을 위한 / ~의 공통점</td><td>타깃·집단 명시</td><td class="vt">A04 · L05 · T07</td></tr>
+        <tr><td>놓치면 손해(FOMO)+불안</td><td>FOMO</td><td class="vt">A09 · L06</td></tr>
+        <tr><td>A VS B</td><td>비교</td><td class="vt">A07(요약vs읽기) · R03(유튜브vs책)</td></tr>
+        <tr><td>직접 해봤다 / 후기</td><td>체험 증거</td><td class="vt">V03 · V04 · R07</td></tr>
+        <tr><td>성공한 사람은 ~한다</td><td>권위·집단비교</td><td class="vt">R06 · G05</td></tr>
+        <tr><td>똑같은데 왜 다를까</td><td>격차·역설</td><td class="vt">A02 · T02</td></tr>
+        <tr><td>그대로 믿으면 안 되는 이유</td><td>경고·반전</td><td class="vt">A12 · A05</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 부록 B -->
+  <section id="appB">
+    <h2><span class="num">부록 B</span> 기존 진행작 (중복 회피) <span class="sec-tag">레퍼런스</span></h2>
+    <table>
+      <thead><tr><th>#</th><th>주제</th><th>6축</th><th>결</th><th>상태</th><th>본 뱅크 인접</th></tr></thead>
+      <tbody>
+        <tr><td class="id">001</td><td class="title">평생 안 읽던 사람의 변화</td><td>독서</td><td><span class="tag g1">①</span></td><td class="src">진행 중</td><td class="src">R08(회피·각도 차별)</td></tr>
+        <tr><td class="id">002</td><td class="title">독서습관 실패 99%</td><td>성장(습관)</td><td><span class="tag g1">①</span></td><td class="src">기획 완료</td><td class="src">G03</td></tr>
+        <tr><td class="id">003</td><td class="title">책 끝까지 안 읽어도 괜찮은 이유</td><td>독서</td><td><span class="tag g2">②</span></td><td class="src">기획 완료</td><td class="src">R02(=채택본)</td></tr>
+        <tr><td class="id">004</td><td class="title">책 많이 읽으면 돈 벌까</td><td>성장</td><td><span class="tag g3">③</span></td><td class="src">기획 완료(반론형)</td><td class="src">G01·G05 각도 분리</td></tr>
+        <tr><td class="id">005</td><td class="title">AI 시대 살아남는</td><td>AI+사고력+문해력</td><td><span class="tag g2">②</span></td><td class="src">기획 완료(가치사슬)</td><td class="src">T01·T03(변주만)</td></tr>
+      </tbody>
+    </table>
+    <p class="axis-meta">본 뱅크 51개는 위 5개와 <b>주제·각도 중복을 피했다</b>. R08·T01은 인접 — 채택 시 각도 차별 명시.</p>
+  </section>
+
+  <!-- 부록 C -->
+  <section id="appC">
+    <h2><span class="num">부록 C</span> 뷰트랩 활용 절차 <span class="sec-tag">입구 축은 라이브</span></h2>
+    <div class="info-card">
+      <p style="margin:0 0 8px"><b>검색</b>: <code>https://app.viewtrap.com/video-search</code> → 키워드 입력 → 필터 패널(기여도·성과도·노출확률). <b>노출확률 normal↑</b> 영상에서 제목·썸네일 구성 학습.</p>
+      <p style="margin:0 0 8px"><b>입구 축(AI·바이브코딩) 키워드는 신규</b> → 구판 조회수 캡처(2026-05-16)에 없음. <b>라이브 확인 필수</b>: 챗GPT·프롬프트·바이브코딩·AI활용법·클로드·AI코딩·노코드·할루시네이션 등.</p>
+      <p style="margin:0 0 8px"><b>독서·문해력 계승 조회수</b>(2026-05-16): 독서 <b>1.7억</b> · 습관 <b>1.1억</b> · 어휘력 <b>7326만</b> · 완독 <b>6294만</b> · 자기계발 <b>5952만</b> · 작심삼일 <b>5450만</b> · 문해력 <b>4796만</b> · 독서법 <b>1682만</b> · 독서습관 <b>1459만</b>.</p>
+      <p style="margin:0"><b>코워크 자동화</b>: <code>대본/_기획기준/뷰트랩_주제발굴_디벨롭_가이드.md §D</code> — "뷰트랩에서 [키워드] 검색하고 대시보드 갱신해줘".</p>
+    </div>
+  </section>
+
+  <!-- 부록 D -->
+  <section id="appD">
+    <h2><span class="num">부록 D</span> 결 × 6축 × 판매 매핑 <span class="sec-tag">SSOT 계승</span></h2>
+    <table>
+      <thead><tr><th>결 (모이는 사람)</th><th>잘 맞는 축</th><th>자연 연결 판매</th><th>우선 ID</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag g1">① 안/못 쓰는(입문)</span></td><td>AI · 독서 · 성장</td><td>이북리더기(입문기) · readtree(시작 트래커)</td><td class="vt">A09 · V01 · R01 · R08 · L02</td></tr>
+        <tr><td><span class="tag g2">② 쓰고 있는(활용)</span></td><td>문해력 · 사고력 · AI</td><td>이북리더기(전환기) · 책 관련 제품</td><td class="vt">A01 · A02 · T01 · L01 · R06</td></tr>
+        <tr><td><span class="tag g3">③ 더 잘 쓰려는(심화)</span></td><td>바이브코딩 · 사고력 · 문해력</td><td>readtree(기록·자산화) · 프리미엄 책 제품</td><td class="vt">V04 · V09 · A08 · G01 · G06</td></tr>
+      </tbody>
+    </table>
+    <p class="axis-meta"><b>단계별 주력 결</b>: 단기 ②(쓰고 있는) → 중기 ①(안/못 쓰는) → 장기 ③(더 잘 쓰려는). 풀링은 ① 결 우선 호명, 마무리 챕터에 3그룹 모두 + "그분들 옆자리".</p>
+  </section>
+
+  <footer>
+    근거: 채널 정체성 SSOT <code>docs/채널정채성/AI보다 읽는사람.MD</code>(6축·신 결) · 룰북 <code>대본/_기획기준/대본기획_기준.md §8.6·§8.7</code> · 구판 <code>풀링주제_뱅크.html</code>(58개 아카이브) · 사용자 아이디어 노트 · 005 가치사슬 · 데이터판 <code>풀링주제_뱅크_AI보다읽는사람_데이터.md</code><br>
+    ※ 모든 제목은 5주차 ⑤ 질문형 1차 디벨롭본 — 뷰트랩 검증 후 ③④⑥⑦ 추가 디벨롭. 채택·폴더 생성은 뷰트랩 검증 후 결정. 재기획 2026-06-16.
+  </footer>
+
+  </div><!-- /#tab-bank -->
+
+  <!-- ============ 수동 작성 탭 ============ -->
+  <div id="tab-manual" class="tab-panel">
+
+    <header class="hero" style="margin-bottom:18px">
+      <span class="eyebrow">MANUAL ENTRY · 직접 추가</span>
+      <h1>수동 작성 — 내가 발굴한 풀링 주제</h1>
+      <p class="lede">
+        뱅크에 없는 주제를 직접 입력해 모은다. 입력값은 <b>이 브라우저(localStorage)에 자동 저장</b>되어 새로고침해도 유지된다.
+        6축·결·관심도·뷰트랩 키워드 형식을 위 뱅크와 동일하게 맞춰 두면 그대로 채택·폴더 생성으로 넘길 수 있다.
+      </p>
+    </header>
+
+    <div class="form-card">
+      <p class="form-hint">필수: <b>제목</b>만 채우면 추가된다. 나머지는 비워도 됨. ID는 비우면 <b>M01·M02…</b>로 자동 부여.</p>
+      <div class="form-grid">
+        <div class="field">
+          <label for="f-id">ID</label>
+          <input id="f-id" type="text" placeholder="자동(M01)" maxlength="8">
+        </div>
+        <div class="field">
+          <label for="f-axis">6축</label>
+          <select id="f-axis">
+            <option value="">— 선택 —</option>
+            <option>④ AI</option>
+            <option>⑤ 바이브코딩</option>
+            <option>③ 사고력</option>
+            <option>② 문해력</option>
+            <option>① 독서</option>
+            <option>⑥ 성장</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-gyul">결</label>
+          <select id="f-gyul">
+            <option value="">— 선택 —</option>
+            <option>① 안/못 쓰는</option>
+            <option>② 쓰고 있는</option>
+            <option>③ 더 잘 쓰려는</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-interest">관심·제작</label>
+          <select id="f-interest">
+            <option value="">— 선택 —</option>
+            <option>EG · 데일리</option>
+            <option>EG · 히어로</option>
+            <option>SS · 데일리</option>
+            <option>SS · 히어로</option>
+          </select>
+        </div>
+        <div class="field col-2">
+          <label for="f-title">제목 후보 (≤35자) *</label>
+          <input id="f-title" type="text" placeholder="예: AI한테 시키기 전에 읽어야 하는 이유" maxlength="40">
+        </div>
+        <div class="field col-2">
+          <label for="f-keyword">뷰트랩 키워드</label>
+          <input id="f-keyword" type="text" placeholder="예: 챗GPT · 프롬프트">
+        </div>
+        <div class="field col-full">
+          <label for="f-source">근거 / 메모 (입구→귀결 연결)</label>
+          <textarea id="f-source" placeholder="예: AI 입구 → 질문력 → 문해력 귀결 · 직접 발굴"></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn primary" id="btn-add" type="button">＋ 추가</button>
+        <button class="btn ghost" id="btn-clear" type="button">입력 초기화</button>
+        <span class="saved-flash" id="flash">✓ 저장됨</span>
+      </div>
+    </div>
+
+    <section style="margin-top:0">
+      <h2><span class="num">★</span> 내가 추가한 주제 <span class="sec-tag" id="count-tag">0개</span></h2>
+      <div class="info-card warn">
+        <p style="margin:0"><b>범례</b> — 관심: <span class="tag eg">EG 에버그린</span> <span class="tag ss">SS 시즌성</span> · 제작: <span class="tag daily">데일리</span> <span class="tag hero">히어로</span> · 결: <span class="tag g1">① 안/못씀</span> <span class="tag g2">② 쓰는중</span> <span class="tag g3">③ 더잘쓰기</span>. 데이터는 이 브라우저에만 저장됨.</p>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>제목 후보</th><th>축</th><th>결</th><th>관심·제작</th><th>뷰트랩 키워드</th><th>근거</th><th></th></tr></thead>
+        <tbody id="manual-body"></tbody>
+      </table>
+      <div class="form-actions">
+        <button class="btn" id="btn-export-md" type="button">⧉ 마크다운 복사</button>
+        <button class="btn" id="btn-export-json" type="button">⧉ JSON 복사</button>
+        <button class="btn danger" id="btn-reset-all" type="button">전체 삭제</button>
+      </div>
+    </section>
+
+  </div><!-- /#tab-manual -->
+
+</div>
+
+<script>
+(function(){
+  var KEY = 'pulling_manual_topics_aibetter_v1';
+
+  // 입구 축 시드 — 사용자 아이디어 노트 차용 (헤비유저·근본 이해·AI+독서 서비스)
+  // 최초 1회 로드 시에만 주입. 전체 삭제하면 다시 생기지 않음.
+  var SEED = [
+    { id:'M01',
+      title:'제가 클로드에 매달 30만원 쓰는 진짜 이유',
+      axis:'④ AI', gyul:'③ 더 잘 쓰려는', interest:'EG · 히어로',
+      keyword:'클로드 · AI구독',
+      source:'아이디어#1 직접 차용(헤비유저 권위). 도구비가 아니라 사고·질문에 투자 → 문해력 귀결. A08 1인칭 고백 버전' },
+    { id:'M02',
+      title:'AI가 발전할수록 왜 읽기가 더 중요해질까',
+      axis:'③ 사고력', gyul:'② 쓰고 있는', interest:'EG · 히어로',
+      keyword:'AI시대 · 사고력',
+      source:'아이디어#2 직접 차용(철학·사유·읽기). 채널 북극성 직역. T06과 1인칭 각도 차별' },
+    { id:'M03',
+      title:'AI로 나만의 서비스를 만들고 있습니다',
+      axis:'⑤ 바이브코딩', gyul:'③ 더 잘 쓰려는', interest:'EG · 히어로',
+      keyword:'바이브코딩 · 1인개발',
+      source:'아이디어#5 직접 차용(AI로 readtree 제작 여정). V04 시리즈화 버전 — 신뢰·진정성 자산' }
+  ];
+
+  // ---- 탭 전환 ----
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  var panels = { bank: document.getElementById('tab-bank'), manual: document.getElementById('tab-manual') };
+  tabBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      tabBtns.forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active');
+      Object.keys(panels).forEach(function(k){ panels[k].classList.toggle('active', k === b.dataset.tab); });
+      window.scrollTo(0,0);
+    });
+  });
+
+  // ---- 저장소 ----
+  function load(){
+    var raw = localStorage.getItem(KEY);
+    if(raw === null){ save(SEED); return SEED.slice(); } // 최초 1회 시드 주입
+    try { return JSON.parse(raw) || []; }
+    catch(e){ return []; }
+  }
+  function save(list){ localStorage.setItem(KEY, JSON.stringify(list)); }
+
+  function flash(){
+    var f = document.getElementById('flash');
+    f.classList.add('show');
+    setTimeout(function(){ f.classList.remove('show'); }, 1200);
+  }
+
+  // ---- 렌더 헬퍼 ----
+  function esc(s){ return (s||'').replace(/[&<>"]/g, function(c){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];
+  }); }
+
+  function interestTags(v){
+    if(!v) return '';
+    var out = '';
+    if(/EG/.test(v)) out += '<span class="tag eg">EG</span> ';
+    if(/SS/.test(v)) out += '<span class="tag ss">SS</span> ';
+    if(/데일리/.test(v)) out += '<span class="tag daily">데일리</span> ';
+    if(/히어로/.test(v)) out += '<span class="tag hero">히어로</span> ';
+    return out.trim();
+  }
+  function gyulTag(v){
+    if(!v) return '';
+    var cls = /①/.test(v) ? 'g1' : /②/.test(v) ? 'g2' : /③/.test(v) ? 'g3' : 'g1';
+    return '<span class="tag ' + cls + '">' + esc(v) + '</span>';
+  }
+
+  function render(){
+    var list = load();
+    var body = document.getElementById('manual-body');
+    document.getElementById('count-tag').textContent = list.length + '개';
+    if(!list.length){
+      body.innerHTML = '<tr class="empty-row"><td colspan="8">아직 추가한 주제가 없습니다. 위 폼에서 직접 입력해 보세요.</td></tr>';
+      return;
+    }
+    body.innerHTML = list.map(function(t, i){
+      return '<tr>' +
+        '<td class="id">' + esc(t.id) + '</td>' +
+        '<td class="title">' + esc(t.title) + '</td>' +
+        '<td class="src">' + esc(t.axis) + '</td>' +
+        '<td>' + gyulTag(t.gyul) + '</td>' +
+        '<td>' + interestTags(t.interest) + '</td>' +
+        '<td class="vt">' + esc(t.keyword) + '</td>' +
+        '<td class="src">' + esc(t.source) + '</td>' +
+        '<td><button class="row-del" data-i="' + i + '" type="button">삭제</button></td>' +
+      '</tr>';
+    }).join('');
+    body.querySelectorAll('.row-del').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var list = load();
+        list.splice(+btn.dataset.i, 1);
+        save(list);
+        render();
+      });
+    });
+  }
+
+  function nextId(list){
+    var n = 1;
+    list.forEach(function(t){
+      var m = /^M(\d+)$/.exec(t.id || '');
+      if(m) n = Math.max(n, +m[1] + 1);
+    });
+    return 'M' + String(n).padStart(2, '0');
+  }
+
+  // ---- 추가 ----
+  document.getElementById('btn-add').addEventListener('click', function(){
+    var title = document.getElementById('f-title').value.trim();
+    if(!title){ alert('제목은 필수입니다.'); document.getElementById('f-title').focus(); return; }
+    var list = load();
+    var id = document.getElementById('f-id').value.trim() || nextId(list);
+    list.push({
+      id: id,
+      title: title,
+      axis: document.getElementById('f-axis').value,
+      gyul: document.getElementById('f-gyul').value,
+      interest: document.getElementById('f-interest').value,
+      keyword: document.getElementById('f-keyword').value.trim(),
+      source: document.getElementById('f-source').value.trim()
+    });
+    save(list);
+    render();
+    flash();
+    clearForm();
+    document.getElementById('f-title').focus();
+  });
+
+  function clearForm(){
+    ['f-id','f-title','f-keyword','f-source'].forEach(function(id){ document.getElementById(id).value = ''; });
+    ['f-axis','f-gyul','f-interest'].forEach(function(id){ document.getElementById(id).selectedIndex = 0; });
+  }
+  document.getElementById('btn-clear').addEventListener('click', clearForm);
+
+  // 엔터로 추가 (textarea 제외)
+  document.querySelectorAll('#tab-manual input').forEach(function(inp){
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('btn-add').click(); }
+    });
+  });
+
+  // ---- 내보내기 ----
+  function copyText(text){
+    navigator.clipboard.writeText(text).then(function(){ flash(); }, function(){
+      alert('복사 실패 — 수동으로 선택해 주세요.');
+    });
+  }
+  document.getElementById('btn-export-md').addEventListener('click', function(){
+    var list = load();
+    if(!list.length){ alert('추가된 주제가 없습니다.'); return; }
+    var rows = list.map(function(t){
+      return '| ' + [t.id, t.title, t.axis, t.gyul, t.interest, t.keyword, t.source]
+        .map(function(c){ return (c||'').replace(/\|/g,'/'); }).join(' | ') + ' |';
+    });
+    var md = '| ID | 제목 | 축 | 결 | 관심·제작 | 뷰트랩 키워드 | 근거 |\n' +
+             '|---|---|---|---|---|---|---|\n' + rows.join('\n');
+    copyText(md);
+  });
+  document.getElementById('btn-export-json').addEventListener('click', function(){
+    var list = load();
+    if(!list.length){ alert('추가된 주제가 없습니다.'); return; }
+    copyText(JSON.stringify(list, null, 2));
+  });
+
+  // ---- 전체 삭제 ----
+  document.getElementById('btn-reset-all').addEventListener('click', function(){
+    if(!load().length) return;
+    if(confirm('추가한 주제를 모두 삭제할까요? 되돌릴 수 없습니다.')){
+      save([]);
+      render();
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!-- 참조영상 수집 — 칼 세이건 (코스모스·책 예찬) v1 · 2026-06-09 · 링크/메타 Claude in Chrome 실제 검증 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>참조영상 · 칼 세이건 — 코스모스·책 예찬</title>
+<style>
+  :root{--pain:#ef476f;--growth:#06d6a0;--value:#ffd166;--rec:#c4b5fd;--bg:#f5f3ee;--panel:#ffffff;--panel-2:#faf8f3;--line:#e7e3da;--text:#1f2430;--muted:#5d6470;--brand:#2f5d62;--brand2:#3a7a82;--shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:1080px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:800;background:rgba(47,93,98,.08);border-color:var(--brand2)}
+  .nbtn.doc{margin-left:auto;color:var(--brand2)}
+  header{background:linear-gradient(135deg,#2f5d62 0%,#244b50 60%,#1d3c40 100%);color:#fff;padding:34px 0 30px;margin:18px 0 0;border-bottom:4px solid var(--value)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+  header .wrap{padding-bottom:0}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#bfe0d9;font-weight:800;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 10px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:#d6e6e1;font-size:14.5px;margin:0;max-width:760px}
+  .stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+  .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 20px;min-width:108px}
+  .stat .v{font-size:22px;font-weight:800;color:#fff;line-height:1}
+  .stat .l{font-size:12px;color:#bfe0d9;margin-top:5px}
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:26px 0 10px;box-shadow:var(--shadow)}
+  .intro h2{font-size:17px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .intro p{margin:0 0 10px;font-size:14px;color:#3a414c}
+  .intro .why{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .why .chip{font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand)}
+  .group{margin-top:34px}
+  .ghead{display:flex;align-items:center;gap:11px;margin:0 0 4px}
+  .gbadge{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px}
+  .ghead h2{font-size:19px;margin:0;font-weight:800}
+  .gdesc{font-size:13px;color:var(--muted);margin:2px 0 16px;padding-left:41px}
+  .vid{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+  .vthumb{position:relative;flex:0 0 280px;aspect-ratio:16/9;background:#0b0f14;text-decoration:none;display:block;overflow:hidden}
+  .vthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+  .vthumb:hover img{transform:scale(1.04);opacity:.9}
+  .vthumb .dur{position:absolute;right:8px;bottom:8px;background:rgba(15,20,28,.86);color:#fff;font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .vthumb .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(239,71,111,.92);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;padding-left:3px}
+  .vbody{flex:1;padding:15px 18px 16px;min-width:0}
+  .vtop{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .lang{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
+  .lang.ko{background:rgba(47,93,98,.12);color:var(--brand)}
+  .lang.en{background:rgba(196,181,252,.25);color:#7a5af0}
+  .lang.off{background:rgba(255,209,102,.3);color:#7a5e10}
+  .vtitle{font-size:15.5px;font-weight:800;line-height:1.35;text-decoration:none;color:var(--text)}
+  .vtitle:hover{color:var(--brand)}
+  .vmeta{display:flex;flex-wrap:wrap;gap:5px 13px;font-size:11.5px;color:var(--muted);margin:7px 0 11px}
+  .vmeta b{color:var(--text)}
+  .vsec{font-size:12.8px;color:#3a414c;margin:0 0 8px;line-height:1.55}
+  .vsec .lab{display:inline-block;font-size:10.5px;font-weight:800;color:var(--brand2);background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+  .vquote{font-style:italic;color:#28303a;border-left:3px solid var(--value);padding:2px 0 2px 10px;margin:8px 0}
+  .vuse{font-size:12.8px;color:#1f2a2b;background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.3);border-radius:9px;padding:9px 12px;margin-top:10px;line-height:1.55}
+  .vuse .lab{background:var(--growth);color:#06352a;border:none}
+  .guide{background:linear-gradient(135deg,#fff 0%,#faf8f3 100%);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-top:38px;box-shadow:var(--shadow)}
+  .guide h2{font-size:19px;margin:0 0 4px;font-weight:800}
+  .guide .lead{color:var(--muted);font-size:13.5px;margin:0 0 18px}
+  .gtable{width:100%;border-collapse:collapse;font-size:13px}
+  .gtable th,.gtable td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .gtable th{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .gtable td b{color:var(--brand)}
+  .gtable tr:last-child td{border-bottom:none}
+  .axis{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand);margin:1px 2px 1px 0}
+  .note{background:rgba(255,209,102,.16);border:1px solid rgba(255,209,102,.5);border-radius:11px;padding:13px 16px;margin-top:18px;font-size:12.8px;color:#5a4a1a}
+  .note b{color:#7a5e10}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:34px;line-height:1.8}
+  @media(max-width:720px){h1{font-size:22px}.vid{flex-direction:column}.vthumb{flex-basis:auto;width:100%}.gdesc{padding-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="../_허브.html">← 참조영상 허브</a>
+  <a class="nbtn" href="https://www.youtube.com/results?search_query=칼+세이건+코스모스" target="_blank" rel="noopener">🔎 유튜브에서 더 보기</a>
+  <a class="nbtn doc" href="../../../../10_system/cowork_prompts/유튜브_참조영상_수집.md">📋 작성 지침</a>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">참조영상 컬렉션 · 인물 (글로벌 · 작고 · 과학자)</div>
+    <h1>칼 세이건 — 코스모스 · 책 예찬</h1>
+    <p class="sub"><b style="color:#fff">"책은 인간이 마법을 부릴 수 있다는 증거다."</b> 천문학자이자 『코스모스』의 저자가 남긴, 인류 최고의 독서 예찬. 한국에서 『코스모스』는 '죽기 전 꼭 읽어야 할 책'으로 사랑받는 초대형 교양서입니다 — '지적호기심·읽는 재미' 축의 완벽한 소재.</p>
+    <div class="stats">
+      <div class="stat"><div class="v">8</div><div class="l">수집 영상</div></div>
+      <div class="stat"><div class="v">5 / 3</div><div class="l">한국어 / 영어</div></div>
+      <div class="stat"><div class="v">약 564만</div><div class="l">합산 조회수</div></div>
+      <div class="stat"><div class="v">247만</div><div class="l">최고 (설민석 강독)</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h2>왜 칼 세이건 = bizpt 레퍼런스인가</h2>
+    <p>세이건의 <b>"책 예찬"</b> 구절은 독서를 다루는 모든 콘텐츠의 <b>최고의 도입 인용</b>이다: "책은 시간의 족쇄를 끊는다… 저자는 수천 년을 가로질러 당신의 머릿속에서 직접 말한다." 또 그의 『코스모스』는 한국에서 <b>설민석·궤도·범준</b> 등 톱 크리에이터들이 앞다퉈 다룬 '국민 교양서' — bizpt <b>'지적호기심·책 읽는 재미·책 읽어야 하는 이유'</b> 축에 더없이 좋은 글로벌×한국 동시 소재.</p>
+    <div class="why">
+      <span class="chip">결 ③ 더 읽으려는 사람</span>
+      <span class="chip">축: 지적호기심</span>
+      <span class="chip">축: 책 읽는 재미</span>
+      <span class="chip">축: 책 읽어야 하는 이유</span>
+    </div>
+  </div>
+
+  <!-- A. 책 예찬 (영어 원본) -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--brand)">A</span><h2>책 예찬 (영어 원본)</h2></div>
+    <p class="gdesc">"책은 마법의 증거" — 독서 콘텐츠 도입 인용의 최고봉.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=-5nkpkg_sL8" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/-5nkpkg_sL8/hqdefault.jpg" alt="" loading="lazy"><span class="dur">3:07</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=-5nkpkg_sL8" target="_blank" rel="noopener">Carl Sagan Talks About Books</a></div>
+        <div class="vmeta"><span>채널 <b>Triton Sky</b></span><span>조회 <b>약 2.6만</b></span><span>4년 전</span><span>3:07</span></div>
+        <div class="vsec"><span class="lab">핵심</span>세이건의 전설적 <b>'책 예찬'</b> 구절 — "한 인간이 수천 년 전 죽었어도, 책을 펴면 그가 내 머릿속에서 말한다."</div>
+        <div class="vquote">"What an astonishing thing a book is… proof that humans are capable of working magic."</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽어야 하는 이유' — 모든 독서 영상의 <b>오프닝 인용 1순위</b>. 영한 자막 카드로.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=EuvKdE5e3eo" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/EuvKdE5e3eo/hqdefault.jpg" alt="" loading="lazy"><span class="dur">0:41</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=EuvKdE5e3eo" target="_blank" rel="noopener">Cosmos — Number of Books in a Lifetime</a></div>
+        <div class="vmeta"><span>채널 <b>Maximilian Montserrat</b></span><span>조회 <b>약 1.1만</b></span><span>11년 전</span><span>0:41</span></div>
+        <div class="vsec"><span class="lab">핵심</span>코스모스 다큐의 도서관 장면 — "평생 읽을 수 있는 책은 도서관의 극히 일부"라는 충격적 환기.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽어야 하는 이유' 쇼츠 — "평생 못 읽는 책의 양" 위기감 후크(41초).</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=Uc1O_TrXKQU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/Uc1O_TrXKQU/hqdefault.jpg" alt="" loading="lazy"><span class="dur">8:42</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=Uc1O_TrXKQU" target="_blank" rel="noopener">Carl Sagan on Books and Libraries</a></div>
+        <div class="vmeta"><span>채널 <b>1001 Frames of Mind</b></span><span>조회 <b>약 2천</b></span><span>1년 전</span><span>8:42</span></div>
+        <div class="vsec"><span class="lab">핵심</span>책과 도서관에 대한 세이건의 사유를 모은 클립. 인용 채굴용.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>인용 소스(여러 구절). 도서관·책의 가치 콘텐츠 자료.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. 코스모스 — 한국 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--value)">B</span><h2>코스모스 — 한국의 '국민 교양서'</h2></div>
+    <p class="gdesc">설민석·궤도·범준이 다룬 코스모스 — "한 권의 책"을 콘텐츠로 키운 한국 사례들.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=CnIZki0s4kU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/CnIZki0s4kU/hqdefault.jpg" alt="" loading="lazy"><span class="dur">23:49</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=CnIZki0s4kU" target="_blank" rel="noopener">[코스모스] 설민석 강독 풀버전 — 책 읽어드립니다 EP.14</a></div>
+        <div class="vmeta"><span>채널 <b>tvN STORY</b></span><span>조회 <b>약 247만</b></span><span>6년 전</span><span>23:49</span></div>
+        <div class="vsec"><span class="lab">핵심</span>이 컬렉션 <b>최고 조회(247만)</b>. 설민석이 코스모스를 강독 — <b>"책 한 권을 강의 한 편으로"</b>의 한국 대표 포맷('책 읽어드립니다').</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 한 권 깊이 읽기' 키 콘텐츠 1순위 벤치마크. 강독형 포맷의 정석.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=-khvoBfvlas" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/-khvoBfvlas/hqdefault.jpg" alt="" loading="lazy"><span class="dur">25:40</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=-khvoBfvlas" target="_blank" rel="noopener">우리가 죽기 전 《코스모스》를 꼭 읽어야 하는 이유 | 범준에 물리다</a></div>
+        <div class="vmeta"><span>채널 <b>범준에 물리다</b></span><span>조회 <b>약 143만</b></span><span>2년 전</span><span>25:40</span></div>
+        <div class="vsec"><span class="lab">핵심</span>물리학자 김범준이 코스모스를 권하는 영상(143만). "죽기 전 꼭" 후크 + 전문가 권위.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽어야 하는 이유' — "죽기 전 꼭 읽어야 할 책" 후크 + 전문가 추천 포맷.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=M8YKVSYxB6M" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/M8YKVSYxB6M/hqdefault.jpg" alt="" loading="lazy"><span class="dur">52:13</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=M8YKVSYxB6M" target="_blank" rel="noopener">[코스모스] 어떻게 읽어야 하는가? 셜록현준 X 궤도</a></div>
+        <div class="vmeta"><span>채널 <b>셜록현준</b></span><span>조회 <b>약 86.6만</b></span><span>3년 전</span><span>52:13</span></div>
+        <div class="vsec"><span class="lab">핵심</span>건축가 유현준 X 과학커뮤니케이터 궤도의 코스모스 대담. <b>전문가 콜라보</b>로 한 책을 깊게.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'콜라보 북토크' 포맷 — 서로 다른 분야 전문가가 한 책을 논하는 구성.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=O5jXYcevloo" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/O5jXYcevloo/hqdefault.jpg" alt="" loading="lazy"><span class="dur">22:20</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=O5jXYcevloo" target="_blank" rel="noopener">궤도의 인생책 『코스모스』를 반드시 읽어야 하는 이유</a></div>
+        <div class="vmeta"><span>채널 <b>이혜성의 1% 북클럽</b></span><span>조회 <b>약 46.2만</b></span><span>9개월 전</span><span>22:20</span></div>
+        <div class="vsec"><span class="lab">핵심</span>"<b>인생책</b>"이라는 프레임으로 코스모스를 권하는 북클럽 콘텐츠. 게스트의 인생책 소개 포맷.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'게스트의 인생책' 시리즈 모델(북클럽 채널 벤치마크).</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=ou3JI8S1xK0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ou3JI8S1xK0/hqdefault.jpg" alt="" loading="lazy"><span class="dur">23:05</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=ou3JI8S1xK0" target="_blank" rel="noopener">[풀버전] 우주 다큐 〈코스모스〉, 책으로도! | 책읽어드립니다</a></div>
+        <div class="vmeta"><span>채널 <b>사피엔스 스튜디오</b></span><span>조회 <b>약 37.4만</b></span><span>5년 전</span><span>23:05</span></div>
+        <div class="vsec"><span class="lab">핵심</span>'책읽어드립니다' 시리즈의 코스모스 편 풀버전. 교양 다큐를 책 소개로 연결.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'다큐×책' 연계 콘텐츠 — 영상 매체와 책을 잇는 구성 참고.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 종합 가이드 -->
+  <div class="guide">
+    <h2>🧭 종합 활용 가이드 — bizpt 축 매핑</h2>
+    <p class="lead">칼 세이건 컬렉션을 어느 콘텐츠에, 어떤 후크로 쓸지. (8축 · 결 3그룹 기준)</p>
+    <table class="gtable">
+      <thead><tr><th style="width:22%">bizpt 축</th><th style="width:34%">연결 영상</th><th>후크·활용 아이디어</th></tr></thead>
+      <tbody>
+        <tr><td><span class="axis">책 읽어야 하는 이유</span></td><td>A1 책 예찬 · A2 평생 못 읽는 책</td><td>"책=시간을 건너는 마법" 오프닝 인용 1순위</td></tr>
+        <tr><td><span class="axis">책 읽는 재미</span></td><td>B1 설민석 강독 · B3 콜라보</td><td>"책 한 권 = 강의 한 편" 강독·콜라보 북토크 포맷</td></tr>
+        <tr><td><span class="axis">지적호기심</span></td><td>B2 죽기 전 코스모스 · B4 인생책</td><td>"죽기 전 꼭 읽어야 할 책" / "전문가의 인생책" 후크</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>진정성 체크(3기둥 ②):</b> 세이건은 우리 결과 가장 잘 맞는 인물 중 하나 — <b>순수한 경이와 호기심</b>으로 책을 권한다. 클릭베이트 없이도 "책 예찬" 한 구절이 강력하다. 코스모스를 다룬 한국 채널들이 곧 <b>직접 벤치마크</b>(교양 독서 콘텐츠).</div>
+  </div>
+
+  <footer>
+    bizpt / 타채널참조 · 참조영상 수집 — 칼 세이건 (코스모스·책 예찬)<br>
+    모든 링크·메타는 2026-06-09 Claude in Chrome로 실제 검증 · 조회수는 검증 시점 근사치<br>
+    허브: ../_허브.html · 지침: 10_system/cowork_prompts/유튜브_참조영상_수집.md
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📚 2026 이북리더기 완전 비교 — 사이즈·브랜드·용도별 구매 가이드</title>
+<meta name="description" content="2026년 4월 최신 기준 이북리더기(전자책) 종류와 크기·브랜드·제품별 비교. Kindle / Kobo / Onyx Boox / 크레마 / 리디페이퍼 / reMarkable 한 페이지에서 비교하고 바로 구매까지.">
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2;
+    --accent:#ffd166; --accent-2:#06d6a0; --warn:#ef476f; --info:#118ab2; --chip:#2a2f3a;
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#c4b5fd;
+    --kindle:#ff9900; --kobo:#a05cff; --boox:#22c55e; --crema:#3b82f6; --ridi:#0ea5e9; --remark:#f97316;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:#9bd6e8}
+  .wrap{max-width:1240px;margin:0 auto;padding:36px 24px 80px}
+  /* ---------- HERO ---------- */
+  header.hero{padding:42px 36px;border-radius:24px;
+    background:radial-gradient(1200px 400px at 10% -10%,rgba(255,209,102,.18),transparent 50%),
+               radial-gradient(900px 380px at 110% 10%,rgba(6,214,160,.14),transparent 55%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line);position:relative;overflow:hidden}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.18em;color:var(--accent);
+    background:rgba(255,209,102,.12);border:1px solid rgba(255,209,102,.3);
+    padding:6px 12px;border-radius:999px;text-transform:uppercase;font-weight:700}
+  h1{font-size:40px;line-height:1.2;margin:18px 0 10px;letter-spacing:-0.02em;font-weight:800}
+  h1 .accent{color:var(--accent)}
+  .hero p.lede{color:var(--muted);font-size:16px;margin:8px 0 22px;max-width:840px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .chip{background:var(--chip);border:1px solid var(--line);color:var(--text);
+    font-size:12.5px;padding:6px 12px;border-radius:999px}
+  /* ---------- SECTIONS ---------- */
+  section{margin-top:48px}
+  h2{font-size:24px;letter-spacing:-.01em;margin:0 0 16px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:24px;border-radius:3px;background:var(--accent)}
+  h3{font-size:18px;margin:18px 0 10px;color:#fff}
+  p{color:#cdd2dc}
+  /* ---------- QUICK NAV ---------- */
+  .quick-nav{display:flex;flex-wrap:wrap;gap:8px;padding:14px;background:var(--panel);
+    border:1px solid var(--line);border-radius:14px;margin:24px 0 0;
+    position:sticky;top:0;z-index:30;backdrop-filter:blur(8px)}
+  .qbtn{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:8px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:all .15s;white-space:nowrap}
+  .qbtn:hover{transform:translateY(-1px);background:#252a36;border-color:var(--accent);color:var(--accent)}
+  /* ---------- TOP PICK CARDS ---------- */
+  .picks{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:14px}
+  @media(max-width:1000px){.picks{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.picks{grid-template-columns:1fr}}
+  .pick{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;
+    position:relative;overflow:hidden}
+  .pick::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent)}
+  .pick.k::before{background:var(--kindle)}
+  .pick.b::before{background:var(--boox)}
+  .pick.o::before{background:var(--kobo)}
+  .pick.r::before{background:var(--remark)}
+  .pick .badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;color:#0f1115;background:var(--accent);padding:4px 9px;border-radius:5px}
+  .pick h4{margin:10px 0 4px;font-size:16px;color:#fff}
+  .pick .price{font-size:22px;font-weight:800;color:#fff;margin:8px 0 4px}
+  .pick .price .won{font-size:13px;color:var(--muted);font-weight:500}
+  .pick .why{color:var(--muted);font-size:13px;margin:8px 0 14px;min-height:54px}
+  .pick a.cta{display:block;text-align:center;padding:10px;border-radius:8px;background:var(--accent);
+    color:#0f1115;font-weight:800;text-decoration:none;font-size:13.5px}
+  .pick a.cta.alt{background:transparent;border:1px solid var(--line);color:var(--text);margin-top:8px;font-weight:600}
+  .pick a.cta:hover{filter:brightness(1.1)}
+  /* ---------- SIZE TABS ---------- */
+  .size-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+  @media(max-width:760px){.size-bar{grid-template-columns:repeat(2,1fr)}}
+  .size-card{padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:14px;text-align:center;text-decoration:none;color:var(--text);transition:all .15s}
+  .size-card:hover{transform:translateY(-2px);border-color:var(--accent)}
+  .size-card .big{font-size:30px;font-weight:900;color:var(--accent);letter-spacing:-.04em}
+  .size-card .ttl{font-size:14px;font-weight:700;margin:6px 0 2px;color:#fff}
+  .size-card .sub{font-size:12px;color:var(--muted)}
+  /* ---------- PRODUCT GRID ---------- */
+  .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+  @media(max-width:1000px){.prod-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.prod-grid{grid-template-columns:1fr}}
+  .prod{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    display:flex;flex-direction:column}
+  .prod .img{aspect-ratio:4/3;background:linear-gradient(135deg,#1a1f29,#222936);
+    display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line);position:relative}
+  .prod .img img{max-width:78%;max-height:88%;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(0,0,0,.5))}
+  .prod .img .brand-tag{position:absolute;top:10px;left:10px;font-size:10.5px;font-weight:800;
+    letter-spacing:.1em;padding:4px 8px;border-radius:5px;background:rgba(0,0,0,.55);color:#fff;text-transform:uppercase}
+  .prod .img .size-tag{position:absolute;top:10px;right:10px;font-size:11px;font-weight:700;
+    padding:4px 8px;border-radius:5px;background:var(--accent);color:#0f1115}
+  .prod .body{padding:18px;display:flex;flex-direction:column;flex:1}
+  .prod h4{margin:0;font-size:16px;color:#fff}
+  .prod .tagline{color:var(--muted);font-size:12.5px;margin:4px 0 10px}
+  .prod .price-row{display:flex;justify-content:space-between;align-items:baseline;margin:6px 0 10px}
+  .prod .price{font-size:20px;font-weight:800;color:var(--accent)}
+  .prod .price .won{font-size:12px;color:var(--muted);font-weight:500;margin-left:4px}
+  .prod ul{padding-left:18px;margin:6px 0 12px;flex:1}
+  .prod ul li{font-size:12.5px;margin:3px 0;color:#cdd2dc}
+  .prod .pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 12px;font-size:12px}
+  .prod .pros,.prod .cons{padding:8px 10px;border-radius:8px;background:var(--panel-2);border:1px solid var(--line)}
+  .prod .pros b{color:var(--accent-2)}
+  .prod .cons b{color:var(--warn)}
+  .prod .ctas{display:flex;gap:6px;flex-wrap:wrap}
+  .prod .ctas a{flex:1 1 calc(50% - 3px);text-align:center;padding:9px 8px;border-radius:7px;
+    text-decoration:none;font-size:12px;font-weight:700;border:1px solid var(--line);
+    background:var(--panel-2);color:var(--text);transition:all .12s;min-width:0}
+  .prod .ctas a:hover{transform:translateY(-1px);background:#252a36}
+  .prod .ctas a.primary{background:var(--accent);color:#0f1115;border-color:var(--accent)}
+  .prod .ctas a.primary:hover{filter:brightness(1.08)}
+  .prod .ctas a.kor{background:#FFE600;color:#000;border-color:#e6cf00}
+  .prod .ctas a.amz{background:#ff9900;color:#0f1115;border-color:#e88a00}
+  /* ---------- TABLE ---------- */
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin-top:14px}
+  table{width:100%;min-width:900px;border-collapse:collapse;font-size:13px}
+  th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+  th{background:#1b1f28;color:#fff;font-weight:700;font-size:12px;letter-spacing:.04em;position:sticky;top:0}
+  tbody tr:nth-child(even){background:#161a22}
+  tbody tr:hover{background:#1f242f}
+  td.num{font-variant-numeric:tabular-nums;color:#fff;font-weight:600}
+  td a{color:var(--accent);text-decoration:none;font-weight:700}
+  td a:hover{text-decoration:underline}
+  .tag{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;color:#fff}
+  .tag.k{background:var(--kindle)}
+  .tag.o{background:var(--kobo)}
+  .tag.b{background:var(--boox)}
+  .tag.c{background:var(--crema)}
+  .tag.r{background:var(--ridi)}
+  .tag.rm{background:var(--remark)}
+  /* ---------- CALLOUT ---------- */
+  .callout{border-left:4px solid var(--accent-2);background:#13241e;color:#cfe9dd;
+    padding:14px 16px;border-radius:0 10px 10px 0;font-size:14px;margin:14px 0}
+  .callout.warn{border-left-color:var(--warn);background:#251418;color:#f0c8d2}
+  .callout b{color:#fff}
+  /* ---------- DECISION TREE ---------- */
+  .tree{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:14px}
+  .tree .row{display:grid;grid-template-columns:auto 1fr 1fr;gap:14px;align-items:center;
+    padding:14px 0;border-bottom:1px dashed var(--line)}
+  .tree .row:last-child{border-bottom:none}
+  .tree .q{font-weight:700;color:var(--accent);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+  .tree .a{padding:10px 14px;border-radius:8px;background:var(--panel-2);border:1px solid var(--line);font-size:13.5px}
+  .tree .a b{color:#fff}
+  @media(max-width:760px){.tree .row{grid-template-columns:1fr}}
+  /* ---------- FAQ ---------- */
+  details.faq{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:8px 0}
+  details.faq summary{cursor:pointer;font-weight:700;color:#fff;font-size:14.5px;list-style:none}
+  details.faq summary::after{content:"＋";float:right;color:var(--accent);font-weight:800}
+  details.faq[open] summary::after{content:"−"}
+  details.faq p{margin:10px 0 0;font-size:13.5px;color:#cdd2dc}
+  /* ---------- FOOTER ---------- */
+  .footer{margin-top:54px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:18px}
+  .footer ul{margin:8px 0 0;padding-left:18px}
+  .footer li{margin:3px 0}
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:760px){
+    .wrap{padding:20px 14px 60px}
+    h1{font-size:28px}
+    header.hero{padding:24px 18px}
+    h2{font-size:20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============== HERO ============== -->
+<header class="hero">
+  <span class="eyebrow">📚 2026.04 최신 기준 · 구매 가이드</span>
+  <h1>이북리더기, <span class="accent">한 페이지에서 비교하고 바로 사세요</span></h1>
+  <p class="lede">
+    Kindle · Kobo · Onyx Boox · 크레마 · 리디페이퍼 · reMarkable 까지 ─
+    크기(6"·7"·7.8"·10"+)별, 브랜드별, 용도별로 정리하고
+    실제 제품 이미지와 구매 링크(쿠팡 · 예스24 · 리디 · Amazon · 공식몰)까지 한 번에.
+  </p>
+  <div class="meta-row">
+    <span class="chip">📅 기준일 : 2026-04 (가격 변동 가능)</span>
+    <span class="chip">🛒 KOR : 쿠팡 · 예스24 · 리디</span>
+    <span class="chip">🌍 GLB : Amazon · 공식 스토어</span>
+    <span class="chip">📏 5가지 사이즈 비교</span>
+    <span class="chip">🏷️ 6개 브랜드</span>
+  </div>
+</header>
+
+<!-- ============== STICKY NAV ============== -->
+<nav class="quick-nav">
+  <a class="qbtn" href="#picks">⭐ 베스트 픽</a>
+  <a class="qbtn" href="#size">📏 사이즈별</a>
+  <a class="qbtn" href="#brand">🏷️ 브랜드별</a>
+  <a class="qbtn" href="#products">🛒 전체 제품</a>
+  <a class="qbtn" href="#table">📊 비교표</a>
+  <a class="qbtn" href="#decision">🤔 의사결정 가이드</a>
+  <a class="qbtn" href="#faq">❓ FAQ</a>
+</nav>
+
+<!-- ============== TOP PICKS ============== -->
+<section id="picks">
+  <h2>⭐ 2026 베스트 픽 — 4가지 상황 베스트 1</h2>
+  <p>리뷰 사이트들(TechRadar / Engadget / Good e-Reader / Tom's Guide)의 2026 결론을 한 줄로 압축했습니다.</p>
+  <div class="picks">
+    <div class="pick k">
+      <span class="badge">전체 1위</span>
+      <h4>Kindle Paperwhite (12세대)</h4>
+      <div class="price">$159.99 <span class="won">≈ 22.9만원</span></div>
+      <div class="why">7" / IPX8 방수 / 최대 12주 배터리. "고민되면 이거." 가장 안정적인 입문~메인 모델.</div>
+      <a href="https://www.amazon.com/All-new-Amazon-Kindle-Paperwhite-Signature/dp/B0C8RR4WN3" class="cta" target="_blank" rel="noopener">Amazon 바로가기</a>
+      <a href="https://search.shopping.naver.com/search/all?query=킨들+페이퍼화이트+12세대" class="cta alt" target="_blank" rel="noopener">네이버 가격비교</a>
+    </div>
+    <div class="pick o">
+      <span class="badge">컬러 1위</span>
+      <h4>Kobo Libra Colour</h4>
+      <div class="price">$229.99 <span class="won">≈ 32.9만원</span></div>
+      <div class="why">7" Kaleido 3 컬러 / 물리버튼 / 스타일러스 지원 / 방수. "킨들 대안" 압도적 1순위.</div>
+      <a href="https://us.kobobooks.com/products/kobo-libra-colour" class="cta" target="_blank" rel="noopener">Kobo 공식</a>
+      <a href="https://www.amazon.com/Kobo-Glare-Free-KaleidoTM-Audiobooks-Waterproof/dp/B0CZXX465Z" class="cta alt" target="_blank" rel="noopener">Amazon</a>
+    </div>
+    <div class="pick b">
+      <span class="badge">올인원 / 자유도</span>
+      <h4>Boox Palma 2</h4>
+      <div class="price">$279.99 <span class="won">≈ 39.9만원</span></div>
+      <div class="why">6.13" 스마트폰 사이즈 / Android 13 / Play Store / 킨들·리디·밀리·웹툰 다 됨. 휴대성 끝판왕.</div>
+      <a href="https://shop.boox.com/products/palma2" class="cta" target="_blank" rel="noopener">Boox 공식</a>
+      <a href="https://www.amazon.com/BOOX-Palma-Fingerprint-Recognition-Microphones/dp/B0DPW2QKK3" class="cta alt" target="_blank" rel="noopener">Amazon</a>
+    </div>
+    <div class="pick r">
+      <span class="badge">필기 / 노트</span>
+      <h4>reMarkable Paper Pro</h4>
+      <div class="price">$629 <span class="won">≈ 89.9만원</span></div>
+      <div class="why">11.8" 컬러 Gallery 3 / 종이 같은 필기감 / 알림·앱 없음. PDF·논문·메모 전용.</div>
+      <a href="https://remarkable.com/store/remarkable-paper/pro" class="cta" target="_blank" rel="noopener">reMarkable 공식</a>
+      <a href="https://search.shopping.naver.com/search/all?query=리마커블+페이퍼+프로" class="cta alt" target="_blank" rel="noopener">네이버 가격비교</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SIZE NAVIGATION ============== -->
+<section id="size">
+  <h2>📏 사이즈별 — 어느 크기를 골라야 하나</h2>
+  <p>리뷰 컨센서스: <b style="color:#fff">7인치가 "스위트 스폿"</b>. 6인치는 휴대성·소설용, 10인치는 PDF·필기용. 6→7인치 차이가 7→8인치보다 훨씬 크게 느껴진다는 평이 많습니다.</p>
+  <div class="size-bar">
+    <a class="size-card" href="#sz-6"><div class="big">6"</div><div class="ttl">한 손 / 소설</div><div class="sub">주머니에 들어감</div></a>
+    <a class="size-card" href="#sz-palma"><div class="big">6.1"</div><div class="ttl">스마트폰형</div><div class="sub">앱 + 이북</div></a>
+    <a class="size-card" href="#sz-7"><div class="big">7"</div><div class="ttl">스위트 스폿</div><div class="sub">대부분의 사람</div></a>
+    <a class="size-card" href="#sz-8"><div class="big">7.8~8"</div><div class="ttl">중형 / 만화</div><div class="sub">잡지·전공서</div></a>
+    <a class="size-card" href="#sz-10"><div class="big">10"+</div><div class="ttl">노트 · PDF</div><div class="sub">스타일러스</div></a>
+  </div>
+</section>
+
+<!-- ============== PRODUCT CARDS ============== -->
+<section id="products">
+  <h2>🛒 전체 제품 카드 — 크기별 정렬</h2>
+
+  <h3 id="sz-6" style="margin-top:24px">📕 6인치 입문·소설용 ─ 가장 휴대성 좋음</h3>
+  <div class="prod-grid">
+
+    <!-- Kindle Basic 11세대 -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--kindle);color:#0f1115">Kindle</span>
+        <span class="size-tag">6"</span>
+        <img src="https://m.media-amazon.com/images/I/61iMBE-rqDL._AC_SL1000_.jpg" alt="Kindle 11세대 본체"
+             onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#222\' stroke=\'#444\'/><rect x=\'48\' y=\'18\' width=\'104\' height=\'114\' fill=\'#e8e1d2\'/><text x=\'100\' y=\'85\' fill=\'#555\' text-anchor=\'middle\' font-size=\'11\' font-family=\'sans-serif\'>Kindle</text></svg>')">
+      </div>
+      <div class="body">
+        <h4>Amazon Kindle (11세대 / 베이직)</h4>
+        <div class="tagline">2022년 출시 · 가장 저렴한 정통 킨들</div>
+        <div class="price-row"><span class="price">$109.99 <span class="won">≈ 15.9만</span></span></div>
+        <ul>
+          <li>6" / 300ppi · 16GB · USB-C</li>
+          <li>방수 ❌ · 워밍라이트 ❌</li>
+          <li>가장 가벼운 158g</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 입문 끝판왕 가격</div>
+          <div class="cons"><b>👎</b> 방수 없음·자기조명 단조</div>
+        </div>
+        <div class="ctas">
+          <a class="amz" href="https://www.amazon.com/dp/B09SWS6S7N" target="_blank" rel="noopener">Amazon 🇺🇸</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=Kindle+11세대" target="_blank" rel="noopener">쿠팡 🇰🇷</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Kobo Clara BW -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--kobo)">Kobo</span>
+        <span class="size-tag">6"</span>
+        <img src="https://cdn.kobo.com/eu/categorypages/kobo-clara-bw/category-overview.png" alt="Kobo Clara BW"
+             onerror="this.src='https://us.kobobooks.com/cdn/shop/files/clara-bw-front-2x.png'; this.onerror=function(){this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#1f1f1f\' stroke=\'#a05cff\'/><rect x=\'48\' y=\'18\' width=\'104\' height=\'114\' fill=\'#eee\'/><text x=\'100\' y=\'85\' fill=\'#a05cff\' text-anchor=\'middle\' font-size=\'10\' font-family=\'sans-serif\'>Kobo Clara BW</text></svg>');}">
+      </div>
+      <div class="body">
+        <h4>Kobo Clara BW</h4>
+        <div class="tagline">2024 · "킨들 대체" 가성비 1순위</div>
+        <div class="price-row"><span class="price">$139.99 <span class="won">≈ 19.9만</span></span></div>
+        <ul>
+          <li>6" / 300ppi · 16GB · USB-C</li>
+          <li>IPX8 방수 ✅ · 다크모드</li>
+          <li>EPUB 직접 지원, OverDrive 도서관</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 같은 가격에 방수+EPUB</div>
+          <div class="cons"><b>👎</b> 한국 정식발매 ❌(직구)</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://us.kobobooks.com/products/kobo-clara-bw" target="_blank" rel="noopener">Kobo 공식</a>
+          <a class="amz" href="https://www.amazon.com/dp/B0CYJLBVLG" target="_blank" rel="noopener">Amazon 🇺🇸</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Kobo Clara Colour -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--kobo)">Kobo</span>
+        <span class="size-tag">6"</span>
+        <img src="https://us.kobobooks.com/cdn/shop/files/clara-colour-front-2x.png" alt="Kobo Clara Colour"
+             onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#1f1f1f\' stroke=\'#a05cff\'/><rect x=\'48\' y=\'18\' width=\'104\' height=\'114\' fill=\'linear-gradient(180deg,#fce8a3,#f0a060)\'/><text x=\'100\' y=\'85\' fill=\'#a05cff\' text-anchor=\'middle\' font-size=\'10\' font-family=\'sans-serif\'>Clara Colour</text></svg>')">
+      </div>
+      <div class="body">
+        <h4>Kobo Clara Colour</h4>
+        <div class="tagline">2024 · 6" 컬러 e잉크</div>
+        <div class="price-row"><span class="price">$239.99 <span class="won">≈ 33.9만</span></span></div>
+        <ul>
+          <li>6" Kaleido 3 컬러 / 300ppi(B&W)</li>
+          <li>IPX8 방수 ✅ · 16GB</li>
+          <li>Kindle Colorsoft보다 $40 저렴</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 작고 가벼운 컬러</div>
+          <div class="cons"><b>👎</b> 컬러 채도는 보조 수준</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://us.kobobooks.com/products/kobo-clara-colour" target="_blank" rel="noopener">Kobo 공식</a>
+          <a class="amz" href="https://www.amazon.com/dp/B0CYJLD4ZN" target="_blank" rel="noopener">Amazon 🇺🇸</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Boox Go 6 -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--boox)">Onyx Boox</span>
+        <span class="size-tag">6"</span>
+        <img src="https://onyxboox.com/img/devices/go6/img1.png" alt="Boox Go 6"
+             onerror="this.src='https://shop.boox.com/cdn/shop/files/go6-front.png'; this.onerror=function(){this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#222\' stroke=\'#22c55e\'/><rect x=\'48\' y=\'18\' width=\'104\' height=\'114\' fill=\'#eee\'/><text x=\'100\' y=\'85\' fill=\'#22c55e\' text-anchor=\'middle\' font-size=\'11\' font-family=\'sans-serif\'>Boox Go 6</text></svg>');}">
+      </div>
+      <div class="body">
+        <h4>Boox Go 6</h4>
+        <div class="tagline">2024 · 안드로이드 6인치 입문</div>
+        <div class="price-row"><span class="price">$159.99 <span class="won">≈ 22.9만</span></span></div>
+        <ul>
+          <li>6" Carta 1300 / 300ppi · 32GB</li>
+          <li>Android 13 + Google Play ✅</li>
+          <li>킨들·리디·밀리·웹툰 앱 설치</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 앱 자유도 + 가성비</div>
+          <div class="cons"><b>👎</b> 방수 ❌ · 설정이 복잡</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://shop.boox.com/products/go6" target="_blank" rel="noopener">Boox 공식</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=onyx+boox+go6" target="_blank" rel="noopener">쿠팡 🇰🇷</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 크레마 페블 -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--crema)">크레마</span>
+        <span class="size-tag">6"</span>
+        <img src="https://image.yes24.com/momo/Top/2024/00/0828/3ec22d56eb1f4a1eb24a905ec02b9a83.png" alt="크레마 페블"
+             onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#1f1f1f\' stroke=\'#3b82f6\'/><rect x=\'48\' y=\'18\' width=\'104\' height=\'114\' fill=\'#eee\'/><text x=\'100\' y=\'80\' fill=\'#3b82f6\' text-anchor=\'middle\' font-size=\'11\' font-family=\'sans-serif\'>크레마 페블</text><text x=\'100\' y=\'95\' fill=\'#888\' text-anchor=\'middle\' font-size=\'8\' font-family=\'sans-serif\'>YES24</text></svg>')">
+      </div>
+      <div class="body">
+        <h4>크레마 페블 (CREMA Pebble)</h4>
+        <div class="tagline">2024 · YES24 · 한국 직발매</div>
+        <div class="price-row"><span class="price">219,000원</span></div>
+        <ul>
+          <li>6" Carta / 1448×1072 · 32GB(+SD 512)</li>
+          <li>Android 11 · 4GB RAM</li>
+          <li>크레마클럽 / YES24 / 리디 호환</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 국내 AS · 한글 UX</div>
+          <div class="cons"><b>👎</b> 방수 ❌ · 처리 속도 보통</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://www.yes24.com/Product/Goods/132260892" target="_blank" rel="noopener">YES24 공식</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=크레마+페블" target="_blank" rel="noopener">쿠팡</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 크레마 카르타G -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--crema)">크레마</span>
+        <span class="size-tag">6"</span>
+        <img src="https://image.yes24.com/momo/Top/2024/02/0205/5040d80d2c1d499a8b96cf41a82ad4ec.png" alt="크레마 카르타G"
+             onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#1f1f1f\' stroke=\'#3b82f6\'/><rect x=\'48\' y=\'18\' width=\'104\' height=\'114\' fill=\'#eee\'/><text x=\'100\' y=\'85\' fill=\'#3b82f6\' text-anchor=\'middle\' font-size=\'10\' font-family=\'sans-serif\'>카르타G</text></svg>')">
+      </div>
+      <div class="body">
+        <h4>크레마 카르타G</h4>
+        <div class="tagline">2024 · 자이로센서 화면회전</div>
+        <div class="price-row"><span class="price">179,000원</span></div>
+        <ul>
+          <li>6" / Carta · 8GB</li>
+          <li>G-센서 ✅ (가로·세로 자동회전)</li>
+          <li>크레마클럽·YES24·리디 호환</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 가장 저렴한 한국 정발</div>
+          <div class="cons"><b>👎</b> 사양 보수적 / 컬러 ❌</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://www.yes24.com/Product/Goods/124847257" target="_blank" rel="noopener">YES24 공식</a>
+          <a class="kor" href="https://search.shopping.naver.com/search/all?query=크레마+카르타G" target="_blank" rel="noopener">네이버 가격비교</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ===== 스마트폰 사이즈 ===== -->
+  <h3 id="sz-palma" style="margin-top:32px">📱 6.13인치 스마트폰형 ─ 휴대성 끝판왕</h3>
+  <div class="prod-grid">
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--boox)">Onyx Boox</span>
+        <span class="size-tag">6.13"</span>
+        <img src="https://shop.boox.com/cdn/shop/files/palma2-key-visual.png" alt="Boox Palma 2"
+             onerror="this.src='https://onyxboox.com/img/boox_palma2/palma2-1.png'; this.onerror=function(){this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:50%\'><rect x=\'70\' y=\'5\' width=\'60\' height=\'140\' rx=\'10\' fill=\'#222\' stroke=\'#22c55e\' stroke-width=\'2\'/><rect x=\'74\' y=\'12\' width=\'52\' height=\'126\' fill=\'#eee\'/><text x=\'100\' y=\'80\' fill=\'#22c55e\' text-anchor=\'middle\' font-size=\'9\' font-family=\'sans-serif\'>Palma 2</text></svg>');}">
+      </div>
+      <div class="body">
+        <h4>Boox Palma 2 ⭐ 베스트픽</h4>
+        <div class="tagline">스마트폰 크기 · Android 13 · Play Store</div>
+        <div class="price-row"><span class="price">$279.99 <span class="won">≈ 39.9만</span></span></div>
+        <ul>
+          <li>6.13" Carta 1200 · 300ppi · 128GB</li>
+          <li>지문인식 ✅ · 마이크 / 듀얼 스피커</li>
+          <li>킨들 · 리디 · 밀리 · 웹툰 앱 모두 OK</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 진짜 주머니에 들어감 · 앱 자유</div>
+          <div class="cons"><b>👎</b> 방수 ❌ · 화면이 좀 작음</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://shop.boox.com/products/palma2" target="_blank" rel="noopener">Boox 공식</a>
+          <a class="amz" href="https://www.amazon.com/BOOX-Palma-Fingerprint-Recognition-Microphones/dp/B0DPW2QKK3" target="_blank" rel="noopener">Amazon</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=Boox+Palma+2" target="_blank" rel="noopener">쿠팡</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- ===== 7인치 ===== -->
+  <h3 id="sz-7" style="margin-top:32px">📘 7인치 메인스트림 ─ "스위트 스폿" 가장 추천</h3>
+  <div class="prod-grid">
+
+    <!-- Kindle Paperwhite 12 -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--kindle);color:#0f1115">Kindle</span>
+        <span class="size-tag">7"</span>
+        <img src="https://m.media-amazon.com/images/I/61pjCBaIDgL._AC_SL1000_.jpg" alt="Kindle Paperwhite 12세대"
+             onerror="this.src='https://m.media-amazon.com/images/I/71xuLoGwfRL._AC_SL1000_.jpg'; this.onerror=function(){this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#222\' stroke=\'#ff9900\'/><rect x=\'48\' y=\'18\' width=\'104\' height=\'114\' fill=\'#eee\'/><text x=\'100\' y=\'80\' fill=\'#ff9900\' text-anchor=\'middle\' font-size=\'10\' font-family=\'sans-serif\'>Paperwhite 12</text></svg>');}">
+      </div>
+      <div class="body">
+        <h4>Kindle Paperwhite (12세대 · 2024) ⭐ 베스트픽</h4>
+        <div class="tagline">2024.10 출시 · "고민되면 이거"</div>
+        <div class="price-row"><span class="price">$159.99 <span class="won">≈ 22.9만</span></span></div>
+        <ul>
+          <li>7" / 300ppi · 16GB · 25% 빠른 페이지 전환</li>
+          <li>IPX8 방수 ✅ · 워밍라이트 ✅</li>
+          <li>최대 12주 배터리 · USB-C</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 안정성·생태계·해상도 균형</div>
+          <div class="cons"><b>👎</b> EPUB 직접 지원 ❌(컨버트 필요)</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://www.amazon.com/All-new-Amazon-Kindle-Paperwhite-Signature/dp/B0C8RR4WN3" target="_blank" rel="noopener">Amazon</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=킨들+페이퍼화이트+12" target="_blank" rel="noopener">쿠팡 🇰🇷</a>
+          <a href="https://search.shopping.naver.com/search/all?query=Kindle+Paperwhite+12세대" target="_blank" rel="noopener">네이버</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Kindle Colorsoft -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--kindle);color:#0f1115">Kindle</span>
+        <span class="size-tag">7" 컬러</span>
+        <img src="https://m.media-amazon.com/images/I/61qJUm7oCBL._AC_SL1000_.jpg" alt="Kindle Colorsoft"
+             onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#222\' stroke=\'#ff9900\'/><rect x=\'48\' y=\'18\' width=\'104\' height=\'114\' fill=\'#fce8a3\'/><text x=\'100\' y=\'85\' fill=\'#ff9900\' text-anchor=\'middle\' font-size=\'10\' font-family=\'sans-serif\'>Colorsoft</text></svg>')">
+      </div>
+      <div class="body">
+        <h4>Kindle Colorsoft Signature</h4>
+        <div class="tagline">2024 출시 · 2025·26년 컬러 개선판</div>
+        <div class="price-row"><span class="price">$279.99 <span class="won">≈ 39.9만</span></span></div>
+        <ul>
+          <li>7" Kaleido 3 컬러 / B&W 300ppi</li>
+          <li>32GB · 무선충전 ✅ · IPX8 방수</li>
+          <li>2026 개정으로 노란밴드 이슈 해결</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 킨들 생태계 + 컬러</div>
+          <div class="cons"><b>👎</b> Kobo Clara Colour보다 $40 비쌈</div>
+        </div>
+        <div class="ctas">
+          <a class="amz" href="https://www.amazon.com/All-New-Amazon-Kindle-Colorsoft-Signature-Edition/dp/B0CN3XR57P" target="_blank" rel="noopener">Amazon</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=Kindle+Colorsoft" target="_blank" rel="noopener">쿠팡</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Kobo Libra Colour -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--kobo)">Kobo</span>
+        <span class="size-tag">7" 컬러</span>
+        <img src="https://us.kobobooks.com/cdn/shop/files/libra-colour-front-3-quarter-2x.png" alt="Kobo Libra Colour"
+             onerror="this.src='https://m.media-amazon.com/images/I/61V0NHAJGCL._AC_SL1500_.jpg'; this.onerror=function(){this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#1f1f1f\' stroke=\'#a05cff\'/><rect x=\'58\' y=\'18\' width=\'94\' height=\'114\' fill=\'#fce8a3\'/><rect x=\'40\' y=\'18\' width=\'18\' height=\'114\' fill=\'#333\'/><text x=\'100\' y=\'85\' fill=\'#a05cff\' text-anchor=\'middle\' font-size=\'9\' font-family=\'sans-serif\'>Libra Colour</text></svg>');}">
+      </div>
+      <div class="body">
+        <h4>Kobo Libra Colour ⭐ 베스트픽</h4>
+        <div class="tagline">2024 · "킨들 대안" 1순위</div>
+        <div class="price-row"><span class="price">$229.99 <span class="won">≈ 32.9만</span></span></div>
+        <ul>
+          <li>7" Kaleido 3 컬러 · 300ppi(B&W)</li>
+          <li>물리 페이지 버튼 ✅ · IPX8 방수</li>
+          <li>스타일러스 2 별매(필기 가능)</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 컬러+버튼+필기 다 됨</div>
+          <div class="cons"><b>👎</b> 한국 정발 ❌(직구 필수)</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://us.kobobooks.com/products/kobo-libra-colour" target="_blank" rel="noopener">Kobo 공식</a>
+          <a class="amz" href="https://www.amazon.com/Kobo-Glare-Free-KaleidoTM-Audiobooks-Waterproof/dp/B0CZXX465Z" target="_blank" rel="noopener">Amazon</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=Kobo+Libra+Colour" target="_blank" rel="noopener">쿠팡</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Boox Go 7 -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--boox)">Onyx Boox</span>
+        <span class="size-tag">7"</span>
+        <img src="https://shop.boox.com/cdn/shop/files/go7-key-visual.png" alt="Boox Go 7"
+             onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#222\' stroke=\'#22c55e\'/><rect x=\'56\' y=\'18\' width=\'96\' height=\'114\' fill=\'#eee\'/><rect x=\'40\' y=\'18\' width=\'16\' height=\'114\' fill=\'#333\'/><text x=\'100\' y=\'85\' fill=\'#22c55e\' text-anchor=\'middle\' font-size=\'11\' font-family=\'sans-serif\'>Boox Go 7</text></svg>')">
+      </div>
+      <div class="body">
+        <h4>Boox Go 7</h4>
+        <div class="tagline">2025 · 7인치 흑백 · 안드로이드</div>
+        <div class="price-row"><span class="price">$249.99 <span class="won">≈ 35.9만</span></span></div>
+        <ul>
+          <li>7" Carta 1200 · 300ppi · 64GB</li>
+          <li>Android 13 + Play Store</li>
+          <li>물리 페이지 버튼 ✅ · 스타일러스 지원</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 한국앱 풀세트 + 버튼</div>
+          <div class="cons"><b>👎</b> 방수 ❌ · 학습 곡선</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://shop.boox.com/products/go7" target="_blank" rel="noopener">Boox 공식</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=Boox+Go+7" target="_blank" rel="noopener">쿠팡</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Boox Go Color 7 Gen II -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--boox)">Onyx Boox</span>
+        <span class="size-tag">7" 컬러</span>
+        <img src="https://shop.boox.com/cdn/shop/files/gocolor7-gen2-key.png" alt="Boox Go Color 7 Gen II"
+             onerror="this.src='https://m.media-amazon.com/images/I/41xFq6w1q1L.jpg'; this.onerror=function(){this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#222\' stroke=\'#22c55e\'/><rect x=\'56\' y=\'18\' width=\'96\' height=\'114\' fill=\'#fce8a3\'/><rect x=\'40\' y=\'18\' width=\'16\' height=\'114\' fill=\'#333\'/><text x=\'100\' y=\'80\' fill=\'#22c55e\' text-anchor=\'middle\' font-size=\'9\' font-family=\'sans-serif\'>Go Color 7</text><text x=\'100\' y=\'94\' fill=\'#666\' text-anchor=\'middle\' font-size=\'8\'>Gen II</text></svg>');}">
+      </div>
+      <div class="body">
+        <h4>Boox Go Color 7 (Gen II)</h4>
+        <div class="tagline">2025 · Carta 1200 + Kaleido 3</div>
+        <div class="price-row"><span class="price">$279.99 <span class="won">≈ 39.9만</span></span></div>
+        <ul>
+          <li>7" Kaleido 3 · 4096 컬러 · 64GB</li>
+          <li>InkSense 스타일러스 지원</li>
+          <li>2.4GHz 옥타코어 · 4GB RAM</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 컬러 + 앱 자유 + 필기</div>
+          <div class="cons"><b>👎</b> 컬러 PPI 150ppi(저해상)</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://shop.boox.com/products/gocolor7-gen2" target="_blank" rel="noopener">Boox 공식</a>
+          <a class="amz" href="https://www.amazon.com/BOOX-Go-Color-Gen-II/dp/B0F58ZHCX2" target="_blank" rel="noopener">Amazon</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 크레마 모티프 -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--crema)">크레마</span>
+        <span class="size-tag">7"</span>
+        <img src="https://image.yes24.com/momo/Top/2023/03/0427/eedccddb3a004fe4933bf2a40a1e0d11.png" alt="크레마 모티프"
+             onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#1f1f1f\' stroke=\'#3b82f6\'/><rect x=\'48\' y=\'18\' width=\'104\' height=\'114\' fill=\'#eee\'/><text x=\'100\' y=\'85\' fill=\'#3b82f6\' text-anchor=\'middle\' font-size=\'11\' font-family=\'sans-serif\'>크레마 모티프</text></svg>')">
+      </div>
+      <div class="body">
+        <h4>크레마 모티프 (CREMA Motif)</h4>
+        <div class="tagline">2023 · 7인치 크레마</div>
+        <div class="price-row"><span class="price">219,000원</span></div>
+        <ul>
+          <li>7" Carta · 32GB(+SD 512)</li>
+          <li>3GB RAM · 쿼드코어</li>
+          <li>크레마클럽 / YES24 / 리디 호환</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 한국 도서 생태계 최강</div>
+          <div class="cons"><b>👎</b> 사양은 보수적</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://www.yes24.com/Product/Goods/118361502" target="_blank" rel="noopener">YES24 공식</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=크레마+모티프" target="_blank" rel="noopener">쿠팡</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ===== 7.8~8인치 ===== -->
+  <h3 id="sz-8" style="margin-top:32px">📗 7.8~8인치 중형 ─ 만화·잡지·전공서</h3>
+  <div class="prod-grid">
+
+    <!-- 리디페이퍼 4 -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--ridi)">RIDI</span>
+        <span class="size-tag">7"</span>
+        <img src="https://img.ridicdn.net/cover/ridipaper4.png" alt="리디페이퍼 4"
+             onerror="this.src='https://image.ridicdn.net/event/banner/ridipaper4.png'; this.onerror=function(){this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:60%\'><rect x=\'40\' y=\'10\' width=\'120\' height=\'130\' rx=\'6\' fill=\'#1f1f1f\' stroke=\'#0ea5e9\'/><rect x=\'48\' y=\'18\' width=\'104\' height=\'114\' fill=\'#eee\'/><text x=\'100\' y=\'85\' fill=\'#0ea5e9\' text-anchor=\'middle\' font-size=\'11\' font-family=\'sans-serif\'>리디페이퍼 4</text></svg>');}">
+      </div>
+      <div class="body">
+        <h4>리디페이퍼 4 (RIDI Paper 4)</h4>
+        <div class="tagline">2022 · 한국 프리미엄 정발 · 단종 임박</div>
+        <div class="price-row"><span class="price">329,000원</span></div>
+        <ul>
+          <li>7" / 300ppi · 32GB</li>
+          <li>Exynos 850 옥타코어 · 3GB RAM</li>
+          <li>리디 전용 + 한정 EPUB</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 리디 콘텐츠와 완벽 통합</div>
+          <div class="cons"><b>👎</b> 리디 외 앱 불가 · 가격 부담</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://ridibooks.com/paper" target="_blank" rel="noopener">리디 공식</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=리디페이퍼+4" target="_blank" rel="noopener">쿠팡</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Boox Tab Mini C -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--boox)">Onyx Boox</span>
+        <span class="size-tag">7.8" 컬러</span>
+        <img src="https://shop.boox.com/cdn/shop/files/tab-mini-c-key.png" alt="Boox Tab Mini C"
+             onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:65%\'><rect x=\'30\' y=\'10\' width=\'140\' height=\'130\' rx=\'8\' fill=\'#222\' stroke=\'#22c55e\'/><rect x=\'38\' y=\'18\' width=\'124\' height=\'114\' fill=\'#fce8a3\'/><text x=\'100\' y=\'80\' fill=\'#22c55e\' text-anchor=\'middle\' font-size=\'10\' font-family=\'sans-serif\'>Tab Mini C</text></svg>')">
+      </div>
+      <div class="body">
+        <h4>Boox Tab Mini C</h4>
+        <div class="tagline">7.8" 컬러 + 펜 · 휴대형 노트</div>
+        <div class="price-row"><span class="price">$449.99 <span class="won">≈ 64.9만</span></span></div>
+        <ul>
+          <li>7.8" Kaleido 3 컬러 / 300ppi(B&W)</li>
+          <li>4GB+64GB · Android 11</li>
+          <li>스타일러스 포함 / 만화·웹툰 강함</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 컬러 만화 + 필기 동시</div>
+          <div class="cons"><b>👎</b> Note Air 4C 대비 작고 비쌈</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://shop.boox.com/products/tabminic" target="_blank" rel="noopener">Boox 공식</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=Boox+Tab+Mini+C" target="_blank" rel="noopener">쿠팡</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ===== 10인치+ ===== -->
+  <h3 id="sz-10" style="margin-top:32px">📓 10인치+ 노트·PDF · 스타일러스 필기</h3>
+  <div class="prod-grid">
+
+    <!-- Kindle Scribe -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--kindle);color:#0f1115">Kindle</span>
+        <span class="size-tag">10.2"</span>
+        <img src="https://m.media-amazon.com/images/I/61gJaVyx0XL._AC_SL1000_.jpg" alt="Kindle Scribe 2024"
+             onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:75%\'><rect x=\'25\' y=\'10\' width=\'150\' height=\'130\' rx=\'8\' fill=\'#222\' stroke=\'#ff9900\'/><rect x=\'33\' y=\'18\' width=\'134\' height=\'114\' fill=\'#eee\'/><text x=\'100\' y=\'80\' fill=\'#ff9900\' text-anchor=\'middle\' font-size=\'11\'>Kindle Scribe</text></svg>')">
+      </div>
+      <div class="body">
+        <h4>Kindle Scribe (2024)</h4>
+        <div class="tagline">필기 + 킨들 라이브러리</div>
+        <div class="price-row"><span class="price">$399.99 <span class="won">≈ 57.9만</span></span></div>
+        <ul>
+          <li>10.2" / 300ppi · 16GB</li>
+          <li>Premium Pen 포함 · 알렉사·AI 요약</li>
+          <li>플러시 디스플레이 · 흰 베젤</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 킨들+필기 통합</div>
+          <div class="cons"><b>👎</b> 컬러 ❌ · 노트 정리 부족</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://www.amazon.com/dp/B0CDJW2N9P" target="_blank" rel="noopener">Amazon</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=Kindle+Scribe" target="_blank" rel="noopener">쿠팡</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Boox Note Air 4C -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--boox)">Onyx Boox</span>
+        <span class="size-tag">10.3" 컬러</span>
+        <img src="https://shop.boox.com/cdn/shop/files/noteair4c-key-visual.png" alt="Boox Note Air 4C"
+             onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:75%\'><rect x=\'25\' y=\'10\' width=\'150\' height=\'130\' rx=\'8\' fill=\'#222\' stroke=\'#22c55e\'/><rect x=\'33\' y=\'18\' width=\'134\' height=\'114\' fill=\'#fce8a3\'/><text x=\'100\' y=\'80\' fill=\'#22c55e\' text-anchor=\'middle\' font-size=\'10\'>Note Air 4C</text></svg>')">
+      </div>
+      <div class="body">
+        <h4>Boox Note Air 4C</h4>
+        <div class="tagline">10.3" 컬러 노트 · Android 13</div>
+        <div class="price-row"><span class="price">$499.99 <span class="won">≈ 71.9만</span></span></div>
+        <ul>
+          <li>10.3" Kaleido 3 컬러 / 300ppi B&W</li>
+          <li>6GB+64GB · 옥타코어 · MicroSD ✅</li>
+          <li>스타일러스 포함 · Play Store ✅</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> reMarkable 대비 $130 저렴 + 컬러</div>
+          <div class="cons"><b>👎</b> 노트 UX는 reMarkable 우위</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://shop.boox.com/products/noteair4c" target="_blank" rel="noopener">Boox 공식</a>
+          <a class="amz" href="https://www.amazon.com/s?k=BOOX+Note+Air+4C" target="_blank" rel="noopener">Amazon</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=Boox+Note+Air+4C" target="_blank" rel="noopener">쿠팡</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- reMarkable Paper Pro -->
+    <article class="prod">
+      <div class="img">
+        <span class="brand-tag" style="background:var(--remark)">reMarkable</span>
+        <span class="size-tag">11.8" 컬러</span>
+        <img src="https://remarkable.com/media/product-pages/paper-pro/rmpp-product-shot.png" alt="reMarkable Paper Pro"
+             onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','<svg viewBox=\'0 0 200 150\' style=\'width:80%\'><rect x=\'20\' y=\'10\' width=\'160\' height=\'130\' rx=\'8\' fill=\'#fafafa\' stroke=\'#f97316\'/><rect x=\'28\' y=\'18\' width=\'144\' height=\'114\' fill=\'#fff\'/><text x=\'100\' y=\'80\' fill=\'#f97316\' text-anchor=\'middle\' font-size=\'10\'>Paper Pro</text></svg>')">
+      </div>
+      <div class="body">
+        <h4>reMarkable Paper Pro</h4>
+        <div class="tagline">11.8" 컬러 Gallery 3 · 종이 같은 필기</div>
+        <div class="price-row"><span class="price">$629 <span class="won">≈ 89.9만</span></span></div>
+        <ul>
+          <li>11.8" Canvas 컬러 · 229ppi</li>
+          <li>알림·앱 ❌ → 집중 모드</li>
+          <li>Marker 별매 · 정기구독 옵션</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><b>👍</b> 노트 UX 최고 · 단순함</div>
+          <div class="cons"><b>👎</b> 책읽기 약함 · 펜 별매 비쌈</div>
+        </div>
+        <div class="ctas">
+          <a class="primary" href="https://remarkable.com/store/remarkable-paper/pro" target="_blank" rel="noopener">reMarkable 공식</a>
+          <a class="kor" href="https://www.coupang.com/np/search?q=리마커블+페이퍼+프로" target="_blank" rel="noopener">쿠팡</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============== BRAND COMPARISON ============== -->
+<section id="brand">
+  <h2>🏷️ 브랜드별 한 줄 요약</h2>
+  <div class="prod-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="pick k" style="border-radius:14px">
+      <h4 style="color:#fff">Amazon Kindle</h4>
+      <p style="font-size:13px;color:#cdd2dc;margin:6px 0">최대 생태계 · "안 깨지는 단순함" · Amazon 책 무한. 단, EPUB 직접 ❌, 한국 정발 ❌(직구).</p>
+      <p style="margin:8px 0 0"><b style="color:var(--accent)">고른다면</b>: 책만 보면 충분, 영문책 자주 사는 사람</p>
+    </div>
+    <div class="pick o" style="border-radius:14px">
+      <h4 style="color:#fff">Rakuten Kobo</h4>
+      <p style="font-size:13px;color:#cdd2dc;margin:6px 0">EPUB 직접 지원, 도서관 OverDrive 연계, 컬러+버튼+필기 통합. 킨들의 "오픈한 대안".</p>
+      <p style="margin:8px 0 0"><b style="color:var(--accent)">고른다면</b>: EPUB 모음·해외 도서관 활용</p>
+    </div>
+    <div class="pick b" style="border-radius:14px">
+      <h4 style="color:#fff">Onyx Boox</h4>
+      <p style="font-size:13px;color:#cdd2dc;margin:6px 0">Android + Play Store → 모든 한국앱(킨들·리디·밀리·웹툰) 사용 가능. 자유도 끝판왕.</p>
+      <p style="margin:8px 0 0"><b style="color:var(--accent)">고른다면</b>: 한국 콘텐츠를 한 기기에 다 넣고 싶을 때</p>
+    </div>
+    <div class="pick" style="border-radius:14px;border-color:var(--crema)">
+      <h4 style="color:#fff">크레마 (YES24)</h4>
+      <p style="font-size:13px;color:#cdd2dc;margin:6px 0">한국 정발 · 한글 UI · YES24/리디/크레마클럽 모두 호환. AS 가능, 사양은 보수적.</p>
+      <p style="margin:8px 0 0"><b style="color:var(--crema)">고른다면</b>: 직구 부담스럽고 한국책만 볼 때</p>
+    </div>
+    <div class="pick" style="border-radius:14px;border-color:var(--ridi)">
+      <h4 style="color:#fff">RIDI Paper</h4>
+      <p style="font-size:13px;color:#cdd2dc;margin:6px 0">리디 콘텐츠 전용 · UX 매끈 · 그러나 신모델 침묵 중. 리디 충성 사용자 전용.</p>
+      <p style="margin:8px 0 0"><b style="color:var(--ridi)">고른다면</b>: 리디셀렉트·리디 만화 헤비 유저</p>
+    </div>
+    <div class="pick r" style="border-radius:14px">
+      <h4 style="color:#fff">reMarkable</h4>
+      <p style="font-size:13px;color:#cdd2dc;margin:6px 0">"전자종이" 노트 · 알림·앱 없음 · 필기·PDF 전용. 이북리더기보단 디지털 노트.</p>
+      <p style="margin:8px 0 0"><b style="color:var(--accent)">고른다면</b>: 손으로 적는 사람·논문/PDF 헤비</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 통합 비교표 ============== -->
+<section id="table">
+  <h2>📊 통합 비교표 — 한 눈에 보는 13개 모델</h2>
+  <div class="callout">
+    💡 <b>읽는 법:</b> 가격은 미국 정가($) / 한국 직구 + 환율 + 관세 고려해 1.4~1.5배로 잡으면 실구매가에 가깝습니다 (배송대행 사용 시).
+  </div>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>브랜드</th><th>모델</th><th>크기</th><th>컬러</th><th>방수</th><th>버튼</th>
+        <th>필기</th><th>OS / 앱</th><th>가격</th><th>구매</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="tag k">Kindle</span></td><td>Kindle 11세대</td><td>6"</td><td>흑백</td><td>❌</td><td>❌</td><td>❌</td><td>Kindle OS</td><td class="num">$109</td><td><a href="https://www.amazon.com/dp/B09SWS6S7N" target="_blank">Amazon</a></td></tr>
+      <tr><td><span class="tag k">Kindle</span></td><td>Paperwhite 12 ⭐</td><td>7"</td><td>흑백</td><td>IPX8</td><td>❌</td><td>❌</td><td>Kindle OS</td><td class="num">$159</td><td><a href="https://www.amazon.com/All-new-Amazon-Kindle-Paperwhite-Signature/dp/B0C8RR4WN3" target="_blank">Amazon</a></td></tr>
+      <tr><td><span class="tag k">Kindle</span></td><td>Colorsoft Sig.</td><td>7"</td><td>Kaleido3</td><td>IPX8</td><td>❌</td><td>❌</td><td>Kindle OS</td><td class="num">$279</td><td><a href="https://www.amazon.com/All-New-Amazon-Kindle-Colorsoft-Signature-Edition/dp/B0CN3XR57P" target="_blank">Amazon</a></td></tr>
+      <tr><td><span class="tag k">Kindle</span></td><td>Scribe (2024)</td><td>10.2"</td><td>흑백</td><td>❌</td><td>❌</td><td>✅</td><td>Kindle OS</td><td class="num">$399</td><td><a href="https://www.amazon.com/dp/B0CDJW2N9P" target="_blank">Amazon</a></td></tr>
+      <tr><td><span class="tag o">Kobo</span></td><td>Clara BW</td><td>6"</td><td>흑백</td><td>IPX8</td><td>❌</td><td>❌</td><td>Kobo OS</td><td class="num">$139</td><td><a href="https://us.kobobooks.com/products/kobo-clara-bw" target="_blank">Kobo</a></td></tr>
+      <tr><td><span class="tag o">Kobo</span></td><td>Clara Colour</td><td>6"</td><td>Kaleido3</td><td>IPX8</td><td>❌</td><td>❌</td><td>Kobo OS</td><td class="num">$239</td><td><a href="https://us.kobobooks.com/products/kobo-clara-colour" target="_blank">Kobo</a></td></tr>
+      <tr><td><span class="tag o">Kobo</span></td><td>Libra Colour ⭐</td><td>7"</td><td>Kaleido3</td><td>IPX8</td><td>✅</td><td>✅</td><td>Kobo OS</td><td class="num">$229</td><td><a href="https://us.kobobooks.com/products/kobo-libra-colour" target="_blank">Kobo</a></td></tr>
+      <tr><td><span class="tag b">Boox</span></td><td>Go 6</td><td>6"</td><td>흑백</td><td>❌</td><td>❌</td><td>❌</td><td>Android 13</td><td class="num">$159</td><td><a href="https://shop.boox.com/products/go6" target="_blank">Boox</a></td></tr>
+      <tr><td><span class="tag b">Boox</span></td><td>Palma 2 ⭐</td><td>6.13"</td><td>흑백</td><td>❌</td><td>측면</td><td>❌</td><td>Android 13</td><td class="num">$279</td><td><a href="https://shop.boox.com/products/palma2" target="_blank">Boox</a></td></tr>
+      <tr><td><span class="tag b">Boox</span></td><td>Go 7</td><td>7"</td><td>흑백</td><td>❌</td><td>✅</td><td>옵션</td><td>Android 13</td><td class="num">$249</td><td><a href="https://shop.boox.com/products/go7" target="_blank">Boox</a></td></tr>
+      <tr><td><span class="tag b">Boox</span></td><td>Go Color 7 G2</td><td>7"</td><td>Kaleido3</td><td>❌</td><td>✅</td><td>InkSense</td><td>Android 13</td><td class="num">$279</td><td><a href="https://shop.boox.com/products/gocolor7-gen2" target="_blank">Boox</a></td></tr>
+      <tr><td><span class="tag b">Boox</span></td><td>Note Air 4C</td><td>10.3"</td><td>Kaleido3</td><td>❌</td><td>❌</td><td>✅</td><td>Android 13</td><td class="num">$499</td><td><a href="https://shop.boox.com/products/noteair4c" target="_blank">Boox</a></td></tr>
+      <tr><td><span class="tag c">크레마</span></td><td>카르타G</td><td>6"</td><td>흑백</td><td>❌</td><td>❌</td><td>❌</td><td>크레마 OS</td><td class="num">17.9만</td><td><a href="https://www.yes24.com/Product/Goods/124847257" target="_blank">YES24</a></td></tr>
+      <tr><td><span class="tag c">크레마</span></td><td>페블</td><td>6"</td><td>흑백</td><td>❌</td><td>❌</td><td>❌</td><td>Android 11</td><td class="num">21.9만</td><td><a href="https://www.yes24.com/Product/Goods/132260892" target="_blank">YES24</a></td></tr>
+      <tr><td><span class="tag c">크레마</span></td><td>모티프</td><td>7"</td><td>흑백</td><td>❌</td><td>❌</td><td>❌</td><td>Android</td><td class="num">21.9만</td><td><a href="https://www.yes24.com/Product/Goods/118361502" target="_blank">YES24</a></td></tr>
+      <tr><td><span class="tag r">RIDI</span></td><td>리디페이퍼 4</td><td>7"</td><td>흑백</td><td>❌</td><td>❌</td><td>❌</td><td>리디 전용</td><td class="num">32.9만</td><td><a href="https://ridibooks.com/paper" target="_blank">리디</a></td></tr>
+      <tr><td><span class="tag rm">reMarkable</span></td><td>Paper Pro ⭐</td><td>11.8"</td><td>Gallery3</td><td>❌</td><td>❌</td><td>✅</td><td>전용 OS</td><td class="num">$629</td><td><a href="https://remarkable.com/store/remarkable-paper/pro" target="_blank">reMarkable</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ============== DECISION TREE ============== -->
+<section id="decision">
+  <h2>🤔 의사결정 가이드 — 5가지 질문으로 1분 안에 결정</h2>
+  <div class="tree">
+    <div class="row">
+      <div class="q">Q1. 무엇을<br>주로 보나?</div>
+      <div class="a"><b>📖 소설/수필 위주</b> → 6"·7" 흑백으로 충분.<br>가성비: <b>Kobo Clara BW($139)</b> · 안정: <b>Kindle Paperwhite 12($159)</b></div>
+      <div class="a"><b>🖼️ 만화/잡지/PDF</b> → 컬러·큰 화면 필요.<br><b>Boox Note Air 4C($499)</b> · <b>Boox Tab Mini C($449)</b></div>
+    </div>
+    <div class="row">
+      <div class="q">Q2. 한국 책<br>주로 보나?</div>
+      <div class="a"><b>YES, 리디·밀리·교보 등 다 씀</b> → 안드로이드 기반 필요.<br><b>Boox Palma 2 / Go 7 / Note Air 4C</b> 또는 <b>크레마 모티프</b></div>
+      <div class="a"><b>NO, 영문책/Kindle 중심</b> → <b>Kindle Paperwhite 12</b> 또는 <b>Colorsoft</b></div>
+    </div>
+    <div class="row">
+      <div class="q">Q3. 어디서<br>읽나?</div>
+      <div class="a"><b>욕조/수영장/해변 등 물 근처</b> → 방수 필수.<br><b>Kindle Paperwhite 12 · Kobo Libra/Clara · Colorsoft</b></div>
+      <div class="a"><b>침대/책상/지하철 정도</b> → 방수 무관, 사양·앱·가격 위주로 선택</div>
+    </div>
+    <div class="row">
+      <div class="q">Q4. 필기<br>필요한가?</div>
+      <div class="a"><b>YES, 메모/PDF 주석/논문</b> → 10인치급 필요.<br><b>reMarkable Paper Pro($629)</b> · <b>Boox Note Air 4C($499)</b> · <b>Kindle Scribe($399)</b></div>
+      <div class="a"><b>가끔 메모만</b> → 7인치 필기 옵션.<br><b>Kobo Libra Colour</b> + 스타일러스 별매</div>
+    </div>
+    <div class="row">
+      <div class="q">Q5. 휴대성<br>중요한가?</div>
+      <div class="a"><b>매일 가방·주머니에</b> → 6인치 또는 폰 사이즈.<br><b>Boox Palma 2</b>(주머니) · <b>Kobo Clara BW</b>(가방)</div>
+      <div class="a"><b>집에서만 / 책상</b> → 7~10인치로 가서 가독성 우위 챙기기</div>
+    </div>
+  </div>
+  <div class="callout warn" style="margin-top:18px">
+    ⚠️ <b>구매 전 체크</b><br>
+    ① 한국 정식 발매 여부(AS) — 크레마·리디는 정발 / Kindle·Kobo·Boox는 직구.<br>
+    ② 직구 시 배송대행지 사용 여부 → Amazon은 일부 모델 한국 직배송 가능.<br>
+    ③ 컬러 e잉크는 흑백보다 PPI가 낮음(150 vs 300) → 글자 위주면 흑백이 더 선명.<br>
+    ④ "방수" 라벨은 IPX8 기준이며, 비누·바닷물·온수에는 약함.
+  </div>
+</section>
+
+<!-- ============== FAQ ============== -->
+<section id="faq">
+  <h2>❓ 자주 묻는 질문</h2>
+  <details class="faq">
+    <summary>이북리더기 첫 구매라면 뭐가 무난한가요?</summary>
+    <p>예산 22만원 정도면 <b>Kindle Paperwhite 12세대</b>(직구) 또는 <b>크레마 페블</b>(국내 정발) 둘 중 하나로 거의 정답입니다. 영문책·해외 도서가 많다면 Kindle, 한국 도서·AS가 중요하면 크레마 페블입니다.</p>
+  </details>
+  <details class="faq">
+    <summary>컬러 이북리더기, 살 만한가요?</summary>
+    <p>2024~2026 모델부터 채도가 크게 좋아졌지만 여전히 <b>"잡지·만화·표지에 색감이 들어가는 정도"</b>라고 보는 게 맞습니다. 글자 가독성은 흑백이 더 좋고, 가격이 $80~140 더 비쌉니다. <b>만화·웹툰·잡지를 많이 본다면 Yes</b>, 그 외는 흑백을 권장합니다.</p>
+  </details>
+  <details class="faq">
+    <summary>Boox 제품에 한국 앱(리디·밀리·교보) 다 깔리나요?</summary>
+    <p>네, Onyx Boox는 Android 13 + Google Play Store가 기본 탑재라 <b>리디·밀리의 서재·교보·예스24·웹툰·카카오페이지</b> 등 거의 모든 한국 도서/만화 앱이 설치됩니다. 단 e잉크 특성상 일부 앱은 화면 새로고침을 수동 조정해야 부드럽습니다.</p>
+  </details>
+  <details class="faq">
+    <summary>Kindle은 EPUB 못 본다고 들었는데?</summary>
+    <p>맞습니다. Kindle은 자체 포맷(AZW3 / KFX)을 쓰며, EPUB 파일은 Amazon "Send to Kindle" 서비스로 보내면 자동 변환됩니다. <b>EPUB을 자주 만질 거면 Kobo·Boox가 훨씬 편합니다.</b></p>
+  </details>
+  <details class="faq">
+    <summary>리디페이퍼 4 지금 사도 되나요?</summary>
+    <p>2022년 출시 후 신모델이 4년째 안 나왔고, 리디 콘텐츠 외에는 사용이 막혀 있어 추천도가 떨어집니다. <b>리디 헤비 유저가 아니라면</b> 같은 가격대에서 <b>Boox Go 7($249)</b>이나 <b>Kobo Libra Colour($229)</b>가 더 좋은 선택입니다.</p>
+  </details>
+  <details class="faq">
+    <summary>Kindle Scribe vs reMarkable Paper Pro, 어떤 게 좋나요?</summary>
+    <p>책을 같이 본다면 <b>Kindle Scribe</b>(킨들 라이브러리 + AI 요약), 노트·PDF·메모 정리가 메인이면 <b>reMarkable Paper Pro</b>(컬러 Gallery 3, 종이 같은 필기감, 알림·앱 없음). reMarkable은 펜이 별매이며 정기구독이 있다는 점을 꼭 확인하세요.</p>
+  </details>
+  <details class="faq">
+    <summary>가격 변동 / 직구 환율은 어떻게 보나요?</summary>
+    <p>본 페이지의 가격은 <b>2026-04 미국 정가($) 또는 한국 정가(₩)</b> 기준입니다. 직구 시 환율(약 1,430원/$ 가정), 배송비, 관세 면세 한도($150) 등을 고려해 1.4~1.5배로 잡으면 실구매가에 가깝습니다. 쿠팡 로켓직구·G마켓 글로벌·11번가 아마존관도 자주 비교해 보세요.</p>
+  </details>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<div class="footer">
+  <p><b style="color:#fff">📌 출처 · 참고</b></p>
+  <ul>
+    <li>TechRadar — <a href="https://www.techradar.com/best/best-ereader" target="_blank">Best ereaders in 2026</a></li>
+    <li>Engadget — <a href="https://www.engadget.com/mobile/tablets/best-ereader-130013808.html" target="_blank">The best ereaders for 2026</a></li>
+    <li>Good e-Reader — <a href="https://goodereader.com/blog/electronic-readers/the-top-8-best-e-readers-to-buy-for-spring-2026" target="_blank">Top 8 Best e-Readers Spring 2026</a></li>
+    <li>NBC Select — <a href="https://www.nbcnews.com/select/shopping/best-ereader-rcna203732" target="_blank">We Tested the Best E-readers of 2026</a></li>
+    <li>Tom's Guide — <a href="https://www.tomsguide.com/computing/e-readers/kobo-clara-colour-review" target="_blank">Kobo Clara Colour review</a></li>
+    <li>나무위키 — <a href="https://namu.wiki/w/%ED%81%AC%EB%A0%88%EB%A7%88%20%ED%8E%98%EB%B8%94" target="_blank">크레마 페블</a> · <a href="https://namu.wiki/w/%EB%A6%AC%EB%94%94%ED%8E%98%EC%9D%B4%ED%8D%BC%204" target="_blank">리디페이퍼 4</a></li>
+    <li>공식 — <a href="https://shop.boox.com/" target="_blank">Boox</a> · <a href="https://us.kobobooks.com/" target="_blank">Kobo</a> · <a href="https://remarkable.com/" target="_blank">reMarkable</a></li>
+  </ul>
+  <p style="margin-top:14px;font-size:12px">
+    ※ 본 페이지는 2026년 4월 기준 자료를 모은 비교/리뷰 가이드이며, 실제 가격·재고·사양은 구매 시점에 다시 확인하셔야 합니다. 직구 시 KC 인증·관세·AS 가능 여부를 함께 점검하세요.<br>
+    문서 위치 : <code>docs/item/이북리더기/이북리더기_제품비교_2026-04.html</code> · 작성 : 2026-05-05
+  </p>
+</div>
+
+</div>
+</body>
+</html>

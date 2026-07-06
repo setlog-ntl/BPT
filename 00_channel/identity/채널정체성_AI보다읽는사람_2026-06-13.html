@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>채널 정체성 마스터 — AI보다 읽는 사람</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2; --accent:#ffd166; --accent-2:#06d6a0;
+    --warn:#ef476f; --info:#118ab2; --chip:#2a2f3a; --soft:#1b1f28;
+    --ai:#6ea8fe; --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#c4b5fd;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.7; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 28px 80px}
+  header.hero{padding:40px 36px;border-radius:20px;
+    background:radial-gradient(1200px 400px at 10% -10%,rgba(110,168,254,.22),transparent 50%),
+               radial-gradient(900px 380px at 110% 10%,rgba(255,209,102,.14),transparent 55%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line); position:relative; overflow:hidden}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.18em;color:var(--ai);
+    background:rgba(110,168,254,.12);border:1px solid rgba(110,168,254,.3);
+    padding:6px 12px;border-radius:999px; text-transform:uppercase}
+  h1{font-size:42px;line-height:1.22;margin:18px 0 8px;letter-spacing:-0.02em;font-weight:800}
+  h1 .accent{color:var(--accent)}
+  h1 .ai{color:var(--ai)}
+  .lede{color:var(--muted);font-size:16.5px;margin:8px 0 22px;max-width:840px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:var(--chip);border:1px solid var(--line);color:var(--text);font-size:12.5px;padding:6px 12px;border-radius:999px}
+  .chip.ok{background:rgba(6,214,160,.14);border-color:rgba(6,214,160,.4);color:#7be3c0}
+  section{margin-top:48px}
+  h2{font-size:23px;letter-spacing:-.01em;margin:0 0 18px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:24px;border-radius:3px;background:var(--accent)}
+  h2 .num{color:var(--muted);font-weight:600;font-size:15px;letter-spacing:.15em;margin-right:4px}
+  h3{font-size:16.5px;margin:20px 0 8px;color:#fff}
+  .grid{display:grid;gap:16px}
+  .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media(max-width:760px){.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}.wrap{padding:24px 16px 60px}h1{font-size:29px}.flow{flex-direction:column}.flow .arr{transform:rotate(90deg)}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card.alt{background:var(--panel-2)}
+  .card.accent{border-left:3px solid var(--accent)}
+  .card.accent2{border-left:3px solid var(--accent-2)}
+  .card.ai{border-left:3px solid var(--ai)}
+  .card.warn{border-left:3px solid var(--warn)}
+  .kpi{font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+  table{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:12px 14px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:top;text-align:left}
+  th{background:var(--soft);color:#fff;font-weight:600;font-size:12.5px;letter-spacing:.04em}
+  tbody tr:nth-child(even){background:#161a22}
+  ul.clean{padding-left:18px;margin:6px 0}
+  ul.clean li{margin:5px 0;font-size:14.5px}
+  blockquote.q{margin:0;padding:14px 16px;border-left:3px solid var(--accent);
+    background:#181c25;border-radius:0 10px 10px 0;color:#dadde3;font-size:14.5px}
+  .quote-big{font-size:22px;line-height:1.5;color:#fff;font-weight:700;letter-spacing:-.01em;margin:14px 0}
+  .quote-big em{color:var(--accent);font-style:normal}
+  .quote-big .ai{color:var(--ai);font-style:normal}
+  .pill{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11.5px;font-weight:600;margin-right:4px}
+  .pill.pull{background:rgba(17,138,178,.18);color:#5cc4e0}
+  .pill.key{background:rgba(255,209,102,.18);color:#ffd166}
+  .pill.land{background:rgba(6,214,160,.15);color:#33d8a3}
+  .ban li{list-style:none;padding-left:24px;position:relative;margin:6px 0;font-size:14px}
+  .ban li::before{content:"✕";position:absolute;left:0;top:0;color:var(--warn);font-weight:800}
+  .anchor{position:sticky;top:0;background:rgba(15,17,21,.9);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);z-index:20;margin:-48px -28px 28px;padding:14px 28px;display:flex;flex-wrap:wrap;gap:18px}
+  .anchor a{color:var(--muted);font-size:13px;text-decoration:none}
+  .anchor a:hover{color:#fff}
+  .anchor a.k{color:var(--accent)}
+  .flow{display:flex;align-items:stretch;gap:12px;margin:14px 0}
+  .flow .node{flex:1;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+  .flow .node .t{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .flow .node .b{font-size:15px;font-weight:700;color:#fff;line-height:1.45}
+  .flow .node.a{border-top:3px solid var(--ai)}
+  .flow .node.b{border-top:3px solid var(--value)}
+  .flow .node.c{border-top:3px solid var(--accent-2)}
+  .flow .node.d{border-top:3px solid var(--rec)}
+  .flow .arr{display:flex;align-items:center;color:var(--accent);font-size:22px;font-weight:800}
+  .axis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+  @media(max-width:760px){.axis{grid-template-columns:1fr}}
+  .axis .a{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .axis .a .n{font-weight:800;color:#fff;font-size:15px}
+  .axis .a .d{color:var(--muted);font-size:13px;margin-top:4px}
+  .footer{margin-top:60px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .footer a{color:var(--ai)}
+  .signature{font-size:24px;font-weight:800;letter-spacing:-.02em;color:#fff;margin:8px 0}
+  .signature .y{color:var(--accent)}
+  .small{font-size:13px;color:var(--muted)}
+  code{background:#0c0e13;border:1px solid #232836;border-radius:5px;padding:1px 6px;font-size:12.5px;color:#cdd3dd}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="anchor">
+    <a href="#card" class="k">정체성 카드</a>
+    <a href="#north">북극성</a>
+    <a href="#axis">6축</a>
+    <a href="#gyeol">결 3그룹</a>
+    <a href="#model">콘텐츠 모델</a>
+    <a href="#voice">표준 멘트</a>
+    <a href="#guard">톤 가드</a>
+  </nav>
+
+  <header class="hero">
+    <span class="eyebrow">Channel Identity Master · 2026-06-13</span>
+    <h1><span class="ai">AI</span>보다 <span class="accent">읽는 사람</span></h1>
+    <p class="lede"><b>책으로 생각하고, AI로 실행하다.</b> AI 시대를 살아가는, 깊이 읽는 사람들을 위한 채널.
+      AI·바이브코딩을 <b>입구</b>로 열고, 문해력·책을 <b>토대</b>로 삼아, readingtree로 확장한다. —
+      <span class="ai">AI는 답을 만든다. 읽는 사람은 질문을 만든다.</span></p>
+    <div class="meta-row">
+      <span class="chip ok">✅ 최종 채널명: AI보다 읽는 사람</span>
+      <span class="chip ok">✅ 6축 통합</span>
+      <span class="chip ok">✅ "그럼에도" 유산 폐기</span>
+      <span class="chip">사인오프: "AI는 답을, 읽는 사람은 질문을."</span>
+      <span class="chip">확정: 2026-06-13</span>
+    </div>
+  </header>
+
+  <!-- ===== 정체성 카드 ===== -->
+  <section id="card">
+    <h2><span class="num">01</span>정체성 카드 — 확정값</h2>
+    <p class="lede">이 카드는 <code>../../프로젝트_방향성.md §1.1</code> · <code>AI보다 읽는사람.MD</code> · <code>../../유튜브 기본정보/채널_기본정보.md §0</code>과 <b>글자 단위로 일치</b>한다.</p>
+    <table>
+      <tbody>
+        <tr><th style="width:26%">채널명 (워드마크)</th><td><b>AI보다 읽는 사람</b></td></tr>
+        <tr><th>핸들(@)</th><td><code>@readisbetterthanAI</code> <span class="small">(개설 시 사용 가능 여부 확인 후 확정)</span></td></tr>
+        <tr><th>태그라인 / 부제</th><td>"책으로 생각하고, AI로 실행하다" · "AI 시대를 살아가는, 깊이 읽는 사람들을 위한 채널"</td></tr>
+        <tr><th>핵심 슬로건</th><td><b>"AI는 답을 만든다. 읽는 사람은 질문을 만든다."</b></td></tr>
+        <tr><th>시그니처 사인오프 <span class="small">(6개월 고정)</span></th><td><b>"AI는 답을, 읽는 사람은 질문을."</b></td></tr>
+        <tr><th>컨셉 키워드 (6축)</th><td>독서 · 문해력 · 사고력 · AI · 바이브코딩 · 성장</td></tr>
+        <tr><th>시청자 호명</th><td>"읽는 사람들" <span class="small">(대안: "읽는 분들")</span></td></tr>
+        <tr><th>1차 판매 / 종착</th><td>이북리더기 → 책 관련 제품(필사노트·눕서대·독서등) → readtree / readingtree</td></tr>
+        <tr><th>대표 컬러</th><td>딥블랙 <code>#0F1115</code> · 골드 <code>#FFD166</code>(메인) · 그린 <code>#06D6A0</code> · 레드 <code>#EF476F</code> · AI 블루 <code>#6EA8FE</code>(보조)</td></tr>
+        <tr><th>고정 해시태그 5</th><td><code>#AI보다읽는사람 #AI활용법 #바이브코딩 #문해력 #AI시대독서</code></td></tr>
+        <tr><th>제목 표준 포맷</th><td><code>[AI 현상], 그런데 [읽는 사람의 답] | EP##</code></td></tr>
+        <tr><th>발행 주기</th><td>매주 수요일 풀링 + 격주 일요일 쇼츠</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ===== 북극성 ===== -->
+  <section id="north">
+    <h2><span class="num">02</span>북극성 — 전환 논리 한 줄</h2>
+    <div class="card ai">
+      <div class="kpi">Big Idea</div>
+      <div class="quote-big">AI가 발전할수록, 결국 앞서가는 사람은 <br><span class="ai">AI보다</span> <em>깊이 읽는 사람</em>이다.</div>
+      <p class="small">누구나 같은 AI에게 같은 질문을 던지면 비슷한(평균) 답을 받는다. 격차는 <b>질문·판단·요구를 다루는 힘</b> = 문해력에서 갈리고, 문해력은 책에서 길러진다. 그래서 "AI를 다루는 채널"인데 결론은 매번 <b>읽기</b>로 돌아온다.</p>
+    </div>
+    <div class="flow">
+      <div class="node a"><div class="t">표면 · 입구</div><div class="b">AI·바이브코딩을<br>다룬다</div></div>
+      <div class="arr">→</div>
+      <div class="node b"><div class="t">다리 · 조건</div><div class="b">잘 쓰려면<br>문해력이 필요하다</div></div>
+      <div class="arr">→</div>
+      <div class="node c"><div class="t">토대 · 귀결</div><div class="b">문해력은<br>읽기에서 나온다</div></div>
+    </div>
+  </section>
+
+  <!-- ===== 6축 ===== -->
+  <section id="axis">
+    <h2><span class="num">03</span>컨셉 키워드 — 6축</h2>
+    <p class="lede">공개 배너와 내부 제작 분류를 <b>6축으로 단일화</b>한다. 모든 축은 AI를 입구로 열어 책·문해력으로 귀결시킨다.</p>
+    <div class="flow" style="margin-bottom:18px">
+      <div class="node a"><div class="t">읽고</div><div class="b">독서</div></div>
+      <div class="arr">→</div>
+      <div class="node b"><div class="t">생각하고</div><div class="b">문해력 · 사고력</div></div>
+      <div class="arr">→</div>
+      <div class="node c"><div class="t">AI로 확장하고</div><div class="b">AI · 바이브코딩</div></div>
+      <div class="arr">→</div>
+      <div class="node d"><div class="t">성장</div><div class="b">성장</div></div>
+    </div>
+    <div class="axis">
+      <div class="a"><div class="n">① 독서</div><div class="d">책을 읽는 행위·이유·재미. 비대칭 정보·깊이의 출발점.</div></div>
+      <div class="a"><div class="n">② 문해력</div><div class="d">어휘·개념·맥락·독해. 좋은 프롬프트·판단의 토대.</div></div>
+      <div class="a"><div class="n">③ 사고력</div><div class="d">구조적 사고·판단력·AI 답 검증. 추상→분해.</div></div>
+      <div class="a"><div class="n">④ AI</div><div class="d">AI 활용법·프롬프트·도구. 채널의 입구 후크.</div></div>
+      <div class="a"><div class="n">⑤ 바이브코딩</div><div class="d">자연어로 만드는 실습. 정기 콘텐츠 기둥.</div></div>
+      <div class="a"><div class="n">⑥ 성장</div><div class="d">자기개발·습관·변화. 모든 영상의 귀결 동기.</div></div>
+    </div>
+    <p class="small" style="margin-top:10px">④⑤(AI·바이브코딩)가 유입을 만들고 ①②③(독서·문해력·사고력)가 토대를 다지며 ⑥(성장)이 행동으로 닫는다. <span class="small">구 8축(AI문해력연구소 안)의 <i>AI 활용법·프롬프트 문해력·AI 시대 사고력·책 읽는 이유·지적호기심·자기개발</i>을 위 6축으로 통합.</span></p>
+  </section>
+
+  <!-- ===== 결 3그룹 ===== -->
+  <section id="gyeol">
+    <h2><span class="num">04</span>모이는 사람의 결 — 3그룹</h2>
+    <table>
+      <thead><tr><th style="width:30%">결 (모이는 사람)</th><th style="width:34%">잘 맞는 축</th><th>자연 연결 판매</th></tr></thead>
+      <tbody>
+        <tr><td>① <b>입문</b> — AI를 안/못 쓰는 사람</td><td>AI · 독서 · 성장</td><td>이북리더기(입문기), readtree(시작 트래커)</td></tr>
+        <tr><td>② <b>활용</b> — AI를 쓰고 있는 사람</td><td>문해력 · 사고력 · AI</td><td>이북리더기(전환기), 책 관련 제품</td></tr>
+        <tr><td>③ <b>심화</b> — AI를 더 잘 쓰려는 사람</td><td>바이브코딩 · 사고력 · 문해력</td><td>readtree(기록·자산화), 프리미엄 책 제품</td></tr>
+      </tbody>
+    </table>
+    <p class="small" style="margin-top:8px">세 그룹 모두 종착은 같다 — <b>"잘 쓰려니 읽어야 하더라"</b>. <b>단계별 주력 결</b>: 단기 ② → 중기 ① → 장기 ③.</p>
+  </section>
+
+  <!-- ===== 콘텐츠 모델 ===== -->
+  <section id="model">
+    <h2><span class="num">05</span>콘텐츠 모델 — 풀링→키→랜딩</h2>
+    <div class="flow">
+      <div class="node a"><div class="t">풀링 (유입)</div><div class="b">AI·바이브코딩<br>무목적 유입</div></div>
+      <div class="arr">→</div>
+      <div class="node b"><div class="t">키 (전환)</div><div class="b">이북리더기 비교<br>바이브코딩 실습</div></div>
+      <div class="arr">→</div>
+      <div class="node c"><div class="t">랜딩 (매출)</div><div class="b">readingtree<br>전환</div></div>
+    </div>
+    <ul class="clean" style="margin-top:12px">
+      <li><span class="pill pull">풀링</span> "챗GPT 잘 쓰는 법" "바이브코딩으로 앱 만들기" "프롬프트가 평범한 이유" → <b>그래서 읽기</b>.</li>
+      <li><span class="pill key">키</span> 이북리더기 도구 비교 + 바이브코딩 실습 시리즈(따라하기형).</li>
+      <li><span class="pill land">랜딩</span> 키 끝 → 이북리더기 / readingtree 자연 연결.</li>
+    </ul>
+  </section>
+
+  <!-- ===== 표준 멘트 ===== -->
+  <section id="voice">
+    <h2><span class="num">06</span>표준 멘트</h2>
+    <table>
+      <thead><tr><th style="width:30%">상황</th><th>표준 표현</th></tr></thead>
+      <tbody>
+        <tr><td>시그니처 사인오프 <span class="small">(6개월 고정)</span></td><td><b>"AI는 답을, 읽는 사람은 질문을."</b></td></tr>
+        <tr><td>도입 훅</td><td>"AI가 다 ○○해주는데 — 그런데도, 우리는 읽습니다." (○○ = 답해주는 / 짜주는 / 요약해주는)</td></tr>
+        <tr><td>챕터 전환</td><td>"AI는 답을 내놨어요. 그런데 — 질문은 누가 합니까."</td></tr>
+        <tr><td>구독 CTA</td><td>"이 채널은 AI를 '잘' 쓰려는 사람들의 자리예요. 잘 쓰는 사람은 결국 읽는 사람이더라고요. 같이 가실 분들은 구독 부탁드립니다."</td></tr>
+        <tr><td>시청자 호명</td><td>"읽는 사람들" / "읽는 분들"</td></tr>
+      </tbody>
+    </table>
+    <p class="small" style="margin-top:8px">인트로/아웃트로 구조(3박자·5블록)는 <a href="채널정체성_그럼에도불구하고.html" style="color:var(--ai)">구 정체성 마스터(아카이브)</a> §03·§04의 <b>구조만</b> 참고하고, 모든 문구는 위 표준 멘트로 교체.</p>
+  </section>
+
+  <!-- ===== 톤 가드 ===== -->
+  <section id="guard">
+    <h2><span class="num">07</span>불변 안티컨셉 — 톤 가드</h2>
+    <div class="card warn">
+      <ul class="ban">
+        <li><b>AI 적대 프레임 금지</b> — "AI 무섭다 / AI가 다 망친다" ✕. 채널명은 <i>AI를 이기자</i>가 아니라 <b>"읽는 사람이 AI를 더 잘 쓴다"</b>는 긍정 구도. AI는 도구로 인정.</li>
+        <li><b>치트키·과장 약속 금지</b> — "이 프롬프트 하나면 인생 바뀝니다" ✕.</li>
+        <li><b>개발자 전용화 금지</b> — 바이브코딩을 다루되 코드 못 짜는 사람도 데려가는 대중 톤.</li>
+        <li><b>당위·감성 강매 금지</b> — "책은 무조건 좋다" ✕. "AI를 잘 쓰려니 필요하더라"는 실용 동기로 권한다.</li>
+      </ul>
+      <p class="small" style="margin-top:8px"><b>진정성의 대상</b>: 구 "좋아하는 책에 대한 진정성" → <b>"AI·문해력에 대한 진정성"</b> (개념은 유지, 대상만 이동).</p>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div>
+      <div class="signature">"AI는 답을, <span class="y">읽는 사람은 질문을.</span>"</div>
+      <div class="small">채널 정체성 마스터 — AI보다 읽는 사람 v1 · 2026-06-13</div>
+    </div>
+    <div class="small">
+      관련:
+      <a href="AI보다 읽는사람.MD">정체성 마스터(MD)</a> ·
+      <a href="README.md">폴더 인덱스</a> ·
+      <a href="채널정체성_전환_AI문해력_2026-06-11.html">전환 기획서</a> ·
+      <a href="채널정체성_의사결정시트_2026-06-11.html">의사결정 시트</a> ·
+      <a href="../../프로젝트_방향성.md">프로젝트_방향성.md §1.1</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

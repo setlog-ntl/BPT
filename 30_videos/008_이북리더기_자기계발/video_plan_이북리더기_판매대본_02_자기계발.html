@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>② 자기계발 각도 — 이북리더기 판매대본 (EP2 롱 + EP5 쇼츠)</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2; --accent:#ffd166; --accent-2:#06d6a0;
+    --warn:#ef476f; --info:#118ab2; --chip:#2a2f3a;
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:48px 28px 80px}
+  header.hero{padding:36px 32px;border-radius:20px;
+    background:radial-gradient(1200px 400px at 10% -10%,rgba(6,214,160,.20),transparent 50%),
+               radial-gradient(900px 380px at 110% 10%,rgba(255,209,102,.10),transparent 55%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line); position:relative; overflow:hidden}
+  .hero .eyebrow{display:inline-block;font-size:12px;letter-spacing:.18em;color:var(--growth);
+    background:rgba(6,214,160,.12);border:1px solid rgba(6,214,160,.3);
+    padding:6px 12px;border-radius:999px; text-transform:uppercase}
+  h1{font-size:38px;line-height:1.25;margin:18px 0 8px;letter-spacing:-0.02em;font-weight:800}
+  h1 .accent{color:var(--growth)}
+  .hero p.lede{color:var(--muted);font-size:16px;margin:8px 0 22px;max-width:820px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:var(--chip);border:1px solid var(--line);color:var(--text);
+    font-size:12.5px;padding:6px 12px;border-radius:999px}
+  section{margin-top:40px}
+  h2{font-size:22px;letter-spacing:-.01em;margin:0 0 16px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--growth)}
+  h3{font-size:16px;margin:18px 0 8px;color:#fff}
+  .grid{display:grid;gap:16px}
+  .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media(max-width:760px){.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}.wrap{padding:24px 16px 60px}h1{font-size:28px}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card.alt{background:var(--panel-2)}
+  .card h4{margin:0 0 6px;font-size:15px;color:#fff}
+  .card .sub{color:var(--muted);font-size:13px}
+  .kpi{font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+  table{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top;text-align:left}
+  th{background:#1b1f28;color:#fff;font-weight:600;font-size:12px;letter-spacing:.04em}
+  tbody tr:nth-child(even){background:#161a22}
+  .timecode{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:600;white-space:nowrap}
+  .pill{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11.5px;font-weight:600}
+  .pill.hook{background:rgba(239,71,111,.15);color:#ff6b8a}
+  .pill.body{background:rgba(17,138,178,.18);color:#5cc4e0}
+  .pill.cta{background:rgba(6,214,160,.15);color:#33d8a3}
+  .pill.intro{background:rgba(255,209,102,.18);color:#ffd166}
+  .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:860px){.thumbs{grid-template-columns:1fr}}
+  .thumb{aspect-ratio:16/9;border-radius:12px;border:1px solid var(--line);
+    position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:14px}
+  .thumb.vertical{aspect-ratio:9/16;max-width:230px;margin:0 auto}
+  .thumb .t-label{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.55);
+    font-size:11px;padding:3px 8px;border-radius:6px;color:#fff;letter-spacing:.06em}
+  .thumb-1{background:linear-gradient(135deg,#1c1f29 0%,#0c0e13 100%)}
+  .thumb-1 .big{font-size:28px;font-weight:900;color:#fff;line-height:1.05;letter-spacing:-.02em}
+  .thumb-1 .red{color:#ff476f}
+  .thumb-2{background:radial-gradient(circle at 30% 30%,#2d6cdf 0%,#0c0e13 70%)}
+  .thumb-2 .big{font-size:26px;font-weight:900;color:#ffd166;line-height:1.1}
+  .thumb-2 .small{color:#fff;font-size:13px;margin-top:6px;opacity:.85}
+  .thumb-3{background:linear-gradient(135deg,#0c2a1c 0%,#0c0e13 100%)}
+  .thumb-3 .big{font-size:24px;font-weight:900;color:#fff;line-height:1.15}
+  .thumb-3 .accent-line{height:4px;width:60px;background:#06d6a0;margin:10px auto;border-radius:2px}
+  .thumb-3 .small{color:#9aa3b2;font-size:12px}
+  .thumb-note{font-size:12.5px;color:var(--muted);margin-top:8px}
+  ul.clean{padding-left:18px;margin:6px 0}
+  ul.clean li{margin:4px 0;font-size:13.5px}
+  .copybox{background:#0c0e13;border:1px dashed #2a3040;border-radius:10px;
+    padding:14px 16px;font-size:13px;color:#c8ccd4;white-space:pre-wrap;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .tag-list{display:flex;flex-wrap:wrap;gap:6px}
+  .tag-list .chip{font-size:12px;padding:4px 9px}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 14px}
+  .footer{margin-top:54px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);
+    padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .callout{border-left:4px solid var(--accent-2);background:#13241e;color:#cfe9dd;
+    padding:14px 16px;border-radius:0 10px 10px 0;font-size:14px}
+  .stage{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:700;color:#fff;letter-spacing:.3px}
+  .stage.s-phenomenon{background:#ef4444}
+  .stage.s-desire{background:#f59e0b}
+  .stage.s-plan{background:#3b82f6}
+  .stage.s-action{background:#8b5cf6}
+  .stage.s-reward{background:#10b981}
+  details.ep{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:0;margin-bottom:18px;overflow:hidden}
+  details.ep > summary{cursor:pointer;list-style:none;padding:18px 22px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    background:linear-gradient(180deg,#1a1e27 0%,#171a21 100%);border-bottom:1px solid var(--line)}
+  details.ep > summary::-webkit-details-marker{display:none}
+  details.ep > summary::after{content:"▾";color:var(--muted);margin-left:auto;font-size:14px;transition:transform .15s}
+  details.ep[open] > summary::after{transform:rotate(180deg)}
+  details.ep > summary .ep-title{font-size:16px;font-weight:700;color:#fff}
+  .ep-body{padding:20px 22px}
+  .ep-body > section + section{margin-top:24px}
+  .ep-body h3{margin-top:0}
+  .timeline-narration{color:#dadde3;font-size:13px;line-height:1.55}
+  .timeline-broll{color:#a8b3c2;font-size:12.5px;line-height:1.55}
+  .ttag{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10.5px;font-weight:700;margin-right:4px}
+  .ttag.stock{background:rgba(17,138,178,.22);color:#7cd0e8}
+  .ttag.ai{background:rgba(255,209,102,.18);color:#ffd166}
+  .ttag.live{background:rgba(6,214,160,.18);color:#33d8a3}
+  .ttag.motion{background:rgba(139,92,246,.22);color:#c4b5fd}
+  .ttag.sfx{background:rgba(239,71,111,.18);color:#ff8aa5}
+  .kw{display:inline-block;padding:2px 7px;border-radius:5px;background:rgba(255,209,102,.14);color:#ffd166;font-size:12px;font-weight:600;margin:2px 4px 2px 0}
+  /* 각도 네비 버튼 */
+  .angle-nav{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 28px;padding:14px;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px}
+  .abtn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:10px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13.5px;font-weight:600;transition:all .15s;white-space:nowrap}
+  .abtn:hover{transform:translateY(-1px);background:#252a36}
+  .abtn.home{color:var(--muted);background:transparent}
+  .abtn.home:hover{color:var(--text)}
+  .abtn .num{font-size:11px;opacity:.7;font-weight:700}
+  .abtn.pain:hover{border-color:var(--pain);color:#ff8aa5}
+  .abtn.growth.active{background:rgba(6,214,160,.16);border-color:var(--growth);color:#7be3c0}
+  .abtn.value:hover{border-color:var(--value);color:var(--value)}
+  .abtn.rec:hover{border-color:#c4b5fd;color:#c4b5fd}
+  .abtn.sep{margin-left:auto;border-color:transparent;background:transparent;color:var(--muted);padding-right:0;cursor:default}
+  /* 다음 각도 카드 */
+  .next-card{display:flex;align-items:center;justify-content:space-between;gap:16px;
+    margin-top:28px;padding:22px;border-radius:14px;
+    background:linear-gradient(135deg,rgba(255,209,102,.08) 0%,#171a21 60%);
+    border:1px solid var(--line);text-decoration:none;color:var(--text);transition:all .15s}
+  .next-card:hover{border-color:var(--value);transform:translateY(-2px)}
+  .next-card .label{font-size:11px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+  .next-card .title{font-size:18px;font-weight:700;color:#fff}
+  .next-card .arrow{font-size:24px;color:var(--value)}
+  .prev-card .arrow{color:var(--pain)}
+  .prev-card{background:linear-gradient(135deg,rgba(239,71,111,.08) 0%,#171a21 60%)}
+  .prev-card:hover{border-color:var(--pain)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============================================ 각도 네비 버튼 ============================================ -->
+  <nav class="angle-nav">
+    <a class="abtn home" href="video_plan_이북리더기_판매대본.html">← 인덱스</a>
+    <a class="abtn pain" href="video_plan_이북리더기_판매대본_01_페인.html">
+      <span class="num">①</span> 페인포인트
+    </a>
+    <a class="abtn growth active" href="video_plan_이북리더기_판매대본_02_자기계발.html">
+      <span class="num">②</span> 자기계발
+    </a>
+    <a class="abtn value" href="video_plan_이북리더기_판매대본_03_가성비.html">
+      <span class="num">③</span> 가성비
+    </a>
+    <span class="abtn sep">|</span>
+    <a class="abtn rec" href="recording_guide_이북리더기_판매대본.html">
+      🎙 녹음 가이드
+    </a>
+  </nav>
+
+  <header class="hero">
+    <span class="eyebrow">Angle ② · Self Growth</span>
+    <h1>② <span class="accent">자기계발</span> 각도 — EP2 롱폼 + EP5 쇼츠</h1>
+    <p class="lede">
+      "바뀌고 싶다"를 점화하는 <strong>욕구(Desire)</strong> 단계 콘텐츠.
+      빌 게이츠의 'Think Week' 50권 · 워런 버핏 하루 80% 500페이지 · 자투리 45분 · 미래의 나 — 페인 단계를 거친 시청자(Cold/Warm)에게 "독서만의 도구"로 전환을 제안하는 1편(롱)·1편(쇼츠) 페어.
+    </p>
+    <div class="meta-row">
+      <span class="chip">EP2 1500자 / 7~9분</span>
+      <span class="chip">EP5 350자 / 60초</span>
+      <span class="chip">단계 <span class="stage s-desire">욕구</span></span>
+      <span class="chip">온도 Cold/Warm</span>
+      <span class="chip">발행 2주차 화·목</span>
+      <span class="chip">8대 페인 ⑤ 자투리시간 / ⑦ 정체성 메인</span>
+    </div>
+  </header>
+
+  <!-- ============================================ EP2 1500자 자기계발 ============================================ -->
+  <section id="ep2">
+    <details class="ep" open>
+      <summary>
+        <span class="ep-title">EP2 · 1500자 자기계발</span>
+        <span class="chip">롱폼 7~9분</span>
+        <span class="stage s-desire">욕구</span>
+        <span class="chip">Cold/Warm</span>
+      </summary>
+      <div class="ep-body">
+
+        <h3>(1) 제목·키워드</h3>
+        <div class="grid cols-2">
+          <div class="card">
+            <div class="kpi">제목 후보 3</div>
+            <ul class="clean">
+              <li><strong>SEO형:</strong> "1년에 책 30권 읽는 법 — 의지 아닌 도구의 차이 (이북리더기)"</li>
+              <li><strong>클릭형:</strong> "빌 게이츠가 50권 읽는 진짜 이유, 의지가 아니었습니다"</li>
+              <li><strong>리스트형:</strong> "독서 습관 못 잡는 사람의 공통점 1가지 — 환경"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kpi">검색 키워드 (★우선)</div>
+            <div class="tag-list">
+              <span class="chip">★독서 습관 만들기</span>
+              <span class="chip">★자기계발 책 추천</span>
+              <span class="chip">★빌게이츠 독서</span>
+              <span class="chip">자투리 시간 활용</span>
+              <span class="chip">미니멀 라이프</span>
+              <span class="chip">미래의 나</span>
+              <span class="chip">독서 환경</span>
+              <span class="chip">출퇴근 자기계발</span>
+              <span class="chip">매일 독서</span>
+              <span class="chip">킨들 자기계발</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>(2) 썸네일 3안 (16:9)</h3>
+        <div class="thumbs">
+          <div class="thumb thumb-1">
+            <span class="t-label">A · 권위형</span>
+            <div><div class="big">빌 게이츠 <span class="red">50권</span></div>
+              <div style="margin-top:6px;font-size:14px;color:#ffd166">우리는 1권</div></div>
+          </div>
+          <div class="thumb thumb-2">
+            <span class="t-label">B · 미래형</span>
+            <div><div class="big">1년 뒤 30권</div>
+              <div class="small">의지가 아니라 도구</div></div>
+          </div>
+          <div class="thumb thumb-3">
+            <span class="t-label">C · 인사이트형</span>
+            <div><div class="big">환경을 바꾸면<br>습관이 따라온다</div>
+              <div class="accent-line"></div>
+              <div class="small">독서만의 도구</div></div>
+          </div>
+        </div>
+        <p class="thumb-note">A안 권위(빌 게이츠 일러스트 실루엣 — 사진 저작권 회피) / B안 미래의 나 vs 현재 / C안 차분한 환경. 자기계발 채널은 A·B 강세.</p>
+
+        <h3>(3) 분초 단위 타임라인 (8분 30초 기준)</h3>
+        <table>
+          <thead><tr>
+            <th style="width:8%">시간</th><th style="width:7%">파트</th>
+            <th style="width:30%">내레이션</th><th style="width:18%">화면 지시</th>
+            <th style="width:25%">B-roll · 이미지</th><th style="width:12%">자막·SFX/BGM</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="timecode">00:00–00:08</td><td><span class="pill hook">HOOK 1</span></td>
+              <td class="timeline-narration">"1년 뒤 책 30권을 읽은 자기 자신이 되고 싶으세요? 그 차이를 만드는 건 의지가 아닙니다. 환경입니다."</td>
+              <td>빈 책장 → 책 30권 채워지는 모션</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 책장 채우기 0→30 카운터<br><span class="ttag ai">AI</span> "1년 뒤 책 30권 옆에 앉은 미래의 나" / "future self beside 30 books, inspirational warm tone"</td>
+              <td>자막 <span class="kw">30권</span> <span class="kw">의지가 아니라 환경</span> · BGM in (자기계발 무드)</td></tr>
+            <tr><td class="timecode">00:08–00:20</td><td><span class="pill hook">HOOK 2</span></td>
+              <td class="timeline-narration">"빌 게이츠는 매년 두 번, 'Think Week'라고 부르는 일주일짜리 독서 휴가를 갑니다. 워싱턴 숲속 통나무집에 혼자 들어가, 가져간 책만 수십 권을 읽고 메모하죠. 그렇게 1년에 채우는 책이 — 50권."</td>
+              <td>빌 게이츠 실루엣 + 통나무집 이미지 + "Think Week / 50권" 텍스트 출현</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "silhouette of bill gates reading alone in a wooden cabin surrounded by stacked books, dramatic warm lighting"<br><span class="ttag stock">스톡</span> Pexels "log cabin in forest" "stacked books on desk"<br><span class="ttag motion">모션</span> "Think Week" 텍스트 출현 → "1년 50권" 카운터</td>
+              <td>자막 <span class="kw">Think Week</span> <span class="kw">빌 게이츠 50권</span></td></tr>
+            <tr><td class="timecode">00:20–00:32</td><td><span class="pill hook">HOOK 3</span></td>
+              <td class="timeline-narration">"워런 버핏은 더 극단적입니다. 하루의 80%를 책과 보고서를 읽는 데 씁니다. '하루 500페이지씩 읽어라. 지식은 복리처럼 쌓인다' — 그가 컬럼비아 비즈니스스쿨 학생들에게 직접 한 말이에요. 빌 게이츠가 1년에 50권을 읽고 워런 버핏이 하루 80%를 독서에 쓰는 진짜 이유, 그리고 우리도 똑같은 환경을 만들 수 있는 가장 확실한 방법을 지금부터 알려드립니다."</td>
+              <td>워런 버핏 실루엣 + 책·보고서 더미 + "80% / 500p" 카운터</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "silhouette of warren buffett seated in office surrounded by stacks of books and papers, cinematic lighting"<br><span class="ttag stock">스톡</span> Pexels "stack of books on desk" "newspaper reading hands"<br><span class="ttag motion">모션</span> "80%" 큰 숫자 풀스크린 → "500 pages / day" 카운터 → "복리처럼 쌓이는 지식" 그래프</td>
+              <td>자막 <span class="kw">워런 버핏 80%</span> <span class="kw">500페이지</span> <span class="kw">복리</span></td></tr>
+            <tr><td class="timecode">00:32–01:30</td><td><span class="pill intro">INTRO</span></td>
+              <td class="timeline-narration">"그런데 우리는 어떤가요? '올해는 책 좀 읽어야지' 다짐만 하고 12월이 되면 또 한 권도 못 끝낸 자신을 발견합니다. 문제는 의지가 아니에요. 환경입니다."</td>
+              <td>새해 다짐 메모 → 12월 달력 → 빈 독서 기록</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 다이어리 1월 vs 12월<br><span class="ttag stock">스톡</span> Pexels "calendar flip"</td>
+              <td>자막 <span class="kw">의지가 아니라 환경</span></td></tr>
+            <tr><td class="timecode">01:30–02:30</td><td><span class="pill body">BODY 1</span></td>
+              <td class="timeline-narration">"종이책은 무거워서 못 들고 다니고, 스마트폰은 알림 때문에 집중이 안 되고, 태블릿은 결국 유튜브 시청 도구가 되어버리죠. 진짜 독서 습관을 만들려면 '독서만을 위한 도구'가 필요합니다. 그게 바로 이북리더기예요."</td>
+              <td>3가지 실패 도구 → 단말기 솔루션 도출</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 무거운 종이책 / 폰 알림 / 태블릿 유튜브<br><span class="ttag motion">모션</span> 3개 X 표시 → 단말기 ✓</td>
+              <td>자막 <span class="kw">독서만의 도구</span></td></tr>
+            <tr><td class="timecode">02:30–04:00</td><td><span class="pill body">BODY 2</span></td>
+              <td class="timeline-narration">"이북리더기는 단순한 전자기기가 아닙니다. 라이프스타일의 전환점입니다. 출근길 지하철 10분, 점심시간 식사 후 15분, 자기 전 침대에서 20분. 자투리 시간을 모으면 한 달에 책 두세 권은 거뜬히 읽을 수 있습니다."</td>
+              <td>지하철·점심 식사 후·침대 3장면 컷어웨이</td>
+              <td class="timeline-broll"><span class="ttag stock">스톡</span> Pexels "subway commute reading" "office lunch break reading" "bedside lamp reading"<br><span class="ttag motion">모션</span> "10+15+20=45분/일" 카운터</td>
+              <td>자막 <span class="kw">자투리 45분</span></td></tr>
+            <tr><td class="timecode">04:00–05:30</td><td><span class="pill body">BODY 3</span></td>
+              <td class="timeline-narration">"미니멀리스트들이 사랑하는 이유도 있습니다. 책장이 사라집니다. 거실이 깔끔해지고, 이사할 때 박스가 줄고, 책 먼지로부터 자유로워집니다."</td>
+              <td>책장 가득 → 깔끔한 책상 위 단말기 1대</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "미니멀 책상 위 이북리더기 1대" / "minimalist desk with single ereader, scandinavian style"<br><span class="ttag stock">스톡</span> Pexels "minimalist living room"</td>
+              <td>자막 <span class="kw">미니멀</span></td></tr>
+            <tr><td class="timecode">05:30–06:15</td><td><span class="pill body">BODY 4</span></td>
+              <td class="timeline-narration">"카페에서 누군가 이북리더기로 조용히 책을 읽고 있는 모습, 본 적 있으세요? 세련되어 보이는 건 단순히 기기가 예뻐서가 아니에요. 옆자리에서 SNS 피드를 끝없이 내리는 사람과, 같은 한 시간을 한 권의 사고에 쓰는 사람 — 그 짧은 한 시간의 선택이 1년, 5년 뒤 그 사람의 깊이를 결정합니다. 그래서 이북리더기는 단순한 전자기기가 아니라, '나는 이런 시간을 쓰는 사람이다'라는 정체성의 상징이 되는 거예요. 그리고 정체성이 행동을 만들고, 행동이 결국 결과를 만듭니다."</td>
+              <td>좌우 대비 컷: (좌) 카페에서 SNS 피드 무한 스크롤 / (우) 이북리더기로 독서 → 우측 인물 풀샷으로 클로즈인</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "split shot — left: person mindlessly scrolling instagram on phone at cafe / right: same age person calmly reading on ereader, cinematic warm tone"<br><span class="ttag ai">AI</span> "stylish 30s reading on ereader at cafe, cinematic"<br><span class="ttag motion">모션</span> "한 시간의 선택" → "1년·5년 뒤" 타임 점프 그래프 / "정체성 → 행동 → 결과" 3단 텍스트 체인</td>
+              <td>자막 <span class="kw">정체성</span> <span class="kw">한 시간의 선택</span> <span class="kw">행동→결과</span></td></tr>
+            <tr><td class="timecode">06:15–07:15</td><td><span class="pill body">BODY 5</span></td>
+              <td class="timeline-narration">"전자책은 종이책보다 평균 20~40% 저렴하고, 형광펜·메모·사전 검색 기능까지 있어서 학습 효율이 두 배입니다."</td>
+              <td>형광펜·메모·사전 검색 화면 캡처</td>
+              <td class="timeline-broll"><span class="ttag live">실촬</span> 단말기 형광펜·사전 화면 캡처<br><span class="ttag motion">모션</span> "20~40% 저렴" 그래프</td>
+              <td>자막 <span class="kw">학습 효율 2배</span></td></tr>
+            <tr><td class="timecode">07:15–08:00</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"잠깐만 상상해보세요. 1년 뒤 거울 앞에 섰을 때, 어떤 사람이 보이고 싶으세요? 지금처럼 SNS 피드만 내리던 자기 자신? 아니면 책 30권의 사고와 어휘, 통찰이 켜켜이 쌓인 자기 자신? 빌 게이츠도, 워런 버핏도 처음부터 그런 사람이 아니었습니다. 매일 책을 펴는 환경 — 단 하나, 그 환경 차이가 10년 뒤 완전히 다른 사람을 만들었어요. 그리고 그 환경의 시작은 거창한 새해 결심이 아니라, 손에 쥘 수 있는 작은 도구 하나에서 출발합니다."</td>
+              <td>좌우 분할 → 좌측: 거울 속 현재의 나 (피곤·SNS) / 우측: 1년 뒤의 나 (책 30권·차분) → 거울 안에서 우측 인물이 점차 선명해지는 트랜지션</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "split screen mirror reflection — left: tired self scrolling phone / right: confident self surrounded by 30 books, warm cinematic"<br><span class="ttag ai">AI</span> "ereader resting on a hand, warm sunlight, hopeful tone"<br><span class="ttag motion">모션</span> "환경 → 행동 → 1년 → 10년" 타임라인 체인 / 책 30권 카운터 0→30</td>
+              <td>자막 <span class="kw">거울 앞의 나</span> <span class="kw">환경의 차이</span> <span class="kw">미래의 나</span> · BGM swell</td></tr>
+            <tr><td class="timecode">08:00–08:20</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"지금 아래 링크에서 입문자에게 가장 추천하는 모델을 확인하세요. 미래의 나에게 가장 확실한 선물, 지금 결정하세요."</td>
+              <td>설명란 화살표 + 단말기 클로즈업</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "↓ 설명란" 화살표</td>
+              <td>자막 <span class="kw">설명란 링크</span></td></tr>
+            <tr><td class="timecode">08:20–08:30</td><td><span class="pill cta">OUTRO</span></td>
+              <td class="timeline-narration">[다리] "근데 가격이 부담된다고요? 다음 영상에서 20만원이든 100만원이든 본전 뽑는 수학을 — 밀리의 서재까지 포함해 — 풀어드립니다."</td>
+              <td>EP3 썸네일 미리보기</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 구독 카드 + EP3 카드</td>
+              <td>BGM out</td></tr>
+          </tbody>
+        </table>
+
+        <h3>(4) 자산 체크리스트</h3>
+        <div class="grid cols-2">
+          <div class="card alt">
+            <h4>촬영 컷 (실촬)</h4>
+            <ul class="clean">
+              <li>다이어리 1월 새해 다짐 vs 12월 빈 페이지</li>
+              <li>무거운 종이책 / 스마트폰 알림 / 태블릿 유튜브 3종</li>
+              <li>지하철·점심 식사 후·침대 3장소 단말기 독서 (EP1과 공유)</li>
+              <li>SNS 무한스크롤 vs 이북리더기 독서 좌우 대비 컷 (BODY 4)</li>
+              <li>단말기 형광펜·사전 검색 화면 캡처</li>
+              <li>인물 정면 미디엄샷 (CTA 구간) · 거울 앞 인서트</li>
+            </ul>
+          </div>
+          <div class="card alt">
+            <h4>다운로드 스톡 / AI 프롬프트</h4>
+            <ul class="clean">
+              <li>Pexels: subway commute reading, office lunch break reading, bedside lamp reading, calendar flip, minimalist living room</li>
+              <li>AI: "future self beside 30 books, inspirational warm tone"</li>
+              <li>AI: "silhouette of bill gates reading alone in a wooden cabin surrounded by stacked books, dramatic warm lighting"</li>
+              <li>AI: "silhouette of warren buffett seated in office surrounded by stacks of books and papers, cinematic lighting"</li>
+              <li>AI: "minimalist desk with single ereader, scandinavian style"</li>
+              <li>AI: "stylish 30s reading on ereader at cafe, cinematic"</li>
+              <li>AI: "split shot — left: person mindlessly scrolling instagram on phone at cafe / right: same age person calmly reading on ereader, cinematic warm tone"</li>
+              <li>AI: "split screen mirror reflection — left: tired self scrolling phone / right: confident self surrounded by 30 books, warm cinematic"</li>
+              <li>AI: "ereader resting on a hand, warm sunlight, hopeful tone"</li>
+              <li>모션: 책장 0→30 채우기 / 50권 카운터 / 자투리 45분 합산 / "정체성→행동→결과" 3단 체인 / "환경→행동→1년→10년" 타임라인 체인 / "1년·5년 뒤" 타임 점프 그래프</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>(5) 자막·강조 키워드</h3>
+        <div class="card">
+          <div class="legend">
+            <span class="kw">30권</span><span class="kw">의지가 아니라 환경</span>
+            <span class="kw">Think Week</span><span class="kw">빌 게이츠 50권</span>
+            <span class="kw">워런 버핏 80%</span><span class="kw">500페이지</span><span class="kw">복리</span>
+            <span class="kw">독서만의 도구</span><span class="kw">자투리 45분</span>
+            <span class="kw">미니멀</span><span class="kw">정체성</span>
+            <span class="kw">한 시간의 선택</span><span class="kw">행동→결과</span>
+            <span class="kw">학습 효율 2배</span>
+            <span class="kw">거울 앞의 나</span><span class="kw">환경의 차이</span><span class="kw">미래의 나</span>
+          </div>
+          <p class="sub">자기계발편은 BGM이 BODY 4 후반에 swell되며 CTA에서 가장 큰 파동.</p>
+        </div>
+
+        <h3>(6) YouTube 본문</h3>
+        <div class="card">
+          <div class="copybox">[Description 초안]
+"올해는 책 좀 읽어야지" — 1월에 다짐만 하고 12월이 되면 또 한 권도 못 끝낸 자신, 발견하시죠?
+문제는 의지가 아닙니다. 환경입니다.
+
+빌 게이츠는 매년 'Think Week'라는 일주일짜리 독서 휴가를 통해 1년에 50권을 읽고,
+워런 버핏은 하루의 80%·500페이지를 독서에 씁니다.
+그들의 진짜 비밀과, 우리도 똑같은 환경을 만드는 가장 확실한 방법을 풀어봅니다.
+
+🛒 입문자에게 추천하는 모델 비교 + 오늘만 할인 쿠폰
+→ (쿠팡파트너스 링크 · 가격은 변동될 수 있음)
+
+📚 함께 보면 좋은 영상
+- EP1 어깨·SNS 산만함 끝내기 →
+- EP3 본전 뽑는 수학 + 밀리의 서재 →
+
+⏱ 챕터
+00:00 1년 뒤 책 30권의 차이 — 의지가 아니라 환경
+00:08 빌 게이츠 'Think Week' · 1년 50권의 비밀
+00:20 워런 버핏 하루 80% · 500페이지의 복리
+00:32 우리는 왜 다짐만 하고 끝나는가
+01:30 독서만을 위한 도구
+02:30 자투리 시간 45분
+04:00 미니멀 라이프
+05:30 정체성·이미지
+06:15 학습 효율 2배
+07:15 행동 — 미래의 나
+08:20 다음 편 예고
+
+#독서습관 #자기계발 #이북리더기 #빌게이츠 #자투리시간
+
+※ 본 영상은 제휴(쿠팡파트너스) 링크를 포함하며, 구매 시 일정 수수료가 발생합니다.</div>
+          <div class="tag-list" style="margin-top:12px">
+            <span class="chip">독서 습관</span><span class="chip">자기계발</span>
+            <span class="chip">이북리더기</span><span class="chip">빌 게이츠</span>
+            <span class="chip">자투리 시간</span><span class="chip">미니멀</span>
+            <span class="chip">정체성</span><span class="chip">미래의 나</span>
+            <span class="chip">출퇴근 독서</span><span class="chip">독서 환경</span>
+            <span class="chip">킨들 자기계발</span><span class="chip">학습 효율</span>
+          </div>
+        </div>
+
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================ EP5 쇼츠 자기계발 ============================================ -->
+  <section id="ep5">
+    <details class="ep" open>
+      <summary>
+        <span class="ep-title">EP5 · 350자 쇼츠 자기계발</span>
+        <span class="chip">쇼츠 60초</span>
+        <span class="stage s-desire">욕구</span>
+        <span class="chip">Cold/Warm</span>
+      </summary>
+      <div class="ep-body">
+
+        <h3>(1) 제목·키워드</h3>
+        <div class="grid cols-2">
+          <div class="card">
+            <div class="kpi">제목 후보 3</div>
+            <ul class="clean">
+              <li><strong>SEO형:</strong> "1년에 책 30권 읽는 법 — 의지 아닌 도구"</li>
+              <li><strong>클릭형:</strong> "빌 게이츠 50권의 비밀 60초 #shorts"</li>
+              <li><strong>리스트형:</strong> "자투리 시간 45분으로 책 30권 #shorts"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kpi">해시태그</div>
+            <div class="tag-list">
+              <span class="chip">#독서습관</span><span class="chip">#자기계발</span><span class="chip">#이북리더기</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>(2) 썸네일 3안 (9:16)</h3>
+        <div class="thumbs">
+          <div class="thumb thumb-1 vertical">
+            <span class="t-label">A · 권위</span>
+            <div><div class="big">빌 게이츠<br><span class="red">50권</span></div></div>
+          </div>
+          <div class="thumb thumb-2 vertical">
+            <span class="t-label">B · 미래</span>
+            <div><div class="big">1년 뒤<br>30권의 나</div></div>
+          </div>
+          <div class="thumb thumb-3 vertical">
+            <span class="t-label">C · 차분</span>
+            <div><div class="big">의지가 아니라<br>도구</div>
+              <div class="accent-line"></div></div>
+          </div>
+        </div>
+
+        <h3>(3) 5초 단위 타임라인 (60초)</h3>
+        <table>
+          <thead><tr>
+            <th style="width:10%">시간</th><th style="width:8%">파트</th>
+            <th style="width:32%">내레이션</th><th style="width:18%">화면 지시</th>
+            <th style="width:22%">B-roll · 이미지</th><th style="width:10%">자막·SFX</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="timecode">00:00–00:05</td><td><span class="pill hook">HOOK</span></td>
+              <td class="timeline-narration">"1년 뒤 책 30권을 읽은 자기 자신이 되는 가장 확실한 방법, 알려드릴게요."</td>
+              <td>책장 0 → 30 채워지는 모션</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> 책장 0→30 카운터</td>
+              <td>자막 <span class="kw">30권</span> · BGM in</td></tr>
+            <tr><td class="timecode">00:05–00:25</td><td><span class="pill body">BODY</span></td>
+              <td class="timeline-narration">"빌 게이츠가 매년 50권을 읽는 건 의지가 아니라 환경 때문이에요. 이북리더기는 '독서만을 위한 도구'."</td>
+              <td>빌 게이츠 실루엣 + 단말기 매크로</td>
+              <td class="timeline-broll"><span class="ttag ai">AI</span> "silhouette of bill gates beside 50 books"<br><span class="ttag live">실촬</span> 단말기 매크로</td>
+              <td>자막 <span class="kw">빌 게이츠 50권</span> <span class="kw">환경</span></td></tr>
+            <tr><td class="timecode">00:25–00:45</td><td><span class="pill body">BODY</span></td>
+              <td class="timeline-narration">"출근길 10분, 점심 후 15분, 자기 전 20분. 자투리 시간만 모아도 한 달 두세 권이 거뜬합니다."</td>
+              <td>지하철·카페·침대 3분할</td>
+              <td class="timeline-broll"><span class="ttag stock">스톡</span> Pexels 3장면 (EP2와 공유)<br><span class="ttag motion">모션</span> "10+15+20=45분" 합산</td>
+              <td>자막 <span class="kw">자투리 45분</span></td></tr>
+            <tr><td class="timecode">00:45–00:55</td><td><span class="pill cta">CTA</span></td>
+              <td class="timeline-narration">"지금 링크에서 입문자 추천 모델 확인하시고, 미래의 나에게 가장 확실한 선물을 지금 주세요."</td>
+              <td>설명란 화살표 + 단말기 핸즈컷</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> "↓ 설명란" 화살표</td>
+              <td>자막 <span class="kw">미래의 나</span></td></tr>
+            <tr><td class="timecode">00:55–01:00</td><td><span class="pill cta">END</span></td>
+              <td class="timeline-narration">"풀버전은 채널 EP2 — 8분 자기계발 영상."</td>
+              <td>EP2 카드</td>
+              <td class="timeline-broll"><span class="ttag motion">모션</span> EP2 카드</td>
+              <td>BGM out</td></tr>
+          </tbody>
+        </table>
+
+        <h3>(4) 자산·자막 + 본문</h3>
+        <div class="grid cols-2">
+          <div class="card alt">
+            <h4>자산 체크 (대부분 EP2 공유)</h4>
+            <ul class="clean">
+              <li>실촬: 단말기 매크로</li>
+              <li>스톡: Pexels 지하철·카페·침대</li>
+              <li>AI: "silhouette of bill gates beside 50 books"</li>
+              <li>모션: 책장 0→30 / "10+15+20=45분" / 화살표 / EP2 카드</li>
+            </ul>
+          </div>
+          <div class="card alt">
+            <h4>자막 강조어</h4>
+            <div class="legend">
+              <span class="kw">30권</span><span class="kw">빌 게이츠 50권</span>
+              <span class="kw">환경</span><span class="kw">자투리 45분</span>
+              <span class="kw">미래의 나</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <div class="copybox">[쇼츠 본문]
+빌 게이츠가 매년 50권 읽는 건 의지가 아니라 환경.
+이북리더기는 '독서만을 위한 도구'.
+출근 10분 + 점심 15분 + 자기 전 20분 = 한 달 두세 권.
+풀버전은 EP2에서 →
+
+🛒 (쿠팡파트너스 링크)
+
+#독서습관 #자기계발 #이북리더기</div>
+        </div>
+
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================ 이전·다음 각도 카드 ============================================ -->
+  <div class="grid cols-2" style="margin-top:28px;gap:14px">
+    <a class="next-card prev-card" href="video_plan_이북리더기_판매대본_01_페인.html">
+      <div class="arrow">←</div>
+      <div style="text-align:right">
+        <div class="label">Previous</div>
+        <div class="title">① 페인포인트 각도</div>
+        <div class="sub" style="color:var(--muted);font-size:13px;margin-top:4px">EP1 롱 + EP4 쇼츠 — 어깨·SNS·눈 페인</div>
+      </div>
+    </a>
+    <a class="next-card" href="video_plan_이북리더기_판매대본_03_가성비.html">
+      <div>
+        <div class="label">Next Angle</div>
+        <div class="title">③ 가성비 각도 — EP3 롱 + EP6 쇼츠</div>
+        <div class="sub" style="color:var(--muted);font-size:13px;margin-top:4px">"본전 뽑는 수학" 계획(Plan) — 밀리의 서재 9,900원·월 3,500원</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+  </div>
+
+  <div class="footer">
+    <div>
+      <strong>원본·관련 자료</strong><br>
+      <a href="video_plan_이북리더기_판매대본.html" style="color:var(--accent)">← 인덱스 (마스터·공통자산·운영표·체크리스트)</a><br>
+      <a href="scripts_이북리더기_판매대본.html" style="color:var(--accent)">scripts_이북리더기_판매대본.html</a> (풀 대본 6종)
+    </div>
+    <div>
+      <strong>참조 강의·기획</strong><br>
+      <a href="전자책단말기_키컨텐츠_기획.html" style="color:var(--accent)">전자책단말기_키컨텐츠_기획</a> (8대 페인) ·
+      <a href="../../raw/2026-04-30_3주차-1강_키콘텐츠/" style="color:var(--accent)">3-1강 키콘텐츠</a>
+    </div>
+    <div>② 자기계발 각도 · 2026</div>
+  </div>
+
+</div>
+</body>
+</html>

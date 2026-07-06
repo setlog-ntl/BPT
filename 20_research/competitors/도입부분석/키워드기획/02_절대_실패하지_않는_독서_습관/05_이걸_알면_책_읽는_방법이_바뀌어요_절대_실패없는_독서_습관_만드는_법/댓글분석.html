@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>댓글 분석 · "이걸 알면 책 읽는 방법이 바뀌어요" 절대 실패없는 독서 습관 만드는 법 (독서의 인문학) (소울정)</title>
+<style>
+  :root{
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#c4b5fd;
+    --bg:#f5f3ee; --panel:#ffffff; --panel-2:#faf8f3; --line:#e7e3da;
+    --text:#1f2430; --muted:#5d6470; --brand:#2f5d62; --brand2:#3a7a82;
+    --shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px 80px}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:980px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;
+    background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:700}
+  .nbtn.src{color:var(--pain);margin-left:auto}
+  header{margin:18px 0 26px}
+  .eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--brand2);font-weight:800;margin-bottom:10px}
+  h1{font-size:24px;line-height:1.38;margin:0 0 16px;font-weight:800;letter-spacing:-.01em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13.5px;color:var(--muted);align-items:center}
+  .meta b{color:var(--text)}
+  .meta .dot{width:4px;height:4px;border-radius:50%;background:#c7c1b4;display:inline-block}
+  .meta .angle{background:#eef5f0;border:1px solid #cfe4d8;color:#256b54;border-radius:7px;padding:2px 10px;font-weight:700}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:26px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+  .sec-no{font-size:11.5px;font-weight:800;color:var(--brand2);letter-spacing:.1em;margin-bottom:5px}
+  h2{font-size:19px;margin:0 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .top3{background:linear-gradient(135deg,#2f5d62,#244b50);border:none;color:#fff}
+  .top3 .sec-no{color:#bfe0d9}.top3 h2{color:#fff}.top3 .lead{color:#d6e6e1}
+  .t3{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-top:1px solid rgba(255,255,255,.14)}
+  .t3:first-of-type{border-top:none}
+  .t3 .rank{flex:0 0 auto;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:17px;background:var(--value);color:#5a4410}
+  .t3 .rank.r2{background:#d7dde3;color:#33414d}.t3 .rank.r3{background:#e6b894;color:#5a3410}
+  .t3 .body{flex:1}
+  .t3 .txt{font-size:14.5px;color:#f3f8f6;line-height:1.6}
+  .t3 .sig{display:inline-flex;gap:10px;margin-top:8px;font-size:12px;color:#bfe0d9;flex-wrap:wrap}
+  .t3 .sig b{color:var(--value);font-weight:800}
+  .t3 .sig .tag{background:rgba(255,255,255,.14);padding:2px 9px;border-radius:6px;font-weight:600;color:#eafff8}
+  .idage{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .idage .blk h3{font-size:14px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .agebars{display:flex;flex-direction:column;gap:8px}
+  .ab{display:grid;grid-template-columns:46px 1fr 38px;gap:10px;align-items:center;font-size:13px}
+  .ab .lab{font-weight:700}
+  .ab .track{height:8px;background:#eef0ee;border-radius:5px;overflow:hidden}
+  .ab .fill{height:100%;border-radius:5px;background:var(--brand2)}
+  .ab .pct{text-align:right;font-weight:800;color:var(--brand);font-size:12.5px}
+  .core{margin-top:10px;font-size:12.5px;color:var(--muted)}.core b{color:var(--brand)}
+  .sigchips{display:flex;flex-wrap:wrap;gap:7px}
+  .sigchip{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12.5px}
+  .sigchip b{color:var(--brand);font-weight:800}
+  .idnote{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.55}
+  .rsn{margin-bottom:15px;padding-bottom:15px;border-bottom:1px dashed var(--line)}
+  .rsn:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .rsn-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;gap:12px}
+  .rsn-top .name{font-weight:800;font-size:15px}
+  .rsn-top .name .rk{color:var(--brand2);margin-right:6px}
+  .rsn-top .val{font-size:12.5px;color:var(--muted);font-weight:700;white-space:nowrap}
+  .rsn-track{height:22px;background:#eef0ee;border-radius:7px;overflow:hidden}
+  .rsn-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;
+    padding-right:9px;color:#173b33;font-weight:800;font-size:12px;min-width:34px}
+  .rsn-ev{margin-top:8px;font-size:12.5px;color:#3a414c;background:var(--panel-2);
+    border-left:3px solid var(--brand2);border-radius:0 8px 8px 0;padding:8px 12px}
+  .rsn-ev .q{color:#2a3038}.rsn-ev .by{color:var(--muted);font-size:11.5px}
+  .rsn-memo{margin-top:6px;font-size:12px;line-height:1.5;padding:7px 11px;border-radius:8px}
+  .rsn-memo.bm{background:#eef5f1;border-left:3px solid var(--growth);color:#1d5e49}
+  .rsn-memo.hk{background:#f4f1fb;border-left:3px solid var(--rec);color:#4a3a86}
+  .rsn-memo b{font-weight:800}
+  .angle-box{background:linear-gradient(135deg,#f3f7f4,#eef5f0);border:1px solid #cfe4d8;border-radius:14px;padding:20px 22px;margin-top:18px}
+  .angle-box h3{margin:0 0 12px;font-size:15px;font-weight:800;color:var(--brand)}
+  .angle-box .grp{margin-bottom:14px}
+  .angle-box .grp:last-child{margin-bottom:0}
+  .angle-box .gl{font-size:12.5px;font-weight:800;letter-spacing:.02em;margin-bottom:7px;display:inline-block;padding:3px 10px;border-radius:7px}
+  .angle-box .gl.bm{background:#d8efe3;color:#1d5e49}
+  .angle-box .gl.hk{background:#e6ddf7;color:#4a3a86}
+  .angle-box ul{margin:0;padding-left:18px;font-size:13px;color:#384049}
+  .angle-box li{margin-bottom:6px;line-height:1.55}
+  .angle-box li b{color:var(--brand)}
+  .angle-box .hk li b{color:#5b48a0}
+  .more .q2{border-left:3px solid var(--line);padding:9px 14px;margin-bottom:9px;font-size:13.5px;background:var(--panel-2);border-radius:0 8px 8px 0}
+  .more .q2 .by{display:block;margin-top:5px;font-size:11.5px;color:var(--muted)}
+  .more .q2 .by b{color:var(--pain)}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;line-height:1.8}
+  .note{background:#fbf6e9;border:1px solid #ecd9a8;border-left:5px solid var(--value);
+    border-radius:10px;padding:13px 16px;font-size:12.5px;color:#6b5a2e;margin-top:14px}
+  .note b{color:#9a7716}
+  @media(max-width:720px){.idage{grid-template-columns:1fr}h1{font-size:20px}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="분석.html">← 도입부 분석</a>
+  <a class="nbtn src" href="https://www.youtube.com/watch?v=ahPMmVnyxqU" target="_blank" rel="noopener">🔗 유튜브 원본</a>
+</nav>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">YouTube 댓글 시청자 분석 · 소울정</div>
+    <h1>"이걸 알면 책 읽는 방법이 바뀌어요" 절대 실패없는 독서 습관 만드는 법 (독서의 인문학)</h1>
+    <div class="meta">
+      <span><b>채널</b> 소울정</span><span class="dot"></span>
+      <span><b>구독자</b> 22.4만</span><span class="dot"></span>
+      <span><b>조회수</b> 22.0만</span><span class="dot"></span>
+      <span><b>게시</b> 2025.3.21 (약 1년 전)</span><span class="dot"></span>
+      <span><b>분석 댓글</b> 304개(인기순)</span><span class="dot"></span>
+      <span class="angle">분석 각도 · 경쟁·벤치마크 + 후크 발굴</span>
+    </div>
+  </header>
+
+  <section class="top3">
+    <div class="sec-no">★ 대표댓글 · 추천 많은 순 TOP 3</div>
+    <h2>이 영상의 얼굴이 된 댓글 3개</h2>
+    <p class="lead">좋아요가 가장 많이 눌린 댓글 = 시청자 다수가 가장 공감한 지점.</p>
+    <div class="t3"><div class="rank ">1</div><div class="body">
+      <div class="txt">"내용은 좋은데 알아듣기 힘들다"</div>
+      <div class="sig"><span>👍 <b>69</b></span><span class="tag">전달력 비판 (최상단)</span><span>1년 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r2">2</div><div class="body">
+      <div class="txt">"전 나이 오십이 넘었어요. 자극적일 게 없는 인생이죠. 수천만 원 그림이 걸린 벽이 아닌 '인생의 글귀'라니.. 걸어두고 날마다 보고 싶은 글, 그게 수천만 원짜리라는 걸 오십에 알다니"</div>
+      <div class="sig"><span>👍 <b>68</b></span><span class="tag">50대 감동</span><span>1년 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r3">3</div><div class="body">
+      <div class="txt">"닮고 싶은 누군가를 곁에 두길 시도하라는 말이 인상 깊었어요! 혼자가 편한 편인데 닮고 싶은 사람을 곁에 두면 제 고민이 조금 풀릴 것 같아요"</div>
+      <div class="sig"><span>👍 <b>64</b></span><span class="tag">관계·환경 인사이트</span><span>1년 전</span></div>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="sec-no">정체성 · 추정 연령 (간략)</div>
+    <h2>누가 보는가</h2>
+    <div class="idage">
+      <div class="blk">
+        <h3>추정 연령대</h3>
+        <div class="agebars">
+          <div class="ab"><span class="lab">10대</span><div class="track"><div class="fill" style="width:6%"></div></div><span class="pct">6%</span></div>
+          <div class="ab"><span class="lab">20대</span><div class="track"><div class="fill" style="width:14%"></div></div><span class="pct">14%</span></div>
+          <div class="ab"><span class="lab">30대</span><div class="track"><div class="fill" style="width:30%"></div></div><span class="pct">30%</span></div>
+          <div class="ab"><span class="lab">40대</span><div class="track"><div class="fill" style="width:30%"></div></div><span class="pct">30%</span></div>
+          <div class="ab"><span class="lab">50대+</span><div class="track"><div class="fill" style="width:20%"></div></div><span class="pct">20%</span></div>
+          </div>
+        <div class="core">핵심 시청층 <b>30·40대</b> · 30~50대 약 80% · '의지 말고 환경' 메시지에 공감하는 성인층(학부모 신호 최다)</div>
+      </div>
+      <div class="blk">
+        <h3>정체성 대표 신호 (댓글 자기소개)</h3>
+        <div class="sigchips">
+          <span class="sigchip">학부모·자녀(30~50대) <b>21</b></span>
+          <span class="sigchip">직장인(20~40대) <b>5</b></span>
+          <span class="sigchip">시니어·만학(50대+) <b>5</b></span>
+          <span class="sigchip">주부(30~50대) <b>3</b></span>
+          <span class="sigchip">학생(중·고·수험) <b>3</b></span>
+        </div>
+        <div class="idnote">자기보고 1위가 학부모(21)이고 50대 감동·30대 끝자락 등 중장년 서사가 상위. '환경을 바꿔라'는 메시지가 살림·가정 맥락과 맞물려 30~50대에 집중.</div>
+      </div>
+    </div>
+    <div class="note"><b>추정 주의:</b> 유튜브 실제 연령 통계는 채널 소유자만 열람 가능. 위 수치는 댓글 자기소개·말투·영상 주제·채널 성격 기반 <b>추정치</b>입니다.</div>
+  </section>
+
+  <section>
+    <div class="sec-no">02 · 시청 이유 (핵심)</div>
+    <h2>왜 이 영상을 보는가</h2>
+    <p class="lead">304개 댓글 키워드 집계(중복 허용). 순위 · 비중% · 근거 댓글.</p>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">①</span>동기·감사·공감</span><span class="val">147건 · 48%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:100%;background:var(--growth);color:#173b33">147</div></div>
+      <div class="rsn-ev"><span class="q">"나이 오십이 넘어 알았어요. 걸어두고 날마다 보고 싶은 '인생의 글귀', 그게 수천만 원짜리라는 걸"</span> <span class="by">— 👍 68</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">②</span>이해·기억·체화</span><span class="val">40건 · 13%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:27%;background:#4cc4e0;color:#173b33">40</div></div>
+      <div class="rsn-ev"><span class="q">"나를 바꿀 수 있다는 건 오만이다. 사람을 바꾸려 말고 환경을 바꿔라 — 정수기 위 글귀가 마음에 남는다"</span> <span class="by">— 👍 38</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">③</span>습관·꾸준함</span><span class="val">36건 · 12%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:24%;background:var(--brand2);color:#173b33">36</div></div>
+      <div class="rsn-ev"><span class="q">"책 안 읽는 가장 큰 이유는 읽고 남는 게 없고, 남는 게 없으니 변하는 게 없어서인 것 같다"</span> <span class="by">— 👍 34</span></div>
+      <div class="rsn-memo hk"><b>→ 후크 후보:</b> "읽어도 안 변해서 안 읽는다" — 결1 이탈 원인을 정확히 짚는 후크.</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">④</span>완독·집중·포기</span><span class="val">12건 · 4%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:8%;background:#9aa0aa;color:#173b33">12</div></div>
+      <div class="rsn-ev"><span class="q">"인간은 의지로는 안 되고 환경 설정이 중요하다는 점에 100% 공감"</span> <span class="by">— 👍 13</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑤</span>책 추천·고르기</span><span class="val">8건 · 3%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:5%;background:var(--rec);color:#fff">8</div></div>
+      <div class="rsn-ev"><span class="q">"맨날 '책 좀 읽어야지' 하면서 의지 탓만 했는데, 진짜 환경 세팅이 답이더라"</span> <span class="by">— 👍 4</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑥</span>시험·공부·실력</span><span class="val">5건 · 2%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:3%;background:var(--pain);color:#fff">5</div></div>
+      <div class="rsn-ev"><span class="q">"30대 끝자락, 남들과 다른 길을 가는 시점에 정수기 위에 책을 둔다는 말이 와닿았다"</span> <span class="by">— 👍 6</span></div>
+    </div>
+
+    <div class="angle-box">
+      <h3>🎯 분석 각도 · 경쟁·벤치마크 + 후크 발굴</h3>
+      <div class="grp">
+        <span class="gl bm">경쟁 · 벤치마크 (우리 채널 관점)</span>
+        <ul>
+        <li><b>48%가 감사·공감</b>이지만 <b>TOP1(👍69)은 "내용은 좋은데 알아듣기 힘들다"</b> 전달력 비판 — 좋은 메시지도 <b>편집·전달이 약하면 최상단이 불만</b>이 된다(샾잉 이동진 사례와 동일 교훈). bizpt 자막·편집 점검 포인트.</li>
+        <li>핵심 메시지 <b>"의지가 아니라 환경을 바꿔라"</b>가 강하게 공감 — 자기보고 1위가 학부모(21). '환경 설정' 프레임이 결1(읽으려는)의 실패 원인을 정확히 짚음.</li>
+        <li>이벤트 경품이 <b>'북라이트(독서 조명)'</b> — 독서 '환경' 꿀템. <b>이북리더기(1차 아이템)</b>와 같은 '환경 개선' 카테고리. 환경 후크→제품 연결의 직접 레퍼런스.</li>
+        </ul>
+      </div>
+      <div class="grp hk">
+        <span class="gl hk">🪝 후크 발굴 (시청이유 → 카피 후보)</span>
+        <ul class="hk">
+        <li><b>(환경 48%)</b> "독서는 의지가 아니라 '환경'이다 — 실패 없는 습관의 비밀"</li>
+        <li><b>(이탈 원인)</b> "맨날 '책 읽어야지'만 하던 당신 — 의지 탓 그만"</li>
+        <li><b>(환경·이북리더기)</b> "눈앞에 두면 읽힌다 — 정수기 위 글귀 한 줄의 힘"</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="more">
+    <div class="sec-no">03 · 더 보기</div>
+    <h2>그 외 대표 댓글</h2>
+    <div class="q2"><span>"내 생각을 바꿔준 순간은 데미안의 문장 하나를 만나 눈물을 줄줄 흘렸던 순간이에요 ❤ '내 속에서 솟아나오려는 것, 그것을 살아보려…'"</span><span class="by">👍 <b>53</b> · 책 한 문장의 힘</span></div>
+    <div class="q2"><span>"(채널 이벤트) 좋았던 부분을 댓글로 남긴 친구 중 추첨해 침실 독서 환경을 만들어줄 꿀템 '북라이트'를 선물해요"</span><span class="by">👍 <b>45</b> · 독서 환경 경품</span></div>
+    <div class="q2"><span>"나 스스로를 바꿀 수 있다는 건 오만이다. 사람을 바꾸려 말고 환경을 바꿔라 — 정수기 위의 글귀가 마음에 남아요"</span><span class="by">👍 <b>38</b> · 환경 변화론</span></div>
+  </section>
+
+  <footer>
+    분석 대상: https://www.youtube.com/watch?v=ahPMmVnyxqU · 소울정<br>
+    데이터: 인기순 상위 댓글 304개 (크롬 브라우저 직접 수집) · 연령대는 댓글 기반 추정치<br>
+    생성일: 2026-06-09 · bizpt / 도입부분석 · 키워드기획
+  </footer>
+</div>
+</body>
+</html>

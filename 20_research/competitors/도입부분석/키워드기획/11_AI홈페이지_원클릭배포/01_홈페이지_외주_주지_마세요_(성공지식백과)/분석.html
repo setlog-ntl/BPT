@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — AI 홈페이지(원클릭배포) / (성능압살) 홈페이지 외주 주지 마세요 (성공지식백과)</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:24px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--ok)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}.na-i{color:var(--warn);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  .warnbox{background:#fffbeb;border:1px solid #fde68a;border-left:4px solid #f59e0b;border-radius:12px;padding:14px 16px;font-size:13px;color:#92400e;margin-bottom:14px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:20px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · AI 홈페이지(원클릭배포)</p>
+    <h1>(성능압살) 홈페이지 외주 주지 마세요. 초보자도 전문가급 웹사이트 만들 수 있습니다.</h1>
+    <p class="sub"><b>권위·사회적 증거 후크</b>("구글 신기능 안티그래비티 미친 성능, 써본 사람은 누구나 동의") → <b>최신 도구 스택 나열</b>(제미나이 3 프로 + 나노바나나 프로) → <b>핵심 가치</b>("개발자·디자이너 없이 웹사이트 제작에 특화" = 외주 불필요) → <b>약속</b>("오늘 어떻게 만드는지 같이 알아본다") → 채널 CTA(구독·좋아요) → 본론(안티그래비티 설치). <b>권위+최신도구+통념반박(외주 불필요)</b>이 강렬한 AI 아트 비주얼 위에 얹힌 후크.</p>
+    <div class="chips"><span class="chip">키워드 · ai 홈페이지(원클릭배포)</span><span class="chip">채널 · 성공지식백과 (10.8만)</span><span class="chip">길이 · 11:22</span><span class="chip">썸끝 · 정답=좋음</span><span class="chip">분석일 · 2026-07-01</span><span class="chip"><a href="https://www.youtube.com/watch?v=zjHrjyhv1s4">▶ 원본 영상</a></span></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:78"><div class="num"><b>78</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">B</span></h3><p>유형: <b>권위·사회적증거 후크 + 최신 도구 스택 + 통념반박(외주 불필요) + 약속형</b>. 제목의 "외주 주지 마세요"는 강한 통념반박이지만 <b>도입부 음성엔 '외주' 언급이 없고</b> 도구 성능 자랑에 무게 → 약속·타깃 호명이 다소 간접적이라 A 문턱(80)엔 살짝 못 미침. 최신 도구·비주얼 텐션은 최상.</p></div></div>
+      <div class="grid">
+        <div class="card"><div class="lab">후크 유형</div><div class="val">권위·사회적증거("써본 사람은 누구나 동의") + 최신 도구 스택 나열 + "개발자·디자이너 없이" 통념반박 + "같이 알아보자" 약속</div></div>
+        <div class="card"><div class="lab">첫 발화/첫 자막</div><div class="val">"구글의 신기능 안티그래비티의 미친 성능은 써보신 분들이라면 누구나 동의하실 겁니다" (0초부터 불타는 A 로고 풀샷)</div></div>
+        <div class="card"><div class="lab">시각적 텐션</div><div class="val">✅ 매우 높음 (17/20) — 불타는 무지개 'A'(안티그래비티)+해커 무드, 불타는 구글G+나노바나나, 돈다발, 고양이 밈, 브랜드 일러스트까지 3초 간격 강한 컷</div></div>
+        <div class="card"><div class="lab">우리 서비스/콘텐츠 적합도</div><div class="val">🟢 높음 — "외주 대신 직접 제작 / 최신 AI 도구 / 개발자 없이"가 원클릭배포 AI 홈페이지 결과 1:1 (도구가 안티그래비티로 다를 뿐)</div></div>
+      </div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:75%"></i></span><span class="pts">15/20</span></div>
+      <div class="srow"><span class="nm">타깃(결) 호명</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:65%"></i></span><span class="pts">13/20</span></div>
+      <div class="srow"><span class="nm">핵심 키워드(안티그래비티·제미나이3·나노바나나)</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:85%"></i></span><span class="pts">17/20</span></div>
+      <div class="srow"><span class="nm">결론 먼저</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <div class="srow"><span class="nm">시각적 텐션</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:85%"></i></span><span class="pts">17/20</span></div>
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 <b>78/100 (B)</b> · 근거: ① "개발자·디자이너 없이 이 웹사이트를 만드는 데 특화" + "무궁무진하게 결과를 뽑아낼 수 있다"로 변화를 약속하나 <b>수치·기간(예: 30분·0원)은 음성엔 없음</b>(제목에만)(15). ② "써보신 분들이라면 / 개발자·디자이너 없이"로 외주 맡기던 1인·소상공인을 <b>간접</b> 호명 — 직접 "당신은" 호명은 약함(13). ③ <b>안티그래비티·제미나이3 프로·나노바나나 프로</b> 등 최신 도구명을 0~10초에 집약, 트렌드·희소성 키워드 최강(17). ④ 0초부터 <b>미친 성능·완성 웹사이트 목업</b>을 먼저 던지는 결과-우선 구조(16). ⑤ 불타는 A 로고·해커 무드·돈다발·밈·브랜드 일러스트로 3초 간격 강한 컷, 텐션 최상(17).</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① 권위·사회적증거 — "안티그래비티 미친 성능, 써본 사람은 다 동의"</span><span class="arrow">→</span><span class="step">② 최신 도구 스택 — 제미나이3+나노바나나로 무궁무진</span><span class="arrow">→</span><span class="step turn">③ 통념반박 — "개발자·디자이너 없이 웹사이트 특화"</span><span class="arrow">→</span><span class="step">④ 약속 "같이 알아보자" → 구독·좋아요 → 본론(설치)</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성/자막(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:00–0:04</span></td><td>권위·공감 후크 — "구글 신기능 안티그래비티의 미친 성능은 써본 분들이라면 누구나 동의"</td><td><span class="ok-i">✔</span> 후드 쓴 인물 뒷모습 + 불타는 무지개색 'A'(안티그래비티 로고) + 사방의 코드 모니터(다크·해커 무드)</td><td>구글의 신기능 안티그래비티의 / 미친 성능은 / 써보신 분들이라면 / 누구나 동의하실 겁니다</td></tr>
+        <tr><td><span class="tt">0:05–0:10</span></td><td>도구 스택 — "제미나이 3 프로 + 나노바나나 프로를 합쳐 무궁무진하게 결과를 뽑아낸다"</td><td><span class="ok-i">✔</span> 불타는 구글 'G' + 빨간 '+' + 나노바나나(구글로고 바나나), 돈다발 쏟아짐</td><td>바로 제미나이 3 프로와 / 나노바나나 프로를 합쳐서 / 무궁무진하게 결과를 / 뽑아낼 수가 있기 때문인데요</td></tr>
+        <tr><td><span class="tt">0:11–0:16</span></td><td>핵심 가치(통념반박) — "그 중에서도 특별히 개발자·디자이너 없이 이 웹사이트를 만드는 데 너무나 특화"</td><td><span class="ok-i">✔</span> 생성된 웹사이트 목업 2개(브라우저 창) 나란히 배치 — '완성 결과물' 노출</td><td>그 중에서도 특별히 / 개발자나 디자이너 없이 / 이 웹사이트를 만드는 데 / 너무나 특화되어 있습니다</td></tr>
+        <tr><td><span class="tt">0:17–0:20</span></td><td>약속 — "오늘 영상에서 어떻게 이 웹사이트들을 만들 수 있는지 같이 알아본다"</td><td><span class="ok-i">✔</span> 웹사이트 목업 + 고양이가 맥북 타이핑하는 밈 오버레이(유머·긴장 완화)</td><td>그래서 오늘 영상에서는 어떻게 하면 / 이 웹사이트들을 만들 수 있는지 / 같이 알아볼 예정인데요</td></tr>
+        <tr><td><span class="tt">0:21–0:26</span></td><td>채널 CTA — "오늘의 성공지식백과, 구독·좋아요와 함께 바로 시작"</td><td><span class="ok-i">✔</span> 책 위에 앉아 독서하는 채널 브랜드 일러스트 → 구독/좋아요 버튼 애니메이션</td><td>그러면 오늘의 성공지식백과 / 구독과 좋아요와 함께 바로 시작해보도록 하겠습니다</td></tr>
+        <tr><td><span class="tt">0:27–0:30</span></td><td>본론 진입 — "지난번 영상을 참고해 구글 안티그래비티를 설치"</td><td><span class="ok-i">✔</span> 안티그래비티 IDE 실제 화면(Gemini 3 Website 프로젝트, Agent 패널) — 튜토리얼 시작</td><td>우선 지난번 제 영상을 참고하셔서 / 구글의 안티그래비티를 설치를 해주도록 합니다</td></tr>
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=<b>화면 번인(하드코딩) 자막 직접 캡처</b> 기반(유튜브 '스크립트 표시' 패널은 이 자동화 세션에서 로딩 고정·<code>get_transcript</code> 400으로 미확보 → SOP §5-2 폴백 ③). <span class="ok-i">✔ 화면·번인 자막 캡처 확인</span>(클로드-크롬 포그라운드, 0:00~0:30 구간 프레임별 정지·캡처). 타임스탬프는 캡처 기반 근사치. 시점별 <code>&amp;t=</code> URL은 <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a> 참조.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (원클릭배포 AI 홈페이지 콘텐츠/서비스)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight">
+        <li><b>권위+사회적 증거 0초 후크</b> — "구글 신기능 / 미친 성능 / 써본 사람은 누구나 동의"로 신뢰를 3초 만에 세팅. 우리 콘텐츠도 "OO 써본 사람은 다 아는" 형태로 도입 신뢰 확보에 이식.</li>
+        <li><b>최신 도구명 0~10초 집약</b>(안티그래비티·제미나이3 프로·나노바나나 프로) — 트렌드·희소성 키워드로 검색·호기심 동시 공략. 우리도 최신 툴명을 도입부에 몰아 배치.</li>
+        <li><b>"개발자·디자이너 없이" 통념반박 + 완성 목업 노출</b> — 외주 불필요 메시지를 결과물로 증명. 우리 서비스 "외주비 0원·원클릭 배포"로 변형.</li>
+        <li><b>강한 AI 아트 컷 + 밈</b>(불타는 로고·돈다발·고양이)으로 3초 간격 텐션 유지 후, <b>브랜드 일러스트→구독 CTA</b>를 도입 끝에 자연 삽입.</li>
+      </ul></div>
+      <div class="mini"><h4>우리 콘텐츠/서비스용 제목·카피 변형안</h4><ul class="tight">
+        <li>"홈페이지 외주비 0원 — 안티그래비티로 개발자 없이 전문가급 사이트 만들고 <b>원클릭 배포</b>까지"</li>
+        <li>"제미나이 3 + 나노바나나로 30분 — 코딩 0줄, 외주 없이 내 홈페이지 완성하는 법"</li>
+      </ul></div></div></section>
+    <section><h2><span class="n">6</span> 서비스/콘텐츠 적합도 4축 <span style="font-size:11px;color:var(--muted);font-weight:500">(이 키워드는 독서 채널이 아닌 'AI 홈페이지 원클릭배포' 결로 재정의)</span></h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 타깃(외주 대신 직접 만들려는 1인/소상공인)</td><td><span class="ok-i">Y</span></td><td>"써보신 분들 / 개발자·디자이너 없이"로 외주 맡기던 층을 간접 호명 — 우리 결 타깃과 일치</td></tr>
+        <tr><td>② 핵심가치(노코드·최신 AI 도구·원클릭배포)</td><td><span class="ok-i">Y</span></td><td>"개발자·디자이너 없이 웹사이트 특화 / 무궁무진한 결과" — 노코드·고생산성 가치 직격</td></tr>
+        <tr><td>③ AI 도구(안티그래비티/제미나이3/나노바나나)</td><td><span class="ok-i">Y</span></td><td>최신 구글 스택 3종을 도입부에 명시. 도구 의존·트렌드성 매우 강함</td></tr>
+        <tr><td>④ 원클릭 배포·서비스 차별점</td><td><span class="na-i">△</span></td><td>이 영상은 <b>제작(빌드) 중심</b>이라 배포(deploy)·로그인/결제 자동화는 도입부에 없음 — 우리 결의 '원클릭 배포'를 차별화 포인트로 강조 여지</td></tr>
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)"><b>적합도: 높음(3/4축 + △1)</b> → 타깃·가치·도구가 일치하는 <b>상위 차용 레퍼런스</b>. 단 '원클릭 배포'는 이 영상이 빌드 과정 중심이라 약하므로, 우리 결은 그 지점(제작→배포까지 원클릭)을 차별화로 밀 것.</p></section>
+    <section><div class="note"><h3>⚙️ 대본·캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>⚠ 스크립트 패널 원문 미확보 → 번인 자막으로 대체</b> — 유튜브 '스크립트 표시' 패널을 크롬 포그라운드에서 열었으나 세그먼트를 못 불러옴(로딩 스피너 고정). <code>timedtext</code>·<code>get_transcript</code> 직접 호출도 <code>400</code>으로 차단(패널 params가 확장에서 base64 마스킹됨). 따라서 <b>SOP §5-2 폴백 ③</b>에 따라, 이 영상에 있는 <b>제작자 번인(하드코딩) 자막</b>을 클로드-크롬 포그라운드에서 0:00~0:30 프레임별 정지·캡처해 도입부 대본을 확보. 번인 자막은 <b>제작자 수동 자막</b>이라 자동자막 대비 오탈자가 거의 없음. 타임스탬프는 캡처 기반 근사치이며, 📜 원문 탭은 '패널 원문'이 아닌 '번인 자막 채록본'임. 30초 이후 본론(설치·빌드) 전체 대본이 필요하면 본인 로그인 브라우저의 '스크립트 표시 → 복사'로 보완 권장.</p></div></section>
+  </div>
+
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="warnbox">※ 본 대본은 <b>화면 번인 자막 채록</b> 기반(스크립트 패널 미확보, SOP §5-2 폴백 ③). 내용은 캡처한 자막 그대로 유지하고, 세그먼트로 끊긴 부분만 맥락에 맞게 최소 연결(윤문·요약 없음). 정밀 원문은 📜 원문 탭(번인 채록본) 및 본인 브라우저 패널 복사로 보완.</div>
+      <div class="script-head"><span class="hint">번인 자막을 맥락 단위로 구분 → 구분별 대본 / 화면 / 자막</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:00–0:04</span><span class="utag">① 권위·사회적증거 후크</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"구글의 신기능 안티그래비티의 미친 성능은, 써보신 분들이라면 누구나 동의하실 겁니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">후드 쓴 인물 뒷모습 + 불타는 무지개색 'A'(안티그래비티 로고)가 화면 중앙, 사방을 코드 모니터가 둘러싼 다크·해커 무드. 0초부터 '강력함'을 비주얼로 각인.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">대형 번인 "구글의 신기능 안티그래비티의" → "미친 성능은" → "써보신 분들이라면" → "누구나 동의하실 겁니다"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:05–0:10</span><span class="utag">② 최신 도구 스택 나열</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"바로 제미나이 3 프로와 나노바나나 프로를 합쳐서 무궁무진하게 결과를 뽑아낼 수가 있기 때문인데요."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">불타는 구글 'G' + 빨간 '+' + 나노바나나(구글 로고가 박힌 바나나)를 나란히 배치, 배경에 돈다발이 쏟아짐(수익·가치 연상).</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">"바로 제미나이 3 프로와" / "나노바나나 프로를 합쳐서" / "무궁무진하게 결과를" / "뽑아낼 수가 있기 때문인데요"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:11–0:16</span><span class="utag">③ 핵심 가치 — 통념반박(외주 불필요)</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"그 중에서도 특별히, 개발자나 디자이너 없이 이 웹사이트를 만드는 데 너무나 특화되어 있습니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">AI로 생성된 웹사이트 목업 2개(브라우저 창)를 나란히 배치 — '완성 결과물'을 먼저 보여줘 통념(외주·전문가 필요)을 결과로 반박.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">"그 중에서도 특별히" / "개발자나 디자이너 없이" / "이 웹사이트를 만드는 데" / "너무나 특화되어 있습니다"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:17–0:20</span><span class="utag">④ 약속(오늘 배울 것)</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"그래서 오늘 영상에서는 어떻게 하면 이 웹사이트들을 만들 수 있는지 같이 알아볼 예정인데요."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">웹사이트 목업 위에 고양이가 맥북을 타이핑하는 밈을 오버레이 — 유머로 긴장 완화하며 '쉽게 따라 할 수 있다'는 뉘앙스.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">"그래서 오늘 영상에서는 어떻게 하면" / "이 웹사이트들을 만들 수 있는지" / "같이 알아볼 예정인데요"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:21–0:26</span><span class="utag">⑤ 채널 CTA</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"그러면 오늘의 성공지식백과, 구독과 좋아요와 함께 바로 시작해보도록 하겠습니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">책 더미 위에 앉아 독서하는 채널 브랜드 일러스트 → '구독' '좋아요' 버튼 애니메이션이 좌우에서 등장.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">"그러면 오늘의 성공지식백과" / "구독과 좋아요와 함께 바로 시작해보도록 하겠습니다"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:27–0:30</span><span class="utag">⑥ 본론 진입(설치)</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"우선 지난번 제 영상을 참고하셔서 구글의 안티그래비티를 설치를 해주도록 합니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">안티그래비티 IDE 실제 화면(왼쪽 Explorer의 'Gemini 3 Website' 프로젝트, 오른쪽 Agent 패널, 중앙 Antigravity 로고) — 도입부 종료·튜토리얼 시작.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">"우선 지난번 제 영상을 참고하셔서" / "구글의 안티그래비티를 설치를 해주도록 합니다"</span></div>
+        </div>
+
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 대본은 <b>화면 번인 자막 채록</b>에서 세그먼트 끊김만 최소 연결. 원문(번인 채록본) 그대로는 <b>📜 원문</b> 탭.</p>
+    </section>
+  </div>
+
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 화면 번인 자막 채록(시점별)</h2>
+      <div class="warnbox">⚠ 이 탭은 유튜브 '스크립트 표시' <b>패널 원문이 아님</b>. 패널이 이 세션에서 미확보(로딩 고정·<code>get_transcript</code> 400)되어, <b>영상 화면에 박힌 번인(하드코딩) 자막</b>을 클로드-크롬으로 0:00~0:30 프레임별 정지·캡처해 시점별로 채록한 것. 한 줄=한 자막 화면에 표시된 문구. 타임스탬프는 캡처 기반 근사치.</div>
+      <div class="script-head"><span class="hint">화면 번인 자막 채록(도입부 0:00~0:30)</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:00</span><span>구글의 신기능 안티그래비티의</span></li>
+        <li><span class="tt">0:02</span><span>미친 성능은</span></li>
+        <li><span class="tt">0:03</span><span>써보신 분들이라면</span></li>
+        <li><span class="tt">0:04</span><span>누구나 동의하실 겁니다</span></li>
+        <li><span class="tt">0:05</span><span>바로 제미나이 3 프로와</span></li>
+        <li><span class="tt">0:07</span><span>나노바나나 프로를 합쳐서</span></li>
+        <li><span class="tt">0:09</span><span>무궁무진하게 결과를</span></li>
+        <li><span class="tt">0:10</span><span>뽑아낼 수가 있기 때문인데요</span></li>
+        <li><span class="tt">0:11</span><span>그 중에서도 특별히</span></li>
+        <li><span class="tt">0:12</span><span>개발자나 디자이너 없이</span></li>
+        <li><span class="tt">0:14</span><span>이 웹사이트를 만드는 데</span></li>
+        <li><span class="tt">0:15</span><span>너무나 특화되어 있습니다</span></li>
+        <li><span class="tt">0:17</span><span>그래서 오늘 영상에서는 어떻게 하면</span></li>
+        <li><span class="tt">0:19</span><span>이 웹사이트들을 만들 수 있는지</span></li>
+        <li><span class="tt">0:20</span><span>같이 알아볼 예정인데요</span></li>
+        <li><span class="tt">0:21</span><span>그러면 오늘의 성공지식백과</span></li>
+        <li><span class="tt">0:23</span><span>구독과 좋아요와 함께 바로 시작해보도록 하겠습니다</span></li>
+        <li><span class="tt">0:27</span><span>우선 지난번 제 영상을 참고하셔서</span></li>
+        <li><span class="tt">0:28</span><span>구글의 안티그래비티를 설치를 해주도록 합니다</span></li>
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">출처: 영상 화면 번인 자막 직접 캡처(전체 11:22 중 도입부 0:00~0:30 발췌). 패널 자동자막 원문은 미확보 — 본인 로그인 브라우저의 '스크립트 표시 → 복사'로 정밀 보완 가능.</p>
+    </section>
+  </div>
+
+  <footer>키워드 기획 분석 · 2026-07-01 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../도입부분석_통합지침_(코워크용).md">통합지침</a><br>출처: <a href="https://www.youtube.com/watch?v=zjHrjyhv1s4">YouTube — 성공지식백과</a> · 썸끝 정답=좋음('ai 홈페이지') · 내부 기획·학습용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='✓ 복사됨';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

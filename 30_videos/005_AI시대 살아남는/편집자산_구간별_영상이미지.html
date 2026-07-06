@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>편집 자산 가이드 — 구간별 영상·이미지 추천 (EP005 AI 시대 살아남는)</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --bg:#0e1116; --card:#161b22; --card2:#1c2230; --line:#2a3140; --ink:#e8edf4; --mut:#9aa6b6; --mut2:#6b7785;
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --info:#5cc4e0; --rec:#b794f6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Pretendard",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;padding:0 0 90px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+  a{color:var(--info)}
+  .nav{display:flex;flex-wrap:wrap;gap:8px;padding:12px 0;position:sticky;top:0;background:rgba(14,17,22,.92);backdrop-filter:blur(8px);z-index:30;border-bottom:1px solid var(--line)}
+  .nav a{font-size:12.5px;font-weight:700;text-decoration:none;color:var(--mut);border:1px solid var(--line);background:var(--card2);border-radius:8px;padding:7px 11px}
+  .nav a.active{color:var(--growth);border-color:rgba(6,214,160,.45);background:rgba(6,214,160,.12)}
+  .nav a.home{color:var(--mut2);background:transparent;border-color:transparent}
+
+  header{background:linear-gradient(160deg,#11161f,#0e1116 72%);border-bottom:1px solid var(--line);padding:34px 0 26px;margin-bottom:8px}
+  .eyebrow{font-size:12.5px;letter-spacing:.16em;color:var(--growth);font-weight:800;text-transform:uppercase;margin-bottom:10px}
+  h1{font-size:clamp(22px,3.6vw,30px);font-weight:900;letter-spacing:-.02em;margin-bottom:10px}
+  h1 b{color:var(--value)}
+  .sub{color:var(--mut);font-size:14px;max-width:880px}
+  .sub b{color:var(--ink)}
+
+  /* 공통 스타일 가이드 박스 */
+  .sg{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px;color:#cfd5df;line-height:1.85;margin:18px 0 6px}
+  .sg b{color:#fff}
+  .sg .good{color:var(--growth)} .sg .bad{color:var(--pain)}
+  .sg pre{margin-top:8px;white-space:pre-wrap;word-break:break-word;background:#0b0e13;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12px;color:#bcd;line-height:1.7;font-family:"SFMono-Regular",Consolas,monospace}
+
+  /* 범례 */
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px}
+  .lg{font-size:11.5px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--mut)}
+  .lg b{font-weight:900}
+  .lg.stk{color:var(--info)} .lg.gfx{color:var(--value)} .lg.vid{color:var(--rec)} .lg.img{color:var(--growth)}
+
+  section.ep{padding:22px 0;border-bottom:1px solid var(--line)}
+
+  /* 챕터 카드 */
+  .ch{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px;border-left:4px solid var(--info)}
+  .ch.hook{border-left-color:var(--pain)}
+  .ch.story{border-left-color:var(--value)}
+  .ch.cta{border-left-color:var(--growth)}
+  .chead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+  .chead .pill{font-size:11px;font-weight:900;border-radius:6px;padding:3px 8px;letter-spacing:.05em}
+  .pill.hook{background:rgba(239,71,111,.16);color:#ff6b8a}
+  .pill.body{background:rgba(92,196,224,.16);color:#5cc4e0}
+  .pill.story{background:rgba(255,209,102,.16);color:#ffd166}
+  .pill.cta{background:rgba(6,214,160,.16);color:#33d8a3}
+  .chead h3{font-size:16px;font-weight:800;color:#fff}
+  .chead .tc{font-size:12px;font-weight:800;color:var(--value);background:rgba(255,209,102,.1);border-radius:6px;padding:3px 8px;font-variant-numeric:tabular-nums}
+  .intent{font-size:13px;color:var(--mut);margin:6px 0 12px;padding-left:2px}
+  .intent b{color:#e8edf4}
+
+  /* 자료 블록 */
+  .block{margin-top:12px}
+  .blab{font-size:12px;font-weight:800;letter-spacing:.03em;display:flex;align-items:center;gap:7px;margin-bottom:6px}
+  .blab.stk{color:var(--info)} .blab.gfx{color:var(--value)} .blab.vid{color:var(--rec)} .blab.img{color:var(--growth)}
+  .blab .copy{margin-left:auto}
+
+  .kw{display:flex;flex-wrap:wrap;gap:6px}
+  .kw span{font-size:12px;background:var(--card2);border:1px solid var(--line);border-radius:7px;padding:4px 9px;color:#cdd6e2}
+  .kw span .en{color:var(--mut2);font-size:11px}
+
+  ul.gfx{list-style:none;display:flex;flex-direction:column;gap:5px}
+  ul.gfx li{font-size:13px;color:#cdd6e2;padding-left:16px;position:relative}
+  ul.gfx li::before{content:"▸";position:absolute;left:0;color:var(--value)}
+  ul.gfx li b{color:#fff}
+
+  pre.pmt{white-space:pre-wrap;word-break:break-word;background:#0b0e13;border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-size:12px;color:#cfe;line-height:1.7;font-family:"SFMono-Regular",Consolas,monospace}
+
+  .copy{font-size:11px;font-weight:800;color:var(--mut);border:1px solid var(--line);background:var(--card2);border-radius:6px;padding:4px 9px;cursor:pointer;transition:all .15s}
+  .copy:hover{color:var(--ink);border-color:var(--mut2)}
+  .copy.ok{color:var(--growth);border-color:rgba(6,214,160,.5)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+
+  .foot{padding:26px 0;color:var(--mut);font-size:12.5px}
+  .foot a{font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="nav">
+    <a class="active">🎬 편집 자산 가이드 (현재)</a>
+    <a href="통합_AI시대살아남는.html">📦 통합 기획서·대본</a>
+    <a href="쇼츠_자산_프롬프트.html">🎨 쇼츠 자산 프롬프트</a>
+    <a href="참고영상/참고영상_자료.html">📺 참고영상</a>
+    <a class="home" href="../../10_system/guides/편집기획_기준.md">📐 편집기획 기준</a>
+  </nav>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">EDIT ASSETS · 구간별 B-roll · 모션그래픽 · AI 생성 프롬프트</div>
+    <h1>편집 자산 가이드 — <b>9챕터 구간별 영상·이미지 추천</b></h1>
+    <p class="sub">통합 대본의 <b>후크 + 본문 7 + 결론</b> 9챕터에 1:1 매핑. 각 구간마다 ① <b>스톡·B-roll 검색 키워드</b>, ② <b>자막·모션그래픽 아이디어</b>, ③ <b>AI 영상 프롬프트(Sora 16:9)</b>, ④ <b>AI 이미지 프롬프트(ChatGPT 16:9)</b>. 편집은 <b>재미 내림차순 재배열</b>이 원칙 — 본 표는 "어떤 그림을 붙일지"의 소스이고, 배열 순서는 <a href="../../10_system/guides/편집기획_기준.md">편집기획 기준</a>을 따른다.</p>
+
+    <div class="legend">
+      <span class="lg stk">🎞 <b>스톡</b> 검색 키워드</span>
+      <span class="lg gfx">✦ <b>자막·모션</b> 그래픽</span>
+      <span class="lg vid">🎬 <b>AI 영상</b> 프롬프트</span>
+      <span class="lg img">🖼 <b>AI 이미지</b> 프롬프트</span>
+    </div>
+
+    <div class="sg">
+      <b>공통 스타일 접미(모든 AI 프롬프트 끝에 공유 — 톤 통일):</b><br>
+      <span class="good">faceless</span>(손·뒷모습·실루엣) · <span class="bad">no robots, no glowing-brain, no dystopia, no on-screen text, no logos</span> — 채널 진정성 가드(AI 적대·도태 공포 금지).
+      <pre>horizontal 16:9, cinematic editorial footage, moody low-key lighting, deep charcoal (#0e1116) palette with warm amber (#ffd166) + mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no robots, no glowing brains, no dystopian imagery, no on-screen text, no logos.</pre>
+      <button class="copy" data-t="style-suffix" style="margin-top:8px">공통 접미 복사</button>
+      <pre id="style-suffix" style="display:none">horizontal 16:9, cinematic editorial footage, moody low-key lighting, deep charcoal (#0e1116) palette with warm amber (#ffd166) + mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no robots, no glowing brains, no dystopian imagery, no on-screen text, no logos.</pre>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<section class="ep">
+
+  <!-- ⓪ HOOK -->
+  <div class="ch hook">
+    <div class="chead"><span class="pill hook">HOOK</span><h3>⓪ 후크 · 미리보기</h3><span class="tc">0:00–0:45</span></div>
+    <div class="intent">반전 — "먼저 밀려나는 건 AI 못 쓰는 사람이 아니라 <b>매일 챗GPT 쓰며 생각을 멈춘 사람</b>." 끝은 "그 차이는?"로 끊어 궁금증 유지. <b>감정: 단언·서늘한 반전.</b></div>
+
+    <div class="block">
+      <div class="blab stk">🎞 스톡·B-roll 검색 키워드 <button class="copy" data-t="k0">복사</button></div>
+      <div class="kw" id="k0">
+        <span>챗GPT 화면 타이핑 <span class="en">person typing into AI chatbot</span></span>
+        <span>밤 노트북 불빛 <span class="en">laptop glow face dark room night</span></span>
+        <span>스마트폰 검색 의존 <span class="en">smartphone scrolling search dependency</span></span>
+        <span>계산기 대신 폰 <span class="en">using phone instead of thinking</span></span>
+        <span>군중 속 같은 표정 <span class="en">crowd commuters blank faces</span></span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="blab gfx">✦ 자막·모션그래픽</div>
+      <ul class="gfx">
+        <li>오프닝 타이틀 자막: <b>"AI 못 쓰는 사람? ❌" → "생각 멈춘 사람 ⭕"</b> (반전 와이프)</li>
+        <li>키워드 4연 빠른 컷: <b>계산 ↓ · 검색 ↓ · 글쓰기 ↓ · 고민 ↓</b> (게이지 떨어지는 모션)</li>
+        <li>마지막 한 줄만 화면 정지 + 큰 자막: <b>"그 차이는 어디서 생길까요?"</b></li>
+      </ul>
+    </div>
+    <div class="grid2">
+      <div class="block">
+        <div class="blab vid">🎬 AI 영상 프롬프트 (Sora) <button class="copy" data-t="v0">복사</button></div>
+        <pre class="pmt" id="v0">16:9, 6s. Slow cinematic push-in on a faceless person at night, lit only by a laptop screen showing a generic minimal chat app, soft blue light flickering on their hands as they type and pause, dust drifting in the air, quiet unsettling calm (not horror). Deep charcoal-teal tone, faint amber rim light, shallow focus, subtle film grain. No robots, no text, no logos. Realistic subtle motion.</pre>
+      </div>
+      <div class="block">
+        <div class="blab img">🖼 AI 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="i0">복사</button></div>
+        <pre class="pmt" id="i0">16:9 cinematic editorial photo, over-the-shoulder view of a faceless office worker at night facing a glowing laptop with a minimal chat interface, the warm light not reaching their dim surroundings, a sense of quiet dependence and lost attention, deep charcoal background, amber + teal accents, shallow depth of field, film grain, lots of negative space on the left for a title. No face, no robots, no text, no logos.</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ① 도입 -->
+  <div class="ch">
+    <div class="chead"><span class="pill body">BODY</span><h3>① 도입 · AX 권위 · 불안 마케팅 거부 · 진짜 질문</h3><span class="tc">0:45–2:50</span></div>
+    <div class="intent">권위(AX 담당자) → 불안 마케팅 거부(진정성) → "변하지 않는 단 하나 = <b>사고력</b>" 페이오프 → "AI는 답을, 사람은 질문을" 대구. <b>감정: 신뢰·결기.</b></div>
+
+    <div class="block">
+      <div class="blab stk">🎞 스톡·B-roll 검색 키워드 <button class="copy" data-t="k1">복사</button></div>
+      <div class="kw" id="k1">
+        <span>책상 위 여러 AI 작업 <span class="en">developer working multiple screens</span></span>
+        <span>모델 로고 흐르기 <span class="en">AI app icons montage</span></span>
+        <span>광고·세일즈 자극 <span class="en">flashy online ad popups marketing</span></span>
+        <span>"지금 안 하면 늦는다" 광고 <span class="en">countdown urgency hype</span></span>
+        <span>차분히 메모하는 손 <span class="en">hand writing notes calm focus</span></span>
+        <span>갈림길 실루엣 <span class="en">person at crossroads silhouette</span></span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="blab gfx">✦ 자막·모션그래픽</div>
+      <ul class="gfx">
+        <li>화자 소개 배지: <b>"AX (AI 전환) 담당자"</b> 직함 로워서드</li>
+        <li>모델 로고 5종 흐르기: <b>챗GPT · 클로드 · 제미나이 · 그록 · 딥시크</b> (가로 슬라이드)</li>
+        <li>강조 카드: <b>"불안을 파는 마케팅 ❌"</b> → 도장 찍히듯</li>
+        <li>페이오프 자막: <b>"변하지 않는 단 하나 = 사고력"</b> (다른 글자 페이드아웃, '사고력'만 남김)</li>
+        <li>대구 3연 타이포: <b>"AI는 답을 / 만든다 — 질문은 / 사람이 만든다"</b></li>
+      </ul>
+    </div>
+    <div class="grid2">
+      <div class="block">
+        <div class="blab vid">🎬 AI 영상 프롬프트 (Sora) <button class="copy" data-t="v1">복사</button></div>
+        <pre class="pmt" id="v1">16:9, 6s. A faceless professional calmly working at a clean desk with several muted screens, then leaning back thoughtfully; the chaotic flicker of ads and notifications fades out around them leaving one steady warm amber light. Confident composed mood. Deep charcoal-teal, shallow focus, film grain. No robots, no text, no logos. Subtle realistic motion.</pre>
+      </div>
+      <div class="block">
+        <div class="blab img">🖼 AI 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="i1">복사</button></div>
+        <pre class="pmt" id="i1">16:9 cinematic editorial photo, a faceless person standing confidently at a crossroads of two diverging paths in a moody minimal landscape, one path noisy and over-lit (hype), the other calm and warmly amber-lit (thinking), symbolizing rejecting fear-marketing for steady judgment. Deep charcoal palette, amber + mint accents, volumetric light, shallow depth of field. No face, no robots, no text, no logos.</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② 세 종류 인간 -->
+  <div class="ch">
+    <div class="chead"><span class="pill body">BODY</span><h3>② 본문 1 · 살아남는 세 종류의 인간</h3><span class="tc">2:30–4:00</span></div>
+    <div class="intent">3분류 도식 — <b>지시받는 / 사용하는 / 새 가치를 만드는</b>. 1·2는 빠르게, 3에서 정지·강조. "나는 몇 번째?" 자기투영. <b>감정: 자기진단.</b></div>
+
+    <div class="block">
+      <div class="blab stk">🎞 스톡·B-roll 검색 키워드 <button class="copy" data-t="k2">복사</button></div>
+      <div class="kw" id="k2">
+        <span>지시 따르는 노동 <span class="en">worker following instructions repetitive</span></span>
+        <span>빠른 업무 처리 <span class="en">fast productivity office multitasking</span></span>
+        <span>아이디어 발상·창조 <span class="en">creative person sketching idea board</span></span>
+        <span>세 갈래 도식 배경 <span class="en">three diverging arrows abstract</span></span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="blab gfx">✦ 자막·모션그래픽</div>
+      <ul class="gfx">
+        <li><b>핵심: 3분류 인포그래픽</b> — ①지시받는 ②사용하는 ③새 가치 (세로 카드 3장 순차 등장)</li>
+        <li>①②는 0.5초씩 빠르게, <b>③에서 줌인 + 정지 + 글로우</b></li>
+        <li>화면 하단 질문 자막: <b>"나는 지금 몇 번째인가?"</b></li>
+      </ul>
+    </div>
+    <div class="grid2">
+      <div class="block">
+        <div class="blab vid">🎬 AI 영상 프롬프트 (Sora) <button class="copy" data-t="v2">복사</button></div>
+        <pre class="pmt" id="v2">16:9, 6s. Three faceless figures shown in sequence in a dark minimal studio: the first follows a moving light passively, the second works quickly with floating muted panels, the third pauses and a single warm amber idea-light blooms in their hands. Camera settles and pushes in on the third. Charcoal-teal tone, volumetric light, shallow focus, film grain. No robots, no text, no logos.</pre>
+      </div>
+      <div class="block">
+        <div class="blab img">🖼 AI 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="i2">복사</button></div>
+        <pre class="pmt" id="i2">16:9 conceptual editorial image, three faceless silhouettes side by side against deep charcoal: the left dim and grey (directed), the middle softly lit (using tools), the right glowing with warm amber and mint light radiating outward (creating new value), clean negative space for infographic labels. Cinematic volumetric lighting, film grain. No faces, no robots, no text, no logos.</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 같은 챗GPT 다른 질문 -->
+  <div class="ch">
+    <div class="chead"><span class="pill body">BODY</span><h3>③ 본문 2 · 같은 챗GPT, 다른 결과 = 질문</h3><span class="tc">4:00–5:20</span></div>
+    <div class="intent">동일 화면, <b>두 질문 대비</b> — "사업 아이디어 추천해줘" vs "30대 직장인이 반복적으로 겪는 미해결 시장은?". 질문의 깊이 = 사고력의 결과물. <b>감정: 통찰의 한 방.</b></div>
+
+    <div class="block">
+      <div class="blab stk">🎞 스톡·B-roll 검색 키워드 <button class="copy" data-t="k3">복사</button></div>
+      <div class="kw" id="k3">
+        <span>채팅 입력창 클로즈업 <span class="en">chat input field typing close up</span></span>
+        <span>분할 화면 비교 <span class="en">split screen comparison left right</span></span>
+        <span>평범 vs 날카로운 <span class="en">dull vs sharp focus contrast</span></span>
+        <span>물음표 빛 <span class="en">glowing question mark light</span></span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="blab gfx">✦ 자막·모션그래픽</div>
+      <ul class="gfx">
+        <li><b>핵심: 동일 챗 화면 분할</b> — 왼쪽 얕은 질문 / 오른쪽 깊은 질문 (실제 타이핑 자막 애니메이션)</li>
+        <li>답변 품질 대비: 왼쪽 <b>흐릿·회색</b>, 오른쪽 <b>또렷·앰버 하이라이트</b></li>
+        <li>결론 자막: <b>"질문력 = 사고력의 결과물"</b></li>
+      </ul>
+    </div>
+    <div class="grid2">
+      <div class="block">
+        <div class="blab vid">🎬 AI 영상 프롬프트 (Sora) <button class="copy" data-t="v3">복사</button></div>
+        <pre class="pmt" id="v3">16:9, 6s. Split-screen of two identical dark desks with the same glowing chat interface; the left side stays dim and grey with a flat shallow glow, the right side gradually lights up with warm amber and mint as a sharper idea forms, light spreading across the keyboard. Gentle camera drift. Cinematic charcoal-teal, shallow focus, film grain. No robots, no text, no logos. Smooth realistic motion.</pre>
+      </div>
+      <div class="block">
+        <div class="blab img">🖼 AI 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="i3">복사</button></div>
+        <pre class="pmt" id="i3">16:9 cinematic, a single glowing amber question mark made of light floating above a laptop on a dark desk, faceless hand holding a pen mid-thought, drifting light particles, contemplative mood, deep charcoal palette with amber accent, shallow depth of field, film grain. No face details, no robots, no text, no logos.</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ AI는 도구 -->
+  <div class="ch">
+    <div class="chead"><span class="pill body">BODY</span><h3>④ 본문 3 · 무엇을 해야 하는가 — AI는 도구</h3><span class="tc">5:20–7:00</span></div>
+    <div class="intent">"불안 = 방향 없음" → 준비 2가지(①AI 배우기 ②대체 안 될 능력) → "기술은 바뀐다 ↔ 사고력·문해력·질문력은 남는다" → "문제 먼저 → 질문 먼저 → AI" 순서 → <b>망치·집</b> 비유. <b>감정: 안도·방향 제시.</b></div>
+
+    <div class="block">
+      <div class="blab stk">🎞 스톡·B-roll 검색 키워드 <button class="copy" data-t="k4">복사</button></div>
+      <div class="kw" id="k4">
+        <span>안갯속 길찾기 <span class="en">walking through fog finding direction</span></span>
+        <span>나침반·지도 <span class="en">compass map direction hand</span></span>
+        <span>망치로 집 짓기 <span class="en">hammer building house construction hands</span></span>
+        <span>도구 내려놓고 설계 <span class="en">architect blueprint planning before build</span></span>
+        <span>흐르는 기술 vs 단단한 토대 <span class="en">shifting sand vs solid rock foundation</span></span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="blab gfx">✦ 자막·모션그래픽</div>
+      <ul class="gfx">
+        <li>자막: <b>"불안 = 위험이 아니라 방향이 없는 것"</b></li>
+        <li><b>준비 2가지 카드</b>: ① AI 배우기 ② 대체 안 될 능력 키우기</li>
+        <li>대비 모션: <b>"기술 → 바뀐다(사라짐)"</b> ↔ <b>"사고력·문해력·질문력 → 남는다(고정)"</b></li>
+        <li>순서 도식: <b>문제 발견 → 질문 → AI</b> (역방향 화살표 ❌ 표시로 "거꾸로 하지 마라")</li>
+        <li>비유 자막: <b>"망치가 집을 짓지 않는다. 사람이 짓는다."</b></li>
+      </ul>
+    </div>
+    <div class="grid2">
+      <div class="block">
+        <div class="blab vid">🎬 AI 영상 프롬프트 (Sora) <button class="copy" data-t="v4">복사</button></div>
+        <pre class="pmt" id="v4">16:9, 6s. A faceless person walking through soft fog that gradually clears as a warm amber path of light appears ahead, giving a sense of regained direction and calm. Then a brief cut to faceless hands setting down a hammer to study a simple blueprint first. Cinematic charcoal-teal with amber, volumetric haze, shallow focus, film grain. No robots, no text, no logos. Subtle realistic motion.</pre>
+      </div>
+      <div class="block">
+        <div class="blab img">🖼 AI 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="i4">복사</button></div>
+        <pre class="pmt" id="i4">16:9 cinematic editorial image, faceless hands holding a hammer beside a half-built wooden frame, but the focus is on a glowing blueprint on the table, symbolizing that the tool does not build — the thinker does. Warm amber work-light, deep charcoal surroundings, mint accent, shallow depth of field, film grain. No face, no robots, no text, no logos.</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ 문해력 -->
+  <div class="ch">
+    <div class="chead"><span class="pill body">BODY</span><h3>⑤ 본문 4 · 사고력은 문해력에서</h3><span class="tc">7:00–8:00</span></div>
+    <div class="intent">문해력 재정의 4연 — <b>이해 · 해석 · 연결 · 의미 발견</b>. "AI는 정보/답을 준다 — 사람은 의미/질문을 만든다" 대구. <b>감정: 깊이로 한 칸 내려감.</b></div>
+
+    <div class="block">
+      <div class="blab stk">🎞 스톡·B-roll 검색 키워드 <button class="copy" data-t="k5">복사</button></div>
+      <div class="kw" id="k5">
+        <span>책 읽으며 밑줄 <span class="en">reading book underlining thoughtful</span></span>
+        <span>정보 연결 노드 <span class="en">connecting dots network ideas abstract</span></span>
+        <span>흩어진 글자 → 의미 <span class="en">scattered letters forming meaning</span></span>
+        <span>생각에 잠긴 옆모습 <span class="en">silhouette deep in thought window light</span></span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="blab gfx">✦ 자막·모션그래픽</div>
+      <ul class="gfx">
+        <li><b>문해력 재정의 4연 타이포</b>: 이해 → 해석 → 연결 → 의미 (한 단어씩 쌓임)</li>
+        <li>대구 강조: <b>"AI는 정보를 / 사람은 의미를"</b> · <b>"AI는 답을 / 사람은 질문을"</b></li>
+      </ul>
+    </div>
+    <div class="grid2">
+      <div class="block">
+        <div class="blab vid">🎬 AI 영상 프롬프트 (Sora) <button class="copy" data-t="v5">복사</button></div>
+        <pre class="pmt" id="v5">16:9, 6s. Scattered faint glyphs and fragments of light slowly drift together over an open book and weave into a single coherent warm amber thread of meaning rising upward. Faceless hand resting on the page. Contemplative, hopeful. Deep charcoal-teal, mint + amber accents, volumetric light, shallow focus, film grain. No robots, no text, no logos. Smooth realistic motion.</pre>
+      </div>
+      <div class="block">
+        <div class="blab img">🖼 AI 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="i5">복사</button></div>
+        <pre class="pmt" id="i5">16:9 cinematic, an open book on a dark desk with luminous mint-green and amber threads of light rising from the pages and weaving into a delicate network of connected ideas above it, symbolizing comprehension turning information into meaning, warm rim light, deep charcoal background, shallow depth of field, film grain. Faceless, no robots, no text, no logos.</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ 독서 -->
+  <div class="ch">
+    <div class="chead"><span class="pill body">BODY</span><h3>⑥ 본문 5 · 그래서 독서가 중요하다</h3><span class="tc">8:00–9:10</span></div>
+    <div class="intent">독서 재정의 3연(타인 생각·다른 관점·내 한계) → 효과 3연(질문↑·생각↑·관점↑). 채널 북극성 직결. readtree "연결·의미" 메타포 정신적 떡밥 1회. <b>감정: 확신·따뜻함.</b></div>
+
+    <div class="block">
+      <div class="blab stk">🎞 스톡·B-roll 검색 키워드 <button class="copy" data-t="k6">복사</button></div>
+      <div class="kw" id="k6">
+        <span>창가에서 책 읽기 <span class="en">reading book by window warm light</span></span>
+        <span>책장 넘기는 손 <span class="en">turning pages close up slow</span></span>
+        <span>여러 관점·시선 <span class="en">multiple perspectives lenses abstract</span></span>
+        <span>지식이 쌓이는 나무 <span class="en">growing tree of knowledge light</span></span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="blab gfx">✦ 자막·모션그래픽</div>
+      <ul class="gfx">
+        <li><b>독서 재정의 3연</b>: 타인의 생각 · 다른 관점 · 내 생각의 한계</li>
+        <li><b>효과 3연 게이지 상승</b>: 질문 ↑ · 생각 ↑ · 관점 ↑</li>
+        <li>북극성 자막(시그니처): <b>"가장 강력한 경쟁력은 독서로 만든 사고력"</b></li>
+        <li>(정신적 떡밥) 흩어진 점이 <b>나무·뿌리로 연결</b>되는 모션 = readtree 메타포</li>
+      </ul>
+    </div>
+    <div class="grid2">
+      <div class="block">
+        <div class="blab vid">🎬 AI 영상 프롬프트 (Sora) <button class="copy" data-t="v6">복사</button></div>
+        <pre class="pmt" id="v6">16:9, 6s. Warm light from a window falls on a faceless person reading; as pages turn, soft amber and mint particles of light rise and connect into the branches of a growing tree of ideas above them. Calm, hopeful, contemplative. Deep charcoal-teal palette, volumetric warm light, shallow focus, film grain. No robots, no text, no logos. Subtle realistic motion.</pre>
+      </div>
+      <div class="block">
+        <div class="blab img">🖼 AI 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="i6">복사</button></div>
+        <pre class="pmt" id="i6">16:9 cinematic editorial image, a faceless person reading by a window in warm amber light, scattered points of mint and amber light rising from the open book and connecting into the branches and roots of a luminous tree of knowledge, symbolizing reading building connected meaning, deep charcoal background, shallow depth of field, film grain. No face, no robots, no text, no logos.</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑦ 환경 STORY -->
+  <div class="ch story">
+    <div class="chead"><span class="pill story">STORY</span><h3>⑦ 본문 6 · 왜 독서는 실패하는가 (환경)</h3><span class="tc">9:10–10:20</span></div>
+    <div class="intent">"중요한 걸 몰라서가 아니다 — <b>환경이 없어서</b>." 산다→며칠→멈춤 / 혼자 읽고·결심·포기 3연 / "습관은 의지보다 환경". 키콘텐츠(독서 환경·이북리더기)로 가는 다리 — <b>상품 직접 노출 0.</b> <b>감정: 공감·자기인정.</b></div>
+
+    <div class="block">
+      <div class="blab stk">🎞 스톡·B-roll 검색 키워드 <button class="copy" data-t="k7">복사</button></div>
+      <div class="kw" id="k7">
+        <span>안 펼친 책 쌓임 <span class="en">unread books stacked dust</span></span>
+        <span>책갈피 멈춘 책 <span class="en">bookmark stuck early pages</span></span>
+        <span>혼자 포기하는 결심 <span class="en">person giving up alone slumped</span></span>
+        <span>운동기구 방치 <span class="en">abandoned gym equipment dust</span></span>
+        <span>핸드폰에 밀린 책 <span class="en">book set aside picking up phone</span></span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="blab gfx">✦ 자막·모션그래픽</div>
+      <ul class="gfx">
+        <li><b>3컷 몽타주</b>: 산다 → 며칠 읽는다 → 멈춘다 (날짜 카운터 빠르게)</li>
+        <li><b>혼자 3연</b>: 혼자 읽고 · 혼자 결심하고 · 혼자 포기한다</li>
+        <li>핵심 자막: <b>"습관은 의지보다 환경"</b> + 묶음 <b>운동 · 공부 · 독서</b></li>
+        <li>(다리) 마지막 컷 살짝 톤 전환 — "혼자가 아니라면?" 여운 (상품 노출 X)</li>
+      </ul>
+    </div>
+    <div class="grid2">
+      <div class="block">
+        <div class="blab vid">🎬 AI 영상 프롬프트 (Sora) <button class="copy" data-t="v7">복사</button></div>
+        <pre class="pmt" id="v7">16:9, 6s. A book opened with enthusiasm, then a quick montage of it being set aside and gathering a thin layer of dust on a nightstand as a phone glow takes over, conveying a lonely abandoned habit (melancholic, not bleak). Then the light softens warmly hinting things could be different. Deep charcoal-teal, amber accent, shallow focus, film grain. No robots, no text, no logos. Realistic subtle motion.</pre>
+      </div>
+      <div class="block">
+        <div class="blab img">🖼 AI 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="i7">복사</button></div>
+        <pre class="pmt" id="i7">16:9 cinematic editorial photo, a single book with a bookmark stuck near the very first pages, resting alone on a nightstand in cool dim light with a faint layer of dust, conveying a reading habit started alone and quietly abandoned, deep charcoal palette with a small distant warm amber light suggesting hope, shallow depth of field, film grain. No people, no robots, no text, no logos.</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑧ CTA -->
+  <div class="ch cta">
+    <div class="chead"><span class="pill cta">CTA</span><h3>⑧ 결론 · 결 3그룹 호명 · CTA</h3><span class="tc">10:20–END</span></div>
+    <div class="intent">결 3그룹 호명(지시받는 ①/사용하는 ②/새 가치 ③) → 수미상관("생각 멈춘 사람" → "오늘의 독서 습관") → <b>러다이트(기계 부숨) ↔ 부르주아(변화를 등에 업음)</b> → 구독·좋아요 → 사인오프 <b>"AI는 답을, 읽는 사람은 질문을."</b> <b>감정: 고양·초대.</b></div>
+
+    <div class="block">
+      <div class="blab stk">🎞 스톡·B-roll 검색 키워드 <button class="copy" data-t="k8">복사</button></div>
+      <div class="kw" id="k8">
+        <span>새벽 책 펴는 손 <span class="en">opening book at dawn morning light</span></span>
+        <span>앞으로 걷는 사람 <span class="en">person walking forward into light hopeful</span></span>
+        <span>산업혁명 기계 자료화면 <span class="en">industrial revolution machines archival</span></span>
+        <span>변화를 맞는 군중 <span class="en">crowd facing change new era</span></span>
+        <span>노트북 옆 책 <span class="en">book beside laptop warm desk</span></span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="blab gfx">✦ 자막·모션그래픽</div>
+      <ul class="gfx">
+        <li><b>결 3그룹 호명 카드</b> 재등장: 지시받는 ① / 사용하는 ② / 새 가치 ③ → "어디에 설 것인가"</li>
+        <li>수미상관 콜백: 후크 자막 <b>"생각 멈춘 사람"</b>을 흐릿하게 재노출 → <b>"오늘의 독서 습관"</b>으로 전환</li>
+        <li><b>러다이트 ↔ 부르주아</b> 대비 자막(러다이트는 "변화가 두려워 기계 부수던"으로 1박자 설명)</li>
+        <li>구독·좋아요 그래픽 (상품 노출 0)</li>
+        <li><b>사인오프 타이틀</b>: "AI는 답을, 읽는 사람은 질문을." (마지막 정지컷)</li>
+      </ul>
+    </div>
+    <div class="grid2">
+      <div class="block">
+        <div class="blab vid">🎬 AI 영상 프롬프트 (Sora) <button class="copy" data-t="v8">복사</button></div>
+        <pre class="pmt" id="v8">16:9, 6s. A faceless person opening a book at dawn by a window, then standing and walking forward into a widening warm amber light, conveying choosing to ride the wave of change rather than fearing it. Hopeful, elevating. Deep charcoal-teal turning warmer, volumetric morning light, shallow focus, film grain. No robots, no text, no logos. Smooth cinematic motion.</pre>
+      </div>
+      <div class="block">
+        <div class="blab img">🖼 AI 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="i8">복사</button></div>
+        <pre class="pmt" id="i8">16:9 cinematic editorial image, a faceless person seen from behind opening a book as warm amber dawn light pours through a window, a laptop resting closed beside the book, conveying calm confidence facing a new era, deep charcoal-to-amber gradient, mint accent, shallow depth of field, film grain, generous negative space for an end-card sign-off. No face, no robots, no text, no logos.</pre>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="foot">
+  편집 자산 가이드 · 005 AI 시대 살아남는 · 배열 순서는 <a href="../../10_system/guides/편집기획_기준.md">편집기획 기준(재미 내림차순)</a> 우선 · 진정성 가드: AI 적대·도태 공포·로봇/디스토피아 이미지 금지 · 상품 직접 노출 0회.<br>
+  스톡 소스 예: Pexels · Pixabay · Mixkit (무료) / AI 영상: Sora · Runway / AI 이미지: ChatGPT(GPT-4o) · 미드저니. 가로 16:9 기준.
+</div>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-t');
+      var el = document.getElementById(id);
+      var text = '';
+      if(!el){ return; }
+      if(el.classList.contains('kw')){
+        // 키워드 블록: 한국어 라벨 제외, 줄바꿈으로
+        text = Array.from(el.querySelectorAll('span')).map(function(s){
+          var en = s.querySelector('.en');
+          return en ? en.textContent.trim() : s.textContent.trim();
+        }).join('\n');
+      } else {
+        text = el.textContent.trim();
+      }
+      navigator.clipboard.writeText(text).then(function(){
+        var old = btn.textContent;
+        btn.textContent = '✓ 복사됨'; btn.classList.add('ok');
+        setTimeout(function(){ btn.textContent = old; btn.classList.remove('ok'); }, 1400);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

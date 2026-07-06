@@ -1,0 +1,764 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>본편 자산 프롬프트 팩 — 이미지·영상 생성 (EP005)</title>
+<style>
+:root{--bg:#0e1116;--card:#161b22;--card2:#1c2230;--line:#2a3140;--ink:#e8edf4;--mut:#9aa6b6;--mut2:#6b7785;--pain:#ef476f;--growth:#06d6a0;--value:#ffd166;--info:#5cc4e0;--rec:#b794f6;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Pretendard",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;padding:0 0 70px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+a{color:var(--info)}
+.nav{display:flex;flex-wrap:wrap;gap:8px;padding:12px 0;position:sticky;top:0;background:rgba(14,17,22,.92);backdrop-filter:blur(8px);z-index:30;border-bottom:1px solid var(--line)}
+.nav a{font-size:12.5px;font-weight:700;text-decoration:none;color:var(--mut);border:1px solid var(--line);background:var(--card2);border-radius:8px;padding:7px 11px}
+header{background:linear-gradient(160deg,#11161f,#0e1116 72%);border-bottom:1px solid var(--line);padding:34px 0 24px;margin-bottom:8px}
+.eyebrow{font-size:12.5px;letter-spacing:.16em;color:var(--value);font-weight:800;text-transform:uppercase;margin-bottom:10px}
+h1{font-size:clamp(22px,3.6vw,30px);font-weight:900;letter-spacing:-.02em;margin-bottom:10px}
+h1 b{color:var(--value)}
+.sub{color:var(--mut);font-size:14px;max-width:820px}
+.sub b{color:var(--ink)}
+section{padding:24px 0;border-bottom:1px solid var(--line)}
+h2{font-size:19px;font-weight:900;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+h2 .n{color:var(--value)}
+.lead{color:var(--mut);font-size:13.5px;margin-bottom:14px}
+.sg{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px;color:#cfd5df;line-height:1.8}
+.sg b{color:#fff} .sg .good{color:var(--growth)} .sg .bad{color:var(--pain)}
+.asset{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px;border-left:4px solid var(--info)}
+.asset.hook{border-left-color:var(--pain)} .asset.cta{border-left-color:var(--growth)}
+.ahead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.ahead .id{font-size:13px;font-weight:900;color:var(--value);background:rgba(255,209,102,.12);padding:3px 9px;border-radius:6px}
+.ahead h3{font-size:16px;font-weight:800;color:#fff}
+.ahead .tc{font-size:12px;font-weight:700;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+.role{font-size:13px;color:var(--mut);margin-bottom:12px} .role b{color:var(--ink)}
+.grid{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:start}
+@media(max-width:680px){.grid{grid-template-columns:1fr}}
+.thumb{aspect-ratio:16/9;border-radius:10px;border:1px solid var(--line);background:linear-gradient(160deg,#10243a,#080d14);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:11px;color:var(--mut);padding:8px;font-weight:700}
+.pblock{margin-bottom:10px}
+.plab{font-size:11px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.plab.img{color:var(--info)} .plab.vid{color:var(--rec)}
+.copy{margin-left:auto;font-size:11px;font-weight:700;color:var(--mut);background:var(--card2);border:1px solid var(--line);border-radius:6px;padding:3px 9px;cursor:pointer}
+.copy:hover{color:#fff;border-color:#3a4150} .copy.done{color:var(--growth);border-color:rgba(6,214,160,.4)}
+pre{background:#0a0d12;border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-size:12.5px;line-height:1.7;color:#cdd4de;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.kr{font-size:12px;color:var(--mut2);margin-top:5px}
+footer{padding:22px 0 0;color:var(--mut2);font-size:12.5px}
+</style></head><body>
+<div class="nav wrap">
+  <a href="../../README.md">🏠 영상 진입점</a>
+  <a href="README.md">📦 자산 맵(README)</a>
+  <a href="../../쇼츠_자산_프롬프트.html">🎬 쇼츠 자산</a>
+  <a href="../../통합_AI시대살아남는.html">📦 본편 통합</a>
+</div>
+<header><div class="wrap">
+  <div class="eyebrow">BON-PYEON ASSETS · EP005 · ChatGPT/Sora 생성용</div>
+  <h1>본편 자산 프롬프트 팩 — <b>이미지 52 · 영상 52</b></h1>
+  <p class="sub">본편 대본(도입부·본문1~6·결론)을 <b>52컷</b> 가로 16:9로 매핑한 생성 프롬프트. 각 카드의 복사 버튼 → ChatGPT(이미지)·Sora(영상)에 붙여넣기. 페이스리스·노 로봇/공포 — 채널 진정성 가드 준수.</p>
+</div></header>
+<div class="wrap">
+  <section>
+    <h2><span class="n">●</span> 공통 스타일 (일관성 고정)</h2>
+    <p class="lead">52컷을 같은 ChatGPT 대화창에서 순서대로 생성하면 톤이 통일됩니다. 모든 이미지 프롬프트 끝에 아래 스타일 접미가 포함되어 있습니다.</p>
+    <div class="sg">
+      <b>스타일 접미(공통):</b> horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal and teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.<br><br>
+      <span class="good">✓ 권장:</span> 손·뒷모습·실루엣, 차분한 긴장, 빛 입자, 책·노트북·창가·도시 / <span class="bad">✗ 금지:</span> 사람 정면 얼굴, 로봇·해골·위협적 AI, 폭발/충격, 화면 안 텍스트(자막은 편집).<br>
+      <b>출력 팁:</b> "16:9 가로로, 텍스트 없이" 명시 · 한 번에 1장 · 마음에 들면 "같은 스타일로 다음 컷".
+    </div>
+  </section>
+  <section>
+    <h2><span class="n">①</span> 이미지·영상 자산 (구간별 52컷)</h2>
+    <p class="lead">파일명·강조색은 <a href="README.md">README 자산 맵</a> 기준. 영상은 같은 번호로 <code>영상/B01_video.mp4</code> 형태 저장 권장.</p>
+      <div class="asset hook" id="card_B01">
+        <div class="ahead"><span class="id">B01</span><h3>밤 도시·창가 뒷모습</h3><span class="tc">도입부 후크</span></div>
+        <div class="role"><b>용도:</b> ‘일자리 사라진다’ 불안 첫 프레임 · <b>파일:</b> <code>B01_도입부_밤도시_창가뒷모습.png</code></div>
+        <div class="grid">
+          <div class="thumb">B01<br>16:9<br>도입부 후크</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B01_img">복사</button></div>
+              <pre id="p_B01_img">Wide over-the-shoulder view of a faceless office worker at night by a large window over a dim city skyline, only a laptop glowing soft blue, quiet tension, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 밤·창가·도시 야경 뒷모습 + 노트북</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B01_vid">복사</button></div>
+              <pre id="p_B01_vid">16:9 horizontal, 5s. Slow push-in toward the figure at the night window, soft blue glow flickering, dust drifting. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B02">
+        <div class="ahead"><span class="id">B02</span><h3>생각 멈춤·스크롤하는 손</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> 편리함의 함정 · <b>파일:</b> <code>B02_도입부_생각멈춤_스크롤하는손.png</code></div>
+        <div class="grid">
+          <div class="thumb">B02<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B02_img">복사</button></div>
+              <pre id="p_B02_img">Close-up of a faceless hand lazily scrolling a glowing minimal chat screen in a dim room, background blurred and fading, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 화면 스크롤하는 손, 배경 흐림</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B02_vid">복사</button></div>
+              <pre id="p_B02_vid">16:9 horizontal, 5s. Hand slowly scrolls, background blurring out, light dimming. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B03">
+        <div class="ahead"><span class="id">B03</span><h3>AX 작업공간·멀티모니터</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> AX 담당자 권위 · <b>파일:</b> <code>B03_도입부_AX작업공간_멀티모니터.png</code></div>
+        <div class="grid">
+          <div class="thumb">B03<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B03_img">복사</button></div>
+              <pre id="p_B03_img">Over-the-shoulder view of a faceless professional at a calm multi-monitor desk at night, abstract AI dashboards glowing softly, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 여러 AI 대시보드 멀티모니터</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B03_vid">복사</button></div>
+              <pre id="p_B03_vid">16:9 horizontal, 5s. Gentle drift across the glowing multi-monitor desk. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B04">
+        <div class="ahead"><span class="id">B04</span><h3>불안 마케팅·네온군중 vs 한 사람</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> 공포 마케팅 비판 · <b>파일:</b> <code>B04_도입부_불안마케팅_네온군중vs한사람.png</code></div>
+        <div class="grid">
+          <div class="thumb">B04<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B04_img">복사</button></div>
+              <pre id="p_B04_img">Conceptual split: a chaotic crowd lit by garish neon signs vs a single calm faceless figure apart in warm light, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 네온 군중 ↔ 차분한 한 사람</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B04_vid">복사</button></div>
+              <pre id="p_B04_vid">16:9 horizontal, 6s. Neon crowd flickers while the calm silhouette stays still. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B05">
+        <div class="ahead"><span class="id">B05</span><h3>변하지 않는 단 하나·등대빛</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> 끝까지 남는 사고력 · <b>파일:</b> <code>B05_도입부_변하지않는하나_안개속등대빛.png</code></div>
+        <div class="grid">
+          <div class="thumb">B05<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B05_img">복사</button></div>
+              <pre id="p_B05_img">A lone lighthouse beam cutting through thick fog over a stormy dark sea, unwavering warm amber light, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 안개·폭풍 속 등대 빛</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B05_vid">복사</button></div>
+              <pre id="p_B05_vid">16:9 horizontal, 6s. Steady beam sweeps slowly through drifting fog. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B06">
+        <div class="ahead"><span class="id">B06</span><h3>도구론·망치와 설계도</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> ‘AI는 도구’ · <b>파일:</b> <code>B06_도입부_도구론_망치와설계도.png</code></div>
+        <div class="grid">
+          <div class="thumb">B06<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B06_img">복사</button></div>
+              <pre id="p_B06_img">Close-up of faceless hands holding a hammer over an architectural blueprint, a pen nearby, warm focused light, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 손에 든 망치·설계도</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B06_vid">복사</button></div>
+              <pre id="p_B06_vid">16:9 horizontal, 5s. Hands rest a hammer on a blueprint, warm light intensifying. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset hook" id="card_B07">
+        <div class="ahead"><span class="id">B07</span><h3>지시받는 인간·줄지은 실루엣</h3><span class="tc">본문1</span></div>
+        <div class="role"><b>용도:</b> ①지시받는 인간 · <b>파일:</b> <code>B07_본문1_지시받는인간_줄지은실루엣.png</code></div>
+        <div class="grid">
+          <div class="thumb">B07<br>16:9<br>본문1</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B07_img">복사</button></div>
+              <pre id="p_B07_img">A row of faceless silhouettes walking in a line, pulled by faint glowing threads from above, passive, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 빛 줄에 이끌린 실루엣들</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B07_vid">복사</button></div>
+              <pre id="p_B07_vid">16:9 horizontal, 5s. Silhouettes drift forward pulled by threads. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B08">
+        <div class="ahead"><span class="id">B08</span><h3>사용하는 인간·같은 책상 군중</h3><span class="tc">본문1</span></div>
+        <div class="role"><b>용도:</b> ②사용하는 다수 · <b>파일:</b> <code>B08_본문1_사용하는인간_같은책상군중.png</code></div>
+        <div class="grid">
+          <div class="thumb">B08<br>16:9<br>본문1</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B08_img">복사</button></div>
+              <pre id="p_B08_img">An endless grid of identical desks each with the same glowing laptop receding into darkness, uniform, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 끝없이 늘어선 같은 책상</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B08_vid">복사</button></div>
+              <pre id="p_B08_vid">16:9 horizontal, 5s. Slow glide over endless identical desks. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B09">
+        <div class="ahead"><span class="id">B09</span><h3>가치 만드는 인간·홀로 빛</h3><span class="tc">본문1</span></div>
+        <div class="role"><b>용도:</b> ③가치를 만드는 사람 · <b>파일:</b> <code>B09_본문1_가치만드는인간_홀로빛피움.png</code></div>
+        <div class="grid">
+          <div class="thumb">B09<br>16:9<br>본문1</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B09_img">복사</button></div>
+              <pre id="p_B09_img">A single faceless figure at a desk in darkness, warm amber-mint light blossoming from hands and notebook, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 어둠 속 빛 피우는 한 사람</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B09_vid">복사</button></div>
+              <pre id="p_B09_vid">16:9 horizontal, 6s. Light blooms outward from the figure&#x27;s hands. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B10">
+        <div class="ahead"><span class="id">B10</span><h3>같은 도구 다른 결과·듀얼 책상</h3><span class="tc">본문2</span></div>
+        <div class="role"><b>용도:</b> 챗GPT 같아도 결과 갈림 · <b>파일:</b> <code>B10_본문2_같은도구다른결과_듀얼책상.png</code></div>
+        <div class="grid">
+          <div class="thumb">B10<br>16:9<br>본문2</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B10_img">복사</button></div>
+              <pre id="p_B10_img">Two identical desks side by side, left dim grey and lifeless, right glowing warm amber and mint, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 좌 회색 ↔ 우 따뜻한 빛</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B10_vid">복사</button></div>
+              <pre id="p_B10_vid">16:9 horizontal, 5s. Right desk gradually lights up while left stays grey. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B11">
+        <div class="ahead"><span class="id">B11</span><h3>질문의 깊이·물속 물음표</h3><span class="tc">본문2</span></div>
+        <div class="role"><b>용도:</b> 질문 깊이의 차이 · <b>파일:</b> <code>B11_본문2_질문의깊이_물속물음표.png</code></div>
+        <div class="grid">
+          <div class="thumb">B11<br>16:9<br>본문2</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B11_img">복사</button></div>
+              <pre id="p_B11_img">A glowing amber question mark deep beneath dark water with light rays descending, contemplative, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 깊은 물 속 빛나는 물음표</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B11_vid">복사</button></div>
+              <pre id="p_B11_vid">16:9 horizontal, 6s. Question mark forms underwater as rays descend. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset hook" id="card_B12">
+        <div class="ahead"><span class="id">B12</span><h3>방향 없음·안개 갈림길</h3><span class="tc">본문3</span></div>
+        <div class="role"><b>용도:</b> 방향 없는 불안 · <b>파일:</b> <code>B12_본문3_방향없음_안개갈림길.png</code></div>
+        <div class="grid">
+          <div class="thumb">B12<br>16:9<br>본문3</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B12_img">복사</button></div>
+              <pre id="p_B12_img">A lone faceless silhouette before a forking path vanishing into thick fog at dawn, faint warm glow ahead, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 안개 낀 갈림길 앞 실루엣</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B12_vid">복사</button></div>
+              <pre id="p_B12_vid">16:9 horizontal, 5s. Mist drifts past the figure before the foggy fork. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B13">
+        <div class="ahead"><span class="id">B13</span><h3>문제 발견·돋보기 빛</h3><span class="tc">본문3</span></div>
+        <div class="role"><b>용도:</b> 문제를 먼저 발견 · <b>파일:</b> <code>B13_본문3_문제발견_돋보기빛.png</code></div>
+        <div class="grid">
+          <div class="thumb">B13<br>16:9<br>본문3</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B13_img">복사</button></div>
+              <pre id="p_B13_img">A faceless hand holding a magnifying glass casting a warm beam revealing a glowing crack on a dark surface, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 돋보기 빛으로 균열 비춤</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B13_vid">복사</button></div>
+              <pre id="p_B13_vid">16:9 horizontal, 5s. Beam sweeps across, revealing a glowing detail. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B14">
+        <div class="ahead"><span class="id">B14</span><h3>망치가 아니다·집 골조</h3><span class="tc">본문3</span></div>
+        <div class="role"><b>용도:</b> 사람이 짓는다 · <b>파일:</b> <code>B14_본문3_망치가아니다_설계도와집골조.png</code></div>
+        <div class="grid">
+          <div class="thumb">B14<br>16:9<br>본문3</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B14_img">복사</button></div>
+              <pre id="p_B14_img">A wooden house frame under construction at golden dusk with a blueprint and hammer in foreground, hopeful, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 설계도·망치와 짓는 집 골조</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B14_vid">복사</button></div>
+              <pre id="p_B14_vid">16:9 horizontal, 6s. Dusk light moves across the half-built frame. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B15">
+        <div class="ahead"><span class="id">B15</span><h3>문해력·정보 점 연결</h3><span class="tc">본문4</span></div>
+        <div class="role"><b>용도:</b> 정보를 의미로 · <b>파일:</b> <code>B15_본문4_문해력_정보점연결네트워크.png</code></div>
+        <div class="grid">
+          <div class="thumb">B15<br>16:9<br>본문4</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B15_img">복사</button></div>
+              <pre id="p_B15_img">Scattered points of cool light connecting into a delicate glowing network of meaning above a dark desk, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 점이 이어지는 빛 네트워크</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B15_vid">복사</button></div>
+              <pre id="p_B15_vid">16:9 horizontal, 6s. Points draw threads to each other forming a network. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B16">
+        <div class="ahead"><span class="id">B16</span><h3>독서·책에서 피는 별자리</h3><span class="tc">본문5</span></div>
+        <div class="role"><b>용도:</b> 읽어야 한다 (코어) · <b>파일:</b> <code>B16_본문5_독서_책에서피는별자리.png</code></div>
+        <div class="grid">
+          <div class="thumb">B16<br>16:9<br>본문5</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B16_img">복사</button></div>
+              <pre id="p_B16_img">An open book glowing softly, luminous mint-amber threads rising from the pages into a constellation of ideas, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 책에서 피는 생각 별자리</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B16_vid">복사</button></div>
+              <pre id="p_B16_vid">16:9 horizontal, 6s. Threads rise and weave into a constellation. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B17">
+        <div class="ahead"><span class="id">B17</span><h3>다른 관점·책에서 열리는 길</h3><span class="tc">본문5</span></div>
+        <div class="role"><b>용도:</b> 타인의 생각 경험 · <b>파일:</b> <code>B17_본문5_다른관점_책에서열리는길.png</code></div>
+        <div class="grid">
+          <div class="thumb">B17<br>16:9<br>본문5</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B17_img">복사</button></div>
+              <pre id="p_B17_img">An open book whose pages transform into diverging glowing paths and doorways of soft light, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 책 페이지가 여러 길·문으로</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B17_vid">복사</button></div>
+              <pre id="p_B17_vid">16:9 horizontal, 6s. Pages unfold into diverging glowing paths. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset hook" id="card_B18">
+        <div class="ahead"><span class="id">B18</span><h3>독서 실패·먼지 쌓인 책탑</h3><span class="tc">본문6</span></div>
+        <div class="role"><b>용도:</b> 의지 아닌 환경 · <b>파일:</b> <code>B18_본문6_독서실패_먼지쌓인책탑.png</code></div>
+        <div class="grid">
+          <div class="thumb">B18<br>16:9<br>본문6</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B18_img">복사</button></div>
+              <pre id="p_B18_img">A small stack of dusty books in cold dim light, a bookmark stuck partway, lonely abandoned feel, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 먼지·멈춘 북마크, 혼자</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B18_vid">복사</button></div>
+              <pre id="p_B18_vid">16:9 horizontal, 5s. Cold light on dusty books, faint dust drifting. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B19">
+        <div class="ahead"><span class="id">B19</span><h3>환경의 힘·함께 읽는 빛</h3><span class="tc">본문6</span></div>
+        <div class="role"><b>용도:</b> 함께 읽기 · <b>파일:</b> <code>B19_본문6_환경의힘_함께읽는빛.png</code></div>
+        <div class="grid">
+          <div class="thumb">B19<br>16:9<br>본문6</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B19_img">복사</button></div>
+              <pre id="p_B19_img">A cozy night reading space with several faceless silhouettes reading together, soft amber lamps, connecting light, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 따뜻한 함께 읽는 공간</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B19_vid">복사</button></div>
+              <pre id="p_B19_vid">16:9 horizontal, 6s. Warm lamps glow, faint strands connect readers. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B20">
+        <div class="ahead"><span class="id">B20</span><h3>가치사슬·빛의 계단</h3><span class="tc">결론</span></div>
+        <div class="role"><b>용도:</b> 독서→…→사고력 · <b>파일:</b> <code>B20_결론_가치사슬_빛의계단.png</code></div>
+        <div class="grid">
+          <div class="thumb">B20<br>16:9<br>결론</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B20_img">복사</button></div>
+              <pre id="p_B20_img">An ascending staircase of glowing light rising from an open book toward a bright point, four warm steps, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 책에서 솟는 빛의 계단</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B20_vid">복사</button></div>
+              <pre id="p_B20_vid">16:9 horizontal, 6s. Camera rises along the glowing staircase. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B21">
+        <div class="ahead"><span class="id">B21</span><h3>러다이트→부르주아·빛의 다리</h3><span class="tc">결론</span></div>
+        <div class="role"><b>용도:</b> 변화를 건너다 · <b>파일:</b> <code>B21_결론_러다이트에서부르주아_빛의다리.png</code></div>
+        <div class="grid">
+          <div class="thumb">B21<br>16:9<br>결론</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B21_img">복사</button></div>
+              <pre id="p_B21_img">A faceless silhouette crossing a glowing bridge of light over a dark river toward a warm sunrise, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 빛의 다리로 강 건너는 실루엣</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B21_vid">복사</button></div>
+              <pre id="p_B21_vid">16:9 horizontal, 6s. Silhouette walks the light bridge toward sunrise. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B22">
+        <div class="ahead"><span class="id">B22</span><h3>사인오프·노을 독서 실루엣</h3><span class="tc">결론 CTA</span></div>
+        <div class="role"><b>용도:</b> 마무리·자막 여백 · <b>파일:</b> <code>B22_결론_사인오프_노을독서실루엣.png</code></div>
+        <div class="grid">
+          <div class="thumb">B22<br>16:9<br>결론 CTA</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B22_img">복사</button></div>
+              <pre id="p_B22_img">A calm silhouette reading by a large window at dusk, soft warm backlight, faint bg glow, empty space at top, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 창가 노을 독서, 상단 여백</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B22_vid">복사</button></div>
+              <pre id="p_B22_vid">16:9 horizontal, 5s. Warm light shifts gently, bg glow breathing. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B23">
+        <div class="ahead"><span class="id">B23</span><h3>능력 위축·손가락 사이 빛</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> 계산·검색·글·고민 덜 함 · <b>파일:</b> <code>B23_도입부_능력위축_손가락사이빛.png</code></div>
+        <div class="grid">
+          <div class="thumb">B23<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B23_img">복사</button></div>
+              <pre id="p_B23_img">Close-up of an open faceless hand with tiny particles of warm light slipping away between the fingers, melancholy, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 손가락 사이로 빠지는 빛</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B23_vid">복사</button></div>
+              <pre id="p_B23_vid">16:9 horizontal, 5s. Light particles drift away from the open hand. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B24">
+        <div class="ahead"><span class="id">B24</span><h3>쏟아지는 업데이트·빛 폭포</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> 무수한 모델·기능 · <b>파일:</b> <code>B24_도입부_쏟아지는업데이트_빛정보폭포.png</code></div>
+        <div class="grid">
+          <div class="thumb">B24<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B24_img">복사</button></div>
+              <pre id="p_B24_img">An endless cascade of glowing data streams pouring down like a waterfall, a tiny faceless figure below looking up, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 빛 정보 폭포 + 작은 사람</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B24_vid">복사</button></div>
+              <pre id="p_B24_vid">16:9 horizontal, 6s. Data streams pour down; the small figure looks up. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B25">
+        <div class="ahead"><span class="id">B25</span><h3>예측 불가·사라지는 달력</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> 6개월 뒤도 모름 · <b>파일:</b> <code>B25_도입부_예측불가_안개속사라지는달력.png</code></div>
+        <div class="grid">
+          <div class="thumb">B25<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B25_img">복사</button></div>
+              <pre id="p_B25_img">A wall calendar and clock dissolving into drifting mist and particles, the near part clear, ahead fading to fog, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 달력·시계 안개로 흩어짐</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B25_vid">복사</button></div>
+              <pre id="p_B25_vid">16:9 horizontal, 5s. Calendar edges dissolve into drifting mist. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B26">
+        <div class="ahead"><span class="id">B26</span><h3>직접 만든다·빛 조립</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> 서비스 직접 제작 · <b>파일:</b> <code>B26_도입부_직접만든다_빛으로조립하는손.png</code></div>
+        <div class="grid">
+          <div class="thumb">B26<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B26_img">복사</button></div>
+              <pre id="p_B26_img">Faceless hands assembling a small glowing structure from floating pieces of light at a dark desk, creative, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 빛으로 구조 조립하는 손</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B26_vid">복사</button></div>
+              <pre id="p_B26_vid">16:9 horizontal, 5s. Hands fit glowing pieces together, light pulsing. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B27">
+        <div class="ahead"><span class="id">B27</span><h3>왜 만들었나·점화 전구</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> ‘왜?’의 발화 · <b>파일:</b> <code>B27_도입부_왜만들었나_어둠속점화전구.png</code></div>
+        <div class="grid">
+          <div class="thumb">B27<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B27_img">복사</button></div>
+              <pre id="p_B27_img">A single small glowing orb of warm idea-light igniting in vast darkness above a desk, the spark of asking why, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 어둠 속 점화되는 작은 빛</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B27_vid">복사</button></div>
+              <pre id="p_B27_vid">16:9 horizontal, 5s. A small orb ignites and pulses in darkness. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B28">
+        <div class="ahead"><span class="id">B28</span><h3>무엇을 연결·두 빛점 잇기</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> 연결은 사람이 · <b>파일:</b> <code>B28_도입부_무엇을연결_두빛점잇는손.png</code></div>
+        <div class="grid">
+          <div class="thumb">B28<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B28_img">복사</button></div>
+              <pre id="p_B28_img">Faceless hands connecting two glowing points of light with a delicate luminous thread in dark space, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 두 빛점 잇는 손·실</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B28_vid">복사</button></div>
+              <pre id="p_B28_vid">16:9 horizontal, 5s. A luminous thread links the two glowing points. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset hook" id="card_B29">
+        <div class="ahead"><span class="id">B29</span><h3>출근 인파 속 멈춘 한 사람</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> 일자리 불안의 스케일 · <b>파일:</b> <code>B29_도입부_출근인파속멈춘한사람.png</code></div>
+        <div class="grid">
+          <div class="thumb">B29<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B29_img">복사</button></div>
+              <pre id="p_B29_img">A faceless commuter standing still amid a blurred rushing crowd in a dim station at dawn, quiet unease, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 인파 속 멈춰 선 실루엣</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B29_vid">복사</button></div>
+              <pre id="p_B29_vid">16:9 horizontal, 5s. Crowd blurs past while one figure stands still. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B30">
+        <div class="ahead"><span class="id">B30</span><h3>헤비유저 깊이·몰입 뒷모습</h3><span class="tc">도입부</span></div>
+        <div class="role"><b>용도:</b> 적극적 사용·권위 · <b>파일:</b> <code>B30_도입부_헤비유저깊이_채팅흔적위뒷모습.png</code></div>
+        <div class="grid">
+          <div class="thumb">B30<br>16:9<br>도입부</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B30_img">복사</button></div>
+              <pre id="p_B30_img">Over-the-shoulder view of a faceless person deeply immersed at a desk at night, faint floating light traces of many past conversations, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 대화 흔적 빛 속 몰입</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B30_vid">복사</button></div>
+              <pre id="p_B30_vid">16:9 horizontal, 5s. Light traces drift around the immersed figure. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B31">
+        <div class="ahead"><span class="id">B31</span><h3>세 유형·세 갈래 길</h3><span class="tc">본문1</span></div>
+        <div class="role"><b>용도:</b> 세 종류의 인간 · <b>파일:</b> <code>B31_본문1_세유형_세갈래길세실루엣.png</code></div>
+        <div class="grid">
+          <div class="thumb">B31<br>16:9<br>본문1</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B31_img">복사</button></div>
+              <pre id="p_B31_img">Three faceless silhouettes on three diverging glowing paths in a dark landscape, each path a different brightness, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 세 길 위 세 실루엣</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B31_vid">복사</button></div>
+              <pre id="p_B31_vid">16:9 horizontal, 6s. Slow reveal of three figures on diverging paths. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B32">
+        <div class="ahead"><span class="id">B32</span><h3>경쟁력은 사람·내면의 빛</h3><span class="tc">본문1</span></div>
+        <div class="role"><b>용도:</b> 경쟁력은 사람에게서 · <b>파일:</b> <code>B32_본문1_경쟁력은사람_도구넘어빛나는사람.png</code></div>
+        <div class="grid">
+          <div class="thumb">B32<br>16:9<br>본문1</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B32_img">복사</button></div>
+              <pre id="p_B32_img">A faceless silhouette beyond a plain dim tool on a desk, warm light glowing from within the chest and head, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 도구 너머 내면 빛 실루엣</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B32_vid">복사</button></div>
+              <pre id="p_B32_vid">16:9 horizontal, 5s. Inner light glows brighter within the silhouette. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B33">
+        <div class="ahead"><span class="id">B33</span><h3>다수 속 다른 한 명</h3><span class="tc">본문1</span></div>
+        <div class="role"><b>용도:</b> 쓰는 사람은 많아진다 · <b>파일:</b> <code>B33_본문1_사용하는다수속다른한명.png</code></div>
+        <div class="grid">
+          <div class="thumb">B33<br>16:9<br>본문1</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B33_img">복사</button></div>
+              <pre id="p_B33_img">Rows of identical faceless figures in the same pose under cool light, one figure glowing warm amber stands out, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 군중 속 빛나는 한 명</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B33_vid">복사</button></div>
+              <pre id="p_B33_vid">16:9 horizontal, 5s. One figure warms to amber among the still crowd. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B34">
+        <div class="ahead"><span class="id">B34</span><h3>얕은 질문 vs 깊은 질문</h3><span class="tc">본문2</span></div>
+        <div class="role"><b>용도:</b> 질문의 깊이 · <b>파일:</b> <code>B34_본문2_얕은질문vs깊은질문_두말풍선.png</code></div>
+        <div class="grid">
+          <div class="thumb">B34<br>16:9<br>본문2</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B34_img">복사</button></div>
+              <pre id="p_B34_img">Two glowing speech-bubble shapes in dark space, left small dim shallow, right large bright deep with intricate light, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 작고 흐린 ↔ 크고 깊은 말풍선</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B34_vid">복사</button></div>
+              <pre id="p_B34_vid">16:9 horizontal, 5s. Right bubble deepens and brightens. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B35">
+        <div class="ahead"><span class="id">B35</span><h3>다른 열쇠 다른 문</h3><span class="tc">본문2</span></div>
+        <div class="role"><b>용도:</b> 질문이 답을 바꾼다 · <b>파일:</b> <code>B35_본문2_다른열쇠다른문_질문이답을바꿈.png</code></div>
+        <div class="grid">
+          <div class="thumb">B35<br>16:9<br>본문2</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B35_img">복사</button></div>
+              <pre id="p_B35_img">A dark doorway with two glowing keys, a dim plain key revealing darkness and a bright intricate key opening warm light, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 두 열쇠·문, 다른 빛</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B35_vid">복사</button></div>
+              <pre id="p_B35_vid">16:9 horizontal, 5s. The bright key opens a flood of warm light. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B36">
+        <div class="ahead"><span class="id">B36</span><h3>질문 나무·생각 뿌리</h3><span class="tc">본문2</span></div>
+        <div class="role"><b>용도:</b> 좋은 질문은 좋은 사고 · <b>파일:</b> <code>B36_본문2_질문나무_생각뿌리에서자라는물음표.png</code></div>
+        <div class="grid">
+          <div class="thumb">B36<br>16:9<br>본문2</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B36_img">복사</button></div>
+              <pre id="p_B36_img">A glowing tree from luminous roots, branches forming question-mark shapes of light, questions from deep thinking, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 뿌리에서 자라는 물음표 나무</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B36_vid">복사</button></div>
+              <pre id="p_B36_vid">16:9 horizontal, 6s. Branches grow into glowing question marks. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset hook" id="card_B37">
+        <div class="ahead"><span class="id">B37</span><h3>정보 파도 앞 작은 사람</h3><span class="tc">본문3</span></div>
+        <div class="role"><b>용도:</b> ‘뭘 해야 하나’ · <b>파일:</b> <code>B37_본문3_정보파도앞작은사람.png</code></div>
+        <div class="grid">
+          <div class="thumb">B37<br>16:9<br>본문3</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B37_img">복사</button></div>
+              <pre id="p_B37_img">A tiny faceless figure before a towering wave of glowing data about to curl over, overwhelmed yet steady, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 거대한 정보 파도 앞 실루엣</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B37_vid">복사</button></div>
+              <pre id="p_B37_vid">16:9 horizontal, 6s. The data wave looms; the figure holds steady. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B38">
+        <div class="ahead"><span class="id">B38</span><h3>불안한 소문·도는 형상</h3><span class="tc">본문3</span></div>
+        <div class="role"><b>용도:</b> 대체된다는 소문 · <b>파일:</b> <code>B38_본문3_불안한소문_사람주위도는형상.png</code></div>
+        <div class="grid">
+          <div class="thumb">B38<br>16:9<br>본문3</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B38_img">복사</button></div>
+              <pre id="p_B38_img">A faceless person hunched at a desk while swirling chaotic abstract forms circle their head, anxious, not gory, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 머리 주위 도는 어지러운 형상</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B38_vid">복사</button></div>
+              <pre id="p_B38_vid">16:9 horizontal, 5s. Chaotic forms swirl slowly around the head. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B39">
+        <div class="ahead"><span class="id">B39</span><h3>AI 배우기·인터페이스</h3><span class="tc">본문3</span></div>
+        <div class="role"><b>용도:</b> AI를 배우는 것 · <b>파일:</b> <code>B39_본문3_AI배우기_빛나는인터페이스에손뻗음.png</code></div>
+        <div class="grid">
+          <div class="thumb">B39<br>16:9<br>본문3</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B39_img">복사</button></div>
+              <pre id="p_B39_img">A faceless hand reaching toward a softly glowing floating interface of light panels in a dark room, curious, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 빛나는 패널에 손 뻗음</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B39_vid">복사</button></div>
+              <pre id="p_B39_vid">16:9 horizontal, 5s. Panels glow and respond to the reaching hand. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B40">
+        <div class="ahead"><span class="id">B40</span><h3>대체불가 능력·빛 새싹</h3><span class="tc">본문3</span></div>
+        <div class="role"><b>용도:</b> 대체되지 않을 능력 · <b>파일:</b> <code>B40_본문3_대체불가능력_손안의빛새싹.png</code></div>
+        <div class="grid">
+          <div class="thumb">B40<br>16:9<br>본문3</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B40_img">복사</button></div>
+              <pre id="p_B40_img">Faceless cupped hands protecting a tiny glowing mint-green seedling of light in darkness, tender, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 손안의 빛 새싹 키우기</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B40_vid">복사</button></div>
+              <pre id="p_B40_vid">16:9 horizontal, 5s. The seedling pulses gently in cupped hands. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B41">
+        <div class="ahead"><span class="id">B41</span><h3>문제 먼저 발견·관찰</h3><span class="tc">본문3</span></div>
+        <div class="role"><b>용도:</b> 코딩보다 문제 발견 · <b>파일:</b> <code>B41_본문3_문제먼저발견_불편관찰뒷모습.png</code></div>
+        <div class="grid">
+          <div class="thumb">B41<br>16:9<br>본문3</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B41_img">복사</button></div>
+              <pre id="p_B41_img">Over-the-shoulder view of a faceless person observing a blurred scene of people&#x27;s friction, jotting a note, warm glow, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 불편 관찰·메모하는 뒷모습</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B41_vid">복사</button></div>
+              <pre id="p_B41_vid">16:9 horizontal, 5s. The observer notes while the scene blurs past. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B42">
+        <div class="ahead"><span class="id">B42</span><h3>문해력 층위·빛 레이어</h3><span class="tc">본문4</span></div>
+        <div class="role"><b>용도:</b> 이해→해석→연결 · <b>파일:</b> <code>B42_본문4_문해력층위_겹겹이피어나는빛레이어.png</code></div>
+        <div class="grid">
+          <div class="thumb">B42<br>16:9<br>본문4</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B42_img">복사</button></div>
+              <pre id="p_B42_img">Translucent layers of glowing light blooming upward, raw light at bottom becoming structured meaning at top, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 아래 원시→위 구조의 층</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B42_vid">복사</button></div>
+              <pre id="p_B42_vid">16:9 horizontal, 6s. Layers bloom upward in sequence. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B43">
+        <div class="ahead"><span class="id">B43</span><h3>의미는 사람·별로 빚기</h3><span class="tc">본문4</span></div>
+        <div class="role"><b>용도:</b> 의미는 사람이 만든다 · <b>파일:</b> <code>B43_본문4_의미는사람_데이터조각을별로빚는손.png</code></div>
+        <div class="grid">
+          <div class="thumb">B43<br>16:9<br>본문4</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B43_img">복사</button></div>
+              <pre id="p_B43_img">Faceless hands gathering scattered cool data-light into a single warm glowing star of meaning, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 조각을 빛의 별로 모으는 손</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B43_vid">복사</button></div>
+              <pre id="p_B43_vid">16:9 horizontal, 5s. Fragments converge into a glowing star. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B44">
+        <div class="ahead"><span class="id">B44</span><h3>책→머리 빛의 강</h3><span class="tc">본문4</span></div>
+        <div class="role"><b>용도:</b> 문해력→사고력 · <b>파일:</b> <code>B44_본문4_책에서머리로흐르는빛의강.png</code></div>
+        <div class="grid">
+          <div class="thumb">B44<br>16:9<br>본문4</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B44_img">복사</button></div>
+              <pre id="p_B44_img">A faceless silhouette in profile reading a glowing book, a river of warm light rising from pages into the head, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 책에서 머리로 흐르는 빛</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B44_vid">복사</button></div>
+              <pre id="p_B44_vid">16:9 horizontal, 6s. Light flows from the book up into the head. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B45">
+        <div class="ahead"><span class="id">B45</span><h3>책 너머 다른 마음과 마주</h3><span class="tc">본문5</span></div>
+        <div class="role"><b>용도:</b> 타인의 생각·관점 · <b>파일:</b> <code>B45_본문5_책너머다른실루엣과마주.png</code></div>
+        <div class="grid">
+          <div class="thumb">B45<br>16:9<br>본문5</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B45_img">복사</button></div>
+              <pre id="p_B45_img">Two faceless silhouettes facing each other across a large open glowing book between them, warm connecting light, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 책 사이 두 실루엣 마주</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B45_vid">복사</button></div>
+              <pre id="p_B45_vid">16:9 horizontal, 6s. Warm light connects the two across the book. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B46">
+        <div class="ahead"><span class="id">B46</span><h3>내 한계 발견·넓어지는 원</h3><span class="tc">본문5</span></div>
+        <div class="role"><b>용도:</b> 생각의 한계를 넘다 · <b>파일:</b> <code>B46_본문5_내한계발견_깨져넓어지는빛원.png</code></div>
+        <div class="grid">
+          <div class="thumb">B46<br>16:9<br>본문5</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B46_img">복사</button></div>
+              <pre id="p_B46_img">A small glowing circle of light cracking open and expanding into a much wider luminous ring, growing beyond limits, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 작은 빛 원→넓은 원</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B46_vid">복사</button></div>
+              <pre id="p_B46_vid">16:9 horizontal, 6s. The small ring expands into a wider one. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B47">
+        <div class="ahead"><span class="id">B47</span><h3>깊고 넓어짐·세 빛줄기</h3><span class="tc">본문5</span></div>
+        <div class="role"><b>용도:</b> 질문·깊이·넓이 · <b>파일:</b> <code>B47_본문5_깊고넓어짐_책에서솟는빛.png</code></div>
+        <div class="grid">
+          <div class="thumb">B47<br>16:9<br>본문5</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B47_img">복사</button></div>
+              <pre id="p_B47_img">An open glowing book with three beams of warm light rising and branching, deep, wide, and full of question sparks, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 책에서 솟는 세 빛줄기</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B47_vid">복사</button></div>
+              <pre id="p_B47_vid">16:9 horizontal, 6s. Three beams rise and branch from the book. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset hook" id="card_B48">
+        <div class="ahead"><span class="id">B48</span><h3>시작했다 멈춤·식는 책</h3><span class="tc">본문6</span></div>
+        <div class="role"><b>용도:</b> 며칠 읽다 멈춤 · <b>파일:</b> <code>B48_본문6_시작했다멈춤_식어덮이는책.png</code></div>
+        <div class="grid">
+          <div class="thumb">B48<br>16:9<br>본문6</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B48_img">복사</button></div>
+              <pre id="p_B48_img">An open book whose inner glow fades to grey, half-closing with a bookmark left midway, warmth dying out, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 빛 식으며 덮이는 책</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B48_vid">복사</button></div>
+              <pre id="p_B48_vid">16:9 horizontal, 5s. The glow cools as the book half-closes. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B49">
+        <div class="ahead"><span class="id">B49</span><h3>혼자라서 실패·고립</h3><span class="tc">본문6</span></div>
+        <div class="role"><b>용도:</b> 혼자 결심·포기 · <b>파일:</b> <code>B49_본문6_혼자라서실패_차가운방고립.png</code></div>
+        <div class="grid">
+          <div class="thumb">B49<br>16:9<br>본문6</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B49_img">복사</button></div>
+              <pre id="p_B49_img">A single small faceless figure alone with a book in a vast cold empty dim room, isolation, muted grey-teal, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 차가운 빈 방의 한 사람</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B49_vid">복사</button></div>
+              <pre id="p_B49_vid">16:9 horizontal, 5s. The lone figure sits still in the cold empty room. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B50">
+        <div class="ahead"><span class="id">B50</span><h3>AI 더 똑똑·상승 곡선</h3><span class="tc">결론</span></div>
+        <div class="role"><b>용도:</b> 변하지 않는 사실 · <b>파일:</b> <code>B50_결론_AI더똑똑_상승하며밝아지는빛곡선.png</code></div>
+        <div class="grid">
+          <div class="thumb">B50<br>16:9<br>결론</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B50_img">복사</button></div>
+              <pre id="p_B50_img">A smooth rising glowing curve of light arcing upward and brightening against a dark gradient sky, ascending, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 상승하며 밝아지는 빛 곡선</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B50_vid">복사</button></div>
+              <pre id="p_B50_vid">16:9 horizontal, 6s. The light curve rises and brightens. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset" id="card_B51">
+        <div class="ahead"><span class="id">B51</span><h3>가치사슬·빛의 고리사슬</h3><span class="tc">결론</span></div>
+        <div class="role"><b>용도:</b> 역산 체인 (가로) · <b>파일:</b> <code>B51_결론_가치사슬_빛의고리사슬.png</code></div>
+        <div class="grid">
+          <div class="thumb">B51<br>16:9<br>결론</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B51_img">복사</button></div>
+              <pre id="p_B51_img">Four interlocking glowing links of a horizontal light chain, each brighter than the last, a value chain, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 좌→우 네 개 빛 고리</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B51_vid">복사</button></div>
+              <pre id="p_B51_vid">16:9 horizontal, 6s. Links light up one by one left to right. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="asset cta" id="card_B52">
+        <div class="ahead"><span class="id">B52</span><h3>세 갈림 선택·세 문</h3><span class="tc">결론 CTA</span></div>
+        <div class="role"><b>용도:</b> 어떤 사람이 될 것인가 · <b>파일:</b> <code>B52_결론_세갈림선택_세문앞선한사람.png</code></div>
+        <div class="grid">
+          <div class="thumb">B52<br>16:9<br>결론 CTA</div>
+          <div>
+            <div class="pblock"><div class="plab img">🖼 이미지 프롬프트 (ChatGPT)<button class="copy" data-t="p_B52_img">복사</button></div>
+              <pre id="p_B52_img">A lone faceless figure from behind before three glowing doorways of light, each a different warmth, a choice, horizontal 16:9, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) and mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless, no on-screen text, no logos, no robots, no horror. 16:9.</pre><div class="kr">KR: 세 빛의 문 앞 뒷모습</div></div>
+            <div class="pblock"><div class="plab vid">🎞 영상 프롬프트 (image-to-video)<button class="copy" data-t="p_B52_vid">복사</button></div>
+              <pre id="p_B52_vid">16:9 horizontal, 6s. The figure pauses before the three glowing doors. No text, no robots. Subtle realistic motion.</pre></div>
+          </div>
+        </div>
+      </div>
+  </section>
+  <section>
+    <h2><span class="n">②</span> 생성 절차 (ChatGPT / Sora)</h2>
+    <div class="sg">
+      <b>1. ChatGPT(이미지):</b> 새 대화 → B01 복사·붙여넣기 → "16:9 가로, 텍스트 없이" 1장. 마음에 들면 같은 대화에서 B02… 순서로 톤 통일.<br>
+      <b>2. 일관성:</b> 어긋나면 "앞 컷과 같은 조명·팔레트 유지" 추가.<br>
+      <b>3. Sora(영상):</b> 이미지를 기반으로 "이 이미지를 16:9 영상으로, [영상 프롬프트]" 또는 Sora에 영상 프롬프트 직접 입력(5~6초).<br>
+      <b>4. 저장:</b> 16:9 그대로 다운로드 → README 권장 파일명으로 <code>이미지/</code>·<code>영상/</code>에 정리.<br>
+      <b>5. 가드 점검:</b> 로봇·공포·정면 얼굴·화면 텍스트가 섞였으면 재생성("no robots, faceless, no text" 강조).
+    </div>
+  </section>
+  <footer>근거: 대본_전체_v1.md 구간 매핑(도입부·본문1~6·결론) · 채널 §4.4 진정성 가드 · 16:9 가로 전제 · 가치사슬(사고력←질문력←문해력←독서)</footer>
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const el=document.getElementById(b.dataset.t); const txt=el?el.innerText:'';
+    navigator.clipboard.writeText(txt).then(()=>{const o=b.textContent;b.textContent='복사됨 ✓';b.classList.add('done');setTimeout(()=>{b.textContent=o;b.classList.remove('done');},1500);});
+  });
+});
+</script>
+</body></html>

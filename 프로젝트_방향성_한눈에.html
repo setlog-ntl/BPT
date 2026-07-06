@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>프로젝트 방향성 · 한눈에 보기</title>
+<style>
+  :root {
+    --bg: #fafaf7;
+    --surface: #ffffff;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #8a8a85;
+    --line: #e8e6df;
+    --accent: #c2410c;        /* 북극성 / 핵심 */
+    --pain: #b91c1c;          /* 정리·삭제 후보 */
+    --growth: #1e5128;        /* 강조·확장 */
+    --value: #1e3a8a;         /* 가치·기둥 */
+    --rec: #92400e;           /* 추천·개선 */
+    --soft-bg: #f5f3ec;
+    --highlight: #fff4e0;
+    --shadow: 0 1px 0 rgba(0,0,0,.04), 0 6px 18px rgba(20,20,20,.04);
+    --r: 10px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard', -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    letter-spacing: -0.01em;
+  }
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 28px 80px;
+  }
+
+  /* ── HERO ─────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2c1810 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 36px 36px 32px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "★";
+    position: absolute;
+    right: -10px;
+    top: -20px;
+    font-size: 180px;
+    color: rgba(194,65,12,.15);
+    line-height: 1;
+  }
+  .hero .badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: .15em;
+    color: #f4a261;
+    background: rgba(194,65,12,.18);
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    margin: 0 0 8px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .hero .lead {
+    font-size: 17px;
+    color: #d4cfc8;
+    margin: 0 0 22px;
+    max-width: 720px;
+  }
+  .hero .lead b { color: #fff; }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 12px;
+    position: relative;
+    z-index: 2;
+  }
+  .stat {
+    border-left: 2px solid rgba(244,162,97,.4);
+    padding-left: 14px;
+  }
+  .stat .label { font-size: 11px; color: #a8a39c; letter-spacing: .12em; text-transform: uppercase; }
+  .stat .value { font-size: 18px; color: #fff; margin-top: 4px; font-weight: 600; }
+  .stat .sub { font-size: 12px; color: #8c887f; margin-top: 2px; }
+
+  /* ── LEGEND ───────────────────────── */
+  .legend {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 12px 18px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 13px;
+  }
+  .legend strong { color: var(--ink); margin-right: 8px; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; }
+  .chip.keep { background: #e8f5ec; color: var(--growth); }
+  .chip.keep::before { background: var(--growth); }
+  .chip.fix  { background: #fee2e2; color: var(--pain); }
+  .chip.fix::before  { background: var(--pain); }
+  .chip.improve { background: #fef3c7; color: var(--rec); }
+  .chip.improve::before { background: var(--rec); }
+  .chip.core { background: #dbeafe; color: var(--value); }
+  .chip.core::before { background: var(--value); }
+
+  /* ── GRID LAYOUT ──────────────────── */
+  .grid-2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 24px; }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .hero-stats { grid-template-columns: 1fr; }
+  }
+
+  /* ── CARD ─────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+  }
+  .card.flag-fix { border-left: 4px solid var(--pain); }
+  .card.flag-improve { border-left: 4px solid var(--rec); }
+  .card.flag-core { border-left: 4px solid var(--value); }
+  .card.flag-keep { border-left: 4px solid var(--growth); }
+
+  .card h2 {
+    font-size: 13px;
+    color: var(--ink-mute);
+    margin: 0 0 6px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .card h3 {
+    font-size: 18px;
+    margin: 0 0 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .card .h-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .card .h-row h3 { margin-bottom: 0; }
+
+  /* ── PILLAR CARDS ─────────────────── */
+  .pillar { padding: 22px; }
+  .pillar .num {
+    display: inline-block;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .pillar h3 { font-size: 17px; margin: 4px 0 10px; }
+  .pillar p { font-size: 14px; color: var(--ink-soft); margin: 0 0 8px; }
+  .pillar .priority {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    font-size: 12px;
+    color: var(--ink-mute);
+  }
+  .pillar .priority b { color: var(--ink); }
+
+  /* ── TABLE ────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th { background: var(--soft-bg); font-weight: 600; font-size: 12px; letter-spacing: .04em; color: var(--ink-soft); }
+  tbody tr:hover { background: #fcfaf3; }
+  td .tag-mini {
+    display: inline-block; padding: 1px 7px; border-radius: 10px;
+    font-size: 11px; background: var(--soft-bg); color: var(--ink-soft); margin-right: 4px;
+  }
+
+  /* ── FUNNEL ───────────────────────── */
+  .funnel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .funnel-step {
+    background: linear-gradient(180deg, #fcfaf3 0%, #fff 100%);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 16px 18px;
+    position: relative;
+  }
+  .funnel-step .stage {
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .funnel-step h4 {
+    font-size: 16px;
+    margin: 0 0 6px;
+    color: var(--accent);
+  }
+  .funnel-step .desc { font-size: 13px; color: var(--ink-soft); }
+  .funnel-step .ex {
+    font-size: 12px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    color: var(--ink-mute);
+    font-style: italic;
+  }
+  .funnel-step::after {
+    content: "→";
+    position: absolute;
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-mute);
+    font-size: 22px;
+    font-weight: 300;
+    z-index: 1;
+  }
+  .funnel-step:last-child::after { display: none; }
+
+  /* ── CURRICULUM ───────────────────── */
+  .curr-row {
+    display: grid;
+    grid-template-columns: 110px 90px 1fr 80px;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+  }
+  .curr-row:last-child { border-bottom: none; }
+  .curr-row.now {
+    background: var(--highlight);
+    border-radius: 6px;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .curr-row .stage-name { font-weight: 600; }
+  .curr-row .week { font-size: 12px; color: var(--ink-mute); }
+  .curr-row .desc { color: var(--ink-soft); font-size: 13px; }
+  .curr-row .status { text-align: right; font-size: 12px; }
+  .status.done { color: var(--growth); }
+  .status.now-tag { color: var(--accent); font-weight: 600; }
+  .status.next { color: var(--ink-mute); }
+
+  /* ── CHECKLIST ────────────────────── */
+  .check-list { list-style: none; padding: 0; margin: 0; }
+  .check-list li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .check-list li::before {
+    content: "□";
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    color: var(--ink-mute);
+    font-size: 16px;
+  }
+  .check-list li:last-child { border-bottom: none; }
+  .check-list b { color: var(--ink); }
+
+  /* ── TODO ─────────────────────────── */
+  .todo-group { margin-bottom: 20px; }
+  .todo-group h4 { margin: 0 0 8px; font-size: 14px; }
+  .todo-group.p0 h4 { color: var(--pain); }
+  .todo-group.p1 h4 { color: var(--rec); }
+  .todo-group.p2 h4 { color: var(--ink-mute); }
+  .todo-list { list-style: none; padding: 0; margin: 0; }
+  .todo-list li {
+    padding: 8px 0 8px 26px;
+    position: relative;
+    font-size: 13.5px;
+    border-bottom: 1px solid var(--line);
+  }
+  .todo-list li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    color: var(--ink-mute);
+  }
+  .todo-list li:last-child { border-bottom: none; }
+
+  /* ── REVIEW NOTE (편집 제안) ───────── */
+  .review-note {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: #fff8eb;
+    border: 1px solid #f4d68a;
+    border-left: 3px solid var(--rec);
+    border-radius: 8px;
+    font-size: 13px;
+    color: #5a4a16;
+  }
+  .review-note::before {
+    content: "✎ 검토 제안 ";
+    font-weight: 700;
+    color: var(--rec);
+  }
+  .review-note.fix {
+    background: #fff1f0;
+    border: 1px solid #f4a8a8;
+    border-left: 3px solid var(--pain);
+    color: #5a1a1a;
+  }
+  .review-note.fix::before {
+    content: "⚠ 정리 필요 ";
+    color: var(--pain);
+  }
+
+  /* ── INLINE QUOTE / KICKER ────────── */
+  blockquote.kicker {
+    margin: 14px 0 0;
+    padding: 12px 18px;
+    background: var(--soft-bg);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  .anchor-nav {
+    position: sticky;
+    top: 0;
+    background: rgba(250,250,247,.92);
+    backdrop-filter: blur(8px);
+    padding: 12px 0;
+    margin: -12px 0 22px;
+    border-bottom: 1px solid var(--line);
+    z-index: 10;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+  .anchor-nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: background .15s;
+  }
+  .anchor-nav a:hover { background: var(--soft-bg); color: var(--ink); }
+  .anchor-nav a.acc { color: var(--accent); font-weight: 600; }
+
+  .footer-meta {
+    margin-top: 32px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--ink-mute);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* keyword chips */
+  .kw-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .kw {
+    background: #fdf6e3;
+    color: var(--rec);
+    border: 1px solid #f4d68a;
+    border-radius: 14px;
+    padding: 3px 10px;
+    font-size: 12px;
+  }
+
+  .gae-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 10px; }
+  .gae {
+    background: var(--soft-bg);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+  .gae h5 { margin: 0 0 6px; color: var(--accent); font-size: 13px; }
+  .gae .map { font-size: 12px; color: var(--ink-soft); }
+  .gae .map b { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="badge">★ NORTH STAR · 2026-06-13 기준</span>
+    <h1>채널 「AI보다 읽는 사람」 — AI를 입구로, 문해력·책을 토대로</h1>
+    <p class="lead">비즈니스PT 강의(40주)에서 배운 프레임을 실전에 적용해, <b>AI·바이브코딩 = 콘텐츠 주제(입구) · 문해력·책 = 비즈니스 영역(토대)</b>로 동시에 다루는 1인 비즈니스를 만든다. 슬로건: <b>"AI는 답을 만든다. 읽는 사람은 질문을 만든다."</b></p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="label">현재 단계</div>
+        <div class="value">3주차 완료</div>
+        <div class="sub">4주차 풀링 기획 진입 직전</div>
+      </div>
+      <div class="stat">
+        <div class="label">1차 판매</div>
+        <div class="value">이북리더기</div>
+        <div class="sub">키 콘텐츠 시리즈 진행 중</div>
+      </div>
+      <div class="stat">
+        <div class="label">콘텐츠 컨셉</div>
+        <div class="value">6축 키워드</div>
+        <div class="sub">독서·문해력·사고력·AI·바이브코딩·성장</div>
+      </div>
+      <div class="stat">
+        <div class="label">한 줄 원칙</div>
+        <div class="value">AI로 모아서 → 책으로 남긴다</div>
+        <div class="sub">단기 ② → 중기 ③ → 장기 ①</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANCHOR NAV -->
+  <nav class="anchor-nav">
+    <a href="#identity" class="acc">정체성</a>
+    <a href="#pillars">3대 기둥</a>
+    <a href="#why">궁극 목적</a>
+    <a href="#curriculum">커리큘럼</a>
+    <a href="#funnel">3-Asset 모델</a>
+    <a href="#guidelines">작업 지침</a>
+    <a href="#claude">AI 협업</a>
+    <a href="#todo">TODO</a>
+    <a href="#cleanup">정리·개선 제안</a>
+  </nav>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <strong>색상 가이드</strong>
+    <span class="chip core">핵심 (유지)</span>
+    <span class="chip keep">잘 정의됨</span>
+    <span class="chip improve">개선 권장</span>
+    <span class="chip fix">정리·삭제 후보</span>
+  </div>
+
+  <!-- ── IDENTITY ───────────────────── -->
+  <section id="identity" class="card flag-core" style="margin-bottom:24px;">
+    <div class="h-row">
+      <div>
+        <h2>§1.1 · 가장 먼저 점검하는 카드</h2>
+        <h3>프로젝트 정체성 (AI 중심 전환 · 최종 채널명 확정 2026-06-13)</h3>
+      </div>
+      <span class="chip core">핵심</span>
+    </div>
+    <blockquote class="kicker">결이 안 맞는 주제는 채널에 들이지 않는다.</blockquote>
+
+    <table style="margin-top:18px;">
+      <thead><tr><th style="width:160px;">항목</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td><b>1차 판매</b></td><td>이북리더기 — 진행 중인 키 콘텐츠 시리즈가 그대로 1차 판매 대본</td></tr>
+        <tr><td><b>이후 판매</b></td><td>① 책 관련 제품 (필사노트·눕서대·독서등 등) → ② readtree 서비스</td></tr>
+        <tr><td><b>채널명 / 사인오프</b></td><td><b>AI보다 읽는 사람</b> · 슬로건 "AI는 답을 만든다. 읽는 사람은 질문을 만든다." · 사인오프 "AI는 답을, 읽는 사람은 질문을." · 호명 "읽는 사람들"</td></tr>
+        <tr><td><b>모이는 사람의 결</b></td><td>① AI를 <b>안/못 쓰는</b> 사람(입문) · ② AI를 <b>쓰고 있는</b> 사람(활용) · ③ AI를 <b>더 잘 쓰려는</b> 사람(심화)</td></tr>
+        <tr><td><b>유튜브 6축</b></td><td>
+          <div class="kw-list">
+            <span class="kw">독서</span>
+            <span class="kw">문해력</span>
+            <span class="kw">사고력</span>
+            <span class="kw">AI</span>
+            <span class="kw">바이브코딩</span>
+            <span class="kw">성장</span>
+          </div>
+        </td></tr>
+        <tr><td><b>공통 컨셉</b></td><td>"AI·바이브코딩을 잘 쓰기 위한 문해력" — 6축 모두 AI를 입구로 열어 책·문해력으로 귀결시키는 축 (읽고 → 생각하고 → AI로 확장하고 → 성장)</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin:22px 0 6px;font-size:14px;">결 → 콘텐츠/판매 매핑</h4>
+    <div class="gae-grid">
+      <div class="gae">
+        <h5>① AI 안/못 쓰는 사람 (입문)</h5>
+        <div class="map"><b>맞는 컨셉:</b> AI · 독서 · 성장</div>
+        <div class="map" style="margin-top:6px;"><b>판매 연결:</b> 이북리더기(입문기) · readtree(시작 트래커)</div>
+      </div>
+      <div class="gae" style="border:1px solid var(--accent);">
+        <h5>② AI 쓰고 있는 사람 <span style="font-size:11px;color:var(--accent);">· 단기 주력</span></h5>
+        <div class="map"><b>맞는 컨셉:</b> 문해력 · 사고력 · AI</div>
+        <div class="map" style="margin-top:6px;"><b>판매 연결:</b> 이북리더기(전환기) · 책 관련 제품</div>
+      </div>
+      <div class="gae">
+        <h5>③ AI 더 잘 쓰려는 사람 (심화)</h5>
+        <div class="map"><b>맞는 컨셉:</b> 바이브코딩 · 사고력 · 문해력</div>
+        <div class="map" style="margin-top:6px;"><b>판매 연결:</b> readtree(기록·심화) · 프리미엄 제품</div>
+      </div>
+    </div>
+
+    <div class="review-note">
+      6축은 <b>AI를 입구로 열어 책·문해력으로 귀결</b>시킨다 — ④⑤(AI·바이브코딩)가 유입을 만들고 ①②③(독서·문해력·사고력)가 토대를 다지며 ⑥(성장)이 행동으로 닫는다. 안티컨셉: AI 적대 프레임 금지("읽는 사람이 AI를 더 잘 쓴다"는 긍정 구도).
+    </div>
+  </section>
+
+  <!-- ── PILLARS ────────────────────── -->
+  <h2 id="pillars" style="font-size:13px;color:var(--ink-mute);letter-spacing:.08em;text-transform:uppercase;margin:30px 0 12px;">§2 · 프로젝트의 세 기둥</h2>
+  <div class="grid-3">
+    <div class="card pillar flag-core">
+      <span class="num">01</span>
+      <h3>비즈니스PT 학습의 적용</h3>
+      <p>강의 개념(수익화 역산, 풀링/키, 랜딩, KPI)을 노트로 끝내지 않고 <b>실제 채널·상품에 적용</b>한다.</p>
+      <div class="priority"><b>장기 주력</b> · 시스템·확장성 (24주차 이후)</div>
+    </div>
+    <div class="card pillar flag-core" style="border-left-color:var(--accent);">
+      <span class="num">02</span>
+      <h3>AI 입구·문해력/책 토대 콘텐츠 생태계</h3>
+      <p>AI·바이브코딩을 입구로 열되 문해력·책을 토대로 <b>상품·서비스·도구와 연결되는 비즈니스 카테고리</b>로 다룬다. <b>"AI·문해력에 대한 진정성"</b>을 잃지 않는다(AI 적대·과장 없이).</p>
+      <div class="priority"><b>단기 주력</b> · 채널 신뢰 자산 축적 (~11주차)</div>
+    </div>
+    <div class="card pillar flag-core">
+      <span class="num">03</span>
+      <h3>readingtree 연계</h3>
+      <p>별도 사업이 아닌 <b>채널의 자연스러운 도착지(랜딩)</b> 중 하나. bizpt에서는 인덱스(<code>docs/reference/readingtree_연계.md</code>)로만 참조 — 본문 복제 금지.</p>
+      <div class="priority"><b>중기 주력</b> · 상품 연결·퍼널 강화 (12주차~)</div>
+    </div>
+  </div>
+
+  <!-- ── WHY ────────────────────────── -->
+  <section id="why" class="card flag-keep" style="margin-bottom:24px;">
+    <h2>§3 · 궁극 목적 (Why)</h2>
+    <h3>"유튜브를 비즈니스적으로 잘 만든다"</h3>
+    <table style="margin-top:8px;">
+      <thead><tr><th style="width:140px;">축</th><th>의미</th><th style="width:200px;">측정</th></tr></thead>
+      <tbody>
+        <tr><td><b>콘텐츠 품질</b></td><td>AI·문해력·책에 대한 진정성 + 시청자에게 유용</td><td>시청 지속률, 구독 전환</td></tr>
+        <tr><td><b>수익화 구조</b></td><td>풀링 → 키 → 랜딩 → 상품/서비스 퍼널 작동</td><td>매출, 전환율, KPI 역산값</td></tr>
+        <tr><td><b>확장성</b></td><td>플랫폼·상품·서비스로 확장 가능한 시스템</td><td>카테고리·채널·상품군 수</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── CURRICULUM ─────────────────── -->
+  <section id="curriculum" class="card flag-core" style="margin-bottom:24px;">
+    <div class="h-row">
+      <div>
+        <h2>§4 · 학습 진도</h2>
+        <h3>비즈니스PT 커리큘럼 (총 40주차)</h3>
+      </div>
+      <span class="chip core">핵심</span>
+    </div>
+
+    <div style="margin-top:14px;">
+      <div class="curr-row" style="background:var(--soft-bg);font-weight:600;font-size:12px;color:var(--ink-mute);">
+        <div>구간</div><div>주차</div><div>핵심 작업</div><div style="text-align:right;">상태</div>
+      </div>
+      <div class="curr-row">
+        <div class="stage-name">오리엔테이션</div><div class="week">1주차</div>
+        <div class="desc">비즈니스PT 개요·기본 개념</div>
+        <div class="status done">✅ 완료</div>
+      </div>
+      <div class="curr-row">
+        <div class="stage-name">수익화 기획</div><div class="week">2주차</div>
+        <div class="desc">상품/서비스 선정 — 무엇을 팔 것인가</div>
+        <div class="status done">✅ 완료</div>
+      </div>
+      <div class="curr-row">
+        <div class="stage-name">키 콘텐츠 기획</div><div class="week">3주차</div>
+        <div class="desc">판매를 만드는 콘텐츠 기획</div>
+        <div class="status done">✅ 완료</div>
+      </div>
+      <div class="curr-row now">
+        <div class="stage-name">풀링 콘텐츠 기획</div><div class="week">4주차</div>
+        <div class="desc">고객을 모으는 콘텐츠 기획</div>
+        <div class="status now-tag">⏳ 진입 직전</div>
+      </div>
+      <div class="curr-row">
+        <div class="stage-name">풀링 콘텐츠 제작</div><div class="week">5–11주 (7주)</div>
+        <div class="desc">무목적 탐색 유입 자산 제작</div>
+        <div class="status next">🔜</div>
+      </div>
+      <div class="curr-row">
+        <div class="stage-name">키 콘텐츠 제작</div><div class="week">12–18주 (7주)</div>
+        <div class="desc">목적 검색 유입 자산 제작</div>
+        <div class="status next">🔜</div>
+      </div>
+      <div class="curr-row">
+        <div class="stage-name">랜딩 페이지 제작</div><div class="week">19–23주 (5주)</div>
+        <div class="desc">전환 자산 제작</div>
+        <div class="status next">🔜</div>
+      </div>
+      <div class="curr-row">
+        <div class="stage-name">플랫폼 확장</div><div class="week">24–29주 (6주)</div>
+        <div class="desc">채널·플랫폼 다각화</div>
+        <div class="status next">🔜</div>
+      </div>
+      <div class="curr-row">
+        <div class="stage-name">심화·확장</div><div class="week">30–40주 (11주)</div>
+        <div class="desc">응용·치트키·고급 운영 (세부 미정)</div>
+        <div class="status next">🔜</div>
+      </div>
+    </div>
+
+    <div class="review-note fix">
+      기존 <code>docs/reference/00_커리큘럼_35주.md</code>는 <b>40주 기준으로 갱신 또는 deprecate 필요</b> (현재 deprecated 상태로 표기만 됨, 실제 갱신 미진행).
+    </div>
+  </section>
+
+  <!-- ── FUNNEL ─────────────────────── -->
+  <section id="funnel" class="card flag-core" style="margin-bottom:24px;">
+    <h2>§5 · 콘텐츠 전략 프레임</h2>
+    <h3>3-Asset 모델 — 풀링 → 키 → 랜딩</h3>
+    <div class="funnel">
+      <div class="funnel-step">
+        <div class="stage">STEP 01 · 유입</div>
+        <h4>풀링 콘텐츠</h4>
+        <div class="desc">무목적 탐색 유입 → 구독·신뢰 축적</div>
+        <div class="ex">예: "챗GPT 잘 쓰는 법" "AI 시대 왜 책을" — 6축 키워드 도출</div>
+      </div>
+      <div class="funnel-step">
+        <div class="stage">STEP 02 · 의도</div>
+        <h4>키 콘텐츠</h4>
+        <div class="desc">목적 검색 유입 → 구매 의도 캡처</div>
+        <div class="ex">예: "○○ 전자책 단말기 추천/비교"</div>
+      </div>
+      <div class="funnel-step">
+        <div class="stage">STEP 03 · 전환</div>
+        <h4>랜딩</h4>
+        <div class="desc">매출 발생 → 이북리더기 → 책 제품 → readtree</div>
+        <div class="ex">단일 페이지 또는 구조</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GUIDELINES ─────────────────── -->
+  <h2 id="guidelines" style="font-size:13px;color:var(--ink-mute);letter-spacing:.08em;text-transform:uppercase;margin:30px 0 12px;">§6 · 작업 지침</h2>
+  <div class="grid-2">
+    <div class="card flag-keep">
+      <h2>§6.1</h2>
+      <h3>새 콘텐츠 기획 체크리스트</h3>
+      <ul class="check-list">
+        <li>이 콘텐츠는 <b>풀링인가 키인가?</b> (성격이 섞이면 둘로 쪼갠다)</li>
+        <li><b>수익화 종착지</b>가 명확한가? (어느 상품/서비스로 가는가)</li>
+        <li><b>AI·바이브코딩 ↔ 문해력·책</b> 연결고리가 있는가? (AI 입구→책 귀결)</li>
+        <li><b>readingtree</b>와 연결될 여지가 있는가?</li>
+        <li>현재 학습 단계의 <b>강의 개념</b>이 적용되었는가?</li>
+      </ul>
+      <blockquote class="kicker">1개 이상 "아니오/모호" → 사용자에게 한 번 더 확인.</blockquote>
+    </div>
+
+    <div class="card flag-keep">
+      <h2>§6.3 · §6.4</h2>
+      <h3>의사결정 우선순위</h3>
+      <ol style="margin:0 0 12px 18px;padding:0;font-size:14px;color:var(--ink-soft);">
+        <li><b>비즈니스 작동성</b> (퍼널이 돌아가는가)</li>
+        <li><b>진정성·일관성</b> (책에 대한 사랑이 보이는가)</li>
+        <li><b>확장성</b> (큰 시스템의 일부가 되는가)</li>
+        <li><b>속도/완성도</b> ("완벽" 보다 "회전" 우선)</li>
+      </ol>
+      <h4 style="font-size:13px;margin:16px 0 6px;color:var(--ink);">3대 기둥 충돌 시 (단계별 주력)</h4>
+      <table>
+        <tr><td style="width:90px;"><b>단기</b><div style="font-size:11px;color:var(--ink-mute);">~11주</div></td><td>② 책 콘텐츠 진정성 — 신뢰 자산 축적</td></tr>
+        <tr><td><b>중기</b><div style="font-size:11px;color:var(--ink-mute);">12주~</div></td><td>③ readingtree·상품 연결 강화 + ① 퍼널 강도↑</td></tr>
+        <tr><td><b>장기</b><div style="font-size:11px;color:var(--ink-mute);">24주~</div></td><td>① 시스템·확장성 최우선, ②③은 자동화</td></tr>
+      </table>
+      <blockquote class="kicker" style="margin-top:14px;"><b>"책으로 시작해서, 시스템으로 끝낸다."</b></blockquote>
+    </div>
+  </div>
+
+  <section class="card flag-improve" style="margin-bottom:24px;">
+    <h2>§6.2</h2>
+    <h3>파일 구조 룰 (하드 룰)</h3>
+    <table>
+      <thead><tr><th style="width:200px;">구분</th><th>경로 / 규칙</th></tr></thead>
+      <tbody>
+        <tr><td>원본(raw)</td><td><code>raw/&lt;날짜&gt;_&lt;주제&gt;/</code> — 강의 필사·노트</td></tr>
+        <tr><td>강의 정리본</td><td><code>docs/lectures/&lt;주차&gt;/&lt;강의번호&gt;_&lt;주제&gt;.md</code></td></tr>
+        <tr><td>실전 산출물</td><td><code>docs/item/</code> · <code>docs/keycontent/</code> · <code>docs/reference/</code> 등</td></tr>
+        <tr><td>SPA 참조 4파일</td><td>이름·위치 변경 금지 (<code>index.html</code>이 직접 링크)</td></tr>
+      </tbody>
+    </table>
+    <div class="review-note">
+      §6.2는 <b>작업 디렉토리 규칙</b>이고 §1.1은 <b>전략 카드</b> — 두 영역이 섞여 있는 인상. CLAUDE.md §4와 중복되는 부분은 한쪽으로 몰고 다른 쪽은 링크로 단순화 권장.
+    </div>
+  </section>
+
+  <!-- ── CLAUDE COLLAB ──────────────── -->
+  <section id="claude" class="card flag-keep" style="margin-bottom:24px;">
+    <h2>§7 · AI(Claude) 협업 방식</h2>
+    <h3>역할 분담 · 도와주길 원하는 작업</h3>
+    <div class="grid-2" style="margin-top:8px;">
+      <div>
+        <h4 style="font-size:13px;margin:0 0 8px;">도와주길 원하는 작업 유형</h4>
+        <ul style="margin:0 0 0 18px;padding:0;font-size:13.5px;color:var(--ink-soft);">
+          <li>강의 내용의 요약·재구성·언어 정리</li>
+          <li>유튜브 콘텐츠 기획서 (풀링·키·랜딩)</li>
+          <li>자료 수집 (책·도구·시장·경쟁 채널)</li>
+          <li>기획 검증 (퍼널 논리·단가·KPI 역산)</li>
+          <li>산출물 문서화 (HTML/MD/스크립트)</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-size:13px;margin:0 0 8px;">서브에이전트 (<code>.claude/agents/</code>)</h4>
+        <table>
+          <tr><td><b>대본에이전트</b></td><td style="font-size:12.5px;">키/쇼츠 대본 + 룰 갱신 (단일 진실 원천: <code>대본/_기획기준/대본기획_기준.md</code>)</td></tr>
+          <tr><td><b>풀링컨텐츠_스크립트</b></td><td style="font-size:12.5px;">brief.md → 풀링 영상 자산 일괄 생성 (CLAUDE.md §6 참조)</td></tr>
+          <tr><td><b>lecture-glossary-curator</b></td><td style="font-size:12.5px;">강의 용어집 갱신</td></tr>
+          <tr><td><b>video-asset-curator</b></td><td style="font-size:12.5px;">B-roll·이미지 큐레이션</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="review-note">
+      §7.4 "Claude Code 활용 지침"의 <b>5번 룰 목록</b>은 CLAUDE.md §4와 거의 동일 — 한 곳에서만 정의하고 다른 곳은 "→ CLAUDE.md §4 참조"로 단축 권장.
+    </div>
+  </section>
+
+  <!-- ── TODO ───────────────────────── -->
+  <section id="todo" class="card flag-improve" style="margin-bottom:24px;">
+    <h2>§8 · TODO</h2>
+    <h3>우선순위별 다음 작업</h3>
+
+    <div class="todo-group p0">
+      <h4>🔥 P0 — 다음 협업 세션에서 우선 처리</h4>
+      <ul class="todo-list">
+        <li><b>readingtree 정리</b> — readingtree 자체 프로젝트에서 작업 후 <code>docs/reference/readingtree_연계.md</code>의 경로 표만 채우기</li>
+        <li><b>"좋아하는 책 리스트"</b> — 콘텐츠 주제 풀의 출발점. 책 10~20권 + 후크 1줄씩</li>
+        <li><b>3대 기둥 우선순위 사용자 검증</b> — §6.4 단기/중기/장기 비중 의도 확인</li>
+      </ul>
+    </div>
+
+    <div class="todo-group p1">
+      <h4>📋 P1 — 4주차 진입 전후로 처리</h4>
+      <ul class="todo-list">
+        <li>4주차 진입 시 <code>docs/lectures/4주차_풀링콘텐츠기획/</code> 생성</li>
+        <li><code>docs/reference/00_커리큘럼_35주.md</code> → 40주 기준으로 갱신 또는 deprecate</li>
+        <li>채널 컨셉/네이밍 1차 안 (책 + readingtree, "책으로 시작 → 시스템으로" 반영)</li>
+      </ul>
+    </div>
+
+    <div class="todo-group p2">
+      <h4>🔭 P2 — 풀링 제작 단계 들어가기 전</h4>
+      <ul class="todo-list">
+        <li>경쟁 채널·벤치마크 채널 5개 리스트업 (책·자기계발·전자책)</li>
+        <li>readingtree 사용 시나리오 → 콘텐츠 후크 매핑표</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── CLEANUP SUGGESTIONS ────────── -->
+  <section id="cleanup" class="card flag-fix" style="margin-bottom:24px;">
+    <h2>이 문서 자체에 대한</h2>
+    <h3>정리·개선 제안 (요청에 대한 응답)</h3>
+
+    <table>
+      <thead><tr><th style="width:60px;">우선</th><th style="width:200px;">대상</th><th>제안 / 이유</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="chip fix">정리</span></td>
+          <td>§1 한 줄 정의</td>
+          <td>"35주 / 사용자 기억상 40주" 표현 — 이미 §4에서 <b>40주가 canonical</b>로 확정됨. 혼란 유발 문구 삭제하고 <b>"비즈니스PT 강의(40주)"</b>로 통일.</td>
+        </tr>
+        <tr>
+          <td><span class="chip fix">정리</span></td>
+          <td>§4 + §8 P1 — 35주 커리큘럼</td>
+          <td><code>00_커리큘럼_35주.md</code> 파일을 실제로 처리(deprecated 표시 또는 삭제) — 문서에서 <b>두 번 언급되는 미해결 항목</b>이라 의지 확인 필요.</td>
+        </tr>
+        <tr>
+          <td><span class="chip improve">개선</span></td>
+          <td>§7.4 vs CLAUDE.md §4</td>
+          <td>"Claude Code 룰 5개" 중복 — 본 문서에선 "→ CLAUDE.md §4 참조"로 단축. 단일 진실 원천 원칙 적용.</td>
+        </tr>
+        <tr>
+          <td><span class="chip keep">해소</span></td>
+          <td>§1.1 컨셉 축 (구 8축 → 6축)</td>
+          <td>2026-06-13 AI 전환으로 <b>8축 → 6축(독서·문해력·사고력·AI·바이브코딩·성장)</b> 통합. "지적허영심" 등 부정 뉘앙스 축 폐기로 자연 해소.</td>
+        </tr>
+        <tr>
+          <td><span class="chip improve">개선</span></td>
+          <td>§2 기둥 ② 마지막 줄</td>
+          <td>"전문성·재구매·프리미엄 — 2주차 강의 키워드와 결을 맞춘다" — <b>해당 키워드의 정의/링크 부재</b>. <code>docs/lectures/2주차/</code> 정리본으로 링크 걸기.</td>
+        </tr>
+        <tr>
+          <td><span class="chip improve">개선</span></td>
+          <td>§5 ASCII 다이어그램</td>
+          <td>마크다운 코드블록 ASCII 그림은 <b>HTML/SPA에서 깨질 위험</b> + 시각적 빈약. 본 HTML처럼 카드형 funnel로 대체하거나, 이미지 1장으로 export 권장.</td>
+        </tr>
+        <tr>
+          <td><span class="chip improve">개선</span></td>
+          <td>§3 측정 지표</td>
+          <td>"시청 지속률, 전환율, 카테고리 수" 등이 <b>구체 수치 없이 명목</b>만 있음. 단계별 1차 KPI 목표값(예: 12주차 시점 구독 1천, 키 영상 CTR 5%)을 §4 단계 표에 묶어 한 줄씩 추가하면 의사결정 기준이 또렷해짐.</td>
+        </tr>
+        <tr>
+          <td><span class="chip improve">개선</span></td>
+          <td>§8 P0 "사용자 검증"</td>
+          <td>"3대 기둥 우선순위 사용자 검증" — 검증 결과를 <b>이 문서에 반영하는 절차</b>가 없음. "검증 → §6.4 갱신" 체인 명시 권장.</td>
+        </tr>
+        <tr>
+          <td><span class="chip keep">유지</span></td>
+          <td>§1.1 정체성 카드 / §6.1 체크리스트 / §6.4 한 줄 원칙</td>
+          <td>이 세 가지가 문서 전체를 떠받치는 코어 — 그대로 유지. 다른 모든 항목이 이 셋을 향해 정렬되는지로 가지치기 가능.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="review-note">
+      <b>구조 제안</b> — 다음 갱신 때 §6(작업 지침)을 §6.1 체크리스트 / §6.2 파일 룰 / §6.3 의사결정 / §6.4 단계별 주력 4개로 <b>독립 소절</b>화하면 검색·인용이 쉬워짐. 현재는 §6.2가 §1.1(전략)과 톤이 달라 흐름이 끊김.
+    </div>
+  </section>
+
+  <div class="footer-meta">
+    <span>📄 원본 — <code>C:\Dev\bizpt\프로젝트_방향성.md</code> · 220줄 · 9개 섹션</span>
+    <span>🗓 한눈에 보기 생성: 2026-05-11</span>
+  </div>
+
+</div>
+</body>
+</html>

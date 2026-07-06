@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!-- 참조영상 수집 — 최재천 (독서는 일·통섭) v1 · 2026-06-09 · 링크/메타 Claude in Chrome 실제 검증 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>참조영상 · 최재천 — 독서는 일·통섭</title>
+<style>
+  :root{--pain:#ef476f;--growth:#06d6a0;--value:#ffd166;--rec:#c4b5fd;--bg:#f5f3ee;--panel:#ffffff;--panel-2:#faf8f3;--line:#e7e3da;--text:#1f2430;--muted:#5d6470;--brand:#2f5d62;--brand2:#3a7a82;--shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:1080px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:800;background:rgba(47,93,98,.08);border-color:var(--brand2)}
+  .nbtn.doc{margin-left:auto;color:var(--brand2)}
+  header{background:linear-gradient(135deg,#2f5d62 0%,#244b50 60%,#1d3c40 100%);color:#fff;padding:34px 0 30px;margin:18px 0 0;border-bottom:4px solid var(--value)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+  header .wrap{padding-bottom:0}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#bfe0d9;font-weight:800;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 10px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:#d6e6e1;font-size:14.5px;margin:0;max-width:760px}
+  .stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+  .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 20px;min-width:108px}
+  .stat .v{font-size:22px;font-weight:800;color:#fff;line-height:1}
+  .stat .l{font-size:12px;color:#bfe0d9;margin-top:5px}
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:26px 0 10px;box-shadow:var(--shadow)}
+  .intro h2{font-size:17px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .intro p{margin:0 0 10px;font-size:14px;color:#3a414c}
+  .intro .why{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .why .chip{font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand)}
+  .group{margin-top:34px}
+  .ghead{display:flex;align-items:center;gap:11px;margin:0 0 4px}
+  .gbadge{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px}
+  .ghead h2{font-size:19px;margin:0;font-weight:800}
+  .gdesc{font-size:13px;color:var(--muted);margin:2px 0 16px;padding-left:41px}
+  .vid{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+  .vthumb{position:relative;flex:0 0 280px;aspect-ratio:16/9;background:#0b0f14;text-decoration:none;display:block;overflow:hidden}
+  .vthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+  .vthumb:hover img{transform:scale(1.04);opacity:.9}
+  .vthumb .dur{position:absolute;right:8px;bottom:8px;background:rgba(15,20,28,.86);color:#fff;font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .vthumb .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(239,71,111,.92);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;padding-left:3px}
+  .vbody{flex:1;padding:15px 18px 16px;min-width:0}
+  .vtop{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .lang{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
+  .lang.ko{background:rgba(47,93,98,.12);color:var(--brand)}
+  .lang.off{background:rgba(255,209,102,.3);color:#7a5e10}
+  .vtitle{font-size:15.5px;font-weight:800;line-height:1.35;text-decoration:none;color:var(--text)}
+  .vtitle:hover{color:var(--brand)}
+  .vmeta{display:flex;flex-wrap:wrap;gap:5px 13px;font-size:11.5px;color:var(--muted);margin:7px 0 11px}
+  .vmeta b{color:var(--text)}
+  .vsec{font-size:12.8px;color:#3a414c;margin:0 0 8px;line-height:1.55}
+  .vsec .lab{display:inline-block;font-size:10.5px;font-weight:800;color:var(--brand2);background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+  .vquote{font-style:italic;color:#28303a;border-left:3px solid var(--value);padding:2px 0 2px 10px;margin:8px 0}
+  .vuse{font-size:12.8px;color:#1f2a2b;background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.3);border-radius:9px;padding:9px 12px;margin-top:10px;line-height:1.55}
+  .vuse .lab{background:var(--growth);color:#06352a;border:none}
+  .guide{background:linear-gradient(135deg,#fff 0%,#faf8f3 100%);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-top:38px;box-shadow:var(--shadow)}
+  .guide h2{font-size:19px;margin:0 0 4px;font-weight:800}
+  .guide .lead{color:var(--muted);font-size:13.5px;margin:0 0 18px}
+  .gtable{width:100%;border-collapse:collapse;font-size:13px}
+  .gtable th,.gtable td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .gtable th{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .gtable td b{color:var(--brand)}
+  .gtable tr:last-child td{border-bottom:none}
+  .axis{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand);margin:1px 2px 1px 0}
+  .note{background:rgba(255,209,102,.16);border:1px solid rgba(255,209,102,.5);border-radius:11px;padding:13px 16px;margin-top:18px;font-size:12.8px;color:#5a4a1a}
+  .note b{color:#7a5e10}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:34px;line-height:1.8}
+  @media(max-width:720px){h1{font-size:22px}.vid{flex-direction:column}.vthumb{flex-basis:auto;width:100%}.gdesc{padding-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="../_허브.html">← 참조영상 허브</a>
+  <a class="nbtn" href="https://www.youtube.com/results?search_query=최재천+독서+통섭" target="_blank" rel="noopener">🔎 유튜브에서 더 보기</a>
+  <a class="nbtn doc" href="../../../../10_system/cowork_prompts/유튜브_참조영상_수집.md">📋 작성 지침</a>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">참조영상 컬렉션 · 인물 (한국 · 과학자)</div>
+    <h1>최재천 — 독서는 '일'이다 · 통섭</h1>
+    <p class="sub">'통섭'의 학자이자 «최재천의 아마존»으로 사랑받는 과학 커뮤니케이터. <b style="color:#fff">"독서는 취미가 아니라 '일'이어야 한다"</b>(기획·전략적 독서)는 그의 명제는 bizpt '책 읽는 방법' 축의 한국 대표 — 이미 우리 도입부 분석에도 등장한 인물입니다.</p>
+    <div class="stats">
+      <div class="stat"><div class="v">7</div><div class="l">수집 영상</div></div>
+      <div class="stat"><div class="v">한국</div><div class="l">생물학자</div></div>
+      <div class="stat"><div class="v">약 526만</div><div class="l">합산 조회수</div></div>
+      <div class="stat"><div class="v">209만</div><div class="l">최고 (독서는 일)</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h2>왜 최재천 = bizpt 레퍼런스인가</h2>
+    <p>최재천의 <b>"독서는 일이어야 한다"</b>는 "재미로 읽는 게 아니라 <b>목표를 정해 기획·전략적으로 읽으라</b>"는 뜻 — bizpt <b>'책 읽는 방법'</b> 축의 가장 강력한 한국 명제다(이미 프로젝트 도입부 분석에 수록). 또 «최재천의 아마존»은 <b>과학·교양을 독서와 엮어</b> 대형 채널이 된 사례로, 우리 채널이 벤치마크할 '교양 독서 유튜브'의 모범.</p>
+    <div class="why">
+      <span class="chip">결 ② 읽고 있는 사람</span>
+      <span class="chip">결 ③ 더 읽으려는 사람</span>
+      <span class="chip">축: 책 읽는 방법</span>
+      <span class="chip">축: 지적호기심</span>
+      <span class="chip">축: 책 읽어야 하는 이유</span>
+    </div>
+  </div>
+
+  <!-- A. 독서론 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--brand)">A</span><h2>독서론 — "독서는 일이다"</h2></div>
+    <p class="gdesc">취미가 아닌 기획·전략으로서의 독서 — bizpt '책 읽는 방법'의 핵심 명제.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=tSlGJmlWw0I" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/tSlGJmlWw0I/hqdefault.jpg" alt="" loading="lazy"><span class="dur">39:15</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=tSlGJmlWw0I" target="_blank" rel="noopener">독서는 '일'이어야만 한다 (최재천 교수 레전드 강연)</a></div>
+        <div class="vmeta"><span>채널 <b>스터디언</b></span><span>조회 <b>약 209만</b></span><span>5년 전</span><span>39:15</span></div>
+        <div class="vsec"><span class="lab">핵심</span>이 컬렉션 <b>최고 조회(209만)</b>·이 프로젝트의 핵심 레퍼런스. "<b>기획 독서</b> — 목표를 세워 그 분야를 통째로 읽어라." 취미 독서를 넘어서라는 명강연.</div>
+        <div class="vquote">"독서는 일입니다. 빈둥거리며 읽는 게 아니라, 일하듯 기획해서 읽어야 합니다."</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 방법' 키 콘텐츠 1순위 인용. "기획 독서 vs 취미 독서" 후크. 우리 도입부 분석과 직접 연결.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=vL_nE42gq3M" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/vL_nE42gq3M/hqdefault.jpg" alt="" loading="lazy"><span class="dur">1:32:20</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=vL_nE42gq3M" target="_blank" rel="noopener">독서의 달인이 말하는 '인생을 바꾼 독서법' (최재천·최진석·김종원 등) 모음</a></div>
+        <div class="vmeta"><span>채널 <b>스터디언</b></span><span>조회 <b>약 17.9만</b></span><span>3년 전</span><span>1:32:20</span></div>
+        <div class="vsec"><span class="lab">핵심</span>최재천을 포함한 <b>여러 독서 달인</b>의 독서법 1.5시간 모음. 다인물 큐레이션 포맷.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'독서법 종합' 큐레이션 벤치마크. 여러 인물을 한 영상에 엮는 구성(우리 허브와 같은 발상).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. 책 추천·과학 교양 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--value)">B</span><h2>책 추천 · 과학 교양 (최재천의 아마존)</h2></div>
+    <p class="gdesc">본인 채널에서 책과 과학을 엮는 방식 — '교양 독서 유튜브'의 모범.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=LUqgF2sJnVM" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/LUqgF2sJnVM/hqdefault.jpg" alt="" loading="lazy"><span class="dur">18:28</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><span class="lang off">본인 채널</span><a class="vtitle" href="https://www.youtube.com/watch?v=LUqgF2sJnVM" target="_blank" rel="noopener">책.봉.박.두. 최재천 교수님 책장 털었다! 찐추천 도서 4권</a></div>
+        <div class="vmeta"><span>채널 <b>최재천의 아마존</b></span><span>조회 <b>약 60.6만</b></span><span>4년 전</span><span>18:28</span></div>
+        <div class="vsec"><span class="lab">핵심</span>교수의 <b>실제 책장</b>을 보여주며 추천도서 4권 소개. "인물의 서재" 포맷의 한국 대표.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 추천 큐레이션' — 게이츠·자청과 같은 "내 서재" 포맷의 국내 벤치마크.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=SyGKk2a6OWs" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/SyGKk2a6OWs/hqdefault.jpg" alt="" loading="lazy"><span class="dur">34:20</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=SyGKk2a6OWs" target="_blank" rel="noopener">[정말 읽었니?#5] 최재천 "손잡지 않고 살아남은 생명은 없다!"</a></div>
+        <div class="vmeta"><span>채널 <b>카오스 사이언스</b></span><span>조회 <b>약 78.2만</b></span><span>5년 전</span><span>34:20</span></div>
+        <div class="vsec"><span class="lab">핵심</span>한 권의 책을 깊게 파고드는 <b>'정말 읽었니?'</b> 포맷. 과학책을 대중적으로 풀어내는 모범.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 한 권 깊이 읽기' 키 콘텐츠 포맷 벤치마크(과학·교양 분야).</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=ks1cNo7eLyg" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ks1cNo7eLyg/hqdefault.jpg" alt="" loading="lazy"><span class="dur">16:58</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><span class="lang off">본인 채널</span><a class="vtitle" href="https://www.youtube.com/watch?v=ks1cNo7eLyg" target="_blank" rel="noopener">인류의 역사 한번에 이해하기 / 최재천의 아마존</a></div>
+        <div class="vmeta"><span>채널 <b>최재천의 아마존</b></span><span>조회 <b>약 59.8만</b></span><span>2년 전</span><span>16:58</span></div>
+        <div class="vsec"><span class="lab">핵심</span>책(인간 등정의 발자취 등)을 바탕으로 인류사를 풀어주는 교양 콘텐츠. <b>책→지식 전달</b> 모델.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'지적호기심' — 책 한 권을 주제 강의로 확장하는 포맷 참고.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. 공부·인터뷰 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--rec)">C</span><h2>공부 · 인터뷰</h2></div>
+    <p class="gdesc">평생의 공부론과 대표 인터뷰 — 자기개발 메시지의 권위 소스.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=wNAmXBZsYIU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/wNAmXBZsYIU/hqdefault.jpg" alt="" loading="lazy"><span class="dur">18:26</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=wNAmXBZsYIU" target="_blank" rel="noopener">평생 공부해보고 정리한 공부론 (최재천의 공부) | 그랜드마스터토크</a></div>
+        <div class="vmeta"><span>채널 <b>그랜드마스터클래스</b></span><span>조회 <b>약 1.6만</b></span><span>1년 전</span><span>18:26</span></div>
+        <div class="vsec"><span class="lab">핵심</span>『최재천의 공부』를 바탕으로 한 공부론 — 독서·호기심·통섭이 어떻게 공부가 되는가.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'자기개발·공부' — "공부=독서" 연결 메시지. 책 기반 강연 포맷.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=8zzNBLj_FPM" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/8zzNBLj_FPM/hqdefault.jpg" alt="" loading="lazy"><span class="dur">9:08</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=8zzNBLj_FPM" target="_blank" rel="noopener">[손석희의 질문들] 손석희를 놀라게 한 최재천의 이야기 (MBC)</a></div>
+        <div class="vmeta"><span>채널 <b>MBC PLAYGROUND</b></span><span>조회 <b>약 98.5만</b></span><span>1년 전</span><span>9:08</span></div>
+        <div class="vsec"><span class="lab">핵심</span>최근 대표 인터뷰(98만) — 지성인의 통찰을 짧게. 시의성 있는 인용 소스.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'지적호기심' 인터뷰 인용. 최신·고조회라 신뢰도 높은 1차 링크.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 종합 가이드 -->
+  <div class="guide">
+    <h2>🧭 종합 활용 가이드 — bizpt 축 매핑</h2>
+    <p class="lead">최재천 컬렉션을 어느 콘텐츠에, 어떤 후크로 쓸지. (8축 · 결 3그룹 기준)</p>
+    <table class="gtable">
+      <thead><tr><th style="width:22%">bizpt 축</th><th style="width:34%">연결 영상</th><th>후크·활용 아이디어</th></tr></thead>
+      <tbody>
+        <tr><td><span class="axis">책 읽는 방법</span></td><td>A1 독서는 일 · A2 독서법 모음</td><td>"기획 독서 vs 취미 독서" — 우리 도입부 분석과 직접 연결</td></tr>
+        <tr><td><span class="axis">책 읽는 재미</span></td><td>B1 책장 추천 · B2 정말 읽었니</td><td>"내 서재 공개" + "책 한 권 깊이 읽기" 교양 포맷</td></tr>
+        <tr><td><span class="axis">지적호기심</span></td><td>B3 인류사 · C2 손석희 인터뷰</td><td>"책으로 세상을 설명" 교양 독서 유튜브 벤치마크</td></tr>
+        <tr><td><span class="axis">자기개발</span></td><td>C1 공부론</td><td>"공부=평생 독서" 메시지</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>진정성 체크(3기둥 ②):</b> 최재천은 우리 결과 매우 잘 맞는다 — 진정성 있고 교양 있는 독서 옹호. «최재천의 아마존»은 <b>직접 벤치마크</b>(같은 교양 독서 카테고리). 그의 "기획 독서"를 우리 정체성의 한 기둥으로 가져와도 좋다.</div>
+  </div>
+
+  <footer>
+    bizpt / 타채널참조 · 참조영상 수집 — 최재천 (독서는 일·통섭)<br>
+    모든 링크·메타는 2026-06-09 Claude in Chrome로 실제 검증 · 조회수는 검증 시점 근사치<br>
+    허브: ../_허브.html · 지침: 10_system/cowork_prompts/유튜브_참조영상_수집.md
+  </footer>
+</div>
+</body>
+</html>

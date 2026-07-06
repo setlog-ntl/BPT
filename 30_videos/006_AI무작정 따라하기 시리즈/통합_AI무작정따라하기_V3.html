@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>풀링 콘텐츠 기획서 · AI 무작정 따라하기 EP.01 (공부 말고 경험이 먼저) — 통합 기획·대본</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2;
+    --accent:#ffd166; --accent-2:#06d6a0; --warn:#ef476f;
+    --pull:#5cc4e0; --edit:#06d6a0; --brief:#c4b5fd;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 24px 140px}
+
+  .angle-nav{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px;padding:12px;
+    background:rgba(23,26,33,.92);border:1px solid var(--line);border-radius:12px;
+    position:sticky;top:0;z-index:30;backdrop-filter:blur(8px)}
+  .abtn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:all .15s;white-space:nowrap}
+  .abtn:hover{transform:translateY(-1px);background:#252a36;border-color:#34394a}
+  .abtn.active{background:rgba(196,181,253,.14);border-color:rgba(196,181,253,.45);color:var(--brief)}
+  .abtn.home{color:var(--muted);background:transparent}
+
+  header.hero{padding:28px 32px;border-radius:18px;
+    background:radial-gradient(1200px 380px at 10% -10%,rgba(56,189,248,.18),transparent 50%),
+               radial-gradient(900px 360px at 110% 10%,rgba(168,85,247,.14),transparent 55%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line);margin-bottom:22px}
+  .eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.18em;color:var(--accent-2);
+    background:rgba(6,214,160,.12);border:1px solid rgba(6,214,160,.3);
+    padding:5px 11px;border-radius:999px;text-transform:uppercase}
+  h1{font-size:30px;line-height:1.25;margin:14px 0 10px;letter-spacing:-0.02em;font-weight:800}
+  .lede{color:var(--muted);font-size:14.5px;margin:6px 0 14px;max-width:840px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:#2a2f3a;border:1px solid var(--line);color:var(--text);
+    font-size:12px;padding:5px 10px;border-radius:999px}
+
+  .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 22px}
+  @media(max-width:760px){.stats-bar{grid-template-columns:repeat(2,1fr)}.wrap{padding:18px 16px 100px}h1{font-size:24px}}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .stat .lab{font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  .stat .val{font-size:22px;font-weight:800;color:#fff;margin-top:4px;font-variant-numeric:tabular-nums}
+  .stat .sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+  section{margin-top:40px;scroll-margin-top:80px}
+  h2{font-size:22px;letter-spacing:-.01em;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:24px;border-radius:3px;background:var(--accent-2)}
+  h2 .num{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:.15em;margin-right:4px}
+  h2 .sec-tag{font-size:11px;background:var(--panel-2);color:var(--muted);padding:3px 9px;border-radius:6px;
+    border:1px solid var(--line);margin-left:auto;font-weight:600;letter-spacing:.04em}
+  section.sec-brief h2::before{background:var(--brief)}
+  section.sec-pack h2::before{background:var(--pull)}
+  section.sec-script h2::before{background:var(--edit)}
+  section.sec-check h2::before{background:var(--accent)}
+
+  .brief-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:760px){.brief-grid{grid-template-columns:1fr}}
+  .brief-cell{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .brief-cell.full{grid-column:1/-1}
+  .field-label{font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;
+    margin:0 0 8px;display:flex;align-items:center;gap:8px}
+  .field-label .hint{font-size:10.5px;color:#6b7384;text-transform:none;letter-spacing:0;font-weight:400}
+  .editable{background:#0c0e13;border:1px solid #2a3040;border-radius:10px;
+    padding:14px 16px;font-size:14.5px;color:#e7e9ee;line-height:1.85;
+    min-height:60px;outline:none;transition:border-color .15s}
+  .editable:focus{border-color:rgba(6,214,160,.55);box-shadow:0 0 0 2px rgba(6,214,160,.08)}
+  .editable.note{font-size:13px;color:#c4cbd6;background:#13161d;border-style:dashed;
+    border-color:#2a3040;line-height:1.7;min-height:40px}
+  .editable.note:focus{border-style:solid;border-color:rgba(92,196,224,.4);box-shadow:0 0 0 2px rgba(92,196,224,.06)}
+  .editable[placeholder]:empty:before{content:attr(placeholder);color:#5a6273;pointer-events:none}
+  .editable b,.editable strong{color:#fff}
+  .brief-cell .editable{min-height:78px}
+  .brief-cell.memo .editable{min-height:120px}
+
+  .pack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:760px){.pack-grid{grid-template-columns:1fr}}
+  .pack-card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--pull);
+    border-radius:12px;padding:14px 16px}
+  .pack-card h4{margin:0 0 6px;font-size:14.5px;color:#fff}
+  .pack-card .editable{min-height:100px;font-size:13.5px}
+
+  .chapter{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:18px 22px;margin-bottom:16px;border-left:4px solid var(--accent-2)}
+  .chapter.hook{border-left-color:var(--warn)}
+  .chapter.body{border-left-color:var(--pull)}
+  .chapter.story{border-left-color:var(--accent)}
+  .chapter.cta{border-left-color:var(--edit)}
+  .chapter-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .chapter-head h3{margin:0;font-size:16.5px;color:#fff;font-weight:700}
+  .chapter-head .timecode{font-size:13px;font-variant-numeric:tabular-nums;color:var(--accent);font-weight:700;
+    background:rgba(255,209,102,.12);padding:3px 9px;border-radius:6px;letter-spacing:.04em}
+  .pill{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11.5px;font-weight:700}
+  .pill.hook{background:rgba(239,71,111,.15);color:#ff6b8a}
+  .pill.body{background:rgba(92,196,224,.15);color:#5cc4e0}
+  .pill.story{background:rgba(255,209,102,.15);color:#ffd166}
+  .pill.cta{background:rgba(6,214,160,.15);color:#33d8a3}
+  .chapter-stats{margin-left:auto;display:flex;gap:8px;font-size:11.5px;color:var(--muted)}
+  .chapter-stats span{font-variant-numeric:tabular-nums}
+  .chapter .editable{min-height:120px;font-size:15px}
+
+  .check li{list-style:none;padding-left:26px;position:relative;margin:8px 0;font-size:14px}
+  .check li::before{content:"☑";position:absolute;left:0;top:0;color:var(--accent-2);font-weight:700}
+
+  .footer{margin-top:48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);
+    padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+  .floating{position:fixed;bottom:18px;right:18px;z-index:50;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:14px 16px;box-shadow:0 12px 40px rgba(0,0,0,.5);
+    display:flex;flex-direction:column;gap:10px;min-width:240px;max-width:300px}
+  .floating .save-status{font-size:12px;display:flex;align-items:center;gap:8px;color:var(--muted)}
+  .floating .save-status .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+  .floating .save-status.saved .dot{background:var(--accent-2);box-shadow:0 0 8px rgba(6,214,160,.6)}
+  .floating .save-status.saving .dot{background:var(--edit);animation:pulse 1s infinite}
+  .floating .save-status.dirty .dot{background:var(--warn)}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 14px;
+    border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--text);
+    font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;white-space:nowrap}
+  .btn:hover{transform:translateY(-1px);background:#252a36;border-color:#34394a}
+  .btn.primary{background:rgba(6,214,160,.14);border-color:rgba(6,214,160,.4);color:var(--edit)}
+  .btn.primary:hover{background:rgba(6,214,160,.22)}
+  .btn.brief{background:rgba(196,181,253,.14);border-color:rgba(196,181,253,.4);color:var(--brief)}
+  .btn.danger{background:rgba(239,71,111,.12);border-color:rgba(239,71,111,.35);color:#ff8aa5}
+  .btn.ghost{background:transparent}
+  .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+  details.help{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0;margin-bottom:22px}
+  details.help summary{cursor:pointer;list-style:none;padding:14px 18px;font-size:14px;font-weight:600;color:#fff;
+    display:flex;align-items:center;gap:8px}
+  details.help summary::-webkit-details-marker{display:none}
+  details.help summary::after{content:"▾";color:var(--muted);margin-left:auto;font-size:12px;transition:transform .15s}
+  details.help[open] summary::after{transform:rotate(180deg)}
+  details.help .help-body{padding:0 18px 16px;font-size:13.5px;color:#cfd3db;line-height:1.7}
+  details.help ul{padding-left:20px;margin:6px 0}
+
+  @media print{
+    .angle-nav,.floating,.stats-bar,details.help{display:none !important}
+    body{background:#fff;color:#000}
+    section{break-inside:avoid}
+    .chapter,.brief-cell,.pack-card{break-inside:avoid;border:1px solid #ccc;background:#fff}
+    .editable{border:none;background:#fff;color:#000;padding:6px 0;min-height:0}
+    h1,h2,h3,h4{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="angle-nav">
+    <a class="abtn active">📦 통합 기획서 V_3 (바이브코딩)</a>
+    <a class="abtn" href="README.md">🧭 진입점 README</a>
+    <a class="abtn" href="대본/대본_바이브코딩_V3.md">🎬 대본 전체 V3</a>
+    <a class="abtn" href="대본/대본_바이브코딩_V3_녹음.md">🎙 녹음 대본 V3</a>
+    <a class="abtn" href="통합_AI무작정따라하기_V2.html">📦 V2 (이전본)</a>
+    <a class="abtn" href="통합_AI무작정따라하기.html">📦 EP.01 (매니페스토)</a>
+    <a class="abtn home" href="../../프로젝트_방향성.md">🧭 정체성 카드</a>
+  </nav>
+
+  <header class="hero">
+    <span class="eyebrow">PULLING · 바이브코딩 편(EP.02) · v3 라이브 편집 + 🎙 녹음 가이드 · 비개발자 강점=쉬운 설명</span>
+    <h1 contenteditable="true" data-key="title" data-placeholder="여기에 영상 제목">개발자도 아닌데 어떻게 만드냐고요? — 그래서 더 쉽게 알려드립니다 (바이브코딩 무작정 따라하기)</h1>
+    <p class="lede">「AI 무작정 따라하기」 바이브코딩 편 v3(시청자 라이브 편집 반영본). 1인칭 경험담(②)·코딩=소수 언어의 입구가 사라졌다(③)·배포의 벽 + LINKMAP 위트 홍보(④)·"책 읽읍시다"(⑤)·소개페이지를 같이 만드는 로드맵(⑦)을 반영. ⑥/⑦ 약속 중복 정리 + 결 3그룹 호명·사인오프 복원. 모든 입력은 자동 저장됩니다.</p>
+    <div class="meta-row">
+      <span class="chip">메인 결: <b contenteditable="true" data-key="chip-gyeol">① 비개발자 입문자 (+②③)</b></span>
+      <span class="chip">6축: <b contenteditable="true" data-key="chip-8">AI·바이브코딩·문해력·사고력·성장</b></span>
+      <span class="chip">길이: <b contenteditable="true" data-key="chip-len">약 12분</b></span>
+    </div>
+  </header>
+
+  <details class="help">
+    <summary>💡 사용 방법 (3단계)</summary>
+    <div class="help-body">
+      <ul>
+        <li><b>① 브리프 확인</b> — B1~B6. (근거 = 업로드 기획안 + 댓글 2종 + v3 라이브 편집)</li>
+        <li><b>② 핵심 메시지팩</b> — 결정체 카피·인용/댓글 근거·B-roll 키워드.</li>
+        <li><b>③ 대본 챕터</b> — 8챕터 발화 본문·스피커 노트. 자수·예상 시간 자동 계산.</li>
+        <li><b>저장</b> — 자동. 키: <code id="ls-key-display">—</code> (이 파일 고정 키 · V2와 분리).</li>
+      </ul>
+    </div>
+  </details>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="lab">대본 총 자수</div><div class="val" id="stat-chars">—</div><div class="sub">스피커 노트 제외, 발화 본문만</div></div>
+    <div class="stat"><div class="lab">예상 발화 시간</div><div class="val" id="stat-time">—</div><div class="sub">230자/분 기준 (데모 화면시간 별도)</div></div>
+    <div class="stat"><div class="lab">챕터 수</div><div class="val" id="stat-chapters">8</div><div class="sub">HOOK·BODY·STORY·CTA</div></div>
+    <div class="stat"><div class="lab">마지막 저장</div><div class="val" id="stat-saved" style="font-size:14px">—</div><div class="sub">브라우저 로컬 저장 시각</div></div>
+  </div>
+
+  <!-- ① 브리프 -->
+  <section class="sec-brief" id="sec-brief">
+    <h2><span class="num">01</span>브리프 <span class="sec-tag">B1~B6 · 근거 = 기획안 + 댓글 2종 + v3 편집</span></h2>
+    <div class="brief-grid">
+      <div class="brief-cell">
+        <div class="field-label">B1. 한 줄 정의 <span class="hint">약속하는 변화·결과</span></div>
+        <div class="editable" contenteditable="true" data-key="b1">개발과 무관한 일을 하는 <b>비개발자</b>가, 바로 그 이유로 어려운 걸 가장 쉽게 풀어주는 바이브코딩 입문 영상. 카파시의 "바이브코딩"을 입구로 하되 <b>"말로만 다 되진 않는다"</b>는 현실까지 정직하게 보여주고, <b>어려운 걸 쉽게 설명하는 힘(=문해력)이 비개발자의 무기</b>임을 증명해 시리즈 구독으로 착지.</div>
+      </div>
+      <div class="brief-cell">
+        <div class="field-label">B2. 풀링/키 + 6축</div>
+        <div class="editable" contenteditable="true" data-key="b2"><b>풀링</b>(알고리즘 유입·직접 판매 0). 메인 6축 — <b>AI·바이브코딩</b>(입구) / <b>문해력·사고력</b>(토대) / <b>성장</b>.</div>
+      </div>
+      <div class="brief-cell">
+        <div class="field-label">B3. 메인 결 + 단계별 우선 기둥</div>
+        <div class="editable" contenteditable="true" data-key="b3">메인 = <b>① 비개발자 입문자</b>(전문가 채널은 구독했지만 어려워 못 따라간 사람). 서브 ② 자연어코딩 시도했다 막힌 사람 · ③ 더 잘 쓰려는 사람. 단기 ② AI·문해력 풀링 라인.</div>
+      </div>
+      <div class="brief-cell">
+        <div class="field-label">B4. 수익화 종착지 <span class="hint">풀링 = 직접 노출 X</span></div>
+        <div class="editable" contenteditable="true" data-key="b4">시리즈 구독·신뢰 → 이후 키(이북리더기·문해력 환경)로 자연 연결. <b>readtree</b>는 "읽고→생각하고→만들고→성장" 메타포로만. 직접 노출 0회. <b>강의·클래스도 팔지 않는다</b>는 선언 자체가 신뢰 자산. (단, v3에선 LINKMAP·"책 읽읍시다"를 <b>위트 있는 자기 홍보 2회</b>로 살짝 노출 — 과하지 않게.)</div>
+      </div>
+      <div class="brief-cell full">
+        <div class="field-label">B5. 핵심 메시지·감정 코어 <span class="hint">한 줄 캐치</span></div>
+        <div class="editable" contenteditable="true" data-key="b5">한 줄 캐치 — <b>"개발자가 아니라는 게 약점이 아니라, 가장 큰 무기예요. 어려운 걸 쉽게 풀 수 있으니까요."</b> · 감정 코어 = "이분은 진짜 내 눈높이다"(댓글①) + "솔직하게 안 되는 것도 보여주네"(댓글②) + "혼자 더듬더듬 해온 경험담"의 신뢰(②).</div>
+      </div>
+      <div class="brief-cell full memo">
+        <div class="field-label">B6. 자유 메모 <span class="hint">댓글 2종 + v3 편집</span></div>
+        <div class="editable note" contenteditable="true" data-key="b6">댓글①(👍41, 비개발자 신뢰) → "전문가 채널은 어렵다 / 나는 개발자가 아니라 같은 눈높이" 차별점. · 댓글②(정직성) → 데모에 "말로만 안 됨 + AI에게 왜냐고 되묻기". · <b>v3 추가</b>: ② 1인칭 경험담("바이브코딩이란 말 나오기 전부터 혼자 만들고 있었다") / ③ "코딩=소수 언어, 그 입구가 사라졌다" 확장 / ④ 배포="그게 뭔데?" + LINKMAP <b>위트 자기홍보</b>(😅) / ⑤ "책, 책, 책을 읽읍시다" + <b>위트 자기홍보</b>(ㅎㅎ) / ⑦ 로드맵="이 소개페이지를 여러분 맞게 + 로그인·데이터·결제·배포·챗봇" + "만들다 보면 스스로 공부하게 됨". · <b>정리</b>: ⑥(약속)·⑦이 중복돼 ⑦이 ⑥ 약속을 흡수 → ⑥=약속+강의비판매, ⑦=로드맵+결호명+사인오프로 재배치. · <b>복원</b>: 결 3그룹 호명·"AI는 답을, 읽는 사람은 질문을" 사인오프(룰북 §4) — 불필요하면 삭제 가능. · 시그니처 "같이, 무작정 따라합시다".</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② 핵심 메시지팩 -->
+  <section class="sec-pack" id="sec-pack">
+    <h2><span class="num">02</span>핵심 메시지팩 <span class="sec-tag">결정체 · 인용/댓글 근거 · B-roll</span></h2>
+    <p class="lede" style="margin-top:0">녹음 중 옆에 띄워두는 카드. 챕터 본문엔 풀어서, 여기엔 한 줄로.</p>
+    <div class="pack-grid">
+      <div class="pack-card">
+        <h4>결정체 카피</h4>
+        <div class="editable" contenteditable="true" data-key="pack-1">· "저는 개발자가 아니에요. 그래서 더 쉽게 설명할 수 있어요."<br>· "코딩은 소수의 언어였어요. 근데 그 입구가 사라졌어요."<br>· "말로만 다 되진 않아요. 안 되면 AI한테 '왜?'라고 되물으세요."<br>· "잘 읽는 사람이 잘 설명하고, 잘 설명하는 사람이 잘 만든다."<br>· "AI는 답을 만들고, 읽는 사람은 질문을 만든다."</div>
+      </div>
+      <div class="pack-card">
+        <h4>인용·댓글 근거</h4>
+        <div class="editable" contenteditable="true" data-key="pack-2">· 카파시 트윗(2025.2.2): "코드가 존재한다는 것조차 잊고… 보고·말하고·실행·붙여넣으면 대부분 된다."<br>· YC 키노트(2025.6.17, 29:06): "LLM은 영어로 프로그래밍 / Everyone is now a programmer."<br>· 시청자 댓글①(비개발자 신뢰)·②(말로만 안 됨·정직) = 도입·데모 톤 근거.<br>· 출처는 <b>자막 + 고정 댓글</b> (통째 재업 금지).</div>
+      </div>
+      <div class="pack-card">
+        <h4>B-roll 키워드</h4>
+        <div class="editable" contenteditable="true" data-key="pack-3">구독 채널 목록 스크롤 / 영수증·단톡 정산·수기 예약 노트(공감 일상) / "GitHub? 파이썬? 그게 뭔데??" 자막 / 카파시 트윗·키노트 / Software 1.0→3.0 모션 / 화면녹화(성공+에러+되묻기 복구) / LINKMAP 원클릭 배포·공유 링크 / 소개페이지(로그인·데이터·결제·챗봇) / "책 읽읍시다" 카드</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ 대본 -->
+  <section class="sec-script" id="sec-script">
+    <h2><span class="num">03</span>대본 <span class="sec-tag">8챕터 · 🎙 녹음 가이드 적용 (v3-rec)</span></h2>
+    <p class="lede" style="margin-top:0">🎙 <b>녹음 가이드판</b> — 각 줄은 <b>한 호흡</b>(끊지 말고 한 번에). 전체 원문 = <code>대본/대본_바이브코딩_V3.md</code>. (자수·시간 통계는 녹음 마크업 포함이라 참고용)</p>
+<div class="editable note" contenteditable="false" style="margin-bottom:16px">📢 <b>범례</b> — 줄바꿈 = 한 호흡 · <b>굵게</b> = 힘줘 강조 · ↗ 끝 올리기(질문·기대) · ↘ 끝 내리기(단정·마무리) · <b>/</b> 짧게 쉼(0.5초) · <b>//</b> 길게 쉼(1초+) · 〔 〕 톤·속도 지시 · (…) 뜸 들이기·여백</div>
+
+    <div class="chapter hook" data-chapter="0">
+      <div class="chapter-head"><span class="pill hook">HOOK</span><h3>⓪ 콜드오픈 · 후크 (댓글 기반 도입)</h3><span class="timecode" contenteditable="true" data-key="ch0-time">0:00–0:35</span><div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div></div>
+      <div class="editable" contenteditable="true" data-key="ch0-body">〔밝게, 말 걸듯〕<br>개발 유튜브, / 여러 개 구독해두지 않으셨어요? ↗<br>저도 그랬어요. ↘<br>근데 볼 때마다 / '아, 이분 진짜 개발자구나' 싶고 — ↗<br>정작 따라 하긴 / <b>어렵죠.</b> ↘ //<br>(완성 웹앱 시연)<br>이거, / 제가 만들었어요. ↘<br>근데 저, / <b>개발자 아니에요.</b> //<br>개발자분들과 소통하고 이야기는 많이 하는 일을 하지만, /<br>저는 / <b>개발자가 아닙니다.</b> ↘ //<br>그래서 오히려 — ↗<br><b>여러분 눈높이로,</b> / 더 쉽게 풀어드릴 수 있어요. ↘<br>오늘부터, / 일반인의 용어로 쉽게 설명할 테니 /<br><b>무작정 한번 따라해 보시죠.</b> ↘</div>
+      <div class="editable note" contenteditable="true" data-key="ch0-note">🎬 댓글① 포지셔닝(개발자 아님=무기) + 결과 선공개 / 자막 "바이브코딩 무작정 따라하기" / 수미상관 시드 "개발자가 아니라서 더 쉽게" / v3: "일반인 용어로 쉽게" 강조</div>
+    </div>
+
+    <div class="chapter body" data-chapter="1">
+      <div class="chapter-head"><span class="pill body">BODY</span><h3>① 문제 제기 — "이런 거 있으면 좋겠다"는데, 개발이 벽</h3><span class="timecode" contenteditable="true" data-key="ch1-time">0:35–2:05</span><div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div></div>
+      <div class="editable" contenteditable="true" data-key="ch1-body">〔공감, 차분히 시작〕<br>이런 거 / 한 번쯤 떠올려 보신 적 없으세요? ↗<br>'내가 개발자였으면, / 이런 거 하나 만들어 보고 싶다.' ↘<br>아니면 반대로 — ↗<br>'아니, / 왜 이런 건 아무도 안 만들어 두지?' / 싶은 거요. ↘ //<br>내 모임만 쓰는 정산 페이지, /<br>우리 가게 예약 받는 사이트, /<br>나한테 딱 맞는 가계부… ↗<br>시중에 나온 건 / 어딘가 하나씩 안 맞고, /<br>정작 내가 원하는 / <b>딱 그건 없잖아요.</b> ↘ //<br>〔살짝 한숨 섞어〕<br>근데 개발이 / 어디 아무나 하나요. <b>ㅠㅠ</b> ↘<br>그래도 큰맘 먹고 / 한번 검색해 보잖아요? ↗<br>그럼 바로 이래요 — /<br>'깃허브에서 클론하시고', / '파이썬부터 설치하세요'… //<br>아니, / <b>그게 뭔데요???</b> ↗ //<br>누군가에겐 당연한 기본이라는데, /<br>저한텐 / 그냥 <b>외계어</b>였어요. ↘<br>거기서 / 딱 끝나요. ↘ //<br>구독해둔 전문가 채널을 켜봐도, /<br>진짜 잘하시는데 — / 어려워서 / 나는 못 따라가요. ↘<br>개발자가 아닌 우리한텐, / 그게 <b>벽</b>이에요. ↘ //<br>결국 / '역시 난 안 되나 봐' 하고 / 또 덮어버리죠. ↘<br>저도 / 그 벽 앞에서 / 한참을 멈춰 있었어요. ↘ //<br>〔톤 전환, 기대감 ↑〕<br>그런데 / <b>2025년,</b> / 그 벽이 / <b>무너지기 시작했어요.</b> ↘</div>
+      <div class="editable note" contenteditable="true" data-key="ch1-note">🎬 공감 3단(일상 욕구 → "개발자였으면…ㅠㅠ" → GitHub·파이썬=외계어) + "역시 난 안 되나 봐" 결① 자책 / 자막 "그게 뭔데??" / 댓글① 호명</div>
+    </div>
+
+    <div class="chapter body" data-chapter="2">
+      <div class="chapter-head"><span class="pill body">BODY</span><h3>② 카파시 등장 + 내 경험담 (참조①)</h3><span class="timecode" contenteditable="true" data-key="ch2-time">2:05–3:50</span><div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div></div>
+      <div class="editable" contenteditable="true" data-key="ch2-body">〔또박또박, 권위 있게〕<br>안드레아 카파시. /<br>테슬라 AI 총괄에, / OpenAI 창립 멤버. /<br>이 분야 / <b>최고 전문가 중 한 명</b>이에요. ↘ //<br>이 사람이 / 2025년 초에 / 이런 말을 던졌어요 — ↗<br>'내가 바이브코딩이라 부르는 / 새 코딩이 있다. /<br><b>코드가 존재한다는 것조차 잊고,</b> /<br>그냥 흐름에 몸을 맡기는 것. /<br>보고·말하고·실행하고·붙여넣으면 / 대부분 / <b>그냥 된다.</b>' ↘ //<br>개발자한텐 / 충격이지만, /<br>저 같은 비개발자한텐 / <b>역대급 희소식</b>이었어요. ↗<br>코드를 몰라도 된다는 거니까요. ↘ //<br>〔편하게, 고백하듯〕<br>사실 저는요, /<br>이 '바이브코딩'이라는 말이 나오기 / 한참 전부터 / AI를 붙잡고 있었어요. ↘<br>워낙 AI에 관심이 많다 보니, /<br>'이거 잘 쓰면 / 내가 원하던 서비스, / 직접 만들어 볼 수 있지 않을까?' / 싶었거든요. ↗<br>그래서 / 누가 시킨 것도 아닌데 / 혼자 이것저것 만들어보기 시작했어요. ↘ //<br>그러다 / 카파시가 이 말을 딱 꺼내는 순간 — ↗<br>'아, / <b>내가 더듬더듬 해오던 게 / 바로 이거였구나</b>' 싶었죠. ↘<br>이름조차 없던 걸, / 이 사람이 / 한마디로 정리해 준 거예요. ↘</div>
+      <div class="editable note" contenteditable="true" data-key="ch2-note">🎬 트윗 하이라이트 + 자막 "Andrej Karpathy, X · 2025.2.2" / v3: <b>1인칭 경험담</b> 추가 = 체험된 권위(혼자 더듬더듬 해온 사람)로 신뢰 이중화</div>
+    </div>
+
+    <div class="chapter body" data-chapter="3">
+      <div class="chapter-head"><span class="pill body">BODY</span><h3>③ 바이브코딩이란 — 입구가 사라졌다 (참조②)</h3><span class="timecode" contenteditable="true" data-key="ch3-time">3:50–5:50</span><div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div></div>
+      <div class="editable" contenteditable="true" data-key="ch3-body">〔흥미롭게〕<br>가벼운 농담이었을까요? ↗<br>아니요. ↘ //<br>몇 달 뒤, / 카파시는 / 실리콘밸리 무대에 다시 섭니다. /<br>강연 제목이 / '소프트웨어가 또 바뀌고 있다'였어요. ↘ //<br>그가 보여준 흐름은 / 이래요. /<br>Software 1.0 — / 사람이 직접 / 코드를 한 줄 한 줄 짜던 시대. ↘<br>2.0 — / AI가 데이터를 학습해서 / 스스로 규칙을 만들던 시대. ↘<br>그리고 지금, / <b>3.0 — / 사람이 그냥 '말'로 시키는 시대.</b> ↘ //<br>'예전엔 / 컴퓨터 언어를 따로 배워야 했지만, /<br>이제는 / 우리말로 시키면 된다. /<br>LLM은 / 영어로 프로그래밍된다.' ↘<br>한마디로, / 코드가 아니라 / 우리가 매일 쓰는 그 말이 / <b>프로그래밍 언어가 됐다</b>는 거예요. ↘ //<br>이게 무슨 뜻인지 / 와닿으세요? ↗<br>그동안 '코딩'은 / <b>소수의 언어</b>였어요. /<br>그 언어를 모르면, / 아무리 좋은 아이디어가 있어도 / 입구에서부터 막혔죠. ↘<br>근데 / <b>그 입구가 / 사라진 거예요.</b> ↘ //<br>이제 필요한 건 / C언어도, / 파이썬도 아니에요. /<br>'내가 뭘 만들고 싶은지, / <b>말로 설명할 수 있는 능력</b>' — / 그거 하나예요. ↘ //<br>그러니까 카파시 말은 / 곧 이런 뜻이에요. /<br><b>이제 모두가 / 프로그래머다.</b> ↘ //<br>전공도, / 자격증도, / 화려한 경력도 아니라 — ↗<br>원하는 걸 / 또박또박 설명할 줄만 알면, /<br>누구나 / 만드는 사람이 될 수 있는 시대. ↘<br>저 같은 비개발자가 / 기다려온 게, / <b>바로 이 순간</b>이었어요. ↘</div>
+      <div class="editable note" contenteditable="true" data-key="ch3-note">🎬 키노트 클립 5~10초(29:06) / Software 1.0→3.0 모션그래픽 / 자막 "Everyone is now a programmer" / v3: "코딩=소수 언어, 입구가 사라졌다" 확장</div>
+    </div>
+
+    <div class="chapter body" data-chapter="4">
+      <div class="chapter-head"><span class="pill body">BODY</span><h3>④ 라이브 데모 + 정직 + 배포(LINKMAP) + 위트홍보</h3><span class="timecode" contenteditable="true" data-key="ch4-time">5:50–8:20</span><div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div></div>
+      <div class="editable" contenteditable="true" data-key="ch4-body">〔자신감 있게, 시연 톤〕<br>말로만 떠들면 / 못 믿으시죠. ↗<br>화면 공유하고 / 직접 해볼게요. //<br>(타이핑) '간단한 할 일 목록 페이지 만들어줘. / 추가하고 체크할 수 있게.' ↘<br><b>끝이에요.</b> / 코드는 / 한 글자도 안 썼어요. ↘<br>'버튼 색을 파란색으로 바꿔줘' / 또 됩니다. ↘ //<br>〔솔직하게, 톤 낮춰〕<br>근데 / 솔직히 말씀드릴게요 — /<br><b>말로만 다 되진 않아요.</b> ↘<br>가끔 엉뚱한 게 나오고, / 에러도 나요. //<br>(에러 장면)<br>그때 제가 하는 건 / 딱 하나. /<br>AI한테 / '<b>왜 이렇게 했어? / 이건 무슨 뜻이야?</b>' 하고 / 되물어요. ↗<br>그렇게 / 같이 확인하면 / 풀려요. /<br>보세요, / <b>됐죠?</b> ↘ //<br>자, / 그럼 이걸 / 남한테 어떻게 보여주죠? ↗<br>보통 여기서 또 막혀요 — / '배포'??? / 그게 뭔데요? ↗<br>근데 / 이것도 이제 쉬워요. /<br>여러 서비스들이 / 이미 다 나와 있어서, /<br>그것들이 / 어떻게 연결되는지만 알면 되거든요. ↘<br>예를 들어 / <b>링크맵(LINKMAP)</b> 같은 서비스는 / 가입만 하면, /<br>클릭 한 번으로 / 바로 배포되고 / 공유 링크까지 / <b>공짜로</b> 나와요. ↘<br>서버도, / 코드도 / 몰라도 됩니다. ↘<br>개발자가 아니어도 — / 만들고, / 공유까지 / 끝나요. ↘ //<br>〔장난스럽게, 살짝 웃으며〕<br>(눈치챘나요? / 사실 여기까지 슬쩍, / 제가 만든 서비스 홍보였습니다 😅) //<br>자, / 그럼 이제 — / <b>진짜 중요한 이야기</b>를 해볼게요. ↘</div>
+      <div class="editable note" contenteditable="true" data-key="ch4-note">🎬 댓글② 정직(말로만 안 됨) + "AI에게 되묻기" / 의도된 실패→복구 / 배포="그게 뭔데?" → LINKMAP 원클릭(가입 시 무료) / v3: <b>위트 자기홍보</b>(😅) — 진정성 유지선에서 한 번만</div>
+    </div>
+
+    <div class="chapter story" data-chapter="5">
+      <div class="chapter-head"><span class="pill story">STORY</span><h3>⑤ 비개발자의 무기 = 쉬운 설명 → "책 읽읍시다" ★</h3><span class="timecode" contenteditable="true" data-key="ch5-time">8:20–9:55</span><div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div></div>
+      <div class="editable" contenteditable="true" data-key="ch5-body">〔진지하게, 핵심〕<br>여기서 / 진짜 중요한 거. //<br>코드를 AI가 써준다면, / 이제 아무나 다 잘 만들까요? ↗<br><b>아니에요.</b> ↘<br>여기서 딱 / 갈리는 지점이 있어요. //<br>똑같은 AI한테, / 똑같이 시켜도 — ↗<br>누군 / 원하던 게 딱 나오고, /<br>누군 / 영 엉뚱한 게 나와요. ↘<br>그 차이가 / 뭘까요? ↗ //<br>'<b>내가 뭘 원하는지 / 스스로 명확하게 알고, /<br>그걸 / 얼마나 쉽고 또렷하게 설명했느냐</b>'예요. ↘ //<br>그리고 / 솔직히 말씀드리면 — /<br>이건 / 개발자나 우리나 / 별 차이가 없어요. /<br>아니, / 어쩌면 / <b>우리가 더 잘할 수도 있어요.</b> ↗<br>전문 용어에 갇혀 있지 않으니까, / 그냥 사람 말로 풀어내거든요. ↘<br>내가 원하는 걸 / 명확하고 구체적으로 설명하는 힘 — /<br>그게 바로 / <b>문해력</b>이고, / <b>사고력</b>이에요. ↘ //<br>AI는 / 답을 만들어줘요. /<br>근데 / '뭘, 어떻게 물을지'는 — ↗<br>읽고, / 생각하고, / 설명할 줄 아는 사람이 / 정합니다. ↘ //<br>〔따뜻하게, 힘줘서〕<br>그래서요, / 결국 우리는 / <b>읽어야 해요.</b> ↘<br>잘 읽는 사람이 / 잘 설명하고, /<br>잘 설명하는 사람이 / 잘 만들거든요. ↘<br><b>책, / 책, / 책을 / 읽읍시다!</b> ↗ //<br>〔장난스럽게〕<br>(네, / 또 슬쩍… / 막간 제 서비스 홍보였습니다 ㅎㅎ)</div>
+      <div class="editable note" contenteditable="true" data-key="ch5-note">🎬 채널 북극성 착지(쉬운 설명=문해력) / 톤 전환 클로즈업 / AI 적대 금지 / v3: "책 읽읍시다" 직접 호명 + <b>위트 자기홍보</b>(ㅎㅎ) = readtree·독서 토대 시드</div>
+    </div>
+
+    <div class="chapter body" data-chapter="6">
+      <div class="chapter-head"><span class="pill body">BODY</span><h3>⑥ 시리즈 약속 + 강의 비판매</h3><span class="timecode" contenteditable="true" data-key="ch6-time">9:55–11:00</span><div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div></div>
+      <div class="editable" contenteditable="true" data-key="ch6-body">〔밝고 단단하게〕<br>그래서 / 이 시리즈를 합니다. /<br><b>'AI 무작정 따라하기'.</b> //<br>시작 전에 / 약속 셋. //<br><b>①</b> 저도 비개발자예요 — /<br>어려운 용어로 잘난 척 안 하고, / 딱 같은 눈높이로, / 진~짜 쉽게 갑니다. ↘<br>가르치면서 / 저도 같이 배울 거라, / 서로 <b>윈윈</b>이죠. ↗ //<br><b>②</b> 화면 그대로 / 따라만 하면 되게 만들어요 — /<br>'왜 이렇게 되지?'는 / 일단 접어둬도 돼요. ↘<br>만들다 보면 / 자연스럽게 궁금해지는 순간이 옵니다. /<br>우리는 / 일단 만드는 것부터. ↘ //<br><b>③</b> 막히는 장면도, / 안 되는 것도 / 안 자르고 그대로 보여드려요. /<br>에러 나면 / 에러 나는 대로, / 같이 헤매는 과정까지. ↘ //<br>〔진심으로, 또박또박〕<br>그리고 / 하나 더 — /<br>저는 이걸로 / <b>강의 안 팝니다.</b> ↘<br>비싼 클래스 / 결제 유도 같은 거 / 없어요. /<br>그냥 여기서, / 같이 <b>무료로</b> 만들어요. ↘</div>
+      <div class="editable note" contenteditable="true" data-key="ch6-note">🎬 약속 3종 자막(①비개발자 눈높이·"가르치며 같이 배운다 윈윈") / 강의 비판매 = 진정성·풀링 직접판매 0 / v3: ⑦에 흩어졌던 약속을 여기로 통합</div>
+    </div>
+
+    <div class="chapter cta" data-chapter="7">
+      <div class="chapter-head"><span class="pill cta">CTA</span><h3>⑦ 로드맵 + 결 호명 · CTA · 아웃트로</h3><span class="timecode" contenteditable="true" data-key="ch7-time">11:00–12:30</span><div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div></div>
+      <div class="editable" contenteditable="true" data-key="ch7-body">〔기대감 있게〕<br>앞으로 / 뭘 같이 만드냐면요 — ↗<br>지금 보이는 / 이 제 소개 페이지, /<br>이걸 / 여러분에 맞게 / 같이 만들어 볼 거예요. ↘<br>거기에 / 로그인, / 데이터 연동, / 결제, / 배포, /<br>그리고 / <b>내 챗봇</b>까지. ↘<br>하나씩, / 순서대로 / 따라오시면 됩니다. ↘ //<br>〔결 호명, 한 명씩 눈 맞추듯〕<br>오늘 보면서 — /<br><b>개발자가 아니라 망설이던 분</b>, / '이 정도면 나도' 싶으셨다면 / 그게 시작이에요. ↘<br><b>자연어코딩 하다 막혔던 분</b>, / 안 될 땐 / AI한테 '왜'라고 되물으면 돼요. ↘<br><b>더 잘하고 싶은 분</b>, / 진짜 차이는 / '얼마나 쉽게 설명하느냐'고요. ↘<br>세 분 다 / 같은 출발선 / <b>옆자리</b>예요. ↘<br>구독 눌러두시면 / 다음 편부터 같이. ↘ //<br>코드 몰라도 됩니다. / 우리는 / 말로 만들 거예요. /<br>그런데 / 이건 비밀인데… / 그렇게 만들다 보면, /<br>어느새 / <b>스스로 공부하고 있을걸요?</b> ↗<br>제가 / 딱 그랬거든요. ㅎ ↘ //<br>〔천천히, 마무리·진심〕<br><b>AI는 답을 만들고, / 읽는 사람은 / 질문을 만듭니다.</b> ↘<br>같이, / 무작정 / 따라해 봅시다. /<br>다음 편에서 / <b>봐요!</b> ↗</div>
+      <div class="editable note" contenteditable="true" data-key="ch7-note">🎬 v3 로드맵="이 소개페이지를 여러분 맞게 + 로그인·데이터·결제·배포·챗봇" + "만들다 보면 스스로 공부하게 됨" / <b>복원</b>: 결 3그룹 호명 + 사인오프(룰북 §4) — 불필요하면 삭제 가능 / 수미상관 회수</div>
+    </div>
+  </section>
+
+  <!-- ④ 마무리 검증 -->
+  <section class="sec-check" id="sec-check">
+    <h2><span class="num">04</span>마무리 검증 <span class="sec-tag">§9-2 마감 7체크 (통과)</span></h2>
+    <ul class="check">
+      <li><b>풀링/키 정합</b> — 풀링, 후크·CTA 톤 일치 (직접 판매 0)</li>
+      <li><b>30초 후크 통과</b> — 비개발자 차별점 + 결과 선공개, "일반인 용어로 쉽게"</li>
+      <li><b>후크 ↔ 마무리 수미상관</b> — "개발자가 아니라서 더 쉽게" → "쉽게 설명하는 힘" 회수</li>
+      <li><b>결 3그룹 호명</b> — ⑦에 ①②③ 모두 + "같은 출발선 옆자리" (v3 복원)</li>
+      <li><b>AI·문해력 진정성</b> — ⑤ 브릿지(쉬운 설명=문해력·"책 읽읍시다") + ④ 정직(말로만 안 됨·되묻기)</li>
+      <li><b>readtree 연결</b> — "읽고→생각하고→만들고→성장"·"책 읽읍시다" 메타포 (직접 노출 0)</li>
+      <li><b>정직성 가드</b> — 과장 없음 / 자기홍보는 위트 2회로 한정(LINKMAP·책) — 과하면 1회로 축소</li>
+      <li><b>강의 비판매·무료 배포</b> — 강의 안 팖 + LINKMAP 원클릭(가입 시 무료) = 풀링 직접판매 0 정합</li>
+    </ul>
+    <p class="lede" style="margin-top:14px">v3 = 시청자 라이브 편집 반영본 · ⑥/⑦ 약속 중복 정리 + 결 3그룹·사인오프 복원. 근거 = 업로드 기획안 + 댓글 2종.</p>
+  </section>
+
+  <div class="footer">
+    <span>풀링 통합 기획서 · V_3 (바이브코딩 · 라이브 편집 반영) · 단일 룰북 = <a href="../../대본/_기획기준/대본기획_기준.md" style="color:var(--accent-2)">대본기획_기준.md</a></span>
+    <span>저장 키: <code id="ls-key-footer">—</code></span>
+  </div>
+
+</div>
+
+<!-- 플로팅 액션 -->
+<div class="floating">
+  <div class="save-status saved" id="save-status">
+    <span class="dot"></span><span id="save-status-text">저장됨</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn primary" id="btn-download-md">💾 통합 .md</button>
+    <button class="btn brief" id="btn-download-brief">📝 브리프만</button>
+  </div>
+  <div class="btn-row">
+    <button class="btn ghost" id="btn-print">🖨 인쇄/PDF</button>
+    <button class="btn danger" id="btn-reset">↺ 초기화</button>
+  </div>
+</div>
+
+<script>
+  // 이 파일 고정 LS 키 (파일을 옮겨도 키 유지 → 같은 파일에서만 작업)
+  // ⚠️ 기본 내용 변경 시 vN 을 올려야 화면에 반영됨 (v3→v4: EP.01 매니페스토 교체 2026-06-23)
+  window.__BIZPT_LS_KEY__ = 'bizpt:script:v1:006-바이브코딩-V3-rec';
+</script>
+<script>
+(function(){
+  const OVERRIDE_KEY = window.__BIZPT_LS_KEY__ || null;
+  const KEY = OVERRIDE_KEY || ('bizpt:script:v3:' + location.pathname.split('/').pop());
+  const status = document.getElementById('save-status');
+  const statusText = document.getElementById('save-status-text');
+
+  document.getElementById('ls-key-display') && (document.getElementById('ls-key-display').textContent = KEY);
+  document.getElementById('ls-key-footer') && (document.getElementById('ls-key-footer').textContent = KEY);
+
+  // 복원
+  let store = {};
+  try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ store = {}; }
+  document.querySelectorAll('[data-key]').forEach(el=>{
+    const k = el.dataset.key;
+    if (store[k] !== undefined && store[k] !== null) el.innerHTML = store[k];
+  });
+  if (store.__saved){
+    document.getElementById('stat-saved').textContent = formatSaved(store.__saved);
+  }
+
+  // 저장 (debounced)
+  let timer=null;
+  function save(){
+    if (timer) clearTimeout(timer);
+    setStatus('saving','저장 중…');
+    timer = setTimeout(()=>{
+      const data = {};
+      document.querySelectorAll('[data-key]').forEach(el=>{ data[el.dataset.key] = el.innerHTML; });
+      data.__saved = Date.now();
+      try {
+        localStorage.setItem(KEY, JSON.stringify(data));
+        setStatus('saved','저장됨');
+        document.getElementById('stat-saved').textContent = formatSaved(data.__saved);
+      } catch(e){ setStatus('dirty','저장 실패'); }
+    }, 400);
+  }
+  function setStatus(cls, text){
+    status.className = 'save-status ' + cls;
+    statusText.textContent = text;
+  }
+  function formatSaved(ts){
+    const d = new Date(ts), p=n=>String(n).padStart(2,'0');
+    return `${p(d.getMonth()+1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+  }
+
+  document.querySelectorAll('[data-key]').forEach(el=>{
+    el.addEventListener('input', ()=>{ save(); updateStats(); });
+  });
+
+  // 통계 (스피커 노트 제외, 발화 본문만)
+  function updateStats(){
+    let total = 0;
+    document.querySelectorAll('.chapter').forEach(ch=>{
+      const body = ch.querySelector('.editable:not(.note)');
+      const text = (body && body.innerText) ? body.innerText.replace(/\s/g,'') : '';
+      const chars = text.length;
+      total += chars;
+      const sChar = ch.querySelector('[data-stat="chars"]');
+      const sTime = ch.querySelector('[data-stat="time"]');
+      if (sChar) sChar.textContent = chars + '자';
+      if (sTime) sTime.textContent = formatTime(chars/230*60);
+    });
+    document.getElementById('stat-chars').textContent = total.toLocaleString();
+    document.getElementById('stat-time').textContent = formatTime(total/230*60);
+    document.getElementById('stat-chapters').textContent = document.querySelectorAll('.chapter').length;
+  }
+  function formatTime(seconds){
+    if (!seconds || isNaN(seconds)) return '0:00';
+    const m = Math.floor(seconds/60), s = Math.round(seconds%60);
+    return `${m}:${String(s).padStart(2,'0')}`;
+  }
+  updateStats();
+
+  // 다운로드
+  function htmlToText(html){
+    const div = document.createElement('div'); div.innerHTML = html;
+    return (div.innerText || '').trim();
+  }
+  function buildBriefMd(){
+    const title = htmlToText(document.querySelector('[data-key="title"]').innerHTML);
+    const get = k => htmlToText((document.querySelector(`[data-key="${k}"]`)||{}).innerHTML||'');
+    return `# 브리프 — ${title}\n\n` +
+      `## B1. 한 줄 정의\n${get('b1')}\n\n` +
+      `## B2. 풀링/키 + 6축\n${get('b2')}\n\n` +
+      `## B3. 메인 결 + 단계별 우선 기둥\n${get('b3')}\n\n` +
+      `## B4. 수익화 종착지\n${get('b4')}\n\n` +
+      `## B5. 핵심 메시지·감정 코어\n${get('b5')}\n\n` +
+      `## B6. 자유 메모\n${get('b6')}\n`;
+  }
+  function buildScriptMd(){
+    const title = htmlToText(document.querySelector('[data-key="title"]').innerHTML);
+    let md = `# 대본 — ${title}\n\n`;
+    document.querySelectorAll('.chapter').forEach(ch=>{
+      const head = ch.querySelector('h3').innerText.trim();
+      const time = htmlToText(ch.querySelector('.timecode').innerHTML);
+      const body = htmlToText(ch.querySelector('.editable:not(.note)').innerHTML);
+      const note = htmlToText((ch.querySelector('.editable.note')||{}).innerHTML||'');
+      md += `## ${head}  \`${time}\`\n\n${body}\n\n`;
+      if (note) md += `> 🎬 ${note}\n\n`;
+    });
+    return md;
+  }
+  function buildPackMd(){
+    const get = k => htmlToText((document.querySelector(`[data-key="${k}"]`)||{}).innerHTML||'');
+    return `## 결정체 카피\n${get('pack-1')}\n\n## 핵심 비유·도식\n${get('pack-2')}\n\n## B-roll 키워드\n${get('pack-3')}\n`;
+  }
+  function download(name, content){
+    const blob = new Blob([content], {type:'text/markdown;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+  }
+  document.getElementById('btn-download-brief').onclick = ()=>{
+    download('\uBE0C\uB9AC\uD504_EP01.md', buildBriefMd());
+  };
+  document.getElementById('btn-download-md').onclick = ()=>{
+    const md = buildBriefMd() + '\n---\n\n' + buildPackMd() + '\n---\n\n' + buildScriptMd();
+    download('\uD1B5\uD569_EP01.md', md);
+  };
+  document.getElementById('btn-print').onclick = ()=> window.print();
+  document.getElementById('btn-reset').onclick = ()=>{
+    if (!confirm('\uBAA8\uB4E0 \uC785\uB825\uC744 \uCD08\uAE30\uD654\uD569\uB2C8\uB2E4. \uACC4\uC18D\uD560\uAE4C\uC694?')) return;
+    localStorage.removeItem(KEY);
+    location.reload();
+  };
+})();
+</script>
+</body>
+</html>

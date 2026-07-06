@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>① 제목·썸네일·후크 · 책 많이 읽으면 돈 벌 수 있을까</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2;
+    --accent:#ffd166; --accent-2:#06d6a0; --warn:#ef476f;
+    --pull:#5cc4e0; --edit:#06d6a0; --brief:#c4b5fd;
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:22px 22px 90px}
+  a{color:var(--pull)}
+  b,strong{color:#fff}
+
+  .angle-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;padding:12px;
+    background:rgba(23,26,33,.92);border:1px solid var(--line);border-radius:12px;
+    position:sticky;top:0;z-index:30;backdrop-filter:blur(8px)}
+  .abtn{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:12.5px;font-weight:600;transition:all .15s;white-space:nowrap}
+  .abtn:hover{transform:translateY(-1px);background:#252a36;border-color:#34394a}
+  .abtn .num{font-size:10.5px;opacity:.75;font-weight:800}
+  .abtn.home{color:var(--muted)}
+  .abtn.brief.active{background:rgba(196,181,253,.15);border-color:var(--brief);color:var(--brief)}
+  .abtn.hook.active{background:rgba(239,71,111,.15);border-color:var(--warn);color:#ff8aa5}
+  .abtn.body.active{background:rgba(92,196,224,.15);border-color:var(--pull);color:#7fd4ec}
+  .abtn.story.active{background:rgba(255,209,102,.15);border-color:var(--accent);color:var(--accent)}
+  .abtn.cta.active{background:rgba(6,214,160,.15);border-color:var(--edit);color:#33d8a3}
+  .abtn.pull.active{background:rgba(92,196,224,.15);border-color:var(--pull);color:#7fd4ec}
+  .abtn.home.active{background:#252a36;border-color:#3a4150;color:#fff}
+
+  header.hero{padding:24px 28px;border-radius:16px;border:1px solid var(--line);margin-bottom:20px;
+    background:radial-gradient(900px 320px at 8% -20%,rgba(239,71,111,.16),transparent 55%),linear-gradient(180deg,#1a1e27,#13161d)}
+  .pillrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11.5px;font-weight:800}
+  .pill.hook{background:rgba(239,71,111,.16);color:#ff8aa5}
+  .timecode{font-size:12.5px;color:var(--accent);font-weight:700;background:rgba(255,209,102,.12);padding:3px 9px;border-radius:6px}
+  h1{font-size:25px;margin:12px 0 6px;letter-spacing:-.02em;font-weight:800}
+  .lede{color:var(--muted);font-size:14px;margin:0;max-width:840px}
+
+  section{margin-top:34px}
+  h2{font-size:19px;margin:0 0 6px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--warn)}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+
+  .tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .tbl th{background:var(--panel-2);color:#cfd5df;text-align:left;padding:9px 12px;font-size:12px;border-bottom:1px solid var(--line)}
+  .tbl td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:#dfe3ea}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl td:first-child{white-space:nowrap;color:#fff;font-weight:600}
+  .tbl .stepnum{color:var(--accent-2);font-weight:800}
+
+  .picks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  @media(max-width:760px){.picks{grid-template-columns:1fr}.wrap{padding:16px 14px 70px}h1{font-size:21px}}
+  .pick{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-top:3px solid var(--warn)}
+  .pick .tag{font-size:11px;font-weight:800;color:#ff8aa5;letter-spacing:.04em}
+  .pick .ttl{font-size:15px;font-weight:800;color:#fff;margin:6px 0 4px;line-height:1.4}
+  .pick .why{font-size:12.5px;color:var(--muted)}
+  .pick.b{border-top-color:var(--accent)} .pick.b .tag{color:var(--accent)}
+  .pick.c{border-top-color:var(--pull)} .pick.c .tag{color:#7fd4ec}
+
+  .seo{margin-top:12px;background:#0c0e13;border:1px dashed #2a3040;border-radius:10px;padding:12px 14px;font-size:13px;color:#c9cfd9}
+  .seo b{color:var(--accent-2)}
+
+  .nsca{width:100%;border-collapse:collapse;font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .nsca td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  .nsca tr:last-child td{border-bottom:none}
+  .nsca .code{width:120px;white-space:nowrap;font-weight:800;color:#fff}
+  .nsca .n .code{color:#ff8aa5} .nsca .s .code{color:#7fd4ec} .nsca .c .code{color:var(--accent)} .nsca .a .code{color:#33d8a3}
+
+  .contrast{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  @media(max-width:640px){.contrast{grid-template-columns:1fr}}
+  .con-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .con-card.good{border-top:3px solid var(--accent-2)}
+  .con-card.bad{border-top:3px solid var(--warn)}
+  .con-card h4{margin:0 0 10px;font-size:13.5px}
+  .con-card h4.good{color:#33d8a3} .con-card h4.bad{color:#ff8aa5}
+  .con-card ul{margin:0;padding-left:16px;font-size:13px;color:#cfd5df}
+  .con-card li{margin:5px 0}
+
+  .callout{border:1px solid rgba(6,214,160,.3);background:rgba(6,214,160,.06);border-radius:12px;padding:13px 16px;font-size:13.5px;color:#d3eee5;margin-top:14px}
+  .callout b{color:#33d8a3}
+
+  .footnav{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:600px){.footnav{grid-template-columns:1fr}}
+  .navcard{display:flex;align-items:center;gap:10px;justify-content:space-between;background:var(--panel);
+    border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text);transition:all .15s}
+  .navcard:hover{transform:translateY(-1px);border-color:#3a4150;background:#1b1f28}
+  .navcard .lab{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+  .navcard .tl{font-size:14px;font-weight:700;color:#fff;margin-top:2px}
+  .navcard.next{text-align:right;flex-direction:row-reverse}
+
+  .footer{margin-top:30px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:14px;display:flex;gap:14px;flex-wrap:wrap}
+  .footer a{color:var(--accent-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="angle-nav">
+    <a class="abtn home" href="통합_책많이읽으면_돈.html">📦 기획·대본</a>
+    <a class="abtn brief" href="자료_브리프.html">📋 브리프</a>
+    <a class="abtn hook active" href="자료_01_제목_썸네일_후크.html"><span class="num">①</span> 제목·썸네일·후크</a>
+    <a class="abtn body" href="자료_02_본문_다독신화.html"><span class="num">②</span> 다독신화</a>
+    <a class="abtn body" href="자료_03_본문_진짜버는독서법.html"><span class="num">③</span> 진짜 버는 독서법</a>
+    <a class="abtn story" href="자료_04_스토리_권수에취했던나.html"><span class="num">④</span> 스토리</a>
+    <a class="abtn cta" href="자료_05_해결_결호명_CTA.html"><span class="num">⑤</span> 해결·CTA</a>
+    <a class="abtn pull" href="자료_뷰트랩_레퍼런스.html">🔎 뷰트랩·레퍼런스</a>
+    <a class="abtn video" href="자료_06_영상참조.html">🎬 영상참조</a>
+  </nav>
+
+  <header class="hero">
+    <div class="pillrow"><span class="pill hook">HOOK · 패키징</span><span class="timecode">0:00–0:30</span></div>
+    <h1>① 제목 8단계 · 썸네일 6단계 · 30초 후크</h1>
+    <p class="lede">작업 순서(7주차 §8.5.1) "제목 → 썸네일 → 도입부 → 본문"의 앞 3단계. 원본 <a href="정리본/01_후크_미리보기.md">정리본/01</a>.</p>
+  </header>
+
+  <!-- 제목 8단계 -->
+  <section>
+    <h2>제목 디벨롭 (8단계)</h2>
+    <p class="sub">기존(사용자 지정): 「책 많이 읽으면 돈 벌 수 있을까」 (18자) · 글자수=공백 포함</p>
+    <table class="tbl">
+      <thead><tr><th>단계</th><th>제목</th><th>메모</th></tr></thead>
+      <tbody>
+        <tr><td>기존</td><td>책 많이 읽으면 돈 벌 수 있을까 (18자)</td><td>질문형·호기심 유발. "돈"이 강한 클릭 동기</td></tr>
+        <tr><td><span class="stepnum">②</span> 쉬운 단어</td><td>"다독" → "책 많이 읽기" / "돈" 이미 일상어</td><td>한자어 이미 최소. "돈" 유지</td></tr>
+        <tr><td><span class="stepnum">③-1</span> 넓은 풀</td><td><b>독서</b>(1.7억) > <b>자기개발</b>(5000만↑) > <b>책 읽기</b>(3000만↑) > <b>다독</b>(500만↑)</td><td>"독서"·"자기개발"이 상위어 — 제목+SEO에 자연 노출</td></tr>
+        <tr><td><span class="stepnum">③-2</span> 반의어/부정</td><td><b>「책 많이 읽어도 돈 못 버는 이유」</b> / "책 읽으면 부자 된다는 거짓말"</td><td>부정 프레임 — 뷰트랩 실데이터 부정어 풀이 클 가능성. A/B 후보</td></tr>
+        <tr><td><span class="stepnum">④</span> 강조 수식어</td><td>"의외로 책 많이 읽는 사람이 돈 못 버는 이유" / "실제로 부자들은 책을 이렇게 읽습니다"</td><td>의외성·권위 조합</td></tr>
+        <tr><td><span class="stepnum">⑤</span> 답 숨겨 질문형</td><td><b>「책 읽는데 왜 내 삶은 안 바뀔까」</b> / "100권 읽고도 그대로인 사람의 공통점은?"</td><td>혜택(왜 바뀌는가) 숨기고 물음표. 브리프 B5 캐치와 정합</td></tr>
+        <tr><td><span class="stepnum">⑥⑦</span> 트렌드·핫비디오</td><td>(라이브 뷰트랩 — 자기개발·독서법 노출확률 normal↑ 확인 후)</td><td>보류</td></tr>
+        <tr><td><span class="stepnum">⑧</span> 강력단어</td><td>(보류 — 자기 채널 데이터 누적 후)</td><td>철칙</td></tr>
+      </tbody>
+    </table>
+
+    <div class="picks">
+      <div class="pick"><div class="tag">★ A안 · 부정반론(안전)</div><div class="ttl">책 많이 읽어도 돈 못 버는 이유</div><div class="why">18자 · 부정 프레임(③-2) + 원인 제공(⑤). 과장 없음. 1차 업로드 안전안</div></div>
+      <div class="pick b"><div class="tag">★ B안 · 숫자·공감(CTR)</div><div class="ttl">1년에 100권 읽고도 그대로인 이유</div><div class="why">20자 · 숫자 구체성(100권) + "그대로인 이유"로 결 ③ 공감 극대화</div></div>
+      <div class="pick c"><div class="tag">★ C안 · 통념 직접타격</div><div class="ttl">책 읽어서 돈 번다는 말의 함정</div><div class="why">17자 · "함정"이 반론 앵글 즉각 전달. 결 ①(지적호기심) 흡수</div></div>
+    </div>
+    <div class="seo"><b>SEO 보강(35자 이후~100자)</b> · 다독 독서법 자기개발 책추천 독서습관 부자독서 워런버핏독서법 책읽기효과 책읽으면좋은이유 독서효과 책읽는방법 성공한사람독서 독서량</div>
+    <div class="callout">1차 업로드 <b>A안</b> → 1주일 내 <b>B/C</b>로 A/B 교체(6주차 3개 제작·교체 룰). A=안전(부정 반론), B=숫자 클릭실험(공감), C=통념 직접타격(지적호기심 결).</div>
+  </section>
+
+  <!-- 썸네일 6단계 -->
+  <section>
+    <h2>썸네일 디벨롭 (6단계)</h2>
+    <p class="sub">3요소 비중: 이미지 45 · 문구 45 · 디자인 10 · 목표=클릭, 핵심=공감("100권 읽고도 제자리"인 허탈·조급)</p>
+    <table class="tbl">
+      <thead><tr><th>단계</th><th>적용</th><th>구체 시안</th></tr></thead>
+      <tbody>
+        <tr><td>① 확대</td><td>클릭 포인트만 확대</td><td><b>책 더미 위 '2024 독서 100권 달성' 메모 클로즈업</b> — 권수 자랑이 실은 텅 빈 안도감임을 한 컷으로. 또는 책갈피 없이 완독된 책들이 쌓여 있는데 메모·형광펜 흔적 0인 컷</td></tr>
+        <tr><td>② 증명</td><td>후킹의 시각적 증거</td><td><b>'100 vs 3'</b> 숫자 대비 — 좌(빨강 <code>--pain</code>) "100" + 우(초록 <code>--growth</code>) "3" + 아래 보조 작게 "바뀐 건 오른쪽". 권수가 아닌 적용이 결과를 만든다는 시각 증거</td></tr>
+        <tr><td>③ 궁금증</td><td>정답(권수가 아닌 이유) 숨김</td><td>해결책 대신 <b>"왜 100권 읽어도 그대로일까?"</b> 또는 <b>"이 차이는 어디서 올까?"</b>만 노출 — 답은 영상 안에</td></tr>
+        <tr><td>④ 공감(좌상단)</td><td>예쁨 X, 겪는 상황</td><td>좌상단에 <b>쌓인 책 더미 + 텅 빈 메모 노트(형광펜 뚜껑 닫힌 채 방치)</b>. 핵심 문구도 좌상단. 결 ③("권수 채웠는데 남은 게 없다") 정조준. 손·책·메모(페이스리스 원칙)</td></tr>
+        <tr><td>⑤ 시청층 선호</td><td>나이·성별 타겟</td><td>2030~40 자기계발 관심·독서 시작·다독 경험 층. 현실적 책상·책 더미·손 클로즈업. 거장 실루엣(버핏·네이벌) 삽입 시 <b>저작권 안전한 실루엣·아이콘 오마주만</b>(사진 직접 사용 NG)</td></tr>
+        <tr><td>⑥ 뷰트랩 학습</td><td>성과도 상위 구성 반영</td><td>"다독·부자독서·자기개발" 맥락 핫 썸네일 구성 학습 → <a href="자료_뷰트랩_레퍼런스.html">뷰트랩·레퍼런스</a>. 공통 패턴: 숫자 대비(100 vs 3) + 타깃 호명("100권 읽어도 제자리인 분") + 본질·답숨김("진짜 이유")</td></tr>
+      </tbody>
+    </table>
+    <div class="picks">
+      <div class="pick"><div class="tag">A · 공감형(메인)</div><div class="ttl">「100권 읽어도 안 바뀌는 이유」</div><div class="why">쌓인 책 더미 + 텅 빈 메모 노트. 결 ③ 정조준(허탈 공감)</div></div>
+      <div class="pick b"><div class="tag">B · 증거형(숫자 대비)</div><div class="ttl">--pain "100" ↔ --growth "3"</div><div class="why">좌빨강100↔우초록3 + "바뀐 건 오른쪽". CTR 실험(보조 캐치 시각화)</div></div>
+      <div class="pick c"><div class="tag">C · 반전형(통념 직격)</div><div class="ttl">「책 읽어서 돈 번다는 말의 함정」</div><div class="why">책 읽는 손 실루엣 + 거장 아이콘. C안 제목 정합. 결 ① 흡수</div></div>
+    </div>
+    <p class="sub" style="margin-top:10px">색 토큰: "100권·다독·권수"=<span style="color:var(--pain)">--pain</span> · "3권·적용·복리"=<span style="color:var(--growth)">--growth</span> · 강조어 1단어=<span style="color:var(--value)">--value</span>. 배경 bg-dark. 검증 안 된 수익 숫자·낚시 과장 금지. "100권"은 영상 내 근거·1인칭 고백 연동.</p>
+  </section>
+
+  <!-- 30초 후크 -->
+  <section>
+    <h2>30초 후크 — 도입부 N·S·C·A (0:00–0:30)</h2>
+    <p class="sub">필수: (a) 변화·결과 약속 (b) 결 호명 (c) 8축 키워드 1개 / 결론 먼저 / 수미상관 단서</p>
+    <table class="nsca">
+      <tr class="n"><td class="code">N 나레이션</td><td>"1년에 100권 읽었어요. 근데 <b>바뀐 게 없었어요.</b> 책 읽으면 돈 번다길래 — 사실, 저 그 말 믿었거든요. 그런데 성공한 사람들 독서법을 들여다보니까, 돈과 연결되는 건 <b>권수가 아니었어요.</b> 오늘 이 영상 보시면, '얼마나 읽었나'보다 훨씬 중요한 한 가지가 보입니다. 책으로 <b>자기개발</b> 하고 싶은데 뭔가 계속 제자리인 것 같은 분이라면, 이게 답일 수 있어요."</td></tr>
+      <tr class="s"><td class="code">S 지문</td><td>(책이 쌓인 책상 위에 '2024 독서 100권 달성' 메모가 붙어 있다 → 손으로 책 더미 위에 놓인 메모를 집어 들며 쓸쓸하게 내려다본다 → 카메라를 정면으로 바라보며 손 안의 메모를 내려놓는다)</td></tr>
+      <tr class="c"><td class="code">C 카메라</td><td>[책 더미 + 메모 클로즈업 → 손이 메모 집는 미디엄 → 정면 미디엄으로 컷, 눈 맞춤 줌인]</td></tr>
+      <tr class="a"><td class="code">A 오디오</td><td>(책 쌓이는 효과음 1회 → "근데 바뀐 게 없었어요" 직후 짧은 침묵 0.5초 → 잔잔한 BGM 페이드인 → "권수가 아니었어요" 강조에 한 톤 상승)</td></tr>
+    </table>
+    <div class="callout">✓ 변화 약속("얼마나 읽었나보다 중요한 한 가지가 보입니다") · ✓ 결 호명(③"제자리인 것 같은 분" + ①"책 읽으면 돈 번다길래") · ✓ 8축("자기개발" 직접 발화 17초~) · ✓ 결론 먼저("권수가 아니었어요" 15초 이내) · ✓ 시각 텐션(책 더미+메모 B-roll) · ✓ 수미상관 단서("100권 읽었어요" = 마무리 "그 100권, 연결만 하면 자산"으로 회수)</div>
+    <p class="sub" style="margin-top:14px"><b style="color:#fff">미리보기 (0:20–0:30)</b> — "오늘 세 가지만 — ① 왜 책 많이 읽어도 삶이 안 바뀌는지(<b>다독 신화의 정체</b>), ② 버핏·네이벌 같은 사람들이 실제로 공유하는 독서의 패턴, ③ 그래서 <b>어떻게 읽어야</b> 권수 말고 진짜 복리가 쌓이는지."</p>
+  </section>
+
+  <!-- 좋은 후크 vs 안 좋은 후크 -->
+  <section>
+    <h2>좋은 후크 vs 안 좋은 후크 대조</h2>
+    <div class="contrast">
+      <div class="con-card good">
+        <h4 class="good">좋은 후크 (채택)</h4>
+        <ul>
+          <li>첫 문장: "1년에 100권 읽었어요. 근데 바뀐 게 없었어요." — 1인칭 고백·결론 먼저</li>
+          <li>결론 위치: 15초 이내 "권수가 아니었어요" 명시</li>
+          <li>결 호명: "자기개발 하고 싶은데 제자리인 것 같은 분" — 구체 상황</li>
+          <li>8축 키워드: "자기개발" 직접 발화 (17초~)</li>
+          <li>약속 근거: "성공한 사람들 독서법을 들여다보니" — 거장 근거 예고</li>
+          <li>진정성 가드: "돈"은 후킹 입구, 본질은 사고력·복리로 착지</li>
+        </ul>
+      </div>
+      <div class="con-card bad">
+        <h4 class="bad">안 좋은 후크 (금지)</h4>
+        <ul>
+          <li>첫 문장: "안녕하세요, 오늘은 독서와 돈의 관계에 대해 말씀드릴게요." — 자기소개</li>
+          <li>결론 위치: 30초 다 쓰고 "그래서 오늘 알아볼게요" — 결론 없이 끌기</li>
+          <li>결 호명: "독서에 관심 있으신 분들" — 막연한 범위</li>
+          <li>8축 키워드: 8축과 무관한 도입</li>
+          <li>약속 근거: "책 읽으면 무조건 부자 됩니다" — 검증 안 된 과장</li>
+          <li>진정성 위반: "이 방법 쓰면 연봉 ○천 오릅니다" — 수익 숫자 낚시</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="footnav">
+    <a class="navcard" href="자료_브리프.html"><div><div class="lab">← Prev</div><div class="tl">📋 브리프</div></div></a>
+    <a class="navcard next" href="자료_02_본문_다독신화.html"><div><div class="lab">Next →</div><div class="tl">② 본문 — 다독 신화의 정체</div></div></a>
+  </div>
+
+  <div class="footer">
+    <span>원본 <a href="정리본/01_후크_미리보기.md">정리본/01</a></span>
+    <span>룰북 <a href="../../대본/_기획기준/대본기획_기준.md">대본기획_기준.md §8.6·§8.7</a></span>
+    <span><a href="../../대본/_기획기준/30초_후크_룰_체크리스트.md">30초 후크 체크리스트</a></span>
+    <span><a href="README.md">🧭 진입점</a></span>
+  </div>
+
+</div>
+</body>
+</html>

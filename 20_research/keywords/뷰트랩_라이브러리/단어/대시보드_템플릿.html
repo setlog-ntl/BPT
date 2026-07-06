@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>뷰트랩 단어 대시보드</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  body { font-family: -apple-system, 'Segoe UI', 'Malgun Gothic', sans-serif; }
+  .grade-Good { background: #dcfce7; color: #166534; }
+  .grade-Great { background: #bbf7d0; color: #14532d; font-weight: 600; }
+  .grade-Normal { background: #e5e7eb; color: #374151; }
+  .grade-Bad { background: #fed7aa; color: #9a3412; }
+  .grade-Worst { background: #fecaca; color: #991b1b; }
+  .thumb { width: 96px; height: 54px; object-fit: cover; border-radius: 4px; background: #f3f4f6; }
+  .truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .toggle-btn.active { background: #10b981; color: white; }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<header class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
+  <div class="max-w-7xl mx-auto px-6 py-6">
+    <h1 class="text-2xl font-bold">뷰트랩 단어 대시보드</h1>
+    <p class="text-emerald-50 mt-1 text-sm">키워드별 누적 데이터 · 마지막 빌드: __BUILD_TIME__</p>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+  <section>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white rounded-xl p-4 shadow-sm"><div class="text-xs text-slate-500">추적 키워드</div><div class="text-2xl font-bold mt-1" id="stat-keywords">-</div></div>
+      <div class="bg-white rounded-xl p-4 shadow-sm"><div class="text-xs text-slate-500">총 캡처 횟수</div><div class="text-2xl font-bold mt-1" id="stat-captures">-</div></div>
+      <div class="bg-white rounded-xl p-4 shadow-sm"><div class="text-xs text-slate-500">누적 영상 수(최신)</div><div class="text-2xl font-bold mt-1" id="stat-videos">-</div></div>
+      <div class="bg-white rounded-xl p-4 shadow-sm"><div class="text-xs text-slate-500">누적 조회수(최신)</div><div class="text-2xl font-bold mt-1" id="stat-views">-</div></div>
+    </div>
+  </section>
+
+  <section class="bg-white rounded-xl shadow-sm p-6">
+    <div class="flex items-baseline justify-between mb-4">
+      <h2 class="text-lg font-bold">단어별 비교</h2>
+      <select id="compare-metric" class="border rounded-lg px-3 py-1.5 text-sm">
+        <option value="views_sum">조회수 합계 (기본)</option>
+        <option value="total_videos">총 영상 수</option>
+        <option value="subs_sum">구독자 합계</option>
+        <option value="likes_sum">좋아요 합계</option>
+        <option value="views_avg">조회수 평균</option>
+        <option value="views_median">조회수 중앙값</option>
+        <option value="filter_passed">필터 통과 영상 수</option>
+      </select>
+    </div>
+    <canvas id="compare-chart" height="80"></canvas>
+    <div class="overflow-x-auto mt-6">
+      <table class="min-w-full text-sm">
+        <thead class="bg-slate-100 text-slate-600"><tr>
+          <th class="px-3 py-2 text-left">키워드</th>
+          <th class="px-3 py-2 text-right">총 영상</th>
+          <th class="px-3 py-2 text-right">조회수 합계</th>
+          <th class="px-3 py-2 text-right">조회수 평균</th>
+          <th class="px-3 py-2 text-right">조회수 중앙값</th>
+          <th class="px-3 py-2 text-right">구독자 합계</th>
+          <th class="px-3 py-2 text-right">좋아요 합계</th>
+          <th class="px-3 py-2 text-right">필터 통과</th>
+          <th class="px-3 py-2 text-right">통과율</th>
+        </tr></thead>
+        <tbody id="compare-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="flex items-baseline justify-between mb-3">
+      <h2 class="text-lg font-bold">키워드 목록</h2>
+      <input id="kw-search" placeholder="키워드 검색..." class="border rounded-lg px-3 py-1.5 text-sm w-56">
+    </div>
+    <div id="keyword-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </section>
+
+  <section id="detail-section" class="hidden bg-white rounded-xl shadow-sm p-6">
+    <div class="flex items-baseline justify-between mb-4">
+      <h2 class="text-xl font-bold"><span id="detail-name">-</span> 상세</h2>
+      <button onclick="document.getElementById('detail-section').classList.add('hidden'); document.getElementById('cumulative-section').classList.add('hidden')" class="text-sm text-slate-500 hover:text-slate-800">닫기 ✕</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+        <div class="text-xs font-semibold text-emerald-800 mb-2">조회수 범위</div>
+        <div class="text-sm space-y-1">
+          <div>합계: <span class="font-bold" id="range-views-sum">-</span></div>
+          <div>평균값: <span class="font-bold" id="range-views-avg">-</span></div>
+          <div>중앙값: <span class="font-bold" id="range-views-median">-</span></div>
+        </div>
+      </div>
+      <div class="bg-sky-50 border border-sky-200 rounded-lg p-4">
+        <div class="text-xs font-semibold text-sky-800 mb-2">구독자 범위</div>
+        <div class="text-sm space-y-1">
+          <div>합계: <span class="font-bold" id="range-subs-sum">-</span></div>
+          <div>평균값: <span class="font-bold" id="range-subs-avg">-</span></div>
+          <div>중앙값: <span class="font-bold" id="range-subs-median">-</span></div>
+        </div>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+        <div class="text-xs font-semibold text-amber-800 mb-2">좋아요 범위</div>
+        <div class="text-sm space-y-1">
+          <div>합계: <span class="font-bold" id="range-likes-sum">-</span></div>
+          <div>평균값: <span class="font-bold" id="range-likes-avg">-</span></div>
+          <div>중앙값: <span class="font-bold" id="range-likes-median">-</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="border rounded-lg p-4">
+        <div class="text-sm font-semibold text-slate-700 mb-2">기여도 분포</div>
+        <div id="grade-contribution" class="flex flex-wrap gap-1 text-xs"></div>
+      </div>
+      <div class="border rounded-lg p-4">
+        <div class="text-sm font-semibold text-slate-700 mb-2">성과도 분포</div>
+        <div id="grade-performance" class="flex flex-wrap gap-1 text-xs"></div>
+      </div>
+      <div class="border rounded-lg p-4">
+        <div class="text-sm font-semibold text-slate-700 mb-2">노출확률 분포</div>
+        <div id="grade-exposure" class="flex flex-wrap gap-1 text-xs"></div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div>
+        <h3 class="text-sm font-semibold text-slate-600 mb-2">총 영상 수 / 캡처일</h3>
+        <canvas id="chart-videos" height="160"></canvas>
+      </div>
+      <div>
+        <h3 class="text-sm font-semibold text-slate-600 mb-2">조회수 합계 / 캡처일</h3>
+        <canvas id="chart-views" height="160"></canvas>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3 mb-4">
+      <label class="text-sm text-slate-600">캡처일</label>
+      <select id="date-select" class="border rounded-lg px-3 py-1.5 text-sm"></select>
+      <div class="flex border rounded-lg overflow-hidden text-sm">
+        <button id="mode-filtered" class="toggle-btn active px-3 py-1.5">필터 적용</button>
+        <button id="mode-all" class="toggle-btn px-3 py-1.5">전체 영상</button>
+      </div>
+      <input id="vid-search" placeholder="제목/채널 검색..." class="border rounded-lg px-3 py-1.5 text-sm flex-1">
+      <select id="grade-filter" class="border rounded-lg px-3 py-1.5 text-sm">
+        <option value="">전체 등급</option>
+        <option value="Great">Great</option>
+        <option value="Good">Good</option>
+        <option value="Normal">Normal</option>
+        <option value="Bad">Bad</option>
+        <option value="Worst">Worst</option>
+      </select>
+      <select id="sort-by" class="border rounded-lg px-3 py-1.5 text-sm">
+        <option value="rank">순번순</option>
+        <option value="views">조회수↓</option>
+        <option value="subscribers">구독자↓</option>
+        <option value="published_at">최신순</option>
+      </select>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-sm">
+        <thead class="bg-slate-100 text-slate-600"><tr>
+          <th class="px-3 py-2 text-left">#</th>
+          <th class="px-3 py-2 text-left">썸네일</th>
+          <th class="px-3 py-2 text-left">제목</th>
+          <th class="px-3 py-2 text-right">조회수</th>
+          <th class="px-3 py-2 text-left">채널 (구독자)</th>
+          <th class="px-3 py-2 text-center">기여도</th>
+          <th class="px-3 py-2 text-center">성과도</th>
+          <th class="px-3 py-2 text-center">노출확률</th>
+          <th class="px-3 py-2 text-right">길이</th>
+          <th class="px-3 py-2 text-right">게시일</th>
+        </tr></thead>
+        <tbody id="video-tbody"></tbody>
+      </table>
+    </div>
+    <div id="video-count" class="text-xs text-slate-500 mt-2"></div>
+  </section>
+
+  <section class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+    <h2 class="text-lg font-bold text-amber-900 mb-2">새 키워드 추가하기</h2>
+    <p class="text-sm text-amber-800 mb-3">Claude/Cowork에게 아래처럼 요청하면 자동으로 검색 → 노출확률 분석 → 필터 적용 → 정리 → 대시보드 갱신까지 진행합니다.</p>
+    <div class="bg-white border border-amber-300 rounded-lg p-3 text-sm font-mono text-slate-700">
+      뷰트랩에서 "<input id="new-keyword" placeholder="키워드" class="border-b border-amber-400 px-1 outline-none w-40">" 검색 후 노출확률 분석하고<br>
+      필터(조회수 50,000+, 기여도/성과도 Good·Great, Shorts 제거) 적용해서<br>
+      C:\Dev\bizpt\뷰트랩 정리\단어 폴더에 추가, 대시보드_빌드.py 실행
+    </div>
+    <button id="copy-prompt" class="mt-3 bg-amber-600 text-white px-4 py-1.5 rounded-lg text-sm hover:bg-amber-700">위 요청 복사하기</button>
+    <span id="copy-msg" class="ml-3 text-sm text-emerald-700 hidden">✓ 복사됨</span>
+  </section>
+
+  <section id="cumulative-section" class="hidden bg-white rounded-xl shadow-sm p-6">
+    <h2 class="text-lg font-bold mb-3"><span id="cum-name">-</span> 누적 시계열</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-sm">
+        <thead class="bg-slate-100 text-slate-600"><tr>
+          <th class="px-3 py-2 text-left">캡처일</th>
+          <th class="px-3 py-2 text-right">총영상수</th>
+          <th class="px-3 py-2 text-right">조회수 합계</th>
+          <th class="px-3 py-2 text-right">구독자 합계</th>
+          <th class="px-3 py-2 text-right">좋아요 합계</th>
+          <th class="px-3 py-2 text-center">기여도</th>
+          <th class="px-3 py-2 text-center">성과도</th>
+          <th class="px-3 py-2 text-center">노출확률</th>
+          <th class="px-3 py-2 text-right">필터통과</th>
+          <th class="px-3 py-2 text-left">비고</th>
+        </tr></thead>
+        <tbody id="cumulative-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="text-center text-xs text-slate-400 py-4">
+    데이터 폴더: C:\Dev\bizpt\뷰트랩 정리\단어 · 빌더: 대시보드_빌드.py (v2)
+  </footer>
+</main>
+
+<script>
+const DATA = __DATA_JSON__;
+let currentKw = null, currentMode = 'filtered';
+let chartVideos = null, chartViews = null, compareChart = null;
+
+function fmtKR(n) {
+  n = Number(n) || 0;
+  if (n >= 1e8) return (n/1e8).toFixed(1) + '억';
+  if (n >= 1e4) return (n/1e4).toFixed(1) + '만';
+  return n.toLocaleString();
+}
+function pct(a, b) { return b > 0 ? ((a/b)*100).toFixed(1) + '%' : '-'; }
+function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function gradeBadge(label, count) {
+  return '<span class="px-2 py-1 rounded text-xs grade-' + label + '">' + label + ' (' + (count || 0) + ')</span>';
+}
+
+function renderSummary() {
+  document.getElementById('stat-keywords').textContent = DATA.length;
+  document.getElementById('stat-captures').textContent = DATA.reduce((s, k) => s + (k.captures_count || 0), 0);
+  document.getElementById('stat-videos').textContent = DATA.reduce((s, k) => s + (k.latest_total_videos || 0), 0).toLocaleString();
+  document.getElementById('stat-views').textContent = fmtKR(DATA.reduce((s, k) => s + (k.latest_views_sum || 0), 0));
+}
+
+function renderCompare() {
+  const metric = document.getElementById('compare-metric').value;
+  const map = {
+    views_sum: ['latest_views_sum', '조회수 합계'],
+    total_videos: ['latest_total_videos', '총 영상 수'],
+    subs_sum: ['latest_subs_sum', '구독자 합계'],
+    likes_sum: ['latest_likes_sum', '좋아요 합계'],
+    views_avg: ['latest_views_avg', '조회수 평균'],
+    views_median: ['latest_views_median', '조회수 중앙값'],
+    filter_passed: ['filter_passed', '필터 통과 영상 수']
+  };
+  const [field, label] = map[metric];
+  const sorted = DATA.slice().sort((a, b) => b[field] - a[field]);
+  if (compareChart) compareChart.destroy();
+  compareChart = new Chart(document.getElementById('compare-chart'), {
+    type: 'bar',
+    data: {
+      labels: sorted.map(k => k.name),
+      datasets: [{ label: label, data: sorted.map(k => k[field]),
+        backgroundColor: ['#10b981', '#0ea5e9', '#f59e0b', '#ef4444', '#a855f7', '#ec4899', '#14b8a6'],
+        borderRadius: 6 }]
+    },
+    options: { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { ticks: { callback: v => fmtKR(v) } } } }
+  });
+  const tbody = document.getElementById('compare-tbody');
+  tbody.innerHTML = '';
+  for (const k of sorted) {
+    const tr = document.createElement('tr');
+    tr.className = 'border-b hover:bg-emerald-50 cursor-pointer';
+    tr.onclick = () => selectKeyword(k.name);
+    tr.innerHTML =
+      '<td class="px-3 py-2 font-semibold text-emerald-700">' + k.name + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + k.latest_total_videos.toLocaleString() + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums font-semibold">' + fmtKR(k.latest_views_sum) + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + fmtKR(k.latest_views_avg) + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + fmtKR(k.latest_views_median) + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + fmtKR(k.latest_subs_sum) + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + fmtKR(k.latest_likes_sum) + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + k.filter_passed.toLocaleString() + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums text-slate-500">' + pct(k.filter_passed, k.latest_total_videos) + '</td>';
+    tbody.appendChild(tr);
+  }
+}
+
+function renderKeywordCards(filter) {
+  const root = document.getElementById('keyword-cards');
+  root.innerHTML = '';
+  const filtered = DATA.filter(k => !filter || k.name.includes(filter));
+  if (filtered.length === 0) {
+    root.innerHTML = '<div class="text-slate-400 text-sm col-span-full">검색 결과가 없습니다.</div>';
+    return;
+  }
+  for (const k of filtered) {
+    const card = document.createElement('div');
+    card.className = 'bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition cursor-pointer border border-transparent hover:border-emerald-300';
+    card.innerHTML =
+      '<div class="flex items-baseline justify-between">' +
+        '<h3 class="text-xl font-bold text-slate-800">' + k.name + '</h3>' +
+        '<span class="text-xs text-slate-400">' + k.captures_count + '회 캡처</span>' +
+      '</div>' +
+      '<div class="text-xs text-slate-500 mt-1">' + k.first_capture + ' ~ ' + k.last_capture + '</div>' +
+      '<div class="mt-3 grid grid-cols-2 gap-2 text-sm">' +
+        '<div><span class="text-slate-500">총 영상</span> <span class="font-semibold">' + k.latest_total_videos.toLocaleString() + '</span></div>' +
+        '<div><span class="text-slate-500">조회 합계</span> <span class="font-semibold">' + fmtKR(k.latest_views_sum) + '</span></div>' +
+        '<div><span class="text-slate-500">조회 평균</span> <span class="font-semibold">' + fmtKR(k.latest_views_avg) + '</span></div>' +
+        '<div><span class="text-slate-500">필터 통과</span> <span class="font-semibold text-emerald-700">' + k.filter_passed + ' (' + pct(k.filter_passed, k.latest_total_videos) + ')</span></div>' +
+      '</div>' +
+      '<div class="mt-3 text-xs text-emerald-700 hover:text-emerald-900">상세 보기 →</div>';
+    card.onclick = () => selectKeyword(k.name);
+    root.appendChild(card);
+  }
+}
+
+function selectKeyword(name) {
+  currentKw = DATA.find(k => k.name === name);
+  if (!currentKw) return;
+  document.getElementById('detail-section').classList.remove('hidden');
+  document.getElementById('cumulative-section').classList.remove('hidden');
+  document.getElementById('detail-name').textContent = name;
+  document.getElementById('cum-name').textContent = name;
+
+  document.getElementById('range-views-sum').textContent = fmtKR(currentKw.latest_views_sum);
+  document.getElementById('range-views-avg').textContent = fmtKR(currentKw.latest_views_avg);
+  document.getElementById('range-views-median').textContent = fmtKR(currentKw.latest_views_median);
+  document.getElementById('range-subs-sum').textContent = fmtKR(currentKw.latest_subs_sum);
+  document.getElementById('range-subs-avg').textContent = fmtKR(currentKw.latest_subs_avg);
+  document.getElementById('range-subs-median').textContent = fmtKR(currentKw.latest_subs_median);
+  document.getElementById('range-likes-sum').textContent = fmtKR(currentKw.latest_likes_sum);
+  document.getElementById('range-likes-avg').textContent = fmtKR(currentKw.latest_likes_avg);
+  document.getElementById('range-likes-median').textContent = fmtKR(currentKw.latest_likes_median);
+
+  const latest = currentKw.cumulative[currentKw.cumulative.length - 1] || {};
+  const grades = ['Worst', 'Bad', 'Normal', 'Good', 'Great'];
+  document.getElementById('grade-contribution').innerHTML = grades.map(g => gradeBadge(g, latest['기여도_' + g])).join('');
+  document.getElementById('grade-performance').innerHTML = grades.map(g => gradeBadge(g, latest['성과도_' + g])).join('');
+  document.getElementById('grade-exposure').innerHTML = grades.map(g => gradeBadge(g, latest['노출확률_' + g])).join('');
+
+  renderCharts();
+  renderCumulativeTable();
+  fillDateSelect();
+  renderVideoTable();
+  document.getElementById('detail-section').scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
+function renderCharts() {
+  const labels = currentKw.cumulative.map(r => r['캡처일']);
+  const videos = currentKw.cumulative.map(r => Number(String(r['총영상수']).replace(/,/g, '')) || 0);
+  const views = currentKw.cumulative.map(r => Number(String(r['조회수합계']).replace(/,|"/g, '')) || 0);
+  if (chartVideos) chartVideos.destroy();
+  if (chartViews) chartViews.destroy();
+  chartVideos = new Chart(document.getElementById('chart-videos'), {
+    type: 'line',
+    data: { labels, datasets: [{ label: '총영상수', data: videos, borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.15)', tension: 0.3, fill: true }] },
+    options: { plugins: { legend: { display: false } } }
+  });
+  chartViews = new Chart(document.getElementById('chart-views'), {
+    type: 'line',
+    data: { labels, datasets: [{ label: '조회수 합계', data: views, borderColor: '#0ea5e9', backgroundColor: 'rgba(14,165,233,0.15)', tension: 0.3, fill: true }] },
+    options: { plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v => fmtKR(v) } } } }
+  });
+}
+
+function fillDateSelect() {
+  const sel = document.getElementById('date-select');
+  sel.innerHTML = '';
+  for (const c of currentKw.captures) {
+    const opt = document.createElement('option');
+    opt.value = c.date;
+    opt.textContent = c.date;
+    sel.appendChild(opt);
+  }
+  if (currentKw.captures.length > 0) sel.value = currentKw.captures[currentKw.captures.length - 1].date;
+}
+
+function renderVideoTable() {
+  const date = document.getElementById('date-select').value;
+  const search = document.getElementById('vid-search').value.toLowerCase();
+  const grade = document.getElementById('grade-filter').value;
+  const sortBy = document.getElementById('sort-by').value;
+  const capture = currentKw.captures.find(c => c.date === date);
+  if (!capture) return;
+  let videos = (currentMode === 'filtered' ? capture.videos_filtered : capture.videos_all).slice();
+  if (search) videos = videos.filter(v => v.title.toLowerCase().includes(search) || v.channel.toLowerCase().includes(search));
+  if (grade) videos = videos.filter(v => v.contribution === grade || v.performance === grade || v.exposure === grade);
+  if (sortBy === 'views') videos.sort((a, b) => b.views - a.views);
+  else if (sortBy === 'subscribers') videos.sort((a, b) => b.subscribers - a.subscribers);
+  else if (sortBy === 'published_at') videos.sort((a, b) => (b.published_at || '').localeCompare(a.published_at || ''));
+  else videos.sort((a, b) => a.rank - b.rank);
+
+  const tbody = document.getElementById('video-tbody');
+  tbody.innerHTML = '';
+  for (const v of videos) {
+    const tr = document.createElement('tr');
+    tr.className = 'border-b hover:bg-slate-50';
+    const thumb = v.thumbnail ? '<img class="thumb" src="' + v.thumbnail + '" loading="lazy" onerror="this.style.display=&#39;none&#39;">' : '<div class="thumb"></div>';
+    tr.innerHTML =
+      '<td class="px-3 py-2 text-slate-400">' + v.rank + '</td>' +
+      '<td class="px-3 py-2">' + thumb + '</td>' +
+      '<td class="px-3 py-2 max-w-md"><div class="truncate-2">' + escapeHtml(v.title) + '</div></td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + v.views.toLocaleString() + '</td>' +
+      '<td class="px-3 py-2"><div class="font-medium">' + escapeHtml(v.channel) + '</div><div class="text-xs text-slate-500">' + fmtKR(v.subscribers) + '</div></td>' +
+      '<td class="px-3 py-2 text-center"><span class="px-2 py-0.5 rounded text-xs grade-' + v.contribution + '">' + (v.contribution || '-') + '</span></td>' +
+      '<td class="px-3 py-2 text-center"><span class="px-2 py-0.5 rounded text-xs grade-' + v.performance + '">' + (v.performance || '-') + '</span></td>' +
+      '<td class="px-3 py-2 text-center"><span class="px-2 py-0.5 rounded text-xs grade-' + v.exposure + '">' + (v.exposure || '-') + '</span></td>' +
+      '<td class="px-3 py-2 text-right tabular-nums text-slate-500">' + v.duration + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums text-slate-500">' + v.published_at + '</td>';
+    tbody.appendChild(tr);
+  }
+  document.getElementById('video-count').textContent = videos.length + '개 영상 표시 (' + (currentMode === 'filtered' ? '필터 적용' : '전체') + ')';
+  if (videos.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="10" class="px-3 py-6 text-center text-slate-400">조건에 맞는 영상이 없습니다.</td></tr>';
+  }
+}
+
+function renderCumulativeTable() {
+  const tbody = document.getElementById('cumulative-tbody');
+  tbody.innerHTML = '';
+  for (const r of currentKw.cumulative) {
+    const tr = document.createElement('tr');
+    tr.className = 'border-b';
+    tr.innerHTML =
+      '<td class="px-3 py-2 font-semibold">' + r['캡처일'] + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + Number(String(r['총영상수']).replace(/,/g, '')).toLocaleString() + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + fmtKR(String(r['조회수합계']).replace(/,|"/g, '')) + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + fmtKR(String(r['구독자합계']).replace(/,|"/g, '')) + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + fmtKR(String(r['좋아요합계']).replace(/,|"/g, '')) + '</td>' +
+      '<td class="px-3 py-2 text-center text-xs">' + r['기여도_Worst'] + '/' + r['기여도_Bad'] + '/' + r['기여도_Normal'] + '/' + r['기여도_Good'] + '/' + r['기여도_Great'] + '</td>' +
+      '<td class="px-3 py-2 text-center text-xs">' + r['성과도_Worst'] + '/' + r['성과도_Bad'] + '/' + r['성과도_Normal'] + '/' + r['성과도_Good'] + '/' + r['성과도_Great'] + '</td>' +
+      '<td class="px-3 py-2 text-center text-xs">' + (r['노출확률_Worst'] || '-') + '/' + (r['노출확률_Bad'] || '-') + '/' + (r['노출확률_Normal'] || '-') + '/' + (r['노출확률_Good'] || '-') + '/' + (r['노출확률_Great'] || '-') + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums font-semibold text-emerald-700">' + (r['필터통과수'] || '-') + '</td>' +
+      '<td class="px-3 py-2 text-slate-500 text-xs">' + (r['비고'] || '') + '</td>';
+    tbody.appendChild(tr);
+  }
+}
+
+document.getElementById('kw-search').addEventListener('input', e => renderKeywordCards(e.target.value));
+document.getElementById('compare-metric').addEventListener('change', renderCompare);
+document.getElementById('date-select').addEventListener('change', renderVideoTable);
+document.getElementById('vid-search').addEventListener('input', renderVideoTable);
+document.getElementById('grade-filter').addEventListener('change', renderVideoTable);
+document.getElementById('sort-by').addEventListener('change', renderVideoTable);
+document.getElementById('mode-filtered').addEventListener('click', () => {
+  currentMode = 'filtered';
+  document.getElementById('mode-filtered').classList.add('active');
+  document.getElementById('mode-all').classList.remove('active');
+  renderVideoTable();
+});
+document.getElementById('mode-all').addEventListener('click', () => {
+  currentMode = 'all';
+  document.getElementById('mode-all').classList.add('active');
+  document.getElementById('mode-filtered').classList.remove('active');
+  renderVideoTable();
+});
+
+document.getElementById('copy-prompt').addEventListener('click', () => {
+  const kw = document.getElementById('new-keyword').value || '키워드';
+  const text = '뷰트랩에서 "' + kw + '" 검색 후 노출확률 분석하고 필터(조회수 50,000+, 기여도/성과도 Good·Great, Shorts 제거) 적용해서 C:\\Dev\\bizpt\\뷰트랩 정리\\단어 폴더에 추가, 대시보드_빌드.py 실행';
+  navigator.clipboard.writeText(text).then(() => {
+    const msg = document.getElementById('copy-msg');
+    msg.classList.remove('hidden');
+    setTimeout(() => msg.classList.add('hidden'), 2000);
+  });
+});
+
+renderSummary();
+renderCompare();
+renderKeywordCards('');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!-- 참조영상 수집 — 김영하 (독서·글쓰기·읽는 재미) v1 · 2026-06-09 · 링크/메타 Claude in Chrome 실제 검증 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>참조영상 · 김영하 — 독서·글쓰기·읽는 재미</title>
+<style>
+  :root{--pain:#ef476f;--growth:#06d6a0;--value:#ffd166;--rec:#c4b5fd;--bg:#f5f3ee;--panel:#ffffff;--panel-2:#faf8f3;--line:#e7e3da;--text:#1f2430;--muted:#5d6470;--brand:#2f5d62;--brand2:#3a7a82;--shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:1080px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:800;background:rgba(47,93,98,.08);border-color:var(--brand2)}
+  .nbtn.doc{margin-left:auto;color:var(--brand2)}
+  header{background:linear-gradient(135deg,#2f5d62 0%,#244b50 60%,#1d3c40 100%);color:#fff;padding:34px 0 30px;margin:18px 0 0;border-bottom:4px solid var(--value)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+  header .wrap{padding-bottom:0}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#bfe0d9;font-weight:800;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 10px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:#d6e6e1;font-size:14.5px;margin:0;max-width:760px}
+  .stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+  .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 20px;min-width:108px}
+  .stat .v{font-size:22px;font-weight:800;color:#fff;line-height:1}
+  .stat .l{font-size:12px;color:#bfe0d9;margin-top:5px}
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:26px 0 10px;box-shadow:var(--shadow)}
+  .intro h2{font-size:17px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .intro p{margin:0 0 10px;font-size:14px;color:#3a414c}
+  .intro .why{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .why .chip{font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand)}
+  .group{margin-top:34px}
+  .ghead{display:flex;align-items:center;gap:11px;margin:0 0 4px}
+  .gbadge{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px}
+  .ghead h2{font-size:19px;margin:0;font-weight:800}
+  .gdesc{font-size:13px;color:var(--muted);margin:2px 0 16px;padding-left:41px}
+  .vid{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+  .vthumb{position:relative;flex:0 0 280px;aspect-ratio:16/9;background:#0b0f14;text-decoration:none;display:block;overflow:hidden}
+  .vthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+  .vthumb:hover img{transform:scale(1.04);opacity:.9}
+  .vthumb .dur{position:absolute;right:8px;bottom:8px;background:rgba(15,20,28,.86);color:#fff;font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .vthumb .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(239,71,111,.92);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;padding-left:3px}
+  .vbody{flex:1;padding:15px 18px 16px;min-width:0}
+  .vtop{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .lang{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
+  .lang.ko{background:rgba(47,93,98,.12);color:var(--brand)}
+  .lang.en{background:rgba(196,181,252,.25);color:#7a5af0}
+  .lang.off{background:rgba(255,209,102,.3);color:#7a5e10}
+  .vtitle{font-size:15.5px;font-weight:800;line-height:1.35;text-decoration:none;color:var(--text)}
+  .vtitle:hover{color:var(--brand)}
+  .vmeta{display:flex;flex-wrap:wrap;gap:5px 13px;font-size:11.5px;color:var(--muted);margin:7px 0 11px}
+  .vmeta b{color:var(--text)}
+  .vsec{font-size:12.8px;color:#3a414c;margin:0 0 8px;line-height:1.55}
+  .vsec .lab{display:inline-block;font-size:10.5px;font-weight:800;color:var(--brand2);background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+  .vquote{font-style:italic;color:#28303a;border-left:3px solid var(--value);padding:2px 0 2px 10px;margin:8px 0}
+  .vuse{font-size:12.8px;color:#1f2a2b;background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.3);border-radius:9px;padding:9px 12px;margin-top:10px;line-height:1.55}
+  .vuse .lab{background:var(--growth);color:#06352a;border:none}
+  .guide{background:linear-gradient(135deg,#fff 0%,#faf8f3 100%);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-top:38px;box-shadow:var(--shadow)}
+  .guide h2{font-size:19px;margin:0 0 4px;font-weight:800}
+  .guide .lead{color:var(--muted);font-size:13.5px;margin:0 0 18px}
+  .gtable{width:100%;border-collapse:collapse;font-size:13px}
+  .gtable th,.gtable td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .gtable th{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .gtable td b{color:var(--brand)}
+  .gtable tr:last-child td{border-bottom:none}
+  .axis{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand);margin:1px 2px 1px 0}
+  .note{background:rgba(255,209,102,.16);border:1px solid rgba(255,209,102,.5);border-radius:11px;padding:13px 16px;margin-top:18px;font-size:12.8px;color:#5a4a1a}
+  .note b{color:#7a5e10}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:34px;line-height:1.8}
+  @media(max-width:720px){h1{font-size:22px}.vid{flex-direction:column}.vthumb{flex-basis:auto;width:100%}.gdesc{padding-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="../_허브.html">← 참조영상 허브</a>
+  <a class="nbtn" href="https://www.youtube.com/results?search_query=김영하+독서+글쓰기" target="_blank" rel="noopener">🔎 유튜브에서 더 보기</a>
+  <a class="nbtn doc" href="../../../../10_system/cowork_prompts/유튜브_참조영상_수집.md">📋 작성 지침</a>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">참조영상 컬렉션 · 인물 (한국 · 작가)</div>
+    <h1>김영하 — 독서 · 글쓰기 · 읽는 재미</h1>
+    <p class="sub">'알쓸신잡'으로 가장 친숙한 소설가. 어렵지 않게 <b style="color:#fff">'읽는 재미와 글쓰기'</b>를 전하는 화법의 최고 표본 — bizpt가 지향할 <b style="color:#fff">대중성과 깊이의 균형점</b>입니다.</p>
+    <div class="stats">
+      <div class="stat"><div class="v">8</div><div class="l">수집 영상</div></div>
+      <div class="stat"><div class="v">한국</div><div class="l">소설가</div></div>
+      <div class="stat"><div class="v">약 531만</div><div class="l">합산 조회수</div></div>
+      <div class="stat"><div class="v">264만</div><div class="l">최고 (알쓸신잡3)</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h2>왜 김영하 = bizpt 레퍼런스인가</h2>
+    <p>이어령이 '지성의 깊이'라면 김영하는 <b>'대중적 친근함'</b>이다. 그는 예능('알쓸신잡')에서 책 이야기를 가장 재미있게 푸는 사람 — bizpt <b>'책 읽는 재미·문해력·글쓰기'</b> 축에서 <b>"어렵지 않게, 그러나 얕지 않게"</b>의 톤을 가장 잘 보여준다. 우리 채널이 대중성을 잃지 않으면서 깊이를 지키려 할 때의 기준점.</p>
+    <div class="why">
+      <span class="chip">결 ① 읽으려는 사람</span>
+      <span class="chip">결 ② 읽고 있는 사람</span>
+      <span class="chip">축: 책 읽는 재미</span>
+      <span class="chip">축: 문해력</span>
+      <span class="chip">축: 책 읽는 습관</span>
+    </div>
+  </div>
+
+  <!-- A. 독서·읽는 재미 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--brand)">A</span><h2>독서 · 읽는 재미</h2></div>
+    <p class="gdesc">"왜, 어떻게 읽는가"를 예능처럼 재미있게 — bizpt 대중적 독서 콘텐츠의 톤 표본.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=kIqT4iiRpyo" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/kIqT4iiRpyo/hqdefault.jpg" alt="" loading="lazy"><span class="dur">4:01</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=kIqT4iiRpyo" target="_blank" rel="noopener">[알쓸신잡1] 잡학박사들이 생각하는 '좋은 독서법'이란?</a></div>
+        <div class="vmeta"><span>채널 <b>tvN Joy</b></span><span>조회 <b>약 78만</b></span><span>8년 전</span><span>4:01</span></div>
+        <div class="vsec"><span class="lab">핵심</span>김영하 등 잡학박사들이 '좋은 독서법'을 토크로 푼다. "<b>완독 강박을 버려도 된다</b>"는 메시지가 나발과 공명.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 방법' — 여러 관점을 토크로 보여주는 포맷. 우리 채널 대담형 콘텐츠 벤치마크.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=jCbqQ7p2WgA" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/jCbqQ7p2WgA/hqdefault.jpg" alt="" loading="lazy"><span class="dur">16:07</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=jCbqQ7p2WgA" target="_blank" rel="noopener">[알쓸인잡] 이래서 책을 많이 읽어야 되는구나 (발자크)</a></div>
+        <div class="vmeta"><span>채널 <b>tvN D ENT</b></span><span>조회 <b>약 36.7만</b></span><span>7개월 전</span><span>16:07</span></div>
+        <div class="vsec"><span class="lab">핵심</span>발자크 작품에서 인생의 해답을 얻은 김영하의 이야기 — <b>"한 권의 책이 삶을 바꾼다"</b>는 구체적 사례.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽어야 하는 이유' — "이 책이 내 인생을" 서사형 후크(작품×삶 연결).</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=kuzpvG0IJ9o" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/kuzpvG0IJ9o/hqdefault.jpg" alt="" loading="lazy"><span class="dur">3:50</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=kuzpvG0IJ9o" target="_blank" rel="noopener">김영하가 매일 1편씩 시를 외우며 깨달은 것 (tvN Shift)</a></div>
+        <div class="vmeta"><span>채널 <b>tvN STORY</b></span><span>조회 <b>약 18.5만</b></span><span>6년 전</span><span>3:50</span></div>
+        <div class="vsec"><span class="lab">핵심</span>매일 시 한 편 암송이라는 <b>구체적 습관</b>과 그 깨달음. 작은 루틴이 주는 변화.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 습관' — "매일 N분/한 편" 미니 루틴 챌린지 콘텐츠 아이디어.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. 글쓰기·기록 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--value)">B</span><h2>글쓰기 · 기록</h2></div>
+    <p class="gdesc">"자기 해방의 글쓰기" — 읽기 다음의 콘텐츠, 문해력 축의 핵심.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=WIoGFHghNTk" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/WIoGFHghNTk/hqdefault.jpg" alt="" loading="lazy"><span class="dur">18:05</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=WIoGFHghNTk" target="_blank" rel="noopener">세바시 275회 — 자기 해방의 글쓰기 | 김영하</a></div>
+        <div class="vmeta"><span>채널 <b>세바시 강연</b></span><span>조회 <b>약 54.3만</b></span><span>13년 전</span><span>18:05</span></div>
+        <div class="vsec"><span class="lab">핵심</span>"글쓰기는 <b>자기를 해방하는 일</b>" — 잘 쓰기 위해서가 아니라 나를 위해 쓰라는 명강연. 피터슨 글쓰기론과 공명.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'문해력' — "읽기→글쓰기" 시리즈의 한국어 대표 강연. 세바시 포맷(18분) 벤치마크.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=sVyhn7x-QcA" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/sVyhn7x-QcA/hqdefault.jpg" alt="" loading="lazy"><span class="dur">1:16:41</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=sVyhn7x-QcA" target="_blank" rel="noopener">[알쓸인잡] 언어의 연금술사, 김영하가 알려주는 글과 기록의 힘</a></div>
+        <div class="vmeta"><span>채널 <b>디글 :Diggle</b></span><span>조회 <b>약 34.7만</b></span><span>1년 전</span><span>1:16:41</span></div>
+        <div class="vsec"><span class="lab">핵심</span>김영하의 언어·기록 관련 장면 모음(1시간+). <b>대본 소스 광맥</b> — 발췌해 짧은 키로 재가공.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'문해력·기록' 인용 채굴용. 예능 장면을 우리 주제로 재편집하는 소스.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=ze_sKQA-yJY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ze_sKQA-yJY/hqdefault.jpg" alt="" loading="lazy"><span class="dur">9:40</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><span class="lang off">교보문고</span><a class="vtitle" href="https://www.youtube.com/watch?v=ze_sKQA-yJY" target="_blank" rel="noopener">작가의 감정이 이해되지 않으면 독자는 따라가지 않습니다 — 글쓰기 첨삭</a></div>
+        <div class="vmeta"><span>채널 <b>교보문고</b></span><span>조회 <b>약 11만</b></span><span>1년 전</span><span>9:40</span></div>
+        <div class="vsec"><span class="lab">핵심</span>김영하가 독자 글을 직접 <b>첨삭</b>. "독자를 따라오게 하는 글"의 구체적 기술. 교보문고 공식 기획.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'문해력·글쓰기' — "전문가 첨삭" 포맷 아이디어(서점 채널과의 협업 모델).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. 강연·인생관 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--rec)">C</span><h2>강연 · 인생관</h2></div>
+    <p class="gdesc">독서 습관 강연과 바이럴된 인생관 — 후크·명언의 원천.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=1G5S2dtKBIY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/1G5S2dtKBIY/hqdefault.jpg" alt="" loading="lazy"><span class="dur">1:22:34</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=1G5S2dtKBIY" target="_blank" rel="noopener">독한 습관 — 김영하 강연 전체 (Let's read Young-ha Kim)</a></div>
+        <div class="vmeta"><span>채널 <b>공준호</b></span><span>조회 <b>약 33.9만</b></span><span>8년 전</span><span>1:22:34</span></div>
+        <div class="vsec"><span class="lab">핵심</span>'독(讀)한 습관' 말장난으로 <b>읽는 습관</b>을 권하는 명강연 풀버전. 독서 습관론의 한국 대표.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 습관' 심층 소스. 제목의 <b>말장난(讀한 습관)</b>은 후크 카피 기법으로 차용 가능.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=MbZ9qyY--CE" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/MbZ9qyY--CE/hqdefault.jpg" alt="" loading="lazy"><span class="dur">2:03</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=MbZ9qyY--CE" target="_blank" rel="noopener">[알쓸신잡3] "최선을 다하면 큰일나요" — 김영하의 인생관</a></div>
+        <div class="vmeta"><span>채널 <b>tvN Joy</b></span><span>조회 <b>약 264만</b></span><span>7년 전</span><span>2:03</span></div>
+        <div class="vsec"><span class="lab">핵심</span>이 컬렉션 <b>최고 조회(264만)</b>. 통념을 뒤집는 한마디가 바이럴. <b>역설형 후크의 위력</b> 증명.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>후크 기법 벤치마크 — "통념을 뒤집는 한 문장"이 짧은 클립으로 폭발. 쇼츠 전략 참고.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 종합 가이드 -->
+  <div class="guide">
+    <h2>🧭 종합 활용 가이드 — bizpt 축 매핑</h2>
+    <p class="lead">김영하 컬렉션을 어느 콘텐츠에, 어떤 후크로 쓸지. (8축 · 결 3그룹 기준)</p>
+    <table class="gtable">
+      <thead><tr><th style="width:22%">bizpt 축</th><th style="width:34%">연결 영상</th><th>후크·활용 아이디어</th></tr></thead>
+      <tbody>
+        <tr><td><span class="axis">책 읽는 재미</span></td><td>A1 좋은 독서법 · A2 발자크</td><td>"완독 안 해도 OK" 토크형 + "이 책이 내 인생을" 서사</td></tr>
+        <tr><td><span class="axis">책 읽는 습관</span></td><td>A3 시 암송 · C1 독한 습관</td><td>"매일 한 편" 미니 루틴 챌린지 + 말장난 후크</td></tr>
+        <tr><td><span class="axis">문해력</span></td><td>B1 자기해방 글쓰기 · B3 첨삭</td><td>"읽기→글쓰기" 시리즈, 전문가 첨삭 포맷</td></tr>
+        <tr><td><span class="axis">후크 기술</span></td><td>C2 최선을 다하면 큰일</td><td>"통념을 뒤집는 한 문장" 쇼츠 전략</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>진정성 체크(3기둥 ②):</b> 김영하는 <b>"재미있지만 얕지 않다"</b>가 핵심. 우리도 예능적 재미를 빌리되, 끝은 "그래서 이 책"으로 착지. 김영하의 균형 감각이 곧 bizpt가 베낄 톤.</div>
+  </div>
+
+  <footer>
+    bizpt / 타채널참조 · 참조영상 수집 — 김영하 (독서·글쓰기·읽는 재미)<br>
+    모든 링크·메타는 2026-06-09 Claude in Chrome로 실제 검증 · 조회수는 검증 시점 근사치<br>
+    허브: ../_허브.html · 지침: 10_system/cowork_prompts/유튜브_참조영상_수집.md
+  </footer>
+</div>
+</body>
+</html>

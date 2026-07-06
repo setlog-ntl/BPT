@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>썸네일 추천 · 독서습관 실패한 99%의 3가지 공통점</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --info:#5cc4e0;
+    --ink:#e9edf4; --muted:#9aa3b2; --line:#262b36; --card:#13161d;
+    --bg-dark:linear-gradient(135deg,#1c1f29 0%,#0c0e13 100%);
+    --bg-blue:radial-gradient(circle at 30% 30%,#2d6cdf 0%,#0c0e13 70%);
+    --bg-green:linear-gradient(135deg,#0c2a1c 0%,#0c0e13 100%);
+    --bg-warm:radial-gradient(circle at 30% 30%,#3a2d18 0%,#0c0e13 70%);
+    --bg-amber:linear-gradient(135deg,#2a1c0f 0%,#0c0e13 100%);
+    --font:'Pretendard','Apple SD Gothic Neo','Noto Sans KR',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0c10;color:var(--ink);font-family:var(--font);line-height:1.6;
+    -webkit-font-smoothing:antialiased;padding:0 0 80px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  a{color:var(--info)}
+  /* header */
+  header{padding:46px 22px 30px;border-bottom:1px solid var(--line);
+    background:radial-gradient(circle at 80% -20%,#1a2230 0%,transparent 60%)}
+  header .wrap{padding:0}
+  .eyebrow{font-size:13px;letter-spacing:.16em;color:var(--value);font-weight:800;text-transform:uppercase}
+  h1{font-size:30px;font-weight:900;letter-spacing:-.02em;margin:10px 0 6px;line-height:1.25}
+  h1 b{color:var(--pain)}
+  .sub{color:var(--muted);font-size:15px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;
+    background:#171b24;border:1px solid var(--line);color:var(--ink)}
+  .chip.pain{border-color:rgba(239,71,111,.4);color:#ff8aa6}
+  .chip.val{border-color:rgba(255,209,102,.4);color:var(--value)}
+  .chip.grow{border-color:rgba(6,214,160,.4);color:var(--growth)}
+  .chip.info{border-color:rgba(92,196,224,.4);color:var(--info)}
+  /* sections */
+  section{margin-top:48px}
+  .kicker{font-size:12.5px;letter-spacing:.14em;color:var(--muted);font-weight:800;text-transform:uppercase}
+  h2{font-size:22px;font-weight:900;letter-spacing:-.01em;margin:6px 0 4px}
+  h2 .num{color:var(--info)}
+  .lead{color:var(--muted);font-size:14.5px;margin-bottom:20px;max-width:760px}
+  /* alignment card */
+  .grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .acard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px}
+  .acard .k{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:5px}
+  .acard .v{font-size:15.5px;font-weight:800;letter-spacing:-.01em}
+  .acard .v small{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:3px}
+  .insight{margin-top:16px;background:linear-gradient(135deg,#171108 0%,#0e1015 100%);
+    border:1px solid rgba(255,209,102,.25);border-radius:14px;padding:18px 20px}
+  .insight h3{font-size:15px;font-weight:900;color:var(--value);margin-bottom:8px}
+  .insight p{font-size:14px;color:#d4d9e2}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px;font-size:13px;font-weight:700}
+  .flow span{background:#10141b;border:1px solid var(--line);padding:7px 12px;border-radius:9px}
+  .flow .ar{color:var(--value);font-weight:900}
+  /* title table */
+  table{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);
+    border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#10141b;font-size:12px;letter-spacing:.04em;color:var(--muted);font-weight:800;text-transform:uppercase}
+  tr:last-child td{border-bottom:none}
+  td.rank{font-weight:900;color:var(--muted);width:38px;text-align:center}
+  .ttl{font-weight:800;letter-spacing:-.01em;font-size:15px}
+  .ttl em{font-style:normal;color:var(--value)}
+  .ttl b{color:var(--pain)}
+  tr.main{background:linear-gradient(90deg,rgba(255,209,102,.10),transparent)}
+  tr.main td.rank{color:var(--value)}
+  .badge{display:inline-block;font-size:10.5px;font-weight:900;letter-spacing:.05em;
+    padding:2px 8px;border-radius:6px;background:var(--value);color:#1a1205;margin-left:7px;vertical-align:middle}
+  .tg{font-size:12px;color:var(--muted);white-space:nowrap}
+  .gyeol{font-weight:800;font-size:12.5px}
+  /* thumbnails */
+  .thumbwrap{display:grid;gap:30px}
+  .tcard{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .tcard .top{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:13px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .tcard .top .name{font-size:15px;font-weight:900}
+  .tcard .top .name .lab{color:var(--muted);font-weight:700;font-size:12.5px;margin-left:6px}
+  .tcard .top .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tt{font-size:11px;font-weight:800;padding:3px 9px;border-radius:7px;background:#10141b;border:1px solid var(--line);color:var(--muted)}
+  .mainpick{background:var(--value);color:#1a1205;border-color:var(--value)}
+  .tbody{display:grid;grid-template-columns:1.18fr .82fr;gap:0}
+  @media(max-width:760px){.tbody{grid-template-columns:1fr}.grid6{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.grid6{grid-template-columns:1fr}}
+  .preview{padding:18px;display:flex;align-items:center;justify-content:center;background:#0a0c10}
+  /* 16:9 mock */
+  .thumb{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;position:relative;
+    container-type:inline-size;box-shadow:0 10px 30px rgba(0,0,0,.5);font-family:var(--font)}
+  .thumb .pad{position:absolute;inset:0;padding:5.5cqw}
+  .thumb .tl{position:absolute;left:5.5cqw;top:5cqw}
+  .thumb .bl{position:absolute;left:5.5cqw;right:5.5cqw;bottom:5cqw}
+  .thumb .cc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .hl{font-weight:900;letter-spacing:-.03em;line-height:.98;text-shadow:0 3px 12px rgba(0,0,0,.6)}
+  .wht{color:#fff}.pn{color:var(--pain)}.vl{color:var(--value)}.gr{color:var(--growth)}.inf{color:var(--info)}
+  .small-top{font-size:5cqw;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+  .sub-1{font-size:4cqw;font-weight:800;color:#fff;opacity:.92;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+  .sub-1 .mk{color:var(--value)}
+  .vline{height:.9cqw;width:18cqw;background:var(--value);border-radius:2px;margin:2.5cqw 0}
+  .ep{position:absolute;right:5.5cqw;bottom:5cqw;font-size:3cqw;font-weight:800;letter-spacing:.16em;color:var(--info)}
+  .bignum{font-size:30cqw;font-weight:900;letter-spacing:-.04em;line-height:.82}
+  .num-unit{font-size:11cqw}
+  /* spec side */
+  .spec{padding:18px 20px;border-left:1px solid var(--line)}
+  @media(max-width:760px){.spec{border-left:none;border-top:1px solid var(--line)}}
+  .spec .row{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed #20242e;font-size:13px}
+  .spec .row:last-of-type{border-bottom:none}
+  .spec .row .lk{color:var(--muted);font-weight:700;min-width:62px;flex-shrink:0}
+  .spec .row .lv{font-weight:600;color:#dfe4ec}
+  .spec .row .lv .vl{font-weight:800}
+  .promptbox{margin-top:12px}
+  .promptbox .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .promptbox .ph b{font-size:11.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;font-weight:800}
+  .copy{font-size:11px;font-weight:800;color:var(--info);background:#0e1620;border:1px solid rgba(92,196,224,.3);
+    border-radius:7px;padding:4px 10px;cursor:pointer}
+  .copy:active{transform:translateY(1px)}
+  pre{background:#0a0d12;border:1px solid var(--line);border-radius:9px;padding:11px 12px;
+    font-size:11.5px;line-height:1.5;color:#c4ccd8;white-space:pre-wrap;word-break:break-word;
+    font-family:'SF Mono',ui-monospace,Menlo,monospace}
+  .stock{margin-top:9px;font-size:12px;color:var(--muted)}
+  .stock b{color:#cfd5df}
+  .stock code{background:#10141b;border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--info);font-size:11.5px}
+  /* checklist */
+  .checks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:640px){.checks{grid-template-columns:1fr}}
+  .ck{display:flex;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-size:13.5px}
+  .ck .mk{color:var(--growth);font-weight:900;flex-shrink:0}
+  .ab{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 18px;margin-top:14px}
+  .ab .row{display:flex;gap:12px;align-items:center;padding:11px 0;border-bottom:1px dashed #20242e;font-size:14px}
+  .ab .row:last-child{border-bottom:none}
+  .ab .pair{font-weight:900;color:var(--value);min-width:96px}
+  .ab .why{color:var(--muted);font-size:13px}
+  footer{margin-top:54px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  footer code{color:#aeb6c2}
+  .note{font-size:12px;color:var(--muted);margin-top:10px;font-style:italic}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">BIZPT · 풀링 콘텐츠 썸네일 추천</div>
+    <h1>독서습관 실패한 <b>99%</b>의 3가지 공통점<br>— 제목 · 썸네일 문구 · 이미지 추천</h1>
+    <div class="sub">검증된 「99% / 3가지」 구조를 채널의 <b style="color:var(--value)">면죄부·진정성 톤</b>으로 이식. 썸네일지침 §01~§05 전체 적용.</div>
+    <div class="meta">
+      <span class="chip">풀링(유입·구독)</span>
+      <span class="chip">8축: 책 읽는 습관</span>
+      <span class="chip info">결 ① 읽으려는 · ② 읽고 있는</span>
+      <span class="chip val">감정코어: 면죄부</span>
+      <span class="chip pain">종착지: 이북리더기 · readtree</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- 1. 정합 점검 -->
+<section>
+  <div class="kicker">01 · 빠른 정합 점검</div>
+  <h2>썸네일 6답 — 작업 전 고정값</h2>
+  <p class="lead">썸네일지침 README §2 빠른 시작. 6답이 고정되면 톤·색·문구가 자동으로 결정된다.</p>
+  <div class="grid6">
+    <div class="acard"><div class="k">[1] 영상 종류</div><div class="v">풀링<small>유입·구독 — 무목적 탐색자에게 "내 얘기네"</small></div></div>
+    <div class="acard"><div class="k">[2] 8축</div><div class="v">책 읽는 습관<small>+ 자기개발(부)</small></div></div>
+    <div class="acard"><div class="k">[3] 결(주력)</div><div class="v">① 읽으려는 + ② 읽고 있는<small>작심삼일·중도 포기층</small></div></div>
+    <div class="acard"><div class="k">[4] 판매 종착지</div><div class="v">이북리더기(입문)<small>→ readtree 시작 트래커</small></div></div>
+    <div class="acard"><div class="k">[5] 핵심 한 줄</div><div class="v">"의지가 아니라 구조"<small>실패는 당신 탓이 아니다</small></div></div>
+    <div class="acard"><div class="k">[6] 감정 코어</div><div class="v" style="color:var(--value)">면죄부<small>공감 → 안도 → 해결</small></div></div>
+  </div>
+
+  <div class="insight">
+    <h3>⚙ 차용한 구조 — "주식 실패 99%" 영상의 검증된 골격</h3>
+    <p>참고 대본(주식투자 실패 99%)은 <b style="color:#fff">충격 통계 → "운이 아니라 구조다" 면죄부 → 3가지 함정 → 해결책</b> 공식으로 작동한다. 이 골격을 독서습관에 그대로 이식하되, 썸네일은 <b style="color:var(--value)">"네 의지가 약해서가 아니다"</b>라는 면죄부 신호를 1초 안에 던진다. 이게 풀링의 핵심 — 위협("안 읽으면 망한다")이 아니라 안도로 클릭을 만든다.</p>
+    <div class="flow">
+      <span>충격 통계 <span class="pn" style="font-weight:900">99%</span></span><span class="ar">→</span>
+      <span>면죄부 <span class="vl" style="font-weight:900">"구조 탓"</span></span><span class="ar">→</span>
+      <span>3가지 공통점</span><span class="ar">→</span>
+      <span>해결 = 이북리더기·트래커</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2. 제목 추천 -->
+<section>
+  <div class="kicker">02 · 제목 추천 10</div>
+  <h2>제목 후보 — 랭킹</h2>
+  <p class="lead">「99%·3가지」 공식 정합 + 결 호명 + 면죄부 진정성 + 금지어 0(충격·경악·절대·망한다 류 제외) 기준 채점. 메인픽은 검증 구조에 가장 가깝다.</p>
+  <table>
+    <thead><tr><th>#</th><th>제목</th><th>톤</th><th>결</th><th>매칭 시안</th></tr></thead>
+    <tbody>
+      <tr class="main">
+        <td class="rank">1</td>
+        <td><div class="ttl">독서습관 실패한 <b>99%</b>의 <em>3가지 공통점</em><span class="badge">메인픽</span></div>
+            <div class="tg">검증 공식 직결 · 부가: "의지 문제가 아니었습니다"</div></td>
+        <td class="tg">대비·숫자</td><td class="gyeol">①②</td><td class="tg">A · B</td>
+      </tr>
+      <tr>
+        <td class="rank">2</td>
+        <td><div class="ttl">당신이 책을 못 읽는 건 <em>의지 문제가 아닙니다</em></div>
+            <div class="tg">면죄부 시그니처 · 구조 메시지 직설</div></td>
+        <td class="tg">면죄부·고백</td><td class="gyeol">①</td><td class="tg">D</td>
+      </tr>
+      <tr>
+        <td class="rank">3</td>
+        <td><div class="ttl">1년에 책 <em>한 권도</em> 못 읽는 진짜 이유 <em>3가지</em></div>
+            <div class="tg">숫자+공감 · 결 호명("한 권도")</div></td>
+        <td class="tg">대비·숫자</td><td class="gyeol">①②</td><td class="tg">A · B</td>
+      </tr>
+      <tr>
+        <td class="rank">4</td>
+        <td><div class="ttl">이렇게 시작하면 <b>평생</b> 독서와 멀어집니다</div>
+            <div class="tg">참고 제목 톤 직계 · 경고/역설(면죄부 안에서)</div></td>
+        <td class="tg">경고·역설</td><td class="gyeol">①</td><td class="tg">E</td>
+      </tr>
+      <tr>
+        <td class="rank">5</td>
+        <td><div class="ttl">작심삼일이 <em>당신 탓이 아닌</em> 이유</div>
+            <div class="tg">면죄부 최대 · 공감 흡인력 ↑</div></td>
+        <td class="tg">면죄부·고백</td><td class="gyeol">①</td><td class="tg">D</td>
+      </tr>
+      <tr>
+        <td class="rank">6</td>
+        <td><div class="ttl">책 읽기 <em>매번 실패하는</em> 사람들의 3가지 공통점</div>
+            <div class="tg">공식 변형 · 결 호명("매번 실패하는")</div></td>
+        <td class="tg">대비·공감</td><td class="gyeol">①②</td><td class="tg">B</td>
+      </tr>
+      <tr>
+        <td class="rank">7</td>
+        <td><div class="ttl">독서습관, <em>의지가 아니라 구조</em>였습니다</div>
+            <div class="tg">핵심 메시지 직설 · 시그니처("의지가 아니라 ―")</div></td>
+        <td class="tg">단일점·구조</td><td class="gyeol">②</td><td class="tg">A</td>
+      </tr>
+      <tr>
+        <td class="rank">8</td>
+        <td><div class="ttl"><em>3년을 실패하고</em> 알게 된 독서습관의 정체</div>
+            <div class="tg">고백+경험 권위 · 참고 톤("5년만에 알게된")</div></td>
+        <td class="tg">고백·변화</td><td class="gyeol">②③</td><td class="tg">D</td>
+      </tr>
+      <tr>
+        <td class="rank">9</td>
+        <td><div class="ttl">폰은 <em>3시간</em>, 책은 <em>3분</em> — 범인은 도파민입니다</div>
+            <div class="tg">비유+숫자 대비 · 도파민 각도</div></td>
+        <td class="tg">비유·숫자</td><td class="gyeol">①②</td><td class="tg">C</td>
+      </tr>
+      <tr>
+        <td class="rank">10</td>
+        <td><div class="ttl">매번 작심삼일이던 <em>내가 책을 펴게 된</em> 이유</div>
+            <div class="tg">변화 약속·동반자 톤 · 시즌 시리즈화 가능</div></td>
+        <td class="tg">변화·고백</td><td class="gyeol">①</td><td class="tg">D · E</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">표기: <b style="color:var(--pain)">빨강</b>=페인/숫자 강조 후보, <b style="color:var(--value)">노랑</b>=썸네일 강조어 후보. 본문 마무리에서 제목 키워드를 한 번 더 호명(수미상관)할 것.</p>
+</section>
+
+<!-- 3. 썸네일 시안 -->
+<section>
+  <div class="kicker">03 · 썸네일 시안 5 (문구 + 이미지)</div>
+  <h2>16:9 시안 — 미리보기 · 문구 · AI 프롬프트</h2>
+  <p class="lead">서로 다른 톤 5종(대비 / 인물공감 / 비유 / 고백 / 경고). 풀링 강세 템플릿만 사용 — 트래커·권위형 제외. 아래 미리보기는 디자인 토큰(--pain·--value·--info, Pretendard 900) 실제 적용. 인물·사진은 AI/스톡으로 합성.</p>
+
+  <div class="thumbwrap">
+
+    <!-- 시안 A -->
+    <div class="tcard">
+      <div class="top">
+        <div class="name">시안 A · 대비형 <span class="lab">Contrast — 숫자 대비</span></div>
+        <div class="tags"><span class="tt mainpick">메인 추천</span><span class="tt">bg-dark</span><span class="tt">--pain + --value</span></div>
+      </div>
+      <div class="tbody">
+        <div class="preview">
+          <div class="thumb" style="background:var(--bg-dark)">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 38px,rgba(239,71,111,.05) 38px 40px)"></div>
+            <div class="cc" style="justify-content:center;gap:.4cqw;transform:translateY(-6%)">
+              <span class="small-top" style="margin-bottom:.4cqw">독서습관 실패한</span>
+              <div class="hl pn bignum" style="font-size:25cqw">99<span class="num-unit" style="font-size:9cqw">%</span></div>
+              <div class="hl vl" style="font-size:10.5cqw;margin-top:.8cqw">3가지 공통점</div>
+            </div>
+            <div class="bl" style="text-align:center"><span class="sub-1"><span class="mk">의지</span>가 아니라 <span class="mk">구조</span>였습니다</span></div>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="row"><span class="lk">헤드</span><span class="lv">독서습관 실패한 <span class="vl">99%</span> / 3가지 공통점</span></div>
+          <div class="row"><span class="lk">부가</span><span class="lv">의지가 아니라 구조였습니다</span></div>
+          <div class="row"><span class="lk">매칭 제목</span><span class="lv">#1 · #3 · #7</span></div>
+          <div class="row"><span class="lk">강점</span><span class="lv">검증 공식 직계 — 1초 인지 최강. 99%(빨강)와 3가지(노랑) 색 분리.</span></div>
+          <div class="promptbox">
+            <div class="ph"><b>AI 배경 프롬프트</b><button class="copy" onclick="cp(this)">복사</button></div>
+            <pre>Dark cinematic background, deep slate navy gradient (#1c1f29 to #0c0e13), subtle paper texture, a faint dim smartphone glow and a few scattered unread book pages in the lower corner, heavy empty negative space in the center for a giant number overlay, moody, no people, no face, 16:9 --ar 16:9 --v 6.1</pre>
+          </div>
+          <div class="stock"><b>스톡 검색어:</b> <code>dark desk book phone</code> <code>moody book pages dark</code> (Pexels·Pixabay, faceless)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 시안 B -->
+    <div class="tcard">
+      <div class="top">
+        <div class="name">시안 B · 인물 공감형 <span class="lab">검증 레퍼런스 직계 — "주식 99%" 동형</span></div>
+        <div class="tags"><span class="tt mainpick">메인 후보</span><span class="tt">bg-dark</span><span class="tt">실루엣(페이스리스)</span></div>
+      </div>
+      <div class="tbody">
+        <div class="preview">
+          <div class="thumb" style="background:var(--bg-dark)">
+            <!-- silhouette -->
+            <svg viewBox="0 0 100 56" preserveAspectRatio="xMaxYMid slice" style="position:absolute;right:0;top:0;height:100%;width:48%">
+              <defs><radialGradient id="rim" cx="35%" cy="30%" r="80%">
+                <stop offset="0%" stop-color="#2b3340"/><stop offset="100%" stop-color="#05070b"/>
+              </radialGradient></defs>
+              <!-- desk -->
+              <rect x="0" y="48" width="100" height="8" fill="#05070b"/>
+              <!-- book -->
+              <rect x="6" y="44" width="20" height="4.5" rx="1" fill="#1d2430"/>
+              <line x1="16" y1="44" x2="16" y2="48.5" stroke="#2a3340" stroke-width=".5"/>
+              <!-- phone glow -->
+              <rect x="30" y="42.5" width="6" height="6" rx="1" fill="#16202c"/>
+              <rect x="31" y="43.3" width="4" height="4.4" rx=".6" fill="#3b5168" opacity=".9"/>
+              <!-- person: shoulders + head + hand to face -->
+              <path d="M44 56 C46 40 58 36 70 36 C84 36 96 41 98 56 Z" fill="url(#rim)"/>
+              <ellipse cx="70" cy="28" rx="11" ry="12" fill="url(#rim)"/>
+              <!-- arm/hand up to forehead -->
+              <path d="M58 50 C56 40 60 33 68 30 C72 28.5 75 31 73 34 C70 37 64 41 63 50 Z" fill="#10151d"/>
+              <ellipse cx="69" cy="24" rx="8.5" ry="6" fill="#10151d" opacity=".85"/>
+            </svg>
+            <div style="position:absolute;left:0;top:0;bottom:0;width:62%;background:linear-gradient(90deg,#0c0e13 55%,transparent)"></div>
+            <div class="bl" style="right:42%">
+              <div class="hl wht" style="font-size:9.4cqw">실패한 <span class="vl">99%</span>의</div>
+              <div class="hl wht" style="font-size:9.4cqw;margin-top:1cqw"><span class="vl">3가지</span> 공통점</div>
+            </div>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="row"><span class="lk">헤드</span><span class="lv">실패한 <span class="vl">99%</span>의 / <span class="vl">3가지</span> 공통점</span></div>
+          <div class="row"><span class="lk">부가</span><span class="lv">없음(헤드 강함) · 선택: "당신 얘기일 수 있습니다"</span></div>
+          <div class="row"><span class="lk">비주얼</span><span class="lv">책상 앞 좌절한 페이스리스 인물 + 덮인 책 + 폰 불빛</span></div>
+          <div class="row"><span class="lk">매칭 제목</span><span class="lv">#1 · #6</span></div>
+          <div class="row"><span class="lk">강점</span><span class="lv">검증된 "주식 99%" 썸네일과 동형 구도 → 안전한 메인. 0.5초 공감.</span></div>
+          <div class="promptbox">
+            <div class="ph"><b>AI 인물 프롬프트</b><button class="copy" onclick="cp(this)">복사</button></div>
+            <pre>Faceless person sitting at a wooden desk at night, head resting in one hand in quiet frustration, side/back view, no face visible, no facial features, an unopened book and a glowing smartphone on the desk, warm desk lamp + cool moody shadows, cinematic dark lighting, large dark negative space on the left for big text, photorealistic, 16:9 --ar 16:9 --v 6.1</pre>
+          </div>
+          <div class="stock"><b>스톡 검색어:</b> <code>frustrated person desk night back view</code> <code>tired studying dark</code> (얼굴 안 보이는 컷만 채택)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 시안 C -->
+    <div class="tcard">
+      <div class="top">
+        <div class="name">시안 C · 비유형 <span class="lab">Metaphor — 도파민 범인</span></div>
+        <div class="tags"><span class="tt">bg-amber</span><span class="tt">--value</span><span class="tt">A/B 변형</span></div>
+      </div>
+      <div class="tbody">
+        <div class="preview">
+          <div class="thumb" style="background:var(--bg-amber)">
+            <div class="cc" style="gap:1cqw">
+              <div style="display:flex;align-items:center;gap:4cqw;font-size:17cqw;line-height:1">
+                <span>📱</span><span class="vl hl" style="font-size:11cqw">→</span><span>📖</span>
+              </div>
+              <div class="hl" style="font-size:8.6cqw;margin-top:2cqw"><span class="wht">범인은</span> <span class="vl">도파민</span><span class="wht">이었다</span></div>
+            </div>
+            <div class="bl" style="text-align:center"><span class="sub-1">폰 <span class="mk">3시간</span> · 책 <span class="mk">3분</span></span></div>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="row"><span class="lk">헤드</span><span class="lv">범인은 <span class="vl">도파민</span>이었다</span></div>
+          <div class="row"><span class="lk">부가</span><span class="lv">폰 3시간 · 책 3분</span></div>
+          <div class="row"><span class="lk">비주얼</span><span class="lv">📱(숏폼 피드) → 📖 · 실물은 폰/책 손 컷 합성</span></div>
+          <div class="row"><span class="lk">매칭 제목</span><span class="lv">#9</span></div>
+          <div class="row"><span class="lk">강점</span><span class="lv">"폰중독 책중독" 참고 시안 계승 — 호기심+면죄부 동시. 본문 함정①(도파민)과 직결.</span></div>
+          <div class="promptbox">
+            <div class="ph"><b>AI 프롬프트 (split)</b><button class="copy" onclick="cp(this)">복사</button></div>
+            <pre>Split composition: LEFT a hand holding a smartphone showing a short-form video feed in a dim room, RIGHT the same hand holding an open paperback book in warm light, hands only, no face, no facial features, amber-to-dark background, clear contrast between distraction and focus, leave top center space for a headline, photorealistic, 16:9 --ar 16:9 --v 6.1</pre>
+          </div>
+          <div class="stock"><b>스톡 검색어:</b> <code>hand smartphone scrolling</code> + <code>hand holding open book warm</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 시안 D -->
+    <div class="tcard">
+      <div class="top">
+        <div class="name">시안 D · 고백·면죄부형 <span class="lab">Confession — 동반자 톤</span></div>
+        <div class="tags"><span class="tt">bg-warm</span><span class="tt">--value 라인</span><span class="tt">A/B 변형</span></div>
+      </div>
+      <div class="tbody">
+        <div class="preview">
+          <div class="thumb" style="background:var(--bg-warm)">
+            <div class="pad" style="display:flex;flex-direction:column;justify-content:center">
+              <div class="hl wht" style="font-size:11cqw">작심삼일,</div>
+              <div class="vline"></div>
+              <div class="hl" style="font-size:9.6cqw"><span class="wht">당신 탓이</span> <span class="vl">아닙니다</span></div>
+              <div style="margin-top:3cqw"><span class="sub-1">3년 실패하고 알게 된 것</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="row"><span class="lk">헤드</span><span class="lv">작심삼일, / 당신 탓이 <span class="vl">아닙니다</span></span></div>
+          <div class="row"><span class="lk">부가</span><span class="lv">3년 실패하고 알게 된 것</span></div>
+          <div class="row"><span class="lk">비주얼</span><span class="lv">따뜻한 갈색 + 책 한 권 정물 · 노랑 시그니처 라인</span></div>
+          <div class="row"><span class="lk">매칭 제목</span><span class="lv">#2 · #5 · #8 · #10</span></div>
+          <div class="row"><span class="lk">강점</span><span class="lv">결 ① 흡인 최강 — 위협 0%, 면죄부 100%. 채널 진정성 자산.</span></div>
+          <div class="promptbox">
+            <div class="ph"><b>AI 배경 프롬프트</b><button class="copy" onclick="cp(this)">복사</button></div>
+            <pre>Warm brown moody background, a single closed book resting on a wooden table with soft golden window light, calm and slightly melancholic mood, no people, no face, generous empty negative space on the left for text, photorealistic, cinematic, 16:9 --ar 16:9 --v 6.1</pre>
+          </div>
+          <div class="stock"><b>스톡 검색어:</b> <code>closed book wooden table warm light</code> <code>old book candle calm</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 시안 E -->
+    <div class="tcard">
+      <div class="top">
+        <div class="name">시안 E · 경고·정체성형 <span class="lab">Identity — 참고 제목 톤</span></div>
+        <div class="tags"><span class="tt">bg-blue</span><span class="tt">--info</span><span class="tt">시즌 시리즈</span></div>
+      </div>
+      <div class="tbody">
+        <div class="preview">
+          <div class="thumb" style="background:var(--bg-blue)">
+            <div class="pad" style="display:flex;flex-direction:column;justify-content:center">
+              <div class="hl wht" style="font-size:10.4cqw">이렇게 읽으면</div>
+              <div class="hl" style="font-size:11cqw;margin-top:1.5cqw"><span class="inf">평생</span> <span class="wht">멀어집니다</span></div>
+              <div style="margin-top:3cqw"><span class="sub-1"><span class="mk" style="color:var(--info)">99%</span>가 모르는 3가지</span></div>
+            </div>
+            <div class="ep">READING · 01</div>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="row"><span class="lk">헤드</span><span class="lv">이렇게 읽으면 / <span class="inf">평생</span> 멀어집니다</span></div>
+          <div class="row"><span class="lk">부가</span><span class="lv">99%가 모르는 3가지</span></div>
+          <div class="row"><span class="lk">비주얼</span><span class="lv">어두운 블루 + 멀어지는(페이드) 책 1권 · EP 라벨</span></div>
+          <div class="row"><span class="lk">매칭 제목</span><span class="lv">#4 · #10</span></div>
+          <div class="row"><span class="lk">강점</span><span class="lv">참고 제목("이렇게하면 평생 책 못읽을") 톤 직계 + 시즌 시리즈 자산화(EP).</span></div>
+          <div class="promptbox">
+            <div class="ph"><b>AI 배경 프롬프트</b><button class="copy" onclick="cp(this)">복사</button></div>
+            <pre>Dark cinematic background, a single book on a table slowly fading and dissolving into deep blue darkness, cool teal-blue rim light, symbolic of drifting away from reading, no people, no face, large negative space for a bold headline, photorealistic, moody, 16:9 --ar 16:9 --v 6.1</pre>
+          </div>
+          <div class="stock"><b>스톡 검색어:</b> <code>single book dark blue moody</code> <code>book fading shadow</code></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 4. A/B + 체크 -->
+<section>
+  <div class="kicker">04 · 발행 운영</div>
+  <h2>A/B 짝 + 발행 전 체크</h2>
+  <p class="lead">A/B는 <b style="color:#fff">다른 톤끼리</b> 짝지어야 데이터가 의미 있다(지침 §03 §6). YouTube Studio 썸네일 테스트에 3안 등록 권장.</p>
+  <div class="ab">
+    <div class="row"><span class="pair">A ↔ C</span><span>대비형(숫자 99%) vs 비유형(도파민)</span><span class="why">숫자 대비 vs 비유 — 어느 게 결 ①을 더 부르나</span></div>
+    <div class="row"><span class="pair">B ↔ D</span><span>인물 공감형 vs 고백 면죄부형</span><span class="why">시각 공감 vs 텍스트 면죄부 — 클릭 동인 비교</span></div>
+    <div class="row"><span class="pair">메인 발행</span><span>A 또는 B + 변형 1</span><span class="why">검증 구조 우선, 변형으로 24h 비교 후 교체</span></div>
+  </div>
+
+  <h2 style="margin-top:26px;font-size:18px">발행 전 체크리스트</h2>
+  <div class="checks" style="margin-top:12px">
+    <div class="ck"><span class="mk">✓</span><span>헤드 14자 이하 · 모바일 축소판에서 1초 인지되는가</span></div>
+    <div class="ck"><span class="mk">✓</span><span>결 호명어("실패한·작심삼일·못 읽는")가 헤드/부가에 1개</span></div>
+    <div class="ck"><span class="mk">✓</span><span>금지어 0 — 충격·경악·절대·"망한다"·과장 숫자 없음</span></div>
+    <div class="ck"><span class="mk">✓</span><span>색 2개 + 다크 배경 · 노랑(--value)은 1단어·면적 8%↓</span></div>
+    <div class="ck"><span class="mk">✓</span><span>인물은 페이스리스(실루엣·뒷모습·손) — AI 정면 NG</span></div>
+    <div class="ck"><span class="mk">✓</span><span>안전영역: 상단 60px·하단 우측 200×60px에 글자 NG</span></div>
+    <div class="ck"><span class="mk">✓</span><span>EP·시안# 라벨 제거(시안 E의 EP는 시리즈 운영 시만 유지)</span></div>
+    <div class="ck"><span class="mk">✓</span><span>본문 마무리에서 제목 키워드 재호명(수미상관)되는가</span></div>
+  </div>
+  <p class="note">제작 도구: 자체 <code>썸네일에디터.html</code>(5안 템플릿·PNG 내보내기) 또는 Photoshop/Figma. 출력 1920×1080(sRGB), Pretendard 800/900 설치.</p>
+</section>
+
+<footer>
+  <div class="wrap" style="padding:0">
+    근거 자료 · <code>대본/썸네일지침/01~05</code> (정합·디자인시스템·문구뱅크·워크플로우·체크리스트) · <code>대본/_기획기준/30초_후크_룰_체크리스트.md</code> · 참고 썸네일 7종(주식 99% 동형·폰중독→책 등) · 구조 템플릿: <code>도입부 참고.txt</code>(주식 실패 99% 대본).<br>
+    <span class="note">미리보기는 디자인 토큰을 적용한 근사 시안입니다. 실제 발행본은 AI/스톡 이미지 합성 후 위 체크리스트를 통과시켜 확정하세요.</span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+function cp(btn){
+  const pre = btn.closest('.promptbox').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{
+    const t = btn.textContent; btn.textContent='복사됨 ✓';
+    setTimeout(()=>btn.textContent=t,1400);
+  });
+}
+</script>
+</body>
+</html>

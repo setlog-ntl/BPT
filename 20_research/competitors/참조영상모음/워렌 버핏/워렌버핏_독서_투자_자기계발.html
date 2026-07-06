@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!-- 참조영상 수집 — 워렌 버핏 (독서·투자·자기계발) v1 · 2026-06-09 · 링크/메타 Claude in Chrome 실제 검증 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>참조영상 · 워렌 버핏 — 독서·투자·자기계발</title>
+<style>
+  :root{--pain:#ef476f;--growth:#06d6a0;--value:#ffd166;--rec:#c4b5fd;--bg:#f5f3ee;--panel:#ffffff;--panel-2:#faf8f3;--line:#e7e3da;--text:#1f2430;--muted:#5d6470;--brand:#2f5d62;--brand2:#3a7a82;--shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:1080px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:800;background:rgba(47,93,98,.08);border-color:var(--brand2)}
+  .nbtn.doc{margin-left:auto;color:var(--brand2)}
+  header{background:linear-gradient(135deg,#2f5d62 0%,#244b50 60%,#1d3c40 100%);color:#fff;padding:34px 0 30px;margin:18px 0 0;border-bottom:4px solid var(--value)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+  header .wrap{padding-bottom:0}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#bfe0d9;font-weight:800;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 10px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:#d6e6e1;font-size:14.5px;margin:0;max-width:740px}
+  .stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+  .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 20px;min-width:108px}
+  .stat .v{font-size:22px;font-weight:800;color:#fff;line-height:1}
+  .stat .l{font-size:12px;color:#bfe0d9;margin-top:5px}
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:26px 0 10px;box-shadow:var(--shadow)}
+  .intro h2{font-size:17px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .intro p{margin:0 0 10px;font-size:14px;color:#3a414c}
+  .intro .why{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .why .chip{font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand)}
+  .group{margin-top:34px}
+  .ghead{display:flex;align-items:center;gap:11px;margin:0 0 4px}
+  .gbadge{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px}
+  .ghead h2{font-size:19px;margin:0;font-weight:800}
+  .gdesc{font-size:13px;color:var(--muted);margin:2px 0 16px;padding-left:41px}
+  .vid{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+  .vthumb{position:relative;flex:0 0 280px;aspect-ratio:16/9;background:#0b0f14;text-decoration:none;display:block;overflow:hidden}
+  .vthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+  .vthumb:hover img{transform:scale(1.04);opacity:.9}
+  .vthumb .dur{position:absolute;right:8px;bottom:8px;background:rgba(15,20,28,.86);color:#fff;font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .vthumb .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(239,71,111,.92);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;padding-left:3px}
+  .vbody{flex:1;padding:15px 18px 16px;min-width:0}
+  .vtop{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .lang{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
+  .lang.ko{background:rgba(47,93,98,.12);color:var(--brand)}
+  .lang.en{background:rgba(196,181,252,.25);color:#7a5af0}
+  .lang.off{background:rgba(255,209,102,.3);color:#7a5e10}
+  .vtitle{font-size:15.5px;font-weight:800;line-height:1.35;text-decoration:none;color:var(--text)}
+  .vtitle:hover{color:var(--brand)}
+  .vmeta{display:flex;flex-wrap:wrap;gap:5px 13px;font-size:11.5px;color:var(--muted);margin:7px 0 11px}
+  .vmeta b{color:var(--text)}
+  .vsec{font-size:12.8px;color:#3a414c;margin:0 0 8px;line-height:1.55}
+  .vsec .lab{display:inline-block;font-size:10.5px;font-weight:800;color:var(--brand2);background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+  .vquote{font-style:italic;color:#28303a;border-left:3px solid var(--value);padding:2px 0 2px 10px;margin:8px 0}
+  .vuse{font-size:12.8px;color:#1f2a2b;background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.3);border-radius:9px;padding:9px 12px;margin-top:10px;line-height:1.55}
+  .vuse .lab{background:var(--growth);color:#06352a;border:none}
+  .guide{background:linear-gradient(135deg,#fff 0%,#faf8f3 100%);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-top:38px;box-shadow:var(--shadow)}
+  .guide h2{font-size:19px;margin:0 0 4px;font-weight:800}
+  .guide .lead{color:var(--muted);font-size:13.5px;margin:0 0 18px}
+  .gtable{width:100%;border-collapse:collapse;font-size:13px}
+  .gtable th,.gtable td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .gtable th{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .gtable td b{color:var(--brand)}
+  .gtable tr:last-child td{border-bottom:none}
+  .axis{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand);margin:1px 2px 1px 0}
+  .note{background:rgba(255,209,102,.16);border:1px solid rgba(255,209,102,.5);border-radius:11px;padding:13px 16px;margin-top:18px;font-size:12.8px;color:#5a4a1a}
+  .note b{color:#7a5e10}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:34px;line-height:1.8}
+  @media(max-width:720px){h1{font-size:22px}.vid{flex-direction:column}.vthumb{flex-basis:auto;width:100%}.gdesc{padding-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="../_허브.html">← 참조영상 허브</a>
+  <a class="nbtn" href="https://www.youtube.com/results?search_query=워렌버핏+독서+투자" target="_blank" rel="noopener">🔎 유튜브에서 더 보기</a>
+  <a class="nbtn doc" href="../../../../10_system/cowork_prompts/유튜브_참조영상_수집.md">📋 작성 지침</a>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">참조영상 컬렉션 · 인물</div>
+    <h1>워렌 버핏 — 독서 · 투자 · 자기계발</h1>
+    <p class="sub">"나는 하루 <b style="color:#fff">500쪽</b>을 읽는다. 지식은 그렇게 <b style="color:#fff">복리처럼</b> 쌓인다." 버핏에게 독서는 곧 투자 실력이다. 누구나 아는 인생 조언·투자 원칙 영상을 한/영으로 모으고, 영상마다 우리 채널 활용 포인트를 붙였습니다.</p>
+    <div class="stats">
+      <div class="stat"><div class="v">9</div><div class="l">수집 영상</div></div>
+      <div class="stat"><div class="v">3 / 6</div><div class="l">한국어 / 영어</div></div>
+      <div class="stat"><div class="v">약 1,260만</div><div class="l">합산 조회수</div></div>
+      <div class="stat"><div class="v">546만</div><div class="l">최고 (Success Secrets)</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h2>왜 워렌 버핏 = bizpt 레퍼런스인가</h2>
+    <p>버핏은 <b>"성공의 비결은 독서"</b>라는 메시지의 살아있는 상징이다. 하루 5~6시간을 읽고 "지식은 복리처럼 쌓인다"고 말하는 그는 bizpt <b>'책을 읽어야 하는 이유'</b> 축의 최강 권위 인물. 또 그의 <b>"자신에게 투자하라(invest in yourself)"</b> 메시지는 '자기개발' 축, 추천도서(『현명한 투자자』 등)는 '책 읽는 재미' 축으로 직결된다.</p>
+    <div class="why">
+      <span class="chip">결 ① 읽으려는 사람</span>
+      <span class="chip">결 ③ 더 읽으려는 사람</span>
+      <span class="chip">축: 책 읽어야 하는 이유</span>
+      <span class="chip">축: 자기개발</span>
+      <span class="chip">축: 책 읽는 습관</span>
+    </div>
+  </div>
+
+  <!-- A. 독서·자기 투자 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--brand)">A</span><h2>독서 · 자기 투자</h2></div>
+    <p class="gdesc">"하루 500쪽" 독서 습관과 "자신에게 투자하라"는 메시지 — bizpt 독서 동기 후크의 핵심.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=d43MCzVkOEU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/d43MCzVkOEU/hqdefault.jpg" alt="" loading="lazy"><span class="dur">8:33</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=d43MCzVkOEU" target="_blank" rel="noopener">Warren Buffett: Read Everyday 5-6 hrs</a></div>
+        <div class="vmeta"><span>채널 <b>Value Investing Guru</b></span><span>조회 <b>약 2.9만</b></span><span>4년 전</span><span>8:33</span></div>
+        <div class="vsec"><span class="lab">핵심</span>버핏이 직접 <b>"하루의 대부분을 읽는 데 쓴다"</b>고 말하는 모음. "지식은 복리처럼 쌓인다 — 매일 읽으면 어떻게 작동하는지 알게 된다."</div>
+        <div class="vquote">"Read 500 pages a day. That's how knowledge works. It builds up, like compound interest."</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽어야 하는 이유·습관' 후크의 <b>원본 권위 클립</b>. "세계 최고 부자가 하루 500쪽" → 풀링 도입부 1순위.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=h_IBBIEWOLc" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/h_IBBIEWOLc/hqdefault.jpg" alt="" loading="lazy"><span class="dur">14:12</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=h_IBBIEWOLc" target="_blank" rel="noopener">이 3가지를 알면 부자들처럼 책을 읽게 됩니다 (ft.빌게이츠, 워렌 버핏, 일론 머스크)</a></div>
+        <div class="vmeta"><span>채널 <b>읽고 쓰는 최숲</b></span><span>조회 <b>약 4.1만</b></span><span>1년 전</span><span>14:12</span></div>
+        <div class="vsec"><span class="lab">핵심</span>부자들의 공통 독서법 3가지를 버핏·게이츠·머스크 사례로 정리. <b>다인물 교차 = bizpt 큐레이션 포맷의 벤치마크</b>.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'부자들의 독서법' = 우리 채널이 만들 수 있는 키 콘텐츠 포맷의 한국어 레퍼런스. 결 ③(더 읽으려는)에 직격.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=Tr6MMsoWAog" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/Tr6MMsoWAog/hqdefault.jpg" alt="" loading="lazy"><span class="dur">8:53</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=Tr6MMsoWAog" target="_blank" rel="noopener">Warren Buffett shares advice on becoming successful</a></div>
+        <div class="vmeta"><span>채널 <b>Yahoo Finance</b></span><span>조회 <b>약 215만</b></span><span>6년 전</span><span>8:53</span></div>
+        <div class="vsec"><span class="lab">핵심</span>"가장 좋은 투자는 <b>자기 자신에게 하는 투자</b>", 그리고 "의사소통 능력을 키우면 가치가 50% 오른다"(데일 카네기 화법 강좌 일화).</div>
+        <div class="vquote">"The best investment you can make is in yourself."</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'자기개발' 축 명언 카드. "자신에게 투자=독서"로 연결해 결론을 책으로 착지.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. 투자 원칙·사고법 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--value)">B</span><h2>투자 원칙 · 사고법</h2></div>
+    <p class="gdesc">'능력의 범위'·장기·복리 — 독서로 길러진 사고 프레임. 자기개발 콘텐츠의 논리 뼈대.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=v4T1oknATGU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/v4T1oknATGU/hqdefault.jpg" alt="" loading="lazy"><span class="dur">5:20</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><span class="lang off">공식</span><a class="vtitle" href="https://www.youtube.com/watch?v=v4T1oknATGU" target="_blank" rel="noopener">Warren Buffett breaks down how he would invest if he had to start again with $1 million</a></div>
+        <div class="vmeta"><span>채널 <b>CNBC Television</b>(공식)</span><span>조회 <b>약 189만</b></span><span>2년 전</span><span>5:20</span></div>
+        <div class="vsec"><span class="lab">핵심</span>"다시 시작한다면 <b>모든 것을 읽고</b>, 내가 이해하는 분야(능력의 범위) 안에서만 투자하겠다." 독서=정보우위라는 논리.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽어야 하는 이유' — "읽는 사람이 이긴다"는 논거. 공식 채널이라 인용 신뢰도 최상.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=l-HkKaTbXQs" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/l-HkKaTbXQs/hqdefault.jpg" alt="" loading="lazy"><span class="dur">20:25</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=l-HkKaTbXQs" target="_blank" rel="noopener">듣기만 해도 부자 되는 워런 버핏의 투자 원칙</a></div>
+        <div class="vmeta"><span>채널 <b>하와이 대저택</b></span><span>조회 <b>약 23만</b></span><span>9개월 전</span><span>20:25</span></div>
+        <div class="vsec"><span class="lab">핵심</span>국내 대표 자기계발 채널이 버핏 원칙을 내레이션으로 정리. <b>한국어 화법·BGM·구성</b>이 깔끔한 벤치마크.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>풀링 영상의 <b>내레이션 톤·호흡</b> 레퍼런스(대형 채널 기준점).</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=lTqKrhOTb3U" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/lTqKrhOTb3U/hqdefault.jpg" alt="" loading="lazy"><span class="dur">1:31:00</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=lTqKrhOTb3U" target="_blank" rel="noopener">워런 버핏의 인생 조언과 투자 원칙</a></div>
+        <div class="vmeta"><span>채널 <b>지식의 취향</b></span><span>조회 <b>약 16만</b></span><span>9개월 전</span><span>1:31:00</span></div>
+        <div class="vsec"><span class="lab">핵심</span>버핏 인생 조언·투자 원칙을 한 시간 반 분량으로 묶은 <b>심층 아카이브</b>. 자료 채굴용.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>대본 소스 광맥 — 인용·일화를 발췌해 짧은 키/쇼츠로 재가공.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. 자기계발·인생 조언 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--rec)">C</span><h2>자기계발 · 인생 조언</h2></div>
+    <p class="gdesc">젊은이를 위한 조언·명연설 — 동기부여 후크와 명언 카드의 원천.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=-LzzZBevXI0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/-LzzZBevXI0/hqdefault.jpg" alt="" loading="lazy"><span class="dur">9:18</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=-LzzZBevXI0" target="_blank" rel="noopener">Warren Buffett's Advice for Young People Who Want to Be Rich</a></div>
+        <div class="vmeta"><span>채널 <b>Success Secrets TV</b></span><span>조회 <b>약 546만</b></span><span>7년 전</span><span>9:18</span></div>
+        <div class="vsec"><span class="lab">핵심</span>이 컬렉션 <b>최고 조회(546만)</b>. 젊은이를 위한 부·습관·자기투자 조언 모음. 동기부여 편집의 정석.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'자기개발' 풀링 후크·편집 리듬 벤치마크. 명언 자막 카드 소스.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=cRSAOnEENn8" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/cRSAOnEENn8/hqdefault.jpg" alt="" loading="lazy"><span class="dur">4:58</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=cRSAOnEENn8" target="_blank" rel="noopener">Warren Buffett's Life Advice Will Change You — Berkshire 2023</a></div>
+        <div class="vmeta"><span>채널 <b>YAPSS</b></span><span>조회 <b>약 38만</b></span><span>2년 전</span><span>4:58</span></div>
+        <div class="vsec"><span class="lab">핵심</span>2023 버크셔 주총에서의 인생 조언 — "올바른 영웅(롤모델)을 골라라", 좋은 습관을 일찍 들여라.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>짧고(5분) 인용 밀도 높음 → 쇼츠·명언 카드 최적. '책 읽는 습관'과 연결.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=N0eVxWevvN0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/N0eVxWevvN0/hqdefault.jpg" alt="" loading="lazy"><span class="dur">14:32</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=N0eVxWevvN0" target="_blank" rel="noopener">Warren Buffett's Advice for Young People Who Want to Be Rich</a></div>
+        <div class="vmeta"><span>채널 <b>New Money</b></span><span>조회 <b>약 31만</b></span><span>4년 전</span><span>14:32</span></div>
+        <div class="vsec"><span class="lab">핵심</span>버핏 조언을 <b>해설·구조화</b>한 분석형(habits·investing in yourself·circle of competence). 설명 콘텐츠 구성 참고.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>"유명인 조언을 어떻게 풀어 설명하는가" 구성 벤치마크(키 콘텐츠 톤).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 종합 가이드 -->
+  <div class="guide">
+    <h2>🧭 종합 활용 가이드 — bizpt 축 매핑</h2>
+    <p class="lead">버핏 컬렉션을 어느 콘텐츠에, 어떤 후크로 쓸지. (8축 · 결 3그룹 기준)</p>
+    <table class="gtable">
+      <thead><tr><th style="width:22%">bizpt 축</th><th style="width:34%">연결 영상</th><th>후크·활용 아이디어</th></tr></thead>
+      <tbody>
+        <tr><td><span class="axis">책 읽어야 하는 이유</span></td><td>A1 500쪽 · B1 CNBC $1M</td><td>"세계 최고 부자가 하루 500쪽 읽는 이유" 독서 동기 후크</td></tr>
+        <tr><td><span class="axis">책 읽는 습관</span></td><td>A1 · C2 Berkshire 2023</td><td>"부자의 습관은 독서" — 매일 읽기 루틴 키 콘텐츠</td></tr>
+        <tr><td><span class="axis">자기개발</span></td><td>A3 invest in yourself · C1/C3 조언</td><td>"자신에게 투자=독서" 명언 카드·쇼츠</td></tr>
+        <tr><td><span class="axis">책 읽는 재미</span></td><td>A2 부자들의 독서법</td><td>"버핏의 서재 / 부자들의 독서법" 큐레이션 시리즈</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>진정성 체크(3기둥 ②):</b> 버핏은 '부(富)' 프레임이 강하다. "돈 벌려면 읽어라"로만 쓰면 클릭베이트로 흐른다. 결론은 항상 <b>"그래서 오늘 당신이 펼칠 책"</b>으로 — 부는 입구, 책이 본질.</div>
+  </div>
+
+  <footer>
+    bizpt / 타채널참조 · 참조영상 수집 — 워렌 버핏 (독서·투자·자기계발)<br>
+    모든 링크·메타는 2026-06-09 Claude in Chrome로 실제 검증 · 조회수는 검증 시점 근사치<br>
+    허브: ../_허브.html · 지침: 10_system/cowork_prompts/유튜브_참조영상_수집.md
+  </footer>
+</div>
+</body>
+</html>

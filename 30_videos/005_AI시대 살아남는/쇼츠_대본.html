@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>쇼츠 대본 — AI 시대, 결과를 가르는 건 '질문' (EP005 풀링 파생)</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --bg:#0e1116; --card:#161b22; --card2:#1c2230; --line:#2a3140; --ink:#e8edf4; --mut:#9aa6b6; --mut2:#6b7785;
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --info:#5cc4e0; --rec:#b794f6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Pretendard",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.62;font-feature-settings:"tnum";padding:0 0 70px}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+  a{color:var(--info)}
+  /* nav */
+  .nav{display:flex;flex-wrap:wrap;gap:8px;padding:12px 0;position:sticky;top:0;background:rgba(14,17,22,.92);backdrop-filter:blur(8px);z-index:30;border-bottom:1px solid var(--line)}
+  .nav a{display:inline-flex;gap:6px;align-items:center;font-size:12.5px;font-weight:700;text-decoration:none;color:var(--mut);border:1px solid var(--line);background:var(--card2);border-radius:8px;padding:7px 11px}
+  .nav a.active{color:var(--rec);border-color:rgba(183,148,246,.45);background:rgba(183,148,246,.12)}
+  /* header */
+  header{background:linear-gradient(160deg,#11161f,#0e1116 72%);border-bottom:1px solid var(--line);padding:34px 0 24px;margin-bottom:8px}
+  .eyebrow{font-size:12.5px;letter-spacing:.16em;color:var(--value);font-weight:800;text-transform:uppercase;margin-bottom:10px}
+  h1{font-size:clamp(22px,3.6vw,30px);font-weight:900;letter-spacing:-.02em;margin-bottom:10px}
+  h1 b{color:var(--value)}
+  .sub{color:var(--mut);font-size:14.5px;max-width:760px}
+  .sub b{color:var(--ink)}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .chip{font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--mut)}
+  .chip.val{border-color:rgba(255,209,102,.4);color:var(--value)}
+  .chip.grow{border-color:rgba(6,214,160,.4);color:var(--growth)}
+  .chip.info{border-color:rgba(92,196,224,.4);color:var(--info)}
+  .chip.pain{border-color:rgba(239,71,111,.4);color:var(--pain)}
+  section{padding:26px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:19px;font-weight:900;letter-spacing:-.01em;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+  h2 .n{color:var(--value)}
+  .lead{color:var(--mut);font-size:13.5px;margin-bottom:16px}
+  /* message banner */
+  .msg{background:linear-gradient(120deg,rgba(6,214,160,.1),rgba(92,196,224,.06));border:1px solid rgba(6,214,160,.32);border-radius:14px;padding:18px 20px}
+  .msg .lab{font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--growth);margin-bottom:7px}
+  .msg .big{font-size:clamp(16px,2.4vw,20px);font-weight:800;letter-spacing:-.01em;line-height:1.5}
+  .msg .big b{color:var(--value)}
+  /* layout split */
+  .split{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start}
+  @media(max-width:760px){.split{grid-template-columns:1fr}}
+  /* phone mockup 9:16 */
+  .phone{position:sticky;top:64px;border:8px solid #20242e;border-radius:30px;background:#06080c;aspect-ratio:9/16;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.5);display:flex;flex-direction:column}
+  .phone .scr{flex:1;position:relative;background:radial-gradient(120% 80% at 50% 0%,#10243a,#080d14 70%);display:flex;flex-direction:column;justify-content:flex-end;padding:18px 16px 22px}
+  .phone .tag{position:absolute;top:14px;left:14px;font-size:11px;font-weight:800;color:#0e1116;background:var(--value);padding:3px 9px;border-radius:6px}
+  .phone .time{position:absolute;top:14px;right:14px;font-size:11px;font-weight:800;color:var(--mut);background:rgba(0,0,0,.5);padding:3px 8px;border-radius:6px}
+  .phone .cap1{font-size:21px;font-weight:900;line-height:1.18;color:#fff;letter-spacing:-.02em;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+  .phone .cap1 .p{color:var(--pain)} .phone .cap1 .g{color:var(--growth)} .phone .cap1 .v{color:var(--value)}
+  .phone .barcc{margin-top:12px;height:5px;border-radius:3px;background:rgba(255,255,255,.16);overflow:hidden}
+  .phone .barcc i{display:block;height:100%;width:8%;background:var(--pain);border-radius:3px}
+  .phone .meta{margin-top:8px;font-size:11px;color:var(--mut)}
+  /* beats */
+  .beat{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--info);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+  .beat.hook{border-left-color:var(--pain)}
+  .beat.body{border-left-color:var(--info)}
+  .beat.cta{border-left-color:var(--growth)}
+  .beat-head{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+  .pill{font-size:10.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:6px}
+  .pill.hook{background:rgba(239,71,111,.16);color:var(--pain)}
+  .pill.body{background:rgba(92,196,224,.16);color:var(--info)}
+  .pill.cta{background:rgba(6,214,160,.16);color:var(--growth)}
+  .tc{font-size:12px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--value);background:rgba(255,209,102,.12);padding:3px 8px;border-radius:6px}
+  .say{font-size:15.5px;font-weight:600;color:#fff;line-height:1.5;letter-spacing:-.01em}
+  .say .p{color:var(--pain);font-weight:800} .say .g{color:var(--growth);font-weight:800} .say .v{color:var(--value);font-weight:800}
+  .dir{margin-top:9px;font-size:12.5px;color:var(--mut);border-top:1px dashed var(--line);padding-top:8px}
+  .dir b{color:var(--info)}
+  /* read-through */
+  .read{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.95;color:#dfe5ee;white-space:pre-line}
+  .read b{color:#fff}
+  .note{font-size:12px;color:var(--mut2);margin-top:8px;text-align:right}
+  /* check & guard */
+  .check{display:grid;gap:8px}
+  .ci{display:flex;gap:10px;font-size:13.5px;background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:9px 13px}
+  .ci .mk{color:var(--growth);font-weight:900;flex:0 0 auto}
+  .ci b{color:var(--ink)}
+  .guard{background:rgba(239,71,111,.07);border:1px solid rgba(239,71,111,.3);border-radius:12px;padding:14px 16px;margin-top:14px}
+  .guard h3{color:var(--pain);font-size:14px;margin-bottom:8px}
+  .guard ul{margin:0;padding-left:18px;font-size:13px;color:#cdd4de}
+  .guard li{margin:5px 0}
+  /* ab */
+  .ab{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+  @media(max-width:680px){.ab{grid-template-columns:1fr}}
+  .abc{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:13px 15px}
+  .abc .l{font-size:11px;font-weight:900;color:var(--rec);margin-bottom:6px}
+  .abc .q{font-size:14px;font-weight:700;color:#fff;line-height:1.4}
+  .abc .w{font-size:12px;color:var(--mut);margin-top:6px}
+  footer{padding:22px 0 0;color:var(--mut2);font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="nav">
+    <a class="active">🎬 쇼츠 대본 (현재)</a>
+    <a href="README.md">🏠 영상 진입점</a>
+    <a href="통합_AI시대살아남는.html">📦 본편 통합 기획서</a>
+    <a href="대본/쇼츠_대본_v1.md">📄 쇼츠 .md</a>
+    <a href="../../10_system/guides/쇼츠_기획기준.md">📐 쇼츠 기준</a>
+  </nav>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">SHORTS · 풀링 파생 · EP005</div>
+    <h1>AI 시대, 결과를 가르는 건 <b>'질문'</b> — 쇼츠 대본</h1>
+    <p class="sub">본편(『AI 시대 살아남는』)의 <b>본문 2(같은 챗GPT, 다른 결과 = 질문)</b>를 칼끝 1메시지로 떼어낸 풀링 파생 쇼츠. 세로 9:16 · 풀자막 · 약 50초 · 구독+본편 유도(상품 노출 0).</p>
+    <div class="meta">
+      <span class="chip pain">풀링 파생</span>
+      <span class="chip val">약 50초 · 9:16</span>
+      <span class="chip grow">메시지 1개</span>
+      <span class="chip info">250~270자/분</span>
+      <span class="chip">종착지: 구독 + 본편</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 1메시지 -->
+  <section>
+    <h2><span class="n">●</span> 1메시지 (칼끝)</h2>
+    <div class="msg">
+      <div class="lab">이 쇼츠가 떼어 온 본편 1메시지</div>
+      <div class="big">"같은 챗GPT인데 결과가 갈리는 건 <b>질문의 깊이</b> 때문이다 — 살아남는 사람은 AI를 잘 쓰는 사람이 아니라 <b>생각(=읽는)하는 사람</b>이다."</div>
+    </div>
+  </section>
+
+  <!-- 비트 + 폰목업 -->
+  <section>
+    <h2><span class="n">①</span> 비트 구성 (3비트 · 컷 2~4초)</h2>
+    <p class="lead">첫 프레임이 곧 후크. 컬러 강조: <span style="color:var(--pain)">위협·얕은 질문</span> / <span style="color:var(--growth)">생각·깊은 질문·읽기</span> / <span style="color:var(--value)">핵심 1단어</span>.</p>
+    <div class="split">
+      <!-- 폰 목업 (첫 프레임) -->
+      <div class="phone" aria-label="첫 프레임 미리보기">
+        <div class="scr">
+          <div class="tag">SHORTS</div>
+          <div class="time">0:02</div>
+          <div class="cap1">AI 시대<br>가장 먼저<br><span class="p">잘리는 사람</span>은?</div>
+          <div class="barcc"><i></i></div>
+          <div class="meta">무음 시청 전제 · 풀자막 · 챗GPT 화면 손 클로즈업</div>
+        </div>
+      </div>
+      <!-- 비트 카드 -->
+      <div>
+        <div class="beat hook">
+          <div class="beat-head"><span class="pill hook">HOOK</span><span class="tc">0:00–0:07</span></div>
+          <div class="say">AI 시대에 가장 먼저 <span class="p">잘리는 사람</span>, 누군지 아세요? AI를 <b>못</b> 쓰는 사람이 아닙니다. <span class="v">매일 챗GPT 쓰는 사람</span>입니다.</div>
+          <div class="dir"><b>자막:</b> 「가장 먼저 잘리는 사람?」 → 「못 쓰는 ❌ / 매일 쓰는 ✅」 반전 · <b>컷:</b> 손 클로즈업 → 반전 시 컷 전환</div>
+        </div>
+        <div class="beat body">
+          <div class="beat-head"><span class="pill body">BODY</span><span class="tc">0:07–0:16</span></div>
+          <div class="say">같은 챗GPT를 쓰는데 누구는 결과가 <b>몇 배</b>나 차이 나요. 차이는 딱 하나, <span class="v">질문</span>입니다.</div>
+          <div class="dir"><b>자막:</b> 「질문」 1단어 크게(value) · <b>컷:</b> 두 화면 분할 예고</div>
+        </div>
+        <div class="beat body">
+          <div class="beat-head"><span class="pill body">BODY</span><span class="tc">0:16–0:28</span></div>
+          <div class="say">누구는 <span class="p">"사업 아이디어 추천해줘"</span>라고 묻고, 누구는 <span class="g">"30대 직장인이 반복해서 겪는, 아직 안 풀린 문제는 뭘까?"</span>라고 묻습니다.</div>
+          <div class="dir"><b>자막:</b> 두 프롬프트 나란히(얕은=pain / 깊은=growth) · <b>컷:</b> AI 답변 품질 대비 화면</div>
+        </div>
+        <div class="beat body">
+          <div class="beat-head"><span class="pill body">BODY</span><span class="tc">0:28–0:38</span></div>
+          <div class="say">AI는 답을 만들어요. 하지만 <span class="g">질문은 사람이 만듭니다.</span> 결국 살아남는 사람은 AI를 잘 쓰는 사람이 아니라, <span class="g">생각할 줄 아는 사람</span>이에요.</div>
+          <div class="dir"><b>자막:</b> 「답 = AI / 질문 = 사람」 대구 · <b>톤:</b> 담담한 확신</div>
+        </div>
+        <div class="beat body">
+          <div class="beat-head"><span class="pill body">BODY</span><span class="tc">0:38–0:43</span></div>
+          <div class="say">그리고 그 생각의 힘은, 결국 <span class="v">읽는 데서</span> 나옵니다.</div>
+          <div class="dir"><b>자막:</b> 「생각 ← 읽기」 화살표 모션(6축·정신적 떡밥, 직접 노출 0)</div>
+        </div>
+        <div class="beat cta">
+          <div class="beat-head"><span class="pill cta">CTA</span><span class="tc">0:43–0:50</span></div>
+          <div class="say">왜 AI 시대일수록 더 읽어야 하는지, 전체 이야기는 <span class="g">본편</span>에 있어요. <b>AI는 답을, 읽는 사람은 질문을.</b> 구독해두세요.</div>
+          <div class="dir"><b>자막:</b> 「본편 보기 ▶」 + 채널 사인오프 · <b>금지선:</b> 상품 직접 노출 0</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 풀자막 이어읽기 -->
+  <section>
+    <h2><span class="n">②</span> 풀자막 대본 (이어 읽기)</h2>
+    <div class="read">AI 시대에 가장 먼저 잘리는 사람, 누군지 아세요?
+AI를 못 쓰는 사람이 아닙니다. <b>매일 챗GPT 쓰는 사람</b>입니다.
+같은 챗GPT를 쓰는데 누구는 결과가 몇 배나 차이 나요. 차이는 딱 하나, <b>질문</b>입니다.
+누구는 "사업 아이디어 추천해줘"라고 묻고, 누구는 "30대 직장인이 반복해서 겪는, 아직 안 풀린 문제는 뭘까?"라고 묻습니다.
+AI는 답을 만들어요. 하지만 <b>질문은 사람이 만듭니다.</b>
+결국 살아남는 사람은 AI를 잘 쓰는 사람이 아니라, <b>생각할 줄 아는 사람</b>이에요.
+그리고 그 생각의 힘은, 결국 <b>읽는 데서</b> 나옵니다.
+왜 AI 시대일수록 더 읽어야 하는지, 전체 이야기는 본편에 있어요.
+<b>AI는 답을, 읽는 사람은 질문을.</b> 구독해두세요.</div>
+    <div class="note">발화 약 220자 · 250~270자/분 기준 ≈ 48~52초</div>
+  </section>
+
+  <!-- 6체크 -->
+  <section>
+    <h2><span class="n">③</span> 마감 6체크 (쇼츠 기준 §8-2)</h2>
+    <div class="check">
+      <div class="ci"><span class="mk">✓</span><div><b>길이·화면:</b> 약 50초(20~59초 내) · 세로 9:16</div></div>
+      <div class="ci"><span class="mk">✓</span><div><b>메시지 1개:</b> "질문이 결과를 가른다" → 생각·읽기 (2개면 실패 — 통과)</div></div>
+      <div class="ci"><span class="mk">✓</span><div><b>0~3초 후크 4요소+:</b> 결론·반전·결 호명(②쓰는 사람)·텐션("가장 먼저 잘리는 사람?")</div></div>
+      <div class="ci"><span class="mk">✓</span><div><b>3비트·컷:</b> 훅/바디/CTA, 컷 2~4초</div></div>
+      <div class="ci"><span class="mk">✓</span><div><b>풀자막 + 강조색:</b> pain/growth/value</div></div>
+      <div class="ci"><span class="mk">✓</span><div><b>CTA 1개:</b> "본편에서" + 구독 + 사인오프 · <b>상품 직접 노출 0</b>(풀링 파생 금지선)</div></div>
+    </div>
+    <div class="guard">
+      <h3>⚠️ 진정성 가드</h3>
+      <ul>
+        <li>"잘리는 사람"은 <b>0~3초 후킹 입구</b>로만 — 본편처럼 곧장 "생각·읽기" 긍정으로 착지(도태 공포로 끝내지 않음).</li>
+        <li>"<b>몇 배</b>" 사용 — 검증 안 된 "10배" 수치 회피.</li>
+        <li>풀링 파생이므로 이북리더기·readtree <b>직접 노출 금지</b> — "읽기"는 개념 떡밥으로만.</li>
+        <li>"아는 척 불안 마케팅" 류 비판은 쇼츠엔 미수록(1메시지 집중) — 본편에서만.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- A/B 후크 -->
+  <section style="border-bottom:none">
+    <h2><span class="n">④</span> A/B 후크 대안 (1주 내 교체)</h2>
+    <div class="ab">
+      <div class="abc">
+        <div class="l">B · 자기투영 질문형</div>
+        <div class="q">"챗GPT 매일 쓰는데 왜 나는 평범한 답만 받을까요?"</div>
+        <div class="w">결 ②(쓰고 있는데 차이 못 느낌) 즉발 공감.</div>
+      </div>
+      <div class="abc">
+        <div class="l">C · 긍정 욕망 (공포 0)</div>
+        <div class="q">"AI가 절대 못 따라오는 사람의 능력, 딱 하나예요."</div>
+        <div class="w">채널 정체성 정합 · 가드 완전 충족.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    근거: 쇼츠 기획 기준 §3·§4·§5 · 출처 본편 본문 2(같은 챗GPT, 다른 결과 = 질문) · 채널 「AI보다 읽는 사람」 — "AI는 답을, 읽는 사람은 질문을."
+  </footer>
+</div>
+
+</body>
+</html>

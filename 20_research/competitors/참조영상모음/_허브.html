@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<!--
+========================================================================
+  유튜브 참조영상 수집 — 누적 허브 (Hub)   v1 · 2026-06-09
+========================================================================
+  역할: 인물·주제별 '참조영상 수집' 페이지를 카드로 누적·진입시키는 마스터 인덱스.
+  새 인물/주제 추가 절차:
+    1) _템플릿_수집페이지.html 복사 → 참조영상모음/<인물·주제>/<슬러그>.html 작성
+    2) 아래 <!-- CCARDS --> 영역 '맨 위'에 .ccard 블록 1장 추가 (최신순)
+    3) 상단 누적 현황 숫자(인물·주제 / 영상 / 채널) 갱신
+  지침: 10_system/cowork_prompts/유튜브_참조영상_수집.md
+  ※ 색 토큰은 댓글분석 시스템과 공유 — 페이지마다 재정의 금지.
+========================================================================
+-->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유튜브 참조영상 수집 · 누적 허브</title>
+<style>
+  :root{
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#c4b5fd;
+    --bg:#f5f3ee; --panel:#ffffff; --panel-2:#faf8f3; --line:#e7e3da;
+    --text:#1f2430; --muted:#5d6470; --brand:#2f5d62; --brand2:#3a7a82;
+    --shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:1180px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;
+    background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:800;background:rgba(47,93,98,.08);border-color:var(--brand2)}
+  .nbtn.alt{color:var(--brand2)}
+  .nbtn.doc{margin-left:auto;color:var(--brand2)}
+  header{background:linear-gradient(135deg,#2f5d62 0%,#244b50 60%,#1d3c40 100%);color:#fff;
+    padding:34px 0 30px;margin:18px 0 0;border-bottom:4px solid var(--value)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px}
+  header .wrap{padding-bottom:0}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#bfe0d9;font-weight:800;margin-bottom:10px}
+  h1{font-size:26px;margin:0 0 10px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:#d6e6e1;font-size:14.5px;margin:0;max-width:760px}
+  .stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+  .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;
+    padding:12px 20px;min-width:120px}
+  .stat .v{font-size:24px;font-weight:800;color:#fff;line-height:1}
+  .stat .l{font-size:12px;color:#bfe0d9;margin-top:5px}
+  .legend{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;
+    margin:26px 0 22px;box-shadow:var(--shadow);font-size:13px;color:var(--muted)}
+  .legend b{color:var(--brand)}
+  .legend .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .lg-chip{background:var(--panel-2);border:1px solid var(--line);border-radius:7px;padding:5px 11px;font-size:12px}
+  h2.sec{font-size:16px;margin:6px 0 16px;font-weight:800;display:flex;align-items:center;gap:9px}
+  h2.sec .cnt{font-size:12px;font-weight:700;color:#fff;background:var(--brand2);padding:2px 9px;border-radius:999px}
+  .grouplabel{font-size:13px;font-weight:800;color:var(--brand2);margin:22px 0 12px;letter-spacing:.02em;display:flex;align-items:center;gap:8px}
+  .grouplabel::before{content:"";width:18px;height:3px;border-radius:2px;background:var(--brand2)}
+  .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+  .ccard{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
+    border-radius:16px;overflow:hidden;text-decoration:none;color:var(--text);box-shadow:var(--shadow);
+    transition:.18s;position:relative}
+  .ccard:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(31,36,48,.12)}
+  .ccard .topbar{height:5px;background:var(--growth)}
+  .ccard .thumb{position:relative;aspect-ratio:16/9;background:#0b0f14 center/cover no-repeat;overflow:hidden}
+  .ccard .thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.96}
+  .ccard .thumb .ptag{position:absolute;left:12px;bottom:12px;background:rgba(15,20,28,.82);color:#fff;
+    font-size:17px;font-weight:800;padding:5px 13px;border-radius:10px;letter-spacing:-.01em}
+  .ccard .pad{padding:15px 18px 18px}
+  .ccard .kicker{font-size:11.5px;color:var(--brand2);font-weight:800;letter-spacing:.02em}
+  .ccard .ttl{font-size:15.5px;font-weight:800;line-height:1.35;margin:5px 0 11px}
+  .ccard .cmeta{display:flex;gap:6px 13px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-bottom:11px}
+  .ccard .cmeta b{color:var(--text)}
+  .crow{display:flex;gap:8px;align-items:baseline;font-size:12px;margin-bottom:7px}
+  .crow .k{flex:0 0 64px;color:var(--muted);font-weight:600}
+  .crow .val{font-weight:700;color:var(--text)}
+  .tags{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 2px}
+  .tag{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand)}
+  .ccard .q1{font-size:12px;color:#3a414c;background:var(--panel-2);border-left:3px solid var(--value);
+    border-radius:0 8px 8px 0;padding:8px 11px;margin-top:9px;line-height:1.5}
+  .ccard .q1 b{color:var(--pain)}
+  .ccard .go{margin-top:13px;font-size:12px;font-weight:800;color:var(--brand);display:flex;justify-content:space-between;align-items:center}
+  .empty{display:flex;align-items:center;justify-content:center;text-align:center;border:2px dashed var(--line);
+    border-radius:16px;color:var(--muted);font-size:13px;padding:34px 20px;background:rgba(255,255,255,.4);min-height:180px}
+  .empty b{color:var(--brand2)}
+  .insight{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;
+    margin-top:28px;box-shadow:var(--shadow)}
+  .insight h2{font-size:18px;margin:0 0 6px;font-weight:800}
+  .insight .lead{color:var(--muted);font-size:13.5px;margin:0 0 14px}
+  .insight ul{margin:0;padding-left:18px;font-size:13.5px;color:#3a414c}
+  .insight li{margin-bottom:9px}
+  .insight .pending{color:var(--muted);font-size:12.5px;font-style:italic;margin-top:10px}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;line-height:1.8}
+  @media(max-width:680px){h1{font-size:22px}.cgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="_허브.html">🎬 참조영상 허브</a>
+  <a class="nbtn" href="_템플릿_수집페이지.html">📄 수집 페이지 템플릿</a>
+  <a class="nbtn alt" href="../../comments/_댓글분석_허브.html">💬 댓글분석 허브</a>
+  <a class="nbtn doc" href="../../../10_system/cowork_prompts/유튜브_참조영상_수집.md">📋 작성 지침</a>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">YouTube Reference Video Library · 인물·주제별 큐레이션</div>
+    <h1>유튜브 참조영상 수집 — 누적 허브</h1>
+    <p class="sub">인물·용어를 주면 → 누구나 아는 <b style="color:#fff">유명 영상</b>을 한국어·영어로 수집 → 핵심 발언·언급한 책·자기계발 포인트·<b style="color:#fff">우리 채널 활용 포인트</b>로 정리한 컬렉션을 한곳에 누적합니다. 콘텐츠 기획·후크 발굴·벤치마크용 레퍼런스 라이브러리.</p>
+    <div class="stats">
+      <div class="stat"><div class="v" id="s-topics">17</div><div class="l">수집 인물·주제</div></div>
+      <div class="stat"><div class="v" id="s-videos">138</div><div class="l">누적 영상</div></div>
+      <div class="stat"><div class="v" id="s-channels">106</div><div class="l">출처 채널</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="legend">
+    <b>읽는 법:</b> 각 카드는 한 <b>인물·주제</b>의 영상 컬렉션 — 수집 영상 수·언어 분포·핵심 주제, 그리고 대표 한 줄. 카드를 누르면 상세 페이지(주제별 그룹 + 영상별 상세 + 우리 채널 활용 포인트)로 진입합니다.
+    <div class="row">
+      <span class="lg-chip">🎬 영상 = <b>누구나 아는 유명/대표작</b> 기준</span>
+      <span class="lg-chip">🌐 한국어 + 영어 원본 함께</span>
+      <span class="lg-chip">📌 영상마다 <b>bizpt 활용 포인트</b> 부착</span>
+      <span class="lg-chip">🔗 모든 링크 = 크롬으로 실제 검증</span>
+    </div>
+  </div>
+
+  <h2 class="sec">📂 수집 컬렉션 <span class="cnt">17인 · 최신순</span></h2>
+
+  <!-- ============================ 지성·작가·역사 (3차 배치) ============================ -->
+  <div class="grouplabel">지성 · 작가 · 역사 인물 (책 읽는 재미·문해력·지적호기심 강화)</div>
+  <div class="cgrid">
+    <!-- ===== CCARDS (새 인물·주제는 이 줄 바로 아래에 추가) ===== -->
+
+    <!-- 이어령 -->
+    <a class="ccard" href="이어령/이어령_지성_독서_창조.html">
+      <div class="topbar" style="background:var(--rec)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/5RNMEVaMu_0/hqdefault.jpg" alt="이어령" loading="lazy"><span class="ptag">이어령</span></div>
+      <div class="pad">
+        <div class="kicker">인물(한국·작고) · 지성·독서</div>
+        <div class="ttl">이어령 — 지성·독서·창조</div>
+        <div class="cmeta"><span>영상 <b>8</b></span><span><b>한국</b></span><span>최고 <b>151만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">마지막 수업 · 100년 서재 · 창조</span></div>
+        <div class="tags"><span class="tag">지성</span><span class="tag">마지막수업</span><span class="tag">창조력</span><span class="tag">메멘토모리</span></div>
+        <div class="q1">📌 <b>"지성의 삶은 독서로 완성된다."</b> 품격 있는 독서 채널의 톤 기준점.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 김영하 -->
+    <a class="ccard" href="김영하/김영하_독서_글쓰기_읽는재미.html">
+      <div class="topbar" style="background:var(--growth)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/MbZ9qyY--CE/hqdefault.jpg" alt="김영하" loading="lazy"><span class="ptag">김영하</span></div>
+      <div class="pad">
+        <div class="kicker">인물(한국·작가) · 독서·글쓰기</div>
+        <div class="ttl">김영하 — 독서·글쓰기·읽는 재미</div>
+        <div class="cmeta"><span>영상 <b>8</b></span><span><b>한국</b></span><span>최고 <b>264만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">알쓸신잡 · 자기해방 글쓰기</span></div>
+        <div class="tags"><span class="tag">읽는재미</span><span class="tag">글쓰기</span><span class="tag">알쓸신잡</span><span class="tag">후크기술</span></div>
+        <div class="q1">📌 <b>"어렵지 않게, 그러나 얕지 않게."</b> 대중성과 깊이의 균형점.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 최재천 -->
+    <a class="ccard" href="최재천/최재천_독서는일_통섭.html">
+      <div class="topbar" style="background:var(--brand2)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/tSlGJmlWw0I/hqdefault.jpg" alt="최재천" loading="lazy"><span class="ptag">최재천</span></div>
+      <div class="pad">
+        <div class="kicker">인물(한국·과학자) · 독서·통섭</div>
+        <div class="ttl">최재천 — 독서는 '일'이다·통섭</div>
+        <div class="cmeta"><span>영상 <b>7</b></span><span><b>한국</b></span><span>최고 <b>209만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">독서는 '일' · 통섭 · 책장 추천</span></div>
+        <div class="tags"><span class="tag">기획독서</span><span class="tag">통섭</span><span class="tag">교양독서</span><span class="tag">아마존</span></div>
+        <div class="q1">📌 <b>"독서는 취미가 아니라 '일'이다."</b> 우리 도입부 분석과 직접 연결.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 이지성 -->
+    <a class="ccard" href="이지성/이지성_인문고전_독서법.html">
+      <div class="topbar" style="background:var(--value)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/TIf15CjA2Ac/hqdefault.jpg" alt="이지성" loading="lazy"><span class="ptag">이지성</span></div>
+      <div class="pad">
+        <div class="kicker">인물(한국·작가) · 인문고전 독서</div>
+        <div class="ttl">이지성 — 인문고전 독서법</div>
+        <div class="cmeta"><span>영상 <b>7</b></span><span><b>한국</b></span><span>최고 <b>9.2만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">리딩으로 리드하라 · 에이트(AI)</span></div>
+        <div class="tags"><span class="tag">인문고전</span><span class="tag">정독</span><span class="tag">AI시대독서</span></div>
+        <div class="q1">📌 <b>"AI 시대일수록 인문 독서."</b> 인문고전 독서법의 한국 대표(주장 강함—균형 필요).</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 정약용 -->
+    <a class="ccard" href="정약용/정약용_초서독서법_문해력.html">
+      <div class="topbar" style="background:var(--pain)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/_QzuQCcIVLc/hqdefault.jpg" alt="정약용 다산" loading="lazy"><span class="ptag">정약용 (다산)</span></div>
+      <div class="pad">
+        <div class="kicker">인물(한국·역사) · 초서 독서법</div>
+        <div class="ttl">정약용 — 초서 독서법·문해력</div>
+        <div class="cmeta"><span>영상 <b>7</b></span><span><b>역사</b></span><span>최고 <b>16.7만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">초서법 · 선정문목 · 메모 독서</span></div>
+        <div class="tags"><span class="tag">초서법</span><span class="tag">문해력</span><span class="tag">독서노트</span><span class="tag">역사뿌리</span></div>
+        <div class="q1">📌 <b>"읽으며 베껴 쓰고 내 것으로."</b> 한국 독서법의 원조(읽기+쓰기를 200년 앞서).</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 무라카미 하루키 -->
+    <a class="ccard" href="무라카미 하루키/무라카미하루키_소설_글쓰기_루틴.html">
+      <div class="topbar" style="background:var(--pain)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/aju60dPyNKM/hqdefault.jpg" alt="무라카미 하루키" loading="lazy"><span class="ptag">무라카미 하루키</span></div>
+      <div class="pad">
+        <div class="kicker">인물(글로벌·작가) · 소설·루틴</div>
+        <div class="ttl">무라카미 하루키 — 소설·글쓰기·루틴</div>
+        <div class="cmeta"><span>영상 <b>8</b></span><span><b>한국어</b></span><span>최고 <b>24.9만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">루틴 · 글쓰기 · 소설 입문</span></div>
+        <div class="tags"><span class="tag">루틴</span><span class="tag">글쓰기</span><span class="tag">소설</span><span class="tag">읽는재미</span></div>
+        <div class="q1">📌 <b>"읽기→쓰기→꾸준함."</b> '소설 읽는 재미'로 가는 입구(결 ① 유입).</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 칼 세이건 -->
+    <a class="ccard" href="칼 세이건/칼세이건_코스모스_책예찬.html">
+      <div class="topbar" style="background:var(--value)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/CnIZki0s4kU/hqdefault.jpg" alt="칼 세이건" loading="lazy"><span class="ptag">칼 세이건</span></div>
+      <div class="pad">
+        <div class="kicker">인물(글로벌·작고) · 코스모스</div>
+        <div class="ttl">칼 세이건 — 코스모스·책 예찬</div>
+        <div class="cmeta"><span>영상 <b>8</b></span><span>한 <b>5</b> · 영 <b>3</b></span><span>최고 <b>247만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">책 예찬 · 코스모스 · 국민 교양서</span></div>
+        <div class="tags"><span class="tag">책예찬</span><span class="tag">코스모스</span><span class="tag">지적호기심</span></div>
+        <div class="q1">📌 <b>"책은 인간이 마법을 부린다는 증거."</b> 독서 예찬 인용의 최고봉.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 스티브 잡스 -->
+    <a class="ccard" href="스티브 잡스/스티브잡스_스탠퍼드연설_교양.html">
+      <div class="topbar" style="background:var(--rec)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/UF8uR6Z6KLc/hqdefault.jpg" alt="스티브 잡스" loading="lazy"><span class="ptag">스티브 잡스</span></div>
+      <div class="pad">
+        <div class="kicker">인물(글로벌·작고) · 스탠퍼드 연설</div>
+        <div class="ttl">스티브 잡스 — 스탠퍼드 연설·교양</div>
+        <div class="cmeta"><span>영상 <b>7</b></span><span>영 <b>3</b> · 한 <b>4</b></span><span>최고 <b>4,858만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">점 잇기 · 기술×인문 · Stay Hungry</span></div>
+        <div class="tags"><span class="tag">스탠퍼드</span><span class="tag">교양</span><span class="tag">지적호기심</span></div>
+        <div class="q1">📌 <b>"지금의 교양이 훗날의 점이 된다."</b> 인류사 최다 조회 연설(4,858만).</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 오프라 윈프리 -->
+    <a class="ccard" href="오프라 윈프리/오프라윈프리_북클럽_독서의힘.html">
+      <div class="topbar" style="background:var(--growth)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/lir7AlMLQCE/hqdefault.jpg" alt="오프라 윈프리" loading="lazy"><span class="ptag">오프라 윈프리</span></div>
+      <div class="pad">
+        <div class="kicker">인물(글로벌·방송인) · 북클럽</div>
+        <div class="ttl">오프라 윈프리 — 북클럽·독서의 힘</div>
+        <div class="cmeta"><span>영상 <b>7</b></span><span>한 <b>1</b> · 영 <b>6</b></span><span>최고 <b>275만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">북클럽 · 오프라 효과 · 독서=자유</span></div>
+        <div class="tags"><span class="tag">북클럽</span><span class="tag">큐레이션</span><span class="tag">💡사업모델</span></div>
+        <div class="q1">📌 <b>"책 추천=영향력=매출."</b> bizpt 사업 가설의 글로벌 원형.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 벤저민 프랭클린 -->
+    <a class="ccard" href="벤저민 프랭클린/벤저민프랭클린_독학_자기계발.html">
+      <div class="topbar" style="background:var(--brand2)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/B454HvxfrWY/hqdefault.jpg" alt="벤저민 프랭클린" loading="lazy"><span class="ptag">벤저민 프랭클린</span></div>
+      <div class="pad">
+        <div class="kicker">인물(글로벌·역사) · 독학</div>
+        <div class="ttl">벤저민 프랭클린 — 독학·자기계발의 원조</div>
+        <div class="cmeta"><span>영상 <b>7</b></span><span>영 <b>4</b> · 한 <b>3</b></span><span>최고 <b>14.9만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">자기계발 원조 · 13덕목 · 도서관</span></div>
+        <div class="tags"><span class="tag">독학</span><span class="tag">자기계발원조</span><span class="tag">13덕목</span></div>
+        <div class="q1">📌 <b>"독서로 신분을 바꾼 자기계발의 원조."</b> 현대 자기학습 서사의 250년 선배.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ============================ 비즈니스·자기계발 거장 (1·2차 배치) ============================ -->
+  <div class="grouplabel">비즈니스 · 자기계발 거장 (책 읽어야 하는 이유·자기개발 강화)</div>
+  <div class="cgrid">
+
+    <!-- 워렌 버핏 -->
+    <a class="ccard" href="워렌 버핏/워렌버핏_독서_투자_자기계발.html">
+      <div class="topbar" style="background:var(--value)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/-LzzZBevXI0/hqdefault.jpg" alt="워렌 버핏" loading="lazy"><span class="ptag">워렌 버핏</span></div>
+      <div class="pad">
+        <div class="kicker">인물 · 독서·투자·자기계발</div>
+        <div class="ttl">워렌 버핏 — 독서·투자·자기계발</div>
+        <div class="cmeta"><span>영상 <b>9</b></span><span>한 <b>3</b> · 영 <b>6</b></span><span>최고 <b>546만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">하루 500쪽 · 자기투자 · 인생조언</span></div>
+        <div class="tags"><span class="tag">500쪽 독서</span><span class="tag">자기투자</span><span class="tag">인생조언</span></div>
+        <div class="q1">📌 <b>"하루 500쪽 — 지식은 복리처럼."</b> 독서가 곧 실력이라는 최강 권위.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 빌 게이츠 -->
+    <a class="ccard" href="빌 게이츠/빌게이츠_독서법_추천도서.html">
+      <div class="topbar" style="background:var(--growth)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/ksImBkJNQt8/hqdefault.jpg" alt="빌 게이츠" loading="lazy"><span class="ptag">빌 게이츠</span></div>
+      <div class="pad">
+        <div class="kicker">인물 · 독서법·추천도서</div>
+        <div class="ttl">빌 게이츠 — 독서법·추천도서</div>
+        <div class="cmeta"><span>영상 <b>8</b></span><span>한 <b>2</b> · 영 <b>6</b></span><span>최고 <b>862만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">메모독서 · 생각주간 · 추천도서</span></div>
+        <div class="tags"><span class="tag">독서 4규칙</span><span class="tag">생각주간</span><span class="tag">추천도서</span></div>
+        <div class="q1">📌 <b>"메모하며, 시작한 책은 끝까지."</b> 추천도서 큐레이션 세계 최고 벤치마크.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 찰리 멍거 -->
+    <a class="ccard" href="찰리 멍거/찰리멍거_독서_멘탈모델_지혜.html">
+      <div class="topbar" style="background:var(--rec)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/T5-re2X-YSY/hqdefault.jpg" alt="찰리 멍거" loading="lazy"><span class="ptag">찰리 멍거</span></div>
+      <div class="pad">
+        <div class="kicker">인물 · 독서·멘탈모델</div>
+        <div class="ttl">찰리 멍거 — 독서·멘탈모델·지혜</div>
+        <div class="cmeta"><span>영상 <b>8</b></span><span>한 <b>2</b> · 영 <b>6</b></span><span>최고 <b>85만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">독서=지혜 · 격자틀 · invert</span></div>
+        <div class="tags"><span class="tag">평생독서</span><span class="tag">멘탈모델</span><span class="tag">USC연설</span></div>
+        <div class="q1">📌 <b>"안 읽는 현명한 사람을 본 적 없다."</b> '독서=지혜'의 결정적 한 문장.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 나발 라비칸트 -->
+    <a class="ccard" href="나발 라비칸트/나발라비칸트_독서철학_부의법칙.html">
+      <div class="topbar" style="background:var(--growth)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/3qHkcs3kG44/hqdefault.jpg" alt="나발 라비칸트" loading="lazy"><span class="ptag">나발 라비칸트</span></div>
+      <div class="pad">
+        <div class="kicker">인물 · 독서철학·부의 법칙</div>
+        <div class="ttl">나발 라비칸트 — 독서철학·부의 법칙</div>
+        <div class="cmeta"><span>영상 <b>9</b></span><span>한 <b>2</b> · 영 <b>7</b></span><span>최고 <b>1,449만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">읽고싶은 걸 읽어라 · 부의 법칙</span></div>
+        <div class="tags"><span class="tag">완독강박해소</span><span class="tag">고전재독</span><span class="tag">레버리지</span></div>
+        <div class="q1">📌 <b>"읽고 싶은 걸 읽어라 — 사랑하게 될 때까지."</b> bizpt 독서관과 가장 포개짐.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 조던 피터슨 -->
+    <a class="ccard" href="조던 피터슨/조던피터슨_독서_글쓰기_자기계발.html">
+      <div class="topbar" style="background:var(--value)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/-5RCmu-HuTg/hqdefault.jpg" alt="조던 피터슨" loading="lazy"><span class="ptag">조던 피터슨</span></div>
+      <div class="pad">
+        <div class="kicker">인물 · 독서·글쓰기</div>
+        <div class="ttl">조던 피터슨 — 독서·글쓰기·자기계발</div>
+        <div class="cmeta"><span>영상 <b>9</b></span><span>한 <b>3</b> · 영 <b>6</b></span><span>최고 <b>2,324만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">고전독서 · 글쓰기=사고 · 12법칙</span></div>
+        <div class="tags"><span class="tag">고전</span><span class="tag">글쓰기</span><span class="tag">문해력</span></div>
+        <div class="q1">📌 <b>"생각·말·글이 되면 누구도 막을 수 없다."</b> 독서+글쓰기를 한 묶음으로.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 자청(역행자) -->
+    <a class="ccard" href="자청/자청_독서법_역행자_자기계발.html">
+      <div class="topbar" style="background:var(--pain)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/XcE6OFFHBzE/hqdefault.jpg" alt="자청 역행자" loading="lazy"><span class="ptag">자청 (역행자)</span></div>
+      <div class="pad">
+        <div class="kicker">인물(한국) · 독서법·자기계발</div>
+        <div class="ttl">자청(역행자) — 독서법·자기계발</div>
+        <div class="cmeta"><span>영상 <b>9</b></span><span><b>한국</b> 채널</span><span>최고 <b>29.6만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">미친 독서법 · 역행자 · 인생책</span></div>
+        <div class="tags"><span class="tag">독서법</span><span class="tag">역행자</span><span class="tag">⚠ 직접경쟁</span></div>
+        <div class="q1">📌 <b>"책+글쓰기로 인생 역행."</b> bizpt와 가장 닮은 한국 채널—구조만 배우고 차별화.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 일론 머스크 -->
+    <a class="ccard" href="일론 머스크/일론머스크_공부_책_자기계발.html">
+      <div class="topbar" style="background:var(--brand2)"></div>
+      <div class="thumb"><img src="https://i.ytimg.com/vi/zIwLWfaAg-8/hqdefault.jpg" alt="일론 머스크" loading="lazy"><span class="ptag">일론 머스크</span></div>
+      <div class="pad">
+        <div class="kicker">인물 · 공부·책·자기계발</div>
+        <div class="ttl">일론 머스크 — 공부·책·자기계발·제1원칙</div>
+        <div class="cmeta"><span>영상 <b>12</b></span><span>한 <b>5</b> · 영 <b>7</b></span><span>최고 <b>2,720만</b></span></div>
+        <div class="crow"><span class="k">핵심</span><span class="val">제1원칙 · 자기학습 · 독서</span></div>
+        <div class="tags"><span class="tag">제1원칙</span><span class="tag">자기학습</span><span class="tag">TED</span></div>
+        <div class="q1">📌 <b>"잎보다 줄기·뿌리를 먼저."</b> "책에서 배웠다"는 자기학습 서사가 공통 축.</div>
+        <div class="go"><span>컬렉션 상세 보기</span><span>→</span></div>
+      </div>
+    </a>
+
+    <!-- 빈 슬롯 -->
+    <div class="empty">다음 인물·주제 컬렉션이 여기에 쌓입니다.<br>인물·용어를 주시면 <b>템플릿</b>으로 카드 한 장이 추가됩니다.</div>
+
+  </div>
+
+  <div class="insight">
+    <h2>📈 누적 인사이트 (교차 패턴)</h2>
+    <p class="lead">17개 컬렉션·138개 영상·106개 채널을 가로지르는 공통 후크·서사 패턴.</p>
+    <ul>
+      <li><b>"성공·지성의 사람 = 책으로 자기학습한 사람" (17인 전원 공통)</b> — 머스크·버핏·멍거·게이츠·나발·피터슨·자청(거장)부터 이어령·김영하·최재천·이지성(지성·작가), 정약용·프랭클린(역사), 오프라·세이건·잡스·하루키(문화)까지. <b>'책을 읽어야 하는 이유'</b> 축의 무한 탄약고.</li>
+      <li><b>인물은 3계층으로 활용한다</b> · <b>거장</b>(왜·어떻게 읽는가 — 권위) / <b>지성·작가</b>(읽는 재미·문해력 — 톤) / <b>역사 인물</b>(전통의 뿌리 — 깊이). 결 3그룹(읽으려는·읽고 있는·더 읽으려는)에 골고루 매핑된다.</li>
+      <li><b>콘텐츠는 How / What / Why 3종</b> — How(독서법): 게이츠·정약용·자청·피터슨 / What(추천도서): 게이츠·오프라·세이건·하루키 / Why(동기): 버핏·멍거·머스크·프랭클린. 기획 시 셋 중 하나를 먼저 정할 것.</li>
+      <li><b>"독서 + 글쓰기"는 한 묶음 (200년 전부터)</b> — 정약용의 초서법 = 피터슨·김영하·하루키의 "읽고 쓰기"와 동일. <b>'문해력'</b> 축에서 독서 다음은 항상 글쓰기.</li>
+      <li><b>'권위 빌리기' vs '직접 벤치마크'</b> — 글로벌 거장·역사 인물은 <b>인용해 권위를 빌리는</b> 대상 / 자청·최재천 아마존·코스모스 한국 채널들(설민석·궤도·범준)·오프라 북클럽은 <b>구조·포맷을 배워 차별화할</b> 직접 벤치마크.</li>
+      <li><b>오프라 = 사업모델 원형, 세이건 = 감정 원형</b> — 오프라 북클럽은 "추천→영향력→매출" bizpt 퍼널의 완성형, 세이건의 "책 예찬"은 모든 독서 콘텐츠의 최고 오프닝. 두 축(상업·감성)을 모두 채운다.</li>
+    </ul>
+    <p class="pending">※ 현재 17개 컬렉션·138개 영상 기준. 인물 추가 시 이 교차 패턴을 계속 갱신.</p>
+  </div>
+
+  <footer>
+    bizpt / 타채널참조 · 유튜브 참조영상 수집 누적 허브<br>
+    템플릿: _템플릿_수집페이지.html · 지침: 10_system/cowork_prompts/유튜브_참조영상_수집.md<br>
+    최종 갱신: 2026-06-09
+  </footer>
+</div>
+</body>
+</html>

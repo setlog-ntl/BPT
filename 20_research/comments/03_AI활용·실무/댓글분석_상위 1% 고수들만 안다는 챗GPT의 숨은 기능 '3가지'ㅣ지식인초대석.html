@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!-- 영상별 댓글 시청자 분석 · 분석 각도: 후크 발굴+기본 · 생성 2026-06-13 · 검색: 잘쓰는특징 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>댓글 분석 · 상위 1% 고수들만 안다는 챗GPT의 숨은 기능 &#x27;3가지&#x27;ㅣ지식인초대석 EP.34 (김덕진 교수 1부) (지식인사이드)</title>
+<style>
+  :root{--pain:#ef476f;--growth:#06d6a0;--value:#ffd166;--rec:#c4b5fd;--bg:#f5f3ee;--panel:#ffffff;--panel-2:#faf8f3;--line:#e7e3da;--text:#1f2430;--muted:#5d6470;--brand:#2f5d62;--brand2:#3a7a82;--shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px 80px}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:980px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:700}
+  .nbtn.src{color:var(--pain);margin-left:auto}
+  header{margin:18px 0 26px}
+  .eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--brand2);font-weight:800;margin-bottom:10px}
+  h1{font-size:24px;line-height:1.38;margin:0 0 16px;font-weight:800;letter-spacing:-.01em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13.5px;color:var(--muted);align-items:center}
+  .meta b{color:var(--text)}
+  .meta .dot{width:4px;height:4px;border-radius:50%;background:#c7c1b4;display:inline-block}
+  .meta .angle{background:rgba(196,181,252,.25);border:1px solid var(--rec);color:#5b4a8a;font-weight:800;padding:2px 10px;border-radius:7px}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+  .sec-no{font-size:11.5px;font-weight:800;color:var(--brand2);letter-spacing:.1em;margin-bottom:5px}
+  h2{font-size:19px;margin:0 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .top3{background:linear-gradient(135deg,#2f5d62,#244b50);border:none;color:#fff}
+  .top3 .sec-no{color:#bfe0d9}.top3 h2{color:#fff}.top3 .lead{color:#d6e6e1}
+  .t3{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-top:1px solid rgba(255,255,255,.14)}
+  .t3:first-of-type{border-top:none}
+  .t3 .rank{flex:0 0 auto;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;background:var(--value);color:#5a4410}
+  .t3 .rank.r2{background:#d7dde3;color:#33414d}.t3 .rank.r3{background:#e6b894;color:#5a3410}
+  .t3 .body{flex:1}.t3 .txt{font-size:14.5px;color:#f3f8f6;line-height:1.6}
+  .t3 .sig{display:inline-flex;gap:10px;margin-top:8px;font-size:12px;color:#bfe0d9;flex-wrap:wrap}
+  .t3 .sig b{color:var(--value);font-weight:800}
+  .t3 .sig .tag{background:rgba(255,255,255,.14);padding:2px 9px;border-radius:6px;font-weight:600;color:#eafff8}
+  .idage{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .idage .blk h3{font-size:14px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .agebars{display:flex;flex-direction:column;gap:8px}
+  .ab{display:grid;grid-template-columns:46px 1fr 38px;gap:10px;align-items:center;font-size:13px}
+  .ab .lab{font-weight:700}
+  .ab .track{height:8px;background:#eef0ee;border-radius:5px;overflow:hidden}
+  .ab .fill{height:100%;border-radius:5px;background:var(--brand2)}
+  .ab .pct{text-align:right;font-weight:800;color:var(--brand);font-size:12.5px}
+  .core{margin-top:10px;font-size:12.5px;color:var(--muted)}.core b{color:var(--brand)}
+  .sigchips{display:flex;flex-wrap:wrap;gap:7px}
+  .sigchip{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12.5px}
+  .sigchip b{color:var(--brand);font-weight:800}
+  .idnote{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.55}
+  .rsn{margin-bottom:15px;padding-bottom:15px;border-bottom:1px dashed var(--line)}
+  .rsn:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .rsn-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;gap:12px}
+  .rsn-top .name{font-weight:800;font-size:15px}.rsn-top .name .rk{color:var(--brand2);margin-right:6px}
+  .rsn-top .val{font-size:12.5px;color:var(--muted);font-weight:700;white-space:nowrap}
+  .rsn-track{height:22px;background:#eef0ee;border-radius:7px;overflow:hidden}
+  .rsn-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:9px;color:#173b33;font-weight:800;font-size:12px;min-width:34px}
+  .rsn-ev{margin-top:8px;font-size:12.5px;color:#3a414c;background:var(--panel-2);border-left:3px solid var(--brand2);border-radius:0 8px 8px 0;padding:8px 12px}
+  .rsn-ev .q{color:#2a3038}.rsn-ev .by{color:var(--muted);font-size:11.5px}
+  .hook{margin-top:8px;font-size:12.5px;background:rgba(196,181,252,.16);border-left:3px solid var(--rec);border-radius:0 8px 8px 0;padding:8px 12px;color:#4a3d72}
+  .hook b{color:#6b4fbf;font-weight:800}
+  .more .q2{border-left:3px solid var(--line);padding:9px 14px;margin-bottom:9px;font-size:13.5px;background:var(--panel-2);border-radius:0 8px 8px 0}
+  .more .q2 .by{display:block;margin-top:5px;font-size:11.5px;color:var(--muted)}
+  .more .q2 .by b{color:var(--pain)}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;line-height:1.8}
+  .note{background:#fbf6e9;border:1px solid #ecd9a8;border-left:5px solid var(--value);border-radius:10px;padding:13px 16px;font-size:12.5px;color:#6b5a2e;margin-top:14px}
+  .note b{color:#9a7716}
+  .hookbox{background:#f3effc;border:1px solid var(--rec);border-radius:14px;padding:20px 24px;margin-bottom:20px}
+  .hookbox h2{color:#5b4a8a}.hookbox .lead{color:#6b5e8c}
+  .hookbox ol{margin:0;padding-left:20px;font-size:14px;color:#3a334d}
+  .hookbox ol li{margin-bottom:10px}.hookbox .cap{font-weight:800;color:#6b4fbf}
+  @media(max-width:720px){.idage{grid-template-columns:1fr}h1{font-size:20px}}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <a class="nbtn home" href="../_댓글분석_허브.html">← 댓글분석 허브</a>
+  <a class="nbtn src" href="https://www.youtube.com/watch?v=YPa1B7AJ_zI" target="_blank" rel="noopener">🔗 유튜브 원본</a>
+</nav>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">YouTube 댓글 시청자 분석 · 지식인사이드</div>
+    <h1>상위 1% 고수들만 안다는 챗GPT의 숨은 기능 &#x27;3가지&#x27;ㅣ지식인초대석 EP.34 (김덕진 교수 1부)</h1>
+    <div class="meta">
+      <span><b>채널</b> 지식인사이드</span><span class="dot"></span>
+      <span><b>구독자</b> 구독자 387만명</span><span class="dot"></span>
+      <span><b>조회수</b> 261만</span><span class="dot"></span>
+      <span><b>게시</b> 2025. 4. 18.</span><span class="dot"></span>
+      <span><b>분석 댓글</b> 517개(인기순)</span><span class="dot"></span>
+      <span class="angle">분석 각도 · 후크 발굴 + 기본</span>
+    </div>
+  </header>
+
+  <section class="top3">
+    <div class="sec-no">★ 대표댓글 · 추천 많은 순 TOP 3</div>
+    <h2>이 영상의 얼굴이 된 댓글 3개</h2>
+    <p class="lead">좋아요가 가장 많이 눌린 댓글 = 시청자 다수가 가장 공감한 지점.</p>
+    <div class="t3"><div class="rank">1</div><div class="body">
+      <div class="txt">"플러스 유료로 잘 쓰지만 막상 일할 땐 수없이 확인해야 한다. 계산도 자주 틀리고 메모리 업데이트해도 딴소리"</div>
+      <div class="sig"><span>👍 <b>1,300</b></span><span class="tag">신뢰성 한계 토로</span><span>1년 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r2">2</div><div class="body">
+      <div class="txt">"혼자 가게 운영하는데 챗GPT가 가성비 쩌는 직원임. 키워드만 주면 내 스타일에 맞춰 홍보 글귀 써주는 게 제일 큰 도움"</div>
+      <div class="sig"><span>👍 <b>785</b></span><span class="tag">가게 직원 활용</span><span>1년 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r3">3</div><div class="body">
+      <div class="txt">"나도 번역가인데 GPT 번역이 완벽하진 않아 검수는 필수지만, 더 좋은 표현을 같이 고민해주는 파트너가 생긴 느낌"</div>
+      <div class="sig"><span>👍 <b>777</b></span><span class="tag">AI 다루는 능력</span><span>1년 전</span></div>
+    </div></div>
+    
+  </section>
+
+  <section>
+    <div class="sec-no">정체성 · 추정 연령 (간략)</div>
+    <h2>누가 보는가</h2>
+    <div class="idage">
+      <div class="blk">
+        <h3>추정 연령대</h3>
+        <div class="agebars">
+          <div class="ab"><span class="lab">10대</span><div class="track"><div class="fill" style="width:4%"></div></div><span class="pct">4%</span></div>
+          <div class="ab"><span class="lab">20대</span><div class="track"><div class="fill" style="width:14%"></div></div><span class="pct">14%</span></div>
+          <div class="ab"><span class="lab">30대</span><div class="track"><div class="fill" style="width:32%"></div></div><span class="pct">32%</span></div>
+          <div class="ab"><span class="lab">40대</span><div class="track"><div class="fill" style="width:31%"></div></div><span class="pct">31%</span></div>
+          <div class="ab"><span class="lab">50대+</span><div class="track"><div class="fill" style="width:19%"></div></div><span class="pct">19%</span></div>
+          
+        </div>
+        <div class="core">핵심 시청층 <b>30~40대 (약 63%)</b></div>
+      </div>
+      <div class="blk">
+        <h3>정체성 대표 신호 (댓글 자기소개)</h3>
+        <div class="sigchips">
+          <span class="sigchip">학부모·자녀 <b>18</b></span>
+          <span class="sigchip">직장인 <b>17</b></span>
+          <span class="sigchip">자영업·사업 <b>5</b></span>
+          <span class="sigchip">시니어·만학 <b>4</b></span>
+          <span class="sigchip">주부 <b>3</b></span>
+        </div>
+        <div class="idnote">직장인·학부모 중심 — 번역가·개발자·자영업 등 &#x27;AI를 일에 쓰는&#x27; 실무자가 한계와 효용을 동시에 증언.</div>
+      </div>
+    </div>
+    <div class="note"><b>추정 주의:</b> 유튜브 실제 연령 통계는 채널 소유자만 열람 가능. 위 수치는 댓글 자기소개·말투·영상 주제·채널 성격 기반 <b>추정치</b>입니다.</div>
+  </section>
+
+  <section>
+    <div class="sec-no">02 · 시청 이유 (핵심)</div>
+    <h2>왜 이 영상을 보는가</h2>
+    <p class="lead">517개 댓글 키워드 집계(중복 허용). 순위 · 비중% · 근거 댓글. <b>각도=후크 발굴</b> → 상위 이유를 후크 카피 후보로 변환.</p>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">①</span>AI 활용·실무·생산성</span><span class="val">141건 · 27.3%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:100%;background:var(--growth)">141</div></div>
+      <div class="rsn-ev"><span class="q">"혼자 가게 운영하는데 챗GPT가 가성비 쩌는 직원 — 키워드만 주면 홍보 글귀를 내 스타일로 써준다"</span> <span class="by">— 👍 785</span></div><div class="hook"><b>→ 후크 후보:</b> 같은 AI인데 왜 결과가 다를까 — &#x27;잘 쓰는 사람&#x27;의 세팅법</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">②</span>전문가·강연 통찰 감탄</span><span class="val">73건 · 14.1%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:52%;background:#4cc4e0">73</div></div>
+      <div class="rsn-ev"><span class="q">"번역가인데 검수는 필수지만 더 좋은 표현을 같이 고민해주는 파트너가 생긴 느낌, 노동력을 덜었다"</span> <span class="by">— 👍 777</span></div><div class="hook"><b>→ 후크 후보:</b> 전문가가 10분 만에 정리한 &#x27;AI 시대 생존 한 줄&#x27;</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">③</span>본질·인간다움·읽기·질문력</span><span class="val">54건 · 10.4%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:38%;background:var(--brand2)">54</div></div>
+      <div class="rsn-ev"><span class="q">"GPT는 디테일한 질문에 따라 결과가 천차만별. 본인만의 프롬프트는 기본, &#x27;AI를 다루는 능력&#x27;이 또 하나의 능력"</span> <span class="by">— 👍 579</span></div><div class="hook"><b>→ 후크 후보:</b> 결국 살아남는 건 &#x27;읽고 질문하는 사람&#x27;이다 (채널 슬로건 직결)</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">④</span>공감·현실 토로</span><span class="val">49건 · 9.5%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:35%;background:#9aa0aa">49</div></div>
+      <div class="rsn-ev"><span class="q">"정확하지 않아도 대화하다 보면 위로를 많이 받는다. 사람과 대화할 때보다 마음이 더 건강해지는 듯"</span> <span class="by">— 👍 517</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑤</span>AI 불안·생존 위기감</span><span class="val">32건 · 6.2%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:23%;background:var(--pain)">32</div></div>
+      <div class="rsn-ev"><span class="q">"플러스 유료로 잘 쓰지만 막상 일할 땐 수없이 확인해야 한다. 계산도 자주 틀리고 메모리 업데이트해도 딴소리"</span> <span class="by">— 👍 1300</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑥</span>직업·진로·교육 고민</span><span class="val">27건 · 5.2%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:19%;background:var(--value)">27</div></div>
+      <div class="rsn-ev"><span class="q">"21년차 개발자인데 안 해본 분야 프로젝트에 투입돼 난감했지만 챗GPT 유료로 생산성 급상승"</span> <span class="by">— 👍 458</span></div>
+    </div>
+  </section>
+
+  <section class="hookbox">
+    <div class="sec-no" style="color:#6b4fbf">★ 각도 산출물 · 후크 발굴 종합</div>
+    <h2>이 댓글방에서 건진 후크 카피 후보</h2>
+    <p class="lead">시청이유 상위 결을 bizpt 풀링/키 후크로 변환. AI(입구) → 읽기·질문·인간다움(토대)으로 잇는 후보 우선.</p>
+    <ol>
+      <li><span class="cap">AI 활용·실무·생산성</span> — 같은 AI인데 왜 결과가 다를까 — &#x27;잘 쓰는 사람&#x27;의 세팅법 <i>(141건)</i></li>
+      <li><span class="cap">전문가·강연 통찰 감탄</span> — 전문가가 10분 만에 정리한 &#x27;AI 시대 생존 한 줄&#x27; <i>(73건)</i></li>
+      <li><span class="cap">본질·인간다움·읽기·질문력</span> — 결국 살아남는 건 &#x27;읽고 질문하는 사람&#x27;이다 (채널 슬로건 직결) <i>(54건)</i></li>
+      <li><span class="cap">공감·현실 토로</span> — 다들 느끼는 그 &#x27;싸함&#x27; — AI 시대의 진짜 현실 <i>(49건)</i></li>
+      <li><span class="cap">AI 불안·생존 위기감</span> — &quot;당신은 내년에도 살아남을까&quot; — AI가 먼저 가져가는 자리부터 <i>(32건)</i></li>
+    </ol>
+  </section>
+
+  <section class="more">
+    <div class="sec-no">03 · 더 보기</div>
+    <h2>그 외 대표 댓글</h2>
+    <div class="q2"><span>"GPT는 사용자가 얼마나 디테일한 질문을 하느냐에 따라 결과가 천차만별. &#x27;본인만의 프롬프트&#x27;는 기본, AI를 다루는 능력이 또 하나의 능력"</span><span class="by">👍 <b>579</b></span></div>
+    <div class="q2"><span>"정확하지 않아도 대화하다 보면 위로를 많이 받음. 사람과 대화할 때보다 마음이 더 건강해지는 것 같다"</span><span class="by">👍 <b>517</b></span></div>
+    <div class="q2"><span>"현직 21년차 개발자인데 안 해본 분야 프로젝트에 투입돼 난감했는데, 챗GPT 유료 쓰니 생산성이 무지 올라갔다"</span><span class="by">👍 <b>458</b></span></div>
+    
+  </section>
+
+  <footer>
+    분석 대상: https://www.youtube.com/watch?v=YPa1B7AJ_zI · 지식인사이드<br>
+    데이터: 인기순 댓글 517개 (크롬 브라우저 직접 수집) · 연령대는 댓글 기반 추정치<br>
+    검색 출처: 잘쓰는특징 · 분석 각도: 후크 발굴 + 기본 · 생성일: 2026-06-13 · bizpt / 타채널참조
+  </footer>
+</div>
+</body>
+</html>

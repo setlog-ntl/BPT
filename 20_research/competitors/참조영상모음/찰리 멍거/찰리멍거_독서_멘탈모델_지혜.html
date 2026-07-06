@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!-- 참조영상 수집 — 찰리 멍거 (독서·멘탈모델·지혜) v1 · 2026-06-09 · 링크/메타 Claude in Chrome 실제 검증 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>참조영상 · 찰리 멍거 — 독서·멘탈모델·지혜</title>
+<style>
+  :root{--pain:#ef476f;--growth:#06d6a0;--value:#ffd166;--rec:#c4b5fd;--bg:#f5f3ee;--panel:#ffffff;--panel-2:#faf8f3;--line:#e7e3da;--text:#1f2430;--muted:#5d6470;--brand:#2f5d62;--brand2:#3a7a82;--shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:1080px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:800;background:rgba(47,93,98,.08);border-color:var(--brand2)}
+  .nbtn.doc{margin-left:auto;color:var(--brand2)}
+  header{background:linear-gradient(135deg,#2f5d62 0%,#244b50 60%,#1d3c40 100%);color:#fff;padding:34px 0 30px;margin:18px 0 0;border-bottom:4px solid var(--value)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+  header .wrap{padding-bottom:0}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#bfe0d9;font-weight:800;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 10px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:#d6e6e1;font-size:14.5px;margin:0;max-width:740px}
+  .stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+  .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 20px;min-width:108px}
+  .stat .v{font-size:22px;font-weight:800;color:#fff;line-height:1}
+  .stat .l{font-size:12px;color:#bfe0d9;margin-top:5px}
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:26px 0 10px;box-shadow:var(--shadow)}
+  .intro h2{font-size:17px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .intro p{margin:0 0 10px;font-size:14px;color:#3a414c}
+  .intro .why{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .why .chip{font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand)}
+  .group{margin-top:34px}
+  .ghead{display:flex;align-items:center;gap:11px;margin:0 0 4px}
+  .gbadge{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px}
+  .ghead h2{font-size:19px;margin:0;font-weight:800}
+  .gdesc{font-size:13px;color:var(--muted);margin:2px 0 16px;padding-left:41px}
+  .vid{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+  .vthumb{position:relative;flex:0 0 280px;aspect-ratio:16/9;background:#0b0f14;text-decoration:none;display:block;overflow:hidden}
+  .vthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+  .vthumb:hover img{transform:scale(1.04);opacity:.9}
+  .vthumb .dur{position:absolute;right:8px;bottom:8px;background:rgba(15,20,28,.86);color:#fff;font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .vthumb .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(239,71,111,.92);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;padding-left:3px}
+  .vbody{flex:1;padding:15px 18px 16px;min-width:0}
+  .vtop{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .lang{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
+  .lang.ko{background:rgba(47,93,98,.12);color:var(--brand)}
+  .lang.en{background:rgba(196,181,252,.25);color:#7a5af0}
+  .lang.off{background:rgba(255,209,102,.3);color:#7a5e10}
+  .vtitle{font-size:15.5px;font-weight:800;line-height:1.35;text-decoration:none;color:var(--text)}
+  .vtitle:hover{color:var(--brand)}
+  .vmeta{display:flex;flex-wrap:wrap;gap:5px 13px;font-size:11.5px;color:var(--muted);margin:7px 0 11px}
+  .vmeta b{color:var(--text)}
+  .vsec{font-size:12.8px;color:#3a414c;margin:0 0 8px;line-height:1.55}
+  .vsec .lab{display:inline-block;font-size:10.5px;font-weight:800;color:var(--brand2);background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+  .vquote{font-style:italic;color:#28303a;border-left:3px solid var(--value);padding:2px 0 2px 10px;margin:8px 0}
+  .vuse{font-size:12.8px;color:#1f2a2b;background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.3);border-radius:9px;padding:9px 12px;margin-top:10px;line-height:1.55}
+  .vuse .lab{background:var(--growth);color:#06352a;border:none}
+  .guide{background:linear-gradient(135deg,#fff 0%,#faf8f3 100%);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-top:38px;box-shadow:var(--shadow)}
+  .guide h2{font-size:19px;margin:0 0 4px;font-weight:800}
+  .guide .lead{color:var(--muted);font-size:13.5px;margin:0 0 18px}
+  .gtable{width:100%;border-collapse:collapse;font-size:13px}
+  .gtable th,.gtable td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .gtable th{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .gtable td b{color:var(--brand)}
+  .gtable tr:last-child td{border-bottom:none}
+  .axis{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand);margin:1px 2px 1px 0}
+  .note{background:rgba(255,209,102,.16);border:1px solid rgba(255,209,102,.5);border-radius:11px;padding:13px 16px;margin-top:18px;font-size:12.8px;color:#5a4a1a}
+  .note b{color:#7a5e10}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:34px;line-height:1.8}
+  @media(max-width:720px){h1{font-size:22px}.vid{flex-direction:column}.vthumb{flex-basis:auto;width:100%}.gdesc{padding-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="../_허브.html">← 참조영상 허브</a>
+  <a class="nbtn" href="https://www.youtube.com/results?search_query=찰리멍거+독서+지혜" target="_blank" rel="noopener">🔎 유튜브에서 더 보기</a>
+  <a class="nbtn doc" href="../../../../10_system/cowork_prompts/유튜브_참조영상_수집.md">📋 작성 지침</a>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">참조영상 컬렉션 · 인물</div>
+    <h1>찰리 멍거 — 독서 · 멘탈모델 · 지혜</h1>
+    <p class="sub">"나는 <b style="color:#fff">평생 책을 읽지 않은 현명한 사람</b>을 단 한 명도 본 적이 없다 — 단 한 명도." 버핏의 파트너 멍거는 '독서=지혜'를 가장 순수하게 설파한 인물. 그의 멘탈모델·인생 조언 영상을 모았습니다.</p>
+    <div class="stats">
+      <div class="stat"><div class="v">8</div><div class="l">수집 영상</div></div>
+      <div class="stat"><div class="v">2 / 6</div><div class="l">한국어 / 영어</div></div>
+      <div class="stat"><div class="v">약 221만</div><div class="l">합산 조회수</div></div>
+      <div class="stat"><div class="v">85만</div><div class="l">최고 (Invert)</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h2>왜 찰리 멍거 = bizpt 레퍼런스인가</h2>
+    <p>멍거의 <b>"독서하지 않는 현명한 사람을 본 적 없다"</b>는 발언은 bizpt <b>'책을 읽어야 하는 이유'</b> 축에서 가장 강력한 한 문장이다. 그는 또 여러 학문의 핵심 원리를 엮은 <b>'격자틀 멘탈모델(latticework)'</b>과 <b>'거꾸로 생각하기(invert)'</b>로 유명한데, 이는 <b>'문해력·사고력을 기르는 독서'</b>의 논리를 제공한다.</p>
+    <div class="why">
+      <span class="chip">결 ① 읽으려는 사람</span>
+      <span class="chip">결 ③ 더 읽으려는 사람</span>
+      <span class="chip">축: 책 읽어야 하는 이유</span>
+      <span class="chip">축: 문해력</span>
+      <span class="chip">축: 자기개발</span>
+    </div>
+  </div>
+
+  <!-- A. 독서·평생학습 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--brand)">A</span><h2>독서 · 평생학습</h2></div>
+    <p class="gdesc">"독서=지혜"의 가장 순수한 옹호 — bizpt 독서 동기 후크의 결정적 한 문장.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=2O4Oe9rE6d0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/2O4Oe9rE6d0/hqdefault.jpg" alt="" loading="lazy"><span class="dur">1:36</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=2O4Oe9rE6d0" target="_blank" rel="noopener">Munger's Wisdom: The Gift of Reading | Redlands Forum 2020</a></div>
+        <div class="vmeta"><span>채널 <b>YAPSS</b></span><span>조회 <b>약 5.8천</b></span><span>1년 전</span><span>1:36</span></div>
+        <div class="vsec"><span class="lab">핵심</span>멍거의 <b>독서 예찬</b> 클립. "버핏과 나, 우리가 읽는 양을 알면 놀랄 것" — 평생 독서가 지혜의 원천임을 직접 말한다.</div>
+        <div class="vquote">"In my whole life, I have known no wise people who didn't read all the time — none, zero."</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽어야 하는 이유' 후크의 <b>결정적 인용</b>. 짧아서(1:36) 쇼츠·도입 클립으로 즉시 사용.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=Xy-8dE0d-YI" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/Xy-8dE0d-YI/hqdefault.jpg" alt="" loading="lazy"><span class="dur">2:26</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=Xy-8dE0d-YI" target="_blank" rel="noopener">Charlie Munger: 4 Books That You MUST Read</a></div>
+        <div class="vmeta"><span>채널 <b>Seeking Wisdom</b></span><span>조회 <b>약 2만</b></span><span>2년 전</span><span>2:26</span></div>
+        <div class="vsec"><span class="lab">핵심</span>멍거가 추천한 필독서 정리. 그의 사고를 만든 책(전기·과학·심리학)을 짚는다.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 추천 큐레이션' — "멍거의 서재" 인물별 추천도서 시리즈 소스.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=XOceFvAxF5c" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/XOceFvAxF5c/hqdefault.jpg" alt="" loading="lazy"><span class="dur">23:15</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=XOceFvAxF5c" target="_blank" rel="noopener">찰리 멍거 "독서하지 않는 부자는 없다" — 뇌를 다시 프로그래밍하는 길</a></div>
+        <div class="vmeta"><span>채널 <b>돈을 아는 사람들</b></span><span>조회 <b>약 1.2만</b></span><span>4개월 전</span><span>23:15</span></div>
+        <div class="vsec"><span class="lab">핵심</span>멍거의 독서·학습관을 한국어로 길게 풀어낸 해설. "독서로 뇌를 재프로그래밍"이라는 강한 프레임.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽어야 하는 이유' 한국어 내레이션 톤·후크("독서하지 않는 부자는 없다") 벤치마크.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. 멘탈모델·사고법 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--value)">B</span><h2>멘탈모델 · 사고법</h2></div>
+    <p class="gdesc">격자틀 모델·거꾸로 생각하기 — "왜 폭넓게 읽어야 하는가"의 논리적 근거.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=T5-re2X-YSY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/T5-re2X-YSY/hqdefault.jpg" alt="" loading="lazy"><span class="dur">10:40</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=T5-re2X-YSY" target="_blank" rel="noopener">Charlie Munger: Invert, always invert</a></div>
+        <div class="vmeta"><span>채널 <b>Seeking Wisdom</b></span><span>조회 <b>약 85만</b></span><span>2년 전</span><span>10:40</span></div>
+        <div class="vsec"><span class="lab">핵심</span>이 컬렉션 <b>최고 조회(85만)</b>. "문제를 <b>거꾸로(invert)</b> 뒤집어 생각하라 — 어떻게 성공할까보다 어떻게 망할까를 피하라."</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'문해력·사고법' — "거꾸로 읽기/거꾸로 질문하기" 독서 사고 후크. 머스크 제1원칙과 교차.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=r6owo8qPOTY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/r6owo8qPOTY/hqdefault.jpg" alt="" loading="lazy"><span class="dur">16:57</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=r6owo8qPOTY" target="_blank" rel="noopener">Charlie Munger - 12 Rules for Life (Genius Rules)</a></div>
+        <div class="vmeta"><span>채널 <b>Picking Nuggets</b></span><span>조회 <b>약 7.6만</b></span><span>9개월 전</span><span>16:57</span></div>
+        <div class="vsec"><span class="lab">핵심</span>멍거식 인생·사고 규칙 12가지를 묶은 정리. 다학제 학습·신뢰성·평생학습이 핵심.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'자기개발' — "N가지 규칙" 리스트형 포맷 벤치마크(쇼츠 분할 가능).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. 대표 강연·인터뷰 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--brand2)">C</span><h2>대표 강연 · 인터뷰</h2></div>
+    <p class="gdesc">USC 졸업연설·마지막 인터뷰 — 멍거를 다룰 때의 권위 출처.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=lqqRzNC3QyU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/lqqRzNC3QyU/hqdefault.jpg" alt="" loading="lazy"><span class="dur">37:18</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=lqqRzNC3QyU" target="_blank" rel="noopener">Charlie Munger speech — Advice for a good life — Commencement Address, USC</a></div>
+        <div class="vmeta"><span>채널 <b>Seeking Wisdom</b></span><span>조회 <b>약 21만</b></span><span>2년 전</span><span>37:18</span></div>
+        <div class="vsec"><span class="lab">핵심</span>멍거의 <b>USC 졸업연설</b>(정전) — 시기·원망·자기연민을 피하라, 신뢰를 쌓아라, 그리고 <b>"평생 독서로 스스로 배우는 사람이 되라."</b></div>
+        <div class="vquote">"Develop into a lifelong self-learner through voracious reading."</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽어야 하는 이유·자기개발' 정통 강연 소스. 명언 자막 클립의 광맥.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=6JjOk78sxI8" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/6JjOk78sxI8/hqdefault.jpg" alt="" loading="lazy"><span class="dur">3:08</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=6JjOk78sxI8" target="_blank" rel="noopener">Charlie Munger's Life Advice: Let Go of Things That Don't Matter | Final Interview, CNBC 2023</a></div>
+        <div class="vmeta"><span>채널 <b>YAPSS</b></span><span>조회 <b>약 67만</b></span><span>9개월 전</span><span>3:08</span></div>
+        <div class="vsec"><span class="lab">핵심</span>2023년 별세 직전 <b>마지막 인터뷰</b>. 중요하지 않은 것을 내려놓으라는 노현자의 조언. 무게감 있는 인용.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'자기개발' 명언·쇼츠. "99세 현자의 마지막 조언" 후크(서사적 무게).</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=Eap3sHuVobY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/Eap3sHuVobY/hqdefault.jpg" alt="" loading="lazy"><span class="dur">51:00</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=Eap3sHuVobY" target="_blank" rel="noopener">찰리 멍거의 투자 원칙과 철학</a></div>
+        <div class="vmeta"><span>채널 <b>지식의 취향</b></span><span>조회 <b>약 37만</b></span><span>1년 전</span><span>51:00</span></div>
+        <div class="vsec"><span class="lab">핵심</span>멍거 철학을 한 시간 분량으로 묶은 한국어 <b>심층 아카이브</b>. 멘탈모델·인생관 종합.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>대본 소스 광맥 — 한국어 발췌로 짧은 키/쇼츠 재가공. 국내 시청자 친화 인용.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 종합 가이드 -->
+  <div class="guide">
+    <h2>🧭 종합 활용 가이드 — bizpt 축 매핑</h2>
+    <p class="lead">멍거 컬렉션을 어느 콘텐츠에, 어떤 후크로 쓸지. (8축 · 결 3그룹 기준)</p>
+    <table class="gtable">
+      <thead><tr><th style="width:22%">bizpt 축</th><th style="width:34%">연결 영상</th><th>후크·활용 아이디어</th></tr></thead>
+      <tbody>
+        <tr><td><span class="axis">책 읽어야 하는 이유</span></td><td>A1 독서 예찬 · C1 USC</td><td>"현명한 사람 중 안 읽는 사람은 없다" 결정적 인용 쇼츠</td></tr>
+        <tr><td><span class="axis">문해력</span></td><td>B1 Invert · B2 12 Rules</td><td>"거꾸로 읽기 / 폭넓게 읽기" 사고력 독서 후크</td></tr>
+        <tr><td><span class="axis">자기개발</span></td><td>C2 마지막 인터뷰 · C3 한국어</td><td>"99세 현자의 조언" 서사형 명언 카드</td></tr>
+        <tr><td><span class="axis">책 읽는 재미</span></td><td>A2 멍거의 4권</td><td>"멍거의 서재" 인물 추천도서 시리즈</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>진정성 체크(3기둥 ②):</b> 멍거는 투자·부의 맥락이 강하지만, 그의 본령은 <b>'지혜'</b>다. "돈" 대신 <b>"읽으면 더 현명해진다"</b>는 그의 진짜 메시지로 착지시키면 우리 채널 결과 정확히 맞는다.</div>
+  </div>
+
+  <footer>
+    bizpt / 타채널참조 · 참조영상 수집 — 찰리 멍거 (독서·멘탈모델·지혜)<br>
+    모든 링크·메타는 2026-06-09 Claude in Chrome로 실제 검증 · 조회수는 검증 시점 근사치<br>
+    허브: ../_허브.html · 지침: 10_system/cowork_prompts/유튜브_참조영상_수집.md
+  </footer>
+</div>
+</body>
+</html>

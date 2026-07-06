@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:2560px;height:1440px;overflow:hidden}
+  .canvas{width:2560px;height:1440px;position:relative;
+    background:
+      radial-gradient(900px 700px at 30% 50%, rgba(255,209,102,.16), transparent 60%),
+      linear-gradient(115deg,#0c0e13 0%,#13161d 48%,#0f1115 100%);
+    font-family:'Pretendard',sans-serif;overflow:hidden}
+  /* left book visual */
+  .left{position:absolute;left:0;top:0;width:46%;height:100%;
+    display:flex;align-items:center;justify-content:center}
+  .book{filter:drop-shadow(0 40px 90px rgba(255,209,102,.30))}
+  /* center safe area text */
+  .safe{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:1235px;height:338px;display:flex;flex-direction:column;
+    justify-content:center;align-items:flex-end;text-align:right;padding-right:40px}
+  .brand{font-size:128px;font-weight:900;letter-spacing:-.03em;line-height:1.04}
+  .brand .g{color:#ffd166;text-shadow:0 6px 40px rgba(255,209,102,.4)}
+  .brand .w{color:#e7e9ee}
+  .sub{margin-top:26px;font-size:38px;color:#c8ccd4;font-weight:500;letter-spacing:-.01em}
+  .pub{margin-top:18px;font-size:30px;color:#9aa3b2;font-weight:500}
+  .pub b{color:#ffd166;font-weight:700}
+</style></head>
+<body><div class="canvas">
+  <div class="left">
+    <svg class="book" width="620" height="430" viewBox="0 0 300 210">
+      <defs>
+        <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff4d6"/><stop offset="1" stop-color="#ffd166"/></linearGradient>
+        <linearGradient id="pd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#363b48"/><stop offset="1" stop-color="#1d212c"/></linearGradient>
+      </defs>
+      <path d="M150 40 C110 18 60 14 18 30 L18 184 C60 168 110 172 150 192 Z" fill="url(#pd)" stroke="#454c5c" stroke-width="1.2"/>
+      <path d="M150 40 C190 18 240 14 282 30 L282 184 C240 168 190 172 150 192 Z" fill="url(#pg)"/>
+      <rect x="147" y="40" width="6" height="152" rx="3" fill="#565d6e"/>
+      <g stroke="#caa544" stroke-width="3" stroke-linecap="round" opacity=".5">
+        <line x1="178" y1="78" x2="258" y2="70"/><line x1="178" y1="100" x2="258" y2="92"/><line x1="178" y1="122" x2="240" y2="116"/>
+      </g>
+    </svg>
+  </div>
+  <div class="safe">
+    <div class="brand"><span class="w">그럼에도 </span><span class="g">한 페이지</span></div>
+    <div class="sub">정답이 흔해진 시대 · 그럼에도 — 오늘도 한 페이지.</div>
+    <div class="pub">매주 <b>수요일</b> · 책 한 권에서 시작하는 한 가지 질문</div>
+  </div>
+</div></body></html>

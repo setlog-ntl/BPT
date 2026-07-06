@@ -1,0 +1,4238 @@
+{
+  "name": "독서습관실패_이유3가지",
+  "source_video": "/sessions/nice-nifty-ptolemy/mnt/002_독서습관 실패한 99%의 3가지 공통점, 독서습관 실패이유/촬영자료/독서습관실패 이유3가지.mp4",
+  "work_dir": "/sessions/nice-nifty-ptolemy/mnt/002_독서습관 실패한 99%의 3가지 공통점, 독서습관 실패이유/_autoedit_work",
+  "created_at": 1780530285.466434,
+  "media": {
+    "path": "/sessions/nice-nifty-ptolemy/mnt/002_독서습관 실패한 99%의 3가지 공통점, 독서습관 실패이유/촬영자료/독서습관실패 이유3가지.mp4",
+    "duration_us": 818575000,
+    "fps": 30.0,
+    "width": 2560,
+    "height": 1440,
+    "audio_path": "/sessions/nice-nifty-ptolemy/mnt/002_독서습관 실패한 99%의 3가지 공통점, 독서습관 실패이유/_autoedit_work/audio.wav"
+  },
+  "transcript": null,
+  "silences": [
+    {
+      "start_us": 9006190,
+      "end_us": 9835250
+    },
+    {
+      "start_us": 11627100,
+      "end_us": 12269800
+    },
+    {
+      "start_us": 13679900,
+      "end_us": 14459300
+    },
+    {
+      "start_us": 16441900,
+      "end_us": 17307100
+    },
+    {
+      "start_us": 18596000,
+      "end_us": 19316200
+    },
+    {
+      "start_us": 22200800,
+      "end_us": 23144200
+    },
+    {
+      "start_us": 25285900,
+      "end_us": 26372200
+    },
+    {
+      "start_us": 28585100,
+      "end_us": 29218900
+    },
+    {
+      "start_us": 31077900,
+      "end_us": 31855600
+    },
+    {
+      "start_us": 34302200,
+      "end_us": 35236500
+    },
+    {
+      "start_us": 36783400,
+      "end_us": 37423600
+    },
+    {
+      "start_us": 39190800,
+      "end_us": 40342400
+    },
+    {
+      "start_us": 44164400,
+      "end_us": 45150000
+    },
+    {
+      "start_us": 46248200,
+      "end_us": 47022900
+    },
+    {
+      "start_us": 48721000,
+      "end_us": 49445900
+    },
+    {
+      "start_us": 51824900,
+      "end_us": 52510400
+    },
+    {
+      "start_us": 54278800,
+      "end_us": 55039600
+    },
+    {
+      "start_us": 56146300,
+      "end_us": 57370500
+    },
+    {
+      "start_us": 57658300,
+      "end_us": 58399800
+    },
+    {
+      "start_us": 63923900,
+      "end_us": 64719800
+    },
+    {
+      "start_us": 72462100,
+      "end_us": 73818900
+    },
+    {
+      "start_us": 77350100,
+      "end_us": 78168000
+    },
+    {
+      "start_us": 82302800,
+      "end_us": 83110100
+    },
+    {
+      "start_us": 85702400,
+      "end_us": 86385900
+    },
+    {
+      "start_us": 93432200,
+      "end_us": 94045700
+    },
+    {
+      "start_us": 94735600,
+      "end_us": 95573600
+    },
+    {
+      "start_us": 96564000,
+      "end_us": 97379800
+    },
+    {
+      "start_us": 98027200,
+      "end_us": 98666300
+    },
+    {
+      "start_us": 99810800,
+      "end_us": 101034000
+    },
+    {
+      "start_us": 102713000,
+      "end_us": 103485000
+    },
+    {
+      "start_us": 105629000,
+      "end_us": 106574000
+    },
+    {
+      "start_us": 108668000,
+      "end_us": 109273000
+    },
+    {
+      "start_us": 115485000,
+      "end_us": 116796000
+    },
+    {
+      "start_us": 119255000,
+      "end_us": 120005000
+    },
+    {
+      "start_us": 124187000,
+      "end_us": 124937000
+    },
+    {
+      "start_us": 125747000,
+      "end_us": 126386000
+    },
+    {
+      "start_us": 128896000,
+      "end_us": 129651000
+    },
+    {
+      "start_us": 132145000,
+      "end_us": 132797000
+    },
+    {
+      "start_us": 133834000,
+      "end_us": 134448000
+    },
+    {
+      "start_us": 134761000,
+      "end_us": 135487000
+    },
+    {
+      "start_us": 139460000,
+      "end_us": 140188000
+    },
+    {
+      "start_us": 141000000,
+      "end_us": 141618000
+    },
+    {
+      "start_us": 143133000,
+      "end_us": 143888000
+    },
+    {
+      "start_us": 147013000,
+      "end_us": 148032000
+    },
+    {
+      "start_us": 149824000,
+      "end_us": 150551000
+    },
+    {
+      "start_us": 154369000,
+      "end_us": 155369000
+    },
+    {
+      "start_us": 157425000,
+      "end_us": 158113000
+    },
+    {
+      "start_us": 161737000,
+      "end_us": 162342000
+    },
+    {
+      "start_us": 165721000,
+      "end_us": 166513000
+    },
+    {
+      "start_us": 168461000,
+      "end_us": 169096000
+    },
+    {
+      "start_us": 169469000,
+      "end_us": 170112000
+    },
+    {
+      "start_us": 171078000,
+      "end_us": 172469000
+    },
+    {
+      "start_us": 172469000,
+      "end_us": 173217000
+    },
+    {
+      "start_us": 178502000,
+      "end_us": 179234000
+    },
+    {
+      "start_us": 180628000,
+      "end_us": 181472000
+    },
+    {
+      "start_us": 183998000,
+      "end_us": 184691000
+    },
+    {
+      "start_us": 186737000,
+      "end_us": 187441000
+    },
+    {
+      "start_us": 190050000,
+      "end_us": 191020000
+    },
+    {
+      "start_us": 194159000,
+      "end_us": 195182000
+    },
+    {
+      "start_us": 199138000,
+      "end_us": 199984000
+    },
+    {
+      "start_us": 201049000,
+      "end_us": 201847000
+    },
+    {
+      "start_us": 207992000,
+      "end_us": 208801000
+    },
+    {
+      "start_us": 213768000,
+      "end_us": 214601000
+    },
+    {
+      "start_us": 216135000,
+      "end_us": 216880000
+    },
+    {
+      "start_us": 217906000,
+      "end_us": 218753000
+    },
+    {
+      "start_us": 223919000,
+      "end_us": 224610000
+    },
+    {
+      "start_us": 225915000,
+      "end_us": 226699000
+    },
+    {
+      "start_us": 227843000,
+      "end_us": 228504000
+    },
+    {
+      "start_us": 230218000,
+      "end_us": 231049000
+    },
+    {
+      "start_us": 234366000,
+      "end_us": 235035000
+    },
+    {
+      "start_us": 236914000,
+      "end_us": 237649000
+    },
+    {
+      "start_us": 238741000,
+      "end_us": 241175000
+    },
+    {
+      "start_us": 244556000,
+      "end_us": 245168000
+    },
+    {
+      "start_us": 246562000,
+      "end_us": 247235000
+    },
+    {
+      "start_us": 249428000,
+      "end_us": 250288000
+    },
+    {
+      "start_us": 254148000,
+      "end_us": 254962000
+    },
+    {
+      "start_us": 257161000,
+      "end_us": 257769000
+    },
+    {
+      "start_us": 262091000,
+      "end_us": 262890000
+    },
+    {
+      "start_us": 265459000,
+      "end_us": 266314000
+    },
+    {
+      "start_us": 267595000,
+      "end_us": 268436000
+    },
+    {
+      "start_us": 270513000,
+      "end_us": 271462000
+    },
+    {
+      "start_us": 274230000,
+      "end_us": 275240000
+    },
+    {
+      "start_us": 278224000,
+      "end_us": 278906000
+    },
+    {
+      "start_us": 282849000,
+      "end_us": 283617000
+    },
+    {
+      "start_us": 289036000,
+      "end_us": 289960000
+    },
+    {
+      "start_us": 295358000,
+      "end_us": 295968000
+    },
+    {
+      "start_us": 296909000,
+      "end_us": 297614000
+    },
+    {
+      "start_us": 301146000,
+      "end_us": 301879000
+    },
+    {
+      "start_us": 302870000,
+      "end_us": 303558000
+    },
+    {
+      "start_us": 306191000,
+      "end_us": 306817000
+    },
+    {
+      "start_us": 309628000,
+      "end_us": 310501000
+    },
+    {
+      "start_us": 311253000,
+      "end_us": 311939000
+    },
+    {
+      "start_us": 314607000,
+      "end_us": 315339000
+    },
+    {
+      "start_us": 320248000,
+      "end_us": 321853000
+    },
+    {
+      "start_us": 326200000,
+      "end_us": 327006000
+    },
+    {
+      "start_us": 331373000,
+      "end_us": 332141000
+    },
+    {
+      "start_us": 340124000,
+      "end_us": 342260000
+    },
+    {
+      "start_us": 342751000,
+      "end_us": 343591000
+    },
+    {
+      "start_us": 354740000,
+      "end_us": 355442000
+    },
+    {
+      "start_us": 356298000,
+      "end_us": 357025000
+    },
+    {
+      "start_us": 359614000,
+      "end_us": 361603000
+    },
+    {
+      "start_us": 367805000,
+      "end_us": 368628000
+    },
+    {
+      "start_us": 371005000,
+      "end_us": 371824000
+    },
+    {
+      "start_us": 373054000,
+      "end_us": 373721000
+    },
+    {
+      "start_us": 376060000,
+      "end_us": 377013000
+    },
+    {
+      "start_us": 379080000,
+      "end_us": 379843000
+    },
+    {
+      "start_us": 383535000,
+      "end_us": 384259000
+    },
+    {
+      "start_us": 386872000,
+      "end_us": 387691000
+    },
+    {
+      "start_us": 390058000,
+      "end_us": 390861000
+    },
+    {
+      "start_us": 393305000,
+      "end_us": 394059000
+    },
+    {
+      "start_us": 395687000,
+      "end_us": 396426000
+    },
+    {
+      "start_us": 397468000,
+      "end_us": 398611000
+    },
+    {
+      "start_us": 400326000,
+      "end_us": 401230000
+    },
+    {
+      "start_us": 401952000,
+      "end_us": 402715000
+    },
+    {
+      "start_us": 407874000,
+      "end_us": 408588000
+    },
+    {
+      "start_us": 411802000,
+      "end_us": 412668000
+    },
+    {
+      "start_us": 414747000,
+      "end_us": 415414000
+    },
+    {
+      "start_us": 416420000,
+      "end_us": 417160000
+    },
+    {
+      "start_us": 418370000,
+      "end_us": 419095000
+    },
+    {
+      "start_us": 420282000,
+      "end_us": 420894000
+    },
+    {
+      "start_us": 421917000,
+      "end_us": 422553000
+    },
+    {
+      "start_us": 424523000,
+      "end_us": 426007000
+    },
+    {
+      "start_us": 430083000,
+      "end_us": 430907000
+    },
+    {
+      "start_us": 432811000,
+      "end_us": 433524000
+    },
+    {
+      "start_us": 434599000,
+      "end_us": 435292000
+    },
+    {
+      "start_us": 440801000,
+      "end_us": 441614000
+    },
+    {
+      "start_us": 444790000,
+      "end_us": 445819000
+    },
+    {
+      "start_us": 447484000,
+      "end_us": 448155000
+    },
+    {
+      "start_us": 449898000,
+      "end_us": 450682000
+    },
+    {
+      "start_us": 453082000,
+      "end_us": 453942000
+    },
+    {
+      "start_us": 457265000,
+      "end_us": 458038000
+    },
+    {
+      "start_us": 463093000,
+      "end_us": 463772000
+    },
+    {
+      "start_us": 466534000,
+      "end_us": 467288000
+    },
+    {
+      "start_us": 469126000,
+      "end_us": 470007000
+    },
+    {
+      "start_us": 471577000,
+      "end_us": 472269000
+    },
+    {
+      "start_us": 476838000,
+      "end_us": 477585000
+    },
+    {
+      "start_us": 480577000,
+      "end_us": 481222000
+    },
+    {
+      "start_us": 485488000,
+      "end_us": 486472000
+    },
+    {
+      "start_us": 488406000,
+      "end_us": 489036000
+    },
+    {
+      "start_us": 492240000,
+      "end_us": 492889000
+    },
+    {
+      "start_us": 495405000,
+      "end_us": 497164000
+    },
+    {
+      "start_us": 501889000,
+      "end_us": 502514000
+    },
+    {
+      "start_us": 503984000,
+      "end_us": 504603000
+    },
+    {
+      "start_us": 507426000,
+      "end_us": 508118000
+    },
+    {
+      "start_us": 508939000,
+      "end_us": 509833000
+    },
+    {
+      "start_us": 513141000,
+      "end_us": 513908000
+    },
+    {
+      "start_us": 514681000,
+      "end_us": 515352000
+    },
+    {
+      "start_us": 520032000,
+      "end_us": 520673000
+    },
+    {
+      "start_us": 522849000,
+      "end_us": 523502000
+    },
+    {
+      "start_us": 526711000,
+      "end_us": 527990000
+    },
+    {
+      "start_us": 530815000,
+      "end_us": 531617000
+    },
+    {
+      "start_us": 535148000,
+      "end_us": 535966000
+    },
+    {
+      "start_us": 539145000,
+      "end_us": 539835000
+    },
+    {
+      "start_us": 541557000,
+      "end_us": 542207000
+    },
+    {
+      "start_us": 543265000,
+      "end_us": 544170000
+    },
+    {
+      "start_us": 549729000,
+      "end_us": 550377000
+    },
+    {
+      "start_us": 553038000,
+      "end_us": 555027000
+    },
+    {
+      "start_us": 559661000,
+      "end_us": 560380000
+    },
+    {
+      "start_us": 563792000,
+      "end_us": 564598000
+    },
+    {
+      "start_us": 566610000,
+      "end_us": 567414000
+    },
+    {
+      "start_us": 569622000,
+      "end_us": 570440000
+    },
+    {
+      "start_us": 573753000,
+      "end_us": 575936000
+    },
+    {
+      "start_us": 580944000,
+      "end_us": 581602000
+    },
+    {
+      "start_us": 583902000,
+      "end_us": 584656000
+    },
+    {
+      "start_us": 585145000,
+      "end_us": 585873000
+    },
+    {
+      "start_us": 586791000,
+      "end_us": 587669000
+    },
+    {
+      "start_us": 588885000,
+      "end_us": 589543000
+    },
+    {
+      "start_us": 589774000,
+      "end_us": 590661000
+    },
+    {
+      "start_us": 591383000,
+      "end_us": 592104000
+    },
+    {
+      "start_us": 596545000,
+      "end_us": 597499000
+    },
+    {
+      "start_us": 598200000,
+      "end_us": 598964000
+    },
+    {
+      "start_us": 599865000,
+      "end_us": 600714000
+    },
+    {
+      "start_us": 605398000,
+      "end_us": 606019000
+    },
+    {
+      "start_us": 607397000,
+      "end_us": 608066000
+    },
+    {
+      "start_us": 612658000,
+      "end_us": 613897000
+    },
+    {
+      "start_us": 616535000,
+      "end_us": 617362000
+    },
+    {
+      "start_us": 622919000,
+      "end_us": 623625000
+    },
+    {
+      "start_us": 626562000,
+      "end_us": 627428000
+    },
+    {
+      "start_us": 634539000,
+      "end_us": 635321000
+    },
+    {
+      "start_us": 638412000,
+      "end_us": 639122000
+    },
+    {
+      "start_us": 643749000,
+      "end_us": 644379000
+    },
+    {
+      "start_us": 644987000,
+      "end_us": 646097000
+    },
+    {
+      "start_us": 650108000,
+      "end_us": 650822000
+    },
+    {
+      "start_us": 655529000,
+      "end_us": 656328000
+    },
+    {
+      "start_us": 660232000,
+      "end_us": 661047000
+    },
+    {
+      "start_us": 665682000,
+      "end_us": 666925000
+    },
+    {
+      "start_us": 678028000,
+      "end_us": 679061000
+    },
+    {
+      "start_us": 681153000,
+      "end_us": 682038000
+    },
+    {
+      "start_us": 683682000,
+      "end_us": 684301000
+    },
+    {
+      "start_us": 687277000,
+      "end_us": 687914000
+    },
+    {
+      "start_us": 690548000,
+      "end_us": 691430000
+    },
+    {
+      "start_us": 694763000,
+      "end_us": 695401000
+    },
+    {
+      "start_us": 698588000,
+      "end_us": 699707000
+    },
+    {
+      "start_us": 701690000,
+      "end_us": 702490000
+    },
+    {
+      "start_us": 704127000,
+      "end_us": 704760000
+    },
+    {
+      "start_us": 707014000,
+      "end_us": 707670000
+    },
+    {
+      "start_us": 711844000,
+      "end_us": 712760000
+    },
+    {
+      "start_us": 714994000,
+      "end_us": 716056000
+    },
+    {
+      "start_us": 720604000,
+      "end_us": 722871000
+    },
+    {
+      "start_us": 727375000,
+      "end_us": 728110000
+    },
+    {
+      "start_us": 729508000,
+      "end_us": 730111000
+    },
+    {
+      "start_us": 732871000,
+      "end_us": 733586000
+    },
+    {
+      "start_us": 736543000,
+      "end_us": 737307000
+    },
+    {
+      "start_us": 739994000,
+      "end_us": 740698000
+    },
+    {
+      "start_us": 742706000,
+      "end_us": 743462000
+    },
+    {
+      "start_us": 746807000,
+      "end_us": 747444000
+    },
+    {
+      "start_us": 749066000,
+      "end_us": 750055000
+    },
+    {
+      "start_us": 753956000,
+      "end_us": 754625000
+    },
+    {
+      "start_us": 763361000,
+      "end_us": 764028000
+    },
+    {
+      "start_us": 768948000,
+      "end_us": 769698000
+    },
+    {
+      "start_us": 774193000,
+      "end_us": 774940000
+    },
+    {
+      "start_us": 777278000,
+      "end_us": 778258000
+    },
+    {
+      "start_us": 781820000,
+      "end_us": 782757000
+    },
+    {
+      "start_us": 783968000,
+      "end_us": 784575000
+    },
+    {
+      "start_us": 785902000,
+      "end_us": 786885000
+    },
+    {
+      "start_us": 790214000,
+      "end_us": 790948000
+    },
+    {
+      "start_us": 793209000,
+      "end_us": 793996000
+    },
+    {
+      "start_us": 798321000,
+      "end_us": 798974000
+    },
+    {
+      "start_us": 805909000,
+      "end_us": 807598000
+    },
+    {
+      "start_us": 808661000,
+      "end_us": 809583000
+    },
+    {
+      "start_us": 813873000,
+      "end_us": 814687000
+    }
+  ],
+  "ng_decisions": [
+    {
+      "start_us": 9156190,
+      "end_us": 9685250,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.83s"
+    },
+    {
+      "start_us": 11777100,
+      "end_us": 12119800,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.64s"
+    },
+    {
+      "start_us": 13829900,
+      "end_us": 14309300,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.78s"
+    },
+    {
+      "start_us": 16591900,
+      "end_us": 17157100,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.87s"
+    },
+    {
+      "start_us": 18746000,
+      "end_us": 19166200,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.72s"
+    },
+    {
+      "start_us": 22350800,
+      "end_us": 22994200,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.94s"
+    },
+    {
+      "start_us": 25435900,
+      "end_us": 26222200,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.09s"
+    },
+    {
+      "start_us": 28735100,
+      "end_us": 29068900,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.63s"
+    },
+    {
+      "start_us": 31227900,
+      "end_us": 31705600,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.78s"
+    },
+    {
+      "start_us": 34452200,
+      "end_us": 35086500,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.93s"
+    },
+    {
+      "start_us": 36933400,
+      "end_us": 37273600,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.64s"
+    },
+    {
+      "start_us": 39340800,
+      "end_us": 40192400,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.15s"
+    },
+    {
+      "start_us": 44314400,
+      "end_us": 45000000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.99s"
+    },
+    {
+      "start_us": 46398200,
+      "end_us": 46872900,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.77s"
+    },
+    {
+      "start_us": 48871000,
+      "end_us": 49295900,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.72s"
+    },
+    {
+      "start_us": 51974900,
+      "end_us": 52360400,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.69s"
+    },
+    {
+      "start_us": 54428800,
+      "end_us": 54889600,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.76s"
+    },
+    {
+      "start_us": 56296300,
+      "end_us": 57220500,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.22s"
+    },
+    {
+      "start_us": 57808300,
+      "end_us": 58249800,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.74s"
+    },
+    {
+      "start_us": 64073900,
+      "end_us": 64569800,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.80s"
+    },
+    {
+      "start_us": 72612100,
+      "end_us": 73668900,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.36s"
+    },
+    {
+      "start_us": 77500100,
+      "end_us": 78018000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.82s"
+    },
+    {
+      "start_us": 82452800,
+      "end_us": 82960100,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.81s"
+    },
+    {
+      "start_us": 85852400,
+      "end_us": 86235900,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.68s"
+    },
+    {
+      "start_us": 93582200,
+      "end_us": 93895700,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.61s"
+    },
+    {
+      "start_us": 94885600,
+      "end_us": 95423600,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.84s"
+    },
+    {
+      "start_us": 96714000,
+      "end_us": 97229800,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.82s"
+    },
+    {
+      "start_us": 98177200,
+      "end_us": 98516300,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.64s"
+    },
+    {
+      "start_us": 99960800,
+      "end_us": 100884000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.22s"
+    },
+    {
+      "start_us": 102863000,
+      "end_us": 103335000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.77s"
+    },
+    {
+      "start_us": 105779000,
+      "end_us": 106424000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.94s"
+    },
+    {
+      "start_us": 108818000,
+      "end_us": 109123000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.60s"
+    },
+    {
+      "start_us": 115635000,
+      "end_us": 116646000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.31s"
+    },
+    {
+      "start_us": 119405000,
+      "end_us": 119855000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.75s"
+    },
+    {
+      "start_us": 124337000,
+      "end_us": 124787000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.75s"
+    },
+    {
+      "start_us": 125897000,
+      "end_us": 126236000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.64s"
+    },
+    {
+      "start_us": 129046000,
+      "end_us": 129501000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.76s"
+    },
+    {
+      "start_us": 132295000,
+      "end_us": 132647000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.65s"
+    },
+    {
+      "start_us": 133984000,
+      "end_us": 134298000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.61s"
+    },
+    {
+      "start_us": 134911000,
+      "end_us": 135337000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.73s"
+    },
+    {
+      "start_us": 139610000,
+      "end_us": 140038000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.73s"
+    },
+    {
+      "start_us": 141150000,
+      "end_us": 141468000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.62s"
+    },
+    {
+      "start_us": 143283000,
+      "end_us": 143738000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.76s"
+    },
+    {
+      "start_us": 147163000,
+      "end_us": 147882000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.02s"
+    },
+    {
+      "start_us": 149974000,
+      "end_us": 150401000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.73s"
+    },
+    {
+      "start_us": 154519000,
+      "end_us": 155219000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.00s"
+    },
+    {
+      "start_us": 157575000,
+      "end_us": 157963000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.69s"
+    },
+    {
+      "start_us": 161887000,
+      "end_us": 162192000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.60s"
+    },
+    {
+      "start_us": 165871000,
+      "end_us": 166363000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.79s"
+    },
+    {
+      "start_us": 168611000,
+      "end_us": 168946000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.64s"
+    },
+    {
+      "start_us": 169619000,
+      "end_us": 169962000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.64s"
+    },
+    {
+      "start_us": 171228000,
+      "end_us": 172319000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.39s"
+    },
+    {
+      "start_us": 172619000,
+      "end_us": 173067000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.75s"
+    },
+    {
+      "start_us": 178652000,
+      "end_us": 179084000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.73s"
+    },
+    {
+      "start_us": 180778000,
+      "end_us": 181322000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.84s"
+    },
+    {
+      "start_us": 184148000,
+      "end_us": 184541000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.69s"
+    },
+    {
+      "start_us": 186887000,
+      "end_us": 187291000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.70s"
+    },
+    {
+      "start_us": 190200000,
+      "end_us": 190870000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.97s"
+    },
+    {
+      "start_us": 194309000,
+      "end_us": 195032000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.02s"
+    },
+    {
+      "start_us": 199288000,
+      "end_us": 199834000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.85s"
+    },
+    {
+      "start_us": 201199000,
+      "end_us": 201697000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.80s"
+    },
+    {
+      "start_us": 208142000,
+      "end_us": 208651000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.81s"
+    },
+    {
+      "start_us": 213918000,
+      "end_us": 214451000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.83s"
+    },
+    {
+      "start_us": 216285000,
+      "end_us": 216730000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.74s"
+    },
+    {
+      "start_us": 218056000,
+      "end_us": 218603000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.85s"
+    },
+    {
+      "start_us": 224069000,
+      "end_us": 224460000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.69s"
+    },
+    {
+      "start_us": 226065000,
+      "end_us": 226549000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.78s"
+    },
+    {
+      "start_us": 227993000,
+      "end_us": 228354000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.66s"
+    },
+    {
+      "start_us": 230368000,
+      "end_us": 230899000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.83s"
+    },
+    {
+      "start_us": 234516000,
+      "end_us": 234885000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.67s"
+    },
+    {
+      "start_us": 237064000,
+      "end_us": 237499000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.73s"
+    },
+    {
+      "start_us": 238891000,
+      "end_us": 241025000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 2.43s"
+    },
+    {
+      "start_us": 244706000,
+      "end_us": 245018000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.61s"
+    },
+    {
+      "start_us": 246712000,
+      "end_us": 247085000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.67s"
+    },
+    {
+      "start_us": 249578000,
+      "end_us": 250138000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.86s"
+    },
+    {
+      "start_us": 254298000,
+      "end_us": 254812000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.81s"
+    },
+    {
+      "start_us": 257311000,
+      "end_us": 257619000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.61s"
+    },
+    {
+      "start_us": 262241000,
+      "end_us": 262740000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.80s"
+    },
+    {
+      "start_us": 265609000,
+      "end_us": 266164000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.85s"
+    },
+    {
+      "start_us": 267745000,
+      "end_us": 268286000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.84s"
+    },
+    {
+      "start_us": 270663000,
+      "end_us": 271312000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.95s"
+    },
+    {
+      "start_us": 274380000,
+      "end_us": 275090000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.01s"
+    },
+    {
+      "start_us": 278374000,
+      "end_us": 278756000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.68s"
+    },
+    {
+      "start_us": 282999000,
+      "end_us": 283467000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.77s"
+    },
+    {
+      "start_us": 289186000,
+      "end_us": 289810000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.92s"
+    },
+    {
+      "start_us": 295508000,
+      "end_us": 295818000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.61s"
+    },
+    {
+      "start_us": 297059000,
+      "end_us": 297464000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.70s"
+    },
+    {
+      "start_us": 301296000,
+      "end_us": 301729000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.73s"
+    },
+    {
+      "start_us": 303020000,
+      "end_us": 303408000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.69s"
+    },
+    {
+      "start_us": 306341000,
+      "end_us": 306667000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.63s"
+    },
+    {
+      "start_us": 309778000,
+      "end_us": 310351000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.87s"
+    },
+    {
+      "start_us": 311403000,
+      "end_us": 311789000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.69s"
+    },
+    {
+      "start_us": 314757000,
+      "end_us": 315189000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.73s"
+    },
+    {
+      "start_us": 320398000,
+      "end_us": 321703000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.60s"
+    },
+    {
+      "start_us": 326350000,
+      "end_us": 326856000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.81s"
+    },
+    {
+      "start_us": 331523000,
+      "end_us": 331991000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.77s"
+    },
+    {
+      "start_us": 340274000,
+      "end_us": 342110000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 2.14s"
+    },
+    {
+      "start_us": 342901000,
+      "end_us": 343441000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.84s"
+    },
+    {
+      "start_us": 354890000,
+      "end_us": 355292000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.70s"
+    },
+    {
+      "start_us": 356448000,
+      "end_us": 356875000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.73s"
+    },
+    {
+      "start_us": 359764000,
+      "end_us": 361453000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.99s"
+    },
+    {
+      "start_us": 367955000,
+      "end_us": 368478000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.82s"
+    },
+    {
+      "start_us": 371155000,
+      "end_us": 371674000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.82s"
+    },
+    {
+      "start_us": 373204000,
+      "end_us": 373571000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.67s"
+    },
+    {
+      "start_us": 376210000,
+      "end_us": 376863000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.95s"
+    },
+    {
+      "start_us": 379230000,
+      "end_us": 379693000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.76s"
+    },
+    {
+      "start_us": 383685000,
+      "end_us": 384109000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.72s"
+    },
+    {
+      "start_us": 387022000,
+      "end_us": 387541000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.82s"
+    },
+    {
+      "start_us": 390208000,
+      "end_us": 390711000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.80s"
+    },
+    {
+      "start_us": 393455000,
+      "end_us": 393909000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.75s"
+    },
+    {
+      "start_us": 395837000,
+      "end_us": 396276000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.74s"
+    },
+    {
+      "start_us": 397618000,
+      "end_us": 398461000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.14s"
+    },
+    {
+      "start_us": 400476000,
+      "end_us": 401080000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.90s"
+    },
+    {
+      "start_us": 402102000,
+      "end_us": 402565000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.76s"
+    },
+    {
+      "start_us": 408024000,
+      "end_us": 408438000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.71s"
+    },
+    {
+      "start_us": 411952000,
+      "end_us": 412518000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.87s"
+    },
+    {
+      "start_us": 414897000,
+      "end_us": 415264000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.67s"
+    },
+    {
+      "start_us": 416570000,
+      "end_us": 417010000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.74s"
+    },
+    {
+      "start_us": 418520000,
+      "end_us": 418945000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.72s"
+    },
+    {
+      "start_us": 420432000,
+      "end_us": 420744000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.61s"
+    },
+    {
+      "start_us": 422067000,
+      "end_us": 422403000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.64s"
+    },
+    {
+      "start_us": 424673000,
+      "end_us": 425857000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.48s"
+    },
+    {
+      "start_us": 430233000,
+      "end_us": 430757000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.82s"
+    },
+    {
+      "start_us": 432961000,
+      "end_us": 433374000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.71s"
+    },
+    {
+      "start_us": 434749000,
+      "end_us": 435142000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.69s"
+    },
+    {
+      "start_us": 440951000,
+      "end_us": 441464000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.81s"
+    },
+    {
+      "start_us": 444940000,
+      "end_us": 445669000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.03s"
+    },
+    {
+      "start_us": 447634000,
+      "end_us": 448005000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.67s"
+    },
+    {
+      "start_us": 450048000,
+      "end_us": 450532000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.78s"
+    },
+    {
+      "start_us": 453232000,
+      "end_us": 453792000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.86s"
+    },
+    {
+      "start_us": 457415000,
+      "end_us": 457888000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.77s"
+    },
+    {
+      "start_us": 463243000,
+      "end_us": 463622000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.68s"
+    },
+    {
+      "start_us": 466684000,
+      "end_us": 467138000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.75s"
+    },
+    {
+      "start_us": 469276000,
+      "end_us": 469857000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.88s"
+    },
+    {
+      "start_us": 471727000,
+      "end_us": 472119000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.69s"
+    },
+    {
+      "start_us": 476988000,
+      "end_us": 477435000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.75s"
+    },
+    {
+      "start_us": 480727000,
+      "end_us": 481072000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.65s"
+    },
+    {
+      "start_us": 485638000,
+      "end_us": 486322000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.98s"
+    },
+    {
+      "start_us": 488556000,
+      "end_us": 488886000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.63s"
+    },
+    {
+      "start_us": 492390000,
+      "end_us": 492739000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.65s"
+    },
+    {
+      "start_us": 495555000,
+      "end_us": 497014000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.76s"
+    },
+    {
+      "start_us": 502039000,
+      "end_us": 502364000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.62s"
+    },
+    {
+      "start_us": 504134000,
+      "end_us": 504453000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.62s"
+    },
+    {
+      "start_us": 507576000,
+      "end_us": 507968000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.69s"
+    },
+    {
+      "start_us": 509089000,
+      "end_us": 509683000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.89s"
+    },
+    {
+      "start_us": 513291000,
+      "end_us": 513758000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.77s"
+    },
+    {
+      "start_us": 514831000,
+      "end_us": 515202000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.67s"
+    },
+    {
+      "start_us": 520182000,
+      "end_us": 520523000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.64s"
+    },
+    {
+      "start_us": 522999000,
+      "end_us": 523352000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.65s"
+    },
+    {
+      "start_us": 526861000,
+      "end_us": 527840000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.28s"
+    },
+    {
+      "start_us": 530965000,
+      "end_us": 531467000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.80s"
+    },
+    {
+      "start_us": 535298000,
+      "end_us": 535816000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.82s"
+    },
+    {
+      "start_us": 539295000,
+      "end_us": 539685000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.69s"
+    },
+    {
+      "start_us": 541707000,
+      "end_us": 542057000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.65s"
+    },
+    {
+      "start_us": 543415000,
+      "end_us": 544020000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.91s"
+    },
+    {
+      "start_us": 549879000,
+      "end_us": 550227000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.65s"
+    },
+    {
+      "start_us": 553188000,
+      "end_us": 554877000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.99s"
+    },
+    {
+      "start_us": 559811000,
+      "end_us": 560230000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.72s"
+    },
+    {
+      "start_us": 563942000,
+      "end_us": 564448000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.81s"
+    },
+    {
+      "start_us": 566760000,
+      "end_us": 567264000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.80s"
+    },
+    {
+      "start_us": 569772000,
+      "end_us": 570290000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.82s"
+    },
+    {
+      "start_us": 573903000,
+      "end_us": 575786000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 2.18s"
+    },
+    {
+      "start_us": 581094000,
+      "end_us": 581452000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.66s"
+    },
+    {
+      "start_us": 584052000,
+      "end_us": 584506000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.75s"
+    },
+    {
+      "start_us": 585295000,
+      "end_us": 585723000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.73s"
+    },
+    {
+      "start_us": 586941000,
+      "end_us": 587519000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.88s"
+    },
+    {
+      "start_us": 589035000,
+      "end_us": 589393000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.66s"
+    },
+    {
+      "start_us": 589924000,
+      "end_us": 590511000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.89s"
+    },
+    {
+      "start_us": 591533000,
+      "end_us": 591954000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.72s"
+    },
+    {
+      "start_us": 596695000,
+      "end_us": 597349000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.95s"
+    },
+    {
+      "start_us": 598350000,
+      "end_us": 598814000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.76s"
+    },
+    {
+      "start_us": 600015000,
+      "end_us": 600564000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.85s"
+    },
+    {
+      "start_us": 605548000,
+      "end_us": 605869000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.62s"
+    },
+    {
+      "start_us": 607547000,
+      "end_us": 607916000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.67s"
+    },
+    {
+      "start_us": 612808000,
+      "end_us": 613747000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.24s"
+    },
+    {
+      "start_us": 616685000,
+      "end_us": 617212000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.83s"
+    },
+    {
+      "start_us": 623069000,
+      "end_us": 623475000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.71s"
+    },
+    {
+      "start_us": 626712000,
+      "end_us": 627278000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.87s"
+    },
+    {
+      "start_us": 634689000,
+      "end_us": 635171000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.78s"
+    },
+    {
+      "start_us": 638562000,
+      "end_us": 638972000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.71s"
+    },
+    {
+      "start_us": 643899000,
+      "end_us": 644229000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.63s"
+    },
+    {
+      "start_us": 645137000,
+      "end_us": 645947000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.11s"
+    },
+    {
+      "start_us": 650258000,
+      "end_us": 650672000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.71s"
+    },
+    {
+      "start_us": 655679000,
+      "end_us": 656178000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.80s"
+    },
+    {
+      "start_us": 660382000,
+      "end_us": 660897000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.81s"
+    },
+    {
+      "start_us": 665832000,
+      "end_us": 666775000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.24s"
+    },
+    {
+      "start_us": 678178000,
+      "end_us": 678911000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.03s"
+    },
+    {
+      "start_us": 681303000,
+      "end_us": 681888000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.89s"
+    },
+    {
+      "start_us": 683832000,
+      "end_us": 684151000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.62s"
+    },
+    {
+      "start_us": 687427000,
+      "end_us": 687764000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.64s"
+    },
+    {
+      "start_us": 690698000,
+      "end_us": 691280000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.88s"
+    },
+    {
+      "start_us": 694913000,
+      "end_us": 695251000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.64s"
+    },
+    {
+      "start_us": 698738000,
+      "end_us": 699557000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.12s"
+    },
+    {
+      "start_us": 701840000,
+      "end_us": 702340000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.80s"
+    },
+    {
+      "start_us": 704277000,
+      "end_us": 704610000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.63s"
+    },
+    {
+      "start_us": 707164000,
+      "end_us": 707520000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.66s"
+    },
+    {
+      "start_us": 711994000,
+      "end_us": 712610000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.92s"
+    },
+    {
+      "start_us": 715144000,
+      "end_us": 715906000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.06s"
+    },
+    {
+      "start_us": 720754000,
+      "end_us": 722721000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 2.27s"
+    },
+    {
+      "start_us": 727525000,
+      "end_us": 727960000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.73s"
+    },
+    {
+      "start_us": 729658000,
+      "end_us": 729961000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.60s"
+    },
+    {
+      "start_us": 733021000,
+      "end_us": 733436000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.71s"
+    },
+    {
+      "start_us": 736693000,
+      "end_us": 737157000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.76s"
+    },
+    {
+      "start_us": 740144000,
+      "end_us": 740548000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.70s"
+    },
+    {
+      "start_us": 742856000,
+      "end_us": 743312000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.76s"
+    },
+    {
+      "start_us": 746957000,
+      "end_us": 747294000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.64s"
+    },
+    {
+      "start_us": 749216000,
+      "end_us": 749905000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.99s"
+    },
+    {
+      "start_us": 754106000,
+      "end_us": 754475000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.67s"
+    },
+    {
+      "start_us": 763511000,
+      "end_us": 763878000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.67s"
+    },
+    {
+      "start_us": 769098000,
+      "end_us": 769548000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.75s"
+    },
+    {
+      "start_us": 774343000,
+      "end_us": 774790000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.75s"
+    },
+    {
+      "start_us": 777428000,
+      "end_us": 778108000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.98s"
+    },
+    {
+      "start_us": 781970000,
+      "end_us": 782607000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.94s"
+    },
+    {
+      "start_us": 784118000,
+      "end_us": 784425000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.61s"
+    },
+    {
+      "start_us": 786052000,
+      "end_us": 786735000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.98s"
+    },
+    {
+      "start_us": 790364000,
+      "end_us": 790798000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.73s"
+    },
+    {
+      "start_us": 793359000,
+      "end_us": 793846000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.79s"
+    },
+    {
+      "start_us": 798471000,
+      "end_us": 798824000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.65s"
+    },
+    {
+      "start_us": 806059000,
+      "end_us": 807448000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 1.69s"
+    },
+    {
+      "start_us": 808811000,
+      "end_us": 809433000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.92s"
+    },
+    {
+      "start_us": 814023000,
+      "end_us": 814537000,
+      "action": "cut",
+      "reason": "silence",
+      "group_id": null,
+      "score": 0.0,
+      "note": "silence 0.81s"
+    }
+  ],
+  "edl": {
+    "source_media": "/sessions/nice-nifty-ptolemy/mnt/002_독서습관 실패한 99%의 3가지 공통점, 독서습관 실패이유/촬영자료/독서습관실패 이유3가지.mp4",
+    "entries": [
+      {
+        "source_start_us": 0,
+        "source_end_us": 9156190,
+        "timeline_start_us": 0,
+        "note": ""
+      },
+      {
+        "source_start_us": 9685250,
+        "source_end_us": 11777100,
+        "timeline_start_us": 9156190,
+        "note": ""
+      },
+      {
+        "source_start_us": 12119800,
+        "source_end_us": 13829900,
+        "timeline_start_us": 11248040,
+        "note": ""
+      },
+      {
+        "source_start_us": 14309300,
+        "source_end_us": 16591900,
+        "timeline_start_us": 12958140,
+        "note": ""
+      },
+      {
+        "source_start_us": 17157100,
+        "source_end_us": 18746000,
+        "timeline_start_us": 15240740,
+        "note": ""
+      },
+      {
+        "source_start_us": 19166200,
+        "source_end_us": 22350800,
+        "timeline_start_us": 16829640,
+        "note": ""
+      },
+      {
+        "source_start_us": 22994200,
+        "source_end_us": 25435900,
+        "timeline_start_us": 20014240,
+        "note": ""
+      },
+      {
+        "source_start_us": 26222200,
+        "source_end_us": 28735100,
+        "timeline_start_us": 22455940,
+        "note": ""
+      },
+      {
+        "source_start_us": 29068900,
+        "source_end_us": 31227900,
+        "timeline_start_us": 24968840,
+        "note": ""
+      },
+      {
+        "source_start_us": 31705600,
+        "source_end_us": 34452200,
+        "timeline_start_us": 27127840,
+        "note": ""
+      },
+      {
+        "source_start_us": 35086500,
+        "source_end_us": 36933400,
+        "timeline_start_us": 29874440,
+        "note": ""
+      },
+      {
+        "source_start_us": 37273600,
+        "source_end_us": 39340800,
+        "timeline_start_us": 31721340,
+        "note": ""
+      },
+      {
+        "source_start_us": 40192400,
+        "source_end_us": 44314400,
+        "timeline_start_us": 33788540,
+        "note": ""
+      },
+      {
+        "source_start_us": 45000000,
+        "source_end_us": 46398200,
+        "timeline_start_us": 37910540,
+        "note": ""
+      },
+      {
+        "source_start_us": 46872900,
+        "source_end_us": 48871000,
+        "timeline_start_us": 39308740,
+        "note": ""
+      },
+      {
+        "source_start_us": 49295900,
+        "source_end_us": 51974900,
+        "timeline_start_us": 41306840,
+        "note": ""
+      },
+      {
+        "source_start_us": 52360400,
+        "source_end_us": 54428800,
+        "timeline_start_us": 43985840,
+        "note": ""
+      },
+      {
+        "source_start_us": 54889600,
+        "source_end_us": 56296300,
+        "timeline_start_us": 46054240,
+        "note": ""
+      },
+      {
+        "source_start_us": 57220500,
+        "source_end_us": 57808300,
+        "timeline_start_us": 47460940,
+        "note": ""
+      },
+      {
+        "source_start_us": 58249800,
+        "source_end_us": 64073900,
+        "timeline_start_us": 48048740,
+        "note": ""
+      },
+      {
+        "source_start_us": 64569800,
+        "source_end_us": 72612100,
+        "timeline_start_us": 53872840,
+        "note": ""
+      },
+      {
+        "source_start_us": 73668900,
+        "source_end_us": 77500100,
+        "timeline_start_us": 61915140,
+        "note": ""
+      },
+      {
+        "source_start_us": 78018000,
+        "source_end_us": 82452800,
+        "timeline_start_us": 65746340,
+        "note": ""
+      },
+      {
+        "source_start_us": 82960100,
+        "source_end_us": 85852400,
+        "timeline_start_us": 70181140,
+        "note": ""
+      },
+      {
+        "source_start_us": 86235900,
+        "source_end_us": 93582200,
+        "timeline_start_us": 73073440,
+        "note": ""
+      },
+      {
+        "source_start_us": 93895700,
+        "source_end_us": 94885600,
+        "timeline_start_us": 80419740,
+        "note": ""
+      },
+      {
+        "source_start_us": 95423600,
+        "source_end_us": 96714000,
+        "timeline_start_us": 81409640,
+        "note": ""
+      },
+      {
+        "source_start_us": 97229800,
+        "source_end_us": 98177200,
+        "timeline_start_us": 82700040,
+        "note": ""
+      },
+      {
+        "source_start_us": 98516300,
+        "source_end_us": 99960800,
+        "timeline_start_us": 83647440,
+        "note": ""
+      },
+      {
+        "source_start_us": 100884000,
+        "source_end_us": 102863000,
+        "timeline_start_us": 85091940,
+        "note": ""
+      },
+      {
+        "source_start_us": 103335000,
+        "source_end_us": 105779000,
+        "timeline_start_us": 87070940,
+        "note": ""
+      },
+      {
+        "source_start_us": 106424000,
+        "source_end_us": 108818000,
+        "timeline_start_us": 89514940,
+        "note": ""
+      },
+      {
+        "source_start_us": 109123000,
+        "source_end_us": 115635000,
+        "timeline_start_us": 91908940,
+        "note": ""
+      },
+      {
+        "source_start_us": 116646000,
+        "source_end_us": 119405000,
+        "timeline_start_us": 98420940,
+        "note": ""
+      },
+      {
+        "source_start_us": 119855000,
+        "source_end_us": 124337000,
+        "timeline_start_us": 101179940,
+        "note": ""
+      },
+      {
+        "source_start_us": 124787000,
+        "source_end_us": 125897000,
+        "timeline_start_us": 105661940,
+        "note": ""
+      },
+      {
+        "source_start_us": 126236000,
+        "source_end_us": 129046000,
+        "timeline_start_us": 106771940,
+        "note": ""
+      },
+      {
+        "source_start_us": 129501000,
+        "source_end_us": 132295000,
+        "timeline_start_us": 109581940,
+        "note": ""
+      },
+      {
+        "source_start_us": 132647000,
+        "source_end_us": 133984000,
+        "timeline_start_us": 112375940,
+        "note": ""
+      },
+      {
+        "source_start_us": 134298000,
+        "source_end_us": 134911000,
+        "timeline_start_us": 113712940,
+        "note": ""
+      },
+      {
+        "source_start_us": 135337000,
+        "source_end_us": 139610000,
+        "timeline_start_us": 114325940,
+        "note": ""
+      },
+      {
+        "source_start_us": 140038000,
+        "source_end_us": 141150000,
+        "timeline_start_us": 118598940,
+        "note": ""
+      },
+      {
+        "source_start_us": 141468000,
+        "source_end_us": 143283000,
+        "timeline_start_us": 119710940,
+        "note": ""
+      },
+      {
+        "source_start_us": 143738000,
+        "source_end_us": 147163000,
+        "timeline_start_us": 121525940,
+        "note": ""
+      },
+      {
+        "source_start_us": 147882000,
+        "source_end_us": 149974000,
+        "timeline_start_us": 124950940,
+        "note": ""
+      },
+      {
+        "source_start_us": 150401000,
+        "source_end_us": 154519000,
+        "timeline_start_us": 127042940,
+        "note": ""
+      },
+      {
+        "source_start_us": 155219000,
+        "source_end_us": 157575000,
+        "timeline_start_us": 131160940,
+        "note": ""
+      },
+      {
+        "source_start_us": 157963000,
+        "source_end_us": 161887000,
+        "timeline_start_us": 133516940,
+        "note": ""
+      },
+      {
+        "source_start_us": 162192000,
+        "source_end_us": 165871000,
+        "timeline_start_us": 137440940,
+        "note": ""
+      },
+      {
+        "source_start_us": 166363000,
+        "source_end_us": 168611000,
+        "timeline_start_us": 141119940,
+        "note": ""
+      },
+      {
+        "source_start_us": 168946000,
+        "source_end_us": 169619000,
+        "timeline_start_us": 143367940,
+        "note": ""
+      },
+      {
+        "source_start_us": 169962000,
+        "source_end_us": 171228000,
+        "timeline_start_us": 144040940,
+        "note": ""
+      },
+      {
+        "source_start_us": 172319000,
+        "source_end_us": 172619000,
+        "timeline_start_us": 145306940,
+        "note": ""
+      },
+      {
+        "source_start_us": 173067000,
+        "source_end_us": 178652000,
+        "timeline_start_us": 145606940,
+        "note": ""
+      },
+      {
+        "source_start_us": 179084000,
+        "source_end_us": 180778000,
+        "timeline_start_us": 151191940,
+        "note": ""
+      },
+      {
+        "source_start_us": 181322000,
+        "source_end_us": 184148000,
+        "timeline_start_us": 152885940,
+        "note": ""
+      },
+      {
+        "source_start_us": 184541000,
+        "source_end_us": 186887000,
+        "timeline_start_us": 155711940,
+        "note": ""
+      },
+      {
+        "source_start_us": 187291000,
+        "source_end_us": 190200000,
+        "timeline_start_us": 158057940,
+        "note": ""
+      },
+      {
+        "source_start_us": 190870000,
+        "source_end_us": 194309000,
+        "timeline_start_us": 160966940,
+        "note": ""
+      },
+      {
+        "source_start_us": 195032000,
+        "source_end_us": 199288000,
+        "timeline_start_us": 164405940,
+        "note": ""
+      },
+      {
+        "source_start_us": 199834000,
+        "source_end_us": 201199000,
+        "timeline_start_us": 168661940,
+        "note": ""
+      },
+      {
+        "source_start_us": 201697000,
+        "source_end_us": 208142000,
+        "timeline_start_us": 170026940,
+        "note": ""
+      },
+      {
+        "source_start_us": 208651000,
+        "source_end_us": 213918000,
+        "timeline_start_us": 176471940,
+        "note": ""
+      },
+      {
+        "source_start_us": 214451000,
+        "source_end_us": 216285000,
+        "timeline_start_us": 181738940,
+        "note": ""
+      },
+      {
+        "source_start_us": 216730000,
+        "source_end_us": 218056000,
+        "timeline_start_us": 183572940,
+        "note": ""
+      },
+      {
+        "source_start_us": 218603000,
+        "source_end_us": 224069000,
+        "timeline_start_us": 184898940,
+        "note": ""
+      },
+      {
+        "source_start_us": 224460000,
+        "source_end_us": 226065000,
+        "timeline_start_us": 190364940,
+        "note": ""
+      },
+      {
+        "source_start_us": 226549000,
+        "source_end_us": 227993000,
+        "timeline_start_us": 191969940,
+        "note": ""
+      },
+      {
+        "source_start_us": 228354000,
+        "source_end_us": 230368000,
+        "timeline_start_us": 193413940,
+        "note": ""
+      },
+      {
+        "source_start_us": 230899000,
+        "source_end_us": 234516000,
+        "timeline_start_us": 195427940,
+        "note": ""
+      },
+      {
+        "source_start_us": 234885000,
+        "source_end_us": 237064000,
+        "timeline_start_us": 199044940,
+        "note": ""
+      },
+      {
+        "source_start_us": 237499000,
+        "source_end_us": 238891000,
+        "timeline_start_us": 201223940,
+        "note": ""
+      },
+      {
+        "source_start_us": 241025000,
+        "source_end_us": 244706000,
+        "timeline_start_us": 202615940,
+        "note": ""
+      },
+      {
+        "source_start_us": 245018000,
+        "source_end_us": 246712000,
+        "timeline_start_us": 206296940,
+        "note": ""
+      },
+      {
+        "source_start_us": 247085000,
+        "source_end_us": 249578000,
+        "timeline_start_us": 207990940,
+        "note": ""
+      },
+      {
+        "source_start_us": 250138000,
+        "source_end_us": 254298000,
+        "timeline_start_us": 210483940,
+        "note": ""
+      },
+      {
+        "source_start_us": 254812000,
+        "source_end_us": 257311000,
+        "timeline_start_us": 214643940,
+        "note": ""
+      },
+      {
+        "source_start_us": 257619000,
+        "source_end_us": 262241000,
+        "timeline_start_us": 217142940,
+        "note": ""
+      },
+      {
+        "source_start_us": 262740000,
+        "source_end_us": 265609000,
+        "timeline_start_us": 221764940,
+        "note": ""
+      },
+      {
+        "source_start_us": 266164000,
+        "source_end_us": 267745000,
+        "timeline_start_us": 224633940,
+        "note": ""
+      },
+      {
+        "source_start_us": 268286000,
+        "source_end_us": 270663000,
+        "timeline_start_us": 226214940,
+        "note": ""
+      },
+      {
+        "source_start_us": 271312000,
+        "source_end_us": 274380000,
+        "timeline_start_us": 228591940,
+        "note": ""
+      },
+      {
+        "source_start_us": 275090000,
+        "source_end_us": 278374000,
+        "timeline_start_us": 231659940,
+        "note": ""
+      },
+      {
+        "source_start_us": 278756000,
+        "source_end_us": 282999000,
+        "timeline_start_us": 234943940,
+        "note": ""
+      },
+      {
+        "source_start_us": 283467000,
+        "source_end_us": 289186000,
+        "timeline_start_us": 239186940,
+        "note": ""
+      },
+      {
+        "source_start_us": 289810000,
+        "source_end_us": 295508000,
+        "timeline_start_us": 244905940,
+        "note": ""
+      },
+      {
+        "source_start_us": 295818000,
+        "source_end_us": 297059000,
+        "timeline_start_us": 250603940,
+        "note": ""
+      },
+      {
+        "source_start_us": 297464000,
+        "source_end_us": 301296000,
+        "timeline_start_us": 251844940,
+        "note": ""
+      },
+      {
+        "source_start_us": 301729000,
+        "source_end_us": 303020000,
+        "timeline_start_us": 255676940,
+        "note": ""
+      },
+      {
+        "source_start_us": 303408000,
+        "source_end_us": 306341000,
+        "timeline_start_us": 256967940,
+        "note": ""
+      },
+      {
+        "source_start_us": 306667000,
+        "source_end_us": 309778000,
+        "timeline_start_us": 259900940,
+        "note": ""
+      },
+      {
+        "source_start_us": 310351000,
+        "source_end_us": 311403000,
+        "timeline_start_us": 263011940,
+        "note": ""
+      },
+      {
+        "source_start_us": 311789000,
+        "source_end_us": 314757000,
+        "timeline_start_us": 264063940,
+        "note": ""
+      },
+      {
+        "source_start_us": 315189000,
+        "source_end_us": 320398000,
+        "timeline_start_us": 267031940,
+        "note": ""
+      },
+      {
+        "source_start_us": 321703000,
+        "source_end_us": 326350000,
+        "timeline_start_us": 272240940,
+        "note": ""
+      },
+      {
+        "source_start_us": 326856000,
+        "source_end_us": 331523000,
+        "timeline_start_us": 276887940,
+        "note": ""
+      },
+      {
+        "source_start_us": 331991000,
+        "source_end_us": 340274000,
+        "timeline_start_us": 281554940,
+        "note": ""
+      },
+      {
+        "source_start_us": 342110000,
+        "source_end_us": 342901000,
+        "timeline_start_us": 289837940,
+        "note": ""
+      },
+      {
+        "source_start_us": 343441000,
+        "source_end_us": 354890000,
+        "timeline_start_us": 290628940,
+        "note": ""
+      },
+      {
+        "source_start_us": 355292000,
+        "source_end_us": 356448000,
+        "timeline_start_us": 302077940,
+        "note": ""
+      },
+      {
+        "source_start_us": 356875000,
+        "source_end_us": 359764000,
+        "timeline_start_us": 303233940,
+        "note": ""
+      },
+      {
+        "source_start_us": 361453000,
+        "source_end_us": 367955000,
+        "timeline_start_us": 306122940,
+        "note": ""
+      },
+      {
+        "source_start_us": 368478000,
+        "source_end_us": 371155000,
+        "timeline_start_us": 312624940,
+        "note": ""
+      },
+      {
+        "source_start_us": 371674000,
+        "source_end_us": 373204000,
+        "timeline_start_us": 315301940,
+        "note": ""
+      },
+      {
+        "source_start_us": 373571000,
+        "source_end_us": 376210000,
+        "timeline_start_us": 316831940,
+        "note": ""
+      },
+      {
+        "source_start_us": 376863000,
+        "source_end_us": 379230000,
+        "timeline_start_us": 319470940,
+        "note": ""
+      },
+      {
+        "source_start_us": 379693000,
+        "source_end_us": 383685000,
+        "timeline_start_us": 321837940,
+        "note": ""
+      },
+      {
+        "source_start_us": 384109000,
+        "source_end_us": 387022000,
+        "timeline_start_us": 325829940,
+        "note": ""
+      },
+      {
+        "source_start_us": 387541000,
+        "source_end_us": 390208000,
+        "timeline_start_us": 328742940,
+        "note": ""
+      },
+      {
+        "source_start_us": 390711000,
+        "source_end_us": 393455000,
+        "timeline_start_us": 331409940,
+        "note": ""
+      },
+      {
+        "source_start_us": 393909000,
+        "source_end_us": 395837000,
+        "timeline_start_us": 334153940,
+        "note": ""
+      },
+      {
+        "source_start_us": 396276000,
+        "source_end_us": 397618000,
+        "timeline_start_us": 336081940,
+        "note": ""
+      },
+      {
+        "source_start_us": 398461000,
+        "source_end_us": 400476000,
+        "timeline_start_us": 337423940,
+        "note": ""
+      },
+      {
+        "source_start_us": 401080000,
+        "source_end_us": 402102000,
+        "timeline_start_us": 339438940,
+        "note": ""
+      },
+      {
+        "source_start_us": 402565000,
+        "source_end_us": 408024000,
+        "timeline_start_us": 340460940,
+        "note": ""
+      },
+      {
+        "source_start_us": 408438000,
+        "source_end_us": 411952000,
+        "timeline_start_us": 345919940,
+        "note": ""
+      },
+      {
+        "source_start_us": 412518000,
+        "source_end_us": 414897000,
+        "timeline_start_us": 349433940,
+        "note": ""
+      },
+      {
+        "source_start_us": 415264000,
+        "source_end_us": 416570000,
+        "timeline_start_us": 351812940,
+        "note": ""
+      },
+      {
+        "source_start_us": 417010000,
+        "source_end_us": 418520000,
+        "timeline_start_us": 353118940,
+        "note": ""
+      },
+      {
+        "source_start_us": 418945000,
+        "source_end_us": 420432000,
+        "timeline_start_us": 354628940,
+        "note": ""
+      },
+      {
+        "source_start_us": 420744000,
+        "source_end_us": 422067000,
+        "timeline_start_us": 356115940,
+        "note": ""
+      },
+      {
+        "source_start_us": 422403000,
+        "source_end_us": 424673000,
+        "timeline_start_us": 357438940,
+        "note": ""
+      },
+      {
+        "source_start_us": 425857000,
+        "source_end_us": 430233000,
+        "timeline_start_us": 359708940,
+        "note": ""
+      },
+      {
+        "source_start_us": 430757000,
+        "source_end_us": 432961000,
+        "timeline_start_us": 364084940,
+        "note": ""
+      },
+      {
+        "source_start_us": 433374000,
+        "source_end_us": 434749000,
+        "timeline_start_us": 366288940,
+        "note": ""
+      },
+      {
+        "source_start_us": 435142000,
+        "source_end_us": 440951000,
+        "timeline_start_us": 367663940,
+        "note": ""
+      },
+      {
+        "source_start_us": 441464000,
+        "source_end_us": 444940000,
+        "timeline_start_us": 373472940,
+        "note": ""
+      },
+      {
+        "source_start_us": 445669000,
+        "source_end_us": 447634000,
+        "timeline_start_us": 376948940,
+        "note": ""
+      },
+      {
+        "source_start_us": 448005000,
+        "source_end_us": 450048000,
+        "timeline_start_us": 378913940,
+        "note": ""
+      },
+      {
+        "source_start_us": 450532000,
+        "source_end_us": 453232000,
+        "timeline_start_us": 380956940,
+        "note": ""
+      },
+      {
+        "source_start_us": 453792000,
+        "source_end_us": 457415000,
+        "timeline_start_us": 383656940,
+        "note": ""
+      },
+      {
+        "source_start_us": 457888000,
+        "source_end_us": 463243000,
+        "timeline_start_us": 387279940,
+        "note": ""
+      },
+      {
+        "source_start_us": 463622000,
+        "source_end_us": 466684000,
+        "timeline_start_us": 392634940,
+        "note": ""
+      },
+      {
+        "source_start_us": 467138000,
+        "source_end_us": 469276000,
+        "timeline_start_us": 395696940,
+        "note": ""
+      },
+      {
+        "source_start_us": 469857000,
+        "source_end_us": 471727000,
+        "timeline_start_us": 397834940,
+        "note": ""
+      },
+      {
+        "source_start_us": 472119000,
+        "source_end_us": 476988000,
+        "timeline_start_us": 399704940,
+        "note": ""
+      },
+      {
+        "source_start_us": 477435000,
+        "source_end_us": 480727000,
+        "timeline_start_us": 404573940,
+        "note": ""
+      },
+      {
+        "source_start_us": 481072000,
+        "source_end_us": 485638000,
+        "timeline_start_us": 407865940,
+        "note": ""
+      },
+      {
+        "source_start_us": 486322000,
+        "source_end_us": 488556000,
+        "timeline_start_us": 412431940,
+        "note": ""
+      },
+      {
+        "source_start_us": 488886000,
+        "source_end_us": 492390000,
+        "timeline_start_us": 414665940,
+        "note": ""
+      },
+      {
+        "source_start_us": 492739000,
+        "source_end_us": 495555000,
+        "timeline_start_us": 418169940,
+        "note": ""
+      },
+      {
+        "source_start_us": 497014000,
+        "source_end_us": 502039000,
+        "timeline_start_us": 420985940,
+        "note": ""
+      },
+      {
+        "source_start_us": 502364000,
+        "source_end_us": 504134000,
+        "timeline_start_us": 426010940,
+        "note": ""
+      },
+      {
+        "source_start_us": 504453000,
+        "source_end_us": 507576000,
+        "timeline_start_us": 427780940,
+        "note": ""
+      },
+      {
+        "source_start_us": 507968000,
+        "source_end_us": 509089000,
+        "timeline_start_us": 430903940,
+        "note": ""
+      },
+      {
+        "source_start_us": 509683000,
+        "source_end_us": 513291000,
+        "timeline_start_us": 432024940,
+        "note": ""
+      },
+      {
+        "source_start_us": 513758000,
+        "source_end_us": 514831000,
+        "timeline_start_us": 435632940,
+        "note": ""
+      },
+      {
+        "source_start_us": 515202000,
+        "source_end_us": 520182000,
+        "timeline_start_us": 436705940,
+        "note": ""
+      },
+      {
+        "source_start_us": 520523000,
+        "source_end_us": 522999000,
+        "timeline_start_us": 441685940,
+        "note": ""
+      },
+      {
+        "source_start_us": 523352000,
+        "source_end_us": 526861000,
+        "timeline_start_us": 444161940,
+        "note": ""
+      },
+      {
+        "source_start_us": 527840000,
+        "source_end_us": 530965000,
+        "timeline_start_us": 447670940,
+        "note": ""
+      },
+      {
+        "source_start_us": 531467000,
+        "source_end_us": 535298000,
+        "timeline_start_us": 450795940,
+        "note": ""
+      },
+      {
+        "source_start_us": 535816000,
+        "source_end_us": 539295000,
+        "timeline_start_us": 454626940,
+        "note": ""
+      },
+      {
+        "source_start_us": 539685000,
+        "source_end_us": 541707000,
+        "timeline_start_us": 458105940,
+        "note": ""
+      },
+      {
+        "source_start_us": 542057000,
+        "source_end_us": 543415000,
+        "timeline_start_us": 460127940,
+        "note": ""
+      },
+      {
+        "source_start_us": 544020000,
+        "source_end_us": 549879000,
+        "timeline_start_us": 461485940,
+        "note": ""
+      },
+      {
+        "source_start_us": 550227000,
+        "source_end_us": 553188000,
+        "timeline_start_us": 467344940,
+        "note": ""
+      },
+      {
+        "source_start_us": 554877000,
+        "source_end_us": 559811000,
+        "timeline_start_us": 470305940,
+        "note": ""
+      },
+      {
+        "source_start_us": 560230000,
+        "source_end_us": 563942000,
+        "timeline_start_us": 475239940,
+        "note": ""
+      },
+      {
+        "source_start_us": 564448000,
+        "source_end_us": 566760000,
+        "timeline_start_us": 478951940,
+        "note": ""
+      },
+      {
+        "source_start_us": 567264000,
+        "source_end_us": 569772000,
+        "timeline_start_us": 481263940,
+        "note": ""
+      },
+      {
+        "source_start_us": 570290000,
+        "source_end_us": 573903000,
+        "timeline_start_us": 483771940,
+        "note": ""
+      },
+      {
+        "source_start_us": 575786000,
+        "source_end_us": 581094000,
+        "timeline_start_us": 487384940,
+        "note": ""
+      },
+      {
+        "source_start_us": 581452000,
+        "source_end_us": 584052000,
+        "timeline_start_us": 492692940,
+        "note": ""
+      },
+      {
+        "source_start_us": 584506000,
+        "source_end_us": 585295000,
+        "timeline_start_us": 495292940,
+        "note": ""
+      },
+      {
+        "source_start_us": 585723000,
+        "source_end_us": 586941000,
+        "timeline_start_us": 496081940,
+        "note": ""
+      },
+      {
+        "source_start_us": 587519000,
+        "source_end_us": 589035000,
+        "timeline_start_us": 497299940,
+        "note": ""
+      },
+      {
+        "source_start_us": 589393000,
+        "source_end_us": 589924000,
+        "timeline_start_us": 498815940,
+        "note": ""
+      },
+      {
+        "source_start_us": 590511000,
+        "source_end_us": 591533000,
+        "timeline_start_us": 499346940,
+        "note": ""
+      },
+      {
+        "source_start_us": 591954000,
+        "source_end_us": 596695000,
+        "timeline_start_us": 500368940,
+        "note": ""
+      },
+      {
+        "source_start_us": 597349000,
+        "source_end_us": 598350000,
+        "timeline_start_us": 505109940,
+        "note": ""
+      },
+      {
+        "source_start_us": 598814000,
+        "source_end_us": 600015000,
+        "timeline_start_us": 506110940,
+        "note": ""
+      },
+      {
+        "source_start_us": 600564000,
+        "source_end_us": 605548000,
+        "timeline_start_us": 507311940,
+        "note": ""
+      },
+      {
+        "source_start_us": 605869000,
+        "source_end_us": 607547000,
+        "timeline_start_us": 512295940,
+        "note": ""
+      },
+      {
+        "source_start_us": 607916000,
+        "source_end_us": 612808000,
+        "timeline_start_us": 513973940,
+        "note": ""
+      },
+      {
+        "source_start_us": 613747000,
+        "source_end_us": 616685000,
+        "timeline_start_us": 518865940,
+        "note": ""
+      },
+      {
+        "source_start_us": 617212000,
+        "source_end_us": 623069000,
+        "timeline_start_us": 521803940,
+        "note": ""
+      },
+      {
+        "source_start_us": 623475000,
+        "source_end_us": 626712000,
+        "timeline_start_us": 527660940,
+        "note": ""
+      },
+      {
+        "source_start_us": 627278000,
+        "source_end_us": 634689000,
+        "timeline_start_us": 530897940,
+        "note": ""
+      },
+      {
+        "source_start_us": 635171000,
+        "source_end_us": 638562000,
+        "timeline_start_us": 538308940,
+        "note": ""
+      },
+      {
+        "source_start_us": 638972000,
+        "source_end_us": 643899000,
+        "timeline_start_us": 541699940,
+        "note": ""
+      },
+      {
+        "source_start_us": 644229000,
+        "source_end_us": 645137000,
+        "timeline_start_us": 546626940,
+        "note": ""
+      },
+      {
+        "source_start_us": 645947000,
+        "source_end_us": 650258000,
+        "timeline_start_us": 547534940,
+        "note": ""
+      },
+      {
+        "source_start_us": 650672000,
+        "source_end_us": 655679000,
+        "timeline_start_us": 551845940,
+        "note": ""
+      },
+      {
+        "source_start_us": 656178000,
+        "source_end_us": 660382000,
+        "timeline_start_us": 556852940,
+        "note": ""
+      },
+      {
+        "source_start_us": 660897000,
+        "source_end_us": 665832000,
+        "timeline_start_us": 561056940,
+        "note": ""
+      },
+      {
+        "source_start_us": 666775000,
+        "source_end_us": 678178000,
+        "timeline_start_us": 565991940,
+        "note": ""
+      },
+      {
+        "source_start_us": 678911000,
+        "source_end_us": 681303000,
+        "timeline_start_us": 577394940,
+        "note": ""
+      },
+      {
+        "source_start_us": 681888000,
+        "source_end_us": 683832000,
+        "timeline_start_us": 579786940,
+        "note": ""
+      },
+      {
+        "source_start_us": 684151000,
+        "source_end_us": 687427000,
+        "timeline_start_us": 581730940,
+        "note": ""
+      },
+      {
+        "source_start_us": 687764000,
+        "source_end_us": 690698000,
+        "timeline_start_us": 585006940,
+        "note": ""
+      },
+      {
+        "source_start_us": 691280000,
+        "source_end_us": 694913000,
+        "timeline_start_us": 587940940,
+        "note": ""
+      },
+      {
+        "source_start_us": 695251000,
+        "source_end_us": 698738000,
+        "timeline_start_us": 591573940,
+        "note": ""
+      },
+      {
+        "source_start_us": 699557000,
+        "source_end_us": 701840000,
+        "timeline_start_us": 595060940,
+        "note": ""
+      },
+      {
+        "source_start_us": 702340000,
+        "source_end_us": 704277000,
+        "timeline_start_us": 597343940,
+        "note": ""
+      },
+      {
+        "source_start_us": 704610000,
+        "source_end_us": 707164000,
+        "timeline_start_us": 599280940,
+        "note": ""
+      },
+      {
+        "source_start_us": 707520000,
+        "source_end_us": 711994000,
+        "timeline_start_us": 601834940,
+        "note": ""
+      },
+      {
+        "source_start_us": 712610000,
+        "source_end_us": 715144000,
+        "timeline_start_us": 606308940,
+        "note": ""
+      },
+      {
+        "source_start_us": 715906000,
+        "source_end_us": 720754000,
+        "timeline_start_us": 608842940,
+        "note": ""
+      },
+      {
+        "source_start_us": 722721000,
+        "source_end_us": 727525000,
+        "timeline_start_us": 613690940,
+        "note": ""
+      },
+      {
+        "source_start_us": 727960000,
+        "source_end_us": 729658000,
+        "timeline_start_us": 618494940,
+        "note": ""
+      },
+      {
+        "source_start_us": 729961000,
+        "source_end_us": 733021000,
+        "timeline_start_us": 620192940,
+        "note": ""
+      },
+      {
+        "source_start_us": 733436000,
+        "source_end_us": 736693000,
+        "timeline_start_us": 623252940,
+        "note": ""
+      },
+      {
+        "source_start_us": 737157000,
+        "source_end_us": 740144000,
+        "timeline_start_us": 626509940,
+        "note": ""
+      },
+      {
+        "source_start_us": 740548000,
+        "source_end_us": 742856000,
+        "timeline_start_us": 629496940,
+        "note": ""
+      },
+      {
+        "source_start_us": 743312000,
+        "source_end_us": 746957000,
+        "timeline_start_us": 631804940,
+        "note": ""
+      },
+      {
+        "source_start_us": 747294000,
+        "source_end_us": 749216000,
+        "timeline_start_us": 635449940,
+        "note": ""
+      },
+      {
+        "source_start_us": 749905000,
+        "source_end_us": 754106000,
+        "timeline_start_us": 637371940,
+        "note": ""
+      },
+      {
+        "source_start_us": 754475000,
+        "source_end_us": 763511000,
+        "timeline_start_us": 641572940,
+        "note": ""
+      },
+      {
+        "source_start_us": 763878000,
+        "source_end_us": 769098000,
+        "timeline_start_us": 650608940,
+        "note": ""
+      },
+      {
+        "source_start_us": 769548000,
+        "source_end_us": 774343000,
+        "timeline_start_us": 655828940,
+        "note": ""
+      },
+      {
+        "source_start_us": 774790000,
+        "source_end_us": 777428000,
+        "timeline_start_us": 660623940,
+        "note": ""
+      },
+      {
+        "source_start_us": 778108000,
+        "source_end_us": 781970000,
+        "timeline_start_us": 663261940,
+        "note": ""
+      },
+      {
+        "source_start_us": 782607000,
+        "source_end_us": 784118000,
+        "timeline_start_us": 667123940,
+        "note": ""
+      },
+      {
+        "source_start_us": 784425000,
+        "source_end_us": 786052000,
+        "timeline_start_us": 668634940,
+        "note": ""
+      },
+      {
+        "source_start_us": 786735000,
+        "source_end_us": 790364000,
+        "timeline_start_us": 670261940,
+        "note": ""
+      },
+      {
+        "source_start_us": 790798000,
+        "source_end_us": 793359000,
+        "timeline_start_us": 673890940,
+        "note": ""
+      },
+      {
+        "source_start_us": 793846000,
+        "source_end_us": 798471000,
+        "timeline_start_us": 676451940,
+        "note": ""
+      },
+      {
+        "source_start_us": 798824000,
+        "source_end_us": 806059000,
+        "timeline_start_us": 681076940,
+        "note": ""
+      },
+      {
+        "source_start_us": 807448000,
+        "source_end_us": 808811000,
+        "timeline_start_us": 688311940,
+        "note": ""
+      },
+      {
+        "source_start_us": 809433000,
+        "source_end_us": 814023000,
+        "timeline_start_us": 689674940,
+        "note": ""
+      },
+      {
+        "source_start_us": 814537000,
+        "source_end_us": 818575000,
+        "timeline_start_us": 694264940,
+        "note": ""
+      }
+    ]
+  },
+  "draft_dir": null,
+  "subtitles": [],
+  "sections": [],
+  "recommendations": [],
+  "stages": {
+    "ingest": "done",
+    "silence": "done",
+    "cutplan": "done"
+  }
+}

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>도입부 분석 — 내성적인 건물주 / 몸값 올리는 독서법</title>
+<style>
+  :root{
+    --bg:#0f1222; --panel:#ffffff; --ink:#1f2430; --muted:#6b7280; --line:#e7e9f0;
+    --brand:#4f46e5; --brand2:#7c3aed; --accent:#0ea5e9;
+    --ok:#16a34a; --warn:#d97706; --bad:#dc2626; --na:#9ca3af;
+    --soft:#f5f6fb; --chip:#eef0fb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  /* header */
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);
+    color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:27px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);
+    padding:5px 11px;border-radius:999px;font-size:12.5px;backdrop-filter:blur(4px)}
+  .chip a{color:#fff;text-decoration:underline;text-underline-offset:2px}
+  /* sections */
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;
+    color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;
+    background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  /* summary grid */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}
+  .card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);
+    border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{--p:90;flex:0 0 auto;width:104px;height:104px;border-radius:50%;
+    background:conic-gradient(var(--ok) calc(var(--p)*1%), #e5e7eb 0);
+    display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}
+  .score-ring .num b{font-size:30px;font-weight:800;color:#111}
+  .score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--ok)}
+  .verdict .vtxt{flex:1;min-width:220px}
+  .verdict .vtxt h3{margin:0 0 4px;font-size:18px}
+  .verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  /* score rows */
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;
+    padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}
+  .srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}
+  .bar > i{display:block;height:100%;border-radius:6px}
+  .b-ok > i{background:linear-gradient(90deg,#22c55e,#16a34a)}
+  .b-warn > i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}
+  .badge{font-size:15px;text-align:center}
+  /* table */
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase;letter-spacing:.03em;position:sticky}
+  td .tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;margin:2px 3px 0 0;
+    background:var(--chip);color:#4338ca;border:1px solid #e0e7ff;white-space:nowrap}
+  .seen{color:var(--ok);font-weight:700}
+  .unseen{color:var(--na);font-weight:700}
+  .cut{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px;background:#111827;color:#fff}
+  /* flow */
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .step b{color:var(--brand)}
+  .arrow{color:#c4b5fd;font-weight:800}
+  .step.hook{border-color:#fbbf24;background:#fffbeb}
+  .step.turn{border-color:#34d399;background:#ecfdf5}
+  /* transcript */
+  .scriptlist{margin:0;padding:0;list-style:none}
+  .scriptlist li{display:flex;gap:12px;padding:7px 0;border-bottom:1px solid #f1f2f7}
+  .scriptlist li:last-child{border-bottom:0}
+  .scriptlist .tt{flex:0 0 46px}
+  .fn{display:inline-block;font-size:11px;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;
+    border-radius:6px;padding:1px 7px;margin-left:6px;font-weight:600}
+  /* columns */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}
+  ul.tight li{margin:5px 0;font-size:13.5px}
+  .pill-ok{color:var(--ok);font-weight:700}
+  .pill-bad{color:var(--bad);font-weight:700}
+  /* callout */
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;
+    border-radius:12px;padding:16px 18px}
+  .note h3{margin:0 0 8px;font-size:14px;color:#9a3412}
+  .note table{font-size:13px}
+  .note td{border-bottom:1px solid #fde7cf}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}
+  footer a{color:var(--brand)}
+  @media(max-width:680px){
+    .grid,.cols{grid-template-columns:1fr}
+    .srow{grid-template-columns:120px 24px 1fr 46px}
+    .hero h1{font-size:22px}
+    .wrap{padding:16px 12px 48px}
+    section{padding:18px 16px}
+  }
+  /* tabs */
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;
+    font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;
+    box-shadow:0 4px 14px -10px rgba(15,18,34,.5);transition:.15s}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}
+  .tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  /* 대본 타임라인 (텍스트 심플) */
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;
+    font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .copybtn:active{transform:scale(.97)}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .seg{padding:16px 20px;border-bottom:1px solid #eef0f6}
+  .seg:last-child{border-bottom:0}
+  .seg .time{font-weight:800;font-size:15px;color:#3730a3;font-variant-numeric:tabular-nums;margin-bottom:7px}
+  .seg .ln{display:flex;gap:8px;margin:3px 0;font-size:14px;line-height:1.75}
+  .seg .ln .k{flex:0 0 38px;color:var(--muted);font-weight:700}
+  .seg .ln.script-line .k{color:var(--brand)}
+  .seg .ln.script-line .v{font-weight:600}
+  .seg .ln .v{flex:1}
+  .seg .ln.dim .v{color:#aab0bc}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <p class="kicker">유튜브 도입부 분석 리포트 · 0:00–1:13</p>
+    <h1>'몸값 올리는 독서법' 최초 공개. 딱 1주만 따라해보세요</h1>
+    <p class="sub">콜드 오픈 충격 선언 + 자기고백 + 제3자 권위 인용으로 1분 만에 신뢰와 호기심을 동시에 거는 후크 구조</p>
+    <div class="chips">
+      <span class="chip">채널 · 내성적인 건물주 (25.1만)</span>
+      <span class="chip">길이 · 8:55</span>
+      <span class="chip">도입부 · 0:00–1:13</span>
+      <span class="chip">분석일 · 2026-06-07</span>
+      <span class="chip"><a href="https://www.youtube.com/watch?v=q44bFfJKE4o">▶ 원본 영상</a></span>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="raw">📝 대본 타임라인 (원문)</button>
+    <button class="tab-btn" data-tab="context">🧩 구간·맥락 정리</button>
+  </nav>
+
+  <div class="tab-panel active" id="tab-report">
+
+  <!-- 1. 요약 + 점수 -->
+  <section>
+    <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+    <div class="verdict">
+      <div class="score-ring" style="--p:90"><div class="num"><b>90</b><small>/100</small></div></div>
+      <div class="vtxt">
+        <h3>등급 <span class="grade">A</span> · 후크 정석</h3>
+        <p>유형: <b>자기 고백형(주) + 숫자 카드형 + 권위 인용형</b> · 결 맞음 3축 · 핵심 차용: 콜드오픈 충격선언 / 0:45 후크 리프라이즈 / 제3자 권위 인용</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="lab">첫 컷</div><div class="val">인사 없는 <b>콜드 오픈</b> · talking-head 정면 · 좌상단 "(예고)" 태그 · 번인 자막</div></div>
+      <div class="card"><div class="lab">첫 발화 톤</div><div class="val"><b>결론(결과) 먼저</b> — "2년 만에 연봉 3억" 선언 후 질문으로 호기심 유발</div></div>
+      <div class="card"><div class="lab">시각적 텐션</div><div class="val">⚠️ 낮음~중간 — <b>도입부 전체가 단일 talking-head 컷</b>, 번인 자막만 교체(컷·B-roll·카드 없음). 텐션은 자막·화술이 전담</div></div>
+      <div class="card"><div class="lab">우리 채널 적합도</div><div class="val">🟢 <b>높음</b> — 책·독서·자기계발(8축 ①) 일치. 단 '돈/연봉' 프레이밍은 각도 변환 필요</div></div>
+    </div>
+  </section>
+
+  <!-- 2. 30초 후크 룰 채점 -->
+  <section>
+    <h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+    <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:100%"></i></span><span class="pts">20/20</span></div>
+    <div class="srow"><span class="nm">결(結) 호명 1회+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:100%"></i></span><span class="pts">20/20</span></div>
+    <div class="srow"><span class="nm">8축 키워드 1개+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:100%"></i></span><span class="pts">20/20</span></div>
+    <div class="srow"><span class="nm">결론 먼저</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:100%"></i></span><span class="pts">20/20</span></div>
+    <div class="srow"><span class="nm">시각적 텐션</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:50%"></i></span><span class="pts">10/20</span></div>
+    <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">근거 — 변화: "2년 만에 연봉 3억"(0:00)·"인생이 달라졌다"(0:36) / 결 호명: 가난 고백(0:13)·"가진 거 없이 태어난 사람"(0:28) / 8축: 독서법 / 결론먼저: 인사(0:10)보다 결과 선언(0:00) 선행 / 시각: 단일 talking-head 위주로 카드·B-roll 약함.</p>
+  </section>
+
+  <!-- 3. 후크 구조 흐름 -->
+  <section>
+    <h2><span class="n">3</span> 후크 구조 흐름</h2>
+    <div class="flow">
+      <span class="step hook">① 콜드오픈 <b>충격선언</b></span><span class="arrow">→</span>
+      <span class="step">② 인사(후치)</span><span class="arrow">→</span>
+      <span class="step">③ 자기고백</span><span class="arrow">→</span>
+      <span class="step">④ 권위인용</span><span class="arrow">→</span>
+      <span class="step">⑤ 변화약속</span><span class="arrow">→</span>
+      <span class="step hook">⑥ 후크 <b>리프라이즈</b></span><span class="arrow">→</span>
+      <span class="step">⑦ 결론 선제시</span><span class="arrow">→</span>
+      <span class="step">⑧ 권위·노력 증명</span><span class="arrow">→</span>
+      <span class="step turn">⑨ 본문 전환</span>
+    </div>
+    <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">핵심: <b>인사를 후크 뒤(0:10)로 미룬 것</b>과 <b>0:00 후크를 0:45에 한 번 더 반복</b>해 본문 진입 직전까지 텐션을 유지한 점.</p>
+  </section>
+
+  <!-- 4. 타임라인 -->
+  <section>
+    <h2><span class="n">4</span> 타임라인 — 음성 × 화면 × 연출</h2>
+    <table>
+      <thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>후크 룰</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tt">0:00–0:09</span></td><td>"28살부터 미친 듯이 읽고 <b>2년 만에 연봉 3억</b>… 어떻게 독서했길래?"</td><td><span class="cut">TH</span> <span class="seen">✔확인</span><br>밝은 실내·원목 책장, 회색 가디건+핀마이크 · 좌상단 "(예고)" · 번인 "…불과 2년만에…" / "이런 일이 생길 수 있었을까요?"</td><td><span class="tag">결론먼저</span><span class="tag">숫자후크</span><span class="tag">질문후크</span></td></tr>
+        <tr><td><span class="tt">0:10–0:12</span></td><td>"안녕하세요, 1인 기업가 '내성적인 건물주'입니다"</td><td><span class="cut">TH</span> <span class="seen">✔확인</span><br>동일 컷 · 번인 "좋아하는 일로 돈 버는 1인 기업가" (예고 태그 사라짐)</td><td><span class="tag">인사 후치</span></td></tr>
+        <tr><td><span class="tt">0:13–0:21</span></td><td>"화장실 밖에 있던 집… <b>가난을 끊고 싶었다</b>"</td><td><span class="cut">TH</span> <span class="seen">✔확인</span><br>동일 컷 · 번인 "돈에 대한 관심이 많아졌고"</td><td><span class="tag">결 호명</span><span class="tag">자기고백</span></td></tr>
+        <tr><td><span class="tt">0:22–0:35</span></td><td>"강남 건물 세운 어르신: <b>가진 거 없이 태어난 사람은 독서밖에 답이 없다</b>"</td><td><span class="cut">TH</span> <span class="seen">✔확인</span><br>동일 컷(인용도 카드 없음) · 번인 "제게 이런 말씀을 해주셨습니다"</td><td><span class="tag">권위 인용</span><span class="tag">8축(독서)</span></td></tr>
+        <tr><td><span class="tt">0:36–0:44</span></td><td>"읽어서 <b>2년 만에 인생이 달라졌다</b>. 돈·빽·능력 없는 내가 할 수 있는 건 이것뿐"</td><td><span class="cut">TH</span> <span class="seen">✔확인</span><br>동일 컷 · 번인 "2년만에 인생이 달라졌습니다"</td><td><span class="tag">약속한 변화</span><span class="tag">결 호명</span></td></tr>
+        <tr><td><span class="tt">0:45–0:52</span></td><td>(리프라이즈) "28살부터 미친 듯이… 2년 만에 연봉 3억… 어떻게?"</td><td><span class="cut">TH</span> <span class="seen">✔확인</span><br>동일 컷 · 번인 "28살 때부터 책을 미친듯이 읽기 시작했고"</td><td><span class="tag">후크 리프라이즈</span></td></tr>
+        <tr><td><span class="tt">0:53–0:58</span></td><td>"독서에도 <b>돈 버는 독서·생산성 올리는 독서법</b>이 있다"</td><td><span class="cut">TH</span> <span class="seen">✔확인</span><br>동일 컷(키워드 카드 아님) · 번인 "돈 버는 독서"</td><td><span class="tag">결론먼저</span><span class="tag">약속</span></td></tr>
+        <tr><td><span class="tt">0:58–1:07</span></td><td>"독서법 책 수십 권 + <b>30만 원·8시간 세미나</b> 수강"</td><td><span class="cut">TH</span> <span class="seen">✔확인</span><br>동일 컷 · 번인 자막 지속</td><td><span class="tag">신뢰·근거</span></td></tr>
+        <tr><td><span class="tt">1:08–1:13</span></td><td>"오늘 영상은 <b>직장탈출게임 시리즈 11번째</b>, 연봉 3억 독서법"</td><td><span class="cut">TH</span> <span class="seen">✔확인</span><br>동일 컷(타이틀 카드 없음) · 번인 "직장탈출게임 시리즈 11번째,"</td><td><span class="tag">본문 전환</span></td></tr>
+      </tbody>
+    </table>
+    <p style="margin:12px 0 0;font-size:12.5px;color:var(--muted)"><span class="seen">✔확인</span> 전 구간 직접 확인 완료. <b>도입부 전체가 동일 talking-head 단일 컷 + 중앙하단 번인 자막</b> — 컷 전환·B-roll·카드 없음. 유일한 그래픽은 0:00~0:09 "(예고)" 태그. (이미지 파일은 환경 제약상 미저장 — <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a> 참조)</p>
+  </section>
+
+  <!-- 5. 스크립트 -->
+  <section>
+    <h2><span class="n">5</span> 도입부 스크립트 (교정본)</h2>
+    <ul class="scriptlist">
+      <li><span class="tt">0:00</span><span>"스물여덟 살 때부터 책을 미친 듯이 읽기 시작했고, <b>불과 2년 만에 연봉 3억</b>을 만들게 됩니다."<span class="fn">충격 선언</span></span></li>
+      <li><span class="tt">0:06</span><span>"어떻게 독서를 했길래 이런 일이 생길 수 있었을까요?"<span class="fn">질문 후크</span></span></li>
+      <li><span class="tt">0:10</span><span>"안녕하세요, 좋아하는 일로 돈 버는 1인 기업가 '내성적인 건물주'입니다."<span class="fn">인사(후치)</span></span></li>
+      <li><span class="tt">0:13</span><span>"화장실이 밖에 있던 집에 살면서 돈에 대한 관심이 많아졌고, 가난을 끊고 싶었어요."<span class="fn">자기 고백</span></span></li>
+      <li><span class="tt">0:28</span><span>"가진 거 없이 태어난 사람은 독서밖에 답이 없습니다." (어르신 인용)<span class="fn">권위 인용</span></span></li>
+      <li><span class="tt">0:36</span><span>"28살부터 책을 읽기 시작해 <b>2년 만에 인생이 달라졌습니다.</b>"<span class="fn">변화 약속</span></span></li>
+      <li><span class="tt">0:40</span><span>"돈도 빽도 능력도 없는 제가 할 수 있는 건 이것밖에 없어요."<span class="fn">공감·당위</span></span></li>
+      <li><span class="tt">0:53</span><span>"독서에도 돈 버는 독서, 생산성을 올리는 독서법이 있다고 생각합니다."<span class="fn">결론 선제시</span></span></li>
+      <li><span class="tt">0:58</span><span>"독서법 책 수십 권 + 30만 원·8시간 세미나까지 수강했습니다."<span class="fn">권위 증명</span></span></li>
+      <li><span class="tt">1:08</span><span>"오늘 영상은 직장탈출게임 시리즈 11번째, 연봉 3억을 만들어 준 독서법입니다."<span class="fn">본문 전환</span></span></li>
+    </ul>
+    <p style="margin:12px 0 0;font-size:12px;color:var(--muted)">※ 한국어 <b>자동 생성</b> 자막(자막 패널 추출) 기반 교정본 — 원문·전체는 <a href="transcript.md">transcript.md</a>. "직전 탈출 게임"은 자동자막 오인식(시리즈명 추정), 본편 확인 필요.</p>
+  </section>
+
+  <!-- 6. 차용 포인트 -->
+  <section>
+    <h2><span class="n">6</span> 차용 포인트 — 「그럼에도 불구하고」 적용안</h2>
+    <div class="cols">
+      <div class="mini">
+        <h4>연출 차용</h4>
+        <ul class="tight">
+          <li><b>콜드 오픈</b> — 인사 빼고 결과/충격부터. 첫 3초 "○○하던 제가 △개월 만에 □□된 이유".</li>
+          <li><b>후크 리프라이즈</b> — 0:00 후크를 도입부 끝에 1문장 재강조 후 본문 진입.</li>
+          <li><b>제3자 권위 인용</b> — 작가/연구/멘토 한 마디로 주장 보강.</li>
+          <li><b>권위·노력 증명</b> — "독서법 책 수십 권 직접 읽고" 식 근거 제시.</li>
+        </ul>
+      </div>
+      <div class="mini">
+        <h4>문구 변형</h4>
+        <ul class="tight">
+          <li>"가진 거 없이 태어난 사람은 독서밖에…" → <i>"책 한 권 끝까지 못 읽던 사람일수록, 바뀔 수 있는 단 하나가 독서예요"</i></li>
+          <li>"어떻게 독서했길래 이런 일이?" → <i>"대체 어떻게 읽었길래 1년에 50권이 가능했을까요?"</i></li>
+        </ul>
+        <h4 style="margin-top:12px">피할 것</h4>
+        <ul class="tight">
+          <li><span class="pill-bad">✕</span> "연봉 3억" 류 <b>금전 과시 프레이밍</b> → 성장/변화 수치로 변환.</li>
+          <li><span class="pill-bad">✕</span> <b>자동 생성 자막 의존</b>(오타) → 번인 자막은 직접 교정.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. 채널 적합도 -->
+  <section>
+    <h2><span class="n">7</span> 채널 적합도 4축</h2>
+    <table>
+      <thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead>
+      <tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="ok-i">Y</span></td><td>독서 자체가 주제</td></tr>
+        <tr><td>② 결 3그룹</td><td><span style="color:var(--warn);font-weight:700">△</span></td><td>대상이 '돈/성공 갈망'층 — 우리 '독서 결핍 3그룹'과 결 달라 <b>각도 변환 필요</b></td></tr>
+        <tr><td>③ 8축</td><td><span class="ok-i">Y</span></td><td>독서법</td></tr>
+        <tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>디바이스 무관</td></tr>
+      </tbody>
+    </table>
+    <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">→ <b>3축 해당 = 결 맞음(차용 가능)</b>. 단 ② 금전 프레이밍은 성장/변화 프레이밍으로 변환.</p>
+  </section>
+
+  <!-- 8. 환경 메모 -->
+  <section>
+    <div class="note">
+      <h3>⚙️ 캡처 환경 제약 (이번 시연에서 검증됨)</h3>
+      <table>
+        <tr><td>캔버스 toDataURL → base64 반환</td><td class="no-i">차단 (컨텍스트 반입 불가)</td></tr>
+        <tr><td>스크린샷 save_to_disk</td><td class="no-i">무효 (세션 미저장)</td></tr>
+        <tr><td>sandbox yt-dlp/ffmpeg</td><td class="no-i">불가 (프록시 403)</td></tr>
+        <tr><td>백그라운드 탭 스크린샷</td><td class="no-i">렌더러 정지 → 크롬 포그라운드 전환으로 해결</td></tr>
+        <tr><td>화면 열람·분석(포그라운드)</td><td class="ok-i">가능 (본 분석 전 구간 ✔ 열람 완료)</td></tr>
+        <tr><td>수동 캡처 (Win+Shift+S)</td><td class="ok-i">권장</td></tr>
+      </table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:#9a3412">→ 캡처 이미지 파일은 <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a>의 타임스탬프 URL로 저장. 상세는 <a href="../실행_플레이북.md">실행_플레이북.md</a> §4-4·§9.</p>
+    </div>
+  </section>
+
+  </div><!-- /tab-report -->
+
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 대본 타임라인 — 원문 그대로</h2>
+      <div class="script-head">
+        <span class="hint">YouTube 자막 패널 원문(자동자막, 오탈자 포함) — 손대지 않고 보존</span>
+        <button class="copybtn" id="copyRaw">⧉ 원문 복사</button>
+      </div>
+      <ul class="scriptlist">
+        <li><span class="tt">0:00</span><span>스물 여덟살 때부터 책을 미친듯이</span></li>
+        <li><span class="tt">0:01</span><span>읽기 시작했고 불과 2년만에 연봉</span></li>
+        <li><span class="tt">0:04</span><span>3억 을 만들게 됩니다 어떻게 독서를</span></li>
+        <li><span class="tt">0:06</span><span>했길래 이런 일이 생길 수 있었을까요</span></li>
+        <li><span class="tt">0:10</span><span>안녕하세요 좋아하는 일로 돈 버는</span></li>
+        <li><span class="tt">0:11</span><span>1인 기업가 내성적인 건물주 입니다</span></li>
+        <li><span class="tt">0:13</span><span>저는 화장실이 밖에 있던 관제 살면서</span></li>
+        <li><span class="tt">0:16</span><span>보내 대한 관심이 많아 줬고 가난을</span></li>
+        <li><span class="tt">0:18</span><span>직접 끊고 싶었어요 어떻게 하면 많은</span></li>
+        <li><span class="tt">0:20</span><span>돈을 벌 수 있을지 메 고민했죠</span></li>
+        <li><span class="tt">0:22</span><span>그래서 저는 다양한 사업가 들을 찾아</span></li>
+        <li><span class="tt">0:24</span><span>다녔습니다 그러다 어느날 자수성가하여</span></li>
+        <li><span class="tt">0:26</span><span>강남의 건물을 세운 어르신이 제게</span></li>
+        <li><span class="tt">0:28</span><span>이런 말씀을 해주셨습니다 가진거 없이</span></li>
+        <li><span class="tt">0:30</span><span>태어난 사람은 독서 밖에 답이</span></li>
+        <li><span class="tt">0:32</span><span>없습니다 나는 아직까지도 사람을</span></li>
+        <li><span class="tt">0:34</span><span>만나면 가장 인상 깊었던 책이</span></li>
+        <li><span class="tt">0:36</span><span>무엇인지 물어 봅니다 저는 28살 때</span></li>
+        <li><span class="tt">0:38</span><span>부터 체계를 읽기 시작했고 2년 만에</span></li>
+        <li><span class="tt">0:40</span><span>인생이 달라졌습니다 돈도 없고 빽도</span></li>
+        <li><span class="tt">0:42</span><span>없고 능력도 없는 제가 할 수 있는건</span></li>
+        <li><span class="tt">0:45</span><span>이것밖에 없어요 스물 여덟살 때부터</span></li>
+        <li><span class="tt">0:47</span><span>책을 미친 듯이 웃기 시작했고 불과</span></li>
+        <li><span class="tt">0:49</span><span>2년만에 연봉 3억 을 만들게 됩니다</span></li>
+        <li><span class="tt">0:51</span><span>어떻게 독서를 했길래 이런 일이 생길</span></li>
+        <li><span class="tt">0:53</span><span>수 있었을까요 저는 독서의 도 돈</span></li>
+        <li><span class="tt">0:55</span><span>보는 독서 생산성을 올리는 독서 법이</span></li>
+        <li><span class="tt">0:58</span><span>있다고 생각합니다 참고로 저는 책을</span></li>
+        <li><span class="tt">1:00</span><span>읽는 방법을 연구하기 위해 독서 법에</span></li>
+        <li><span class="tt">1:02</span><span>대한 수십 권의 책을 읽고 책을</span></li>
+        <li><span class="tt">1:04</span><span>효율적으로 있는 방법에 대한 8시간</span></li>
+        <li><span class="tt">1:06</span><span>짜리 30만원 세미나 를 결제해서 수</span></li>
+        <li><span class="tt">1:08</span><span>강했습니다 오늘의 영상 직전 탈출</span></li>
+        <li><span class="tt">1:11</span><span>게임 시리즈 열 한번째 연봉 3억 을</span></li>
+        <li><span class="tt">1:13</span><span>만들어 준 독서 법입니다</span></li>
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 자동자막 원문이라 오탈자가 있습니다. 맥락 교정본은 <b>🧩 구간·맥락 정리</b> 탭, 출처 원문은 <a href="transcript.md">transcript.md</a>.</p>
+    </section>
+  </div><!-- /tab-raw -->
+
+  <div class="tab-panel" id="tab-context">
+    <section>
+      <h2><span class="n">🧩</span> 구간·맥락 정리 (대본 교정 + 화면)</h2>
+      <div class="script-head">
+        <span class="hint">구간·맥락 단위 · 대본은 원문 유지 + 오타/맥락만 교정 · 화면 내용 포함</span>
+        <button class="copybtn" id="copyScript">⧉ 정리본 복사</button>
+      </div>
+      <div class="script">
+
+        <div class="seg">
+          <div class="time">0:00–0:09</div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">스물여덟 살 때부터 책을 미친 듯이 읽기 시작했고, 불과 2년 만에 연봉 3억을 만들게 됩니다. 어떻게 독서를 했길래 이런 일이 생길 수 있었을까요?</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">밝은 실내(우측 원목 책장, 좌측 벽 액자) · 인물 정면 talking-head — 회색 가디건+화이트티+핀마이크, 책상 위 손 깍지</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">좌상단 회색 "(예고)" 태그 · 중앙 하단 흰색 볼드 번인 자막</span></div>
+        </div>
+
+        <div class="seg">
+          <div class="time">0:10–0:12</div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">안녕하세요, 좋아하는 일로 돈 버는 1인 기업가 '내성적인 건물주'입니다.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">talking-head 동일 컷 (✔확인) — "(예고)" 태그 사라짐</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">좋아하는 일로 돈 버는 1인 기업가</span></div>
+        </div>
+
+        <div class="seg">
+          <div class="time">0:13–0:21</div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">저는 화장실이 밖에 있던 집에 살면서 돈에 대한 관심이 많아졌고, 가난을 직접 끊고 싶었어요. 어떻게 하면 많은 돈을 벌 수 있을지 매일 고민했죠.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">talking-head 동일 컷 (✔확인)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">돈에 대한 관심이 많아졌고</span></div>
+        </div>
+
+        <div class="seg">
+          <div class="time">0:22–0:35</div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">그래서 저는 다양한 사업가들을 찾아다녔습니다. 그러다 어느 날, 자수성가하여 강남에 건물을 세운 어르신이 제게 이런 말씀을 해주셨습니다 — "가진 거 없이 태어난 사람은 독서밖에 답이 없습니다. 나는 아직까지도 사람을 만나면 가장 인상 깊었던 책이 무엇인지 물어봅니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">talking-head 동일 컷 (✔확인) — 인용도 카드/자료화면 없이 TH</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">제게 이런 말씀을 해주셨습니다</span></div>
+        </div>
+
+        <div class="seg">
+          <div class="time">0:36–0:44</div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">저는 28살 때부터 책을 읽기 시작했고 2년 만에 인생이 달라졌습니다. 돈도 없고 빽도 없고 능력도 없는 제가 할 수 있는 건 이것밖에 없어요.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">talking-head 동일 컷 (✔확인)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">2년만에 인생이 달라졌습니다</span></div>
+        </div>
+
+        <div class="seg">
+          <div class="time">0:45–0:52</div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">(후크 반복) 스물여덟 살 때부터 책을 미친 듯이 읽기 시작했고 불과 2년 만에 연봉 3억을 만들게 됩니다. 어떻게 독서를 했길래 이런 일이 생길 수 있었을까요?</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">talking-head 동일 컷 (✔확인)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">28살 때부터 책을 미친듯이 읽기 시작했고</span></div>
+        </div>
+
+        <div class="seg">
+          <div class="time">0:53–0:58</div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">저는 독서에도 돈 버는 독서, 생산성을 올리는 독서법이 있다고 생각합니다.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">talking-head 동일 컷 (✔확인) — 키워드 카드 아님</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">돈 버는 독서</span></div>
+        </div>
+
+        <div class="seg">
+          <div class="time">0:58–1:07</div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">참고로 저는 책을 읽는 방법을 연구하기 위해 독서법에 대한 수십 권의 책을 읽고, 책을 효율적으로 읽는 방법에 대한 8시간짜리 30만 원 세미나를 결제해서 수강했습니다.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">talking-head 동일 컷 (✔확인)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">번인 자막 지속 (개별 문구 미기록)</span></div>
+        </div>
+
+        <div class="seg">
+          <div class="time">1:08–1:13</div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">오늘의 영상은 직장탈출게임 시리즈 열한 번째, 연봉 3억을 만들어 준 독서법입니다.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">talking-head 동일 컷 (✔확인) — 시리즈 타이틀/챕터 카드 없음</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">직장탈출게임 시리즈 11번째,</span></div>
+        </div>
+
+      </div>
+    </section>
+  </div><!-- /tab-script -->
+
+  <footer>
+    도입부 분석 리포트 · 생성 2026-06-07 · 자료: <a href="분석.md">분석.md</a> · <a href="transcript.md">transcript.md</a> · 기준 <a href="../_기준/30초_후크_룰_체크리스트.md">30초 후크 룰 체크리스트</a><br>
+    출처: <a href="https://www.youtube.com/watch?v=q44bFfJKE4o">YouTube — 내성적인 건물주, '몸값 올리는 독서법'</a> · 내부 기획·학습 참고용
+  </footer>
+
+</div>
+<script>
+(function(){
+  document.querySelectorAll('.tab-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active');});
+      document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');
+      var p=document.getElementById('tab-'+b.dataset.tab); if(p)p.classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+  var cb=document.getElementById('copyScript');
+  if(cb){cb.addEventListener('click',function(){
+    var out=[];
+    document.querySelectorAll('#tab-context .seg').forEach(function(s){
+      out.push(s.querySelector('.time').textContent.trim());
+      s.querySelectorAll('.ln').forEach(function(l){
+        out.push(l.querySelector('.k').textContent.trim()+' : '+l.querySelector('.v').textContent.trim());
+      });
+      out.push('');
+    });
+    var text=out.join('\n');
+    var done=function(){cb.textContent='✓ 복사됨';setTimeout(function(){cb.textContent='⧉ 정리본 복사';},1500);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,function(){fallback(text);done();});}
+    else{fallback(text);done();}
+  });}
+  var rb=document.getElementById('copyRaw');
+  if(rb){rb.addEventListener('click',function(){
+    var out=[];
+    document.querySelectorAll('#tab-raw .scriptlist li').forEach(function(li){
+      out.push(li.querySelector('.tt').textContent.trim()+'  '+li.lastElementChild.textContent.trim());
+    });
+    var text=out.join('\n');
+    var done=function(){rb.textContent='✓ 복사됨';setTimeout(function(){rb.textContent='⧉ 원문 복사';},1500);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,function(){fallback(text);done();});}
+    else{fallback(text);done();}
+  });}
+  function fallback(t){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);}
+})();
+</script>
+</body>
+</html>

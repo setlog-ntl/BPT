@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>풀링 EP02 · 평생 안 읽던 사람이 책을 읽기 시작하면 (시야·사고·성장)</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2;
+    --accent:#ffd166; --accent-2:#06d6a0; --warn:#ef476f;
+    --pull:#5cc4e0; --edit:#06d6a0; --brief:#c4b5fd;
+    /* 3축 색 토큰 */
+    --sight:#fde047; --think:#c4b5fd; --grow:#10b981;
+    --r:#ef4444; --o:#f59e0b; --y:#fde047; --g:#10b981;
+    --b:#38bdf8; --i:#6366f1; --v:#a855f7;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 24px 140px}
+
+  .angle-nav{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px;padding:12px;
+    background:rgba(23,26,33,.92);border:1px solid var(--line);border-radius:12px;
+    position:sticky;top:0;z-index:30;backdrop-filter:blur(8px)}
+  .abtn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:all .15s;white-space:nowrap}
+  .abtn:hover{transform:translateY(-1px);background:#252a36;border-color:#34394a}
+  .abtn.active{background:rgba(196,181,253,.14);border-color:rgba(196,181,253,.45);color:var(--brief)}
+  .abtn.home{color:var(--muted);background:transparent}
+
+  header.hero{padding:28px 32px;border-radius:18px;
+    background:radial-gradient(1200px 380px at 10% -10%,rgba(56,189,248,.18),transparent 50%),
+               radial-gradient(900px 360px at 110% 10%,rgba(168,85,247,.14),transparent 55%),
+               radial-gradient(700px 300px at 50% 110%,rgba(6,214,160,.12),transparent 70%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line);margin-bottom:22px}
+  .eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.18em;color:var(--accent-2);
+    background:rgba(6,214,160,.12);border:1px solid rgba(6,214,160,.3);
+    padding:5px 11px;border-radius:999px;text-transform:uppercase}
+  h1{font-size:30px;line-height:1.25;margin:14px 0 10px;letter-spacing:-0.02em;font-weight:800}
+  h1 .rainbow{background:linear-gradient(90deg,var(--r),var(--o),var(--y),var(--g),var(--b),var(--i),var(--v));
+    -webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}
+  h1 .think{color:var(--think);font-weight:900}
+  h1 .grow{color:var(--grow);font-weight:900}
+  .lede{color:var(--muted);font-size:14.5px;margin:6px 0 14px;max-width:840px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:#2a2f3a;border:1px solid var(--line);color:var(--text);
+    font-size:12px;padding:5px 10px;border-radius:999px}
+
+  .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 22px}
+  @media(max-width:760px){.stats-bar{grid-template-columns:repeat(2,1fr)}.wrap{padding:18px 16px 100px}h1{font-size:24px}}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .stat .lab{font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  .stat .val{font-size:22px;font-weight:800;color:#fff;margin-top:4px;font-variant-numeric:tabular-nums}
+  .stat .sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+  section{margin-top:40px;scroll-margin-top:80px}
+  h2{font-size:22px;letter-spacing:-.01em;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:24px;border-radius:3px;background:var(--accent-2)}
+  h2 .num{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:.15em;margin-right:4px}
+  h2 .sec-tag{font-size:11px;background:var(--panel-2);color:var(--muted);padding:3px 9px;border-radius:6px;
+    border:1px solid var(--line);margin-left:auto;font-weight:600;letter-spacing:.04em}
+  section.sec-brief h2::before{background:var(--brief)}
+  section.sec-pack h2::before{background:var(--pull)}
+  section.sec-script h2::before{background:var(--edit)}
+  section.sec-check h2::before{background:var(--accent)}
+
+  .brief-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:760px){.brief-grid{grid-template-columns:1fr}}
+  .brief-cell{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .brief-cell.full{grid-column:1/-1}
+  .field-label{font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;
+    margin:0 0 8px;display:flex;align-items:center;gap:8px}
+  .field-label .hint{font-size:10.5px;color:#6b7384;text-transform:none;letter-spacing:0;font-weight:400}
+  .editable{background:#0c0e13;border:1px solid #2a3040;border-radius:10px;
+    padding:14px 16px;font-size:14.5px;color:#e7e9ee;line-height:1.85;
+    min-height:60px;outline:none;transition:border-color .15s;
+    white-space:pre-wrap;word-break:keep-all;overflow-wrap:break-word}
+  .editable:focus{border-color:rgba(6,214,160,.55);box-shadow:0 0 0 2px rgba(6,214,160,.08)}
+  .editable.note{font-size:13px;color:#c4cbd6;background:#13161d;border-style:dashed;
+    border-color:#2a3040;line-height:1.7;min-height:40px}
+  .editable.note:focus{border-style:solid;border-color:rgba(92,196,224,.4);box-shadow:0 0 0 2px rgba(92,196,224,.06)}
+  .editable[placeholder]:empty:before{content:attr(placeholder);color:#5a6273;pointer-events:none}
+  .editable b,.editable strong{color:#fff}
+  .brief-cell .editable{min-height:78px}
+  .brief-cell.memo .editable{min-height:120px}
+
+  .pack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:760px){.pack-grid{grid-template-columns:1fr}}
+  .pack-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .pack-card.sight{border-left:3px solid var(--sight)}
+  .pack-card.think{border-left:3px solid var(--think)}
+  .pack-card.grow{border-left:3px solid var(--grow)}
+  .pack-card .tag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  .pack-card h4{margin:0 0 8px;font-size:14.5px;color:#fff}
+  .pack-card p{margin:0 0 8px;font-size:13.5px;color:#cfd3db;line-height:1.65}
+  .pack-card .quote{margin-top:6px;padding:8px 10px;border-radius:8px;font-size:13px;line-height:1.55;
+    background:#0c0e13;border-left:2px solid var(--line);color:#dadde3}
+  .pack-card.sight .quote{border-left-color:var(--sight);color:#f4e9b6}
+  .pack-card.think .quote{border-left-color:var(--think);color:#dcd1f0}
+  .pack-card.grow .quote{border-left-color:var(--grow);color:#bce6d4}
+  .pack-card .src{margin-top:6px;font-size:11.5px;color:#9aa3b2}
+  .pack-card .roll{margin-top:6px;font-size:12px;color:#9aa3b2}
+  .pack-card .roll b{color:#cfd3db}
+
+  .chapter{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:18px 22px;margin-bottom:16px;border-left:4px solid var(--accent-2)}
+  .chapter.hook{border-left-color:var(--warn)}
+  .chapter.body{border-left-color:var(--pull)}
+  .chapter.story{border-left-color:var(--accent)}
+  .chapter.cta{border-left-color:var(--edit)}
+  .chapter.core-sight{border-left-color:var(--sight)}
+  .chapter.core-think{border-left-color:var(--think)}
+  .chapter.core-grow{border-left-color:var(--grow)}
+  .chapter-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .chapter-head h3{margin:0;font-size:16.5px;color:#fff;font-weight:700}
+  .chapter-head .timecode{font-size:13px;font-variant-numeric:tabular-nums;color:var(--accent);font-weight:700;
+    background:rgba(255,209,102,.12);padding:3px 9px;border-radius:6px;letter-spacing:.04em}
+  .pill{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11.5px;font-weight:700}
+  .pill.hook{background:rgba(239,71,111,.15);color:#ff6b8a}
+  .pill.body{background:rgba(92,196,224,.15);color:#5cc4e0}
+  .pill.story{background:rgba(255,209,102,.15);color:#ffd166}
+  .pill.cta{background:rgba(6,214,160,.15);color:#33d8a3}
+  .pill.sight{background:rgba(253,224,71,.18);color:var(--sight)}
+  .pill.think{background:rgba(196,181,253,.18);color:var(--think)}
+  .pill.grow{background:rgba(16,185,129,.18);color:#34d399}
+  .chapter-stats{margin-left:auto;display:flex;gap:8px;font-size:11.5px;color:var(--muted)}
+  .chapter-stats span{font-variant-numeric:tabular-nums}
+  .chapter .editable{min-height:120px;font-size:15px}
+
+  .check li{list-style:none;padding-left:26px;position:relative;margin:8px 0;font-size:14px}
+  .check li::before{content:"☐";position:absolute;left:0;top:0;color:var(--accent);font-weight:700}
+
+  .footer{margin-top:48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);
+    padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+  .floating{position:fixed;bottom:18px;right:18px;z-index:50;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:14px 16px;box-shadow:0 12px 40px rgba(0,0,0,.5);
+    display:flex;flex-direction:column;gap:10px;min-width:240px;max-width:300px}
+  .floating .save-status{font-size:12px;display:flex;align-items:center;gap:8px;color:var(--muted)}
+  .floating .save-status .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+  .floating .save-status.saved .dot{background:var(--accent-2);box-shadow:0 0 8px rgba(6,214,160,.6)}
+  .floating .save-status.saving .dot{background:var(--edit);animation:pulse 1s infinite}
+  .floating .save-status.dirty .dot{background:var(--warn)}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 14px;
+    border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--text);
+    font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;white-space:nowrap}
+  .btn:hover{transform:translateY(-1px);background:#252a36;border-color:#34394a}
+  .btn.primary{background:rgba(6,214,160,.14);border-color:rgba(6,214,160,.4);color:var(--edit)}
+  .btn.primary:hover{background:rgba(6,214,160,.22)}
+  .btn.brief{background:rgba(196,181,253,.14);border-color:rgba(196,181,253,.4);color:var(--brief)}
+  .btn.danger{background:rgba(239,71,111,.12);border-color:rgba(239,71,111,.35);color:#ff8aa5}
+  .btn.ghost{background:transparent}
+  .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+  details.help{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0;margin-bottom:22px}
+  details.help summary{cursor:pointer;list-style:none;padding:14px 18px;font-size:14px;font-weight:600;color:#fff;
+    display:flex;align-items:center;gap:8px}
+  details.help summary::-webkit-details-marker{display:none}
+  details.help summary::after{content:"▾";color:var(--muted);margin-left:auto;font-size:12px;transition:transform .15s}
+  details.help[open] summary::after{transform:rotate(180deg)}
+  details.help .help-body{padding:0 18px 16px;font-size:13.5px;color:#cfd3db;line-height:1.7}
+  details.help ul{padding-left:20px;margin:6px 0}
+
+  @media print{
+    .angle-nav,.floating,.stats-bar,details.help{display:none !important}
+    body{background:#fff;color:#000}
+    section{break-inside:avoid}
+    .chapter,.brief-cell,.pack-card{break-inside:avoid;border:1px solid #ccc;background:#fff}
+    .editable{border:none;background:#fff;color:#000;padding:6px 0;min-height:0}
+    h1,h2,h3,h4{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 상단 네비 -->
+  <nav class="angle-nav">
+    <a class="abtn active">📦 통합 (현재)</a>
+    <a class="abtn" href="대본편집_평생_안읽던.html">✏️ 대본 편집</a>
+    <a class="abtn" href="정리본/00_브리프.md">📝 브리프 MD</a>
+    <a class="abtn" href="정리본/">📁 정리본 7개 MD</a>
+    <a class="abtn" href="../../대본/_기획기준/대본기획_기준.md">📐 대본 기준</a>
+    <a class="abtn" href="../../대본/_기획기준/30초_후크_룰_체크리스트.md">⏱ 30초 후크</a>
+    <a class="abtn home" href="../../프로젝트_방향성.md">🧭 정체성 카드</a>
+  </nav>
+
+  <!-- 히어로 -->
+  <header class="hero">
+    <span class="eyebrow">PULLING EP02 · 자기개발 · 문해력 · 책 읽는 습관</span>
+    <h1>평생 안 읽던 사람이 책을 읽기 시작하면 — <span class="rainbow">시야</span>가 넓어지고, <span class="think">사고</span>가 깊어지고, <span class="grow">성장</span>이 시작됩니다</h1>
+    <p class="lede">3축 통합 풀링. 한 영상 안에 시야·사고·성장 세 메시지를 담아 평범한 한 사람의 5년 변화를 입체적으로 보여준다. 챕터 본문은 <a href="대본편집_평생_안읽던.html" style="color:var(--edit);text-decoration:underline">대본 편집 페이지</a>와 LocalStorage를 공유 — 어느 쪽에서 편집해도 동일하게 반영.</p>
+    <div class="meta-row">
+      <span class="chip">메인 결: ① 책을 <b>읽으려는</b> 사람</span>
+      <span class="chip">8축: <b>자기개발 · 문해력 · 책 읽는 습관</b></span>
+      <span class="chip">길이 제한 없음</span>
+      <span class="chip">"그럼에도 불구하고" 시그니처 2회</span>
+    </div>
+  </header>
+
+  <details class="help">
+    <summary>💡 사용 방법</summary>
+    <div class="help-body">
+      <ul>
+        <li><b>① 브리프 (B1~B6)</b> · <b>② 핵심 메시지팩</b> · <b>③ 대본 챕터(8개)</b> · <b>④ 마무리 검증</b> 4섹션. 모두 자동 저장.</li>
+        <li>저장 키 = <code>bizpt:pulling:lifelong-nonreader:v2-unified:v2</code> — <a href="대본편집_평생_안읽던.html" style="color:var(--edit)">대본편집_평생_안읽던.html</a>과 같은 키. 어느 페이지에서 편집해도 동기화.</li>
+        <li>핵심 메시지팩(시야/사고/성장)은 <b>정적 카드</b> — 정리본/ 7개 MD가 단일 진실 원천이라 여기는 참고용으로 고정.</li>
+        <li>운영성 정보(정체성 반복·풀링 분류·발행 가이드·댓글 시드·썸네일 시안·검증 7체크)는 룰북·정리본·썸네일 폴더로 이관.</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- 통계 -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="lab">대본 총 자수</div>
+      <div class="val" id="stat-chars">—</div>
+      <div class="sub">스피커 노트 제외, 발화 본문만</div>
+    </div>
+    <div class="stat">
+      <div class="lab">예상 발화 시간</div>
+      <div class="val" id="stat-time">—</div>
+      <div class="sub">230자/분 기준 (가이드)</div>
+    </div>
+    <div class="stat">
+      <div class="lab">챕터 수</div>
+      <div class="val" id="stat-chapters">8</div>
+      <div class="sub">⓪~⑦ 맥락 구분</div>
+    </div>
+    <div class="stat">
+      <div class="lab">마지막 저장</div>
+      <div class="val" id="stat-saved" style="font-size:14px">—</div>
+      <div class="sub">브라우저 로컬 저장 시각</div>
+    </div>
+  </div>
+
+  <!-- ① 브리프 -->
+  <section class="sec-brief" id="sec-brief">
+    <h2><span class="num">01</span>브리프 <span class="sec-tag">B1~B6 · 자동 저장</span></h2>
+    <div class="brief-grid">
+      <div class="brief-cell">
+        <div class="field-label">B1. 한 줄 정의</div>
+        <div class="editable" contenteditable="true" data-field="b1" data-key="b1" data-placeholder="평생 책 한 권 안 읽던 사람이 5년간 책을 읽으며 — 시야(무지개·단어), 사고(프레임·마음의 창), 성장(뇌 근육·그럼에도)이 어떻게 바뀌었는지를 세 가지 비유로 풀어내는 영상.">평생 책 한 권 안 읽던 평범한 사람이 5년간 책을 읽으며 — <b>시야</b>(무지개·단어), <b>사고</b>(프레임·마음의 창), <b>성장</b>(뇌 근육·그럼에도)이 어떻게 바뀌었는지를 세 가지 비유로 풀어내는 영상.</div>
+      </div>
+      <div class="brief-cell">
+        <div class="field-label">B2. 풀링/키 + 8축</div>
+        <div class="editable" contenteditable="true" data-field="b2" data-key="b2" data-placeholder="풀링. 메인 8축 — 자기개발 + 문해력 + 책 읽는 습관.">풀링. 메인 8축 — <b>자기개발 + 문해력 + 책 읽는 습관</b>. 서브 — 책을 읽어야 하는 이유, 지적호기심.</div>
+      </div>
+      <div class="brief-cell">
+        <div class="field-label">B3. 메인 결 + 단계별 우선 기둥</div>
+        <div class="editable" contenteditable="true" data-field="b3" data-key="b3" data-placeholder="① 책을 읽으려는 사람 (단기 ② 책 풀링 라인의 직속 상류). 서브 흡수 — ③ 더 읽으려는 사람.">메인 결 — <b>① 책을 읽으려는 사람</b> (단기 ② 책 풀링 라인의 직속 상류). 서브 흡수 — <b>③ 더 읽으려는 사람</b>(메타포가 "깊이·넓이·성장" 욕구를 자극).</div>
+      </div>
+      <div class="brief-cell">
+        <div class="field-label">B4. 수익화 종착지 <span class="hint">풀링은 직접 노출 X</span></div>
+        <div class="editable" contenteditable="true" data-field="b4" data-key="b4" data-placeholder='풀링 룰 — 직접 노출 X. 다음 키 콘텐츠("책 읽기 가장 작은 시작")에서 이북리더기 자연 등장. readtree는 "단어 트리·프레임 트리·성장 트리"라는 정신적 떡밥만.'>풀링 룰 — 직접 노출 X. 다음 키 콘텐츠("책 읽기 가장 작은 시작")에서 <b>이북리더기</b> 자연 등장. <b>readtree</b>는 "단어 트리·프레임 트리·성장 트리"라는 정신적 떡밥만.</div>
+      </div>
+      <div class="brief-cell full">
+        <div class="field-label">B5. 핵심 메시지·감정 코어</div>
+        <div class="editable" contenteditable="true" data-field="b5" data-key="b5" data-placeholder="">한 줄 캐치 — <b>"세상이 바뀐 게 아니에요. 제가 세상을 보는 방식이 바뀌었어요."</b><br><br>3축 결정체:<br>· <b>시야</b>: "보는 사람과 못 보는 사람의 차이는 눈이 아니라 <b>단어</b>에서 옵니다."<br>· <b>사고</b>: "책을 읽는다는 건 <b>마음의 창에 새 프레임을 다는 일</b>입니다."<br>· <b>성장</b>: "현재의 똑똑함은 출발선입니다. 결승선은 누가 더 <b>오래</b> 뇌를 단련했느냐가 결정합니다."</div>
+      </div>
+      <div class="brief-cell full memo">
+        <div class="field-label">B6. 자유 메모</div>
+        <div class="editable note" contenteditable="true" data-field="b6" data-key="b6" data-placeholder="">기존 단편 EP02(단어=색깔)에서 → 3축 통합으로 확장. 한 영상에 1차(시야)·2차(사고)·3차(성장) 모두 포함. 시청 지속률 dip 회복 카드: 3:00 호메로스 / 4:30 프레임=마음의 창 / <b>5:00 정점 사람들(페이커·코비·아놀드)</b> / 6:00 80대 노인 뇌 두께. <b>"그럼에도 불구하고"</b> 시그니처 2회 등장 — 3차 도입(성장)과 결 호명 마무리. 8축 키워드 자연 노출: 미리보기에 "자기개발·습관" + 1차 본문에 "단어=문해력" + 3차에 "습관·자기개발". <b>사고 챕터 보강</b> — 책 『프레임』 인용 3줄 그대로 + 더닝크루거 + <b>"정점에 있는 사람들의 공통점 = 책 + 겸손"</b>(시냇물·강·바다 비유 + 페이커·코비 브라이언트·아놀드 슈워제네거 + CEO 다독가). 보강 단서 = <code>정리본/03_2차_사고_프레임과마음의창_보강내용.md</code>.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② 핵심 메시지팩 (3축 자료팩 슬림 버전) -->
+  <section class="sec-pack" id="sec-pack">
+    <h2><span class="num">02</span>핵심 메시지팩 <span class="sec-tag">시야 · 사고 · 성장 결정체</span></h2>
+    <p class="lede" style="margin-top:0">녹음 중 옆에 띄워두는 카드. 결정체 카피·인용·출처·B-roll 키워드만. 자세한 본문은 정리본/02~04 MD.</p>
+    <div class="pack-grid">
+      <div class="pack-card sight">
+        <div class="tag">축 ① · 감정 코어 ①</div>
+        <h4>시야 — 무지개와 단어</h4>
+        <div class="quote"><b>"보는 사람과 못 보는 사람의 차이는 — 눈이 아니라 단어에서 옵니다."</b></div>
+        <div class="src">📚 출처: Berlin & Kay <i>Basic Color Terms</i>(1969) / Gladstone <i>Studies on Homer</i>(1858) / Deutscher <i>Through the Language Glass</i>(2010). 학자명은 발화 X, 고정 댓글로.</div>
+        <div class="roll"><b>🎬 B-roll:</b> 무지개 7색 분할 / 호메로스 흉상 / 바사족·힘바족 사람 옆모습 / 색깔 단어 자막 카드</div>
+      </div>
+      <div class="pack-card think">
+        <div class="tag">축 ② · 감정 코어 ②</div>
+        <h4>사고 — 프레임 + 더닝크루거 + 정점 사람들</h4>
+        <div class="quote"><b>"책을 읽는다는 건 — 마음의 창에 새 프레임을 다는 일입니다."</b></div>
+        <div class="src">📚 출처: <b>『프레임』</b>(인용 3줄 = 지혜=한계 인정 / 아는 것과 모르는 것의 경계 / 겸손=지혜의 출발점) + <code>참조이미지/프레임_2차주제.png</code> + <code>참조이미지/더닝크루거 효과.png</code> + 페이커·코비 브라이언트 라커룸 일화·아놀드 슈워제네거 자서전. <b>책 제목·인물명만 발화, 학자명 X.</b></div>
+        <div class="roll"><b>🎬 B-roll:</b> 프레임 책 표지·인용 페이지 / 더닝크루거 곡선 4구간 / 시냇물→강→바다 시퀀스 / 페이커·코비·아놀드 사진</div>
+      </div>
+      <div class="pack-card grow">
+        <div class="tag">축 ③ · 감정 코어 ③</div>
+        <h4>성장 — 뇌 근육과 그럼에도</h4>
+        <div class="quote"><b>"그럼에도 불구하고 — 현재의 똑똑함은 출발선이고, 결승선은 누가 더 오래 뇌를 단련했느냐가 결정합니다."</b></div>
+        <div class="src">📚 출처: 신경가소성(neuroplasticity) 일반 — Maguire et al.(택시 기사 해마 두께), 노년기 언어 학습 연구. 학자명 발화 X.</div>
+        <div class="roll"><b>🎬 B-roll:</b> 80대 노인 학습 장면 / 보디빌더 운동 컷 / 뇌 단면 일러스트 / 매일 한 걸음 시퀀스</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ 대본 -->
+  <section class="sec-script" id="sec-script">
+    <h2><span class="num">03</span>대본 <span class="sec-tag">8개 챕터 · 자동 저장</span></h2>
+    <p class="lede" style="margin-top:0">챕터 본문은 <a href="대본편집_평생_안읽던.html" style="color:var(--edit)">대본 편집 페이지</a>와 LocalStorage를 공유. 자수·예상 시간은 발화 본문만 자동 계산.</p>
+
+    <div class="chapter hook" data-id="ch1">
+      <div class="chapter-head">
+        <span class="pill hook">HOOK</span>
+        <h3>⓪ 초반 후킹 구간 (후크 + 미리보기)</h3>
+        <span class="timecode">0:00–0:30</span>
+        <div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div>
+      </div>
+      <div class="editable" contenteditable="true" data-field="body" data-placeholder="후크 한 줄 + 미리보기 ①②③(시야·사고·성장) + 8축 키워드 자연 노출"><b>[후크 — 약 10초 가이드]</b>
+평생 책 한 권 안 읽던 제가, 5년 만에 깨달은 게 하나 있어요. <b>세상이 바뀐 게 아니라 — 제가 세상을 보는 방식이 바뀌었다는 겁니다.</b>
+
+<b>[미리보기 — 약 20초 가이드]</b>
+오늘 알려드릴 건 세 가지예요. ① <b>시야</b>가 어떻게 넓어지는지. ② <b>사고</b>가 어떻게 깊어지는지. ③ <b>성장</b>이 어떻게 시작되는지. 책 한 권의 단어가 한 사람의 자기개발과 습관을 어떻게 만드는지 — 평범한 한 사람의 진짜 이야기로 풀어드릴게요.</div>
+      <div class="editable note" contenteditable="true" data-field="note" data-placeholder="🎬 발화 톤·B-roll·자막 카드">"평생 책 한 권 안 읽던 제가" — 가벼운 고백 톤. "5년 만에 깨달은 건 —"에서 0.4초 호흡. "세상이 바뀐 게 아니라" 천천히. 마지막 "바뀌었다는 거예요"는 정면 응시·약속처럼. 미리보기 ①②③ 또박또박 카운트.</div>
+    </div>
+
+    <div class="chapter body" data-id="ch2">
+      <div class="chapter-head">
+        <span class="pill body">BODY</span>
+        <h3>① 출발점 (현상)</h3>
+        <span class="timecode">0:30–1:30</span>
+        <div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div>
+      </div>
+      <div class="editable" contenteditable="true" data-field="body" data-placeholder="평범한 한 사람의 자기 고백 — 책 안 읽던 5년 전">저는 평생, 학생 때 교과서를 빼면 <b>책을 전혀 읽지 않던 사람</b>이었습니다. 조금은 가난한 집에서 태어나 흙수저 출신에, 독하지도 똑똑하지도 못해서 — 다른 대단한 분들만큼 뛰어나지는 못합니다.
+
+그러던 어느 날, 인생이 한 번 크게 무너지는 순간이 있었어요. 제 잘못된 선택들 때문에요. 그때 처음으로 책 한 권을 집어 들었습니다. <b>'이렇게 살면 안 되겠다'</b>는 생각 하나로요.
+
+처음 한 달은, 진짜 어려웠어요. 책상 앞에 30분도 못 앉아 있었고, 한 페이지를 읽고 나면 다섯 페이지 전 내용을 잊어버렸어요. 한 달이 지나도 한 챕터를 못 끝내겠더라고요. <b>'아, 나는 책 읽는 사람이 아닌가 보다'</b> 그렇게 두 번, 세 번 책을 덮었습니다.
+
+그런데 — 그런 평범한 제가, <b>2020년쯤부터 지금까지 5년 정도</b> 어떻게든 책을 손에서 놓지 않았어요. 그리고 그 5년이 지나는 사이, 저한테 정말로 변화가 일어났습니다.
+
+오늘은 평범한 제가 조금은 지혜로워지고, 조금은 똑똑해진 — 그 <b>변화의 정체</b>를 세 가지 축으로 풀어드리려고 합니다.</div>
+      <div class="editable note" contenteditable="true" data-field="note" data-placeholder="">고백 톤. 시선 살짝 아래로. "흙수저", "독하지도 똑똑하지도 못해서" 솔직하게, 자기검열 X. "그러던 어느 날" 0.4초 호흡 → 계기. "한 달이 지나도 한 챕터를 못 끝내겠더라고요" 자조 섞인 반 미소. "그런데 —"에서 0.5초 호흡. "정말로 변화가 일어났어요" 약속처럼.</div>
+    </div>
+
+    <div class="chapter body" data-id="ch3">
+      <div class="chapter-head">
+        <span class="pill body">BODY</span>
+        <h3>② 욕구 점화 (3축 약속)</h3>
+        <span class="timecode">1:30–2:30</span>
+        <div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div>
+      </div>
+      <div class="editable" contenteditable="true" data-field="body" data-placeholder="시야·사고·성장 3축 약속 — 본편 다리">"책을 읽는다고 정말 사람이 바뀌나요?" 자주 듣는 질문입니다. 사실 — <b>저 자신도 5년 전에, 똑같은 질문을 했었어요.</b> 그 질문에 답을 못 찾고 책을 덮었던 게 두 번, 세 번이었으니까요.
+
+오늘은 그때의 저한테 답해주는 마음으로, 그 질문에 추상이 아니라 — <b>시야 / 사고 / 성장</b> — 이 세 가지 구체로 보여드릴게요.
+
+① 시야가 어떻게 <b>넓어지는지</b>.
+② 사고가 어떻게 <b>깊어지는지</b>.
+③ 성장이 어떻게 <b>시작되는지</b>.
+
+한 번에 한 축씩, 5년간 제가 직접 겪은 변화로 풀어드릴게요. 그러면 — <b>시작은 시야부터입니다.</b></div>
+      <div class="editable note" contenteditable="true" data-field="note" data-placeholder="">"책을 읽는다고 정말 사람이 바뀌나요?" 시청자 입장에서 물어보듯. "저 자신도 5년 전에 똑같은 질문을 했어요" 시청자 시선과 호흡 맞추듯. ①②③ 카운트 또박또박, 자막 카드 동기. 마지막 "시작은 시야부터입니다"는 단호하게 — 다음 챕터로 이끄는 다리.</div>
+    </div>
+
+    <div class="chapter core-sight" data-id="ch4">
+      <div class="chapter-head">
+        <span class="pill sight">SIGHT</span>
+        <h3>③ 시야 — 무지개와 단어 (감정 코어 ①)</h3>
+        <span class="timecode">2:30–4:00</span>
+        <div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div>
+      </div>
+      <div class="editable" contenteditable="true" data-field="body" data-placeholder="무지개 7색·바사족·호메로스·힘바족 실험 → '단어=문해력=시야'">첫째, <b>시야</b>입니다.
+
+여러분, 무지개는 몇 가지 색이죠? 빨, 주, 노, 초, 파, 남, 보 — <b>7색</b>. 다들 그렇게 알고 계실 거예요.
+
+그런데 — 그거 아세요?
+
+아프리카 라이베리아의 <b>바사족</b>은, 이 무지개를 단 <b>두 가지 색</b>으로만 봅니다. 'ziza'(밝은 색)과 'hui'(어두운 색), 끝이에요. 빨강도 노랑도 흰색도 전부 'ziza' 한 단어. 뉴기니의 <b>다니족</b>도 마찬가지예요. 'mola'(따뜻한 색)와 'mili'(차가운 색) 딱 두 단어로 세상의 모든 색을 부릅니다.
+
+심지어 — 더 충격적인 사실이 있습니다.
+
+<b>호메로스의 일리아스와 오디세이아 전체에서, '파란색'이라는 단어가 단 한 번도 등장하지 않습니다.</b> 그래서 호메로스는 바다를 "와인빛"이라고, 하늘을 "청동색"이라고 표현했어요. 19세기 영국 총리였던 글래드스턴이 이걸 처음 발견하고 정리한 사실입니다.
+
+왜 그랬을까요? 고대 그리스인이 색맹이라서? <b>아닙니다.</b>
+
+<b>호메로스 시대 그리스인이 파란색을 못 본 이유는 — 눈이 나빠서가 아니라, '파랑'이라는 단어가 없어서였습니다.</b>
+
+이게 무슨 말이냐면요 — 이 가설을, 현대 과학이 실제로 실험한 이야기가 있어요.
+
+나미비아의 <b>힘바족</b>은 파랑과 초록을 <b>같은 단어 'burou'</b>로 부릅니다. 그래서 영국 골드스미스 대학 연구팀이 두 가지 실험을 했어요.
+
+<b>실험 1.</b> 11개의 초록 사각형 사이에 1개의 파란 사각형을 섞어놓고, "다른 색을 찾아보세요" 했습니다. 결과는? <b>힘바족은 파란색을 찾지 못했습니다.</b>
+
+<b>실험 2.</b> 반대로 했어요. 12개의 초록 사각형 중 단 1개만, 미세하게 다른 톤의 초록으로 바꿨어요. 우리 눈에는 다 똑같은 초록입니다. 결과는? <b>힘바족은 즉시 다른 초록을 찾아냈어요.</b> 우리는 못 찾는 그 초록을요.
+
+<b>힘바족이 파란색을 못 찾는 게 아닙니다. 우리가 초록의 결을 못 보는 겁니다.</b> 보는 사람과 못 보는 사람의 차이는 — <b>눈이 아니라 '단어'에서 옵니다.</b>
+
+이게 이 이야기의 핵심이에요.
+
+같은 망막, 같은 빛, 같은 신경계를 가지고 있어도 — <b>'단어'를 가진 사람만이 그 차이를 볼 수 있습니다.</b> 단어가 없으면, 눈앞에 있어도 보이지 않아요.
+
+그러면 단어는 어디에서 늘어날까요?
+
+<b>책입니다.</b> 책을 읽는다는 건 단어를 늘리는 일이고, 단어를 늘린다는 건 — <b>세상의 색을 더 많이 보게 되는 일</b>입니다. 30년 전의 저는 이 세상을 빨주노초파남보로 봤지만, <b>지금의 저는 같은 세상을 수백 가지 색으로 봅니다.</b>
+
+예전에는 사람을 만나면 "좋은 사람" 아니면 "별로인 사람", 두 가지로만 봤어요. 마치 ziza와 hui처럼요. 지금은 — 같은 사람을 봐도 <b>"신중한 사람"</b>, <b>"결정이 빠른 사람"</b>, <b>"말은 적지만 행동이 빠른 사람"</b>, <b>"공감 능력은 뛰어나지만 거절을 못 하는 사람"</b>… 결이 보이기 시작합니다.
+
+상황도 마찬가지예요. 예전엔 "성공" 아니면 "실패"였는데, 지금은 같은 결과를 두고도 — <b>"지금은 실패지만 데이터가 쌓인 실패"</b>, <b>"성공이지만 운에 가까운 성공"</b>, <b>"작지만 반복 가능한 성공"</b>으로 분리해서 봅니다.
+
+세상이 바뀐 게 아니에요. <b>제가 세상을 분리해서 볼 수 있는 단어를 가지게 된 겁니다.</b>
+
+그래서 저는 책을 읽습니다.
+
+<b>무지개에 색을 하나씩 더 추가하기 위해서.</b></div>
+      <div class="editable note" contenteditable="true" data-field="note" data-placeholder="">무지개 질문은 가벼운 호기심 점화 톤. 시청자에게 묻듯이. "그런데 — 그거 아세요?" 직전 0.5초 정적. 바사족·다니족 외국어는 또박또박, 자막에 단어 함께 띄움. "단 한 번도 등장하지 않습니다"가 결정타 — 가장 천천히, 단호하게. 힘바족 실험 — "결과는?" 직후 0.5초 정적, 결과 발표. "이게 무슨 말이냐면요"·"이게 이 이야기의 핵심이에요" 연결 문장은 부드럽게. "책입니다." 짧고 또박. 사람·상황 4종/3종 자막 카드와 또박또박 카운트. 마지막 "무지개에 색을 하나씩 더 추가하기 위해서" 약속처럼 정면.</div>
+    </div>
+
+    <div class="chapter core-think" data-id="ch5">
+      <div class="chapter-head">
+        <span class="pill think">THINK</span>
+        <h3>④ 사고 — 프레임 + 더닝크루거 + 정점 사람들 (감정 코어 ②)</h3>
+        <span class="timecode">4:00–6:00</span>
+        <div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div>
+      </div>
+      <div class="editable" contenteditable="true" data-field="body" data-placeholder="프레임 인용 3줄 → 더닝크루거 곡선 → 시냇물·강·바다 → 페이커·코비·아놀드">둘째, <b>사고가 깊어집니다.</b>
+
+제가 읽은 책 중에 <b>『프레임』</b>이라는 책이 있어요. 그 책 초반에 이런 문구가 나옵니다.
+
+<b>"지혜는 한계를 인정하는 것이다."</b>
+
+<b>"나는 지혜란 자신이 아는 것과 알지 못하는 것, 할 수 있는 것과 할 수 없는 것 사이의 경계를 인식하는 데에서 출발한다고 믿는다."</b>
+
+<b>"겸손, 나는 이것이 지혜의 출발점이라고 생각한다."</b>
+
+처음 이 문장을 읽었을 때, 제가 충격을 받았던 이유는 — 그동안 저는 <b>'똑똑함'과 '지혜'를 같은 거라고 생각했었거든요.</b> 그런데 책을 읽다 보니, 둘은 정말 다른 거였어요.
+
+심리학에서 사람이 세상을 보는 통로를 <b>'프레임'</b>이라고 부릅니다. <b>마음의 창</b>이에요. 건물 어느 곳에 창을 내느냐, 그 창만큼의 세상을 보게 되듯이 — 우리도 자기 프레임만큼의 세상만 봅니다.
+
+그런데 무서운 건 — <b>자기한테 어떤 프레임이 있는지 본인은 잘 모른다</b>는 거예요. 우리는 세상을 있는 그대로 본다고 믿지만, 사실은 자기 프레임 안에서 채색되고 왜곡된 세상을 경험하고 있는 겁니다.
+
+여기서 한 가지 그림이 떠오르실 거예요. <b>더닝크루거 효과</b>라고, 들어보셨을지 모르겠는데요.
+
+처음에 무언가를 조금 알게 되면, 자신감이 가장 높이 치솟는 구간이 있어요. <b>"우매함의 봉우리"</b> — 자기가 무엇을 모르는지 모르는 단계예요. 그 다음 — 더 알게 될수록 자신감이 뚝 떨어집니다. <b>"절망의 계곡"</b>, 자기가 무엇을 모르는지를 알게 되는 구간이에요. 거기서부터, 진짜 깨달음이 시작됩니다.
+
+그런데 — 책을 안 읽으면, 사람은 <b>평생 우매함의 봉우리에 머무를 수 있어요.</b> 자기가 무엇을 모르는지 평생 모르는 거예요. 책을 읽는다는 건, 그 봉우리에서 한 번씩 스스로를 끌어내려서 — <b>절망의 계곡에 도착하게 만드는 일</b>입니다. 그래서 그 책의 한 줄, "지혜는 한계를 인정하는 것이다"가 그렇게 무겁게 다가왔어요.
+
+그리고 이 문구를 읽고 나서 한 가지 더 생각이 들었어요.
+
+<b>어느 분야에 있어도, 항상 정점에 있는 사람들은 — 대부분 책을 읽고, 그리고 겸손합니다.</b>
+
+그 이유가 뭘까요?
+
+<b>바로 정점에 있기 때문이에요.</b> 정점에 도달하기까지 자신의 무지도 수도 없이 경험했고, <b>내가 지금까지 노력해오고 쌓아온 것이 세상의 전부일 리가 없다</b>는 걸 알기 때문이에요.
+
+<b>시냇물은 강의 깊이와 넓이를 모르고, 강은 바다의 깊이와 넓이를 모르지만 — 우리가 바다가 되어 보면, 또 다른 바다가 있을 거라고 생각할 수 있는 거라고, 저는 생각해요.</b>
+
+그래서 — <b>정말 책과 관계없다고 생각하는 분야에서도 그래요.</b>
+
+<b>게임의 정점에 있는 페이커</b>도 책을 읽습니다.
+
+<b>NBA 역사상 최고의 선수 중 한 명으로 꼽히는 코비 브라이언트</b> 또한 다독가로 유명해요. <b>라커룸에서 동료들이 카드게임을 할 때 그는 책을 펼쳤다</b>는 일화는 유명하죠.
+
+그리고 <b>터미네이터로 유명한 — 보디빌더의 정점, 영화계의 정점, 그리고 캘리포니아 주지사까지, 모든 분야의 정점을 찍은 아놀드 슈워제네거.</b> <b>본인의 자서전과 인터뷰에서 매일 독서를 한다</b>고 말했죠.
+
+<b>우리가 아는 CEO나 위대한 사람들은 — 대부분, 책을 읽는 다독가일 확률이 높아요.</b>
+
+정점에 가까울수록, 자기 한계를 인정하고 — 새로운 프레임을 끊임없이 빌리려고 하기 때문이에요.
+
+책을 읽는다는 건 그래서 — <b>마음의 창에 새 프레임을 한 장씩 다는 일</b>입니다.
+
+같은 회의를 두 사람이 봤다고 해 봅시다. 책을 안 읽는 사람은 <b>"잘 됐다 / 망했다"</b>, 둘 중 하나로만 봐요. 책 읽는 사람은 같은 회의를 보고도 — <b>"단기적으론 망했지만 장기적으로 데이터가 쌓인 실패"</b>, <b>"잘 됐지만 운에 가까웠던 성공"</b>, <b>"작지만 반복 가능한 성공"</b>으로 분리해서 봅니다.
+
+같은 사실을, <b>더 깊이 — 그리고 더 다양한 각도에서</b>.
+
+이게 사고의 <b>깊이</b>와 <b>넓이</b>예요. 책 한 권은 한 명의 저자가 평생 살아낸 프레임을 — 우리 마음의 창에 한 장 빌려주는 일이거든요.</div>
+      <div class="editable note" contenteditable="true" data-field="note" data-placeholder="">"둘째 — 사고가 깊어집니다." 톤을 한 단계 차분하게. 『프레임』 책 인용 3줄은 자막 카드와 함께 가장 천천히, 한 줄씩. 책 캡쳐 이미지 화면(<code>참조이미지/프레임_2차주제.png</code>). "프레임" 처음 등장 시 0.3초 호흡. 더닝크루거 곡선 화면 — "우매함의 봉우리"에서 자기 자조 섞인 반 미소, "절망의 계곡"은 진지하게. "지혜=한계 인정"과 "절망의 계곡"을 연결하는 순간이 결정 인용 ①. 시냇물·강·바다 비유 — 천천히, 한 단계씩 올리듯이. 페이커·코비·아놀드 사례 — 자막 카드 인물별로 또박또박. "라커룸에서 동료들이 카드게임을 할 때 그는 책을 펼쳤다"는 느린 호흡. "CEO·위대한 사람 대부분 다독가" 정면 응시. 같은 회의 두 사람 사례 또박또박 카운트. 마지막 "이게 사고의 깊이와 넓이예요" 약속처럼.</div>
+    </div>
+
+    <div class="chapter core-grow" data-id="ch6">
+      <div class="chapter-head">
+        <span class="pill grow">GROW</span>
+        <h3>⑤ 성장 — 뇌 근육과 그럼에도 (감정 코어 ③ · 보상)</h3>
+        <span class="timecode">6:00–7:30</span>
+        <div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div>
+      </div>
+      <div class="editable" contenteditable="true" data-field="body" data-placeholder='80대 노인 뇌 두께 → 보디빌더 비유 → "그럼에도 불구하고" 1회'><b>마지막으로</b> — 그리고 <b>가장 중요한</b> 거예요. <b>스스로의 성장과 가능성, 그리고 그에 대한 믿음.</b>
+
+이 부분이 저한테 있어서는 — 진짜로 <b>가장 중요한 부분</b>입니다. 왜냐하면 — 이건 일반론이 아니라, <b>제 진짜 이야기</b>거든요.
+
+이제 마흔을 바라보는 나이에, <b>저는 책을 읽은 지 5년 정도밖에 안 됐어요.</b> 그리고 지금의 제 상황은 — <b>과거의 제 잘못된 선택들로, 매우 좋지 않아요.</b> <b>정말 인생에서 가장 밑바닥에 와 있죠.</b>
+
+<b>그럼에도 불구하고</b> — 저는 과거의 인생을 통틀어서, <b>가장 미래가 기대되는 삶</b>을 살고 있어요.
+
+왜냐하면 — 이렇게 삶을 살아가다 보면, <b>제 미래는 좋아질 수밖에 없을 테니까요.</b>
+
+지금 시점에서 책을 한 권도 안 읽은 분이, 저보다 똑똑하고 대단한 분은 — <b>수도 없이 많아요.</b>
+
+<b>하지만</b> — 그분이 책을 단 한 권도 안 읽는다면, <b>제가 10년 뒤에는 그분을 앞설 수 있다는 것은, 저는 확실하다 생각해요.</b>
+
+왜냐하면, <b>뇌는 근육과 똑같기 때문이에요.</b>
+
+우리는 흔히 "나이 들면 머리가 굳는다"고 말하지만, 현대 뇌과학은 이걸 <b>정면으로 뒤집었어요.</b> 뇌는 늙긴 합니다. 하지만 — <b>쓰는 만큼 평생 자라는, 유일한 장기</b>입니다.
+
+<b>80대 노인이 새로운 언어를 배우면, 그 영역의 뇌가 실제로 두꺼워지고요.</b> 책을 읽고 사유하는 사람의 뇌는 — <b>노년기에도 새로운 신경 연결이 만들어진다</b>는 사실이 이미 밝혀졌어요.
+
+반대로, <b>쓰지 않는 뇌는 빠르게 시들어요.</b>
+
+지금 아무리 똑똑해도 — <b>10년 동안 한 권도 읽지 않은 사람의 사고 근육은, 위축됩니다.</b> 마치 운동을 멈춘 보디빌더의 근육이 빠지듯이요.
+
+<b>그래서 저는 이렇게 생각해요.</b>
+
+<b>현재의 똑똑함은 출발선일 뿐이고 — 결승선은, 누가 더 오래 뇌를 단련했느냐가 결정한다.</b>
+
+지금 저보다 앞서 있는 사람도, 멈춰 있다면 — 결국 따라잡힙니다. 책을 읽는 사람은 느려 보이지만 매일 한 걸음씩 앞으로 가고 있고, 안 읽는 사람은 — 그 자리에 서 있는 게 아니라, 자기도 모르게 <b>뒤로 밀리고 있어요.</b>
+
+매일 한 권을 다 읽으라는 게 아닙니다. 하루 단어 하나, 한 문장, 한 페이지여도 충분해요. 그게 1년이면 365개의 새로운 단어, 새로운 프레임, 새로운 신경 연결이 됩니다. <b>5년이 지나면, 그 차이는 같은 자리에서 출발한 사람과 비교가 안 될 만큼 벌어져 있어요.</b> 제가 지금, 그 자리에 와 있습니다.
+
+그래서 — <b>저처럼 평생 책을 읽지 않으셨던 분들도, 저처럼 이제 책을 읽기 시작하거나, 한참 읽고 계신 분들도</b> — 저와 같이 책을 읽어, <b>오늘의 나보다 멋진 내일의 내가 되는, 그 책 읽는 습관을 같이 만들어가 보시죠.</b></div>
+      <div class="editable note" contenteditable="true" data-field="note" data-placeholder="">"셋째 — 가장 중요한 거예요." 정면 응시, 톤을 깊이 있게. "지금 인생에서 가장 밑바닥에 와 있어요" 솔직하게, 자기검열 X. "그럼에도 불구하고"에서 0.5초 호흡, 한 마디 한 마디 또박. "지금 저보다 똑똑한 분들…"에서 살짝 부드럽게. 80대 노인 / 보디빌더 비유 자막 카드와 함께 천천히. "10년 뒤"에서 정면, 단호. 마지막 "뒤로 밀리고 있어요" 단호하지만 부드럽게.</div>
+    </div>
+
+    <div class="chapter cta" data-id="ch7">
+      <div class="chapter-head">
+        <span class="pill cta">CTA</span>
+        <h3>⑥ 결 호명 (3축 회고 + 그분들 옆자리 + 그럼에도)</h3>
+        <span class="timecode">7:30–8:30</span>
+        <div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div>
+      </div>
+      <div class="editable" contenteditable="true" data-field="body" data-placeholder='3축 회고 → 결 3그룹 모두 호명 → "그분들 옆자리" → "그럼에도 불구하고" 2회'>그래서 — 평범한 한 사람한테, 책 한 권이 5년간 어떤 일을 만들었는지를 정리하면 이렇습니다. <b>시야</b>가 7색에서 수백 가지 색으로 넓어졌고, <b>사고</b>가 우매함의 봉우리에서 절망의 계곡으로 내려와 깊어졌고, <b>성장</b>이 매일 한 걸음씩 시작됐어요. 세상이 바뀐 게 아니에요. 같은 세상을 보는 제가 바뀐 겁니다.
+
+그러니까 — 지금 책을 안 읽고 계셔도 괜찮아요. 저처럼 30대, 40대에 처음 다시 시작해도 괜찮습니다. 처음에 안 읽혀도 괜찮아요. <b>그게 정상이거든요.</b> 단어도, 프레임도, 신경 연결도 — 다 천천히 늘어나는 거니까요.
+
+책을 <b>읽으려는 분</b>, 지금 <b>읽고 계신 분</b>, <b>더 읽고 싶은 분.</b> 이 채널은 그 세 분류, <b>그분들 옆자리에 앉기 위해</b> 만듭니다.
+
+평생 책 한 권 안 읽던 사람도 — 시야가 넓어지고, 사고가 깊어지고, 성장이 시작되더라고요. <b>그럼에도 불구하고</b> — 책을 읽기로 한 사람들의 자리, 함께 만들어 가시죠.</div>
+      <div class="editable note" contenteditable="true" data-field="note" data-placeholder="">"그래서 —" 한 박자 쉼. 시야·사고·성장 3축 회고 — 또박또박, 이전 챕터 호흡과 연결. 결 3그룹 호명 — 한 그룹씩 또박또박, 한 사람을 부르듯이. "그분들 옆자리"는 약속처럼 정면. "그럼에도 불구하고" 두 번째 등장 — 시그니처 마무리. 가장 부드럽고 단호하게.</div>
+    </div>
+
+    <div class="chapter cta" data-id="ch8">
+      <div class="chapter-head">
+        <span class="pill cta">CTA</span>
+        <h3>⑦ CTA · 다음 영상 떡밥</h3>
+        <span class="timecode">8:30–END</span>
+        <div class="chapter-stats"><span data-stat="chars">0자</span> · <span data-stat="time">0:00</span></div>
+      </div>
+      <div class="editable" contenteditable="true" data-field="body" data-placeholder='댓글 질문 → EP03 "책 읽기 가장 작은 시작" 떡밥 → 구독'>여러분의 무지개에는 지금 <b>몇 가지 색</b>이 있나요? 가장 최근에 책에서 — <b>새로 만난 단어 하나</b>, <b>새로 빌린 프레임 하나</b>, 또는 <b>새로 단련한 신경 연결 하나</b>라도 있다면, 댓글로 한 줄만 남겨주세요. 다른 분의 한 단어가 — 누군가의 새로운 색이 됩니다.
+
+다음 영상에서는 <b>"책을 어떻게 다시 시작할 수 있는지"</b>, 가장 작은 한 걸음을 이야기해 보려고 해요. 어떤 책으로, 어떤 도구로, 하루 몇 분으로. 구독해 주시면 — 그 첫 걸음을 옆자리에서 함께 떼어볼 수 있습니다.</div>
+      <div class="editable note" contenteditable="true" data-field="note" data-placeholder="">살짝 미소. 댓글 질문 후 1초 정적. 시야·사고·성장 각각의 댓글 시드 또박또박. 다음 영상 떡밥은 호기심 위주. EP03 키워드("가장 작은 시작") 또박또박. 마지막 "옆자리에서 함께 떼어볼 수 있습니다" 따뜻하게.</div>
+    </div>
+  </section>
+
+  <!-- ④ 마무리 검증 -->
+  <section class="sec-check" id="sec-check">
+    <h2><span class="num">04</span>마무리 검증 <span class="sec-tag">최소 체크리스트</span></h2>
+    <ul class="check">
+      <li><b>30초 후크 통과</b> — <a href="../../대본/_기획기준/30초_후크_룰_체크리스트.md" style="color:var(--accent)">체크리스트 5항목</a> 모두 OK + 미리보기 ①②③(시야·사고·성장) 등장</li>
+      <li><b>후크 ↔ 마무리 수미상관</b> — 후크의 "세상이 바뀐 게 아니라" → 마무리에서 한 번 더</li>
+      <li><b>결 3그룹 호명</b> — 챕터 ⑥에 "읽으려는·읽고 계신·더 읽고 싶은 분" + "그분들 옆자리"</li>
+      <li><b>풀링 종착지</b> — 이북리더기·readtree 직접 노출 0회 (정신적 떡밥만)</li>
+      <li><b>약속 일치</b> — 미리보기 ①②③이 본편(④⑤⑥)에 모두 등장</li>
+      <li><b>"그럼에도 불구하고" 2회</b> — 성장 도입 + 결 호명 마무리</li>
+      <li><b>출처 백업</b> — 고정 댓글에 3축 출처 단서(Berlin & Kay·Gladstone·Deutscher / 프레임 책 / 신경가소성) 미리 작성</li>
+    </ul>
+    <p class="lede" style="margin-top:14px">전체 체크는 <a href="../../대본/_기획기준/대본기획_기준.md#9-2-마감-전-검증-7체크" style="color:var(--accent-2)">대본기획_기준.md §9-2</a> · 썸네일은 같은 폴더 PNG와 <code>썸네일지침/</code> 참조.</p>
+  </section>
+
+  <div class="footer">
+    <span>풀링 EP02 통합 (슬림 v3) · 단일 룰북 = <a href="../../대본/_기획기준/대본기획_기준.md" style="color:var(--accent-2)">대본기획_기준.md</a></span>
+    <span>저장 키: <code>bizpt:pulling:lifelong-nonreader:v2-unified:v2</code> (대본편집 페이지와 공유)</span>
+  </div>
+
+</div>
+
+<!-- 플로팅 액션 -->
+<div class="floating">
+  <div class="save-status saved" id="save-status">
+    <span class="dot"></span><span id="save-status-text">저장됨</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn primary" id="btn-download-md">💾 통합 .md</button>
+    <button class="btn brief" id="btn-download-brief">📝 브리프만</button>
+  </div>
+  <div class="btn-row">
+    <button class="btn ghost" id="btn-print">🖨 인쇄/PDF</button>
+    <button class="btn danger" id="btn-reset">↺ 초기화</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // 기존 페이지(대본편집_평생_안읽던.html)와 동일한 키·스키마 사용 — 사용자 자산 보존
+  const STORAGE_KEY = 'bizpt:pulling:lifelong-nonreader:v2-unified:v2';
+  const status = document.getElementById('save-status');
+  const statusText = document.getElementById('save-status-text');
+
+  // 복원: 스키마 = { _v, _ts, brief:{b1..b6}, chapters:{ch1..ch8: {body, note}} }
+  let store = null;
+  try { store = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch(e){ store = null; }
+  if (store){
+    if (store.brief){
+      document.querySelectorAll('.brief-cell .editable[data-field]').forEach(el=>{
+        const k = el.dataset.field;
+        // 빈 문자열은 HTML 기본값을 덮어쓰지 않도록 스킵
+        if (store.brief[k] !== undefined && store.brief[k] !== null && String(store.brief[k]).trim() !== '') el.innerHTML = store.brief[k];
+      });
+    }
+    if (store.chapters){
+      document.querySelectorAll('.chapter[data-id]').forEach(ch=>{
+        const id = ch.dataset.id;
+        const saved = store.chapters[id];
+        if (!saved) return;
+        ch.querySelectorAll('.editable[data-field]').forEach(f=>{
+          const k = f.dataset.field;
+          // 빈 문자열은 HTML 기본값(보강 통합본)을 덮어쓰지 않도록 스킵
+          if (saved[k] !== undefined && saved[k] !== null && String(saved[k]).trim() !== '') f.innerHTML = saved[k];
+        });
+      });
+    }
+    if (store._ts) document.getElementById('stat-saved').textContent = formatSaved(store._ts);
+  }
+
+  // 저장 (debounced) — 기존 데이터(특히 다른 페이지에서 저장한 것)는 보존하면서 머지
+  let timer=null;
+  function save(){
+    if (timer) clearTimeout(timer);
+    setStatus('saving','저장 중…');
+    timer = setTimeout(()=>{
+      let existing = null;
+      try { existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch(e){}
+      const data = {
+        _v: 1,
+        _ts: Date.now(),
+        brief: existing && existing.brief ? Object.assign({}, existing.brief) : {},
+        chapters: existing && existing.chapters ? JSON.parse(JSON.stringify(existing.chapters)) : {}
+      };
+      document.querySelectorAll('.brief-cell .editable[data-field]').forEach(el=>{
+        data.brief[el.dataset.field] = el.innerHTML;
+      });
+      document.querySelectorAll('.chapter[data-id]').forEach(ch=>{
+        const id = ch.dataset.id;
+        data.chapters[id] = data.chapters[id] || {};
+        ch.querySelectorAll('.editable[data-field]').forEach(f=>{
+          data.chapters[id][f.dataset.field] = f.innerHTML;
+        });
+      });
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        setStatus('saved','저장됨');
+        document.getElementById('stat-saved').textContent = formatSaved(data._ts);
+      } catch(e){ setStatus('dirty','저장 실패'); }
+    }, 400);
+  }
+  function setStatus(cls, text){ status.className='save-status '+cls; statusText.textContent=text; }
+  function formatSaved(ts){
+    const d=new Date(ts), p=n=>String(n).padStart(2,'0');
+    return `${p(d.getMonth()+1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+  }
+
+  document.querySelectorAll('.editable[data-field]').forEach(el=>{
+    el.addEventListener('input', ()=>{ save(); updateStats(); });
+  });
+
+  function updateStats(){
+    let total=0;
+    document.querySelectorAll('.chapter').forEach(ch=>{
+      const body = ch.querySelector('.editable[data-field="body"]');
+      const text = (body && body.innerText) ? body.innerText.replace(/\s/g,'') : '';
+      const chars = text.length;
+      total += chars;
+      const sChar = ch.querySelector('[data-stat="chars"]');
+      const sTime = ch.querySelector('[data-stat="time"]');
+      if (sChar) sChar.textContent = chars+'자';
+      if (sTime) sTime.textContent = formatTime(chars/230*60);
+    });
+    document.getElementById('stat-chars').textContent = total.toLocaleString();
+    document.getElementById('stat-time').textContent = formatTime(total/230*60);
+  }
+  function formatTime(seconds){
+    if (!seconds||isNaN(seconds)) return '0:00';
+    const m=Math.floor(seconds/60), s=Math.round(seconds%60);
+    return `${m}:${String(s).padStart(2,'0')}`;
+  }
+  updateStats();
+
+  function htmlToText(html){ const d=document.createElement('div'); d.innerHTML=html; return (d.innerText||'').trim(); }
+  function buildBriefMd(){
+    const labels = {b1:'B1. 한 줄 정의',b2:'B2. 풀링/키 + 8축',b3:'B3. 메인 결',b4:'B4. 수익화 종착지',b5:'B5. 핵심 메시지·감정 코어',b6:'B6. 자유 메모'};
+    let md = `# 브리프 — 평생 안 읽던 사람이 책을 읽기 시작하면\n\n`;
+    Object.keys(labels).forEach(k=>{
+      const el = document.querySelector(`.brief-cell .editable[data-field="${k}"]`);
+      md += `## ${labels[k]}\n${el ? htmlToText(el.innerHTML) : ''}\n\n`;
+    });
+    return md;
+  }
+  function buildScriptMd(){
+    let md = `# 대본 — 평생 안 읽던 사람이 책을 읽기 시작하면 (시야·사고·성장)\n\n`;
+    document.querySelectorAll('.chapter').forEach(ch=>{
+      const head = ch.querySelector('h3').innerText.trim();
+      const time = ch.querySelector('.timecode').innerText.trim();
+      const body = htmlToText((ch.querySelector('.editable[data-field="body"]')||{}).innerHTML||'');
+      const note = htmlToText((ch.querySelector('.editable[data-field="note"]')||{}).innerHTML||'');
+      md += `## ${head}  \`${time}\`\n\n${body}\n\n`;
+      if (note) md += `> 🎬 ${note}\n\n`;
+    });
+    return md;
+  }
+  function download(name, content){
+    const blob = new Blob([content], {type:'text/markdown;charset=utf-8'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+  }
+  document.getElementById('btn-download-brief').onclick = ()=> download('브리프_평생_안읽던.md', buildBriefMd());
+  document.getElementById('btn-download-md').onclick = ()=> download('통합_평생_안읽던.md', buildBriefMd()+'\n---\n\n'+buildScriptMd());
+  document.getElementById('btn-print').onclick = ()=> window.print();
+  document.getElementById('btn-reset').onclick = ()=>{
+    if (!confirm('이 페이지의 브리프·챕터 입력이 모두 초기화됩니다 (LocalStorage 키 삭제). 계속할까요?')) return;
+    localStorage.removeItem(STORAGE_KEY); location.reload();
+  };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPT 총괄기획 · 운영 대시보드</title>
+<style>
+:root{
+  --bg:#0f1115; --card:#171a21; --card2:#1d212b; --border:#2a2f3a;
+  --text:#e6e8ec; --muted:#9aa3b2; --accent:#6ea8fe; --accent2:#7ee0c0;
+  --pain:#ff6b6b; --growth:#7ee0c0; --value:#ffd56b; --rec:#6ea8fe;
+  --chip:#222735;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.7;padding:0 0 80px}
+header{background:linear-gradient(135deg,#1a1f2e,#11141b);padding:40px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(8px)}
+.wrap{max-width:1080px;margin:0 auto}
+h1{font-size:26px;font-weight:700;margin-bottom:6px}
+.sub{color:var(--muted);font-size:14px}
+nav.anchors{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+nav.anchors a{font-size:13px;color:var(--muted);text-decoration:none;padding:6px 12px;background:var(--chip);border-radius:20px;border:1px solid var(--border)}
+nav.anchors a:hover{color:var(--text);border-color:var(--accent)}
+section{margin-top:36px;padding:0 24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px}
+h2{font-size:20px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+h2 .ico{width:28px;height:28px;border-radius:8px;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;font-size:15px;color:#0f1115}
+h3{font-size:15px;margin:14px 0 8px;color:var(--accent2)}
+p{font-size:14px;color:var(--text);margin:8px 0}
+.muted{color:var(--muted)}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+th{color:var(--muted);font-weight:600;background:var(--card2)}
+code{background:var(--chip);padding:2px 6px;border-radius:6px;font-size:12.5px;color:var(--accent2)}
+.chip{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;background:var(--chip);border:1px solid var(--border)}
+.chip.core{border-color:var(--accent);color:var(--accent)}
+.chip.good{border-color:var(--growth);color:var(--growth)}
+.chip.warn{border-color:var(--value);color:var(--value)}
+.chip.todo{border-color:var(--pain);color:var(--pain)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+.mini{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px}
+.mini b{display:block;font-size:14px;margin-bottom:4px}
+.mini small{color:var(--muted);font-size:12px}
+.flow{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--muted);white-space:pre;overflow-x:auto}
+.stat{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px}
+.stat .b{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;min-width:120px}
+.stat .b .n{font-size:22px;font-weight:700;color:var(--accent)}
+.stat .b .l{font-size:12px;color:var(--muted)}
+a.link{color:var(--accent);text-decoration:none}
+a.link:hover{text-decoration:underline}
+.note{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card2);border-radius:0 8px 8px 0;font-size:13px;color:var(--muted);margin:10px 0}
+footer{max-width:1080px;margin:40px auto 0;padding:0 24px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>🧭 BPT 총괄기획 · 운영 대시보드</h1>
+    <div class="sub">비즈니스PT 교육 기반 · 유튜브 전체 기획·제작 → 서비스·상품 판매 · <b>운영 사령탑</b></div>
+    <nav class="anchors">
+      <a href="#overview">개요</a>
+      <a href="#pillars">3대 기둥</a>
+      <a href="#funnel">콘텐츠 모델</a>
+      <a href="#categories">카테고리 맵</a>
+      <a href="#agents">에이전트 맵</a>
+      <a href="#curriculum">강의 진도</a>
+      <a href="#actions">우선 액션</a>
+      <a href="#docs">문서 허브</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section id="overview">
+  <div class="card">
+    <h2><span class="ico">①</span> 프로젝트 개요 · 큰틀</h2>
+    <p><b>비즈니스PT 교육을 기반으로, 유튜브 전체 기획·제작을 통해 내 서비스·상품을 판매하는 프로젝트.</b></p>
+    <div class="flow">비즈니스PT 강의 학습 ─┐
+                     ├─▶ 유튜브 기획·제작 (풀링→키→랜딩) ─▶ 판매 (이북리더기 → 책 관련 제품 → readtree)
+강의 진행마다 정리·보강·연계 ─┘        ↑ 8개(+1) 제작 카테고리로 분해해 관리</div>
+    <div class="note">전략("왜")의 SSOT는 <code>../프로젝트_방향성.md</code>. 이 대시보드와 <code>BPT_총괄기획.md</code>는 운영("무엇을·어떻게·누가")의 SSOT. 둘은 중복하지 않고 링크한다.</div>
+    <div class="stat">
+      <div class="b"><div class="n">8+1</div><div class="l">제작 카테고리</div></div>
+      <div class="b"><div class="n">7/40</div><div class="l">강의 진도(주차)</div></div>
+      <div class="b"><div class="n">9</div><div class="l">에이전트(오케+8)</div></div>
+      <div class="b"><div class="n">0</div><div class="l">미해결 gap</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="pillars">
+  <div class="card">
+    <h2><span class="ico">②</span> 3대 기둥 &amp; 결·6축</h2>
+    <div class="grid">
+      <div class="mini"><b>① 비즈니스PT 학습 적용</b><small>강의 개념을 채널·상품에 실전 적용 — 장기 주력 ①</small></div>
+      <div class="mini"><b>② AI 입구·문해력/책 토대 콘텐츠</b><small>6축 컨셉 × 결 3그룹 × 진정성(AI·문해력) — 단기 주력 ②</small></div>
+      <div class="mini"><b>③ readingtree 연계</b><small>자연스러운 랜딩 도착지 — 중기 주력 ③</small></div>
+    </div>
+    <h3>채널: AI보다 읽는 사람</h3>
+    <p>북극성 — AI 시대에 앞서가는 사람은 결국 <b>AI보다 깊이 읽는 사람</b>이다. 슬로건 "AI는 답을 만든다. 읽는 사람은 질문을 만든다." · 사인오프 "AI는 답을, 읽는 사람은 질문을."</p>
+    <h3>결 3그룹</h3>
+    <p>① AI를 <b>안/못 쓰는</b> 사람(입문) · ② AI를 <b>쓰고 있는</b> 사람(활용·단기 주력) · ③ AI를 <b>더 잘 쓰려는</b> 사람(심화)</p>
+    <h3>6축 컨셉</h3>
+    <p>독서 · 문해력 · 사고력 · AI · 바이브코딩 · 성장 <small>(읽고 → 생각하고 → AI로 확장하고 → 성장)</small></p>
+    <h3>단계별 우선 기둥</h3>
+    <p><span class="chip good">단기(~11주) ② AI·문해력 콘텐츠</span> <span class="chip warn">중기(12주~) ③ readingtree·상품</span> <span class="chip core">장기(24주~) ① 시스템·확장</span></p>
+    <div class="note">상세·확정 정의는 <a class="link" href="../프로젝트_방향성.md">../프로젝트_방향성.md</a> §1.1·§2·§6.4 · 정체성 SSOT <a class="link" href="../docs/채널정채성/AI보다 읽는사람.MD">AI보다 읽는사람.MD</a>. 충돌 시 방향성 문서 우선.</div>
+  </div>
+</section>
+
+<section id="funnel">
+  <div class="card">
+    <h2><span class="ico">③</span> 콘텐츠 모델 (3-Asset) &amp; 카테고리 흐름</h2>
+    <div class="flow">강의(1) ─▶ 지표(2)로 수치화 ─▶ 원고(8) 룰북 위에서
+   ├─▶ 풀링(5) 기획·대본
+   ├─▶ 키(6)  기획·대본
+   └─▶ 쇼츠(7) 파생
+(각 영상마다) 제목(4) + 썸네일(3) ─▶ 편집·패키징(+1) ─▶ 발행</div>
+    <table>
+      <tr><th>Asset</th><th>목적</th><th>예시</th></tr>
+      <tr><td><span class="chip" style="border-color:var(--growth);color:var(--growth)">풀링</span></td><td>무목적 탐색 유입 → 구독·신뢰</td><td>"AI 시대 왜 책을 읽어야 할까"</td></tr>
+      <tr><td><span class="chip" style="border-color:var(--rec);color:var(--rec)">키</span></td><td>목적 검색 유입 → 구매 의도</td><td>"이북리더기 비교·추천"</td></tr>
+      <tr><td><span class="chip" style="border-color:var(--value);color:var(--value)">랜딩</span></td><td>매출 발생</td><td>이북리더기 → 책 제품 → readtree</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="categories">
+  <div class="card">
+    <h2><span class="ico">④</span> 카테고리 현황 맵 (8 + 1)</h2>
+    <table>
+      <tr><th>#</th><th>카테고리</th><th>기준</th><th>산출물</th><th>담당 에이전트</th><th>상태</th></tr>
+      <tr><td>1</td><td><b>강의</b></td><td><span class="chip good">✅</span></td><td><span class="chip good">✅</span></td><td><code>lecture-glossary-curator</code> · <code>lecture-item-strategy-applier</code></td><td><span class="chip good">기존</span></td></tr>
+      <tr><td>2</td><td><b>지표</b></td><td><span class="chip good">✅</span></td><td><span class="chip good">✅</span></td><td><code>metrics-planner</code></td><td><span class="chip core">신규</span></td></tr>
+      <tr><td>3</td><td><b>썸네일</b></td><td><span class="chip good">✅</span></td><td><span class="chip good">✅</span></td><td><code>thumbnail-planner</code></td><td><span class="chip core">신규</span></td></tr>
+      <tr><td>4</td><td><b>제목</b></td><td><span class="chip good">✅</span></td><td><span class="chip good">✅</span></td><td><code>title-hook-planner</code></td><td><span class="chip core">신규</span></td></tr>
+      <tr><td>5</td><td><b>풀링컨텐츠</b></td><td><span class="chip good">✅</span></td><td><span class="chip good">✅</span></td><td><code>pooling-script-agent</code></td><td><span class="chip core">신규</span></td></tr>
+      <tr><td>6</td><td><b>키컨텐츠</b></td><td><span class="chip good">✅</span></td><td><span class="chip good">✅</span></td><td><code>script-agent</code> + <code>video-asset-curator</code></td><td><span class="chip core">신규</span>+<span class="chip good">기존</span></td></tr>
+      <tr><td>7</td><td><b>쇼츠</b></td><td><span class="chip good">✅</span></td><td><span class="chip good">✅</span></td><td><code>shorts-planner</code> + <code>script-agent</code></td><td><span class="chip core">신규</span></td></tr>
+      <tr><td>8</td><td><b>원고(대본)</b></td><td><span class="chip good">✅</span></td><td><span class="chip good">✅</span></td><td><code>script-agent</code></td><td><span class="chip core">신규</span></td></tr>
+      <tr><td>+1</td><td><b>편집·패키징</b></td><td><span class="chip good">✅</span></td><td><span class="chip good">✅</span></td><td class="muted">자동화편집/ 시스템 (현행 유지)</td><td><span class="chip">연계</span></td></tr>
+    </table>
+    <div class="note">라우팅 트리거 키워드·기준문서·산출물 폴더의 정밀 매핑 → <a class="link" href="카테고리_레지스트리.md">카테고리_레지스트리.md</a></div>
+  </div>
+</section>
+
+<section id="agents">
+  <div class="card">
+    <h2><span class="ico">⑤</span> 에이전트 맵 (오케스트레이터 → 카테고리)</h2>
+    <div class="flow">             ┌──────────────────────────────────────────────┐
+사용자 지시 ─▶ │  bpt-master-planner  (메인 BPT 총괄기획)         │
+             │  ①레지스트리 로드 ②카테고리 분류 ③5체크리스트      │
+             │  ④라우팅/직접수정  ⑤레지스트리·허브 동기화          │
+             └───┬───────────┬────────────┬───────────┬──────────┘
+        [강의]        [지표]      [썸네일/제목]   [풀링/키/쇼츠/원고]   [자산]
+ lecture-glossary  metrics-   thumbnail- /     pooling-script-agent  video-
+ -curator          planner    title-hook-      script-agent          asset-
+ lecture-item-                 planner          shorts-planner        curator
+ strategy-applier</div>
+    <p class="muted">오케스트레이터는 분류·라우팅뿐 아니라 <b>카테고리 에이전트 정의(.md)의 맥락·내용을 직접 수정·관리</b>하고, 강의 진행 시 강의→제작 전파 파이프라인을 트리거한다.</p>
+  </div>
+</section>
+
+<section id="curriculum">
+  <div class="card">
+    <h2><span class="ico">⑥</span> 강의 진도 (40주차 기준)</h2>
+    <table>
+      <tr><th>단계</th><th>주차</th><th>주제</th><th>상태</th></tr>
+      <tr><td>오리엔테이션</td><td>1주</td><td>수익화 기획 기초</td><td><span class="chip good">✅ 완료</span></td></tr>
+      <tr><td>수익화 기획</td><td>2주</td><td>수익화 기획 심화</td><td><span class="chip good">✅ 완료</span></td></tr>
+      <tr><td>키 콘텐츠</td><td>3주</td><td>키 콘텐츠 기획</td><td><span class="chip good">✅ 완료</span></td></tr>
+      <tr><td>풀링 콘텐츠</td><td>4주</td><td>풀링 콘텐츠 기획</td><td><span class="chip good">✅ 완료</span></td></tr>
+      <tr><td>풀링 제작</td><td>5~11주</td><td>풀링 영상 제작 (7주 도입부·원고작성 정리 완료 · 5·6주 미정리)</td><td><span class="chip warn">⏳ 진행 중</span></td></tr>
+      <tr><td>키 제작</td><td>12~18주</td><td>키 영상 제작</td><td><span class="chip">⬜</span></td></tr>
+      <tr><td>랜딩 제작</td><td>19~23주</td><td>랜딩 페이지·세일즈</td><td><span class="chip">⬜</span></td></tr>
+      <tr><td>플랫폼 확장</td><td>24~29주</td><td>멀티 플랫폼·자동화</td><td><span class="chip">⬜</span></td></tr>
+      <tr><td>심화·확장</td><td>30~40주</td><td>고도화·신규 라인</td><td><span class="chip">⬜</span></td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="actions">
+  <div class="card">
+    <h2><span class="ico">⑦</span> 우선 액션</h2>
+    <table>
+      <tr><th>우선</th><th>항목</th><th>담당</th></tr>
+      <tr><td><span class="chip good">✅</span></td><td><s>쇼츠 기준 문서 작성</s> — 완료 <code>대본/_기획기준/쇼츠_기획기준.md</code></td><td><code>shorts-planner</code></td></tr>
+      <tr><td><span class="chip good">✅</span></td><td><s><code>script-agent</code>·<code>pooling-script-agent</code> 실체화</s> — 완료</td><td><code>bpt-master-planner</code></td></tr>
+      <tr><td><span class="chip good">✅</span></td><td><s>7주차(도입부·원고작성) → 원고/제목/쇼츠 전파</s> — 완료 <code>대본기획_기준.md §8.5</code></td><td><code>script-agent</code></td></tr>
+      <tr><td><span class="chip warn">P1</span></td><td>5·6주차 강의 자료 수집 시 정리본 추가 <b>(다음 차례)</b></td><td>lecture 2종</td></tr>
+      <tr><td><span class="chip">P2</span></td><td>7주차 신규 용어 SPA <code>tpl-glossary</code> 반영</td><td><code>lecture-glossary-curator</code></td></tr>
+      <tr><td><span class="chip">P3</span></td><td>지표 KPI 목표값 구체 수치 보강</td><td><code>metrics-planner</code></td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="docs">
+  <div class="card">
+    <h2><span class="ico">⑧</span> 문서 허브 (전체 링크)</h2>
+    <div class="grid">
+      <div class="mini"><b>전략·진입</b><small>
+        <a class="link" href="../프로젝트_방향성.md">프로젝트_방향성.md</a><br>
+        <a class="link" href="../프로젝트_방향성_한눈에.html">방향성 한눈에.html</a><br>
+        <a class="link" href="../CLAUDE.md">CLAUDE.md</a><br>
+        <a class="link" href="../index.html">index.html (SPA)</a></small></div>
+      <div class="mini"><b>운영(이 폴더)</b><small>
+        <a class="link" href="BPT_총괄기획.md">BPT_총괄기획.md</a><br>
+        <a class="link" href="카테고리_레지스트리.md">카테고리_레지스트리.md</a><br>
+        <a class="link" href="README.md">README.md</a></small></div>
+      <div class="mini"><b>강의·지표</b><small>
+        <a class="link" href="../docs/lectures/README.md">docs/lectures/</a><br>
+        <a class="link" href="../docs/reference/03_트래픽_시스템_정리_2026-04-16.md">트래픽 시스템 정리</a><br>
+        <a class="link" href="../docs/item/카테고리_단가분석_2026-04-28.md">카테고리 단가분석</a></small></div>
+      <div class="mini"><b>대본·썸네일·제목</b><small>
+        <a class="link" href="../대본/_기획기준/대본기획_기준.md">대본기획_기준.md</a><br>
+        <a class="link" href="../대본/_기획기준/30초_후크_룰_체크리스트.md">30초 후크 룰</a><br>
+        <a class="link" href="../대본/_기획기준/쇼츠_기획기준.md">쇼츠_기획기준.md</a><br>
+        <a class="link" href="../docs/lectures/7주차_도입부_원고작성_기초/7주차_지시카드.md">7주차 지시카드(도입부·원고)</a><br>
+        <a class="link" href="../대본/썸네일지침/README.md">썸네일지침/</a></small></div>
+      <div class="mini"><b>키컨텐츠·자산</b><small>
+        <a class="link" href="../docs/keycontent/README.md">docs/keycontent/</a><br>
+        <a class="link" href="../대본/키컨텐츠/">대본/키컨텐츠/</a></small></div>
+      <div class="mini"><b>풀링·쇼츠·편집</b><small>
+        <a class="link" href="../대본/풀링컨텐츠/">대본/풀링컨텐츠/</a><br>
+        <a class="link" href="../AI_avg_book_depth_video/">쇼츠 파이프라인</a><br>
+        <a class="link" href="../자동화편집/README.md">자동화편집/</a></small></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  운영 SSOT — 갱신 시 <code>카테고리_레지스트리.md → BPT_총괄기획.md → BPT_총괄기획.html</code> 순으로 동기화.
+  최초 작성 2026-05-30.
+</footer>
+</div>
+</body>
+</html>

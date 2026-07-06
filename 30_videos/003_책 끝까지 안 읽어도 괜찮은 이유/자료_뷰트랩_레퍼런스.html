@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>뷰트랩·레퍼런스 자료 · 책, 끝까지 안 읽어도 괜찮은 이유</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2;
+    --accent:#ffd166; --accent-2:#06d6a0; --warn:#ef476f;
+    --pull:#5cc4e0; --edit:#06d6a0; --brief:#c4b5fd;
+    --pain:#ef476f; --rec:#06d6a0; --value:#ffd166;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 24px 100px}
+  a{color:var(--pull)}
+
+  .angle-nav{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px;padding:12px;
+    background:rgba(23,26,33,.92);border:1px solid var(--line);border-radius:12px;
+    position:sticky;top:0;z-index:30;backdrop-filter:blur(8px)}
+  .abtn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:all .15s;white-space:nowrap}
+  .abtn:hover{transform:translateY(-1px);background:#252a36;border-color:#34394a}
+  .abtn .num{font-size:11px;opacity:.75;font-weight:800}
+  .abtn.home{color:var(--muted);background:transparent}
+  .abtn.brief.active{background:rgba(196,181,253,.15);border-color:var(--brief);color:var(--brief)}
+  .abtn.hook.active{background:rgba(239,71,111,.15);border-color:var(--warn);color:#ff8aa5}
+  .abtn.body.active{background:rgba(92,196,224,.15);border-color:var(--pull);color:#7fd4ec}
+  .abtn.story.active{background:rgba(255,209,102,.15);border-color:var(--accent);color:var(--accent)}
+  .abtn.cta.active{background:rgba(6,214,160,.15);border-color:var(--edit);color:#33d8a3}
+  .abtn.pull.active{background:rgba(92,196,224,.15);border-color:var(--pull);color:#7fd4ec}
+  .abtn.home.active{background:#252a36;border-color:#3a4150;color:#fff}
+
+  header.hero{padding:28px 32px;border-radius:18px;
+    background:radial-gradient(1200px 380px at 10% -10%,rgba(56,189,248,.18),transparent 50%),
+               radial-gradient(900px 360px at 110% 10%,rgba(168,85,247,.14),transparent 55%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line);margin-bottom:22px}
+  .eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.18em;color:var(--pull);
+    background:rgba(92,196,224,.12);border:1px solid rgba(92,196,224,.3);
+    padding:5px 11px;border-radius:999px;text-transform:uppercase}
+  h1{font-size:28px;line-height:1.25;margin:14px 0 10px;letter-spacing:-0.02em;font-weight:800}
+  .lede{color:var(--muted);font-size:14.5px;margin:6px 0 0;max-width:880px}
+
+  section{margin-top:42px;scroll-margin-top:80px}
+  h2{font-size:21px;letter-spacing:-.01em;margin:0 0 6px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:24px;border-radius:3px;background:var(--pull)}
+  h2 .num{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:.15em;margin-right:4px}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 16px}
+  h3.blk{font-size:15px;margin:22px 0 10px;color:#fff;display:flex;align-items:center;gap:8px}
+  h3.blk::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--accent-2)}
+
+  /* stat cards */
+  .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 8px}
+  @media(max-width:760px){.stats-bar{grid-template-columns:repeat(2,1fr)}.wrap{padding:18px 16px 80px}h1{font-size:23px}}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .stat.key{border-color:rgba(239,71,111,.4);background:linear-gradient(180deg,rgba(239,71,111,.08),var(--panel))}
+  .stat .lab{font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+  .stat .val{font-size:23px;font-weight:800;color:#fff;margin-top:4px;font-variant-numeric:tabular-nums}
+  .stat .vsub{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+  /* bar chart */
+  .bars{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .bar-row{display:grid;grid-template-columns:120px 1fr 92px;align-items:center;gap:12px;margin:9px 0}
+  .bar-row .kw{font-size:13.5px;color:#dfe3ea;font-weight:600;text-align:right}
+  .bar-track{background:#0c0e13;border-radius:7px;height:22px;overflow:hidden;border:1px solid #232838}
+  .bar-fill{height:100%;border-radius:7px;background:linear-gradient(90deg,#2b6f86,#5cc4e0)}
+  .bar-fill.key{background:linear-gradient(90deg,#9e2b46,#ef476f)}
+  .bar-fill.top{background:linear-gradient(90deg,#7a6320,#ffd166)}
+  .bar-val{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+  @media(max-width:600px){.bar-row{grid-template-columns:84px 1fr 64px;gap:8px}.bar-row .kw{font-size:12px}}
+
+  /* table */
+  .tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--panel);
+    border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .tbl th{background:var(--panel-2);color:#cfd5df;text-align:left;padding:10px 12px;font-size:12px;
+    letter-spacing:.04em;border-bottom:1px solid var(--line)}
+  .tbl td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:#dfe3ea}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tr:hover td{background:#1b1f28}
+  .badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;white-space:nowrap}
+  .b-good{background:rgba(6,214,160,.15);color:#33d8a3}
+  .b-great{background:rgba(255,209,102,.16);color:#ffd166}
+  .b-short{background:rgba(92,196,224,.14);color:#5cc4e0}
+
+  .callout{border:1px solid rgba(255,209,102,.35);background:rgba(255,209,102,.07);
+    border-radius:12px;padding:14px 16px;font-size:13.5px;color:#e7e3d4;margin-top:14px}
+  .callout b{color:#ffd166}
+
+  /* person cards */
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .pcard{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--pull);
+    border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+  .pcard.kr{border-left-color:var(--accent)}
+  .pcard .ptop{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .pcard .pname{font-size:16px;font-weight:800;color:#fff}
+  .pcard .prole{font-size:11.5px;color:var(--muted)}
+  .pcard .pview{font-size:13.5px;color:#dfe3ea}
+  .pcard .pview b{color:#fff}
+  .pcard .quote{font-size:13px;color:#c9cfd9;border-left:2px solid #313747;padding:4px 0 4px 10px;font-style:italic}
+  .pcard .prow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+  .chiptag{font-size:11px;padding:3px 9px;border-radius:999px;background:#2a2f3a;border:1px solid var(--line);color:#cfd5df}
+  .srcbtn{font-size:11.5px;padding:4px 10px;border-radius:7px;text-decoration:none;
+    background:rgba(92,196,224,.12);border:1px solid rgba(92,196,224,.35);color:#7fd4ec;font-weight:600}
+  .srcbtn:hover{background:rgba(92,196,224,.22)}
+
+  /* link lists */
+  .links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:860px){.links{grid-template-columns:1fr}}
+  .lcol{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .lcol h4{margin:0 0 10px;font-size:13.5px;color:#fff}
+  .lcol ul{margin:0;padding:0;list-style:none}
+  .lcol li{margin:9px 0;font-size:13px;line-height:1.5}
+  .lcol li a{font-weight:600;text-decoration:none}
+  .lcol li a:hover{text-decoration:underline}
+  .lcol li .meta{display:block;color:var(--muted);font-size:11.5px}
+  /* youtube 영상 카드 */
+  .vids{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:6px 0 12px}
+  @media(max-width:760px){.vids{grid-template-columns:1fr}}
+  .vcard{display:block;background:var(--panel);border:1px solid var(--line);border-left:3px solid #ff4d4d;border-radius:11px;padding:12px 15px;text-decoration:none;color:var(--text);transition:all .15s}
+  .vcard:hover{transform:translateY(-1px);background:#1b1f28;border-color:#ff6b6b}
+  .vcard .vch{font-size:12px;color:#ff8a8a;font-weight:800}
+  .vcard .vtt{font-size:13.5px;color:#fff;font-weight:700;margin:5px 0 3px;line-height:1.4}
+  .vcard .vwy{font-size:11.5px;color:var(--muted)}
+
+  /* mapping */
+  .map{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 4px}
+  .map .mrow{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;padding:11px 14px;border-bottom:1px solid var(--line)}
+  .map .mrow:last-child{border-bottom:none}
+  .map .mstep{font-weight:700;color:#fff;font-size:13.5px}
+  .map .mstep span{display:block;font-size:11px;color:var(--muted);font-weight:500}
+  .map .mwhat{font-size:13.5px;color:#dfe3ea}
+  .map .mwhat b{color:var(--accent-2)}
+
+  .footer{margin-top:46px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);
+    padding-top:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .footer a{color:var(--accent-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="angle-nav">
+    <a class="abtn home" href="통합_끝까지_안읽어도.html">📦 기획·대본</a>
+    <a class="abtn brief" href="자료_브리프.html">📋 브리프</a>
+    <a class="abtn hook" href="자료_01_제목_썸네일_후크.html"><span class="num">①</span> 제목·썸네일·후크</a>
+    <a class="abtn body" href="자료_02_본문_매몰비용.html"><span class="num">②</span> 매몰비용</a>
+    <a class="abtn body" href="자료_03_본문_유한성_거장.html"><span class="num">③</span> 유한성·거장</a>
+    <a class="abtn story" href="자료_04_스토리_이동진_고백.html"><span class="num">④</span> 스토리</a>
+    <a class="abtn cta" href="자료_05_해결_결호명_CTA.html"><span class="num">⑤</span> 해결·CTA</a>
+    <a class="abtn pull active">🔎 뷰트랩·레퍼런스 (현재)</a>
+  </nav>
+
+  <header class="hero">
+    <span class="eyebrow">자료 · DATA + REFERENCE</span>
+    <h1>뷰트랩 데이터 + 인물·유튜브 레퍼런스</h1>
+    <p class="lede">EP003 「책, 끝까지 안 읽어도 괜찮은 이유」의 근거 자료. 뷰트랩 조회수(2026-05-16 캡처)와 "완독 안 해도 된다"를 주장하는 국내외 인물·영상을 차용·출처·보강용으로 정리했습니다. 카드의 <b style="color:#7fd4ec">출처</b> 버튼을 누르면 원본으로 이동합니다.</p>
+  </header>
+
+  <!-- §1 뷰트랩 -->
+  <section id="viewtrap">
+    <h2><span class="num">§1</span>뷰트랩 데이터</h2>
+    <p class="sub">출처: <code>뷰트랩 정리/단어/A_독서_직접군/{완독,독서법}/누적_데이터.csv</code> · 캡처일 2026-05-16</p>
+
+    <div class="stats-bar">
+      <div class="stat key">
+        <div class="lab">완독 · 조회수합계</div>
+        <div class="val">6,294만</div>
+        <div class="vsub">178영상 · 평균 35.3만 · 성과도 Good 79</div>
+      </div>
+      <div class="stat key">
+        <div class="lab">독서법 · 조회수합계</div>
+        <div class="val">1,682만</div>
+        <div class="vsub">348영상 · 평균 4.8만 · 경쟁↑</div>
+      </div>
+      <div class="stat">
+        <div class="lab">최상위어 · 독서</div>
+        <div class="val">1.7억</div>
+        <div class="vsub">완독·독서법의 상위 풀</div>
+      </div>
+      <div class="stat">
+        <div class="lab">기여도(완독)</div>
+        <div class="val">Good 82</div>
+        <div class="vsub">Great 2 · 떡상 여지</div>
+      </div>
+    </div>
+
+    <h3 class="blk">키워드별 조회수합계 (③-1 넓은 풀 비교 · 2026-05-16)</h3>
+    <div class="bars">
+      <div class="bar-row"><div class="kw">독서</div><div class="bar-track"><div class="bar-fill top" style="width:100%"></div></div><div class="bar-val">1.7억</div></div>
+      <div class="bar-row"><div class="kw">책추천</div><div class="bar-track"><div class="bar-fill" style="width:53%"></div></div><div class="bar-val">8,974만</div></div>
+      <div class="bar-row"><div class="kw">다독</div><div class="bar-track"><div class="bar-fill" style="width:43%"></div></div><div class="bar-val">7,243만</div></div>
+      <div class="bar-row"><div class="kw">완독 ★</div><div class="bar-track"><div class="bar-fill key" style="width:37%"></div></div><div class="bar-val">6,294만</div></div>
+      <div class="bar-row"><div class="kw">자기계발</div><div class="bar-track"><div class="bar-fill" style="width:35%"></div></div><div class="bar-val">5,952만</div></div>
+      <div class="bar-row"><div class="kw">작심삼일</div><div class="bar-track"><div class="bar-fill" style="width:32%"></div></div><div class="bar-val">5,450만</div></div>
+      <div class="bar-row"><div class="kw">문해력</div><div class="bar-track"><div class="bar-fill" style="width:28%"></div></div><div class="bar-val">4,796만</div></div>
+      <div class="bar-row"><div class="kw">독서법 ★</div><div class="bar-track"><div class="bar-fill key" style="width:10%"></div></div><div class="bar-val">1,682만</div></div>
+      <div class="bar-row"><div class="kw">독서습관</div><div class="bar-track"><div class="bar-fill" style="width:8.6%"></div></div><div class="bar-val">1,459만</div></div>
+    </div>
+
+    <h3 class="blk">참고할 상위 영상 (구성 학습용)</h3>
+    <table class="tbl">
+      <thead><tr><th>제목</th><th>길이</th><th>조회수</th><th>채널</th><th>학습 포인트</th></tr></thead>
+      <tbody>
+        <tr><td>독서율 세계 1위 국가의 독서 방법</td><td><span class="badge b-short">00:57</span></td><td>75.7만</td><td>현대지성</td><td><b>쇼츠형(1분 미만)</b>으로 독서법 떡상 — 미드폼/쇼츠 컷 참고</td></tr>
+        <tr><td>절대 실패하지 않는 독서 습관 만들기(최승필)</td><td>31:16</td><td>255만</td><td>세바시 인생질문</td><td>"실패 안 하는" = 부정 해소 프레임. 강연형 신뢰</td></tr>
+        <tr><td>천재 남매 야노의 독서 습관</td><td>22:15</td><td>141만</td><td>KBS 다큐</td><td>다큐 권위·사례형</td></tr>
+      </tbody>
+    </table>
+    <p class="sub" style="margin-top:8px">출처: <code>…/완독·독서법/2026-05-16/필터적용_영상목록.csv</code> · <b>🖼 썸네일 학습용 참고영상 갤러리(뷰트랩 라이브 2026-06-07, 9편)</b> → <a href="썸네일/참고영상_썸네일_갤러리.html">참고영상_썸네일_갤러리.html</a></p>
+
+    <div class="callout">
+      <b>⚙ 라이브 캡처 TODO</b> — <code>완독실패</code>·<code>완독법</code>·<code>완독계획</code>·<code>완독모임</code>·<code>완독프로그램</code>은 단어_300에 <b>등록만 되고 데이터 0</b>. 코워크 가이드 §D로 "뷰트랩에서 <b>완독·완독실패·발췌독·이동진독서법</b> 검색하고 대시보드 갱신해줘" → 노출확률 normal↑·성과도 상위 썸네일 구성 확정(제목 8단계 ⑥⑦, 썸네일 ⑥).
+    </div>
+  </section>
+
+  <!-- §2 인물 -->
+  <section id="people">
+    <h2><span class="num">§2</span>인물 레퍼런스 <span style="font-size:12px;color:var(--muted);font-weight:600;margin-left:6px">"완독 안 해도 된다" 근거 · 차용·출처·보강용</span></h2>
+    <p class="sub">형식: "[국가]의 [매체]의 [인물]이 설명한 [내용]을…" + "제가 해보니". ★ 표시 = 본문 채택.</p>
+    <div class="cards">
+
+      <div class="pcard kr">
+        <div class="ptop"><span class="pname">이동진 ★</span><span class="prole">국내 · 영화평론가</span></div>
+        <div class="pview"><b>완독 부담을 버려야 책을 읽는다.</b> 재미가 최우선, '목적 독서'는 한계. 여러 권 동시에, 어떤 책은 10쪽만.</div>
+        <div class="quote">"300쪽 중 150쪽을 읽었다면, 실패가 아니라 150쪽만큼 읽은 겁니다." (닥끌오재 — 닥치는 대로·끌리는 대로·오직 재미있게)</div>
+        <div class="prow"><span class="chiptag">활용: 스토리(04)</span><a class="srcbtn" href="https://www.aha-contents.com/200" target="_blank" rel="noopener">출처 ↗ 아하레터</a><a class="srcbtn" href="https://www.khan.co.kr/article/201706141755018" target="_blank" rel="noopener">경향 ↗</a><a class="srcbtn" href="https://www.youtube.com/watch?v=y2VlSzSJxtY" target="_blank" rel="noopener">🎬 영상</a></div>
+      </div>
+
+      <div class="pcard">
+        <div class="ptop"><span class="pname">네이벌 라비칸트 ★</span><span class="prole">미국 · 투자자</span></div>
+        <div class="pview"><b>책을 잡지처럼.</b> 10~20권을 동시에 펼쳐 두고 안 끌리면 즉시 내려놓기, 중간부터도 읽기. 완독 의무 0. 대신 <b>최고의 100권을 재독</b>.</div>
+        <div class="quote">"안 끌리면 즉시 내려놓아라. 책을 끝까지 읽을 의무는 없다." (Tim Ferriss Show #97)</div>
+        <div class="prow"><span class="chiptag">활용: 본문②(03)</span><a class="srcbtn" href="https://tim.blog/2015/08/18/the-evolutionary-angel-naval-ravikant/" target="_blank" rel="noopener">출처 ↗ tim.blog</a><a class="srcbtn" href="https://alexandbooks.com/archive/16-reading-tips-from-naval-ravikant" target="_blank" rel="noopener">요약 ↗</a><a class="srcbtn" href="https://www.youtube.com/watch?v=SK69_Tw2Lpw" target="_blank" rel="noopener">🎬 영상</a></div>
+      </div>
+
+      <div class="pcard">
+        <div class="ptop"><span class="pname">모티머 애들러 ★</span><span class="prole">미국 · 『독서의 기술』</span></div>
+        <div class="pview">독서 4단계(기초·<b>점검</b>·분석·신토피컬). 대부분의 책은 <b>점검 독서(훑어보기)</b> — 서문·목차·필요한 장만 보고 정독 여부를 판단하면 충분.</div>
+        <div class="quote">"모든 책을 같은 강도로 읽지 마라. 대부분은 훑어보기로 충분하다."</div>
+        <div class="prow"><span class="chiptag">활용: 본문②(03)·해결(05)</span><a class="srcbtn" href="https://fs.blog/how-to-read-a-book/" target="_blank" rel="noopener">출처 ↗ Farnam Street</a><a class="srcbtn" href="https://www.youtube.com/watch?v=vbzIQqe1MYs" target="_blank" rel="noopener">🎬 영상</a></div>
+      </div>
+
+      <div class="pcard">
+        <div class="ptop"><span class="pname">탈레브 · 움베르토 에코 ★</span><span class="prole">안티라이브러리</span></div>
+        <div class="pview"><b>안 읽은 책이 더 가치 있다.</b> 에코는 3만 권 서재 중 대부분 안 읽었고, 그것을 '안티라이브러리'라 불렀다. 서재 = 자랑이 아닌 연구 도구 → 겸손·호기심.</div>
+        <div class="quote">"읽은 책보다 안 읽은 책이 훨씬 가치 있다." (탈레브 『블랙 스완』)</div>
+        <div class="prow"><span class="chiptag">활용: 본문②(03)·readtree 떡밥</span><a class="srcbtn" href="https://fs.blog/the-antilibrary/" target="_blank" rel="noopener">출처 ↗ FS</a><a class="srcbtn" href="https://www.themarginalian.org/2015/03/24/umberto-eco-antilibrary/" target="_blank" rel="noopener">에코 ↗</a><a class="srcbtn" href="https://www.youtube.com/watch?v=e06VN2WqLNA" target="_blank" rel="noopener">🎬 영상</a></div>
+      </div>
+
+      <div class="pcard">
+        <div class="ptop"><span class="pname">낸시 펄 ★</span><span class="prole">미국 · 사서</span></div>
+        <div class="pview"><b>50쪽 룰.</b> 50쪽까지 읽고 안 맞으면 미련 없이 덮어라(50세가 넘으면 100에서 나이를 뺀 페이지). 끝까지 읽을지 50쪽 안에 결정.</div>
+        <div class="quote">"인생은 짧고 책은 많다. 50쪽 안에 결정하라."</div>
+        <div class="prow"><span class="chiptag">활용: 본문②(03)·해결① (05)</span><a class="srcbtn" href="https://reactormag.com/you-dont-have-to-finish-every-book-you-start/" target="_blank" rel="noopener">출처 ↗ Reactor</a></div>
+      </div>
+
+      <div class="pcard">
+        <div class="ptop"><span class="pname">팀 페리스 ★</span><span class="prole">미국 · 작가·팟캐스터</span></div>
+        <div class="pview"><b>평생 읽을 책은 유한하다.</b> 수명 × 연간 독서량으로 계산하면 평생 읽는 책은 의외로 적다 → 끝까지 읽을 책을 <b>더 까다롭게 선별</b>하라.</div>
+        <div class="quote">"평생 읽을 수 있는 책 수를 계산해 보면, 무엇을 끝까지 읽을지 신중해진다."</div>
+        <div class="prow"><span class="chiptag">활용: 본문②-A 유한성 (03)</span><a class="srcbtn" href="https://lithub.com/how-many-books-will-you-read-before-you-die/" target="_blank" rel="noopener">통계 ↗ LitHub</a></div>
+      </div>
+
+      <div class="pcard">
+        <div class="ptop"><span class="pname">쇼펜하우어 ★</span><span class="prole">독일 · 철학자 · 반론 카드</span></div>
+        <div class="pview"><b>"독서는 남의 머리로 생각하는 것."</b> 과도한 독서는 독립적 사고를 방해 → 그러니 발췌독이라도 <b>내 생각으로 한 번 소화</b>하는 게 핵심(깊이 부여·반론 받아치기).</div>
+        <div class="quote">"독서는 자기 머리가 아니라 남의 머리로 생각하는 것이다." (『문장론/Thinking for Oneself』)</div>
+        <div class="prow"><span class="chiptag">활용: 해결(05) 깊이 카드</span><a class="srcbtn" href="https://ebooks.adelaide.edu.au/s/schopenhauer/arthur/essays/chapter6.html" target="_blank" rel="noopener">원문 ↗</a></div>
+      </div>
+
+      <div class="pcard">
+        <div class="ptop"><span class="pname">매몰비용 오류</span><span class="prole">행동경제학 · 본문① 원리</span></div>
+        <div class="pview">싫은 책을 끝까지 읽는 대표 예시. 이미 쓴 시간이 아까워(<b>손실 회피·인지부조화</b>) 그만두는 게 이득인데도 붙잡는 심리.</div>
+        <div class="quote">"멈추면 그동안 읽은 시간이 낭비였다고 인정해야 해서 계속 읽는다."</div>
+        <div class="prow"><span class="chiptag">활용: 본문①(02)</span><a class="srcbtn" href="https://thedecisionlab.com/biases/the-sunk-cost-fallacy" target="_blank" rel="noopener">출처 ↗ Decision Lab</a><a class="srcbtn" href="https://www.scribbr.com/fallacies/sunk-cost-fallacy/" target="_blank" rel="noopener">정의 ↗</a></div>
+      </div>
+
+    </div>
+
+    <h3 class="blk">누구나 아는 유명인 (보강) <span style="font-size:11.5px;color:var(--muted);font-weight:600">— ▶ 영상 있는 레퍼런스 우선</span></h3>
+    <div class="cards">
+
+      <div class="pcard kr">
+        <div class="ptop"><span class="pname">김영하 ▶</span><span class="prole">국내 · 소설가 · 알쓸신잡</span></div>
+        <div class="pview"><b>안티라이브러리 국내판.</b> 살 책을 사는 게 아니라 산 책 중에 읽는다. 지루하면 던져라.</div>
+        <div class="quote">"읽을 책을 사는 게 아니고, 산 책 중에 읽는 거예요." (알쓸신잡)</div>
+        <div class="prow"><span class="chiptag">활용: 스토리(04)·본문②(03)</span><a class="srcbtn" href="https://www.youtube.com/watch?v=Xq0nWArAKtA" target="_blank" rel="noopener">🎬 영상</a><a class="srcbtn" href="https://news.mt.co.kr/mtview.php?no=2015091910341919236" target="_blank" rel="noopener">기사 ↗</a></div>
+      </div>
+
+      <div class="pcard kr">
+        <div class="ptop"><span class="pname">유시민 ▶</span><span class="prole">국내 · 작가</span></div>
+        <div class="pview"><b>재미없으면 안 읽어도 된다.</b> 다독보다 '어떻게 읽고 무엇을 배우나'가 중요.</div>
+        <div class="quote">"재미없는 책은 안 읽는다 — 억지로 읽으면 책과 멀어진다."</div>
+        <div class="prow"><span class="chiptag">활용: 해결(05)·스토리(04)</span><a class="srcbtn" href="https://www.youtube.com/watch?v=9aOWhcaorJo" target="_blank" rel="noopener">🎬 영상</a><a class="srcbtn" href="https://www.youtube.com/shorts/Q5OhJrBoIV0" target="_blank" rel="noopener">🎬 쇼츠</a></div>
+      </div>
+
+      <div class="pcard">
+        <div class="ptop"><span class="pname">빌 게이츠 ▶</span><span class="prole">미국 · 대비/반론</span></div>
+        <div class="pview"><b>대비 카드</b> — 시작한 책은 끝까지 읽는다. 단, <b>시작 전에 까다롭게 고르기</b> 때문(=선택이 먼저, 영상 논지 보강).</div>
+        <div class="quote">"I refuse to stop reading a book in the middle, even if I don't like it." (Time)</div>
+        <div class="prow"><span class="chiptag">활용: 해결(05) 반론</span><a class="srcbtn" href="https://www.youtube.com/watch?v=eTFy8RnUkoU" target="_blank" rel="noopener">🎬 영상</a></div>
+      </div>
+
+      <div class="pcard">
+        <div class="ptop"><span class="pname">프랜시스 베이컨</span><span class="prole">영국 · 철학자 · 고전 인용</span></div>
+        <div class="pview">책마다 읽는 깊이를 다르게 — <b>맛볼 책 / 삼킬 책 / 씹어 소화할 책</b>. 모든 책을 정독할 필요 없다.</div>
+        <div class="quote">"Some books are to be tasted, others to be swallowed, and some few to be chewed and digested." (Of Studies, 1625)</div>
+        <div class="prow"><span class="chiptag">활용: 본문②(03)·해결(05)</span><a class="srcbtn" href="https://www.goodreads.com/quotes/1242120-some-books-are-to-be-tasted-others-to-be-swallowed" target="_blank" rel="noopener">출처 ↗</a></div>
+      </div>
+
+      <div class="pcard">
+        <div class="ptop"><span class="pname">윈스턴 처칠</span><span class="prole">영국 · 고전 인용</span></div>
+        <div class="pview">다 못 읽어도 서재를 <b>어루만지기라도</b> 하라 — 아무 데나 펼쳐 눈에 띄는 첫 문장부터.</div>
+        <div class="quote">"if you cannot read them, at any rate handle them and fondle them… read on from the first sentence that arrests the eye." (Painting as a Pastime)</div>
+        <div class="prow"><span class="chiptag">활용: 본문②(03)·readtree 떡밥</span><a class="srcbtn" href="https://winstonchurchill.org/the-life-of-churchill/life/artist/painting-as-a-pastime/" target="_blank" rel="noopener">출처 ↗</a></div>
+      </div>
+
+      <div class="pcard">
+        <div class="ptop"><span class="pname">마크 트웨인</span><span class="prole">미국 · 고전 인용</span></div>
+        <div class="pview"><b>고전 = 완독 강박의 상징.</b> 다들 칭송하지만 아무도 끝까지 안 읽는 책.</div>
+        <div class="quote">"'Classic.' A book which people praise and don't read." (Following the Equator, 1897)</div>
+        <div class="prow"><span class="chiptag">활용: 후크(01)·본문②(03)</span><a class="srcbtn" href="https://www.goodreads.com/quotes/796-classic---a-book-which-people-praise-and-don-t-read" target="_blank" rel="noopener">출처 ↗</a></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- §3 링크 -->
+  <section id="links">
+    <h2><span class="num">§3</span>참고 영상·자료 (차용 원본)</h2>
+    <p class="sub">풀링은 타분야·해외 연출을 책 분야로 <b>번역</b>(§8.5.2). 영상 직접 캡처는 라이브 확인 권장.</p>
+
+    <h3 class="blk">참고 영상 (YouTube) <span style="font-size:11.5px;color:var(--muted);font-weight:600">— 검색 결과 기준, 클릭해 확인</span></h3>
+    <div class="vids">
+      <a class="vcard" href="https://www.youtube.com/watch?v=SK69_Tw2Lpw" target="_blank" rel="noopener"><div class="vch">▶ Naval Ravikant</div><div class="vtt">Advice for Reading Books — 습관 만들기</div><div class="vwy">안 끌리면 즉시 덮기 · 본문②·해결</div></a>
+      <a class="vcard" href="https://www.youtube.com/watch?v=CV39E1tWlpk" target="_blank" rel="noopener"><div class="vch">▶ Naval Ravikant</div><div class="vtt">How to Read Books Effectively?</div><div class="vwy">잡지처럼·발췌 · 본문②</div></a>
+      <a class="vcard" href="https://www.youtube.com/watch?v=e06VN2WqLNA" target="_blank" rel="noopener"><div class="vch">▶ Nassim Taleb</div><div class="vtt">Do you have an Anti-Library?</div><div class="vwy">안티라이브러리 · 본문②·readtree 떡밥</div></a>
+      <a class="vcard" href="https://www.youtube.com/watch?v=vbzIQqe1MYs" target="_blank" rel="noopener"><div class="vch">▶ Mortimer Adler</div><div class="vtt">How to READ a Book — 4 Levels of Reading</div><div class="vwy">점검 독서 · 본문②·해결</div></a>
+      <a class="vcard" href="https://www.youtube.com/watch?v=y2VlSzSJxtY" target="_blank" rel="noopener"><div class="vch">▶ 어쩌다어른</div><div class="vtt">(110분) 이동진이 전하는 독서의 가치</div><div class="vwy">이동진 독서관 · 스토리</div></a>
+      <a class="vcard" href="https://www.youtube.com/watch?v=6uQLANXIIGA" target="_blank" rel="noopener"><div class="vch">▶ 북튜브</div><div class="vtt">이동진 평론가의 파이아키아 책장 털어보기</div><div class="vwy">2만 권 서재 = 국내 안티라이브러리 · 스토리</div></a>
+      <a class="vcard" href="https://www.youtube.com/btv_piarchia" target="_blank" rel="noopener"><div class="vch">▶ 이동진</div><div class="vtt">B tv 이동진의 파이아키아 (채널)</div><div class="vwy">이동진 본인 채널 · 스토리</div></a>
+      <a class="vcard" href="https://www.youtube.com/watch?v=1vQ_kd3qDus" target="_blank" rel="noopener"><div class="vch">▶ 겨울서점 김겨울</div><div class="vtt">책 읽고 싶어지게 만들어드립니다</div><div class="vwy">국내 북튜버 톤 · 완독 부담 없는 독서</div></a>
+      <a class="vcard" href="https://www.youtube.com/watch?v=Xq0nWArAKtA" target="_blank" rel="noopener"><div class="vch">▶ 김영하 (tvN Shift)</div><div class="vtt">책, 어떻게 골라야 할까?</div><div class="vwy">안티라이브러리·산 책 중에 읽기 · 스토리·본문②</div></a>
+      <a class="vcard" href="https://www.youtube.com/watch?v=9aOWhcaorJo" target="_blank" rel="noopener"><div class="vch">▶ 유시민</div><div class="vtt">유시민이 말하는 책 읽는 방법</div><div class="vwy">재미없으면 안 읽기 · 해결·스토리</div></a>
+      <a class="vcard" href="https://www.youtube.com/watch?v=eTFy8RnUkoU" target="_blank" rel="noopener"><div class="vch">▶ Bill Gates</div><div class="vtt">How Bill Gates reads books</div><div class="vwy">대비/반론 — 끝까지 읽되 선택이 먼저 · 해결</div></a>
+    </div>
+    <p class="sub" style="margin-top:-2px">⚠️ URL은 YouTube 검색 결과 기준(2026-06-06) — 업로드 변경·삭제 가능, 사용 전 클릭 확인. 화면 캡처 권리 주의(출처는 고정 댓글).</p>
+
+    <h3 class="blk">글·기사 (관점·문장 차용)</h3>
+    <div class="links">
+      <div class="lcol">
+        <h4>① "완독 안 해도 된다" 직접 주제</h4>
+        <ul>
+          <li><a href="https://www.aha-contents.com/200" target="_blank" rel="noopener">이동진 '꼭 완독해야 하나요?'</a><span class="meta">아하레터 · 국내 앵커 1순위</span></li>
+          <li><a href="https://www.khan.co.kr/article/201706141755018" target="_blank" rel="noopener">이동진 '닥끌오재' 독서법</a><span class="meta">경향신문</span></li>
+          <li><a href="https://brunch.co.kr/@dong02/1779" target="_blank" rel="noopener">책, 완독하지 않아도 괜찮아</a><span class="meta">브런치</span></li>
+          <li><a href="https://reactormag.com/you-dont-have-to-finish-every-book-you-start/" target="_blank" rel="noopener">You Don't Have to Finish Every Book</a><span class="meta">Reactor · 낸시 펄 50쪽 룰·매몰비용</span></li>
+        </ul>
+      </div>
+      <div class="lcol">
+        <h4>② 거장 독서법 (해외)</h4>
+        <ul>
+          <li><a href="https://tim.blog/2015/08/18/the-evolutionary-angel-naval-ravikant/" target="_blank" rel="noopener">Naval Ravikant — Tim Ferriss Show #97</a><span class="meta">팟캐스트 원본</span></li>
+          <li><a href="https://www.navalmanack.com/navals-recommended-reading" target="_blank" rel="noopener">Almanack of Naval — Reading</a><span class="meta">네이벌 독서 정리</span></li>
+          <li><a href="https://fs.blog/how-to-read-a-book/" target="_blank" rel="noopener">How to Read a Book 요약</a><span class="meta">애들러 4단계·점검독서</span></li>
+          <li><a href="https://fs.blog/the-antilibrary/" target="_blank" rel="noopener">The Antilibrary</a><span class="meta">탈레브·에코</span></li>
+        </ul>
+      </div>
+      <div class="lcol">
+        <h4>③ 심리·통계 근거</h4>
+        <ul>
+          <li><a href="https://thedecisionlab.com/biases/the-sunk-cost-fallacy" target="_blank" rel="noopener">Sunk Cost Fallacy</a><span class="meta">The Decision Lab · 싫은 책 끝까지 예시</span></li>
+          <li><a href="https://www.scribbr.com/fallacies/sunk-cost-fallacy/" target="_blank" rel="noopener">Sunk Cost Fallacy 정의·예시</a><span class="meta">Scribbr</span></li>
+          <li><a href="https://lithub.com/how-many-books-will-you-read-before-you-die/" target="_blank" rel="noopener">How Many Books Will You Read Before You Die?</a><span class="meta">LitHub · 평생 독서량</span></li>
+          <li><a href="https://www.bookbub.com/blog/news-study-how-many-books-we-read-in-a-lifetime" target="_blank" rel="noopener">평생 읽을 책 수 차트</a><span class="meta">BookBub · 평균12/다독50/슈퍼80</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- §4 매핑 -->
+  <section id="mapping">
+    <h2><span class="num">§4</span>본문 적용 매핑 (차용 → 챕터)</h2>
+    <p class="sub">어느 근거가 어느 챕터로 들어가는지. 상세 발화는 <a href="정리본/01_후크_미리보기.md">정리본 01~05</a>.</p>
+    <div class="map">
+      <div class="mrow"><div class="mstep">후크 <span>0:00–0:30</span></div><div class="mwhat">유한성 통계 1줄 + <b>"완독은 결과"</b> 약속</div></div>
+      <div class="mrow"><div class="mstep">본문① <span>02 · 매몰비용</span></div><div class="mwhat">매몰비용 오류 → 완독강박의 정체 <b>[Decision Lab·Scribbr]</b></div></div>
+      <div class="mrow"><div class="mstep">본문② <span>03 · 유한성·거장</span></div><div class="mwhat">팀 페리스(유한성) + <b>네이벌·애들러·탈레브/에코·낸시 펄</b></div></div>
+      <div class="mrow"><div class="mstep">스토리 <span>04 · 감정 코어</span></div><div class="mwhat"><b>이동진</b> 닥끌오재 + 내 1인칭 고백</div></div>
+      <div class="mrow"><div class="mstep">해결 <span>05 · CTA</span></div><div class="mwhat">50쪽룰·점검독서·여러권·안티라이브러리 + <b>쇼펜하우어</b> 반론 받아치기</div></div>
+    </div>
+    <div class="callout" style="border-color:rgba(92,196,224,.3);background:rgba(92,196,224,.06);color:#d3e6ee">
+      ⚠️ 발화엔 <b style="color:#7fd4ec">핵심 출처만</b>(이동진·네이벌·애들러·에코·낸시 펄). 연도·URL·세부 인용은 <b style="color:#7fd4ec">고정 댓글</b>로 — 인지 비용↓(진정성 §6).
+    </div>
+  </section>
+
+  <div class="footer">
+    <span>원본 <a href="정리본/06_뷰트랩_레퍼런스_리서치.md">정리본/06</a></span>
+    <span>룰북 <a href="../../대본/_기획기준/대본기획_기준.md">대본기획_기준.md</a></span>
+    <span><a href="README.md">🧭 진입점</a></span>
+    <span>뷰트랩 2026-05-16 · 웹 2026-06-06</span>
+  </div>
+
+</div>
+</body>
+</html>

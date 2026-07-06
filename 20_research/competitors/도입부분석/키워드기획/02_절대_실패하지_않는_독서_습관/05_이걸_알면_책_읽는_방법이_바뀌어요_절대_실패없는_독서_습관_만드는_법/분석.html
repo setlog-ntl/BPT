@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — 독서 습관 / "이걸 알면 책 읽는 방법이 바뀌어요" 절대 실패없는 독서 습관 만드는 법 (소울정)</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:23px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--warn) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--warn)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:19px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · 절대 실패하지 않는 독서 습관</p>
+    <h1>"이걸 알면 책 읽는 방법이 바뀌어요" 절대 실패없는 독서 습관 만드는 법</h1>
+    <p class="sub">"책 읽는 '환경'부터 만들면 독서가 바뀐다"는 환경 설계 후크 → 어두운 데서도 읽게 해주는 도구(북라이트) 예시 → '독서 습관이 좋다는 건 다 알지만 방법이 문제'로 본론 전환. 감성·환경 톤.</p>
+    <div class="chips"><span class="chip">키워드 · 독서 습관</span><span class="chip">채널 · 소울정 (22.3만)</span><span class="chip">길이 · 11:08</span><span class="chip">썸네일 · 좋음</span><span class="chip">분석일 · 2026-06-07</span><span class="chip"><a href="https://www.youtube.com/watch?v=ahPMmVnyxqU">▶ 원본 영상</a></span></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:74"><div class="num"><b>74</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">B</span></h3><p>유형: <b>환경 설계 후크 + 도구 + 전제 공유</b> · 적합도 높음 · 후크 핵심: '환경을 바꾸면 독서가 바뀐다' → 환경 도구(북라이트) → '다 알지만 방법이 문제'</p></div></div>
+      <div class="grid">
+        <div class="card"><div class="lab">후크 유형</div><div class="val">환경 설계 후크 + 도구 + 전제 공유</div></div>
+        <div class="card"><div class="lab">첫 발화</div><div class="val">"책 읽는 환경을 만들려고 하면 (독서가) 변해요"</div></div>
+        <div class="card"><div class="lab">시각적 텐션</div><div class="val">✅ 높음 (16/20) — talking-head(책·식물 가득한 방) + 제품/환경 B-roll + 노란 손글씨 자막</div></div>
+        <div class="card"><div class="lab">우리 채널 적합도</div><div class="val">🟡 높음(주의) — 독서 습관(8축) 정합. 단 도입 초반에 협찬 제품(북라이트) 통합 → 톤 차용 시 주의</div></div>
+      </div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:70%"></i></span><span class="pts">14/20</span></div>
+      <div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div>
+      <div class="srow"><span class="nm">8축 키워드 1개+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:100%"></i></span><span class="pts">20/20</span></div>
+      <div class="srow"><span class="nm">결론 먼저</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div>
+      <div class="srow"><span class="nm">시각적 텐션</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 <b>74/100 (B)</b> · 근거: '환경을 바꾸면 독서가 바뀐다'는 차별화된 각도 + 풍부한 B-roll/제품컷(시각 강함), 독서 습관(8축). 다만 결 호명·약속이 다소 약하고, 초반 협찬 제품 노출이 후크 집중도를 약간 분산.</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① 환경 설계 후크</span><span class="arrow">→</span><span class="step">② 환경 도구(북라이트)</span><span class="arrow">→</span><span class="step turn">③ 전제 공유 → 방법 전환</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:00–0:17</span></td><td>"책 읽는 '환경'부터 만들면 독서가 바뀐다"</td><td><span class="ok-i">✔</span> talking-head(책장 배경, 미소)</td><td>노란 손글씨 번인 "책 읽는 환경을 만들려고 하면 변해(요)"</td></tr>
+        <tr><td><span class="tt">0:18–0:35</span></td><td>어두운 데서도 읽게 해주는 환경 도구 예시</td><td><span class="ok-i">✔</span> 제품 B-roll(침대에서 북라이트로 책 비추기) <b>※ 협찬</b></td><td>카드 "[어슴프레 북라이트]" / "* 어두운 공간에서도 책을 읽을 수 있음 *"</td></tr>
+        <tr><td><span class="tt">0:36–1:00</span></td><td>"독서 습관이 좋다는 건 다 알죠 (문제는 방법)"</td><td><span class="ok-i">✔</span> talking-head(책·식물 가득한 아늑한 방)</td><td>흰 글씨 "습관이 좋아지는 거 모르는 사람이 없(죠)"</td></tr>
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=번인 자막 채록 · <span class="ok-i">✔ 화면·번인 자막 캡처 확인 완료</span>(클로드-크롬, 0:04·0:18·0:40). 자막 패널이 자동화 환경에서 로드되지 않아 도입 대본은 번인 자막 채록 기반. 이미지 파일은 <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a> 참조.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (그럼에도 불구하고)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight">
+        <li>'의지'가 아니라 '환경'을 바꾸라는 각도 — 차별화된 프레이밍으로 차용</li>
+        <li>아늑한 방·제품 B-roll + 노란 손글씨 자막으로 감성 무드 (readtree 톤 참고)</li>
+        <li>⚠️ 도입 초반 협찬 제품 통합은 우리 채널에선 후크 집중을 위해 뒤로 미루는 게 안전</li>
+      </ul></div>
+      <div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight">
+        <li>의지 말고 '환경'을 바꾸세요 — 실패 없는 독서 습관</li>
+        <li>책이 저절로 읽히는 '환경' 만드는 법</li>
+      </ul></div></div></section>
+    <section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="ok-i">Y</span></td><td>독서·책이 주제</td></tr>
+        <tr><td>② 결 3그룹</td><td><span class="ok-i">Y</span></td><td>'습관이 안 잡히는 사람' 정합(환경 각도)</td></tr>
+        <tr><td>③ 8축</td><td><span class="ok-i">Y</span></td><td>독서 습관/환경</td></tr>
+        <tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>디바이스 무관(단, '읽는 환경/도구' 각도는 readtree와 접점 가능)</td></tr>
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">3축 해당 = 결 맞음. '읽는 환경/도구' 각도는 readtree 연계 아이디어로도 활용 가능.</p></section>
+    <section><div class="note"><h3>⚙️ 화면·자막 캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>✔ 화면·번인 자막 캡처 확인 완료</b> — 클로드-크롬으로 3개 시점(0:04·0:18·0:40)을 직접 보고 채웠습니다. <b>소울정</b> talking-head(책·식물 가득한 방) + 환경/제품 B-roll + 노란 손글씨 자막으로 진행되며, <b>도입 초반에 협찬 제품(어슴프레 북라이트)이 통합</b>되어 있습니다. 자막 패널 미로드로 도입 대본은 번인 자막 채록. 이미지 파일 저장은 환경 제약상 불가 → <a href="captures/_수동캡처_가이드.md">캡처 가이드</a> 타임스탬프로 보완.</p></div></section>
+  </div>
+
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="script-head"><span class="hint">번인 자막을 채록해 맥락 단위로 구분 → 구분별 대본 / 화면 / 자막 (자막 패널 미로드)</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:00–0:17</span><span class="utag">① 환경 설계 후크</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"책 읽는 환경을 만들려고 하면 (독서가) 변해(요). (의지가 아니라 환경부터 바꾸면 됩니다.)"</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">talking-head — 여성 화자가 책장 앞에서 미소 지으며 정면 응시. 채널 '소울정' / 시리즈 '독서의 인문학'.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">노란 손글씨 스타일 번인 자막 "책 읽는 환경을 만들려고 하면 변해(요)"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:18–0:35</span><span class="utag">② 환경 도구(북라이트·협찬)</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"예를 들어 (이런 도구를 쓰면) 어두운 공간에서도 책을 읽을 수 있어요. (환경만 갖춰지면 어디서든 읽게 되죠.)"</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">제품 B-roll — 침대에서 북라이트(클립형)로 책을 비추는 손, 핑크 토끼 인형. ※ 협찬 제품 통합.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">좌상단 카드 "[어슴프레 북라이트]" / 하단 "* 어두운 공간에서도 책을 읽을 수 있음 *"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:36–1:00</span><span class="utag">③ 전제 공유 → 방법 전환</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"사실 독서 습관이 좋아지면 좋다는 거, 모르는 사람이 없(죠). (다 아는데 안 되는 게 문제니까, 오늘은 그 방법을 풀어볼게요.)"</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">talking-head — 책과 식물이 가득한 아늑한 방, 손 제스처.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">흰 글씨 "습관이 좋아지는 거 모르는 사람이 없(죠)"</span></div>
+        </div>
+
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 자막 패널이 자동화 환경에서 로드되지 않아, <b>번인(화면) 자막을 채록</b>해 구성했습니다(괄호는 문맥 보강).</p>
+    </section>
+  </div>
+
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 번인 자막 채록</h2>
+      <div class="script-head"><span class="hint">자막 패널 미로드 → 화면에 표시된 번인 자막을 캡처 시점별로 채록</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:04</span><span>책 읽는 환경을 만들려고 하면 변해(요)</span></li>
+        <li><span class="tt">0:18</span><span>[어슴프레 북라이트] * 어두운 공간에서도 책을 읽을 수 있음 *</span></li>
+        <li><span class="tt">0:40</span><span>습관이 좋아지는 거 모르는 사람이 없(죠)</span></li>
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 0:18 구간은 협찬 제품(북라이트) 통합 컷. 후속 본문은 '환경·방법' 중심으로 전개.</p>
+    </section>
+  </div>
+
+  <footer>키워드 기획 분석 · 2026-06-07 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../실행_플레이북.md">실행_플레이북</a><br>출처: <a href="https://www.youtube.com/watch?v=ahPMmVnyxqU">YouTube — 소울정, 독서의 인문학</a> · 내부 기획·학습 참고용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='✓ 복사됨';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

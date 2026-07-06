@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — AI왕초보 / 제미나이 100% 활용법 | 이 '설정' 안하면 GPT보다 못해요 (AI놀자)</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:24px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--ok)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}.tri{color:var(--warn);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:20px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · AI왕초보</p>
+    <h1>제미나이 100% 활용법 | 이 '설정' 안하면 GPT보다 못해요 (제미나이 왕초보 기초)</h1>
+    <p class="sub">"AI 배우고 싶어도 자식 눈치에 물어볼 엄두를 못 냈다"는 시니어의 실제 페인 스토리로 열고 → "오늘 이후로는 눈치 보지 않아도 된다, 나만의 AI 양자(養子)를 얻는다"고 해방을 약속 → "구글이 제대로 칼 갈았다"는 권위 전환으로 본론 진입하는 공감 스토리형.</p>
+    <div class="chips"><span class="chip">키워드 · AI왕초보</span><span class="chip">채널 · AI놀자 (3.26만)</span><span class="chip">길이 · 22:17</span><span class="chip">조회 · 33.3만 (게시 2025-09-21)</span><span class="chip">선정 · 타채널참조 댓글분석 ✅</span><span class="chip">분석일 · 2026-07-05</span><span class="chip"><a href="https://www.youtube.com/watch?v=WvXPWAZrT1I">▶ 원본 영상</a></span></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:82"><div class="num"><b>82</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">A</span></h3><p>유형: <b>타깃 페인 공감 스토리 + 해방 약속 + 권위 전환</b> · 후크 핵심: "자식 눈치 보여 못 물어봤다"는 시니어의 실화 페인을 먼저 던져 강한 공감 → "눈치 보지 않아도 된다"는 감정적 해방을 약속</p></div></div>
+      <div class="grid">
+        <div class="card"><div class="lab">후크 유형</div><div class="val">페인 스토리(공감) → 해방 약속 → 권위 전환("구글이 칼 갈았다")</div></div>
+        <div class="card"><div class="lab">첫 발화</div><div class="val">"제가 지난 2년간 AI 활용에 대한 교육을 진행하면서 가장 많이 들었던, 마음 아프게 들었던 얘기와 가장 보람찼던 얘기 두 가지가 있는데요"</div></div>
+        <div class="card"><div class="lab">시각적 텐션</div><div class="val">✅ 높음 (16/20) — 서재 talking-head × 일러스트 컷("자식세끼" 대형 타이포) × Google 그래픽 교차 + 전 구간 대형 번인 자막</div></div>
+        <div class="card"><div class="lab">타깃 적중</div><div class="val">🟢 매우 높음 — 댓글 121개 중 시니어(50대+) 신호 약 52%, "자식보다 제미나이" 정서 명중 (댓글분석.html 참조)</div></div>
+      </div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:100%"></i></span><span class="pts">20/20</span></div>
+      <div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:90%"></i></span><span class="pts">18/20</span></div>
+      <div class="srow"><span class="nm">8축(타깃 키워드) 1개+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <div class="srow"><span class="nm">결론 먼저</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div>
+      <div class="srow"><span class="nm">시각적 텐션</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 <b>82/100 (A)</b> · 근거: 변화 약속이 감정 층위까지 명확("눈치 보지 않아도 됨"+"나만의 AI 양자", 0:44–0:56). 결 호명은 시니어 페인 재연으로 정확("자식 눈치", "늙은이라고 피하니까", 0:23–0:33). 키워드(제미나이·핵심 기능·AI)는 명시되나 '설정'(제목 약속)은 도입에서 미등장. 결론(무엇을 하면 되는지)은 1:14 이후로 지연 — 대신 감정 후크가 그 자리를 채움. ※ 8축은 독서 채널 8축이 아닌 <b>AI왕초보 타깃 키워드</b> 관점으로 채점.</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① 시니어 페인 실화 몽타주 ("자식 눈치·늙은이 취급")</span><span class="arrow">→</span><span class="step turn">② 해방 약속 ("눈치 그만, 나만의 AI 양자")</span><span class="arrow">→</span><span class="step">③ 댓글 선물 예고 + 시작 선언</span><span class="arrow">→</span><span class="step hook">④ 권위 전환 ("구글이 제대로 칼 갈았다")</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:00–0:43</span></td><td>"2년간 교육하며 가장 마음 아팠던 얘기 — 자식 눈치에 물어볼 엄두를 못 냈다, 젊은 사람들은 늙은이라고 피한다"</td><td><span class="ok-i">✔</span> 서재 책장 배경 talking-head(0:05) → 일러스트 컷: 시무룩한 노부부+우는 청년, 말풍선 "그런건 배워서 뭐 하려고요", 대형 노란 타이포 "자식세끼"(0:30)</td><td>대형 흰 번인 자막 — "마음 아프게 들었던 얘기와" / "그리고 주변에"</td></tr>
+        <tr><td><span class="tt">0:44–1:06</span></td><td>"오늘 이후로는 눈치 보지 않아도 된다 → 핵심 기능만 따라오면 뭐든 물어볼 수 있는 든든한 나만의 AI 양자를 얻는다 → 댓글에 구글 공식 프롬프트 가이드 → 시작"</td><td><span class="ok-i">✔</span> talking-head 줌인 컷 전환(0:50)</td><td>흰 번인 자막 — "핵심 기능들만 잘 따라오시면"</td></tr>
+        <tr><td><span class="tt">1:14–1:51</span></td><td>"구글이 제대로 칼 갈았다 — 4대 AI를 유료로 쓰는 헤비유저인 내가 챗GPT보다 제미나이를 더 오래 쓴다, 조건부가 아닌 진짜 무료"</td><td><span class="ok-i">✔</span> 그래픽 카드: 검은 배경 + Google 컬러 로고 + 대형 타이포 "제대로 칼 갈았다"(1:20)</td><td>흰 번인 자막 — "최근 제 AI 작업 방식에 아주 큰 변화가 생겼는데요"</td></tr>
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=<b>유튜브 '스크립트 표시' 패널 실제 대본</b>(자동자막, 전체 1088세그먼트) · <span class="ok-i">✔ 화면·번인 자막 캡처 확인</span>(0:05·0:30·0:50·1:20). 이미지 파일은 <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a> 참조.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (AI왕초보 기획)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight">
+        <li><b>타깃의 '관계 페인'을 먼저 재연</b> — 기능 소개가 아니라 "물어볼 사람이 없다"는 감정에서 출발 (댓글 최상위 반응도 전부 이 지점)</li>
+        <li><b>'자식보다 AI' 관계 대체 프레임</b> — "나만의 AI 양자(養子)"라는 유머러스한 관계어로 약속을 감정화</li>
+        <li>일러스트 컷 + 대형 타이포("자식세끼")로 시니어 가독성·유머 동시 확보, 전 구간 대형 번인 자막</li>
+        <li>댓글 선물(구글 공식 프롬프트 가이드)로 초반에 댓글창 유도</li>
+        <li>권위 전환 멘트("구글이 칼 갈았다" + "4대 AI 유료 헤비유저인 나") 뒤 본론 — 신뢰 확보 후 기능 진입</li>
+      </ul></div>
+      <div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight">
+        <li>"자식 눈치 그만 보세요" — 뭐든 대신 답해주는 나만의 AI 선생님 만들기 (왕초보 기초)</li>
+        <li>이 '설정' 하나면 AI가 평생 과외 선생님이 됩니다 | 60대도 따라하는 왕초보 가이드</li>
+      </ul></div></div></section>
+    <section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="no-i">N</span></td><td>AI 활용 주제 — 독서 무관</td></tr>
+        <tr><td>② 결 3그룹</td><td><span class="tri">△</span></td><td>독서 결은 아니나 '왕초보·소외감·배움 욕구' 정서 구조는 동일 (각도 변환)</td></tr>
+        <tr><td>③ 8축</td><td><span class="no-i">N</span></td><td>독서 8축 비해당 — AI왕초보 신규 키워드축</td></tr>
+        <tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>무관</td></tr>
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)"><b>결 어긋남(독서 채널 기준) — '각도 변환' 제한 차용</b>: 이 분석은 신규 <b>AI왕초보 키워드 기획</b>용. 도입부 후크 기법(페인 공감→해방 약속)과 시니어 타깃 연출이 탁월해 통합지침 §1 예외("후크 기법이 탁월하면 반면교사/각도 변환으로 제한 차용")로 선정. 선정 근거는 썸끝이 아닌 <a href="댓글분석.html">댓글 분석</a>(시니어 52%·"자식보다 제미나이" 정서 검증).</p></section>
+    <section><div class="note"><h3>⚙️ 대본·캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>✔ 실제 대본 확보 완료</b> — 유튜브 <b>'스크립트 표시' 패널</b>에서 직접 추출(자동자막, 전체 1088세그먼트 중 도입부 0:00~1:51 수록). 화면·번인 자막은 클로드-크롬으로 0:05·0:30·0:50·1:20 캡처 확인. 이미지 파일 저장은 환경 제약상 불가 → <a href="captures/_수동캡처_가이드.md">캡처 가이드</a>로 보완. 같은 폴더의 <a href="댓글분석.html">댓글분석.html</a>(121개 분석)과 세트.</p></div></section>
+  </div>
+
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="script-head"><span class="hint">유튜브 스크립트 패널 원문을 오타·비문(오인식)만 보정 → 맥락 단위 구분 → 구분별 대본 / 화면 / 자막</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:00–0:43</span><span class="utag">① 시니어 페인 실화 몽타주 (공감 스토리)</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"제가 지난 2년간 AI 활용에 대한 교육을 진행하면서 가장 많이 들었던, 마음 아프게 들었던 얘기와 가장 보람찼던 얘기 두 가지가 있는데요. 가장 많이 들었던 얘기가 '어, 자식새끼 키워봐야 다 소용 없다'였어요. 세상이 변하는 거 같아서 AI가 뭔지 어떻게 배워야 하는지 좀 알고 싶고, 주변에 친구들도 하는 것 같아서 나도 배웠다고 자랑 좀 하고 싶어서 물어봤는데, 자식들 눈치에 물어볼 엄두를 못 내셨다는 얘기를 정말 자주 들었습니다. 그리고 주변에 젊은 사람들한테 물어보려고 해도 늙은이라고 피하니까 망설여졌다고 하시더라고요. 그랬던 분들이 제 교육을 듣고 이제는 자식 눈치 안 보고 뭐든 물어볼 수 있어서 속이 시원하다는 말씀이었어요."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">서재 책장 배경 talking-head(안경·검은 셔츠·핸드마이크, 선물백·트로피 진열) → 일러스트 컷: 시무룩한 노부부 + 전화 들고 우는 청년, 말풍선 "그런건 배워서 뭐 하려고요", 화면 우하단 대형 노란 타이포 "자식세끼"(0:30).</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">전 구간 대형 흰 번인 자막(중앙 하단) — "마음 아프게 들었던 얘기와" / "그리고 주변에" 등 발화 그대로</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:44–1:06</span><span class="utag">② 해방 약속 + 혜택 예고</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"여러분들도 오늘 이후로는 더는 눈치 보지 않으셔도 되고요. 오늘 제가 알려 드리는 제미나이의 핵심 기능들만 잘 따라오시면 궁금한 모든 것을 마음껏 물어볼 수 있는 든든한 나만의 AI 양자를 얻게 되실 거니까요. 그리고 영상 댓글에 구글에서 나온 공식 프롬프트 가이드도 남겨 드렸으니까 꼭 챙겨 가시고요. 자, 그럼 시작하겠습니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">talking-head 줌인 컷(레터박스 제거, 0:50) — 동일 서재 배경에서 화면 크기 변화로 리듬.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">대형 흰 번인 자막 — "핵심 기능들만 잘 따라오시면"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">1:14–1:51</span><span class="utag">③ 권위 전환 — "구글이 칼 갈았다" (본론 후크)</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"여러분, 구글이 정말 칼을 제대로 갈았습니다. 최근 제 AI 작업 방식에 아주 큰 변화가 생겼는데요. 바로 챗지피티보다 제미나이를 쓰는 시간이 더 길어졌다는 거예요. 참고로 저는 챗지피티, 클로드, 퍼플렉시티, 그리고 제미나이까지 주요 생성형 AI 툴들을 모두 돈을 내고 유료로 사용하는 소위 헤비 유저거든요. 그런데 저처럼 AI를 깊게 파고드는 사람이 아니라면 제미나이는 사실상 돈을 낼 필요가 없을 정도로 강력한 무료 기능들을 제공하더라고요. 특히 3개월 무료 체험 같은 조건부 무료가 아니고요. 바로 무료로 사용할 수 있다는 점이 정말 큰 장점이죠."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">그래픽 카드 — 검은 배경 + Google 컬러 로고 + 컬러 원형 모션 + 대형 흰 타이포 "제대로 칼 갈았다"(1:20). 이후 talking-head 복귀.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">대형 흰 번인 자막 — "최근 제 AI 작업 방식에 아주 큰 변화가 생겼는데요"</span></div>
+        </div>
+
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 보정 내역(오타·오인식만, 내용 유지): 자식끼→자식새끼 · 엄들을→엄두를 · 망사려졌다→망설여졌다 · 모든 물어볼→뭐든 물어볼 · 최치피티/채치피티→챗지피티 · 재미나이→제미나이 · 채비→챗지피티 · 땜질/땔감 등 인터뷰 인용부 유지. "AI 양자(養子)"는 '자식보다 제미나이' 컨셉의 의도된 표현으로 판단해 유지. 원문 그대로는 <b>📜 원문</b> 탭.</p>
+    </section>
+  </div>
+
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 유튜브 스크립트 패널 그대로</h2>
+      <div class="script-head"><span class="hint">YouTube '스크립트 표시' 패널 원문(자동자막, 오탈자 포함) — 손대지 않고 보존</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:00</span><span>제가 지난 2년간 AI 활용에 대한</span></li>
+        <li><span class="tt">0:02</span><span>교육을 진행하면서 가장 많이 들었던</span></li>
+        <li><span class="tt">0:05</span><span>마음 아프게 들었던 얘기와 가장</span></li>
+        <li><span class="tt">0:07</span><span>보람찼던 얘기 두 가지가 있는데요.</span></li>
+        <li><span class="tt">0:09</span><span>가장 많이 들었던 얘기가 어 자식끼</span></li>
+        <li><span class="tt">0:12</span><span>키워봐야 다 소용 없다였어요. 세상이</span></li>
+        <li><span class="tt">0:14</span><span>변하는 거 같아서 AI가 뭔지 어떻게</span></li>
+        <li><span class="tt">0:17</span><span>배워야 하는지 좀 알고 싶고 주변에</span></li>
+        <li><span class="tt">0:20</span><span>친구들도 하는 것 같아서 나도</span></li>
+        <li><span class="tt">0:21</span><span>배웠다고 자랑 좀 하고 싶어서</span></li>
+        <li><span class="tt">0:23</span><span>물어봤는데 자식들 눈치에 물어볼</span></li>
+        <li><span class="tt">0:26</span><span>엄들을 못 내셨다는 얘기를 정말 자주</span></li>
+        <li><span class="tt">0:29</span><span>들었습니다. 그리고 주변에 젊은</span></li>
+        <li><span class="tt">0:31</span><span>사람들한테 물어보려고 해도 늙은이라고</span></li>
+        <li><span class="tt">0:33</span><span>피하니까 망사려졌다고 하시더라고요.</span></li>
+        <li><span class="tt">0:36</span><span>그랬던 분들이 제 교육을 듣고 이제는</span></li>
+        <li><span class="tt">0:39</span><span>자식 눈치 안 보고 모든 물어볼 수</span></li>
+        <li><span class="tt">0:41</span><span>있어서 속이 시원하다는 말씀이었어요.</span></li>
+        <li><span class="tt">0:44</span><span>여러분들도 오늘 이후로는 더는 눈치</span></li>
+        <li><span class="tt">0:46</span><span>보지 않으셔도 되고요. 오늘 제가</span></li>
+        <li><span class="tt">0:48</span><span>알려 드리는 재미나이의 핵심 기능들만</span></li>
+        <li><span class="tt">0:50</span><span>잘 따라오시면 궁금한 모든 것을</span></li>
+        <li><span class="tt">0:53</span><span>마음껏 물어볼 수 있는 든든한 나만의</span></li>
+        <li><span class="tt">0:56</span><span>AI 양자를 얻게 되실 거니까요.</span></li>
+        <li><span class="tt">0:59</span><span>그리고 영상 댓글에 구글에서 나온</span></li>
+        <li><span class="tt">1:01</span><span>공식 프롬프트 가이드도 남겨</span></li>
+        <li><span class="tt">1:03</span><span>드렸으니까 꼭 챙겨 가시고요. 자,</span></li>
+        <li><span class="tt">1:06</span><span>그럼 시작하겠습니다.</span></li>
+        <li><span class="tt">1:12</span><span>[음악]</span></li>
+        <li><span class="tt">1:14</span><span>여러분, 구글이 정말 칼을 제대로</span></li>
+        <li><span class="tt">1:16</span><span>갈았습니다. 최근 제 AI 작업</span></li>
+        <li><span class="tt">1:18</span><span>방식에 아주 큰 변화가 생겼는데요.</span></li>
+        <li><span class="tt">1:20</span><span>바로 최치피티보다 재미나이를 쓰는</span></li>
+        <li><span class="tt">1:23</span><span>시간이 더 길어졌다는 거예요. 참고로</span></li>
+        <li><span class="tt">1:26</span><span>저는 채비, 클로드, 퍼플렉시티,</span></li>
+        <li><span class="tt">1:29</span><span>그리고 제미나이까지 주요 생성형 AI</span></li>
+        <li><span class="tt">1:31</span><span>툴들을 모두 돈을 내고 유료로</span></li>
+        <li><span class="tt">1:34</span><span>사용하는 소위 헤비 유저거든요.</span></li>
+        <li><span class="tt">1:36</span><span>그런데 저처럼 AI를 깊게 파고 드는</span></li>
+        <li><span class="tt">1:39</span><span>사람이 아니라면 재미나이는 사실상</span></li>
+        <li><span class="tt">1:42</span><span>돈을 낼 필요가 없을 정도로 강력한</span></li>
+        <li><span class="tt">1:44</span><span>무료 기능들을 제공하더라고요. 특히</span></li>
+        <li><span class="tt">1:47</span><span>3개월 무료 체험 같은 조건부 무료가</span></li>
+        <li><span class="tt">1:49</span><span>아니고요. 바로 무료로 사용할 수</span></li>
+        <li><span class="tt">1:51</span><span>있다는 점이 정말 큰 장점이죠.</span></li>
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">출처: YouTube 스크립트 패널(자동자막, 한국어 자동 생성). 전체 1088세그먼트 중 도입부(0:00~1:51) 발췌. 챕터: 0:00 도입(자녀 눈치 보지 않고 당당해지는 AI의 힘) · 1:14 구글이 제대로 칼을 갈았다 · 1:54 GPT 무료 버전의 한계.</p>
+    </section>
+  </div>
+
+  <footer>키워드 기획 분석 · 2026-07-05 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../도입부분석_통합지침_(코워크용).md">통합지침</a><br>출처: <a href="https://www.youtube.com/watch?v=WvXPWAZrT1I">YouTube — AI놀자</a> · 선정: 타채널참조 댓글분석(시니어 타깃 검증) · 내부 기획·학습용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='✓ 복사됨';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

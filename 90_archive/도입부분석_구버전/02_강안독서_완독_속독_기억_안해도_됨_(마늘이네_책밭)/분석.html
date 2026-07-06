@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — 완독하는 법 / 강안독서: 완독! 속독! 기억! 안 해도 됨!</title><style>:root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;}
+*{box-sizing:border-box}
+body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+.hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+.hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+.hero h1{margin:0;font-size:23px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+.hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+.chip a{color:#fff;text-decoration:underline}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+.verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+.score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;display:grid;place-items:center;position:relative}
+.score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+.score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+.verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+.srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+.srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+.bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+.b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}.b-bad>i{background:linear-gradient(90deg,#f87171,#dc2626)}
+.pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+.arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+.note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+.ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}
+footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+.tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+.tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+.tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+.script-head .hint{font-size:12.5px;color:var(--muted)}
+.copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+.script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+.unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+.unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+.unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+.unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+.unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+.unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+.unit .ln .v{flex:1}
+.sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+@media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:19px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+@media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}</style></head><body><div class="wrap">
+<header class="hero"><p class="kicker">키워드 기획 · 도입부 원고 분석 · 완독하는 법</p><h1>강안독서: 완독! 속독! 기억! 안 해도 됨!</h1><p class="sub">'완독·속독·기억, 안 해도 된다'는 책(강안독서)을 소개하며 완독 강박을 깨는 도발형. 책 표지 슬라이드 + 나레이션의 소박한 제작.</p>
+<div class="chips"><span class="chip">키워드 · 완독하는 법</span><span class="chip">채널 · 마늘이네 책밭 (22)</span><span class="chip">길이 · 6:11</span><span class="chip">썸끝 · 정답=나쁨 ⚠️(후크는 강함)</span><span class="chip">분석일 · 2026-06-07</span><span class="chip"><a href="https://www.youtube.com/watch?v=vtZf_O-SbPY">▶ 원본 영상</a></span></div></header>
+<nav class="tabs"><button class="tab-btn active" data-tab="report">📊 분석 리포트</button><button class="tab-btn" data-tab="script">📝 대본 타임라인</button><button class="tab-btn" data-tab="raw">📜 원문</button></nav>
+<div class="tab-panel active" id="tab-report">
+<section><h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+<div class="verdict"><div class="score-ring" style="background:conic-gradient(#dc2626 calc(66*1%), #e5e7eb 0)"><div class="num"><b>66</b><small>/100</small></div></div>
+<div class="vtxt"><h3>등급 <span style="font-weight:800;color:#dc2626">C</span></h3><p>유형: <b>통념 반박/도발('완독 안 해도 됨')</b> · 적합도 중간 · 후크 핵심: '완독·속독·기억 안 해도 됨' 도발 (제작은 소박)</p></div></div>
+<div class="grid"><div class="card"><div class="lab">후크 유형</div><div class="val">통념 반박/도발('완독 안 해도 됨')</div></div>
+<div class="card"><div class="lab">첫 발화/첫 화면</div><div class="val">'강안독서' 책 표지 슬라이드(민트 배경) + 하단 자막 바</div></div>
+<div class="card"><div class="lab">시각적 텐션</div><div class="val">⚠️ 낮음 (8/20) — 책 표지 슬라이드 + 나레이션 위주, 화면 변화 적음(반면교사)</div></div>
+<div class="card"><div class="lab">우리 채널 적합도</div><div class="val">🟡 중간 — '완독 강박 해소' 메시지는 강하나, 제작 수준은 낮아 톤만 차용</div></div></div></section>
+<section><h2><span class="n">2</span> 30초 후크 룰 채점</h2><div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div><div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div><div class="srow"><span class="nm">8축 키워드 1개+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:90%"></i></span><span class="pts">18/20</span></div><div class="srow"><span class="nm">결론 먼저</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div><div class="srow"><span class="nm">시각적 텐션</span><span class="badge">⚠️</span><span class="bar b-bad"><i style="width:40%"></i></span><span class="pts">8/20</span></div>
+<p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 <b>66/100 (C)</b> · 근거: '완독·속독·기억 안 해도 됨'이라는 통념 반박 후크가 강하고 결론을 앞에 둠. 다만 책 표지 슬라이드+나레이션이라 시각·호명이 약함. 썸끝 정답=나쁨.</p></section>
+<section><h2><span class="n">3</span> 후크 구조 흐름</h2><div class="flow"><span class="step hook">① 도발 단언(안 해도 됨)</span><span class="arrow">&rarr;</span><span class="step step">② 책 '강안독서' 소개</span><span class="arrow">&rarr;</span><span class="step turn">③ 근거·방법 진입</span></div></section>
+<section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+<table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody><tr><td><span class="tt">0:00–0:15</span></td><td>'완독·속독·기억, 안 해도 된다'는 통념 반박</td><td><span class="ok-i">✔</span> '강안독서' 책 표지 슬라이드(민트 배경)</td><td>(인트로 자막 바·텍스트 대기)</td></tr><tr><td><span class="tt">0:16–0:45</span></td><td>책 '강안독서'의 핵심 주장 소개</td><td><span class="no-i">◻</span> ◻ 책 표지/문구 슬라이드</td><td>◻ 추가 구간 캡처 권장</td></tr><tr><td><span class="tt">0:46–1:10</span></td><td>왜 안 해도 되는지 근거 설명 시작</td><td><span class="no-i">◻</span> ◻ 슬라이드/나레이션</td><td>◻ 추가 구간 캡처 권장</td></tr></tbody></table>
+<p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)"><span class="ok-i">✔ 도입부 첫 화면 캡처 확인 완료</span>(클로드-크롬, 0:05~0:10). 자막 패널 미제공 환경이라 <b>대본은 번인 자막·화면 기반 요약</b>(✔=캡처 확인 / ◻=요약 보강). 이미지 파일은 <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a> 참조.</p></section>
+<section><h2><span class="n">5</span> 차용 포인트 (그럼에도 불구하고)</h2>
+<div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight"><li>'안 해도 된다'는 도발로 완독 강박을 깨는 후크 — 우리 톤으로 강력</li><li>책 1권의 핵심 주장을 후크로 가져오는 방식</li><li>단, 슬라이드+나레이션 제작은 우리 기준엔 부족(반면교사)</li></ul></div>
+<div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight"><li>완독 강박 버리세요 — 끝까지 안 읽어도 되는 이유</li><li>'다 읽어야 한다'는 착각 — 독서가 쉬워지는 법</li></ul></div></div></section>
+<section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+<table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody><tr><td>① 좋아하는 책</td><td><span class="ok-i">Y</span></td><td>독서·완독이 주제</td></tr><tr><td>② 결 3그룹</td><td><span class="ok-i">Y</span></td><td>'완독 강박에 지친 사람' 호명</td></tr><tr><td>③ 8축</td><td><span class="ok-i">Y</span></td><td>독서법/완독 태도</td></tr><tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>디바이스 무관</td></tr></tbody></table></section>
+<section><div class="note"><h3>⚙️ 화면·자막 캡처 상태</h3><p style="margin:0;font-size:13px"><b>✔ 도입부 첫 화면 캡처 확인</b>(0:10) — 마늘이네 책밭 '강안독서' 책 표지 슬라이드(민트 배경)+자막 바. 책 표지+나레이션형 제작. 자막 패널 미제공으로 대본은 요약. 썸끝 정답=나쁨(후크 메시지는 강함).</p></div></section>
+</div>
+<div class="tab-panel" id="tab-script"><section><h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+<div class="script-head"><span class="hint">캡처(번인 자막·화면) 기반으로 맥락 단위 구분 → 구분별 대본 / 화면 / 자막 (자막 패널 미제공 → 요약 보강)</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+<div class="script"><div class="unit"><div class="uhd"><span class="time">0:00–0:15</span><span class="utag">① 도발 단언</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">(요약) "완독? 속독? 기억? 사실 다 안 해도 됩니다. '강안독서'가 그렇게 말해요."</span></div><div class="ln"><span class="k">화면</span><span class="v">책 표지 이미지 슬라이드 — 민트색 배경에 '강안독서' 책 표지 일러스트, 하단에 어두운 자막 바.</span></div><div class="ln"><span class="k">자막</span><span class="v">하단 자막 바(이 컷 텍스트 비어있음) — 나레이션 진행</span></div></div><div class="unit"><div class="uhd"><span class="time">0:16–0:45</span><span class="utag">② 책 소개</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">(요약) "이 책은 '잘 읽기 위해 쓰기로 읽는다'고 말합니다."</span></div><div class="ln"><span class="k">화면</span><span class="v">책 표지·핵심 문구 슬라이드 지속(요약 보강).</span></div><div class="ln"><span class="k">자막</span><span class="v">(추가 구간) — 캡처 권장</span></div></div><div class="unit"><div class="uhd"><span class="time">0:46–1:10</span><span class="utag">③ 근거 진입</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">(요약) "완독에 집착하지 않아도 되는 이유를 정리해볼게요."</span></div><div class="ln"><span class="k">화면</span><span class="v">슬라이드 + 나레이션으로 근거 설명(요약 보강).</span></div><div class="ln"><span class="k">자막</span><span class="v">(추가 구간) — 캡처 권장</span></div></div></div>
+<p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 자막 패널 미제공 → <b>도입부 첫 화면은 실제 캡처</b>, 이후 구간 대본은 화면·맥락 기반 요약(괄호는 문맥 보강).</p></section></div>
+<div class="tab-panel" id="tab-raw"><section><h2><span class="n">📜</span> 원문 — 번인 자막·화면 채록</h2>
+<div class="script-head"><span class="hint">자막 패널 미제공 → 캡처 시점의 화면 텍스트/번인 자막 채록</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+<ul class="sl"><li><span class="tt">0:10</span><span>[화면] '강안독서' 책 표지 슬라이드(민트 배경) + 하단 자막 바</span></li><li><span class="tt">—</span><span>(나레이션형 · 자막 패널 미제공 → 추가 캡처 권장)</span></li></ul>
+<p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 썸끝 판정: 정답=나쁨 ⚠️(후크는 강함).</p></section></div>
+<footer>키워드 기획 분석 · 2026-06-07 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../실행_플레이북.md">실행_플레이북</a><br>출처: <a href="https://www.youtube.com/watch?v=vtZf_O-SbPY">YouTube — 마늘이네 책밭</a> · 내부 기획·학습 참고용 · 썸끝 기반 선정</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var o=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');o.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return o.join('\n');}
+function cp(b,sel){if(!b)return;b.addEventListener('click',function(){var t=grab(sel);var l=b.textContent;var d=function(){b.textContent='✓ 복사됨';setTimeout(function(){b.textContent=l;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(d);}else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(a);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script></body></html>

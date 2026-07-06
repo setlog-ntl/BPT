@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — 독서와 AI / 노트북LM으로 독서효율 10배 올리기 (AI Gallery)</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:24px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--ok)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .b-bad>i{background:linear-gradient(90deg,#f87171,#dc2626)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}.na-i{color:var(--na);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:20px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · 독서와 AI</p>
+    <h1>노트북LM으로 독서효율 10배 올리기 (AI 스키밍 독서법)</h1>
+    <p class="sub">"도구는 유용한데 막상 어떻게 써야 할지 막막하다"는 공감으로 시작해, "실제 사용 사례를 보고 하나씩 적용하면 생산성·퀄리티가 오른다"는 전제를 깔고, NotebookLM으로 책을 빠르게 '스키밍'(읽기 전 훑어보기)하는 구체적 방법을 차분히 안내하는 AI 독서 도구형.</p>
+    <div class="chips"><span class="chip">키워드 · 독서와 AI</span><span class="chip">채널 · AI Gallery (2.37천)</span><span class="chip">길이 · 11:22</span><span class="chip">조회 · 5.7만</span><span class="chip">썸끝 · 정답=좋음 ✅</span><span class="chip">분석일 · 2026-06-16</span><span class="chip"><a href="https://www.youtube.com/watch?v=1fbkv_cnA-8">▶ 원본 영상</a></span></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:64"><div class="num"><b>64</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">B</span></h3><p>유형: &lt;b&gt;도구 막막함 공감 + 실사용 사례 전제 + NotebookLM 스키밍 독서법&lt;/b&gt; · 결 높음(독서법) · 후크 핵심: '스키밍'이라는 구체 독서 기법 + '10배' 약속</p></div></div>
+      <div class="grid">
+<div class="card"><div class="lab">후크 유형</div><div class="val">도구 공감 + 실사용 사례 + 스키밍 독서법</div></div><div class="card"><div class="lab">첫 발화</div><div class="val">"오늘은 노트북LM의 실제 활용 사례 하나를 소개해 드리려고 합니다"</div></div><div class="card"><div class="lab">시각적 텐션</div><div class="val">⚠️ 화면 녹화(NotebookLM 시연) 중심</div></div><div class="card"><div class="lab">우리 채널 적합도</div><div class="val">🟢 높음 — AI 독서법·스키밍·책 고르기, 결 직접</div></div>
+      </div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:70%"></i></span><span class="pts">14/20</span></div>
+      <div class="srow"><span class="nm">8축 키워드 1개+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:70%"></i></span><span class="pts">14/20</span></div>
+      <div class="srow"><span class="nm">결론 먼저</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:50%"></i></span><span class="pts">10/20</span></div>
+      <div class="srow"><span class="nm">시각적 텐션</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:50%"></i></span><span class="pts">10/20</span></div>
+
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 &lt;b&gt;64/100 (B)&lt;/b&gt; · 근거: '독서효율 10배'·'스키밍'이라는 구체 약속·기법은 매력적이나, 도입에서 도구 일반론·전제(실사용 사례의 가치) 설명이 길어 결론(방법)이 늦게 시작 → 결론 먼저는 약함.</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① 도구 막막함 공감 — 어떻게 써야 할지 모름</span><span class="arrow">→</span><span class="step ">② 실사용 사례를 보고 적용 → 생산성·퀄리티</span><span class="arrow">→</span><span class="step turn">③ NotebookLM으로 책 '스키밍'하는 법</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:00–0:24</span></td><td>"오늘은 노트북LM 실제 활용 사례 소개. 도구는 유용한데 어디에 어떻게 써야 할지 막막한 경우가 많죠"</td><td><span class="na-i">◻</span> 캡처 대기 (보완 예정)</td><td>캡처 대기</td></tr>
+        <tr><td><span class="tt">0:24–0:40</span></td><td>"중요한 건 실제 써본 사람의 방식을 참고해 내 업무·삶에 하나씩 적용하는 것 → 생산성·퀄리티 상승. 오늘은 책을 '스키밍'하는 법"</td><td><span class="na-i">◻</span> 캡처 대기 (보완 예정)</td><td>캡처 대기</td></tr>
+        <tr><td><span class="tt">0:40–1:28</span></td><td>"스키밍=읽기 전 빠르게 훑어보기. 어떤 내용인지·유용한지·어느 챕터부터 읽을지 전체 흐름 파악. 노트북LM에 책을 입력해 집중할 부분 도움받기"</td><td><span class="na-i">◻</span> 캡처 대기 (보완 예정)</td><td>캡처 대기</td></tr>
+
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=<b>스크립트 패널 실제 대본</b>(자동자막). 영상 프레임은 환경 제약으로 자동 캡처 불가 → ◻(보완 예정), <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a> 참조.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (그럼에도 불구하고)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight"><li>"도구는 좋은데 어떻게 써야 할지 막막"하다는 공감으로 진입장벽을 먼저 인정</li><li>'스키밍' 같은 구체 독서 기법 + '10배' 수치로 효용을 선명하게</li><li>실사용 사례(화면 시연)로 '나도 할 수 있다'는 확신 제공</li></ul></div>
+      <div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight"><li>책 읽기 전에 이것부터 — AI로 '스키밍'하는 법</li><li>노트북LM으로 두꺼운 책 완독하는 독서 루틴</li></ul></div></div></section>
+    <section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="ok-i">Y</span></td><td>독서법·책 고르기·스키밍</td></tr>
+        <tr><td>② 결 3그룹</td><td><span class="ok-i">Y</span></td><td>독서 효율·완독 직접</td></tr>
+        <tr><td>③ 8축</td><td><span class="ok-i">Y</span></td><td>독서법/스키밍/책 고르기</td></tr>
+        <tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>도구는 NotebookLM(무관)</td></tr>
+
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">3축 해당 = &lt;b&gt;결 맞음&lt;/b&gt;. AI 독서 도구·스키밍은 우리 '책 고르는 법·완독' 주제와 인접 → 직접 차용 가능.</p></section>
+    <section><div class="note"><h3>⚙️ 대본·캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>✔ 실제 대본 확보</b> — 스크립트 패널에서 도입부(0:00~1:28) 추출(90세그먼트 중 발췌). 영상 프레임은 환경 제약(백그라운드 탭 디코드 스로틀)으로 자동 캡처 불가 → ◻(보완 예정). <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a>의 &t= 링크로 보완.</p></div></section>
+  </div>
+
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="script-head"><span class="hint">유튜브 스크립트 패널 원문을 내용 최대 유지·오타/비문만 보정 → 맥락 단위 구분 → 구분별 대본 / 화면 / 자막</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+        <div class="unit">
+          <div class="uhd"><span class="time">0:00–0:24</span><span class="utag">① 도구 막막함 공감</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">네, 안녕하세요. 오늘은 노트북LM의 실제 활용 사례 하나를 소개해 드리려고 합니다. 지난 시간에 노트북LM에 대해 간단한 오버뷰를 드린 적이 있습니다. 도구 자체는 꽤 유용하고 흥미롭게 활용할 수 있을 것 같은 인상은 드는데, 막상 실제로 어디에 어떻게 써야 될지 막막해서 제대로 활용하지 못하는 경우가 많죠.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">(추정) 화면 녹화 — NotebookLM 인터페이스 시연 — 캡처 대기 (보완 예정)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">캡처 대기</span></div>
+        </div>
+        <div class="unit">
+          <div class="uhd"><span class="time">0:24–0:40</span><span class="utag">② 실사용 사례 → 생산성·퀄리티</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">사실 어떤 도구든 100% 완벽하게 활용하는 사람은 별로 없고 그럴 필요도 없습니다만, 중요한 건 실제로 사용해 본 사람들이 어떤 방식으로 활용했는지를 보고 그 사례를 참고해 자기 업무나 삶에 하나씩 적용해 보는 거죠. 그런 과정을 통해 자연스럽게 생산성과 결과물의 퀄리티를 함께 높여 갈 수 있다고 생각합니다. 그래서 오늘은 노트북LM을 활용해 책을 간단하게 스키밍하는 방법을 소개해 드리려고 합니다.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">캡처 대기 (보완 예정)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">캡처 대기</span></div>
+        </div>
+        <div class="unit">
+          <div class="uhd"><span class="time">0:40–1:28</span><span class="utag">③ 스키밍이란 + 노트북LM 활용</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">스키밍이라는 건 책을 읽기 전에 내용을 빠르게 훑어보는 독서 방법이죠. 펼치자마자 정독하는 게 아니라 이 책이 어떤 내용인지, 나한테 유용한 책인지, 어떤 챕터를 먼저 읽으면 좋을지 전체 흐름을 먼저 파악하는 과정입니다. 이렇게 해두면 제한된 시간 내에 책의 핵심을 빠르게 이해할 수 있죠. 독서에 익숙한 분이라면 제목·프롤로그·목차·소제목 위주로 훑어 가치를 판단하시겠지만, 이런 방식은 훈련이 안 되어 있으면 쉽지 않은 것도 사실입니다. 이럴 때 노트북LM에 책을 입력하고 '어디에 집중하면 좋을지' 도움을 받는다면…</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">캡처 대기 (보완 예정)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">캡처 대기</span></div>
+        </div>
+
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 대본은 유튜브 <b>스크립트 표시 패널 원문</b>에서 오타·비문만 최소 보정. 원문 그대로는 <b>📜 원문</b> 탭.</p>
+    </section>
+  </div>
+
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 유튜브 스크립트 패널 그대로</h2>
+      <div class="script-head"><span class="hint">YouTube '스크립트 표시' 패널 원문(자동자막, 오탈자 포함) — 손대지 않고 보존</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:00</span><span>네, 안녕하세요. 오늘은 노트북의 실제 활용 사례 하나를 소개해 드리려고 합니다. 지난 시간에 노트북에 대해서 간단한 오버뷰를 드린 적이 있습니다. 도구 자체는 꽤</span></li>
+        <li><span class="tt">0:09</span><span>유용하고 흥미롭게 활용할 수 있을 것 같다는 인상은 드는데 막상 실제로 어디 어떻게 써야 될지 막막해서 제대로 활용하지 못하는 경우가 많죠.</span></li>
+        <li><span class="tt">0:16</span><span>사실 어떤 도구든 100% 완벽하게 활용하는 사람은 별로 없고 또 그럴 필요도 없습니다만은 중요한 거는 실제로 사용해 본 사람들이 어떤</span></li>
+        <li><span class="tt">0:24</span><span>방식으로 활용했는지를 보고 그 사례를 참고해서 자기 업무나 삶에 하나씩 적용해 보는 거죠. 그런 과정을 통해서 자연스럽게 생산성과 결과물의</span></li>
+        <li><span class="tt">0:33</span><span>퀄리티를 함께 높여 갈 수 있다고 생각을 합니다. 그래서 오늘은 노트북 LM을 활용해서 책을 간단하게 스키밍하는 방법을 소개해 드리려고</span></li>
+        <li><span class="tt">0:40</span><span>합니다. 스키밍이라는 거는 책을 읽기 전에 내용을 빠르게 훑어보는 독서 방법이죠. 책을 펼치자부터 정독하는게 아니라이 책이 어떤 내용을 담고</span></li>
+        <li><span class="tt">0:49</span><span>있는지, 나한테 유용한 책인지, 어떤 챕터를 먼저 읽으면 좋을지, 중점적으로 봐야 할 부분이 무엇인지 이렇게 전체 흐름을 먼저 파악하는</span></li>
+        <li><span class="tt">0:56</span><span>과정이라고 볼 수 있습니다. 이렇게 스키밍을 해 두면은 제한된 시간 내에 책의 핵심을 빠르게 이해할 수 있을뿐만 아니라이 책을 읽는데 어느 정도의 시간과 에너지를 투입해야 될지도 미리 가음할 수가 있겠죠.</span></li>
+        <li><span class="tt">1:07</span><span>읽을 것과 공부할 것도 많은 대학생이나 직장인에게 시간과 에너지를 효율적으로 사용하는 매우 유용한 전략입니다. 독서에 익숙한 분들이라면</span></li>
+        <li><span class="tt">1:14</span><span>제목이나 프로로그 목차, 소제목 위주로 훑어 보면서 책의 가치를 판단하는 방식을 잘 알고 계시겠죠?</span></li>
+        <li><span class="tt">1:21</span><span>다만 이런 독서 방식은 어느 정도 훈련이 되어 있지 않으면은 쉽지 않은 것도 사실입니다. 이럴 때 노트북 LM을 활용해서 책을 인공지능에게</span></li>
+        <li><span class="tt">1:28</span><span>먼저 입력하고 내가이 책을 읽을 때 어디에 집중하면 좋을지 도움을 받는다면 책의</span></li>
+
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">출처: YouTube 스크립트 패널(자동자막). 전체 90세그먼트 중 도입부(0:00~1:28) 발췌.</p>
+    </section>
+  </div>
+
+  <footer>키워드 기획 분석 · 2026-06-16 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../도입부분석_통합지침_(코워크용).md">통합지침</a><br>출처: <a href="https://www.youtube.com/watch?v=1fbkv_cnA-8">YouTube — AI Gallery</a> · 썸끝 정답=좋음 · 내부 기획·학습용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='\u2713 \ubcf5\uc0ac\ub428';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

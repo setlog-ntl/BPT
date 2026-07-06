@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — 완독하는 법 / 책을 읽었는데 기억이 안 나신다고요? 1년 160권 북튜버의 요약법 (겨울서점)</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:24px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--ok)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:20px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · 완독하는 법</p>
+    <h1>책을 읽었는데 기억이 안 나신다고요? — 1년 160권 북튜버의 요약법</h1>
+    <p class="sub">콜드오픈에서 "읽고서 요약·정리하면 기억에 오래 남는다 / 그런데 기억 못해도 괜찮다, 읽을 때 재밌으면 됐지"라는 효용+반전을 먼저 던지고 → "겨울서점입니다, 김겨울입니다. 단골 질문 — 읽은 책을 어떻게 요약·기억하시는지"로 본론을 여는 콜드오픈 + 권위(160권) + 단골질문형 도입.</p>
+    <div class="chips"><span class="chip">키워드 · 완독하는 법</span><span class="chip">채널 · 겨울서점 (29.1만)</span><span class="chip">길이 · 33:18</span><span class="chip">썸끝 · 정답=좋음 ✅</span><span class="chip">분석일 · 2026-06-08</span><span class="chip"><a href="https://www.youtube.com/watch?v=oPpN1J_7J0k">▶ 원본 영상</a></span></div>
+  </header>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:82"><div class="num"><b>82</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">A</span></h3><p>유형: 콜드오픈(효용+반전) + 권위(160권 김겨울) + 단골질문 · 적합도 매우 높음 · 후크 핵심: '기억 안 나도 괜찮다'는 안심으로 결핍을 끌어안고 요약법으로 연결</p></div></div>
+      <div class="grid"><div class="card"><div class="lab">후크 유형</div><div class="val">콜드오픈(요약 효용 + 기억 안 나도 OK 반전) + 단골질문</div></div><div class="card"><div class="lab">첫 발화</div><div class="val">"읽고서 요약하고 정리하면, 기억할 때 훨씬 더 쉬워져요. … 기억 못할 수도 있지, 읽었을 때 재밌으면 됐지"</div></div><div class="card"><div class="lab">시각적 텐션</div><div class="val">⚠️ 보통+ (14/20) — 겨울서점 세트 talking-head + 책 B-roll (◻ 캡처 보류)</div></div><div class="card"><div class="lab">우리 채널 적합도</div><div class="val">🟢 매우 높음 — 기억·요약 독서(8축), 종이책·전자책 언급, 성인</div></div></div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div><div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:90%"></i></span><span class="pts">18/20</span></div><div class="srow"><span class="nm">8축 키워드 1개+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:90%"></i></span><span class="pts">18/20</span></div><div class="srow"><span class="nm">결론 먼저</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div><div class="srow"><span class="nm">시각적 텐션</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:70%"></i></span><span class="pts">14/20</span></div>
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 <b>82/100 (A)</b> · 근거: '책 읽었는데 기억 안 나신다고요?'로 결핍을 직격(제목·콜드오픈), '요약하면 기억에 남는다' 효용을 먼저 제시하고 '기억 못해도 괜찮다'는 반전으로 공감·안심(결 호명 강함). 요약·기억(8축). 썸끝 정답=좋음.</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① 콜드오픈: 요약하면 기억에 남는다(효용)</span><span class="arrow">→</span><span class="step turn">② 반전: 기억 못해도 괜찮다(안심)</span><span class="arrow">→</span><span class="step">③ 채널 인사 + 단골 질문</span><span class="arrow">→</span><span class="step">④ 핵심 질문: 요약·기억법</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:00–0:20</span></td><td>(콜드오픈) 읽고 요약·정리하면 기억에 오래 남고, 말도 정리되어 나온다</td><td>◻ 책 B-roll + talking-head(캡처 보류)</td><td>자막</td></tr><tr><td><span class="tt">0:20–0:47</span></td><td>기억 안 나도 그게 사라진 건 아니다 — 기억 못해도 괜찮다, 재밌으면 됐지</td><td>◻ (캡처 보류)</td><td>자막</td></tr><tr><td><span class="tt">0:48–1:05</span></td><td>겨울서점 인사(김겨울) + 자주 받는 단골 질문들(몇 권/정리/종이책·전자책)</td><td>◻ 겨울서점 세트(캡처 보류)</td><td>자막</td></tr><tr><td><span class="tt">1:05–1:31</span></td><td>그중 빠지지 않는 질문 — '읽은 책을 어떻게 요약하고 기억하시는지'</td><td>◻ (캡처 보류)</td><td>자막</td></tr>
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=유튜브 '스크립트 표시' 패널 실제 대본(한국어 자동자막). 콜드오픈(0:00~0:47) 후 0:48부터 채널 인트로. 화면·번인 자막 ◻ 캡처 보류.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (그럼에도 불구하고)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight">
+        <li>콜드오픈으로 핵심 효용+반전 메시지를 먼저 던져 몰입</li>
+        <li>'기억 못해도 괜찮다'는 안심으로 부담 가진 시청자를 끌어안음</li>
+        <li>'댓글 단골 질문'을 미끼로 본론(요약법)을 자연스럽게 연다</li>
+      </ul></div>
+      <div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight">
+        <li>책 읽고 기억 안 나도 괜찮아요 — 160권 북튜버의 요약법</li>
+        <li>요약하면 달라지는 것 / 기억 못해도 되는 이유</li>
+      </ul></div></div></section>
+    <section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="ok-i">Y</span></td><td>독서·요약·기억이 주제</td></tr><tr><td>② 결 3그룹</td><td><span class="ok-i">Y</span></td><td>'읽어도 기억 안 나는' 결핍 직접 호명 + 안심</td></tr><tr><td>③ 8축</td><td><span class="ok-i">Y</span></td><td>요약 / 기억 / 독서법</td></tr><tr><td>④ 이북리더기·readtree</td><td><span class="ok-i">Y</span></td><td>'종이책·전자책 사는 기준'을 단골 질문으로 언급(전자책 접점)</td></tr>
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">4축 모두 해당 = 결 매우 잘 맞음(직접 차용 적극 권장).</p></section>
+    <section><div class="note"><h3>⚙️ 대본·캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>✔ 실제 대본 확보 완료</b> — 유튜브 <b>'스크립트 표시' 패널</b>에서 도입부 대본을 직접 추출(한국어 자동자막). 일부 오인식(예: 색→책)·구어 비문은 📝 대본에서 최소 보정하고, 📜 원문은 그대로 보존. 화면·번인 자막은 ◻ 캡처 보류.</p></div></section>
+  </div>
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="script-head"><span class="hint">유튜브 스크립트 패널 원문의 내용을 최대한 그대로 유지 · 오타와 말이 안 맞는(비문·오인식) 부분만 보정 → 맥락 단위 구분 → 구분별 대본 / 화면 / 자막</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+        <div class="unit"><div class="uhd"><span class="time">0:00–0:20</span><span class="utag">① 콜드오픈 — 요약하면 기억에 남는다</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">"제가 어떻게 이 100kg짜리 책을, 어 그렇게 딱 정리를 해서 여러분께 말씀드릴 수 있었는지 말씀드려 보자면 — 읽고서 요약하고 정리하면, 기억할 때 훨씬 더 쉬워져요. 훨씬 더 기억에 오래 남고, 편하고, 얘기를 할 때도 조금 더 중언부언하지 않고 딱 정리된 말로 할 수 있게 되고요."</span></div><div class="ln"><span class="k">화면</span><span class="v">책 B-roll + talking-head(겨울서점, 캡처 보류)</span></div><div class="ln"><span class="k">자막</span><span class="v">자막</span></div></div>
+        <div class="unit"><div class="uhd"><span class="time">0:20–0:47</span><span class="utag">② 반전 — 기억 못해도 괜찮다</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">"기억이 나지 않는다고 해서, 그리고 내가 그 소설에서 교훈을 얻지 못했다고 해서 그게 나에게서 없어진 게 아니에요. 소설은 그렇게 작동하지 않는다고 저는 생각을 해요. 여러분, 책을 읽었으면 기억을 해야 됩니까? 기억 못할 수도 있지. 저처럼 이런 책을 가지고 먹고사는 직업을 가지신 게 아닌 이상, 뭐 (요약) 좀 못하면 어때요. 읽었을 때 재밌으면 됐지."</span></div><div class="ln"><span class="k">화면</span><span class="v">(캡처 보류)</span></div><div class="ln"><span class="k">자막</span><span class="v">자막</span></div></div>
+        <div class="unit"><div class="uhd"><span class="time">0:48–1:05</span><span class="utag">③ 채널 인사 + 단골 질문 운</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">"겨울서점에 오신 것을 환영합니다. 저는 김겨울입니다. 제가 정말 많이 받는 단골 질문들이 있습니다. 예를 들어서 '일주일에 책 몇 권 읽으세요?', '책이 많으신데 정리는 어떻게 하세요?', '종이책과 전자책을 사는 기준은 어떻게 되세요?' 뭐 등등등, 정말 자주 오는 질문들이 있는데요."</span></div><div class="ln"><span class="k">화면</span><span class="v">겨울서점 세트(캡처 보류)</span></div><div class="ln"><span class="k">자막</span><span class="v">자막</span></div></div>
+        <div class="unit"><div class="uhd"><span class="time">1:05–1:31</span><span class="utag">④ 핵심 질문 — 어떻게 요약·기억하나</span></div><div class="ln script-line"><span class="k">대본</span><span class="v">"그중에 빠지지 않고 등장하는 질문, 저희 댓글창에 어김없이 정말 잊을 만하면 등장하는 질문이 하나 있습니다. 제가 불과 몇 주 전에도 또 이 질문을 몇 번 받았는데, 바로 '읽은 책을 어떻게 요약하고 기억하시는지 궁금해요'라는 질문입니다."</span></div><div class="ln"><span class="k">화면</span><span class="v">(캡처 보류)</span></div><div class="ln"><span class="k">자막</span><span class="v">자막</span></div></div>
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 대본은 유튜브 <b>스크립트 표시 패널 원문</b>의 내용을 최대한 그대로 유지하고 오인식·비문만 최소 보정(예: 색→책). 일부 심하게 깨진 구간은 의미가 통하도록 괄호 표기. 원문 그대로는 <b>📜 원문</b> 탭.</p>
+    </section>
+  </div>
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 유튜브 스크립트 패널 그대로</h2>
+      <div class="script-head"><span class="hint">YouTube '스크립트 표시' 패널 원문(자동자막, 오탈자·오인식 포함) — 손대지 않고 보존</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:00</span><span>제가 어떻게 이 청자 100kg 짜리 책을 어 그렇게 딱 정리를 해서 여러분께 말씀드릴 수 있었는지 말씀드려 보자면</span></li>
+        <li><span class="tt">0:08</span><span>읽고서 요약하고 정리하고 기억할 때 훨씬 더 쉬워져요 훨씬 더 기억에</span></li>
+        <li><span class="tt">0:14</span><span>오래 남고 편하고 얘기를 할 때도 조금 더 중언부언 하지 않고 딱 정리된 말로 할</span></li>
+        <li><span class="tt">0:20</span><span>수 있게 되고요 기억이 나지 않는다고 해서 그리고 내가 그 소설에서 교훈을 얻지 못했다고</span></li>
+        <li><span class="tt">0:27</span><span>해서 그게 나에게서 없어진 게 아니에요 소설은 그렇게 작동하지 않는다고 저는 생각을 해요 여러분 책을 읽었으면</span></li>
+        <li><span class="tt">0:35</span><span>기억을 해야 됩니까 기억 못할 수도 있지 저처럼 이런 색을 가지고 먹고사는 직업을 가지신 게</span></li>
+        <li><span class="tt">0:41</span><span>아닌 이상 을 살포기 조또 못하면 떼운 읽었을 때 재밌으면 됐지 거쳤습니다</span></li>
+        <li><span class="tt">0:48</span><span>겨울 서점에 오신 것을 환영합니다 저는 김 겨울입니다 제가 정말 많이 받는 단골 질문들이 있습니다 뭐 예를 들어서</span></li>
+        <li><span class="tt">0:56</span><span>일주일에 책 몇권 읽으세요 뭐 책이 많으신데 정리는 어떻게 하세요 뭐 종이책과 전자책을 사는 기준은 어떻게 되세요 뭐 탱 등등등 정말 정말</span></li>
+        <li><span class="tt">1:05</span><span>정말 자주가는 질문들이 어깨 있는데 그 중에 빠지지 않고 등장하는 질문</span></li>
+        <li><span class="tt">1:11</span><span>저희 댓글창에 어김없이 정말 잊을만하면 등장하는 질문이 하나 있습니다</span></li>
+        <li><span class="tt">1:17</span><span>제가 불과 몇 주 전에도 또 이 질문을 몇 번 받았는데 바로 읽은 책을</span></li>
+        <li><span class="tt">1:22</span><span>어떻게 요약하고 기억하시는지 궁금 해요 라는 질문입니다 아무래도 제가 이제 직업적으로 책을 소재로 해서 유튜브 도 만들고 뭐</span></li>
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">출처: YouTube 스크립트 패널(한국어 자동자막). 도입부(0:00~1:31) 발췌, 오탈자·오인식 보존.</p>
+    </section>
+  </div>
+  <footer>키워드 기획 분석 · 2026-06-08 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../도입부분석_통합지침_(코워크용).md">통합지침</a><br>출처: <a href="https://www.youtube.com/watch?v=oPpN1J_7J0k">YouTube — 겨울서점 Winter Bookstore</a> · 썸끝 정답=좋음 · 내부 기획·학습용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='✓ 복사됨';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

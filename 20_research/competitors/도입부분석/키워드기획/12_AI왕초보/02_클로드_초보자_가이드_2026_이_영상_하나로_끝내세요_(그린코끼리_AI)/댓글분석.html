@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!--
+========================================================================
+  영상별 댓글 시청자 분석 — 그린코끼리 AI «클로드 초보자 가이드 2026»
+  생성: 2026-07-05 · Cowork 크롬 직접 추출(InnerTube) · 분석 각도: 기본
+========================================================================
+-->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>댓글 분석 · 클로드 초보자 가이드 2026 (그린코끼리 AI)</title>
+<style>
+  :root{
+    /* === bizpt 공통 시맨틱 색 토큰 (멀티페이지 허브 가이드와 동일 의미) === */
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#c4b5fd;
+    /* 분석 시스템 라이트 테마 */
+    --bg:#f5f3ee; --panel:#ffffff; --panel-2:#faf8f3; --line:#e7e3da;
+    --text:#1f2430; --muted:#5d6470; --brand:#2f5d62; --brand2:#3a7a82;
+    --shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px 80px}
+  /* === 상단 네비 (모든 페이지 공통) === */
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:980px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;
+    background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:700}
+  .nbtn.src{color:var(--pain);margin-left:auto}
+  /* === 헤더 === */
+  header{margin:18px 0 26px}
+  .eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--brand2);font-weight:800;margin-bottom:10px}
+  h1{font-size:24px;line-height:1.38;margin:0 0 16px;font-weight:800;letter-spacing:-.01em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13.5px;color:var(--muted);align-items:center}
+  .meta b{color:var(--text)}
+  .meta .dot{width:4px;height:4px;border-radius:50%;background:#c7c1b4;display:inline-block}
+  /* === 카드 공통 === */
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:26px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+  .sec-no{font-size:11.5px;font-weight:800;color:var(--brand2);letter-spacing:.1em;margin-bottom:5px}
+  h2{font-size:19px;margin:0 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 18px}
+  /* === ① 상위 3 대표댓글 (최상단 핵심) === */
+  .top3{background:linear-gradient(135deg,#2f5d62,#244b50);border:none;color:#fff}
+  .top3 .sec-no{color:#bfe0d9}
+  .top3 h2{color:#fff}
+  .top3 .lead{color:#d6e6e1}
+  .t3{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-top:1px solid rgba(255,255,255,.14)}
+  .t3:first-of-type{border-top:none}
+  .t3 .rank{flex:0 0 auto;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:17px;background:var(--value);color:#5a4410}
+  .t3 .rank.r2{background:#d7dde3;color:#33414d}
+  .t3 .rank.r3{background:#e6b894;color:#5a3410}
+  .t3 .body{flex:1}
+  .t3 .txt{font-size:14.5px;color:#f3f8f6;line-height:1.6}
+  .t3 .sig{display:inline-flex;gap:10px;margin-top:8px;font-size:12px;color:#bfe0d9;flex-wrap:wrap}
+  .t3 .sig b{color:var(--value);font-weight:800}
+  .t3 .sig .tag{background:rgba(255,255,255,.14);padding:2px 9px;border-radius:6px;font-weight:600;color:#eafff8}
+  /* === ② 간략 정체성 / 추정 연령 === */
+  .idage{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .idage .blk h3{font-size:14px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .agebars{display:flex;flex-direction:column;gap:8px}
+  .ab{display:grid;grid-template-columns:46px 1fr 38px;gap:10px;align-items:center;font-size:13px}
+  .ab .lab{font-weight:700}
+  .ab .track{height:8px;background:#eef0ee;border-radius:5px;overflow:hidden}
+  .ab .fill{height:100%;border-radius:5px;background:var(--brand2)}
+  .ab .pct{text-align:right;font-weight:800;color:var(--brand);font-size:12.5px}
+  .core{margin-top:10px;font-size:12.5px;color:var(--muted)}
+  .core b{color:var(--brand)}
+  .sigchips{display:flex;flex-wrap:wrap;gap:7px}
+  .sigchip{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12.5px}
+  .sigchip b{color:var(--brand);font-weight:800}
+  .idnote{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.55}
+  /* === ③ 시청이유 (강화) === */
+  .rsn{margin-bottom:15px;padding-bottom:15px;border-bottom:1px dashed var(--line)}
+  .rsn:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .rsn-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;gap:12px}
+  .rsn-top .name{font-weight:800;font-size:15px}
+  .rsn-top .name .rk{color:var(--brand2);margin-right:6px}
+  .rsn-top .val{font-size:12.5px;color:var(--muted);font-weight:700;white-space:nowrap}
+  .rsn-track{height:22px;background:#eef0ee;border-radius:7px;overflow:hidden}
+  .rsn-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;
+    padding-right:9px;color:#173b33;font-weight:800;font-size:12px;min-width:34px}
+  .rsn-ev{margin-top:8px;font-size:12.5px;color:#3a414c;background:var(--panel-2);
+    border-left:3px solid var(--brand2);border-radius:0 8px 8px 0;padding:8px 12px}
+  .rsn-ev .q{color:#2a3038}.rsn-ev .by{color:var(--muted);font-size:11.5px}
+  /* === 추가 인용 / 푸터 === */
+  .more .q2{border-left:3px solid var(--line);padding:9px 14px;margin-bottom:9px;font-size:13.5px;background:var(--panel-2);border-radius:0 8px 8px 0}
+  .more .q2 .by{display:block;margin-top:5px;font-size:11.5px;color:var(--muted)}
+  .more .q2 .by b{color:var(--pain)}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;line-height:1.8}
+  .note{background:#fbf6e9;border:1px solid #ecd9a8;border-left:5px solid var(--value);
+    border-radius:10px;padding:13px 16px;font-size:12.5px;color:#6b5a2e;margin-top:14px}
+  .note b{color:#9a7716}
+  @media(max-width:720px){.idage{grid-template-columns:1fr}h1{font-size:20px}}
+</style>
+</head>
+<body>
+
+<!-- ===== 상단 네비 (그대로 유지) ===== -->
+<nav class="topnav">
+  <a class="nbtn home" href="../../../../../comments/_댓글분석_허브.html">← 댓글분석 허브</a>
+  <a class="nbtn src" href="https://www.youtube.com/watch?v=O6Lw_4Hh0mQ" target="_blank" rel="noopener">🔗 유튜브 원본</a>
+</nav>
+
+<div class="wrap">
+  <!-- ===== 헤더 ===== -->
+  <header>
+    <div class="eyebrow">YouTube 댓글 시청자 분석 · 그린코끼리 AI · 카테고리: AI왕초보</div>
+    <h1>클로드 초보자 가이드 2026 | 이 영상 하나로 끝내세요.</h1>
+    <div class="meta">
+      <span><b>채널</b> 그린코끼리 AI</span><span class="dot"></span>
+      <span><b>구독자</b> 4.84만명</span><span class="dot"></span>
+      <span><b>조회수</b> 50.8만회</span><span class="dot"></span>
+      <span><b>게시</b> 2026. 3. 10.</span><span class="dot"></span>
+      <span><b>분석 댓글</b> 112개(인기순 원댓글 전량)</span><span class="dot"></span>
+      <span><b>분석 각도</b> 기본</span>
+    </div>
+  </header>
+
+  <!-- ===== ① 상위 3 대표댓글 — 최상단 ===== -->
+  <section class="top3">
+    <div class="sec-no">★ 대표댓글 · 추천 많은 순 TOP 3</div>
+    <h2>이 영상의 얼굴이 된 댓글 3개</h2>
+    <p class="lead">좋아요 최상위가 감사가 아니라 <b>페인(서버·가격)과 실무 북마크</b> — 검증하며 도구를 고르는 실무형 시청층의 결.</p>
+    <div class="t3"><div class="rank">1</div><div class="body">
+      <div class="txt">"클로드가 좋긴한데 서버가 다운되거나 버벅일때가 너무 많음. 메인으로 LLM까지 쓰기엔 불안정하고 메롱일때가 너무너무 흔하게 발생함."</div>
+      <div class="sig"><span>👍 <b>182</b></span><span class="tag">페인: 서버 불안정</span><span>3개월 전 · 답글 6</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r2">2</div><div class="body">
+      <div class="txt">"15:50 클로드 커넥터 (실제업무처리)"</div>
+      <div class="sig"><span>👍 <b>111</b></span><span class="tag">타임스탬프 메모 — '실제 업무처리' 구간에 북마크 집중</span><span>3개월 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r3">3</div><div class="body">
+      <div class="txt">"클로드 쓸만 하지만 너무 비쌈"</div>
+      <div class="sig"><span>👍 <b>56</b></span><span class="tag">페인: 가격 부담</span><span>3개월 전</span></div>
+    </div></div>
+  </section>
+
+  <!-- ===== ② 간략 정체성 · 추정 연령 ===== -->
+  <section>
+    <div class="sec-no">01 · 정체성 · 추정 연령 (간략)</div>
+    <h2>누가 보는가</h2>
+    <div class="idage">
+      <div class="blk">
+        <h3>추정 연령대</h3>
+        <div class="agebars">
+          <div class="ab"><span class="lab">10대</span><div class="track"><div class="fill" style="width:3%"></div></div><span class="pct">3%</span></div>
+          <div class="ab"><span class="lab">20대</span><div class="track"><div class="fill" style="width:22%"></div></div><span class="pct">22%</span></div>
+          <div class="ab"><span class="lab">30대</span><div class="track"><div class="fill" style="width:35%"></div></div><span class="pct">35%</span></div>
+          <div class="ab"><span class="lab">40대</span><div class="track"><div class="fill" style="width:28%"></div></div><span class="pct">28%</span></div>
+          <div class="ab"><span class="lab">50대+</span><div class="track"><div class="fill" style="width:12%"></div></div><span class="pct">12%</span></div>
+        </div>
+        <div class="core">핵심 시청층 <b>30~40대 (약 63%)</b> · 업무 맥락(회의록·기획·자동화) 언급이 정체성 신호의 대부분</div>
+      </div>
+      <div class="blk">
+        <h3>정체성 대표 신호 (댓글 자기소개)</h3>
+        <div class="sigchips">
+          <span class="sigchip">직장인·업무 맥락 <b>10</b></span>
+          <span class="sigchip">학생·청년 <b>1</b></span>
+          <span class="sigchip">연령 직접 언급 <b>0</b></span>
+          <span class="sigchip">시니어 신호 <b>0</b></span>
+          <span class="sigchip">주부·자영업 <b>0</b></span>
+        </div>
+        <div class="idnote">연령·세대 자기소개가 <b>0건</b>인 것 자체가 신호 — 시니어가 나이를 밝히며 감사를 적는 제미나이 왕초보(AI놀자) 댓글창과 정반대. 여기는 "전사록 회의록", "IT 전략 기획", "생산성 업무도구" 같은 <b>업무 맥락</b>을 밝히는 실무형 시청자가 몸통. 존댓말 성인 톤 + 기능 요청·비교 검증 댓글이 주류.</div>
+      </div>
+    </div>
+    <div class="note"><b>추정 주의:</b> 유튜브 실제 연령 통계는 채널 소유자만 열람 가능. 위 수치는 댓글 자기소개·말투·영상 주제·채널 성격 기반 <b>추정치</b>입니다.</div>
+  </section>
+
+  <!-- ===== ③ 시청이유 (강화 — 메인 섹션) ===== -->
+  <section>
+    <div class="sec-no">02 · 시청 이유 (핵심)</div>
+    <h2>왜 이 영상을 보는가</h2>
+    <p class="lead">112개 댓글 키워드 집계(중복 허용). 순위 · 비중% · 근거 댓글. 건수 1위는 감사지만, <b>좋아요 상위는 서버·가격 페인</b>이라는 점이 이 영상의 특징.</p>
+
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">①</span>감사·유익 — 강의 자체에 만족</span><span class="val">56건 · 50%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:100%;background:var(--growth)">56</div></div>
+      <div class="rsn-ev"><span class="q">"많은 강의를 봤지만 이렇게 스피드하고 다이네믹하며 효과음 까지 몰입되고 귀에 쏙쏙 들어와서 영상 죽이네요..."</span> <span class="by">— 👍 27</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">②</span>기능·실습 — 따라하며 시도·요청</span><span class="val">20건 · 18%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:36%;background:#4cc4e0">20</div></div>
+      <div class="rsn-ev"><span class="q">"전사록 업로드 후에 회의록 작성을 자주 합니다. 프로젝트로 한번 해봐야겟네요. 감사합니다!"</span> <span class="by">— 👍 3</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">③</span>왕초보 눈높이 — "대충 쓰다 제대로 배움"</span><span class="val">19건 · 17%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:34%;background:var(--brand2)">19</div></div>
+      <div class="rsn-ev"><span class="q">"클로드를 채팅만 하며 대충 썼는데 오늘 제대로 잘 배웠습니다. 정말 친철하게 초보자도 따라할 수 있도록 잘 설명해 주시네요~"</span> <span class="by">— 👍 8</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">④</span>GPT·타 AI 비교 — "제미나이 쓰다가 클로드는?"</span><span class="val">16건 · 14%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:29%;background:#9aa0aa">16</div></div>
+      <div class="rsn-ev"><span class="q">"제미나이만 쓰다가 클로드 한번 써볼까 늘 생각했었는데, 마침 눈에 띄는 영상이 있어서 듣게 됐고 유익한 강의 잘 들었습니다."</span> <span class="by">— 👍 9</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑤</span>유·무료 결제 고민 — 무료 한도·프로 가치</span><span class="val">15건 · 13%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:27%;background:var(--value)">15</div></div>
+      <div class="rsn-ev"><span class="q">"재미나이 프로버전 사용하고 있는데 클로드 무료버전이랑 비교하면 닥 재미나이 인가요? 유료vs유료가 클로드 압승일까요?"</span> <span class="by">— 👍 1</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑥</span>실전 활용·업무 — 회의록·기획·자동화</span><span class="val">14건 · 12.5%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:25%;background:var(--rec)">14</div></div>
+      <div class="rsn-ev"><span class="q">"저는 업무(IT 전략 기획이나 프로젝트 관리 쪽)에 AI를 쓰고 있는데요... 클로드는 어떤 부분에 강점이 있나요? 긴 문서 분석이나 문서 기억력 등은 뛰어나다고 하는거 같더라구요."</span> <span class="by">— 👍 3</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑦</span>비판·불만 — 서버 불안정·가격</span><span class="val">6건 · 5%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:11%;background:var(--pain)">6</div></div>
+      <div class="rsn-ev"><span class="q">"클로드가 좋긴한데 서버가 다운되거나 버벅일때가 너무 많음. 메인으로 LLM까지 쓰기엔 불안정하고..."</span> <span class="by">— 👍 182 (대표댓글 1위와 동일 — 건수는 6건뿐이나 공감은 압도적 1위)</span></div>
+    </div>
+  </section>
+
+  <!-- ===== (선택) 추가 대표댓글 ===== -->
+  <section class="more">
+    <div class="sec-no">03 · 더 보기</div>
+    <h2>그 외 대표 댓글</h2>
+    <div class="q2"><span>"클로드를 생산성 업무도구로 활용하고싶었는데 이해하기 쉽게 알려주시네요 감사합니다!"</span><span class="by">👍 <b>25</b> · 실무 전환 의지 — '업무도구로서의 클로드'가 진입 동기</span></div>
+    <div class="q2"><span>"와.. 진짜 너무 필요한 영상이었습니다ㅠㅠ 프로버전에서의 활용법 팁도 짧게나마 올려주시면 너무 좋을 것 같아요!!!"</span><span class="by">👍 <b>7</b> · 후속 수요 — 무료 가이드 다음은 '프로(유료) 활용법'</span></div>
+    <div class="q2"><span>"13:22 현재 사라진 기능"</span><span class="by">👍 <b>5</b> · 기능 변화 속도 페인 — '2026' 최신 가이드를 찾는 이유가 여기 있음</span></div>
+  </section>
+
+  <footer>
+    분석 대상: https://www.youtube.com/watch?v=O6Lw_4Hh0mQ · 그린코끼리 AI<br>
+    데이터: 인기순 원댓글 112개 전량 (크롬 브라우저 수집, 표시 댓글 수 173은 답글 포함) · 연령대는 댓글 기반 추정치<br>
+    생성일: 2026-07-05 · bizpt / 타채널참조 / AI왕초보
+  </footer>
+</div>
+</body>
+</html>

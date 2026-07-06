@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>쇼츠 자산 프롬프트 팩 — 이미지·영상 생성 (EP005)</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --bg:#0e1116; --card:#161b22; --card2:#1c2230; --line:#2a3140; --ink:#e8edf4; --mut:#9aa6b6; --mut2:#6b7785;
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --info:#5cc4e0; --rec:#b794f6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Pretendard",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;padding:0 0 70px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  a{color:var(--info)}
+  .nav{display:flex;flex-wrap:wrap;gap:8px;padding:12px 0;position:sticky;top:0;background:rgba(14,17,22,.92);backdrop-filter:blur(8px);z-index:30;border-bottom:1px solid var(--line)}
+  .nav a{font-size:12.5px;font-weight:700;text-decoration:none;color:var(--mut);border:1px solid var(--line);background:var(--card2);border-radius:8px;padding:7px 11px}
+  .nav a.active{color:var(--rec);border-color:rgba(183,148,246,.45);background:rgba(183,148,246,.12)}
+  header{background:linear-gradient(160deg,#11161f,#0e1116 72%);border-bottom:1px solid var(--line);padding:34px 0 24px;margin-bottom:8px}
+  .eyebrow{font-size:12.5px;letter-spacing:.16em;color:var(--value);font-weight:800;text-transform:uppercase;margin-bottom:10px}
+  h1{font-size:clamp(22px,3.6vw,30px);font-weight:900;letter-spacing:-.02em;margin-bottom:10px}
+  h1 b{color:var(--value)}
+  .sub{color:var(--mut);font-size:14px;max-width:780px}
+  .sub b{color:var(--ink)}
+  section{padding:24px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:19px;font-weight:900;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+  h2 .n{color:var(--value)}
+  .lead{color:var(--mut);font-size:13.5px;margin-bottom:14px}
+  /* style guide box */
+  .sg{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px;color:#cfd5df;line-height:1.8}
+  .sg b{color:#fff}
+  .sg .good{color:var(--growth)} .sg .bad{color:var(--pain)}
+  /* asset card */
+  .asset{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px;border-left:4px solid var(--info)}
+  .asset.hook{border-left-color:var(--pain)} .asset.cta{border-left-color:var(--growth)}
+  .ahead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .ahead .id{font-size:13px;font-weight:900;color:var(--value);background:rgba(255,209,102,.12);padding:3px 9px;border-radius:6px}
+  .ahead h3{font-size:16px;font-weight:800;color:#fff}
+  .ahead .tc{font-size:12px;font-weight:700;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+  .role{font-size:13px;color:var(--mut);margin-bottom:12px}
+  .role b{color:var(--ink)}
+  .grid{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:start}
+  @media(max-width:680px){.grid{grid-template-columns:1fr}}
+  .thumb{aspect-ratio:9/16;border-radius:10px;border:1px solid var(--line);background:linear-gradient(160deg,#10243a,#080d14);display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;color:var(--mut);padding:8px}
+  .pblock{margin-bottom:10px}
+  .plab{font-size:11px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+  .plab.img{color:var(--info)} .plab.vid{color:var(--rec)}
+  .copy{margin-left:auto;font-size:11px;font-weight:700;color:var(--mut);background:var(--card2);border:1px solid var(--line);border-radius:6px;padding:3px 9px;cursor:pointer}
+  .copy:hover{color:#fff;border-color:#3a4150}
+  .copy.done{color:var(--growth);border-color:rgba(6,214,160,.4)}
+  pre{background:#0a0d12;border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-size:12.5px;line-height:1.7;color:#cdd4de;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .kr{font-size:12px;color:var(--mut2);margin-top:5px}
+  /* steps */
+  .steps{display:grid;gap:8px}
+  .st{display:flex;gap:10px;font-size:13.5px;background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:9px 13px}
+  .st .nm{color:var(--value);font-weight:900;flex:0 0 auto}
+  footer{padding:22px 0 0;color:var(--mut2);font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="nav">
+    <a class="active">🎨 쇼츠 자산 프롬프트 (현재)</a>
+    <a href="쇼츠_대본.html">🎬 쇼츠 대본</a>
+    <a href="README.md">🏠 영상 진입점</a>
+    <a href="통합_AI시대살아남는.html">📦 본편 통합</a>
+  </nav>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">SHORTS ASSETS · EP005 · ChatGPT/Sora 생성용</div>
+    <h1>쇼츠 자산 프롬프트 팩 — <b>이미지 5 · 영상 5</b></h1>
+    <p class="sub">쇼츠 대본 6비트에 맞춘 <b>세로 9:16</b> 생성 프롬프트. 각 카드의 <b>복사</b> 버튼 → ChatGPT(이미지)·Sora(영상)에 붙여넣기. 페이스리스·노(no) 로봇/공포 — 채널 진정성 가드 준수.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 스타일 가이드 -->
+  <section>
+    <h2><span class="n">●</span> 공통 스타일 (일관성 고정)</h2>
+    <p class="lead">5장을 <b>같은 ChatGPT 대화창</b>에서 순서대로 생성하면 톤이 통일됩니다. 모든 프롬프트 끝에 아래 스타일 접미를 공유합니다.</p>
+    <div class="sg">
+      <b>스타일 접미(공통):</b> vertical 9:16, cinematic editorial photo, moody low-key lighting, charcoal &amp; teal palette (#0e1116) with warm amber (#ffd166) + mint (#06d6a0) accents, shallow depth of field, subtle film grain, faceless (hands / over-the-shoulder / silhouette).<br>
+      <span class="good">✓ 권장</span>: 손·뒷모습·실루엣, 차분한 긴장, 빛 입자, 책·노트북·창가 / <span class="bad">✗ 금지</span>: 사람 정면 얼굴, <b>로봇·해골·위협적 AI</b>, 폭발/충격 연출, 화면 안 텍스트(자막은 편집에서). <br>
+      <b>출력 팁:</b> "9:16 세로로, 텍스트 없이" 명시 · 한 번에 1장 · 마음에 들면 "같은 스타일로 다음 장" 요청.
+    </div>
+  </section>
+
+  <!-- A1 -->
+  <section>
+    <h2><span class="n">①</span> 이미지·영상 자산 (비트별)</h2>
+
+    <div class="asset hook">
+      <div class="ahead"><span class="id">A1</span><h3>후크 — 밤, 노트북 앞 손</h3><span class="tc">0:00–0:07</span></div>
+      <div class="role"><b>용도:</b> 첫 프레임. "가장 먼저 잘리는 사람?" 긴장(공포 아님). 위로 자막 여백.</div>
+      <div class="grid">
+        <div class="thumb">A1<br>9:16<br>후크 프레임</div>
+        <div>
+          <div class="pblock">
+            <div class="plab img">🖼 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="img1">복사</button></div>
+            <pre id="img1">Vertical 9:16 cinematic editorial photo, over-the-shoulder view of a faceless young office worker at night, sitting at a desk lit only by a laptop screen glowing soft blue, a generic minimal chat app open, shallow depth of field, moody low-key lighting, charcoal and teal palette with a faint amber rim light, subtle film grain, quiet tension (not horror), no visible face, no robots, no logos, no on-screen text, lots of negative space at top. 9:16.</pre>
+            <div class="kr">KR 메모: 밤·노트북 불빛·뒷모습/손, 불안하지만 공포 아님. 상단 자막 여백.</div>
+          </div>
+          <div class="pblock">
+            <div class="plab vid">🎞 영상 프롬프트 (Sora) <button class="copy" data-t="vid1">복사</button></div>
+            <pre id="vid1">9:16 vertical, 5s. Slow cinematic push-in toward a faceless person's shoulder and a glowing laptop screen at night, soft blue light flickering gently, dust particles drifting, shallow depth of field, moody charcoal-teal tone, calm tension, no text, no robots. Subtle, realistic motion.</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="asset">
+      <div class="ahead"><span class="id">A2</span><h3>본문 — 같은 도구, 갈리는 결과</h3><span class="tc">0:07–0:16</span></div>
+      <div class="role"><b>용도:</b> "몇 배 차이" 대비. 같은 책상 둘 — 흐림 vs 빛.</div>
+      <div class="grid">
+        <div class="thumb">A2<br>9:16<br>듀얼 대비</div>
+        <div>
+          <div class="pblock">
+            <div class="plab img">🖼 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="img2">복사</button></div>
+            <pre id="img2">Vertical 9:16 conceptual cinematic image, two identical desks with laptops side by side in a dark room, the left side dim and grey and lifeless, the right side glowing with warm amber and mint-green light and energy, symbolizing two very different outcomes from the same tool, faceless, minimal, deep charcoal background, soft volumetric light, editorial, no on-screen text, no logos, no robots. 9:16.</pre>
+            <div class="kr">KR 메모: 같은 챗GPT인데 결과가 갈린다 = 좌(회색) vs 우(따뜻한 빛).</div>
+          </div>
+          <div class="pblock">
+            <div class="plab vid">🎞 영상 프롬프트 (Sora) <button class="copy" data-t="vid2">복사</button></div>
+            <pre id="vid2">9:16 vertical, 5s. Two identical desks side by side; the left stays dim grey while the right gradually lights up with warm amber and mint glow spreading across it, gentle camera drift, volumetric light, dark cinematic room, no text, no robots. Smooth realistic motion.</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="asset">
+      <div class="ahead"><span class="id">A3</span><h3>본문 — 질문(빛나는 물음표)</h3><span class="tc">0:16–0:28</span></div>
+      <div class="role"><b>용도:</b> "차이는 질문." 노트·펜 + 빛나는 물음표.</div>
+      <div class="grid">
+        <div class="thumb">A3<br>9:16<br>질문 = 빛</div>
+        <div>
+          <div class="pblock">
+            <div class="plab img">🖼 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="img3">복사</button></div>
+            <pre id="img3">Vertical 9:16 cinematic, a single large glowing question mark made of warm amber light floating above an open notebook and a laptop on a dark wooden desk, a faceless hand holding a pen mid-thought, particles of light, shallow depth of field, moody charcoal palette with amber accent, contemplative, no on-screen text, no logos, no robots. 9:16.</pre>
+            <div class="kr">KR 메모: 질문력 = 빛나는 물음표. 손·펜·노트로 '생각 중'.</div>
+          </div>
+          <div class="pblock">
+            <div class="plab vid">🎞 영상 프롬프트 (Sora) <button class="copy" data-t="vid3">복사</button></div>
+            <pre id="vid3">9:16 vertical, 5s. A glowing amber question mark slowly forms from drifting light particles above an open notebook and laptop on a dark desk, a faceless hand writing gently, warm light pulsing softly, cinematic shallow focus, no text, no robots. Subtle realistic motion.</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="asset">
+      <div class="ahead"><span class="id">A4</span><h3>본문 — 생각 ← 읽기 (책에서 피어나는 생각)</h3><span class="tc">0:28–0:43</span></div>
+      <div class="role"><b>용도:</b> 채널 코어. 책 → 빛의 실 → 생각 네트워크(읽기=사고력).</div>
+      <div class="grid">
+        <div class="thumb">A4<br>9:16<br>독서→생각</div>
+        <div>
+          <div class="pblock">
+            <div class="plab img">🖼 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="img4">복사</button></div>
+            <pre id="img4">Vertical 9:16 cinematic, an open book on a wooden desk glowing softly from within, luminous mint-green and amber threads of light rising from the pages and weaving into a delicate network of ideas above, dark moody background, warm rim light, faceless, contemplative and hopeful mood, editorial, no on-screen text, no logos, no robots. 9:16.</pre>
+            <div class="kr">KR 메모: 읽기에서 생각이 피어난다 = 책 → 빛의 실 → 아이디어 네트워크.</div>
+          </div>
+          <div class="pblock">
+            <div class="plab vid">🎞 영상 프롬프트 (Sora) <button class="copy" data-t="vid4">복사</button></div>
+            <pre id="vid4">9:16 vertical, 6s. An open book glows softly; thin luminous mint-green and amber threads rise from the pages and slowly weave into a constellation of ideas above it, gentle upward motion, warm cinematic light, dark background, faceless, no text, no robots. Smooth dreamlike motion.</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="asset cta">
+      <div class="ahead"><span class="id">A5</span><h3>CTA — 창가에서 읽는 실루엣 (사인오프)</h3><span class="tc">0:43–0:50</span></div>
+      <div class="role"><b>용도:</b> 마무리 카드. "AI는 답을, 읽는 사람은 질문을" 자막 얹을 차분한 장면.</div>
+      <div class="grid">
+        <div class="thumb">A5<br>9:16<br>사인오프</div>
+        <div>
+          <div class="pblock">
+            <div class="plab img">🖼 이미지 프롬프트 (ChatGPT) <button class="copy" data-t="img5">복사</button></div>
+            <pre id="img5">Vertical 9:16 cinematic, a calm silhouette of a person reading a book by a large window at dusk, soft warm backlight, a faint subtle holographic glow in the background hinting at quiet AI assistance, peaceful and confident mood, dark teal palette with amber highlights, generous empty negative space at the top for a caption, faceless, no on-screen text, no logos, no robots. 9:16.</pre>
+            <div class="kr">KR 메모: 차분·자신감. 상단 여백에 사인오프 자막 예정.</div>
+          </div>
+          <div class="pblock">
+            <div class="plab vid">🎞 영상 프롬프트 (Sora) <button class="copy" data-t="vid5">복사</button></div>
+            <pre id="vid5">9:16 vertical, 5s. A calm silhouette reads a book by a large window at dusk, soft warm light shifts gently, faint background glow breathing slowly, peaceful confident mood, dark teal with amber, lots of empty space at top, faceless, no text, no robots. Subtle realistic motion.</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 생성 절차 -->
+  <section>
+    <h2><span class="n">②</span> 생성 절차 (ChatGPT / Sora)</h2>
+    <div class="steps">
+      <div class="st"><span class="nm">1</span><div><b>ChatGPT(이미지):</b> 새 대화 → A1 복사·붙여넣기 → "9:16 세로, 텍스트 없이"로 1장. 마음에 들면 "같은 스타일로 A2…" 순서로 5장.</div></div>
+      <div class="st"><span class="nm">2</span><div><b>일관성:</b> 한 대화에서 이어가면 색·톤이 통일됨. 어긋나면 "앞 장과 같은 조명·팔레트 유지" 추가.</div></div>
+      <div class="st"><span class="nm">3</span><div><b>Sora(영상):</b> 각 이미지가 나오면 "이 이미지를 9:16 영상으로, [영상 프롬프트]" 또는 Sora에 영상 프롬프트 직접 입력(5~6초).</div></div>
+      <div class="st"><span class="nm">4</span><div><b>저장:</b> 생성물은 9:16 그대로 다운로드 → 편집에서 자막·강조색(pain/growth/value) 입힘.</div></div>
+      <div class="st"><span class="nm">5</span><div><b>가드 점검:</b> 로봇·공포·정면 얼굴·화면 텍스트가 섞였으면 재생성("no robots, faceless, no text" 강조).</div></div>
+    </div>
+  </section>
+
+  <footer>
+    근거: 쇼츠_대본.html 6비트 매핑 · 채널 §4.4 진정성 가드(로봇·공포·정면얼굴 배제, 페이스리스) · 9:16 세로·풀자막 전제 · 「AI보다 읽는 사람」
+  </footer>
+</div>
+
+<script>
+document.querySelectorAll('.copy').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const el=document.getElementById(b.dataset.t);
+    const txt=el?el.innerText:'';
+    navigator.clipboard.writeText(txt).then(()=>{
+      const o=b.textContent; b.textContent='복사됨 ✓'; b.classList.add('done');
+      setTimeout(()=>{b.textContent=o;b.classList.remove('done');},1500);
+    });
+  });
+});
+</script>
+</body>
+</html>

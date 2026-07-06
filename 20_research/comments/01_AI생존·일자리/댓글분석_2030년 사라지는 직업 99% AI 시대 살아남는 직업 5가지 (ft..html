@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!-- 영상별 댓글 시청자 분석 · 분석 각도: 후크 발굴+기본 · 생성 2026-06-13 · 검색: 살아남는법 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>댓글 분석 · 2030년 사라지는 직업 99%? AI 시대 살아남는 직업 5가지 (ft. 로만 얌폴스키) (푸짐한 경제학)</title>
+<style>
+  :root{--pain:#ef476f;--growth:#06d6a0;--value:#ffd166;--rec:#c4b5fd;--bg:#f5f3ee;--panel:#ffffff;--panel-2:#faf8f3;--line:#e7e3da;--text:#1f2430;--muted:#5d6470;--brand:#2f5d62;--brand2:#3a7a82;--shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px 80px}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:980px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:700}
+  .nbtn.src{color:var(--pain);margin-left:auto}
+  header{margin:18px 0 26px}
+  .eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--brand2);font-weight:800;margin-bottom:10px}
+  h1{font-size:24px;line-height:1.38;margin:0 0 16px;font-weight:800;letter-spacing:-.01em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13.5px;color:var(--muted);align-items:center}
+  .meta b{color:var(--text)}
+  .meta .dot{width:4px;height:4px;border-radius:50%;background:#c7c1b4;display:inline-block}
+  .meta .angle{background:rgba(196,181,252,.25);border:1px solid var(--rec);color:#5b4a8a;font-weight:800;padding:2px 10px;border-radius:7px}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+  .sec-no{font-size:11.5px;font-weight:800;color:var(--brand2);letter-spacing:.1em;margin-bottom:5px}
+  h2{font-size:19px;margin:0 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .top3{background:linear-gradient(135deg,#2f5d62,#244b50);border:none;color:#fff}
+  .top3 .sec-no{color:#bfe0d9}.top3 h2{color:#fff}.top3 .lead{color:#d6e6e1}
+  .t3{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-top:1px solid rgba(255,255,255,.14)}
+  .t3:first-of-type{border-top:none}
+  .t3 .rank{flex:0 0 auto;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;background:var(--value);color:#5a4410}
+  .t3 .rank.r2{background:#d7dde3;color:#33414d}.t3 .rank.r3{background:#e6b894;color:#5a3410}
+  .t3 .body{flex:1}.t3 .txt{font-size:14.5px;color:#f3f8f6;line-height:1.6}
+  .t3 .sig{display:inline-flex;gap:10px;margin-top:8px;font-size:12px;color:#bfe0d9;flex-wrap:wrap}
+  .t3 .sig b{color:var(--value);font-weight:800}
+  .t3 .sig .tag{background:rgba(255,255,255,.14);padding:2px 9px;border-radius:6px;font-weight:600;color:#eafff8}
+  .idage{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .idage .blk h3{font-size:14px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .agebars{display:flex;flex-direction:column;gap:8px}
+  .ab{display:grid;grid-template-columns:46px 1fr 38px;gap:10px;align-items:center;font-size:13px}
+  .ab .lab{font-weight:700}
+  .ab .track{height:8px;background:#eef0ee;border-radius:5px;overflow:hidden}
+  .ab .fill{height:100%;border-radius:5px;background:var(--brand2)}
+  .ab .pct{text-align:right;font-weight:800;color:var(--brand);font-size:12.5px}
+  .core{margin-top:10px;font-size:12.5px;color:var(--muted)}.core b{color:var(--brand)}
+  .sigchips{display:flex;flex-wrap:wrap;gap:7px}
+  .sigchip{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12.5px}
+  .sigchip b{color:var(--brand);font-weight:800}
+  .idnote{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.55}
+  .rsn{margin-bottom:15px;padding-bottom:15px;border-bottom:1px dashed var(--line)}
+  .rsn:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .rsn-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;gap:12px}
+  .rsn-top .name{font-weight:800;font-size:15px}.rsn-top .name .rk{color:var(--brand2);margin-right:6px}
+  .rsn-top .val{font-size:12.5px;color:var(--muted);font-weight:700;white-space:nowrap}
+  .rsn-track{height:22px;background:#eef0ee;border-radius:7px;overflow:hidden}
+  .rsn-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:9px;color:#173b33;font-weight:800;font-size:12px;min-width:34px}
+  .rsn-ev{margin-top:8px;font-size:12.5px;color:#3a414c;background:var(--panel-2);border-left:3px solid var(--brand2);border-radius:0 8px 8px 0;padding:8px 12px}
+  .rsn-ev .q{color:#2a3038}.rsn-ev .by{color:var(--muted);font-size:11.5px}
+  .hook{margin-top:8px;font-size:12.5px;background:rgba(196,181,252,.16);border-left:3px solid var(--rec);border-radius:0 8px 8px 0;padding:8px 12px;color:#4a3d72}
+  .hook b{color:#6b4fbf;font-weight:800}
+  .more .q2{border-left:3px solid var(--line);padding:9px 14px;margin-bottom:9px;font-size:13.5px;background:var(--panel-2);border-radius:0 8px 8px 0}
+  .more .q2 .by{display:block;margin-top:5px;font-size:11.5px;color:var(--muted)}
+  .more .q2 .by b{color:var(--pain)}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;line-height:1.8}
+  .note{background:#fbf6e9;border:1px solid #ecd9a8;border-left:5px solid var(--value);border-radius:10px;padding:13px 16px;font-size:12.5px;color:#6b5a2e;margin-top:14px}
+  .note b{color:#9a7716}
+  .hookbox{background:#f3effc;border:1px solid var(--rec);border-radius:14px;padding:20px 24px;margin-bottom:20px}
+  .hookbox h2{color:#5b4a8a}.hookbox .lead{color:#6b5e8c}
+  .hookbox ol{margin:0;padding-left:20px;font-size:14px;color:#3a334d}
+  .hookbox ol li{margin-bottom:10px}.hookbox .cap{font-weight:800;color:#6b4fbf}
+  @media(max-width:720px){.idage{grid-template-columns:1fr}h1{font-size:20px}}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <a class="nbtn home" href="../_댓글분석_허브.html">← 댓글분석 허브</a>
+  <a class="nbtn src" href="https://www.youtube.com/watch?v=e3ubMxF-hv8" target="_blank" rel="noopener">🔗 유튜브 원본</a>
+</nav>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">YouTube 댓글 시청자 분석 · 푸짐한 경제학</div>
+    <h1>2030년 사라지는 직업 99%? AI 시대 살아남는 직업 5가지 (ft. 로만 얌폴스키)</h1>
+    <div class="meta">
+      <span><b>채널</b> 푸짐한 경제학</span><span class="dot"></span>
+      <span><b>구독자</b> 구독자 3.88만명</span><span class="dot"></span>
+      <span><b>조회수</b> 23만</span><span class="dot"></span>
+      <span><b>게시</b> 2026. 2. 10.</span><span class="dot"></span>
+      <span><b>분석 댓글</b> 129개(인기순)</span><span class="dot"></span>
+      <span class="angle">분석 각도 · 후크 발굴 + 기본</span>
+    </div>
+  </header>
+
+  <section class="top3">
+    <div class="sec-no">★ 대표댓글 · 추천 많은 순 TOP 3</div>
+    <h2>이 영상의 얼굴이 된 댓글 3개</h2>
+    <p class="lead">좋아요가 가장 많이 눌린 댓글 = 시청자 다수가 가장 공감한 지점.</p>
+    <div class="t3"><div class="rank">1</div><div class="body">
+      <div class="txt">"결국 블루컬러 직업도 5년 예상이고, 살아남는 건 신뢰와 인간미·AI를 통제하는 직업이라는 것"</div>
+      <div class="sig"><span>👍 <b>82</b></span><span class="tag">신뢰·인간미 직업</span><span>4개월 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r2">2</div><div class="body">
+      <div class="txt">"어린이집·유치원 교사는 대체 불가, 간호사도 대체가 쉽지 않음"</div>
+      <div class="sig"><span>👍 <b>75</b></span><span class="tag">교사 대체불가</span><span>4개월 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r3">3</div><div class="body">
+      <div class="txt">"판사가 AI로 제일 시급하다"</div>
+      <div class="sig"><span>👍 <b>64</b></span><span class="tag">판사 풍자</span><span>2개월 전</span></div>
+    </div></div>
+    
+  </section>
+
+  <section>
+    <div class="sec-no">정체성 · 추정 연령 (간략)</div>
+    <h2>누가 보는가</h2>
+    <div class="idage">
+      <div class="blk">
+        <h3>추정 연령대</h3>
+        <div class="agebars">
+          <div class="ab"><span class="lab">10대</span><div class="track"><div class="fill" style="width:3%"></div></div><span class="pct">3%</span></div>
+          <div class="ab"><span class="lab">20대</span><div class="track"><div class="fill" style="width:18%"></div></div><span class="pct">18%</span></div>
+          <div class="ab"><span class="lab">30대</span><div class="track"><div class="fill" style="width:33%"></div></div><span class="pct">33%</span></div>
+          <div class="ab"><span class="lab">40대</span><div class="track"><div class="fill" style="width:32%"></div></div><span class="pct">32%</span></div>
+          <div class="ab"><span class="lab">50대+</span><div class="track"><div class="fill" style="width:14%"></div></div><span class="pct">14%</span></div>
+          
+        </div>
+        <div class="core">핵심 시청층 <b>30~40대 (약 65%)</b></div>
+      </div>
+      <div class="blk">
+        <h3>정체성 대표 신호 (댓글 자기소개)</h3>
+        <div class="sigchips">
+          <span class="sigchip">학부모·자녀 <b>5</b></span>
+          <span class="sigchip">직장인 <b>4</b></span>
+          <span class="sigchip">취준생 <b>1</b></span>
+          <span class="sigchip">자영업·사업 <b>1</b></span>
+        </div>
+        <div class="idnote">직장인·학부모 소수 정예 — &#x27;살아남는 직업&#x27;을 신뢰·인간미·교사 등 구체 직군으로 따지는 실무층.</div>
+      </div>
+    </div>
+    <div class="note"><b>추정 주의:</b> 유튜브 실제 연령 통계는 채널 소유자만 열람 가능. 위 수치는 댓글 자기소개·말투·영상 주제·채널 성격 기반 <b>추정치</b>입니다.</div>
+  </section>
+
+  <section>
+    <div class="sec-no">02 · 시청 이유 (핵심)</div>
+    <h2>왜 이 영상을 보는가</h2>
+    <p class="lead">129개 댓글 키워드 집계(중복 허용). 순위 · 비중% · 근거 댓글. <b>각도=후크 발굴</b> → 상위 이유를 후크 카피 후보로 변환.</p>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">①</span>AI 불안·생존 위기감</span><span class="val">26건 · 20.2%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:100%;background:var(--growth)">26</div></div>
+      <div class="rsn-ev"><span class="q">"블루컬러도 5년이고, 살아남는 건 신뢰·인간미·AI를 통제하는 직업이라는 것"</span> <span class="by">— 👍 82</span></div><div class="hook"><b>→ 후크 후보:</b> &quot;당신은 내년에도 살아남을까&quot; — AI가 먼저 가져가는 자리부터</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">②</span>본질·인간다움·읽기·질문력</span><span class="val">14건 · 10.9%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:54%;background:#4cc4e0">14</div></div>
+      <div class="rsn-ev"><span class="q">"AI가 세상을 지배한다는 말엔 버블이 끼어 있고, 다들 미디어 마케팅에 휘둘리는 형국"</span> <span class="by">— 👍 15</span></div><div class="hook"><b>→ 후크 후보:</b> 결국 살아남는 건 &#x27;읽고 질문하는 사람&#x27;이다 (채널 슬로건 직결)</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">③</span>직업·진로·교육 고민</span><span class="val">13건 · 10.1%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:50%;background:var(--brand2)">13</div></div>
+      <div class="rsn-ev"><span class="q">"어린이집·유치원 교사는 대체 불가, 간호사도 대체가 쉽지 않다"</span> <span class="by">— 👍 75</span></div><div class="hook"><b>→ 후크 후보:</b> AI 시대, 내 아이에게 남길 단 하나의 진로</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">④</span>AI 활용·실무·생산성</span><span class="val">3건 · 2.3%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:12%;background:#9aa0aa">3</div></div>
+      <div class="rsn-ev"><span class="q">"직업이 없어진다는 게 보이는 현상은 맞는 것 같습니다"</span> <span class="by">— 👍 3</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑤</span>공감·현실 토로</span><span class="val">3건 · 2.3%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:12%;background:var(--pain)">3</div></div>
+      <div class="rsn-ev"><span class="q">"요즘 종말 때 같네요. 2040년이면 로봇이 다 일하는 세상이 올 것 같다"</span> <span class="by">— 👍 2</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑥</span>비판·반론·회의</span><span class="val">3건 · 2.3%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:12%;background:var(--value)">3</div></div>
+      <div class="rsn-ev"><span class="q">"기본소득을 검토할 때다. 노동자가 로봇으로 대체되면 수익은 로봇 주인이 다 먹는 구조"</span> <span class="by">— 👍 7</span></div>
+    </div>
+  </section>
+
+  <section class="hookbox">
+    <div class="sec-no" style="color:#6b4fbf">★ 각도 산출물 · 후크 발굴 종합</div>
+    <h2>이 댓글방에서 건진 후크 카피 후보</h2>
+    <p class="lead">시청이유 상위 결을 bizpt 풀링/키 후크로 변환. AI(입구) → 읽기·질문·인간다움(토대)으로 잇는 후보 우선.</p>
+    <ol>
+      <li><span class="cap">AI 불안·생존 위기감</span> — &quot;당신은 내년에도 살아남을까&quot; — AI가 먼저 가져가는 자리부터 <i>(26건)</i></li>
+      <li><span class="cap">본질·인간다움·읽기·질문력</span> — 결국 살아남는 건 &#x27;읽고 질문하는 사람&#x27;이다 (채널 슬로건 직결) <i>(14건)</i></li>
+      <li><span class="cap">직업·진로·교육 고민</span> — AI 시대, 내 아이에게 남길 단 하나의 진로 <i>(13건)</i></li>
+      <li><span class="cap">AI 활용·실무·생산성</span> — 같은 AI인데 왜 결과가 다를까 — &#x27;잘 쓰는 사람&#x27;의 세팅법 <i>(3건)</i></li>
+      <li><span class="cap">공감·현실 토로</span> — 다들 느끼는 그 &#x27;싸함&#x27; — AI 시대의 진짜 현실 <i>(3건)</i></li>
+    </ol>
+  </section>
+
+  <section class="more">
+    <div class="sec-no">03 · 더 보기</div>
+    <h2>그 외 대표 댓글</h2>
+    <div class="q2"><span>"남의 말만 듣고 옮기는 이런 유튜브 만드는 사람들의 직업군이 제일 먼저 없어질 듯"</span><span class="by">👍 <b>59</b></span></div>
+    <div class="q2"><span>"이 영상도 AI가 만든 것 아닌가요 ㅋ"</span><span class="by">👍 <b>46</b></span></div>
+    <div class="q2"><span>"콘서트 갈 사람들이 줄어들 듯, 다들 실업자라"</span><span class="by">👍 <b>38</b></span></div>
+    
+  </section>
+
+  <footer>
+    분석 대상: https://www.youtube.com/watch?v=e3ubMxF-hv8 · 푸짐한 경제학<br>
+    데이터: 인기순 댓글 129개 (크롬 브라우저 직접 수집) · 연령대는 댓글 기반 추정치<br>
+    검색 출처: 살아남는법 · 분석 각도: 후크 발굴 + 기본 · 생성일: 2026-06-13 · bizpt / 타채널참조
+  </footer>
+</div>
+</body>
+</html>

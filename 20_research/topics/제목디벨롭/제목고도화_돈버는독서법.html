@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>제목 고도화 — "돈버는 독서법" (사용자 원안 3개 디벨롭)</title>
+<style>
+  :root{
+    --bg:#0e1116; --card:#161b22; --card2:#1c2230; --line:#2a3140; --ink:#e8edf4; --mut:#9aa6b6;
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --info:#5cc4e0; --rec:#b794f6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;font-feature-settings:"tnum"}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+  header{background:linear-gradient(160deg,#11161f 0%,#0e1116 70%);border-bottom:1px solid var(--line);padding:40px 0 30px}
+  .eyebrow{font-size:13px;letter-spacing:.16em;color:var(--value);font-weight:800;text-transform:uppercase;margin-bottom:10px}
+  h1{font-size:clamp(24px,4vw,34px);font-weight:900;margin:0 0 12px;letter-spacing:-.02em}
+  h1 b{color:var(--value)}
+  .sub{color:var(--mut);font-size:15px;max-width:760px}
+  .sub b{color:var(--ink)}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--mut)}
+  .chip.val{border-color:rgba(255,209,102,.4);color:var(--value)}
+  .chip.grow{border-color:rgba(6,214,160,.4);color:var(--growth)}
+  .chip.info{border-color:rgba(92,196,224,.4);color:var(--info)}
+  .chip.pain{border-color:rgba(239,71,111,.4);color:var(--pain)}
+  .chip.rec{border-color:rgba(183,148,246,.4);color:var(--rec)}
+  section{padding:30px 0;border-bottom:1px solid var(--line)}
+  .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--info);font-weight:800;margin-bottom:6px}
+  h2{font-size:21px;font-weight:900;margin:0 0 6px;letter-spacing:-.01em}
+  h2 .num{color:var(--value);margin-right:8px}
+  .lead{color:var(--mut);font-size:14px;margin:0 0 18px}
+  /* 진단 */
+  .diag{display:grid;gap:10px}
+  .di{display:flex;gap:11px;background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--growth);border-radius:10px;padding:12px 15px;font-size:14px}
+  .di.warn{border-left-color:var(--pain)}
+  .di .n{font-weight:900;color:var(--growth);flex:0 0 auto}
+  .di.warn .n{color:var(--pain)}
+  .di b{color:var(--ink)} .di .hl{color:var(--value);font-weight:700}
+  /* 원안 카드 */
+  .ocase{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;margin-bottom:18px}
+  .ocase .olab{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--rec);margin-bottom:8px}
+  .otitle{font-size:clamp(17px,2.6vw,21px);font-weight:800;letter-spacing:-.02em;line-height:1.35;color:var(--mut)}
+  .otitle s{color:#6b7686;text-decoration-color:rgba(239,71,111,.7)}
+  .cnt{display:inline-block;font-size:11px;font-weight:800;color:var(--growth);background:rgba(6,214,160,.12);border-radius:6px;padding:2px 8px;margin-left:8px;vertical-align:middle}
+  .cnt.bad{color:var(--pain);background:rgba(239,71,111,.12)}
+  .keepfix{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  @media(max-width:640px){.keepfix{grid-template-columns:1fr}}
+  .kf{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:10px 13px;font-size:13px}
+  .kf .t{font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+  .kf.keep .t{color:var(--growth)} .kf.fix .t{color:var(--pain)}
+  .kf b{color:var(--ink)}
+  .arrow{margin:14px 0 8px;font-size:12px;font-weight:900;letter-spacing:.1em;color:var(--info);text-transform:uppercase}
+  .ttitle{font-size:clamp(19px,3vw,24px);font-weight:900;letter-spacing:-.02em;line-height:1.3;color:var(--ink)}
+  .ttitle .y{color:var(--value)} .ttitle .r{color:var(--pain)} .ttitle .g{color:var(--growth)}
+  .steps{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+  .stp{font-size:11.5px;font-weight:700;border:1px solid var(--line);border-radius:7px;padding:3px 9px;color:var(--mut)}
+  .stp b{color:var(--value)}
+  .why{margin-top:10px;font-size:13.5px;color:var(--ink)}
+  .why em{font-style:normal;color:var(--growth);font-weight:700}
+  .alt{margin-top:9px;font-size:12.5px;color:var(--mut)}
+  .alt b{color:var(--pain)}
+  .seo{margin-top:11px;font-size:13px;color:var(--mut);background:var(--card2);border-radius:8px;padding:9px 12px;border:1px dashed var(--line)}
+  .seo b{color:var(--info)}
+  /* 최종 3안 */
+  .tcase{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;margin-bottom:16px}
+  .tcase.safe{border-left:4px solid var(--growth)}
+  .tcase.boldA{border-left:4px solid var(--value)}
+  .tcase.boldB{border-left:4px solid var(--info)}
+  .tlab{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+  .tcase.safe .tlab{color:var(--growth)} .tcase.boldA .tlab{color:var(--value)} .tcase.boldB .tlab{color:var(--info)}
+  /* 썸네일 헤드 매핑 */
+  .tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .tbl th{background:var(--card2);color:#cfd5df;text-align:left;padding:9px 12px;font-size:12px;border-bottom:1px solid var(--line)}
+  .tbl td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl .r{color:var(--pain);font-weight:800} .tbl .g{color:var(--growth);font-weight:800} .tbl .y{color:var(--value);font-weight:800}
+  /* 체크 */
+  .check{display:grid;gap:8px}
+  .ci{display:flex;gap:10px;font-size:13.5px;background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:9px 13px}
+  .ci .mk{color:var(--growth);font-weight:900;flex:0 0 auto}
+  .ci b{color:var(--ink)}
+  .callout{margin-top:16px;background:rgba(183,148,246,.08);border:1px solid rgba(183,148,246,.3);border-radius:11px;padding:14px 16px;font-size:14px}
+  .callout b{color:var(--rec)}
+  footer{padding:26px 0 50px;color:var(--mut);font-size:12.5px}
+  code{background:var(--card2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px;color:var(--info)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">사용자 원안 3개 → 제목 8단계 고도화 · 35자 + SEO 100자</div>
+    <h1>"<b>돈버는 독서법</b>" — 원안 3개 디벨롭 · 최종 3안</h1>
+    <p class="sub">기존 고도화(<b>「책 읽어도 돈 못 버는」= 문제 진단형</b>)와 짝을 이루는 <b>해법·방법형 각도</b>.
+      원안의 어그로(반대문구·부자·반전)는 살리되, <b>단정·검증불가 과장만 룰북 톤으로 교정</b>해
+      결 ②·③을 정조준하고 종착지(읽는 법·도구 → 이북리더기·readtree)로 잇는다.</p>
+    <div class="meta">
+      <span class="chip val">풀링 · 004 계열(자기계발 축)</span>
+      <span class="chip info">결 ② 읽고 있는 / ③ 더 읽으려는</span>
+      <span class="chip grow">8축: 자기개발 · 책 읽는 방법</span>
+      <span class="chip pain">메인 35자 + 100자 SEO</span>
+      <span class="chip rec">종착지: 이북리더기 · readtree</span>
+      <span class="chip">기획 2026-06-10</span>
+    </div>
+  </div>
+</header>
+
+<!-- 0. 진단 -->
+<section><div class="wrap">
+  <div class="kicker">원안 3개 공통 진단 — 살릴 것 / 고칠 것</div>
+  <h2><span class="num">0.</span> 진단 — 원안의 방향은 맞다, 표현만 룰북 톤으로</h2>
+  <p class="lead">세 원안 모두 5주차 ③-2(반의어·부정)·④(수식어)·⑤(답 숨김)의 감을 정확히 탔다. 교정 대상은 표현 3곳뿐.</p>
+  <div class="diag">
+    <div class="di"><div class="n">✓</div><div><b>부정 프레임 감각 정확.</b> "절대 돈 벌 수 없습니다"는 뷰트랩 검증 패턴(<span class="hl">살 찝니다 2.8억 &gt; 빠집니다 1억</span>) 그대로 — 부정형이 긍정형보다 풀이 크다. 원안 1의 본능은 옳다.</div></div>
+    <div class="di"><div class="n">✓</div><div><b>"부자" 단어 선택 정확.</b> ③-2 반의어 판정 사례(부자 vs 가난 → <span class="hl">부자 채택</span>)와 일치. "독서"(1.7억)·"자기계발"(5952만) 큰 풀에도 자연 접속.</div></div>
+    <div class="di"><div class="n">✓</div><div><b>통념 제시 → 반전 구조(원안 3) 우수.</b> "책읽으면 부자된다? 진짜는 따로있다"는 ⑤ 답 숨김의 교과서 — 문장만 다듬으면 그대로 후보.</div></div>
+    <div class="di warn"><div class="n">!</div><div><b>"절대 ~없습니다" 단정·위협 톤</b> — <code>썸네일지침 §5.1</code> 낚시·위협 라인 침범. → 안전안은 <span class="hl">기간·숫자 구체화("10년 읽어도")</span>로 강도 유지하며 단정 제거. 원안 그대로는 A/B 격리 운영.</div></div>
+    <div class="di warn"><div class="n">!</div><div><b>"부자들만 알고 있는 1%" 검증 불가 과장</b> — 누구도 증명 못 하는 수식("~만 알고 있는")은 §5.2 금지 계열. → <span class="hl">실명 권위(버핏 하루 5~6시간 독서 등 공개 사실)</span>로 치환하면 어그로는 유지되고 진정성은 산다.</div></div>
+    <div class="di warn"><div class="n">!</div><div><b>맞춤법·메인 흐림</b> — "돈벌수"→"돈 벌 수", 원안 3은 문장 2개+키워드 나열로 메인 메시지가 분산. → 메인 1문장 + 나머지는 35자 이후 SEO로 이동.</div></div>
+  </div>
+  <div class="callout"><b>카니발라이제이션 가드:</b> 기존 <code>제목썸네일_기획_책읽어도_돈못버는.html</code>(6-09)은 <b>"왜 못 버나" 진단형</b>, 본 기획은 <b>"어떻게 읽어야 버나" 방법형</b>. 같은 주제 풀에서 각도가 갈리므로 중복이 아니라 <b>진단(앞편) → 방법(본편)</b> 연작 운영이 가능하다. 단, 동시 업로드 금지 — 최소 2주 간격.</div>
+</div></section>
+
+<!-- 1. 원안별 디벨롭 -->
+<section><div class="wrap">
+  <div class="kicker">원안 → 8단계 적용 → 고도화안</div>
+  <h2><span class="num">1.</span> 원안 3개 디벨롭 (비포 → 애프터)</h2>
+  <p class="lead">각 원안의 살릴 것/고칠 것을 분리한 뒤, 8단계 번호를 달아 고도화. 글자수 = 공백 포함, 메인 35자 이내.</p>
+
+  <!-- 원안 1 -->
+  <div class="ocase">
+    <div class="olab">원안 1 · 반대문구 어그로</div>
+    <div class="otitle">"이렇게 읽으면 <s>절대</s> 돈벌수 없습니다" <span class="cnt bad">단정·위협 톤 + 맞춤법</span></div>
+    <div class="keepfix">
+      <div class="kf keep"><div class="t">살릴 것</div><b>"이렇게"</b>(방법 답 숨김 ⑤ — 썸네일이 '이렇게'를 보여줘야 함) + <b>부정 프레임</b>(③-2, 큰 풀)</div>
+      <div class="kf fix"><div class="t">고칠 것</div><b>"절대 ~없습니다"</b> 단정(§5.1 위협 라인) → 기간·결과 구체화로 강도 유지. "돈벌수"→"돈 벌 수"</div>
+    </div>
+    <div class="arrow">고도화 ▼</div>
+    <div class="ttitle">이렇게 읽으면 <span class="y">10년</span> 읽어도 <span class="r">돈이 안 됩니다</span><span class="cnt">메인 24자 ✓</span></div>
+    <div class="steps">
+      <span class="stp"><b>③-2</b> 부정 프레임 유지</span>
+      <span class="stp"><b>④</b> 기간 구체화 "10년"</span>
+      <span class="stp"><b>⑤</b> 방법 답 숨김 "이렇게"</span>
+      <span class="stp">결 ② 호명(읽고 있는데 효과 없음)</span>
+    </div>
+    <div class="why"><em>왜 강한가</em> — "절대"(증명 불가 단정)를 빼고 <b>"10년 읽어도"</b>(기간 절대값)를 넣으면 위협이 아니라 <b>경고 가능한 사실 톤</b>이 된다. '이렇게'가 뭔지 궁금해서 누르고, 답(잘못된 읽기 방식)은 본편에.</div>
+    <div class="alt"><b>A/B 강버전(원안 정제만, 진정성 주의):</b> 「이렇게 읽으면 절대 돈 벌 수 없습니다」(21자) — 원안 맞춤법 교정판. CTR 비교 데이터용으로만 1주 운영, 채널 톤과 충돌 시 즉시 교체.</div>
+    <div class="seo"><b>SEO 100자 완성안:</b> 이렇게 읽으면 10년 읽어도 돈이 안 됩니다 | 돈버는 독서법, 잘못된 책읽기 습관, 독서 효과 없는 이유, 자기계발 독서, 부자 독서습관, 책 제대로 읽는 법</div>
+  </div>
+
+  <!-- 원안 2 -->
+  <div class="ocase">
+    <div class="olab">원안 2 · 희소성 어그로</div>
+    <div class="otitle">"<s>부자들만 알고있는 1%</s> 돈버는 독서법" <span class="cnt bad">검증 불가 과장</span></div>
+    <div class="keepfix">
+      <div class="kf keep"><div class="t">살릴 것</div><b>"부자"</b>(③-2 판정 채택어·큰 풀) + <b>희소성 호기심</b>(나만 모르는 게 있다는 감각)</div>
+      <div class="kf fix"><div class="t">고칠 것</div><b>"부자들만 알고 있는"·"1%"</b> — 아무도 증명 못 하는 수식(§5.2 계열). 희소성은 <b>실명 권위·공개 사실</b>로 치환</div>
+    </div>
+    <div class="arrow">고도화 ▼</div>
+    <div class="ttitle">부자들의 독서법, <span class="g">딱 하나</span>가 다릅니다<span class="cnt">메인 20자 ✓</span></div>
+    <div class="steps">
+      <span class="stp"><b>③-2</b> "부자" 유지</span>
+      <span class="stp"><b>④</b> 수량 한정 "딱 하나"</span>
+      <span class="stp"><b>⑤</b> 그 하나가 뭔지 숨김</span>
+      <span class="stp">8축 자기개발·책 읽는 방법</span>
+    </div>
+    <div class="why"><em>왜 강한가</em> — "1%·~만 알고 있는"의 희소성을 <b>"딱 하나"</b>(수량 한정)로 번역하면 과장 없이 같은 호기심이 생긴다. 제거 테스트: '딱 하나'를 빼면 평범한 정보 제목으로 죽는다.</div>
+    <div class="alt"><b>변주(권위 실명형):</b> 「버핏은 하루 5시간씩 뭘 읽었을까」(18자) — 공개 인터뷰 기반 사실(버핏 하루 5~6시간 독서)이라 검증 가능. 본편에서 출처 1회 제시 필수.</div>
+    <div class="seo"><b>SEO 100자 완성안:</b> 부자들의 독서법, 딱 하나가 다릅니다 | 돈버는 독서법, 워런버핏 독서법, 부자 되는 독서습관, 성공한 사람들의 책읽기, 자기계발 책추천, 독서와 돈</div>
+  </div>
+
+  <!-- 원안 3 -->
+  <div class="ocase">
+    <div class="olab">원안 3 · 통념 반전</div>
+    <div class="otitle">"책읽으면 부자된다? 진짜는 따로있다 <s>돈버는 독서법</s>" <span class="cnt bad">메인 분산(문장 2개+키워드)</span></div>
+    <div class="keepfix">
+      <div class="kf keep"><div class="t">살릴 것</div><b>통념 제시 → 반전 구조</b>("부자된다? 진짜는 따로") = ⑤ 답 숨김의 교과서. 구조 그대로 채택</div>
+      <div class="kf fix"><div class="t">고칠 것</div>꼬리의 "돈버는 독서법"은 메인을 흐림 → <b>35자 이후 SEO 영역으로 이동</b>. 띄어쓰기 정리</div>
+    </div>
+    <div class="arrow">고도화 ▼</div>
+    <div class="ttitle">책 읽으면 부자 된다? <span class="y">절반만 맞습니다</span><span class="cnt">메인 21자 ✓</span></div>
+    <div class="steps">
+      <span class="stp"><b>③-2</b> 통념 반박(부분 부정)</span>
+      <span class="stp"><b>⑤</b> 질문형 + "어느 절반?" 숨김</span>
+      <span class="stp">진정성: 단정 아닌 "절반"</span>
+      <span class="stp">8축 책 읽어야 하는 이유·자기개발</span>
+    </div>
+    <div class="why"><em>왜 강한가</em> — "진짜는 따로 있다"를 <b>"절반만 맞습니다"</b>로 바꾸면 책을 깎아내리지 않으면서(3기둥 ② — 책 편에 선다) 통념 교정의 반전은 그대로. 어느 절반이 맞고 틀린지가 본편 유인.</div>
+    <div class="alt"><b>변주(원안 구조 직역형):</b> 「'책 읽으면 부자 된다'는 말, 진짜는 따로 있습니다」(29자) — 원안 어순 보존판. 메인이 길어 모바일 잘림 여유가 적으므로 차순위.</div>
+    <div class="seo"><b>SEO 100자 완성안:</b> 책 읽으면 부자 된다? 절반만 맞습니다 | 돈버는 독서법, 독서와 부자, 책읽기 효과, 자기계발 독서법, 부자들의 공통점, 독서 습관 만들기, 책추천</div>
+  </div>
+</div></section>
+
+<!-- 2. 최종 3안 -->
+<section><div class="wrap">
+  <div class="kicker">업로드 운영용 · 안전 1 + 도전 2 (A/B)</div>
+  <h2><span class="num">2.</span> 최종 추천 3안 — 1차 업로드 → 1주일 내 교체 실험</h2>
+  <p class="lead">서로 다른 톤끼리 짝지어 "방법 어그로가 부르나, 권위가 부르나, 반전이 부르나"를 측정(6주차 3개 제작·교체 룰).</p>
+
+  <div class="tcase safe">
+    <div class="tlab">🟢 안전안 · 1차 업로드 — 원안 2 계열(답 숨김·과장 0)</div>
+    <div class="ttitle">부자들의 독서법, <span class="g">딱 하나</span>가 다릅니다<span class="cnt">20자</span></div>
+    <div class="why"><em>채택 이유</em> — 과장 0·단정 0으로 채널 면죄부 톤과 정합. "부자"로 풀을 열고 "딱 하나"로 본편을 연다. 종착지(그 하나 = 읽는 법·기록·도구)와 직결.</div>
+  </div>
+  <div class="tcase boldA">
+    <div class="tlab">🟡 도전안 A · 방법 어그로 — 원안 1 계열(부정 프레임)</div>
+    <div class="ttitle">이렇게 읽으면 <span class="y">10년</span> 읽어도 <span class="r">돈이 안 됩니다</span><span class="cnt">24자</span></div>
+    <div class="why"><em>실험 가설</em> — 부정 프레임이 더 큰 풀(뷰트랩 패턴)이라면 안전안보다 CTR 우위 예상. 결 ②(읽는데 안 바뀜) 공감 강점. 위협 톤 경계 — 본편 도입 30초에서 면죄부("당신 잘못이 아니라 방식 문제") 필수.</div>
+  </div>
+  <div class="tcase boldB">
+    <div class="tlab">🔵 도전안 B · 권위 실명 — 원안 2 변주(검증 가능 사실)</div>
+    <div class="ttitle">버핏은 하루 <span class="y">5시간씩</span> 뭘 읽었을까<span class="cnt">18자</span></div>
+    <div class="why"><em>실험 가설</em> — 실명 권위 + 구체 숫자(5시간)가 "부자들만 아는 1%"의 클릭 동기를 과장 없이 대체하는지 측정. 최단 글자수라 모바일 가독 최상. 본편 출처 제시 필수.</div>
+  </div>
+
+  <div class="callout"><b>운영:</b> 🟢로 1차 업로드 → 1주일 내 🟡/🔵 교체 실험. 원안 3 계열 「책 읽으면 부자 된다? 절반만 맞습니다」(21자)는 <b>진단형 전편(책읽어도_돈못버는)과 톤이 겹치므로</b> 연작 2편째 제목 후보로 예비 보관. ⑥⑦(트렌드·핫비디오)·정밀 조회수는 라이브 뷰트랩으로 확정(<code>뷰트랩_주제발굴_디벨롭_가이드.md</code>).</div>
+</div></section>
+
+<!-- 3. 썸네일 헤드 매핑 -->
+<section><div class="wrap">
+  <div class="kicker">제목 35자 → 썸네일 헤드 7~10자 / 12~16자 (§8.6.3)</div>
+  <h2><span class="num">3.</span> 썸네일 헤드 매핑 — 제목의 축약·변주</h2>
+  <table class="tbl">
+    <thead><tr><th>매핑</th><th>헤드(윗줄 / 아랫줄)</th><th>색 토큰</th><th>이미지 방향(6단계)</th></tr></thead>
+    <tbody>
+      <tr><td>🟢 안전안</td><td>"부자들의 독서법" / "<span class="g">딱 하나</span>가 다르다"</td><td>'딱 하나' --growth</td><td>② 증명 — 같은 책 두 권, 한쪽만 메모·밑줄 가득(차이는 가림)</td></tr>
+      <tr><td>🟡 도전 A</td><td>"이렇게 읽으면" / "<span class="r">돈이 안 됩니다</span>"</td><td>'안 됩니다' --pain</td><td>① 확대 — '이렇게'에 해당하는 잘못된 읽기 컷(쌓아만 둔 책) 클로즈업, 좌상단</td></tr>
+      <tr><td>🔵 도전 B</td><td>"하루 <span class="y">5시간</span>" / "버핏은 뭘 읽었나"</td><td>'5시간' --value</td><td>⑤ 시청층 — 거장 실루엣·아이콘 오마주만(사진 직접 사용 NG) + 책 클로즈업</td></tr>
+      <tr><td>예비(원안 3)</td><td>"독서 = 부자?" / "<span class="y">절반만 맞다</span>"</td><td>'절반' --value</td><td>② 증명 — '=' 절반에만 빨간 취소선("절반"이라 단정 회피)</td></tr>
+    </tbody>
+  </table>
+  <p class="lead" style="margin-top:12px">공통: 핵심 문구 좌상단(④ 공감) · 한 썸네일에 강조 토큰 1개 · 검증 안 된 수익 숫자 금지 · 작은 크기 대비 문구 크게.</p>
+</div></section>
+
+<!-- 4. 검증 -->
+<section><div class="wrap">
+  <div class="kicker">마감 전 검증 · 룰북 통과</div>
+  <h2><span class="num">4.</span> 체크리스트 통과 결과</h2>
+  <div class="check">
+    <div class="ci"><span class="mk">✓</span><div><b>35자 룰(§8.6.3)</b> — 최종 3안 메인 20·24·18자, 예비 21자. 모두 35자 이내 + SEO 100자 보강 완료.</div></div>
+    <div class="ci"><span class="mk">✓</span><div><b>8단계 1~7 경유</b> — ③-2 부정·반의어(원안 1·3), ④ 구체 수식(10년·5시간·딱 하나), ⑤ 답 숨김 전 안 적용. ⑧ 강력단어 보류(데이터 누적 후).</div></div>
+    <div class="ci"><span class="mk">✓</span><div><b>금지문구(§5.1·5.2)</b> — "절대·~만 알고 있는·1%" 모두 메인에서 제거(원안 정제판은 A/B 격리). 충격·경악·100배 0건. 남은 숫자(10년·5시간)는 검증 가능 절대값.</div></div>
+    <div class="ci"><span class="mk">✓</span><div><b>결 호명 + 8축</b> — 결 ②(읽는데 안 바뀜)·③(더 읽으려는) 정조준, 8축 자기개발·책 읽는 방법 자연 노출.</div></div>
+    <div class="ci"><span class="mk">✓</span><div><b>진정성(3기둥 ②)</b> — 책을 깎지 않고 "읽는 방식"만 교정. 도전 A는 본편 면죄부 착지 의무화로 가드.</div></div>
+    <div class="ci"><span class="mk">✓</span><div><b>수익화 종착지</b> — "딱 하나·이렇게"의 답 = 읽는 법·기록·환경 → 이북리더기·readtree로 자연 착지. 풀링이므로 직접 노출 0회.</div></div>
+    <div class="ci"><span class="mk">✓</span><div><b>카니발라이제이션</b> — 진단형(돈못버는)과 방법형(본 기획) 각도 분리 + 2주 간격 룰 명시. 원안 3 계열은 예비 보관으로 중복 차단.</div></div>
+  </div>
+  <div class="callout"><b>다음 단계:</b> ① 라이브 뷰트랩으로 "돈버는 독서법 / 부자 독서법 / 버핏 독서법" 검색량 비교 → 최종 단어 확정 → ② 채택 제목을 해당 풀링 폴더 <code>정리본/01_후크_미리보기.md</code>로 이관 → ③ 썸네일 3개 제작 → ④ 도입부는 썸네일보다 강하게(8점이면 9점, §8.7.4).</div>
+</div></section>
+
+<footer><div class="wrap">
+  근거: <code>5-1강 제목 디벨롭 8단계</code> · <code>대본기획_기준.md §8.6·§8.7</code> · <code>썸네일지침 §5.1·5.2</code> · <code>_실행문제_5개_제목디벨롭_2026-06-06.md</code>(뷰트랩 실데이터) ·
+  전편: <code>제목썸네일_기획_책읽어도_돈못버는.html</code> / 사용자 원안 3개(2026-06-10) 디벨롭
+</div></footer>
+</body>
+</html>

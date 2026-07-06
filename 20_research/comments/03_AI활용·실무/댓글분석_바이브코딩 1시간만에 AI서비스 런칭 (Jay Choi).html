@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!-- 영상별 댓글 시청자 분석 · 생성 2026-06-21 · 분석 각도: 기본 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>댓글 분석 · 바이브코딩으로 1시간 만에 AI 서비스 런칭하기 (Jay Choi | 인디해커 라이프)</title>
+<style>
+  :root{
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#c4b5fd;
+    --bg:#f5f3ee; --panel:#ffffff; --panel-2:#faf8f3; --line:#e7e3da;
+    --text:#1f2430; --muted:#5d6470; --brand:#2f5d62; --brand2:#3a7a82;
+    --shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px 80px}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:980px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;
+    background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:700}
+  .nbtn.src{color:var(--pain);margin-left:auto}
+  header{margin:18px 0 26px}
+  .eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--brand2);font-weight:800;margin-bottom:10px}
+  h1{font-size:24px;line-height:1.38;margin:0 0 16px;font-weight:800;letter-spacing:-.01em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13.5px;color:var(--muted);align-items:center}
+  .meta b{color:var(--text)}
+  .meta .dot{width:4px;height:4px;border-radius:50%;background:#c7c1b4;display:inline-block}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:26px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+  .sec-no{font-size:11.5px;font-weight:800;color:var(--brand2);letter-spacing:.1em;margin-bottom:5px}
+  h2{font-size:19px;margin:0 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .top3{background:linear-gradient(135deg,#2f5d62,#244b50);border:none;color:#fff}
+  .top3 .sec-no{color:#bfe0d9}
+  .top3 h2{color:#fff}
+  .top3 .lead{color:#d6e6e1}
+  .t3{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-top:1px solid rgba(255,255,255,.14)}
+  .t3:first-of-type{border-top:none}
+  .t3 .rank{flex:0 0 auto;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:17px;background:var(--value);color:#5a4410}
+  .t3 .rank.r2{background:#d7dde3;color:#33414d}
+  .t3 .rank.r3{background:#e6b894;color:#5a3410}
+  .t3 .body{flex:1}
+  .t3 .txt{font-size:14.5px;color:#f3f8f6;line-height:1.6}
+  .t3 .sig{display:inline-flex;gap:10px;margin-top:8px;font-size:12px;color:#bfe0d9;flex-wrap:wrap}
+  .t3 .sig b{color:var(--value);font-weight:800}
+  .t3 .sig .tag{background:rgba(255,255,255,.14);padding:2px 9px;border-radius:6px;font-weight:600;color:#eafff8}
+  .idage{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .idage .blk h3{font-size:14px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .agebars{display:flex;flex-direction:column;gap:8px}
+  .ab{display:grid;grid-template-columns:46px 1fr 38px;gap:10px;align-items:center;font-size:13px}
+  .ab .lab{font-weight:700}
+  .ab .track{height:8px;background:#eef0ee;border-radius:5px;overflow:hidden}
+  .ab .fill{height:100%;border-radius:5px;background:var(--brand2)}
+  .ab .pct{text-align:right;font-weight:800;color:var(--brand);font-size:12.5px}
+  .core{margin-top:10px;font-size:12.5px;color:var(--muted)}
+  .core b{color:var(--brand)}
+  .sigchips{display:flex;flex-wrap:wrap;gap:7px}
+  .sigchip{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12.5px}
+  .sigchip b{color:var(--brand);font-weight:800}
+  .idnote{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.55}
+  .rsn{margin-bottom:15px;padding-bottom:15px;border-bottom:1px dashed var(--line)}
+  .rsn:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .rsn-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;gap:12px}
+  .rsn-top .name{font-weight:800;font-size:15px}
+  .rsn-top .name .rk{color:var(--brand2);margin-right:6px}
+  .rsn-top .val{font-size:12.5px;color:var(--muted);font-weight:700;white-space:nowrap}
+  .rsn-track{height:22px;background:#eef0ee;border-radius:7px;overflow:hidden}
+  .rsn-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;
+    padding-right:9px;color:#173b33;font-weight:800;font-size:12px;min-width:34px}
+  .rsn-ev{margin-top:8px;font-size:12.5px;color:#3a414c;background:var(--panel-2);
+    border-left:3px solid var(--brand2);border-radius:0 8px 8px 0;padding:8px 12px}
+  .rsn-ev .q{color:#2a3038}.rsn-ev .by{color:var(--muted);font-size:11.5px}
+  .more .q2{border-left:3px solid var(--line);padding:9px 14px;margin-bottom:9px;font-size:13.5px;background:var(--panel-2);border-radius:0 8px 8px 0}
+  .more .q2 .by{display:block;margin-top:5px;font-size:11.5px;color:var(--muted)}
+  .more .q2 .by b{color:var(--pain)}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;line-height:1.8}
+  .note{background:#fbf6e9;border:1px solid #ecd9a8;border-left:5px solid var(--value);
+    border-radius:10px;padding:13px 16px;font-size:12.5px;color:#6b5a2e;margin-top:14px}
+  .note b{color:#9a7716}
+  @media(max-width:720px){.idage{grid-template-columns:1fr}h1{font-size:20px}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="../_댓글분석_허브.html">← 댓글분석 허브</a>
+  <a class="nbtn src" href="https://www.youtube.com/watch?v=mhVgh640FUw" target="_blank" rel="noopener">🔗 유튜브 원본</a>
+</nav>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">YouTube 댓글 시청자 분석 · Jay Choi | 인디해커 라이프</div>
+    <h1>바이브코딩으로 1시간 만에 AI 서비스 런칭하기 | 디자인부터 결제, 배포까지</h1>
+    <div class="meta">
+      <span><b>채널</b> Jay Choi | 인디해커 라이프</span><span class="dot"></span>
+      <span><b>구독자</b> 2.03만명</span><span class="dot"></span>
+      <span><b>조회수</b> 61,294회</span><span class="dot"></span>
+      <span><b>게시</b> 2026. 2. 5.</span><span class="dot"></span>
+      <span><b>분석 댓글</b> 76개(인기순·전수)</span><span class="dot"></span>
+      <span><b>분석 각도</b> 기본</span>
+    </div>
+  </header>
+
+  <!-- ① 상위 3 대표댓글 -->
+  <section class="top3">
+    <div class="sec-no">★ 대표댓글 · 추천 많은 순 TOP 3</div>
+    <h2>이 영상의 얼굴이 된 댓글 3개</h2>
+    <p class="lead">좋아요가 가장 많이 눌린 댓글 = 시청자 다수가 가장 공감한 지점.</p>
+    <div class="t3"><div class="rank">1</div><div class="body">
+      <div class="txt">"댓글 처음 달아봅니다. 개발과 관계없는 일을 하는 초보 입장에서 조금 어렵지만, 지금 구독하고 있는 40개 채널 중에서 '아, 이분은 진짜 개발자이시구나, 코딩을 진짜 좋아하시는구나'를 느끼게 해주시네요. 감사합니다. 앞으로도 좋은 영상 응원할께요"</div>
+      <div class="sig"><span>👍 <b>41</b></span><span class="tag">비전공 입문자·진정성 신뢰</span><span>4개월 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r2">2</div><div class="body">
+      <div class="txt">"정말 많은 도움이 되었어요. 자연어로 하는 바이브코딩이라고 하지만, 현실은 생각보다 말로만 되지 않는다는 것을 전체 흐름을 보며 확인했습니다. 대본을 보며 AI에게 왜 이렇게 하는지 묻고 확인했습니다."</div>
+      <div class="sig"><span>👍 <b>11</b></span><span class="tag">현실 갭 인식·직접 실습</span><span>4개월 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r3">3</div><div class="body">
+      <div class="txt">"1:06:55 이 영상의 가치는 이 문구에 있습니다. '소프트웨어 서비스의 본질은 결국 누군가의 불편함을 없애 주는 것… 처음부터 너무 큰 걸 노리지 마세요. 모든 사람을 위한 서비스는 결국 아무도 위한 서비스가 아닙니다. 차라리 아주 좁은 타겟, 니치한 시장을 노리세요…'"</div>
+      <div class="sig"><span>👍 <b>7</b></span><span class="tag">운영자 핵심 메시지 인용·수익화 철학</span><span>4개월 전</span></div>
+    </div></div>
+  </section>
+
+  <!-- ② 정체성 · 추정 연령 -->
+  <section>
+    <div class="sec-no">정체성 · 추정 연령 (간략)</div>
+    <h2>누가 보는가</h2>
+    <div class="idage">
+      <div class="blk">
+        <h3>추정 연령대</h3>
+        <div class="agebars">
+          <div class="ab"><span class="lab">10대</span><div class="track"><div class="fill" style="width:3%"></div></div><span class="pct">3%</span></div>
+          <div class="ab"><span class="lab">20대</span><div class="track"><div class="fill" style="width:22%"></div></div><span class="pct">22%</span></div>
+          <div class="ab"><span class="lab">30대</span><div class="track"><div class="fill" style="width:38%"></div></div><span class="pct">38%</span></div>
+          <div class="ab"><span class="lab">40대</span><div class="track"><div class="fill" style="width:27%"></div></div><span class="pct">27%</span></div>
+          <div class="ab"><span class="lab">50대+</span><div class="track"><div class="fill" style="width:10%"></div></div><span class="pct">10%</span></div>
+        </div>
+        <div class="core">핵심 시청층 <b>30~40대</b> · 비전공 성인 입문자가 다수, 수익화·1인 사업 지향</div>
+      </div>
+      <div class="blk">
+        <h3>정체성 대표 신호 (댓글 자기소개)</h3>
+        <div class="sigchips">
+          <span class="sigchip">비전공·입문자 <b>13</b></span>
+          <span class="sigchip">현직 개발자·전공 <b>7</b></span>
+          <span class="sigchip">대학·대학원 <b>6</b></span>
+          <span class="sigchip">직장인 <b>2</b></span>
+          <span class="sigchip">창업·사업 <b>2</b></span>
+        </div>
+        <div class="idnote">압도적 1위 신호가 '비전공·입문자'(13건). 현직 개발자(7)·대학생(6)이 뒤를 받치고, 존댓말·정중한 응원체가 지배적 → AI·바이브코딩으로 '1인 서비스·수익화'를 노리는 성인 비전공 입문자가 핵심층. "비전공자라 용어 자체가 어렵다"는 결이 반복된다.</div>
+      </div>
+    </div>
+    <div class="note"><b>추정 주의:</b> 유튜브 실제 연령 통계는 채널 소유자만 열람 가능. 위 수치는 댓글 자기소개·말투(정중한 존댓말)·영상 주제(바이브코딩 수익화)·채널 성격(인디해커) 기반 <b>추정치</b>입니다.</div>
+  </section>
+
+  <!-- ③ 시청이유 -->
+  <section>
+    <div class="sec-no">02 · 시청 이유 (핵심)</div>
+    <h2>왜 이 영상을 보는가</h2>
+    <p class="lead">76개 댓글 키워드 집계(중복 허용). 순위 · 비중% · 근거 댓글. (바이브코딩·AI 서비스 주제 맞춤 분류)</p>
+
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">①</span>감사·동기부여 (좋은 영상)</span><span class="val">31건 · 41%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:100%;background:var(--growth)">31</div></div>
+      <div class="rsn-ev"><span class="q">"와우 보석같은 정보네요. 도움이 많이 됩니다. 감사합니다"</span> <span class="by">— 👍 3</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">②</span>실습·따라하기 시도</span><span class="val">17건 · 22%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:55%;background:#4cc4e0">17</div></div>
+      <div class="rsn-ev"><span class="q">"SaaS 개발하려고 했는데 한번 따라해보겠습니다!!"</span> <span class="by">— 👍 3</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">③</span>수익화·런칭 관심 (1인 사업·경제적 자유)</span><span class="val">16건 · 21%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:52%;background:var(--brand2)">16</div></div>
+      <div class="rsn-ev"><span class="q">"좋은 영상 감사합니다. 님 말대로 저도 경제적 자유까지 달려봅니다."</span> <span class="by">— 👍 2</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">④</span>도구·스택 질문 (어떤 툴·구독 레벨)</span><span class="val">9건 · 12%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:29%;background:#9aa0aa">9</div></div>
+      <div class="rsn-ev"><span class="q">"혹시 클로드코드의 결제 버전은 어떤 걸로 하셨나요? 토큰이 크게 부족할 것 같아 보여서요"</span> <span class="by">— 👍 2</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑤</span>현실 갭·기대조정 ('딸깍'은 아직)</span><span class="val">8건 · 11%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:26%;background:var(--value)">8</div></div>
+      <div class="rsn-ev"><span class="q">"아직 딸깍으로 짜잔 하고 만드는 시대는 안 왔군요. 개발 전문지식이 없으면 시간 많이 걸리겠네요"</span> <span class="by">— 👍 4</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑥</span>비전공·어려움 토로 (용어 장벽)</span><span class="val">4건 · 5%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:13%;background:var(--pain)">4</div></div>
+      <div class="rsn-ev"><span class="q">"좋은 정보 고맙습니다. 비전공자라 용어 자체가 어렵네요. 알아 듣는 수준으로 공부 되어야 할 텐데~~"</span> <span class="by">— 👍 6</span></div>
+    </div>
+  </section>
+
+  <!-- 더보기 -->
+  <section class="more">
+    <div class="sec-no">03 · 더 보기</div>
+    <h2>그 외 대표 댓글</h2>
+    <div class="q2"><span>"이런 걸 공개해주시다니 정말 감사합니다! 채널 많이 성장하시고 좋은 영상들 많이 부탁드립니다!"</span><span class="by">👍 <b>3</b> · 감사·재시청/채널 성장 기대</span></div>
+    <div class="q2"><span>"하드웨어에서부터 웹까지 조금씩 다 해봤지만 서비스 런칭이 최곱니다. 아~ 내 인생이여… 잘 봤습니다."</span><span class="by">👍 <b>2</b> · 경험자·런칭 가치 공감</span></div>
+    <div class="q2"><span>"참 웃기단 말이지. 바이브 코딩 관련 영상엔 항상 비전공자·비개발자, 코딩 한 줄 쳐본 적 없는 사람들이 'AI가 모든 걸 다 해줍니다!'에 현혹된…"</span><span class="by">👍 <b>1</b> · 유일한 비판·회의(거품 경계)</span></div>
+  </section>
+
+  <footer>
+    분석 대상: https://www.youtube.com/watch?v=mhVgh640FUw · Jay Choi | 인디해커 라이프<br>
+    데이터: 인기순 댓글 76개 전수 (크롬 브라우저 수집) · 연령대는 댓글 기반 추정치<br>
+    생성일: 2026-06-21 · bizpt / 타채널참조
+  </footer>
+</div>
+</body>
+</html>

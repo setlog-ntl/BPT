@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!-- 참조영상 수집 — 나발 라비칸트 (독서철학·부의 법칙) v1 · 2026-06-09 · 링크/메타 Claude in Chrome 실제 검증 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>참조영상 · 나발 라비칸트 — 독서철학·부의 법칙</title>
+<style>
+  :root{--pain:#ef476f;--growth:#06d6a0;--value:#ffd166;--rec:#c4b5fd;--bg:#f5f3ee;--panel:#ffffff;--panel-2:#faf8f3;--line:#e7e3da;--text:#1f2430;--muted:#5d6470;--brand:#2f5d62;--brand2:#3a7a82;--shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:1080px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:800;background:rgba(47,93,98,.08);border-color:var(--brand2)}
+  .nbtn.doc{margin-left:auto;color:var(--brand2)}
+  header{background:linear-gradient(135deg,#2f5d62 0%,#244b50 60%,#1d3c40 100%);color:#fff;padding:34px 0 30px;margin:18px 0 0;border-bottom:4px solid var(--value)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+  header .wrap{padding-bottom:0}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#bfe0d9;font-weight:800;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 10px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:#d6e6e1;font-size:14.5px;margin:0;max-width:740px}
+  .stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+  .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 20px;min-width:108px}
+  .stat .v{font-size:22px;font-weight:800;color:#fff;line-height:1}
+  .stat .l{font-size:12px;color:#bfe0d9;margin-top:5px}
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:26px 0 10px;box-shadow:var(--shadow)}
+  .intro h2{font-size:17px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .intro p{margin:0 0 10px;font-size:14px;color:#3a414c}
+  .intro .why{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .why .chip{font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand)}
+  .group{margin-top:34px}
+  .ghead{display:flex;align-items:center;gap:11px;margin:0 0 4px}
+  .gbadge{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px}
+  .ghead h2{font-size:19px;margin:0;font-weight:800}
+  .gdesc{font-size:13px;color:var(--muted);margin:2px 0 16px;padding-left:41px}
+  .vid{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+  .vthumb{position:relative;flex:0 0 280px;aspect-ratio:16/9;background:#0b0f14;text-decoration:none;display:block;overflow:hidden}
+  .vthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+  .vthumb:hover img{transform:scale(1.04);opacity:.9}
+  .vthumb .dur{position:absolute;right:8px;bottom:8px;background:rgba(15,20,28,.86);color:#fff;font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .vthumb .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(239,71,111,.92);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;padding-left:3px}
+  .vbody{flex:1;padding:15px 18px 16px;min-width:0}
+  .vtop{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .lang{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
+  .lang.ko{background:rgba(47,93,98,.12);color:var(--brand)}
+  .lang.en{background:rgba(196,181,252,.25);color:#7a5af0}
+  .lang.off{background:rgba(255,209,102,.3);color:#7a5e10}
+  .vtitle{font-size:15.5px;font-weight:800;line-height:1.35;text-decoration:none;color:var(--text)}
+  .vtitle:hover{color:var(--brand)}
+  .vmeta{display:flex;flex-wrap:wrap;gap:5px 13px;font-size:11.5px;color:var(--muted);margin:7px 0 11px}
+  .vmeta b{color:var(--text)}
+  .vsec{font-size:12.8px;color:#3a414c;margin:0 0 8px;line-height:1.55}
+  .vsec .lab{display:inline-block;font-size:10.5px;font-weight:800;color:var(--brand2);background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+  .vquote{font-style:italic;color:#28303a;border-left:3px solid var(--value);padding:2px 0 2px 10px;margin:8px 0}
+  .vuse{font-size:12.8px;color:#1f2a2b;background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.3);border-radius:9px;padding:9px 12px;margin-top:10px;line-height:1.55}
+  .vuse .lab{background:var(--growth);color:#06352a;border:none}
+  .guide{background:linear-gradient(135deg,#fff 0%,#faf8f3 100%);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-top:38px;box-shadow:var(--shadow)}
+  .guide h2{font-size:19px;margin:0 0 4px;font-weight:800}
+  .guide .lead{color:var(--muted);font-size:13.5px;margin:0 0 18px}
+  .gtable{width:100%;border-collapse:collapse;font-size:13px}
+  .gtable th,.gtable td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .gtable th{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .gtable td b{color:var(--brand)}
+  .gtable tr:last-child td{border-bottom:none}
+  .axis{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand);margin:1px 2px 1px 0}
+  .note{background:rgba(255,209,102,.16);border:1px solid rgba(255,209,102,.5);border-radius:11px;padding:13px 16px;margin-top:18px;font-size:12.8px;color:#5a4a1a}
+  .note b{color:#7a5e10}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:34px;line-height:1.8}
+  @media(max-width:720px){h1{font-size:22px}.vid{flex-direction:column}.vthumb{flex-basis:auto;width:100%}.gdesc{padding-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="../_허브.html">← 참조영상 허브</a>
+  <a class="nbtn" href="https://www.youtube.com/results?search_query=나발+라비칸트+독서" target="_blank" rel="noopener">🔎 유튜브에서 더 보기</a>
+  <a class="nbtn doc" href="../../../../10_system/cowork_prompts/유튜브_참조영상_수집.md">📋 작성 지침</a>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">참조영상 컬렉션 · 인물</div>
+    <h1>나발 라비칸트 — 독서철학 · 부의 법칙</h1>
+    <p class="sub">"<b style="color:#fff">읽고 싶은 걸 읽어라. 독서를 사랑하게 될 때까지.</b>" 나발은 완독·권수 강박을 깨고 '독서의 즐거움' 자체를 강조한 인물. 실리콘밸리 투자자이자 '부의 법칙'으로도 유명한 그의 영상을 모았습니다.</p>
+    <div class="stats">
+      <div class="stat"><div class="v">9</div><div class="l">수집 영상</div></div>
+      <div class="stat"><div class="v">2 / 7</div><div class="l">한국어 / 영어</div></div>
+      <div class="stat"><div class="v">약 2,770만</div><div class="l">합산 조회수</div></div>
+      <div class="stat"><div class="v">1,449만</div><div class="l">최고 (JRE #1309)</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h2>왜 나발 라비칸트 = bizpt 레퍼런스인가</h2>
+    <p>나발의 독서관은 bizpt와 <b>거의 완벽히 포개진다</b>: "완독해야 한다는 강박을 버려라, <b>읽고 싶은 걸 읽다 보면 독서를 사랑하게 된다</b>", "읽은 책 권수는 허영 지표". 이는 <b>'책 읽는 재미·책 읽는 습관'</b> 축의 철학적 토대다. 동시에 그의 '운 없이 부자 되는 법(특정 지식·레버리지)'은 <b>'자기개발'</b> 축의 강력한 후크.</p>
+    <div class="why">
+      <span class="chip">결 ① 읽으려는 사람</span>
+      <span class="chip">결 ② 읽고 있는 사람</span>
+      <span class="chip">축: 책 읽는 재미</span>
+      <span class="chip">축: 책 읽는 습관</span>
+      <span class="chip">축: 자기개발</span>
+    </div>
+  </div>
+
+  <!-- A. 독서 철학 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--brand)">A</span><h2>독서 철학</h2></div>
+    <p class="gdesc">"읽고 싶은 걸 읽어라" — 완독 강박을 깨는 메시지. bizpt 독서관과 가장 포개지는 핵심.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=ywfx3Um3dsg" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ywfx3Um3dsg/hqdefault.jpg" alt="" loading="lazy"><span class="dur">4:33</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=ywfx3Um3dsg" target="_blank" rel="noopener">Naval Ravikant's Secret to Reading Books in the Social Media Age | Joe Rogan</a></div>
+        <div class="vmeta"><span>채널 <b>JRE Clips</b></span><span>조회 <b>약 23만</b></span><span>7년 전</span><span>4:33</span></div>
+        <div class="vsec"><span class="lab">핵심</span>"읽고 싶은 책을 읽어라 — <b>완독할 필요 없다.</b> 좋아하는 걸 읽다 보면 결국 독서를 사랑하게 되고, 그게 슈퍼파워가 된다."</div>
+        <div class="vquote">"Read what you love until you love to read."</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 재미' 축 <b>핵심 인용</b>. "완독 안 해도 된다"는 진입장벽 해소 후크 — 결 ①(읽으려는)에 직격.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=CV39E1tWlpk" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/CV39E1tWlpk/hqdefault.jpg" alt="" loading="lazy"><span class="dur">2:34</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=CV39E1tWlpk" target="_blank" rel="noopener">Naval Ravikant - How to Read Books Effectively?</a></div>
+        <div class="vmeta"><span>채널 <b>Insightful Doses</b></span><span>조회 <b>약 4.2만</b></span><span>4년 전</span><span>2:34</span></div>
+        <div class="vsec"><span class="lab">핵심</span>"<b>고전을 반복해서 읽어라.</b> 새 책 100권보다 위대한 책 몇 권을 거듭 읽는 게 낫다." 다독보다 정독·재독.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 방법' — "다독 vs 정독" 논쟁 후크. 김교수 영상 등 국내 정독론과 교차.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=SK69_Tw2Lpw" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/SK69_Tw2Lpw/hqdefault.jpg" alt="" loading="lazy"><span class="dur">6:11</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=SK69_Tw2Lpw" target="_blank" rel="noopener">Naval Ravikant - Advice for Reading Books // And How to Build the Habit of Reading</a></div>
+        <div class="vmeta"><span>채널 <b>Picking Nuggets</b></span><span>조회 <b>약 1.7만</b></span><span>4년 전</span><span>6:11</span></div>
+        <div class="vsec"><span class="lab">핵심</span>독서를 <b>습관</b>으로 만드는 법 — 늘 책을 곁에 두고, 지루하면 다른 책으로 갈아타라. 의무가 아니라 취향으로.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 습관' 키 콘텐츠 — "지루하면 갈아타도 된다" 부담 없는 독서 루틴 후크.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. 부·자기계발 철학 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--value)">B</span><h2>부 · 자기계발 철학</h2></div>
+    <p class="gdesc">'운 없이 부자 되는 법'·특정 지식·레버리지 — 동기부여 후크의 원천.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=1-TZqOsVCNM" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/1-TZqOsVCNM/hqdefault.jpg" alt="" loading="lazy"><span class="dur">3:35:37</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><span class="lang off">공식</span><a class="vtitle" href="https://www.youtube.com/watch?v=1-TZqOsVCNM" target="_blank" rel="noopener">How to Get Rich (every episode)</a></div>
+        <div class="vmeta"><span>채널 <b>Naval</b>(공식)</span><span>조회 <b>약 1,211만</b></span><span>6년 전</span><span>3:35:37</span></div>
+        <div class="vsec"><span class="lab">핵심</span>나발 본인 채널의 대표작 — 특정 지식, 레버리지(코드·미디어), 책임감, "장기 게임을 장기적 사람과 하라." <b>현대 자기계발의 경전</b>급.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'자기개발' 심층 소스. 챕터별로 쪼개 쇼츠·키 콘텐츠로 재가공(독서=특정 지식 습득과 연결).</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=6Mya4C3Yr7I" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/6Mya4C3Yr7I/hqdefault.jpg" alt="" loading="lazy"><span class="dur">10:46</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=6Mya4C3Yr7I" target="_blank" rel="noopener">Naval Ravikant - How To GET RICH WITHOUT LUCK</a></div>
+        <div class="vmeta"><span>채널 <b>Picking Nuggets</b></span><span>조회 <b>약 12만</b></span><span>3년 전</span><span>10:46</span></div>
+        <div class="vsec"><span class="lab">핵심</span>'운 없이 부자 되는 법' 트윗 시리즈를 영상으로 정리. 짧고 구조화돼 인용·요약하기 좋음.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'자기개발' — 리스트형 후크. "독서=레버리지의 시작"으로 책으로 착지.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=ztMLp-nG2UQ" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ztMLp-nG2UQ/hqdefault.jpg" alt="" loading="lazy"><span class="dur">16:12</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=ztMLp-nG2UQ" target="_blank" rel="noopener">당신은 왜 '돈을 벌고 싶다면서' 부자가 될 수 없다고 생각하는가? (나발 라비칸트)</a></div>
+        <div class="vmeta"><span>채널 <b>하와이 대저택</b></span><span>조회 <b>약 5.8만</b></span><span>1년 전</span><span>16:12</span></div>
+        <div class="vsec"><span class="lab">핵심</span>국내 대형 자기계발 채널이 나발의 부의 철학을 내레이션으로 정리. 한국어 톤·구성 깔끔.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>풀링 내레이션 톤 벤치마크 + 나발 메시지의 한국어 전달 방식 참고.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. 대표 인터뷰·행복 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--brand2)">C</span><h2>대표 인터뷰 · 행복</h2></div>
+    <p class="gdesc">나발을 다룰 때의 권위 출처 — 조 로건 풀 인터뷰와 '행복' 강의.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=3qHkcs3kG44" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/3qHkcs3kG44/hqdefault.jpg" alt="" loading="lazy"><span class="dur">2:11:57</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><a class="vtitle" href="https://www.youtube.com/watch?v=3qHkcs3kG44" target="_blank" rel="noopener">Joe Rogan Experience #1309 - Naval Ravikant</a></div>
+        <div class="vmeta"><span>채널 <b>PowerfulJRE</b></span><span>조회 <b>약 1,449만</b></span><span>7년 전</span><span>2:11:57</span></div>
+        <div class="vsec"><span class="lab">핵심</span>이 컬렉션 <b>최고 조회(1,449만)</b>. 나발을 세계적으로 알린 풀 인터뷰 — 독서·부·행복·철학 총망라.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>나발 인용의 <b>1차 출처</b>. 독서·행복 발언 발췌해 쇼츠·인용 카드로.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=3amLsamhtCg" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/3amLsamhtCg/hqdefault.jpg" alt="" loading="lazy"><span class="dur">27:23</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang en">ENGLISH</span><span class="lang off">공식</span><a class="vtitle" href="https://www.youtube.com/watch?v=3amLsamhtCg" target="_blank" rel="noopener">Happiness — Naval</a></div>
+        <div class="vmeta"><span>채널 <b>Naval</b>(공식)</span><span>조회 <b>약 61만</b></span><span>5년 전</span><span>27:23</span></div>
+        <div class="vsec"><span class="lab">핵심</span>"행복은 <b>기술이자 선택</b>이다. 욕망은 불행과 맺는 계약." 자기계발의 내면 축(돈이 아닌 마음).</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'자기개발' 내면편 — 독서를 '욕망을 줄이고 마음을 다스리는 도구'로 연결.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=6Q2X-Rk_Wjc" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/6Q2X-Rk_Wjc/hqdefault.jpg" alt="" loading="lazy"><span class="dur">5:18</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=6Q2X-Rk_Wjc" target="_blank" rel="noopener">인생에서 정말 중요한 건 따로 있습니다 (나발 라비칸트)</a></div>
+        <div class="vmeta"><span>채널 <b>ED - 1인 기업가</b></span><span>조회 <b>약 1만</b></span><span>8개월 전</span><span>5:18</span></div>
+        <div class="vsec"><span class="lab">핵심</span>나발의 인생관을 한국어로 압축. 짧고 정제된 자기계발 메시지.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>한국어 쇼츠 톤 레퍼런스. 나발 메시지를 5분으로 압축한 구성 참고.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 종합 가이드 -->
+  <div class="guide">
+    <h2>🧭 종합 활용 가이드 — bizpt 축 매핑</h2>
+    <p class="lead">나발 컬렉션을 어느 콘텐츠에, 어떤 후크로 쓸지. (8축 · 결 3그룹 기준)</p>
+    <table class="gtable">
+      <thead><tr><th style="width:22%">bizpt 축</th><th style="width:34%">연결 영상</th><th>후크·활용 아이디어</th></tr></thead>
+      <tbody>
+        <tr><td><span class="axis">책 읽는 재미</span></td><td>A1 read what you love</td><td>"완독 안 해도 된다 — 좋아하는 책부터" 진입장벽 해소 후크</td></tr>
+        <tr><td><span class="axis">책 읽는 습관</span></td><td>A3 reading habit</td><td>"지루하면 갈아타도 OK" 부담 없는 독서 루틴</td></tr>
+        <tr><td><span class="axis">책 읽는 방법</span></td><td>A2 고전 재독</td><td>"다독 vs 정독 — 위대한 책을 반복" 정독론 후크</td></tr>
+        <tr><td><span class="axis">자기개발</span></td><td>B1 How to Get Rich · C1 JRE</td><td>"독서=레버리지" 부·성장 동기 후크</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>진정성 체크(3기둥 ②):</b> 나발은 우리와 결이 가장 잘 맞는다 — "독서를 사랑하게 되는 것 자체가 목적." 부(富)는 곁가지로 두고, <b>"읽는 즐거움"</b>을 본령으로 가져가면 진정성이 산다.</div>
+  </div>
+
+  <footer>
+    bizpt / 타채널참조 · 참조영상 수집 — 나발 라비칸트 (독서철학·부의 법칙)<br>
+    모든 링크·메타는 2026-06-09 Claude in Chrome로 실제 검증 · 조회수는 검증 시점 근사치<br>
+    허브: ../_허브.html · 지침: 10_system/cowork_prompts/유튜브_참조영상_수집.md
+  </footer>
+</div>
+</body>
+</html>

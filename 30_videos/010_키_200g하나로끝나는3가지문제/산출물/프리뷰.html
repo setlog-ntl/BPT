@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>쇼츠 프리뷰 — 200g짜리 하나로 끝나는 3가지 문제</title>
+<style>
+  :root {
+    --bg: #FAF6EE;       /* warm paper */
+    --ink: #1F1B16;      /* mok */
+    --gold: #C9A961;     /* antique gold */
+    --beige: #F4ECDC;    /* beige box */
+    --muted: #7A6A56;    /* mok beige */
+    --red: #B85042;      /* problem accent */
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(380px, 460px) 1fr;
+    gap: 36px;
+    padding: 28px 36px;
+  }
+  @media (max-width: 920px) {
+    .page { grid-template-columns: 1fr; padding: 16px; }
+  }
+
+  /* ===== Phone Frame ===== */
+  .frame-col { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .phone {
+    width: 100%; max-width: 420px; aspect-ratio: 9 / 16;
+    background: #0a0a0a;
+    border-radius: 36px;
+    padding: 12px;
+    box-shadow:
+      0 14px 40px rgba(0,0,0,.18),
+      inset 0 0 0 2px #1c1c1c;
+    position: relative;
+    overflow: hidden;
+  }
+  .screen {
+    width: 100%; height: 100%;
+    border-radius: 26px;
+    background: var(--beige);
+    position: relative;
+    overflow: hidden;
+    transition: background 800ms ease;
+  }
+  .scene {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 20px;
+    opacity: 0; transform: scale(.985);
+    transition: opacity 350ms ease, transform 600ms ease;
+    pointer-events: none;
+  }
+  .scene.active { opacity: 1; transform: scale(1); }
+  .scene .icon {
+    font-size: 96px; line-height: 1;
+    margin-top: 8%;
+  }
+  .scene .visual-note {
+    margin-top: 14px; padding: 0 14px;
+    font-size: 12px; color: var(--muted); font-style: italic;
+    line-height: 1.45;
+  }
+  .scene .progress-tick {
+    position: absolute; top: 14px; right: 14px;
+    font-size: 11px; font-weight: 700;
+    color: var(--gold); background: var(--ink);
+    padding: 4px 9px; border-radius: 999px;
+    letter-spacing: .5px;
+  }
+
+  /* ===== Subtitle band ===== */
+  .sub-band {
+    position: absolute; left: 6%; right: 6%; bottom: 14%;
+    background: rgba(244, 236, 220, .92);
+    border: 1px solid var(--gold);
+    border-radius: 14px;
+    padding: 18px 16px;
+    text-align: center;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+    transition: opacity 220ms ease, transform 220ms ease;
+  }
+  .sub-band .sub-text {
+    font-weight: 800;
+    color: var(--ink);
+    font-size: 24px;
+    line-height: 1.3;
+    letter-spacing: -.01em;
+  }
+  .sub-band .gold { color: var(--gold); }
+  .sub-band.fade-out { opacity: 0; transform: translateY(6px); }
+  .sub-band.empty { display: none; }
+
+  /* ===== Top progress bar inside phone ===== */
+  .seg-bar {
+    position: absolute; top: 10px; left: 10px; right: 10px;
+    display: flex; gap: 4px; z-index: 5;
+  }
+  .seg {
+    flex: 1; height: 3px; border-radius: 999px;
+    background: rgba(31,27,22,.18); overflow: hidden;
+  }
+  .seg .fill {
+    height: 100%; width: 0%; background: var(--gold);
+    transition: width 60ms linear;
+  }
+  .seg.hook .fill { background: var(--red); }
+  .seg.body .fill { background: var(--ink); }
+  .seg.cta  .fill { background: var(--gold); }
+
+  /* ===== Block badge ===== */
+  .block-badge {
+    position: absolute; top: 22px; left: 14px;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(255,255,255,.85);
+    font-size: 11px; font-weight: 700; letter-spacing: .04em;
+    color: var(--ink);
+    z-index: 5;
+  }
+  .block-badge.hook { color: var(--red); }
+  .block-badge.body { color: var(--ink); }
+  .block-badge.cta  { color: var(--gold); }
+
+  /* ===== Time + Controls ===== */
+  .controls {
+    width: 100%; max-width: 420px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 6px 4px;
+  }
+  .controls button {
+    appearance: none; border: 1px solid var(--ink);
+    background: var(--ink); color: var(--bg);
+    font-weight: 700; font-size: 14px; padding: 9px 16px;
+    border-radius: 999px; cursor: pointer;
+    transition: transform .06s ease;
+    font-family: inherit;
+  }
+  .controls button:hover { transform: translateY(-1px); }
+  .controls button.ghost {
+    background: transparent; color: var(--ink);
+  }
+  .controls .time {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700; font-size: 13px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  /* ===== Right column: Cue list ===== */
+  .info-col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  .title-block h1 {
+    margin: 0; font-size: 28px; line-height: 1.25;
+    letter-spacing: -.01em;
+  }
+  .title-block h1 em {
+    font-style: normal; color: var(--gold);
+  }
+  .title-block .meta {
+    margin-top: 8px; color: var(--muted); font-size: 13px;
+  }
+  .legend {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .legend .chip {
+    font-size: 11px; font-weight: 700;
+    padding: 3px 9px; border-radius: 999px;
+    background: var(--beige); border: 1px solid rgba(31,27,22,.12);
+  }
+  .legend .chip.hook { color: var(--red); border-color: rgba(184,80,66,.35); }
+  .legend .chip.body { color: var(--ink); }
+  .legend .chip.cta  { color: var(--gold); border-color: rgba(201,169,97,.4); }
+
+  .cue-list {
+    border: 1px solid rgba(31,27,22,.12);
+    border-radius: 14px; overflow: hidden;
+    background: var(--white);
+  }
+  .cue {
+    display: grid;
+    grid-template-columns: 50px 90px 1fr 64px;
+    gap: 0;
+    padding: 12px 14px;
+    align-items: center;
+    border-top: 1px solid rgba(31,27,22,.06);
+    transition: background 220ms ease;
+    cursor: pointer;
+  }
+  .cue:first-child { border-top: 0; }
+  .cue:hover { background: var(--beige); }
+  .cue.active {
+    background: linear-gradient(90deg, rgba(201,169,97,.18), rgba(201,169,97,.04));
+    border-left: 3px solid var(--gold);
+    padding-left: 11px;
+  }
+  .cue .n {
+    font-variant-numeric: tabular-nums; font-weight: 800;
+    color: var(--gold); font-size: 13px;
+  }
+  .cue .t {
+    font-variant-numeric: tabular-nums; font-weight: 700;
+    color: var(--muted); font-size: 12px;
+  }
+  .cue .text { font-weight: 600; font-size: 14px; line-height: 1.35; }
+  .cue .text .gold { color: var(--gold); }
+  .cue .blk {
+    text-align: right; font-size: 11px; font-weight: 800; letter-spacing: .04em;
+  }
+  .cue .blk.hook { color: var(--red); }
+  .cue .blk.body { color: var(--ink); }
+  .cue .blk.cta  { color: var(--gold); }
+
+  .footer-note {
+    color: var(--muted); font-size: 12px; line-height: 1.5;
+    border-top: 1px dashed rgba(31,27,22,.18);
+    padding-top: 14px;
+  }
+  .footer-note code {
+    background: var(--beige); padding: 1px 6px; border-radius: 4px;
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ==================== PHONE FRAME ==================== -->
+  <div class="frame-col">
+    <div class="phone" aria-label="9:16 쇼츠 미리보기">
+      <div class="screen" id="screen">
+        <div class="seg-bar" aria-hidden="true">
+          <div class="seg hook"><div class="fill" id="seg-hook"></div></div>
+          <div class="seg body"><div class="fill" id="seg-body"></div></div>
+          <div class="seg cta"><div class="fill" id="seg-cta"></div></div>
+        </div>
+        <div class="block-badge" id="blockBadge">HOOK</div>
+        <!-- Scenes are injected dynamically -->
+      </div>
+    </div>
+    <div class="controls">
+      <button id="playBtn" aria-label="재생/일시정지">▶ 재생</button>
+      <button id="restartBtn" class="ghost" aria-label="처음부터">↻ 처음부터</button>
+      <span class="time"><span id="curTime">0:00</span> / 1:00</span>
+    </div>
+  </div>
+
+  <!-- ==================== INFO COLUMN ==================== -->
+  <div class="info-col">
+    <div class="title-block">
+      <h1>200g짜리 하나로 끝나는 <em>3가지 문제</em></h1>
+      <div class="meta">키 (전환) · 60초 · 9:16 · 미니멀 텍스트 중심 (책 느낌) · bizpt 자동화편집 · 2026-05-03</div>
+      <div class="legend">
+        <span class="chip hook">Hook  0:00–0:10</span>
+        <span class="chip body">Body  0:10–0:50</span>
+        <span class="chip cta">CTA  0:50–1:00</span>
+      </div>
+    </div>
+
+    <div class="cue-list" id="cueList">
+      <!-- Cues are rendered by JS -->
+    </div>
+
+    <div class="footer-note">
+      이 프리뷰는 <code>자막.srt</code> 타이밍과 <code>01_스크립트.md</code> 연출 노트를 기반으로 60초를 자동 재생합니다.
+      소리는 포함되어 있지 않으며, 캡컷 import 시점에 BGM·내레이션이 합쳐집니다.
+      자막을 클릭하면 해당 시점으로 이동합니다.
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== 큐 데이터 (자막.srt와 1:1 동기) =====
+const cues = [
+  { n: 1,  in:  0.0, out:  3.0, block:"hook", text: "종이책은 무겁고,",            icon: "📚",     visual:"책상 위 두꺼운 종이책 위에 손목이 무거운 듯 얹힘 · 자연광" },
+  { n: 2,  in:  3.0, out:  5.0, block:"hook", text: "스마트폰은 산만하다면",        icon: "📱🔔",   visual:"스마트폰 잠금화면 알림 5~6개 연속 팝업" },
+  { n: 3,  in:  5.0, out:  8.0, block:"hook", text: "정답은 <span class='gold'>200g</span>짜리", icon: "📖", visual:"손바닥 위 정물 — 이북리더기 1대 + ‘200g’ 작은 텍스트" },
+  { n: 4,  in:  8.0, out: 10.0, block:"hook", text: "이북리더기 하나입니다",        icon: "📖",     visual:"손바닥 위 정물 — 이북리더기 1대 + ‘200g’" },
+  { n: 5,  in: 10.0, out: 14.0, block:"body", text: "한 달 가는 배터리,",          icon: "🔋",     visual:"이북리더기 충전 케이블이 부드럽게 뽑히는 슬로우" },
+  { n: 6,  in: 14.0, out: 19.0, block:"body", text: "눈 시리지 않은 <span class='gold'>e-ink</span> 화면,", icon: "📄", visual:"e-ink 화면 페이지 넘김 클로즈업 · 종이 텍스처" },
+  { n: 7,  in: 19.0, out: 23.0, block:"body", text: "알림 없는 집중 환경.",        icon: "🔕",     visual:"알림 금지 표시 → 이북리더기 집중 컷 (조용한 방)" },
+  { n: 8,  in: 23.0, out: 28.0, block:"body", text: "수천 권을 손바닥 위에",        icon: "🤲📚",   visual:"손바닥 위 이북리더기 + 책 표지 격자 오버레이 흘러감" },
+  { n: 9,  in: 28.0, out: 33.0, block:"body", text: "들고 다니는 셈이에요.",       icon: "🤲📚",   visual:"동일 컷 후반 — 가벼운 미소 톤" },
+  { n: 10, in: 33.0, out: 38.0, block:"body", text: "“책 읽어야지” 하면서",         icon: "📦📚",   visual:"새 책 비닐·먼지 — 미루던 자기 인식" },
+  { n: 11, in: 38.0, out: 43.0, block:"body", text: "매번 미루던 분이라면",        icon: "✋📖",   visual:"손이 이북리더기를 집어듦 — 결단" },
+  { n: 12, in: 43.0, out: 50.0, block:"body", text: "이거 하나로 <span class='gold'>끝납니다.</span>", icon: "📖", visual:"이북리더기 화면 가득 책 한 줄 또렷이" },
+  { n: 13, in: 50.0, out: 54.0, block:"cta",  text: "지금 아래 링크에서 ↓",        icon: "👇",     visual:"화면 하단 ‘DESCRIPTION’ 화살표" },
+  { n: 14, in: 54.0, out: 57.0, block:"cta",  text: "베스트 모델 + <span class='gold'>할인 코드</span>", icon: "🛒", visual:"이북리더기 정물 재사용 + 링크 아이콘" },
+  { n: 15, in: 57.0, out: 60.0, block:"cta",  text: "망설이는 1분 = 독서가 사라져요", icon: "⏳📕", visual:"닫혀가는 책 페이지 + 시계 초침 1분" },
+];
+
+// ===== Render scenes inside phone screen =====
+const screen = document.getElementById("screen");
+cues.forEach((c, idx) => {
+  const sc = document.createElement("div");
+  sc.className = "scene";
+  sc.dataset.idx = idx;
+  sc.innerHTML = `
+    <div class="progress-tick">CUE ${c.n}</div>
+    <div class="icon" aria-hidden="true">${c.icon}</div>
+    <div class="visual-note">${c.visual}</div>
+    <div class="sub-band"><div class="sub-text">${c.text}</div></div>
+  `;
+  screen.appendChild(sc);
+});
+
+// ===== Render cue list (right column) =====
+const cueList = document.getElementById("cueList");
+cues.forEach((c, idx) => {
+  const div = document.createElement("div");
+  div.className = "cue";
+  div.dataset.idx = idx;
+  const fmt = (s) => `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,"0")}`;
+  div.innerHTML = `
+    <div class="n">#${String(c.n).padStart(2,"0")}</div>
+    <div class="t">${fmt(c.in)} → ${fmt(c.out)}</div>
+    <div class="text">${c.text}</div>
+    <div class="blk ${c.block}">${c.block.toUpperCase()}</div>
+  `;
+  div.addEventListener("click", () => seek(c.in));
+  cueList.appendChild(div);
+});
+
+// ===== Playback engine =====
+const TOTAL = 60;       // seconds
+let t = 0;
+let lastTick = null;
+let playing = false;
+let activeIdx = -1;
+
+const sceneEls = [...document.querySelectorAll(".scene")];
+const cueEls   = [...document.querySelectorAll(".cue")];
+const blockBadge = document.getElementById("blockBadge");
+const segHook = document.getElementById("seg-hook");
+const segBody = document.getElementById("seg-body");
+const segCta  = document.getElementById("seg-cta");
+const curTime = document.getElementById("curTime");
+const playBtn = document.getElementById("playBtn");
+const restartBtn = document.getElementById("restartBtn");
+
+function findCueIdx(time) {
+  for (let i = 0; i < cues.length; i++) {
+    if (time >= cues[i].in && time < cues[i].out) return i;
+  }
+  return cues.length - 1;
+}
+
+function setActive(idx) {
+  if (idx === activeIdx) return;
+  activeIdx = idx;
+  sceneEls.forEach((el, i) => el.classList.toggle("active", i === idx));
+  cueEls.forEach((el, i) => el.classList.toggle("active", i === idx));
+  // Block badge
+  const blk = cues[idx].block;
+  blockBadge.classList.remove("hook","body","cta");
+  blockBadge.classList.add(blk);
+  blockBadge.textContent = blk.toUpperCase();
+  // Auto-scroll active cue into view
+  cueEls[idx].scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function fmtTime(s) {
+  const m = Math.floor(s/60), sec = Math.floor(s%60);
+  return `${m}:${String(sec).padStart(2,"0")}`;
+}
+
+function paint() {
+  // Three-segment progress bar
+  const hookPct = Math.max(0, Math.min(1, (t - 0)  / 10)) * 100;
+  const bodyPct = Math.max(0, Math.min(1, (t - 10) / 40)) * 100;
+  const ctaPct  = Math.max(0, Math.min(1, (t - 50) / 10)) * 100;
+  segHook.style.width = hookPct + "%";
+  segBody.style.width = bodyPct + "%";
+  segCta.style.width  = ctaPct  + "%";
+  curTime.textContent = fmtTime(t);
+  setActive(findCueIdx(t));
+}
+
+function tick(ts) {
+  if (!playing) return;
+  if (lastTick == null) lastTick = ts;
+  const dt = (ts - lastTick) / 1000;
+  lastTick = ts;
+  t += dt;
+  if (t >= TOTAL) { t = TOTAL; paint(); pause(); return; }
+  paint();
+  requestAnimationFrame(tick);
+}
+
+function play() {
+  if (t >= TOTAL) t = 0;
+  playing = true; lastTick = null;
+  playBtn.textContent = "❚❚ 일시정지";
+  requestAnimationFrame(tick);
+}
+function pause() {
+  playing = false; lastTick = null;
+  playBtn.textContent = t >= TOTAL ? "↻ 다시 재생" : "▶ 재생";
+}
+function seek(seconds) {
+  t = Math.max(0, Math.min(TOTAL, seconds));
+  lastTick = null;
+  paint();
+}
+
+playBtn.addEventListener("click", () => playing ? pause() : play());
+restartBtn.addEventListener("click", () => { seek(0); play(); });
+document.addEventListener("keydown", (e) => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+  if (e.code === "Space") { e.preventDefault(); playing ? pause() : play(); }
+  if (e.code === "ArrowLeft")  seek(t - 2);
+  if (e.code === "ArrowRight") seek(t + 2);
+});
+
+// initial paint
+paint();
+</script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!-- 참조영상 수집 — 이지성 (인문고전 독서법) v1 · 2026-06-09 · 링크/메타 Claude in Chrome 실제 검증 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>참조영상 · 이지성 — 인문고전 독서법</title>
+<style>
+  :root{--pain:#ef476f;--growth:#06d6a0;--value:#ffd166;--rec:#c4b5fd;--bg:#f5f3ee;--panel:#ffffff;--panel-2:#faf8f3;--line:#e7e3da;--text:#1f2430;--muted:#5d6470;--brand:#2f5d62;--brand2:#3a7a82;--shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:1080px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:800;background:rgba(47,93,98,.08);border-color:var(--brand2)}
+  .nbtn.doc{margin-left:auto;color:var(--brand2)}
+  header{background:linear-gradient(135deg,#2f5d62 0%,#244b50 60%,#1d3c40 100%);color:#fff;padding:34px 0 30px;margin:18px 0 0;border-bottom:4px solid var(--value)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+  header .wrap{padding-bottom:0}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#bfe0d9;font-weight:800;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 10px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:#d6e6e1;font-size:14.5px;margin:0;max-width:760px}
+  .stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+  .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 20px;min-width:108px}
+  .stat .v{font-size:22px;font-weight:800;color:#fff;line-height:1}
+  .stat .l{font-size:12px;color:#bfe0d9;margin-top:5px}
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:26px 0 10px;box-shadow:var(--shadow)}
+  .intro h2{font-size:17px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .intro p{margin:0 0 10px;font-size:14px;color:#3a414c}
+  .intro .why{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .why .chip{font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand)}
+  .group{margin-top:34px}
+  .ghead{display:flex;align-items:center;gap:11px;margin:0 0 4px}
+  .gbadge{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px}
+  .ghead h2{font-size:19px;margin:0;font-weight:800}
+  .gdesc{font-size:13px;color:var(--muted);margin:2px 0 16px;padding-left:41px}
+  .vid{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+  .vthumb{position:relative;flex:0 0 280px;aspect-ratio:16/9;background:#0b0f14;text-decoration:none;display:block;overflow:hidden}
+  .vthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+  .vthumb:hover img{transform:scale(1.04);opacity:.9}
+  .vthumb .dur{position:absolute;right:8px;bottom:8px;background:rgba(15,20,28,.86);color:#fff;font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .vthumb .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(239,71,111,.92);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;padding-left:3px}
+  .vbody{flex:1;padding:15px 18px 16px;min-width:0}
+  .vtop{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .lang{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
+  .lang.ko{background:rgba(47,93,98,.12);color:var(--brand)}
+  .lang.off{background:rgba(255,209,102,.3);color:#7a5e10}
+  .vtitle{font-size:15.5px;font-weight:800;line-height:1.35;text-decoration:none;color:var(--text)}
+  .vtitle:hover{color:var(--brand)}
+  .vmeta{display:flex;flex-wrap:wrap;gap:5px 13px;font-size:11.5px;color:var(--muted);margin:7px 0 11px}
+  .vmeta b{color:var(--text)}
+  .vsec{font-size:12.8px;color:#3a414c;margin:0 0 8px;line-height:1.55}
+  .vsec .lab{display:inline-block;font-size:10.5px;font-weight:800;color:var(--brand2);background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+  .vquote{font-style:italic;color:#28303a;border-left:3px solid var(--value);padding:2px 0 2px 10px;margin:8px 0}
+  .vuse{font-size:12.8px;color:#1f2a2b;background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.3);border-radius:9px;padding:9px 12px;margin-top:10px;line-height:1.55}
+  .vuse .lab{background:var(--growth);color:#06352a;border:none}
+  .guide{background:linear-gradient(135deg,#fff 0%,#faf8f3 100%);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-top:38px;box-shadow:var(--shadow)}
+  .guide h2{font-size:19px;margin:0 0 4px;font-weight:800}
+  .guide .lead{color:var(--muted);font-size:13.5px;margin:0 0 18px}
+  .gtable{width:100%;border-collapse:collapse;font-size:13px}
+  .gtable th,.gtable td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .gtable th{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .gtable td b{color:var(--brand)}
+  .gtable tr:last-child td{border-bottom:none}
+  .axis{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand);margin:1px 2px 1px 0}
+  .note{background:rgba(255,209,102,.16);border:1px solid rgba(255,209,102,.5);border-radius:11px;padding:13px 16px;margin-top:18px;font-size:12.8px;color:#5a4a1a}
+  .note b{color:#7a5e10}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:34px;line-height:1.8}
+  @media(max-width:720px){h1{font-size:22px}.vid{flex-direction:column}.vthumb{flex-basis:auto;width:100%}.gdesc{padding-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="../_허브.html">← 참조영상 허브</a>
+  <a class="nbtn" href="https://www.youtube.com/results?search_query=이지성+인문고전+독서법" target="_blank" rel="noopener">🔎 유튜브에서 더 보기</a>
+  <a class="nbtn doc" href="../../../../10_system/cowork_prompts/유튜브_참조영상_수집.md">📋 작성 지침</a>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">참조영상 컬렉션 · 인물 (한국 · 작가)</div>
+    <h1>이지성 — 인문고전 독서법</h1>
+    <p class="sub">『리딩으로 리드하라』·『에이트』로 한국에 <b style="color:#fff">'인문고전 독서'</b>를 대중화한 저자. "고전을 읽으면 천재처럼 사고한다", "AI 시대일수록 인문 독서"가 핵심 — bizpt <b style="color:#fff">'책 읽는 방법·책 읽어야 하는 이유'</b>의 한국 대표 논객.</p>
+    <div class="stats">
+      <div class="stat"><div class="v">7</div><div class="l">수집 영상</div></div>
+      <div class="stat"><div class="v">한국</div><div class="l">독서법 저자</div></div>
+      <div class="stat"><div class="v">약 17만</div><div class="l">합산 조회수</div></div>
+      <div class="stat"><div class="v">9.2만</div><div class="l">최고 (저자 대화)</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h2>왜 이지성 = bizpt 레퍼런스인가</h2>
+    <p>조회수는 크지 않지만, 이지성은 <b>'인문고전 독서법'이라는 콘셉트 자체를 한국에 각인</b>시킨 인물이다. "왜 고전을, 어떻게 읽는가"를 가장 선명한 주장으로 밀어붙인다 — bizpt <b>'책 읽는 방법(인문고전 정독)·책 읽어야 하는 이유(AI 시대)'</b> 축의 직접 논거. 다만 주장이 강한 만큼 균형이 필요(아래 진정성 노트).</p>
+    <div class="why">
+      <span class="chip">결 ③ 더 읽으려는 사람</span>
+      <span class="chip">축: 책 읽는 방법</span>
+      <span class="chip">축: 책 읽어야 하는 이유</span>
+      <span class="chip">축: 자기개발</span>
+    </div>
+  </div>
+
+  <!-- A. 리딩으로 리드하라 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--brand)">A</span><h2>리딩으로 리드하라 (대표작)</h2></div>
+    <p class="gdesc">"0.1%의 인문고전 독서법" — 그의 시그니처. bizpt 정독·고전 콘텐츠의 주장 모델.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=TIf15CjA2Ac" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/TIf15CjA2Ac/hqdefault.jpg" alt="" loading="lazy"><span class="dur">1:28:34</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=TIf15CjA2Ac" target="_blank" rel="noopener">이지성 '리딩으로 리드하라' 저자와의 대화</a></div>
+        <div class="vmeta"><span>채널 <b>오마이TV</b></span><span>조회 <b>약 9.2만</b></span><span>13년 전</span><span>1:28:34</span></div>
+        <div class="vsec"><span class="lab">핵심</span>이 컬렉션 <b>최고 조회(9.2만)</b>. 저자가 직접 "왜 인문고전인가"를 1시간 반 풀어낸 대화. 주장의 원형.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 방법' 심층 소스. "고전=천재의 사고법" 주장을 우리 톤으로 재구성.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=2yWlZ0tCxZk" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/2yWlZ0tCxZk/hqdefault.jpg" alt="" loading="lazy"><span class="dur">27:51</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=2yWlZ0tCxZk" target="_blank" rel="noopener">[강연의 시대] 리딩으로 리드하라 / 이지성</a></div>
+        <div class="vmeta"><span>채널 <b>강연의 시대</b></span><span>조회 <b>약 1.9만</b></span><span>5년 전</span><span>27:51</span></div>
+        <div class="vsec"><span class="lab">핵심</span>강연 포맷으로 압축한 인문고전 독서법. 28분 분량이라 구성 파악에 적당.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'강연형' 키 콘텐츠 구성 참고(주장→근거→실천).</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=Mmeni-mDdic" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/Mmeni-mDdic/hqdefault.jpg" alt="" loading="lazy"><span class="dur">46:31</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=Mmeni-mDdic" target="_blank" rel="noopener">리딩으로 리드하라 — 세상을 지배하는 0.1%의 인문고전 독서법 (풀강연)</a></div>
+        <div class="vmeta"><span>채널 <b>드림북비전센터</b></span><span>조회 <b>약 400회</b></span><span>2년 전</span><span>46:31</span></div>
+        <div class="vsec"><span class="lab">핵심</span>46분 풀강연. 조회수는 낮지만 <b>주장 전체를 통으로</b> 들을 수 있는 자료.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>대본 소스(전체 논리 파악용). 발췌해 짧은 쇼츠로 재가공.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. 인문고전 독서법 (EBS) -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--value)">B</span><h2>인문고전 독서법 (EBS)</h2></div>
+    <p class="gdesc">공영방송 EBS의 '평생대학' 강의 — "어떻게 읽을 것인가"의 방법론.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=4uSfT6mnZDI" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/4uSfT6mnZDI/hqdefault.jpg" alt="" loading="lazy"><span class="dur">22:16</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><span class="lang off">EBS</span><a class="vtitle" href="https://www.youtube.com/watch?v=4uSfT6mnZDI" target="_blank" rel="noopener">TV 평생대학 — 인문고전, 어떻게 읽을 것인가 #001</a></div>
+        <div class="vmeta"><span>채널 <b>EBSCulture</b>(공식)</span><span>조회 <b>약 5.5만</b></span><span>12년 전</span><span>22:16</span></div>
+        <div class="vsec"><span class="lab">핵심</span>EBS 공식 강의 — 고전을 <b>'어떻게' 읽는가</b>의 실천법(반복·필사·사색). 공신력 있는 소스.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 방법' 키 콘텐츠 — 고전 정독 방법론의 공영방송 레퍼런스.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=3G5aFdXUaV0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/3G5aFdXUaV0/hqdefault.jpg" alt="" loading="lazy"><span class="dur">8:01</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><span class="lang off">EBS</span><a class="vtitle" href="https://www.youtube.com/watch?v=3G5aFdXUaV0" target="_blank" rel="noopener">TV 평생대학 — 이지성, 인문고전 독서 #001</a></div>
+        <div class="vmeta"><span>채널 <b>EBSCulture</b>(공식)</span><span>조회 <b>약 7.3천</b></span><span>13년 전</span><span>8:01</span></div>
+        <div class="vsec"><span class="lab">핵심</span>짧은 8분 클립으로 핵심만. 인문고전 독서의 입문용 요약.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>입문자용 짧은 포맷 참고(8분 구성).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. 에이트 (AI 시대) -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--rec)">C</span><h2>에이트 (AI 시대, 왜 읽는가)</h2></div>
+    <p class="gdesc">"AI에게 지지 않는 법 = 인문 독서로 공감·창조력 기르기" — bizpt 가장 강한 시의성 후크.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=YCLkZeHqocE" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/YCLkZeHqocE/hqdefault.jpg" alt="" loading="lazy"><span class="dur">8:18</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=YCLkZeHqocE" target="_blank" rel="noopener">『에이트』 인공지능에게 지지 않는 8가지 (ft. 일론 머스크)</a></div>
+        <div class="vmeta"><span>채널 <b>신인상파 : Read &amp; Act</b></span><span>조회 <b>약 270회</b></span><span>6년 전</span><span>8:18</span></div>
+        <div class="vsec"><span class="lab">핵심</span>『에이트』 핵심 8가지 요약. "AI 시대 인간만의 능력(공감·창조)은 <b>인문 독서</b>로 길러진다." 머스크 사례도 등장.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽어야 하는 이유' — <b>"AI 시대에 왜 읽는가"</b> 시의성 후크. 우리 컬렉션 머스크와 교차.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=nKMmGUtFwp0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/nKMmGUtFwp0/hqdefault.jpg" alt="" loading="lazy"><span class="dur">14:33</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=nKMmGUtFwp0" target="_blank" rel="noopener">[책리뷰] 인공지능을 이길 수 있는 8가지 방법 — 『에이트』</a></div>
+        <div class="vmeta"><span>채널 <b>With Chris</b></span><span>조회 <b>약 640회</b></span><span>6년 전</span><span>14:33</span></div>
+        <div class="vsec"><span class="lab">핵심</span>독자 관점의 『에이트』 리뷰. 책의 메시지를 일반 독자가 어떻게 받아들이는지 보여줌.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 리뷰' 톤 참고 + 같은 책을 우리 식으로 다룰 때의 차별화 기준선.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 종합 가이드 -->
+  <div class="guide">
+    <h2>🧭 종합 활용 가이드 — bizpt 축 매핑</h2>
+    <p class="lead">이지성 컬렉션을 어느 콘텐츠에, 어떤 후크로 쓸지. (8축 · 결 3그룹 기준)</p>
+    <table class="gtable">
+      <thead><tr><th style="width:22%">bizpt 축</th><th style="width:34%">연결 영상</th><th>후크·활용 아이디어</th></tr></thead>
+      <tbody>
+        <tr><td><span class="axis">책 읽는 방법</span></td><td>A1/A2 리딩으로 리드하라 · B EBS</td><td>"천재처럼 읽는 인문고전 정독법" 주장형 키 콘텐츠</td></tr>
+        <tr><td><span class="axis">책 읽어야 하는 이유</span></td><td>C1/C2 에이트</td><td>"AI 시대일수록 읽어야" 시의성 후크 (머스크와 교차)</td></tr>
+        <tr><td><span class="axis">자기개발</span></td><td>A1 저자 대화</td><td>"독서로 운명을 바꾼다" 동기형 서사</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>진정성 체크(3기둥 ②):</b> 이지성은 주장이 강하고 일부 논쟁도 있는 인물 — <b>'인문고전 독서법'이라는 콘셉트만</b> 취하고, 단정적 주장·과장은 거르는 것이 안전하다. "고전이 답"이라기보다 <b>"고전도 즐겁게 읽는 한 방법"</b>으로 우리 톤에 맞게 순화.</div>
+  </div>
+
+  <footer>
+    bizpt / 타채널참조 · 참조영상 수집 — 이지성 (인문고전 독서법)<br>
+    모든 링크·메타는 2026-06-09 Claude in Chrome로 실제 검증 · 조회수는 검증 시점 근사치<br>
+    허브: ../_허브.html · 지침: 10_system/cowork_prompts/유튜브_참조영상_수집.md
+  </footer>
+</div>
+</body>
+</html>

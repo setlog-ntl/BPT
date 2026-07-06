@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--
+========================================================================
+  영상별 댓글 시청자 분석  ·  소울정 «이런 인간만 살아남습니다» (노정석 대표)
+  분석 각도: 후크 발굴 + 기본(균형)  ·  분석 댓글 269개(인기순·전수)  ·  생성 2026-06-13
+========================================================================
+-->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>댓글 분석 · AI 시대 주목받는 역량 (소울정 · 노정석)</title>
+<style>
+  :root{
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#c4b5fd;
+    --bg:#f5f3ee; --panel:#ffffff; --panel-2:#faf8f3; --line:#e7e3da;
+    --text:#1f2430; --muted:#5d6470; --brand:#2f5d62; --brand2:#3a7a82;
+    --shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px 80px}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:980px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;
+    background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:700}
+  .nbtn.src{color:var(--pain);margin-left:auto}
+  header{margin:18px 0 26px}
+  .eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--brand2);font-weight:800;margin-bottom:10px}
+  h1{font-size:24px;line-height:1.38;margin:0 0 16px;font-weight:800;letter-spacing:-.01em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13.5px;color:var(--muted);align-items:center}
+  .meta b{color:var(--text)}
+  .meta .dot{width:4px;height:4px;border-radius:50%;background:#c7c1b4;display:inline-block}
+  .meta .angle{background:rgba(196,181,252,.25);border:1px solid var(--rec);color:#5b4a8a;font-weight:800;padding:2px 10px;border-radius:7px}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:26px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+  .sec-no{font-size:11.5px;font-weight:800;color:var(--brand2);letter-spacing:.1em;margin-bottom:5px}
+  h2{font-size:19px;margin:0 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .top3{background:linear-gradient(135deg,#2f5d62,#244b50);border:none;color:#fff}
+  .top3 .sec-no{color:#bfe0d9}
+  .top3 h2{color:#fff}
+  .top3 .lead{color:#d6e6e1}
+  .t3{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-top:1px solid rgba(255,255,255,.14)}
+  .t3:first-of-type{border-top:none}
+  .t3 .rank{flex:0 0 auto;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:17px;background:var(--value);color:#5a4410}
+  .t3 .rank.r2{background:#d7dde3;color:#33414d}
+  .t3 .rank.r3{background:#e6b894;color:#5a3410}
+  .t3 .body{flex:1}
+  .t3 .txt{font-size:14.5px;color:#f3f8f6;line-height:1.6}
+  .t3 .sig{display:inline-flex;gap:10px;margin-top:8px;font-size:12px;color:#bfe0d9;flex-wrap:wrap}
+  .t3 .sig b{color:var(--value);font-weight:800}
+  .t3 .sig .tag{background:rgba(255,255,255,.14);padding:2px 9px;border-radius:6px;font-weight:600;color:#eafff8}
+  .idage{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .idage .blk h3{font-size:14px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .agebars{display:flex;flex-direction:column;gap:8px}
+  .ab{display:grid;grid-template-columns:46px 1fr 38px;gap:10px;align-items:center;font-size:13px}
+  .ab .lab{font-weight:700}
+  .ab .track{height:8px;background:#eef0ee;border-radius:5px;overflow:hidden}
+  .ab .fill{height:100%;border-radius:5px;background:var(--brand2)}
+  .ab .pct{text-align:right;font-weight:800;color:var(--brand);font-size:12.5px}
+  .core{margin-top:10px;font-size:12.5px;color:var(--muted)}
+  .core b{color:var(--brand)}
+  .sigchips{display:flex;flex-wrap:wrap;gap:7px}
+  .sigchip{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12.5px}
+  .sigchip b{color:var(--brand);font-weight:800}
+  .idnote{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.55}
+  .rsn{margin-bottom:15px;padding-bottom:15px;border-bottom:1px dashed var(--line)}
+  .rsn:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .rsn-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;gap:12px}
+  .rsn-top .name{font-weight:800;font-size:15px}
+  .rsn-top .name .rk{color:var(--brand2);margin-right:6px}
+  .rsn-top .val{font-size:12.5px;color:var(--muted);font-weight:700;white-space:nowrap}
+  .rsn-track{height:22px;background:#eef0ee;border-radius:7px;overflow:hidden}
+  .rsn-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;
+    padding-right:9px;color:#173b33;font-weight:800;font-size:12px;min-width:34px}
+  .rsn-ev{margin-top:8px;font-size:12.5px;color:#3a414c;background:var(--panel-2);
+    border-left:3px solid var(--brand2);border-radius:0 8px 8px 0;padding:8px 12px}
+  .rsn-ev .q{color:#2a3038}.rsn-ev .by{color:var(--muted);font-size:11.5px}
+  .hook{margin-top:8px;font-size:12.5px;background:rgba(196,181,252,.16);border-left:3px solid var(--rec);
+    border-radius:0 8px 8px 0;padding:8px 12px;color:#4a3d72}
+  .hook b{color:#6b4fbf;font-weight:800}
+  .more .q2{border-left:3px solid var(--line);padding:9px 14px;margin-bottom:9px;font-size:13.5px;background:var(--panel-2);border-radius:0 8px 8px 0}
+  .more .q2 .by{display:block;margin-top:5px;font-size:11.5px;color:var(--muted)}
+  .more .q2 .by b{color:var(--pain)}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;line-height:1.8}
+  .note{background:#fbf6e9;border:1px solid #ecd9a8;border-left:5px solid var(--value);
+    border-radius:10px;padding:13px 16px;font-size:12.5px;color:#6b5a2e;margin-top:14px}
+  .note b{color:#9a7716}
+  .hookbox{background:#f3effc;border:1px solid var(--rec);border-radius:14px;padding:20px 24px;margin-bottom:20px}
+  .hookbox h2{color:#5b4a8a}
+  .hookbox .lead{color:#6b5e8c}
+  .hookbox ol{margin:0;padding-left:20px;font-size:14px;color:#3a334d}
+  .hookbox ol li{margin-bottom:10px}
+  .hookbox .cap{font-weight:800;color:#6b4fbf}
+  @media(max-width:720px){.idage{grid-template-columns:1fr}h1{font-size:20px}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="../_댓글분석_허브.html">← 댓글분석 허브</a>
+  <a class="nbtn src" href="https://www.youtube.com/watch?v=d8mvVt7EkXA" target="_blank" rel="noopener">🔗 유튜브 원본</a>
+</nav>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">YouTube 댓글 시청자 분석 · 소울정</div>
+    <h1>"이런 인간만 살아남습니다" — AI 시대에 진짜 주목받는 한 가지 역량 (노정석 대표)</h1>
+    <div class="meta">
+      <span><b>채널</b> 소울정</span><span class="dot"></span>
+      <span><b>구독자</b> 22.5만명</span><span class="dot"></span>
+      <span><b>조회수</b> 21.0만</span><span class="dot"></span>
+      <span><b>게시</b> 2026.4.30 (약 1.5개월 전)</span><span class="dot"></span>
+      <span><b>분석 댓글</b> 269개(인기순·전수)</span><span class="dot"></span>
+      <span class="angle">분석 각도 · 후크 발굴 + 기본</span>
+    </div>
+  </header>
+
+  <!-- ===== ① 상위 3 대표댓글 — 최상단 ===== -->
+  <section class="top3">
+    <div class="sec-no">★ 대표댓글 · 추천 많은 순 TOP 3</div>
+    <h2>이 영상의 얼굴이 된 댓글 3개</h2>
+    <p class="lead">앞 영상(공포·냉소)과 정반대 — 좋아요 상위는 모두 <b>"나도 직접 써봤더니" 식의 각성·자기성찰·실행</b> 후기. 불안이 아니라 <b>주도성</b>으로 수렴.</p>
+    <div class="t3"><div class="rank">1</div><div class="body">
+      <div class="txt">"프리랜서로 일하며 대학원도 다니고 장학금도 받아요. 매주 빡세지만 AI가 없었다면 다 못했겠구나 싶은 일이 너무 많아요. '모두의 생산성이 비약적으로 올라간다'는 말씀이 와닿았어요."</div>
+      <div class="sig"><span>👍 <b>21</b></span><span class="tag">AI로 생산성 체감</span><span>1개월 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r2">2</div><div class="body">
+      <div class="txt">"이제 우리 모두가 사업가이고 예술가이군요. 내 삶을 주도적으로 쓰는 법을 생각하게 됐습니다. 뒤처지는 것도, 같은 속도로 가는 것도 아니고 — 먼저 가서 기다리기!!"</div>
+      <div class="sig"><span>👍 <b>17</b></span><span class="tag">주도성·각성</span><span>1개월 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r3">3</div><div class="body">
+      <div class="txt">"육아 10개월 차예요. GPT로 매번 육아 질문만 하고 있었는데, '그게 네 수준이었다'는 말이 너무 😭 사사로운 것에 매몰돼 앞을 못 보고 있었던 것 같아요."</div>
+      <div class="sig"><span>👍 <b>9</b></span><span class="tag">자기성찰·육아맘</span><span>1개월 전</span></div>
+    </div></div>
+  </section>
+
+  <!-- ===== ② 간략 정체성 · 추정연령 ===== -->
+  <section>
+    <div class="sec-no">정체성 · 추정 연령 (간략)</div>
+    <h2>누가 보는가</h2>
+    <div class="idage">
+      <div class="blk">
+        <h3>추정 연령대</h3>
+        <div class="agebars">
+          <div class="ab"><span class="lab">10대</span><div class="track"><div class="fill" style="width:3%"></div></div><span class="pct">3%</span></div>
+          <div class="ab"><span class="lab">20대</span><div class="track"><div class="fill" style="width:18%"></div></div><span class="pct">18%</span></div>
+          <div class="ab"><span class="lab">30대</span><div class="track"><div class="fill" style="width:34%"></div></div><span class="pct">34%</span></div>
+          <div class="ab"><span class="lab">40대</span><div class="track"><div class="fill" style="width:28%"></div></div><span class="pct">28%</span></div>
+          <div class="ab"><span class="lab">50대+</span><div class="track"><div class="fill" style="width:17%"></div></div><span class="pct">17%</span></div>
+        </div>
+        <div class="core">핵심 시청층 <b>30~40대 (약 62%)</b> · 사업가·프리랜서·실무자 성향</div>
+      </div>
+      <div class="blk">
+        <h3>정체성 대표 신호 (댓글 자기소개)</h3>
+        <div class="sigchips">
+          <span class="sigchip">자영업·사업 <b>41</b></span>
+          <span class="sigchip">직장인 <b>25</b></span>
+          <span class="sigchip">학부모·자녀 <b>15</b></span>
+          <span class="sigchip">시니어·만학 <b>15</b></span>
+          <span class="sigchip">대학생 <b>8</b></span>
+        </div>
+        <div class="idnote">앞 영상(라이프코드)의 "AI가 무섭다" 학부모층과 달리, 여기는 <b>이미 AI를 쓰며 가치를 만들려는 실행층</b>(사업가·프리랜서·대학원생)이 주축. 육아맘·졸업생·시니어까지 "내가 먼저 변해야겠다"는 능동형 자기소개가 두텁다.</div>
+      </div>
+    </div>
+    <div class="note"><b>추정 주의:</b> 유튜브 실제 연령 통계는 채널 소유자만 열람 가능. 위 수치는 댓글 자기소개·말투·영상 주제(AI 역량·가치창출)·채널 성격(생각구독/자기계발) 기반 <b>추정치</b>입니다.</div>
+  </section>
+
+  <!-- ===== ③ 시청이유 (강화 — 메인) ===== -->
+  <section>
+    <div class="sec-no">02 · 시청 이유 (핵심)</div>
+    <h2>왜 이 영상을 보는가</h2>
+    <p class="lead">269개 댓글 키워드 집계(중복 허용). 순위 · 비중% · 근거 댓글. <b>각도=후크 발굴</b> → 1~3위 이유를 후크 카피 후보로 변환 표기.</p>
+
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">①</span>AI 활용·생산성 체감</span><span class="val">148건 · 55.0%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:100%;background:var(--growth)">148</div></div>
+      <div class="rsn-ev"><span class="q">"AI가 그려내는 미래를 긍정적으로 말씀해주신 게 인상깊었어요. 인간의 물리적 제약을 없애주니, 이제는 AI와 어떤 문제를 풀고 어떤 가치를 만들지를 고민하려 합니다."</span> <span class="by">— 👍 5</span></div>
+      <div class="hook"><b>→ 후크 후보:</b> "AI 쓰는 사람 vs 못 쓰는 사람, 1년 뒤 격차" / "GPT한테 매일 묻는데 왜 내 수준은 그대로일까"</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">②</span>관점 전환·인사이트·감사</span><span class="val">119건 · 44.2%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:80%;background:#4cc4e0">119</div></div>
+      <div class="rsn-ev"><span class="q">"수렴을 위한 발산! 영상 덕분에 AI 시대에 대한 제 생각이 더 명확해졌어요. 속도는 미친 듯 빠르지만 방향은 아니라는 게…"</span> <span class="by">— 👍 6</span></div>
+      <div class="hook"><b>→ 후크 후보:</b> "AI 시대, 불안한 게 아니라 '먼저 가서 기다리는' 사람이 이긴다"</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">③</span>노정석·강연 자체 호평</span><span class="val">60건 · 22.3%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:41%;background:var(--brand2)">60</div></div>
+      <div class="rsn-ev"><span class="q">"인터뷰하시며 던진 질문 리스트가 제가 궁금했던 내용과 많이 겹쳤어요. 소정 님 생각을 더 듣고 싶어 생각구독까지…"</span> <span class="by">— 👍 1</span></div>
+      <div class="hook"><b>→ 후크 후보:</b> "노정석이 말하는 'AI 시대 살아남는 단 하나의 역량'" <i>(권위자 인용형)</i></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">④</span>가치창출·주도성·사업가 마인드</span><span class="val">54건 · 20.1%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:36%;background:#9aa0aa">54</div></div>
+      <div class="rsn-ev"><span class="q">"밸류 크리에이션이 '혼돈을 정리하는 것'이라는 말씀에… 제가 생각하던 가치를 이룰 수 있겠다 싶어 결국 질렀어요 😂"</span> <span class="by">— 👍 5</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑤</span>뒤처짐 불안·각성</span><span class="val">52건 · 19.3%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:35%;background:var(--pain)">52</div></div>
+      <div class="rsn-ev"><span class="q">"AI를 쓰고 있지만 이 영상을 보며 '내 수준을 박사 이상으로 높여야겠다' 생각하는 계기가 됐습니다."</span> <span class="by">— 👍 1 · (불안이 곧장 실행 동기로 전환되는 결)</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑥</span>질문·사고력 학습 의지</span><span class="val">9건 · 3.3%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:6%;background:var(--value)">9</div></div>
+      <div class="rsn-ev"><span class="q">"지금 가장 중요한 건 질문하는 능력인 것 같아요. 통찰력 있는 결과를 얻으려면 사고하는 법·질문하는 법을 배우는 게 이 시대에 가장 걸맞는 학습 방향."</span> <span class="by">— 👍 5</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 후크 발굴 종합 (각도 전용 박스) ===== -->
+  <section class="hookbox">
+    <div class="sec-no" style="color:#6b4fbf">★ 각도 산출물 · 후크 발굴 종합</div>
+    <h2>이 댓글방에서 건진 후크 카피 후보 TOP 5</h2>
+    <p class="lead">이 영상은 우리 채널 테제 그 자체 — 시청자가 <b>"질문하는 능력 = AI 시대 핵심 역량"</b>을 스스로 댓글로 말한다. AI 활용(입구) → 질문·읽기(토대)로 연결되는 후보 우선.</p>
+    <ol>
+      <li><span class="cap">격차 자각형</span> — "GPT한테 매일 묻는데 왜 내 수준은 그대로일까" <i>(육아맘 TOP3 댓글 정서 — '그게 네 수준'이 강한 후크 트리거)</i></li>
+      <li><span class="cap">슬로건 직결형</span> — "AI 시대, 결국 살아남는 건 '질문하는 사람'이다" <i>(채널 "AI는 답을, 읽는 사람은 질문을" 정면 일치)</i></li>
+      <li><span class="cap">각성·실행형</span> — "뒤처지지 말고 '먼저 가서 기다려라' — AI 시대 한 가지 역량" <i>(TOP2 댓글 그대로 카피)</i></li>
+      <li><span class="cap">도구 격차형</span> — "같은 AI를 쓰는데 왜 누구는 가치를 만들고 누구는 못 만들까" <i>(키 콘텐츠/바이브코딩 실습으로 확장)</i></li>
+      <li><span class="cap">본질 전환형</span> — "AI가 못 하는 단 하나 — 무엇을 물을지 정하는 일"</li>
+    </ol>
+  </section>
+
+  <!-- ===== (선택) 추가 대표댓글 ===== -->
+  <section class="more">
+    <div class="sec-no">03 · 더 보기</div>
+    <h2>그 외 대표 댓글</h2>
+    <div class="q2"><span>"수렴을 위한 발산 — 속도는 빠르지만 방향은 그대로다, 라는 관점이 생각을 정리해줬어요."</span><span class="by">👍 <b>6</b> · 관점 전환</span></div>
+    <div class="q2"><span>"일단 못 참고 결제했어요 😂 — 내가 선택한 직업이 정작 내가 만들고 싶던 가치의 길이 아니었음을 깨달아서."</span><span class="by">👍 <b>5</b> · 행동 전환(전환 발생)</span></div>
+    <div class="q2"><span>"정보보안 전공으로 갓 졸업했는데, AI에 최상위 논문을 넣고 질문해봐도 한계가… 이 영상으로 학습 방향을 다시 봅니다."</span><span class="by">👍 <b>3</b> · 사회초년생·학습</span></div>
+  </section>
+
+  <footer>
+    분석 대상: https://www.youtube.com/watch?v=d8mvVt7EkXA · 소울정<br>
+    데이터: 인기순 댓글 269개 전수 (크롬 브라우저 직접 수집) · 연령대는 댓글 기반 추정치<br>
+    분석 각도: 후크 발굴 + 기본 · 생성일: 2026-06-13 · bizpt / 타채널참조
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>썸네일·원고 키워드 200 — 그럼에도 불구하고</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2; --gold:#ffd166; --green:#06d6a0;
+    --red:#ef476f; --info:#118ab2; --violet:#9b7bff; --chip:#2a2f3a; --soft:#1b1f28;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
+  header.hero{padding:34px 32px;border-radius:18px;
+    background:radial-gradient(1000px 360px at 8% -10%,rgba(255,209,102,.18),transparent 50%),
+               radial-gradient(800px 340px at 108% 8%,rgba(6,214,160,.14),transparent 55%),
+               linear-gradient(180deg,#1a1e27,#13161d);
+    border:1px solid var(--line)}
+  .eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.18em;color:var(--gold);
+    background:rgba(255,209,102,.12);border:1px solid rgba(255,209,102,.3);
+    padding:5px 11px;border-radius:999px;text-transform:uppercase}
+  h1{font-size:33px;line-height:1.2;margin:14px 0 6px;letter-spacing:-.02em;font-weight:800}
+  h1 .accent{color:var(--gold)}
+  .lede{color:var(--muted);font-size:15px;margin:6px 0 18px;max-width:820px}
+  .stat-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .stat{background:var(--chip);border:1px solid var(--line);border-radius:10px;padding:8px 14px}
+  .stat b{font-size:19px;color:var(--gold);font-variant-numeric:tabular-nums}
+  .stat span{display:block;font-size:11px;color:var(--muted);letter-spacing:.04em}
+
+  .toolbar{position:sticky;top:0;z-index:30;margin:24px 0 18px;padding:14px 16px;
+    background:rgba(15,17,21,.92);backdrop-filter:blur(10px);
+    border:1px solid var(--line);border-radius:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  #search{flex:1;min-width:200px;background:#0c0e13;border:1px solid var(--line);
+    color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;outline:none}
+  #search:focus{border-color:var(--gold)}
+  .filters{display:flex;flex-wrap:wrap;gap:7px}
+  .fbtn{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+    font-size:12.5px;padding:7px 12px;border-radius:999px;cursor:pointer;transition:.15s;font-weight:600}
+  .fbtn:hover{color:#fff;border-color:var(--muted)}
+  .fbtn.active{background:var(--gold);color:#000;border-color:var(--gold)}
+  .count{font-size:12px;color:var(--muted);margin-left:auto}
+
+  section.cat{margin-top:26px;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    background:var(--panel)}
+  .cat-head{padding:16px 20px;display:flex;align-items:center;gap:12px;cursor:pointer;
+    border-left:4px solid var(--ac)}
+  .cat-head h2{font-size:18px;margin:0;font-weight:700}
+  .cat-head .badge{font-size:11.5px;background:var(--soft);color:var(--muted);
+    border:1px solid var(--line);padding:3px 9px;border-radius:999px}
+  .cat-head .basis{font-size:12px;color:var(--muted);margin-left:auto;text-align:right;max-width:46%}
+  .cat-body{padding:6px 20px 20px}
+  .sub{margin:14px 0 8px;font-size:13px;color:var(--ac);font-weight:700;letter-spacing:.02em}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .kw{background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--ac);
+    color:var(--text);font-size:13.5px;padding:7px 12px;border-radius:8px;cursor:pointer;
+    transition:.12s;user-select:none;position:relative}
+  .kw:hover{background:var(--panel-2);transform:translateY(-1px)}
+  .kw.copied{background:var(--ac);color:#06121a;border-color:var(--ac)}
+  .kw.copied::after{content:"복사됨 ✓";position:absolute;top:-22px;left:50%;transform:translateX(-50%);
+    font-size:10.5px;background:#000;color:var(--gold);padding:2px 7px;border-radius:5px;white-space:nowrap}
+  .hidden{display:none !important}
+
+  .legend{margin-top:30px;padding:18px 20px;border:1px dashed var(--line);border-radius:12px;background:var(--soft)}
+  .legend h3{margin:0 0 10px;font-size:14px;color:#fff}
+  .legend p{margin:4px 0;font-size:12.5px;color:var(--muted)}
+  .ban{margin-top:22px;padding:18px 20px;border:1px solid rgba(239,71,111,.35);
+    border-left:4px solid var(--red);border-radius:12px;background:rgba(239,71,111,.06)}
+  .ban h3{margin:0 0 8px;font-size:14.5px;color:#ff8aa3}
+  .ban .chips .kw{border-left-color:var(--red);cursor:default;opacity:.85}
+  .ban .kw:hover{transform:none;background:var(--soft)}
+  .flow{margin-top:22px;padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+  .flow h3{margin:0 0 10px;font-size:14.5px;color:var(--gold)}
+  .flow ol{margin:0;padding-left:20px}
+  .flow li{font-size:13px;margin:5px 0;color:var(--text)}
+  .footer{margin-top:40px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:16px}
+  .footer a{color:var(--gold);text-decoration:none}
+  @media(max-width:680px){h1{font-size:25px}.cat-head .basis{display:none}.toolbar{position:static}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">Keyword Bank · 썸네일 · 제목 · 도입부 원고</span>
+    <h1><span class="accent">200개 키워드</span> — 좋은 썸네일과 원고를 뽑는 재료</h1>
+    <p class="lede">채널 "그럼에도 불구하고"의 모든 키워드는 기획 룰북에 근거합니다. 카테고리로 필터하거나 검색하세요. <b>키워드를 클릭하면 복사</b>됩니다.</p>
+    <div class="stat-row">
+      <div class="stat"><b>200</b><span>총 키워드</span></div>
+      <div class="stat"><b>8</b><span>카테고리</span></div>
+      <div class="stat"><b>8축 · 결3</b><span>채널 정체성 닻</span></div>
+      <div class="stat"><b>제목→썸네일→도입부</b><span>적용 순서</span></div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <input id="search" type="text" placeholder="🔎 키워드 검색 (예: 문해력, 0권, 미래의 나, 이북리더기)">
+    <div class="filters" id="filters"></div>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div id="cats"></div>
+
+  <!-- 금지 키워드 -->
+  <div class="ban">
+    <h3>⛔ 금지 키워드 — 적용 후 마지막 필터 (근거: 썸네일지침/03 §5 · 대본기획_기준 §6)</h3>
+    <div class="chips" id="banChips"></div>
+  </div>
+
+  <!-- 적용 워크플로우 -->
+  <div class="flow">
+    <h3>적용 순서 (제목 → 썸네일 → 도입부 → 원고)</h3>
+    <ol>
+      <li><b>8축(A)</b> 1~2개 선택 → 채널 정체성 닻</li>
+      <li><b>결 호명(B)</b> → "내 얘기" 인식 (0.5초)</li>
+      <li><b>페인(C)</b> 또는 <b>숫자(D)</b> 결합 → 공감 / 시각적 텐션</li>
+      <li><b>강조·질문형(E)</b> → 답을 숨겨 호기심(⑤)</li>
+      <li><b>시그니처(F)</b> 1개 → 채널 톤 (한 썸네일에 1개만) — 여기까지 = 35자 메인 + 썸네일 헤드</li>
+      <li><b>SEO(G)</b>로 35자 이후~100자 검색 키워드 보강</li>
+      <li>(키 영상만) <b>전환(H)</b>으로 이북리더기·readtree 종착지 명시 — 풀링은 직접 노출 금지</li>
+      <li><b>금지 키워드</b>로 거르고 → <b>30초 후크 룰</b>(변화약속+결+8축) 통과 확인</li>
+    </ol>
+  </div>
+
+  <div class="legend">
+    <h3>색 = 카테고리</h3>
+    <p><span style="color:var(--gold)">●</span> A 8축 · F 시그니처 (정체성 닻) &nbsp; <span style="color:var(--green)">●</span> B 결 3그룹 · H 전환(가치) &nbsp; <span style="color:var(--red)">●</span> C 페인·공감</p>
+    <p><span style="color:var(--info)">●</span> D 숫자·대비 &nbsp; <span style="color:var(--violet)">●</span> E 강조·질문형 &nbsp; <span style="color:var(--muted)">●</span> G 검색·SEO</p>
+  </div>
+
+  <div class="footer">
+    근거 문서: <a href="../../../../대본/_기획기준/대본기획_기준.md">대본기획_기준.md</a> ·
+    <a href="../../../../대본/_기획기준/30초_후크_룰_체크리스트.md">30초 후크 룰</a> ·
+    <a href="../../../../10_system/guides/썸네일지침/03_훅_문구뱅크.md">썸네일지침 03 훅 문구뱅크</a> ·
+    마크다운판 <a href="키워드_200_썸네일원고.md">키워드_200_썸네일원고.md</a><br>
+    생성일 2026-06-07 · 채널 "그럼에도 불구하고"
+  </div>
+
+</div>
+
+<script>
+const AC = {gold:'#ffd166',green:'#06d6a0',red:'#ef476f',info:'#118ab2',violet:'#9b7bff',muted:'#9aa3b2'};
+const DATA = [
+  {id:'A',name:'A. 8축 핵심',color:'gold',basis:'대본기획_기준 §1 · 30초 후크 룰 · 썸네일 03 §1',
+   subs:[
+    {t:'A1 책 읽는 방법',k:['책 읽는 방법','완독하는 법','한 페이지도 못 넘길 때','책 고르는 법','정독 vs 속독','벽돌책 읽는 법','책 끝까지 읽기','초보 독서법']},
+    {t:'A2 책을 읽어야 하는 이유',k:['왜 책을 읽는가','독서의 가치','안 읽으면 생기는 일','검색 vs 책','AI 시대 독서','평생을 며칠 만에','독서가 주는 변화','책이 바꾸는 시야']},
+    {t:'A3 자기개발',k:['자기계발 독서','몸값 올리는 독서','부자의 독서법','성공한 사람의 책','1년 100권','인생 바꾼 책','독서로 성장','읽는 사람의 격차']},
+    {t:'A4 책 읽는 습관',k:['독서 습관','매일 책 읽기','하루 10분 독서','독서 루틴','자투리 시간 독서','독서 트래커','365일 독서','책 펴는 트리거']},
+    {t:'A5 문해력',k:['문해력','문해력 키우기','어휘력','독해력','글이 이해 안 될 때','30대 문해력','문해력 테스트','읽고 이해하는 힘']},
+    {t:'A6 지적허영심',k:['읽은 척한 책','베스트셀러 완독','북스타그램의 진실','교양 쌓기','고전 읽기','아는 척 그만','진짜 읽은 책','허영으로 시작한 독서']},
+    {t:'A7 지적호기심',k:['지적 호기심','새 책이 궁금해질 때','책이 부른 다음 책','질문이 생기는 독서','꼬리 무는 독서','세상이 다르게 보임','책 한 권의 질문 50개','다음이 궁금한 독서']},
+    {t:'A8 책 읽는 재미',k:['책 읽는 재미','밤새 읽은 책','빠져드는 책','새벽 3시까지','책에 중독','책 도미노','끄지 못한 책','재미없을 줄 알았는데']},
+   ]},
+  {id:'B',name:'B. 결 3그룹 호명',color:'green',basis:'대본기획_기준 §4 · 썸네일 03 §2',
+   subs:[
+    {t:'B1 ① 읽으려는 사람',k:['평생 안 읽던 사람','30대 후반에 다시','교과서도 안 읽던','책이 무서운 분께','첫 책','안 읽혀도 정상','책 다시 잡은 날']},
+    {t:'B2 ② 읽고 있는 사람 (단기 주력)',k:['10권째 멈춘 사람','1년에 한 권','두 페이지가 기억 안 남','벽돌책 앞에서','읽다 마는 사람','자투리 7분','30권으로 가는 길']},
+    {t:'B3 ③ 더 읽으려는 사람',k:['100권 넘게 읽은','기록이 안 남는','재독·필사·메모','다음 7권으로','독서 기록법','더 깊이 읽기','다독가의 다음 도구']},
+   ]},
+  {id:'C',name:'C. 페인·공감 트리거',color:'red',basis:'대본기획_기준 §8.7 (공감=클릭) · 키 pain',
+   subs:[
+    {t:'페인포인트',k:['책 사놓고 못 읽음','작심삼일','집중력 무너짐','도파민 중독','숏폼에 지친','읽어도 기억 안 남','시간이 없어서','책만 사 모음','끝까지 못 읽음','활자가 안 들어옴','눈만 굴러감','다 읽었는데 텅 빈','유튜브만 보다 하루 끝','책 펴면 졸림','읽을 시간 없다는 핑계','베스트셀러만 사는','완독 실패','독서 포기','진도가 안 나감','책장 앞 죄책감','읽는 게 두려운','한 줄도 안 남는']},
+   ]},
+  {id:'D',name:'D. 숫자·대비',color:'info',basis:'썸네일 03 §4 (가장 강력한 무기)',
+   subs:[
+    {t:'D1 0/N 형(변화 폭)',k:['0권 → 100권','0권 / 30권','0% / 100%','1년 뒤 30권','100명 중 3명']},
+    {t:'D2 시간 압축',k:['5분 vs 3시간','7분 × 365일','평생 / 며칠','하루 5분 = 12권','지하철 7분','30일 실험']},
+    {t:'D3 비교',k:['10년 / 1년','30대 / 40대','책 2,000원 / 강의 50만원','25만원 vs 8만원','종이책 vs 전자책','363일의 빈칸','1년 12권']},
+   ]},
+  {id:'E',name:'E. 강조 수식어·질문형',color:'violet',basis:'대본기획_기준 §8.6.2 ④강조 ⑤답 숨긴 질문',
+   subs:[
+    {t:'E1 강조 수식어',k:['단 하나의 도구','진짜 이유','의외의 사실','아무도 안 알려준','결국 남는 건','솔직히 말하면','딱 5분만','이것 하나','그 한 가지','절대 하지 않을']},
+    {t:'E2 답 숨긴 질문형',k:['왜 어떤 사람은','무엇이 다른가','어떻게 1년에','가장 비싸진 능력은','진짜 차이는','다시 돌아가면','처음 끝까지 읽은 날','끝까지 읽게 만든','5년 전으로 돌아가면']},
+   ]},
+  {id:'F',name:'F. 시그니처·정체성',color:'gold',basis:'썸네일 03 §3 · 채널명 (한 썸네일에 1개만)',
+   subs:[
+    {t:'시그니처 라인',k:['그럼에도 불구하고','미래의 나','정상이에요','단 하나의 도구','의지가 아니라 도구','환경을 바꾸면','독서도 근육입니다','첫 책 / 다시 잡은 책','그 사람들 옆자리','빠른 시대의 느린 자리','AI는 답, 책은 질문','읽기로 했다']},
+   ]},
+  {id:'G',name:'G. 검색·SEO 롱테일',color:'muted',basis:'대본기획_기준 §8.6.3 (35자 이후~100자)',
+   subs:[
+    {t:'검색 키워드',k:['책 추천','독서법 추천','자기계발서 추천','독서 초보','책 읽는 습관 만들기','완독하는 방법','독서 노트 작성법','전자책 단말기 추천','이북리더기 비교','직장인 독서','30대 독서','독서 모임','책 빨리 읽는 법','책 기억하는 법','독서 슬럼프 극복','하루 30분 독서','출퇴근 독서','독서 앱 추천','종이책 전자책 차이','책 정리법','독서 계획 세우기','인생책 추천','독서 동기부여','벽돌책 추천']},
+   ]},
+  {id:'H',name:'H. 키·전환(판매)',color:'green',basis:'대본기획_기준 §2·§5 · 이북리더기·readtree',
+   subs:[
+    {t:'H1 이북리더기·도구 (키 직접 노출)',k:['이북리더기','전자책 단말기','e-Ink','가성비 단말기','단말기 비교','눈 안 아픈 화면','책 100권 들고 다니기','밑줄·메모 기능','어디서나 독서','읽는 환경']},
+    {t:'H2 페인→가성비→추천 (키 본문)',k:['이 사람에겐 이것','진짜 차이 한 가지','도구가 답은 아니지만','환경이 사람을 만든다','한 권으로 시작']},
+    {t:'H3 readtree·시스템 (풀링=메타포 / 키=직링크)',k:['성장 트리','독서 기록 서비스','큐레이션','읽기로 한 사람의 도구','독서 시스템']},
+   ]},
+];
+const BAN = ['충격 결과','경악할','충격적','안 읽으면 망한다','도태된다','큰일난다','100배 차이','10배 빠른','+243%','○○했더니 일어난 일','끝까지 보세요','이게 진짜?','전문가가 인정한','유일한 방법','비밀의','구매하세요','안 읽는 사람 특징','○○하는 법','추천 ○○','꿀팁','꿀템'];
+
+const catsEl = document.getElementById('cats');
+const filtersEl = document.getElementById('filters');
+const countEl = document.getElementById('count');
+const searchEl = document.getElementById('search');
+
+// 카테고리 렌더
+DATA.forEach(cat=>{
+  const ac = AC[cat.color];
+  const sec = document.createElement('section');
+  sec.className='cat'; sec.dataset.cat=cat.id;
+  sec.style.setProperty('--ac', ac);
+  let n=0; cat.subs.forEach(s=>n+=s.k.length);
+  let body='';
+  cat.subs.forEach(s=>{
+    body+=`<div class="sub" style="--ac:${ac}">${s.t}</div><div class="chips">`;
+    s.k.forEach(k=>{ body+=`<span class="kw" style="--ac:${ac}" data-kw="${k}">${k}</span>`; });
+    body+='</div>';
+  });
+  sec.innerHTML=`
+    <div class="cat-head" style="--ac:${ac}">
+      <h2 style="color:${ac}">${cat.name}</h2>
+      <span class="badge">${n}개</span>
+      <span class="basis">${cat.basis}</span>
+    </div>
+    <div class="cat-body">${body}</div>`;
+  catsEl.appendChild(sec);
+});
+
+// 금지 칩
+const banEl=document.getElementById('banChips');
+BAN.forEach(b=>{ const s=document.createElement('span'); s.className='kw'; s.textContent=b; banEl.appendChild(s); });
+
+// 필터 버튼
+const ALL='전체';
+const cats=[ALL,...DATA.map(c=>c.id)];
+cats.forEach((c,i)=>{
+  const b=document.createElement('button'); b.className='fbtn'+(i===0?' active':'');
+  b.textContent=c===ALL?'전체 200':c; b.dataset.f=c; filtersEl.appendChild(b);
+});
+let activeFilter=ALL;
+filtersEl.addEventListener('click',e=>{
+  const b=e.target.closest('.fbtn'); if(!b)return;
+  document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); activeFilter=b.dataset.f; applyFilter();
+});
+
+// 검색 + 필터
+function applyFilter(){
+  const q=searchEl.value.trim().toLowerCase();
+  let shown=0;
+  document.querySelectorAll('section.cat').forEach(sec=>{
+    const catMatch=(activeFilter===ALL||sec.dataset.cat===activeFilter);
+    let secShown=0;
+    sec.querySelectorAll('.kw').forEach(kw=>{
+      const txt=kw.dataset.kw.toLowerCase();
+      const ok=catMatch && (!q||txt.includes(q));
+      kw.classList.toggle('hidden',!ok);
+      if(ok){secShown++;shown++;}
+    });
+    // sub 제목: 해당 chips에 보이는게 없으면 숨김
+    sec.querySelectorAll('.sub').forEach(sub=>{
+      const chips=sub.nextElementSibling;
+      const any=chips&&chips.querySelectorAll('.kw:not(.hidden)').length>0;
+      sub.classList.toggle('hidden',!any);
+    });
+    sec.classList.toggle('hidden',secShown===0);
+  });
+  countEl.textContent=`${shown}개 표시`;
+}
+searchEl.addEventListener('input',applyFilter);
+
+// 클릭 복사
+catsEl.addEventListener('click',e=>{
+  const kw=e.target.closest('.kw'); if(!kw)return;
+  const t=kw.dataset.kw;
+  navigator.clipboard?.writeText(t).catch(()=>{});
+  document.querySelectorAll('.kw.copied').forEach(x=>x.classList.remove('copied'));
+  kw.classList.add('copied');
+  setTimeout(()=>kw.classList.remove('copied'),1100);
+});
+
+applyFilter();
+</script>
+</body>
+</html>

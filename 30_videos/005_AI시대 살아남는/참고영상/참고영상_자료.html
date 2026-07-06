@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>참고영상 자료 · 풀링 EP005 「AI 시대 살아남는」</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2;
+    --accent:#ffd166; --accent-2:#06d6a0; --warn:#ef476f;
+    --pull:#5cc4e0; --edit:#06d6a0; --brief:#c4b5fd;
+    --evd:#5cc4e0; --dir:#ffd166;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 24px 120px}
+  a{color:inherit}
+
+  header.hero{padding:28px 32px;border-radius:18px;
+    background:radial-gradient(1200px 380px at 10% -10%,rgba(56,189,248,.18),transparent 50%),
+               radial-gradient(900px 360px at 110% 10%,rgba(168,85,247,.14),transparent 55%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line);margin-bottom:22px}
+  .eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.18em;color:var(--accent-2);
+    background:rgba(6,214,160,.12);border:1px solid rgba(6,214,160,.3);
+    padding:5px 11px;border-radius:999px;text-transform:uppercase}
+  h1{font-size:28px;line-height:1.25;margin:14px 0 10px;letter-spacing:-0.02em;font-weight:800}
+  .lede{color:var(--muted);font-size:14.5px;margin:6px 0 14px;max-width:880px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:#2a2f3a;border:1px solid var(--line);color:var(--text);
+    font-size:12px;padding:5px 10px;border-radius:999px}
+
+  .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 26px}
+  @media(max-width:760px){.stats-bar{grid-template-columns:repeat(2,1fr)}.wrap{padding:18px 16px 90px}h1{font-size:23px}}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .stat .lab{font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+  .stat .val{font-size:22px;font-weight:800;color:#fff;margin-top:4px}
+  .stat .sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+  section{margin-top:36px;scroll-margin-top:20px}
+  h2{font-size:21px;letter-spacing:-.01em;margin:0 0 6px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--accent-2)}
+  h2 .num{color:var(--muted);font-weight:600;font-size:13px;letter-spacing:.12em}
+  .sec-desc{color:var(--muted);font-size:13.5px;margin:0 0 16px}
+
+  /* 매핑 테이블 */
+  .map{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .map th,.map td{padding:11px 14px;text-align:left;font-size:13px;border-bottom:1px solid var(--line);vertical-align:top}
+  .map th{background:var(--panel-2);color:var(--muted);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+  .map tr:last-child td{border-bottom:none}
+  .map td b{color:#fff}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;white-space:nowrap}
+  .tag.evd{background:rgba(92,196,224,.14);color:var(--evd);border:1px solid rgba(92,196,224,.4)}
+  .tag.dir{background:rgba(255,209,102,.14);color:var(--dir);border:1px solid rgba(255,209,102,.4)}
+  .tag.warn{background:rgba(239,71,111,.14);color:var(--warn);border:1px solid rgba(239,71,111,.4)}
+
+  /* 필터 */
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+  .fbtn{padding:8px 14px;border-radius:8px;background:var(--panel-2);border:1px solid var(--line);
+    color:var(--text);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+  .fbtn:hover{background:#252a36}
+  .fbtn.active{background:rgba(6,214,160,.14);border-color:rgba(6,214,160,.45);color:var(--accent-2)}
+
+  /* 카드 그리드 */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .15s,border-color .15s}
+  .card:hover{transform:translateY(-2px);border-color:#34394a}
+  .thumb{position:relative;display:block;aspect-ratio:16/9;background:#0c0e13;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.92;transition:opacity .15s}
+  .card:hover .thumb img{opacity:1}
+  .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .play span{width:54px;height:54px;border-radius:50%;background:rgba(15,17,21,.72);
+    border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center}
+  .play span::after{content:"";border-left:16px solid #fff;border-top:10px solid transparent;
+    border-bottom:10px solid transparent;margin-left:4px}
+  .ribbon{position:absolute;top:10px;left:10px;font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px}
+  .ribbon.evd{background:rgba(92,196,224,.92);color:#06222e}
+  .ribbon.dir{background:rgba(255,209,102,.92);color:#3a2c00}
+  .num-badge{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:7px;
+    background:rgba(15,17,21,.8);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:800;color:#fff}
+  .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .ttl{font-size:15px;font-weight:800;line-height:1.4;color:#fff;text-decoration:none}
+  .ttl:hover{color:var(--accent-2)}
+  .chan{font-size:12px;color:var(--muted)}
+  .chan b{color:#c4cbd6;font-weight:600}
+  .kv{font-size:12.5px;line-height:1.6}
+  .kv .k{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+  .kv .v{color:#d6dbe4}
+  .kv .v b{color:#fff}
+  .row-link{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .olink{font-size:12px;font-weight:600;text-decoration:none;padding:6px 11px;border-radius:7px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--text)}
+  .olink:hover{background:#252a36;border-color:#34394a}
+  .divider{height:1px;background:var(--line);margin:2px 0}
+
+  /* 가이드 */
+  .guide{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .guide ol{margin:0;padding-left:20px}
+  .guide li{margin:8px 0;font-size:13.5px;color:#d6dbe4}
+  .guide li b{color:#fff}
+  .warnbox{background:rgba(239,71,111,.08);border:1px solid rgba(239,71,111,.3);border-radius:10px;
+    padding:12px 16px;margin-top:14px;font-size:13px;color:#f5c2d0}
+  .warnbox b{color:#fff}
+  footer{margin-top:40px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">풀링 EP005 · 참고영상</span>
+    <h1>「AI 시대 살아남는」 참고영상 자료</h1>
+    <p class="lede">대본 가치사슬(<b style="color:#fff">사고력 ← 질문력 ← 문해력 ← 독서</b>)을 뒷받침하는 <b style="color:var(--evd)">근거·인용 소스</b>와,
+       후크·구성·연출을 벤치마크하는 <b style="color:var(--dir)">차용·연출 레퍼런스</b>를 모았습니다. 전 링크 oembed 검증 완료(8/8).</p>
+    <div class="meta-row">
+      <span class="chip">수집 2026-06-14</span>
+      <span class="chip">근거 6 · 연출 2</span>
+      <span class="chip">진정성 가드: 출처명시+경험보강</span>
+      <span class="chip">특정 강사 저격 금지</span>
+    </div>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="lab">총 영상</div><div class="val">8편</div><div class="sub">전수 검증 유효</div></div>
+    <div class="stat"><div class="lab">근거 소스</div><div class="val">6편</div><div class="sub">대본 주장 뒷받침</div></div>
+    <div class="stat"><div class="lab">연출 레퍼런스</div><div class="val">2편</div><div class="sub">후크·구성 벤치마크</div></div>
+    <div class="stat"><div class="lab">핵심 근거</div><div class="val">MIT</div><div class="sub">인지부채 연구</div></div>
+  </div>
+
+  <!-- 매핑 -->
+  <section id="map">
+    <h2><span class="num">00</span>대본 ↔ 참고영상 매핑</h2>
+    <p class="sec-desc">대본 논리 사슬: 생존 불안 → 세 종류의 인간 → 같은 GPT 다른 질문 → AI는 도구 → 사고력 → 문해력 → 독서 → 환경</p>
+    <table class="map">
+      <thead><tr><th style="width:22%">대본 구간</th><th style="width:42%">핵심 주장</th><th>뒷받침/참고 영상</th></tr></thead>
+      <tbody>
+        <tr><td><b>도입부</b></td><td>"매일 챗GPT 쓰며 사고력을 잃는다"(계산·검색·글·고민 덜 함)</td><td><span class="tag evd">①</span> MIT 인지부채</td></tr>
+        <tr><td><b>도입부</b></td><td>"불안을 볼모로 비싼 AI 강의를 파는 마케팅" 비판</td><td><span class="tag dir">⑦</span> KBS 추적60분 · <span class="tag dir">⑧</span> 지식인사이드(대비)</td></tr>
+        <tr><td><b>도입부·본문3</b></td><td>AX 헤비유저 권위 / "AI 배우기 + 대체 안 될 능력"</td><td><span class="tag evd">③</span>④ 김대식</td></tr>
+        <tr><td><b>본문3</b></td><td>"AI는 도구다 — 망치가 집을 짓지 않는다"</td><td><span class="tag warn">⑤</span> 하라리(반대 입장·대비 카드)</td></tr>
+        <tr><td><b>본문3·6</b></td><td>"방향 없을 때 불안" / "습관은 의지보다 환경"</td><td><span class="tag evd">②</span> 김경일 메타인지·상황의 힘</td></tr>
+        <tr><td><b>본문4·5</b></td><td>사고력 ← 문해력 ← 독서</td><td><span class="tag evd">⑥</span> MBC 문해력 현실</td></tr>
+        <tr><td><b>본문1·결론</b></td><td>생존 후크("먼저 밀려나는 사람") 통념 자극 → 전환</td><td><span class="tag dir">⑧</span> 지식인사이드(연출)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 필터 -->
+  <section id="videos">
+    <h2><span class="num">01</span>참고영상 카드</h2>
+    <p class="sec-desc">썸네일·제목을 누르면 YouTube로 이동합니다.</p>
+    <div class="filters">
+      <button class="fbtn active" data-f="all">전체 (8)</button>
+      <button class="fbtn" data-f="evd">근거·인용 (6)</button>
+      <button class="fbtn" data-f="dir">차용·연출 (2)</button>
+    </div>
+    <div class="grid" id="grid"><!-- cards injected --></div>
+  </section>
+
+  <!-- 가이드 -->
+  <section id="guide">
+    <h2><span class="num">02</span>인용·편집 가이드</h2>
+    <div class="guide">
+      <ol>
+        <li><b>인용 원칙(7주차 §8.5.3)</b> — 외부 영상은 자기 경험·논리의 <b>보강재</b>로만. "한 연구/보도에서는… 제가 직접 써보니…" 형식. 영상이 주가 되면 안 됨.</li>
+        <li><b>진정성 가드</b> — 검증 안 된 수치 단정 ❌ / AI 적대·공포 프레임 ❌ / 특정 강사 인신공격 ❌. "생존 불안"은 입구로만, 본질은 사고력·문해력·독서로 착지.</li>
+        <li><b>중복 주의</b> — 김대식 ③④는 권위 풀이 겹침 → 영상엔 1편만 인용 권장. MIT①은 도입부, MBC⑥은 착지부로 분산.</li>
+        <li><b>대비 카드 활용</b> — 하라리⑤(AI=주체)를 일부러 대본(AI=도구)과 충돌시켜 "그래도 사고력"으로 받으면 깊이가 생김.</li>
+        <li><b>저작권</b> — 풀 클립 재업로드 금지. 인용 자막·출처 표기 + 재해석(차용·출처·보강 3요소) 원칙.</li>
+      </ol>
+      <div class="warnbox">⚠️ <b>특정 강사 저격 금지.</b> ⑦KBS·⑧지식인사이드는 "불안 마케팅"이라는 <b>일반 현상</b>의 근거로만 사용 — 개인을 지목하지 않는다(브리프 B6 진정성 가드).</div>
+    </div>
+  </section>
+
+  <footer>
+    출처: 각 카드의 YouTube 링크 · MIT 원논문 arXiv 2506.08872. 링크는 2026-06-14 oembed 기준 유효이며 영상은 변동될 수 있으니 인용 전 재생 확인 권장.<br>
+    단일 진실 원천 = <code>참고영상/참고영상_정리.md</code> · 대본 = <code>대본/대본_전체_v1.md</code>
+  </footer>
+</div>
+
+<script>
+const DATA = [
+  {n:'①',cat:'evd',id:'xw6ykWP2qA8',title:'Your Brain on ChatGPT — 챗GPT와 인지부채',chan:'Newton News (Nataliya Kosmyna)',
+   link:'본문 도입부 — "챗GPT 덕분에 편해진 그 순간 사고력을 잃는다 / 계산·검색·글·고민을 덜 한다"의 직접 근거',
+   use:'도입부 신뢰도 1컷 인용. "제가 AX로 매일 써보니"에 외부 연구 한 줄. ⚠️ 수치 단정 금지("한 연구에서는…")',
+   extra:{label:'원논문 arXiv',url:'https://arxiv.org/abs/2506.08872'}},
+  {n:'②',cat:'evd',id:'-Bob2MEbm9g',title:'능력보다 상황이다 — 메타인지의 힘',chan:'캐내네 스피치 (김경일)',
+   link:'본문3 "방향이 없을 때 불안" + 본문6 "습관은 의지보다 환경"의 학술 뒷받침',
+   use:'본문6 "혼자라서 실패 → 환경" 전환의 권위 보강. 키 콘텐츠(독서 환경·이북리더기) 다리 강화'},
+  {n:'③',cat:'evd',id:'v5jWMfqKcus',title:'더이상 AI 못 막는다, 지금은 ‘이것부터’',chan:'머니인사이드 (김대식)',
+   link:'화자(AX) 톤과 정합 — "AI 멀리하자는 게 아니다 / 누구도 6개월 뒤를 예측 못 한다". 본문3 "AI 배우기 + 대체 안 될 능력" 2축',
+   use:'권위 톤 레퍼런스. 인용보다 논조 정합 확인용(공포 마케팅과 거리두기)'},
+  {n:'④',cat:'evd',id:'QqYXOpPUdwE',title:'생성AI 시대의 인류 (과학다시보기 EP.3)',chan:'과학기술정보통신부 (김대식)',
+   link:'본문1 "AI 시대 인간은 세 종류" 프레임의 배경 논거 (정부 채널 공신력)',
+   use:'③과 함께 "뇌과학 권위" 풀. 영상엔 ③④ 중 1편만 인용(중복 주의)'},
+  {n:'⑤',cat:'evd',id:'_znqGUW_dzI',title:'AI시대 인간의 길 (유발 하라리 내한 강연)',chan:'재단법인 지관',
+   link:'⚠️ 대비 카드 — 하라리는 "AI는 도구가 아니라 주체". 대본 본문3 "AI는 도구다"와 정반대',
+   use:'반대 권위를 보여주고 "그럼에도 도구를 쥐는 건 사람의 사고력"으로 받아치기. 양면 제시 → 본질 착지'},
+  {n:'⑥',cat:'evd',id:'zHJXr_fx570',title:'독서 열풍 반갑지만…난감한 ‘문해력’ 현실',chan:'MBCNEWS (2024.10.23)',
+   link:'본문4·5 "사고력 ← 문해력 ← 독서" 토대. 문해력=이해·해석·연결·의미발견의 사회적 근거',
+   use:'문해력 화두의 시의성·객관성 보강(방송 뉴스). 독서 착지부 1컷 인용'},
+  {n:'⑦',cat:'dir',id:'e7DQeoDpYWQ',title:'수백만 원 AI 자동화 강의, 고수익의 환상…',chan:'KBS 추적60분 (2026.04.03)',
+   link:'도입부 "불안을 볼모로 비싼 AI 강의를 파는 일부가 불편하다"의 근거이자 연출 레퍼런스',
+   use:'① 불안 마케팅 비판의 객관 근거(방송) ② "왜 불편한가" 톤 차용. ⚠️ 특정 강사 저격 금지 — "일반 현상"으로만'},
+  {n:'⑧',cat:'dir',id:'512LLypVJfQ',title:'"일해서 돈버는 시대 끝났다" AI시대 몸값 폭등',chan:'지식인사이드 (김대식 X 오건영)',
+   link:'대본 도입부 "가장 먼저 밀려나는 사람" 생존 불안 후크와 동일 계열',
+   use:'연출 레퍼런스 전용 — 강한 통념·불안 후크로 풀 열고 본질 착지하는 구조 벤치마크. 단 자극 강도↓·전환↑(30초 후크 룰)'}
+];
+
+const RIBBON = {evd:'근거', dir:'연출'};
+function card(d){
+  const yt = 'https://www.youtube.com/watch?v='+d.id;
+  const thumb = 'https://i.ytimg.com/vi/'+d.id+'/hqdefault.jpg';
+  const extra = d.extra ? `<a class="olink" href="${d.extra.url}" target="_blank" rel="noopener">${d.extra.label} ↗</a>` : '';
+  return `<article class="card" data-cat="${d.cat}">
+    <a class="thumb" href="${yt}" target="_blank" rel="noopener">
+      <img src="${thumb}" alt="" loading="lazy">
+      <span class="ribbon ${d.cat}">${RIBBON[d.cat]}</span>
+      <span class="num-badge">${d.n}</span>
+      <span class="play"><span></span></span>
+    </a>
+    <div class="body">
+      <a class="ttl" href="${yt}" target="_blank" rel="noopener">${d.title}</a>
+      <div class="chan">채널 · <b>${d.chan}</b></div>
+      <div class="divider"></div>
+      <div class="kv"><span class="k">대본 연결지점</span><span class="v">${d.link}</span></div>
+      <div class="kv"><span class="k">활용법</span><span class="v">${d.use}</span></div>
+      <div class="row-link">
+        <a class="olink" href="${yt}" target="_blank" rel="noopener">▶ YouTube ↗</a>${extra}
+      </div>
+    </div>
+  </article>`;
+}
+const grid = document.getElementById('grid');
+grid.innerHTML = DATA.map(card).join('');
+
+document.querySelectorAll('.fbtn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const f=b.dataset.f;
+    document.querySelectorAll('.card').forEach(c=>{
+      c.style.display = (f==='all'||c.dataset.cat===f)?'':'none';
+    });
+  });
+});
+</script>
+</body>
+</html>

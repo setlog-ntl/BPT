@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>제목·썸네일 기획 — "책 읽어도 돈 못 버는" (풀링 신규 주제)</title>
+<style>
+  :root{
+    --bg:#0e1116; --card:#161b22; --card2:#1c2230; --line:#2a3140; --ink:#e8edf4; --mut:#9aa6b6;
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --info:#5cc4e0; --rec:#b794f6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;font-feature-settings:"tnum"}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+  header{background:linear-gradient(160deg,#11161f 0%,#0e1116 70%);border-bottom:1px solid var(--line);padding:40px 0 30px}
+  .eyebrow{font-size:13px;letter-spacing:.16em;color:var(--value);font-weight:800;text-transform:uppercase;margin-bottom:10px}
+  h1{font-size:clamp(24px,4vw,34px);font-weight:900;margin:0 0 12px;letter-spacing:-.02em}
+  h1 b{color:var(--value)}
+  .sub{color:var(--mut);font-size:15px;max-width:760px}
+  .sub b{color:var(--ink)}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--mut)}
+  .chip.val{border-color:rgba(255,209,102,.4);color:var(--value)}
+  .chip.grow{border-color:rgba(6,214,160,.4);color:var(--growth)}
+  .chip.info{border-color:rgba(92,196,224,.4);color:var(--info)}
+  .chip.pain{border-color:rgba(239,71,111,.4);color:var(--pain)}
+  .chip.rec{border-color:rgba(183,148,246,.4);color:var(--rec)}
+  section{padding:30px 0;border-bottom:1px solid var(--line)}
+  .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--info);font-weight:800;margin-bottom:6px}
+  h2{font-size:21px;font-weight:900;margin:0 0 6px;letter-spacing:-.01em}
+  h2 .num{color:var(--value);margin-right:8px}
+  .lead{color:var(--mut);font-size:14px;margin:0 0 18px}
+  /* 진단 */
+  .diag{display:grid;gap:10px}
+  .di{display:flex;gap:11px;background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--growth);border-radius:10px;padding:12px 15px;font-size:14px}
+  .di .n{font-weight:900;color:var(--growth);flex:0 0 auto}
+  .di b{color:var(--ink)} .di .hl{color:var(--value);font-weight:700}
+  /* 제목 카드 */
+  .tcase{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;margin-bottom:16px}
+  .tcase.safe{border-left:4px solid var(--growth)}
+  .tcase.boldA{border-left:4px solid var(--value)}
+  .tcase.boldB{border-left:4px solid var(--info)}
+  .tlab{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+  .tcase.safe .tlab{color:var(--growth)} .tcase.boldA .tlab{color:var(--value)} .tcase.boldB .tlab{color:var(--info)}
+  .ttitle{font-size:clamp(19px,3vw,25px);font-weight:900;letter-spacing:-.02em;line-height:1.3}
+  .ttitle .y{color:var(--value)} .ttitle .r{color:var(--pain)} .ttitle .g{color:var(--growth)}
+  .cnt{display:inline-block;font-size:11px;font-weight:800;color:var(--growth);background:rgba(6,214,160,.12);border-radius:6px;padding:2px 8px;margin-left:8px;vertical-align:middle}
+  .seo{margin-top:11px;font-size:13px;color:var(--mut);background:var(--card2);border-radius:8px;padding:9px 12px;border:1px dashed var(--line)}
+  .seo b{color:var(--info)}
+  .steps{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}
+  .stp{font-size:11.5px;font-weight:700;border:1px solid var(--line);border-radius:7px;padding:3px 9px;color:var(--mut)}
+  .stp b{color:var(--value)}
+  .why{margin-top:10px;font-size:13.5px;color:var(--ink)}
+  .why em{font-style:normal;color:var(--growth);font-weight:700}
+  .alt{margin-top:9px;font-size:12.5px;color:var(--mut)}
+  .alt b{color:var(--pain)}
+  /* 썸네일 mockup */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}}
+  .tn{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .mock{position:relative;aspect-ratio:16/9;background:radial-gradient(120% 120% at 80% 10%,#243042 0%,#11151d 75%);display:flex;flex-direction:column;justify-content:center;padding:14px 16px;overflow:hidden}
+  .mock .head{font-weight:900;font-size:clamp(22px,4.6vw,34px);line-height:1.04;letter-spacing:-.02em;text-shadow:0 3px 14px rgba(0,0,0,.65);z-index:2}
+  .mock .head .r{color:var(--pain)} .mock .head .y{color:var(--value)} .mock .head .g{color:var(--growth)} .mock .head .w{color:#fff}
+  .mock .big{position:absolute;right:5%;bottom:-6%;font-weight:900;font-size:clamp(56px,15vw,120px);line-height:.8;opacity:.16;z-index:1}
+  .mock .big.r{color:var(--pain)} .mock .big.g{color:var(--growth)}
+  .mock .kicker2{position:absolute;left:16px;top:12px;font-size:12px;font-weight:800;color:var(--value);letter-spacing:.04em;z-index:2}
+  .tn .body{padding:13px 15px 15px}
+  .tn .body .lab{font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--info);margin-bottom:6px}
+  .tn .body .ln{font-size:13px;color:var(--mut);margin:3px 0}
+  .tn .body .ln b{color:var(--ink)}
+  .tag{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px;margin:2px 4px 0 0}
+  .tag.pain{background:rgba(239,71,111,.14);color:var(--pain)} .tag.grow{background:rgba(6,214,160,.14);color:var(--growth)}
+  .tag.val{background:rgba(255,209,102,.14);color:var(--value)} .tag.info{background:rgba(92,196,224,.14);color:var(--info)} .tag.rec{background:rgba(183,148,246,.14);color:var(--rec)}
+  /* 체크 */
+  .check{display:grid;gap:8px}
+  .ci{display:flex;gap:10px;font-size:13.5px;background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:9px 13px}
+  .ci .mk{color:var(--growth);font-weight:900;flex:0 0 auto}
+  .ci b{color:var(--ink)}
+  .callout{margin-top:16px;background:rgba(183,148,246,.08);border:1px solid rgba(183,148,246,.3);border-radius:11px;padding:14px 16px;font-size:14px}
+  .callout b{color:var(--rec)}
+  footer{padding:26px 0 50px;color:var(--mut);font-size:12.5px}
+  code{background:var(--card2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px;color:var(--info)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">풀링 신규 주제 · 제목 8단계 + 썸네일 6단계 · 35자 완성</div>
+    <h1>"책 읽어도 <b>돈 못 버는</b>" — 제목 3안 · 썸네일 문구 5안</h1>
+    <p class="sub">통념을 뒤집는 <b>부정형·반의어</b> 후크(=뷰트랩 검증상 긍정형보다 검색량↑)를 축으로,
+      <b>결 ② 읽어도 효과 없던 사람</b>을 정조준하고 본편 끝에서 <b>"제대로 읽는 법·도구"</b>로 풀어
+      1차 판매(이북리더기)·readtree 종착지에 자연스럽게 잇는다.</p>
+    <div class="meta">
+      <span class="chip val">풀링 · 신규 주제</span>
+      <span class="chip info">결 ② 읽고 있는 / ③ 더 읽으려는</span>
+      <span class="chip grow">8축: 자기개발 · 책 읽는 방법</span>
+      <span class="chip pain">35자 메인 + 100자 SEO</span>
+      <span class="chip rec">종착지: 이북리더기 · readtree</span>
+      <span class="chip">기획 2026-06-09</span>
+    </div>
+  </div>
+</header>
+
+<!-- 0. 진단 -->
+<section><div class="wrap">
+  <div class="kicker">왜 이 주제가 채널에 맞는가</div>
+  <h2><span class="num">0.</span> 주제 진단 — 6줄</h2>
+  <p class="lead">제목·썸네일을 뽑기 전에, 이 주제가 채널 룰북 어디에 닿는지부터 못 박는다.</p>
+  <div class="diag">
+    <div class="di"><div class="n">01</div><div><b>부정형·반의어 전략의 교과서.</b> "돈 못 버는 / 거짓말 / 안 된다"는 5주차 ③-2 그대로 — 뷰트랩에서 <span class="hl">부정형이 긍정형보다 검색량이 큰</span> 패턴(살 안 빠진다 > 빠진다). 사용자 원안 3개가 모두 이 결을 정확히 탔다.</div></div>
+    <div class="di"><div class="n">02</div><div><b>결 ② "읽어도 효과 없던 사람" 정조준</b>(6주차 §4.1 확장 결). "많이 읽는데 안 바뀐다"는 가장 큰 미충족 욕구 — 공감 0.5초.</div></div>
+    <div class="di"><div class="n">03</div><div><b>8축 = 자기개발(주) + 책 읽는 방법.</b> "왜 못 버나"의 답이 결국 <span class="hl">"무엇을·어떻게 읽나의 차이"</span>라 자연히 방법론으로 넘어간다.</div></div>
+    <div class="di"><div class="n">04</div><div><b>수익화 종착지가 깨끗하다.</b> "독서량이 아니라 읽는 법·환경이 문제" → 제대로 읽게 해주는 <span class="hl">도구(이북리더기)·기록 시스템(readtree)</span>로 본편 마무리가 매끄럽다.</div></div>
+    <div class="di"><div class="n">05</div><div><b>진정성 경보 1개.</b> "거짓말·충격"으로 과열되면 <code>썸네일지침 §5.1</code> 위협·낚시 라인 침범. → 안전안은 <span class="hl">"진실·함정·절반만 맞다"</span> 면죄부 톤, "거짓말"은 도전 A/B로만.</div></div>
+    <div class="di"><div class="n">06</div><div><b>좋아하는 책 진정성 유지.</b> 책을 깎아내리는 게 아니라 <span class="hl">"책은 맞는데 읽는 방식이 문제"</span> — 책 편에 서서 통념만 교정한다(3기둥 ②).</div></div>
+  </div>
+</div></section>
+
+<!-- 1. 제목 3안 -->
+<section><div class="wrap">
+  <div class="kicker">제목 디벨롭 8단계 적용 · 안전 1 + 도전 2</div>
+  <h2><span class="num">1.</span> 제목 3안 — 메인 35자 + 검색 키워드 100자</h2>
+  <p class="lead">메인 메시지는 35자 이내(유튜브에서 안 잘림), 그 뒤는 SEO 키워드로 100자까지 보강. 각 안에 적용한 8단계를 표기.</p>
+
+  <!-- 안전안 -->
+  <div class="tcase safe">
+    <div class="tlab">① 안전안 · 공감 + 답 숨김</div>
+    <div class="ttitle">책 <span class="y">1,000권</span> 읽어도 <span class="r">통장은 그대로</span>인 진짜 이유<span class="cnt">메인 27자 ✓</span></div>
+    <div class="steps">
+      <span class="stp"><b>②</b> 수익화→돈/통장</span>
+      <span class="stp"><b>③-2</b> 부정형 "그대로"</span>
+      <span class="stp"><b>④</b> 수식어 "진짜"</span>
+      <span class="stp"><b>⑤</b> 답 숨김 "이유"</span>
+      <span class="stp">결 ② 호명 "1,000권 읽어도"</span>
+    </div>
+    <div class="why"><em>왜 강한가</em> — 제거 테스트: '1,000권'을 빼면 후킹이 죽고, '통장'을 빼면 모호해짐 → 숫자와 결과를 남기고 <b>'이유'만 감춰</b> 물음표를 띄운다. 우월감 없이 "나도 그럴 수 있다"는 공감.</div>
+    <div class="seo"><b>SEO 100자 완성안:</b> 책 1,000권 읽어도 통장은 그대로인 진짜 이유 | 독서로 돈 버는 법, 책 많이 읽어도 가난한 이유, 자기계발 독서법, 부자 되는 독서습관, 책 읽기 효과 없는 이유</div>
+  </div>
+
+  <!-- 도전안 A -->
+  <div class="tcase boldA">
+    <div class="tlab">② 도전안 A · 통념 반박(거짓말 계열)</div>
+    <div class="ttitle">'책 읽으면 부자 된다'는 말의 <span class="y">불편한 진실</span><span class="cnt">메인 24자 ✓</span></div>
+    <div class="steps">
+      <span class="stp"><b>③-2</b> 통념 반박</span>
+      <span class="stp"><b>④</b> 수식어 "불편한"</span>
+      <span class="stp"><b>⑤</b> 답 숨김 "진실"</span>
+      <span class="stp">8축 자기개발·읽는 이유</span>
+    </div>
+    <div class="why"><em>왜 강한가</em> — 사용자 원안 "거짓말"을 <b>진정성 톤("불편한 진실")</b>으로 착지. 단정·낚시(§5.1)를 피하면서 통념 반박의 클릭력은 유지.</div>
+    <div class="alt"><b>A/B 강버전(자극 강, 진정성 주의):</b> 「'책 읽으면 부자 된다'는 거짓말」 — 사용자 원안 그대로. CTR은 높을 수 있으나 채널 면죄부 톤과 충돌 → <b>2주차 데이터 비교용으로만</b> 운영.</div>
+    <div class="seo"><b>SEO 100자 완성안:</b> '책 읽으면 부자 된다'는 말의 불편한 진실 | 독서 부자 거짓말, 책 읽으면 성공한다, 독서와 돈, 자기계발의 함정, 책 읽기 현실, 부자들의 독서</div>
+  </div>
+
+  <!-- 도전안 B -->
+  <div class="tcase boldB">
+    <div class="tlab">③ 도전안 B · 비교(똑같이 읽는데)</div>
+    <div class="ttitle">똑같이 읽는데, <span class="g">왜 누구만</span> 돈을 벌까<span class="cnt">메인 20자 ✓</span></div>
+    <div class="steps">
+      <span class="stp"><b>③-2</b> 대비 "똑같이 ↔ 누구만"</span>
+      <span class="stp"><b>⑤</b> 질문형·답 숨김</span>
+      <span class="stp">8축 책 읽는 방법</span>
+      <span class="stp">결 ② ③</span>
+    </div>
+    <div class="why"><em>왜 강한가</em> — "투입은 같은데 결과가 갈린다"는 가장 강한 호기심 트리거. 답(=읽는 법·도구의 차이)을 숨겨 본편으로 끌고, 종착지(도구)와도 직결.</div>
+    <div class="seo"><b>SEO 100자 완성안:</b> 똑같이 읽는데 왜 누구만 돈을 벌까 | 부자들의 독서법, 책 제대로 읽는 법, 독서법 차이, 돈 버는 독서, 자기계발 독서 습관, 성공하는 사람 책 읽기</div>
+  </div>
+</div></section>
+
+<!-- 2. 썸네일 문구 5안 -->
+<section><div class="wrap">
+  <div class="kicker">썸네일 헤드 7~10자(한 줄)/12~16자(두 줄) · 색토큰 4개 · 숫자 대비</div>
+  <h2><span class="num">2.</span> 썸네일 문구 5안 — 색·숫자·결·이미지 방향</h2>
+  <p class="lead">제목 35자의 축약·변주. 빨강 <code>--pain</code>(문제·0)·노랑 <code>--value</code>(숫자·강조)·초록 <code>--growth</code>(변화·해법)·보라 <code>--rec</code>(종착지)로 분리. 이미지 강화 6단계 방향 동봉.</p>
+
+  <div class="grid2">
+    <!-- 1 -->
+    <div class="tn">
+      <div class="mock">
+        <span class="big r">0원</span>
+        <div class="head"><span class="w">1,000권</span> 읽어도<br><span class="r">통장은 0원</span></div>
+      </div>
+      <div class="body">
+        <div class="lab">썸네일 1 · 숫자 대비형(가장 강력)</div>
+        <div class="ln"><b>헤드:</b> "1,000권 읽어도" / "통장은 0원"</div>
+        <div class="ln"><b>색·숫자:</b> 1,000권 흰색, 0원 빨강(--pain) — <code>0/N</code> 대비</div>
+        <div>
+          <span class="tag pain">결 ② 호명</span><span class="tag val">자기개발</span><span class="tag info">제목 1 매핑</span>
+        </div>
+        <div class="ln" style="margin-top:7px"><b>이미지(6단계):</b> ①확대 — 쌓인 책탑 위 텅 빈 지갑/통장 클로즈업, 왼쪽 위 배치(④공감).</div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="tn">
+      <div class="mock">
+        <div class="head"><span class="w">많이 읽는데</span><br><span class="y">왜 안 바뀌지?</span></div>
+      </div>
+      <div class="body">
+        <div class="lab">썸네일 2 · 공감·면죄부형</div>
+        <div class="ln"><b>헤드:</b> "많이 읽는데" / "왜 안 바뀌지?"</div>
+        <div class="ln"><b>색:</b> 흰색 + 질문 노랑(--value)</div>
+        <div>
+          <span class="tag grow">결 ② 공감</span><span class="tag val">자기개발</span><span class="tag info">제목 1·3 매핑</span>
+        </div>
+        <div class="ln" style="margin-top:7px"><b>이미지(6단계):</b> ④공감 — 책 앞에서 갸웃하는 뒷모습/페이스리스. 예쁨 X, 겪는 상황 그대로.</div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="tn">
+      <div class="mock">
+        <div class="head"><span class="w">'독서 = 부자'</span><br><span class="r">절반은 거짓</span></div>
+      </div>
+      <div class="body">
+        <div class="lab">썸네일 3 · 통념 반박형(도전)</div>
+        <div class="ln"><b>헤드:</b> "'독서 = 부자'" / "절반은 거짓"</div>
+        <div class="ln"><b>색:</b> 등식 흰색, "거짓" 빨강(--pain)</div>
+        <div>
+          <span class="tag pain">통념 반박</span><span class="tag val">읽는 이유</span><span class="tag info">제목 2 매핑</span>
+        </div>
+        <div class="ln" style="margin-top:7px"><b>이미지(6단계):</b> ②증명 — '=' 기호에 빨간 취소선. "절반"이라 단정(거짓말) 피함.</div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="tn">
+      <div class="mock">
+        <span class="big g">100</span>
+        <div class="head"><span class="w">같은 100권</span><br><span class="g">다른 통장</span></div>
+      </div>
+      <div class="body">
+        <div class="lab">썸네일 4 · 비교 대비형</div>
+        <div class="ln"><b>헤드:</b> "같은 100권" / "다른 통장"</div>
+        <div class="ln"><b>색:</b> 100권 흰색, 결과 초록(--growth) — <code>비교형</code></div>
+        <div>
+          <span class="tag grow">결 ② ③</span><span class="tag val">책 읽는 방법</span><span class="tag info">제목 3 매핑</span>
+        </div>
+        <div class="ln" style="margin-top:7px"><b>이미지(6단계):</b> ③궁금증 — 좌/우 두 사람, 책은 같고 결과만 대비. 차이(=방법)는 가림.</div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="tn">
+      <div class="mock">
+        <div class="head"><span class="w">문제는</span> <span class="y">독서량이</span><br><span class="g">아니었다</span></div>
+      </div>
+      <div class="body">
+        <div class="lab">썸네일 5 · 전환형(답 숨김→종착지)</div>
+        <div class="ln"><b>헤드:</b> "문제는 독서량이" / "아니었다"</div>
+        <div class="ln"><b>색:</b> 문제 노랑, 반전 초록(--growth)</div>
+        <div>
+          <span class="tag rec">종착지 암시</span><span class="tag val">책 읽는 방법</span><span class="tag info">제목 1·2·3 공통</span>
+        </div>
+        <div class="ln" style="margin-top:7px"><b>이미지(6단계):</b> ③궁금증 — "그럼 뭐가 문제?" 본편의 읽는 법·도구(이북리더기·readtree)로 연결.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout"><b>운영 룰(6주차):</b> 썸네일은 <b>3개 제작 → 업로드 후 1주일 내 교체 테스트</b>. A/B는 다른 톤끼리 — <b>썸네일 1(숫자 대비)</b> vs <b>썸네일 2(공감 질문)</b>로 짝지어 "숫자가 부르나 공감이 부르나"를 측정. 시그니처 라인은 한 썸네일에 1개만.</div>
+</div></section>
+
+<!-- 3. 검증 -->
+<section><div class="wrap">
+  <div class="kicker">마감 전 검증 · 룰북 통과</div>
+  <h2><span class="num">3.</span> 체크리스트 통과 결과</h2>
+  <div class="check">
+    <div class="ci"><span class="mk">✓</span><div><b>35자 룰</b> — 제목 3안 모두 메인 메시지 22·21·17자로 35자 이내. 뒤는 검색 키워드로 100자 보강 완료.</div></div>
+    <div class="ci"><span class="mk">✓</span><div><b>⑤ 답 숨김(질문형)</b> — 세 제목 모두 '이유·진실·왜'로 결론을 감춰 제목=내용 위반 없음.</div></div>
+    <div class="ci"><span class="mk">✓</span><div><b>금지문구(§5.1·5.2)</b> — 충격·경악·망한다·당신만·100배·꿀팁 0건. "0원·100권·1,000권"은 검증 가능한 절대값. "거짓말"은 도전 A/B로 격리.</div></div>
+    <div class="ci"><span class="mk">✓</span><div><b>결 호명 + 8축</b> — 결 ②(읽어도 효과 없던 사람) 1회 이상 호명, 8축 자기개발·책 읽는 방법 자연 노출.</div></div>
+    <div class="ci"><span class="mk">✓</span><div><b>정체성 카드(2개 이상)</b> — ② 결 3그룹 · ③ 8축 · ④ 이북리더기/readtree 종착지 모두 닿음(3개).</div></div>
+    <div class="ci"><span class="mk">✓</span><div><b>수미상관</b> — 후크가 던진 "왜 못 버나"는 본편 마무리에서 "읽는 법·도구의 차이"로 회수해야 클릭베이트 아님(본편 설계 시 필수).</div></div>
+  </div>
+
+  <div class="callout"><b>다음 단계:</b> ⑧ 강력 단어("작살난다" 류)는 <b>데이터 누적 후 사후에만</b> — 지금은 보류. ③-1·③-2·⑥은 <b>뷰트랩 실데이터</b>로 "돈 못 버는 / 가난한 / 부자 되는 / 통장" 검색량을 비교해 최종 단어를 확정(코워크 절차: <code>뷰트랩_주제발굴_디벨롭_가이드.md</code>). 제목 확정 후 본편 도입부는 썸네일보다 강하게(8점이면 9점).</div>
+</div></section>
+
+<footer><div class="wrap">
+  근거: <code>5-1강 제목 디벨롭 8단계</code> · <code>6-1강 썸네일 이미지 강화 6단계</code> · <code>30초_후크_룰_체크리스트.md</code> · <code>썸네일지침/03_훅_문구뱅크.md</code> · <code>대본기획_기준.md §8.6</code> ·
+  채널 "그럼에도 불구하고" / 풀링 신규 주제 · 2026-06-09 기획
+</div></footer>
+</body>
+</html>

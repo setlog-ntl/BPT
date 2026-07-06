@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — AI가 대처못하는 능력 / 인공지능이 몸을 가진다면? 정재승 'AI 시대 대비법' (MBC충북)</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:24px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--ok)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .b-bad>i{background:linear-gradient(90deg,#f87171,#dc2626)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}.na-i{color:var(--na);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:20px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · AI가 대처못하는 능력</p>
+    <h1>"인공지능이 몸을 가진다면?!" 정재승 교수가 말하는 'AI 시대 대비법'</h1>
+    <p class="sub">MC가 "2022년 말 ChatGPT 출시로 생성형 AI가 창작의 영역까지 침투했다"며 "나는 인공지능 시대에 살아남을 수 있을까, 예상 못 할 미래에 어떻게 대비할까"라는 질문으로 판을 깔고, 뇌과학자 정재승 교수(『과학 콘서트』 저자)를 강연자로 소개하는 공개 강연(과학 콘서트)형.</p>
+    <div class="chips"><span class="chip">키워드 · AI가 대처못하는 능력</span><span class="chip">채널 · 안녕!MBC충북 (16.3만)</span><span class="chip">길이 · 1:01:56</span><span class="chip">조회 · 3.4만</span><span class="chip">썸끝 · 정답=좋음 ✅</span><span class="chip">분석일 · 2026-06-17</span><span class="chip"><a href="https://www.youtube.com/watch?v=e-2UmgeTclg">▶ 원본 영상</a></span></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:64"><div class="num"><b>64</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">B</span></h3><p>유형: &lt;b&gt;MC 인트로(생성형 AI 침투·생존 질문) + 강연자(정재승) 소개&lt;/b&gt; · 결 경계(저자·과학·인간) · 후크 핵심: "나는 AI 시대에 살아남을까"</p></div></div>
+      <div class="grid">
+<div class="card"><div class="lab">후크 유형</div><div class="val">MC 인트로(질문) + 강연자 소개</div></div><div class="card"><div class="lab">첫 발화</div><div class="val">"나는 인공지능 시대에서 살아남을 수 있을까?"</div></div><div class="card"><div class="lab">시각적 텐션</div><div class="val">✅ 강연 콘서트 무대 + MC</div></div><div class="card"><div class="lab">우리 채널 적합도</div><div class="val">🟡 경계 — 저자(과학 콘서트)·과학·인간</div></div>
+      </div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div>
+      <div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:70%"></i></span><span class="pts">14/20</span></div>
+      <div class="srow"><span class="nm">8축 키워드 1개+</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div>
+      <div class="srow"><span class="nm">결론 먼저</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div>
+      <div class="srow"><span class="nm">시각적 텐션</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:70%"></i></span><span class="pts">14/20</span></div>
+
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 &lt;b&gt;64/100 (B)&lt;/b&gt; · 근거: MC가 생성형 AI의 창작 침투를 짚고 "나는 살아남을까"라는 질문으로 공감을 만든 뒤 강연자(정재승)를 소개 — 방송 강연 포맷상 도입이 천천히 전개되어 결론 먼저·약속은 약한 편.</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① MC 인트로 — 생성형 AI가 창작까지 침투</span><span class="arrow">→</span><span class="step ">② 질문 — "나는 AI 시대에 살아남을까"</span><span class="arrow">→</span><span class="step turn">③ 강연자 소개 — 뇌과학자 정재승</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:06–0:32</span></td><td>"공감충전 과학 콘서트 진행 최다원입니다. 2022년 말 ChatGPT 출시로 생성형 AI 시대가 열렸고, AI가 창작의 영역까지 침투했습니다"</td><td><span class="na-i">◻</span> 캡처 대기 (보완 예정)</td><td>캡처 대기</td></tr>
+        <tr><td><span class="tt">0:32–1:05</span></td><td>"스마트폰·SNS처럼 AI가 사회 전반의 구심점이 되며 고민·도전도 커진다. '넥스트 AI 모델은? 나는 AI 시대에 살아남을까?' 어떻게 대비할지 고민하는 시간"</td><td><span class="na-i">◻</span> 캡처 대기 (보완 예정)</td><td>캡처 대기</td></tr>
+        <tr><td><span class="tt">1:05–1:35</span></td><td>"오늘 강연을 이끌어 주실 뇌과학자 정재승 교수입니다. — KAIST 뇌인지과학과 정재승입니다. '과학 콘서트'를 쓴 저자로서 영광"</td><td><span class="na-i">◻</span> 캡처 대기 (보완 예정)</td><td>캡처 대기</td></tr>
+
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=<b>스크립트 패널 실제 대본</b>(자동자막). 영상 프레임은 환경 제약으로 자동 캡처 불가 → ◻(보완 예정), <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a> 참조.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (그럼에도 불구하고)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight"><li>MC가 '생성형 AI의 창작 침투'를 짚어 위기감을 만든 뒤 "나는 살아남을까" 질문으로 공감</li><li>유명 저자·강연자(정재승, 『과학 콘서트』)를 내세워 신뢰 확보</li><li>'예상 못 할 미래에 어떻게 대비할까'라는 큰 질문으로 강연 기대감 형성</li></ul></div>
+      <div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight"><li>AI가 창작까지 한다면, 인간은? — 책이 답하는 대비법</li><li>정재승이 말하는 'AI 시대 살아남는 힘' (사고·독서)</li></ul></div></div></section>
+    <section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="ok-i">Y</span></td><td>정재승 『과학 콘서트』 저자</td></tr>
+        <tr><td>② 결 3그룹</td><td><span class="na-i">△</span></td><td>인간 역할·과학·사고는 인접</td></tr>
+        <tr><td>③ 8축</td><td><span class="na-i">△</span></td><td>AI·과학</td></tr>
+        <tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>무관</td></tr>
+
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">경계(2축 부근). 유명 저자 강연이라 사고력 결과 접점. 도입 후크는 다소 느려 'MC 질문 프레임'만 차용.</p></section>
+    <section><div class="note"><h3>⚙️ 대본·캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>✔ 실제 대본 확보</b> — 스크립트 패널에서 도입부(0:06~1:35) 추출(1174세그먼트 중 발췌). 영상 프레임은 환경 제약(백그라운드 탭 디코드 스로틀)으로 자동 캡처 불가 → ◻(보완 예정). <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a>의 &t= 링크로 보완.</p></div></section>
+  </div>
+
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="script-head"><span class="hint">유튜브 스크립트 패널 원문을 내용 최대 유지·오타/비문만 보정 → 맥락 단위 구분 → 구분별 대본 / 화면 / 자막</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+        <div class="unit">
+          <div class="uhd"><span class="time">0:06–0:32</span><span class="utag">① MC 인트로 — 생성형 AI 창작 침투</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">안녕하세요. 공감충전 과학 콘서트 진행을 맡은 최다원입니다. 2022년 말 오픈AI의 거대 언어 모델을 탑재한 ChatGPT가 출시되면서 인류는 일대 변혁을 맞이했습니다. 생성형 AI 시대가 열린 건데요. 이 생성형 AI는 데이터를 바탕으로 예측·분류하는 머신러닝 수준을 넘어 스스로 결과물을 생성하는 '창작'의 영역까지 침투했습니다.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">(추정) 강연 콘서트 무대 + MC 자막("MC 최다원") — 캡처 대기 (보완 예정)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">캡처 대기</span></div>
+        </div>
+        <div class="unit">
+          <div class="uhd"><span class="time">0:32–1:05</span><span class="utag">② "나는 살아남을까" 질문</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">2000년대 스마트폰, 2010년대 SNS의 발달이 그러했듯, AI는 이미 우리 사회 전반에 새로운 변화와 기회를 제공하는 구심점 역할을 하고 있는데요. 그만큼 우리 인류의 고민과 도전 역시 커지고 있는 거죠. '넥스트 AI 모델은 무엇일까? 나는 인공지능 시대에서 살아남을 수 있을까?' 예상하지 못할 미래에 우리는 어떻게 대비해야 하는지 고민해 보는 시간을 가져보겠습니다.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">캡처 대기 (보완 예정)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">캡처 대기</span></div>
+        </div>
+        <div class="unit">
+          <div class="uhd"><span class="time">1:05–1:35</span><span class="utag">③ 강연자 소개 — 정재승</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">이 공감충전 과학 콘서트, 오늘 강연을 이끌어 주실 분입니다. 뇌과학자 정재승 교수입니다. … 안녕하세요. KAIST 뇌인지과학과 정재승입니다. 무엇보다 이 프로그램의 제목이 '공감충전 과학 콘서트'인데, 그 『과학 콘서트』를 쓴 저자로서 굉장히 영광스럽게 생각하고, 이런 프로그램을 만들어 주셔서 진심으로 감사드립니다.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">캡처 대기 (보완 예정)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">캡처 대기</span></div>
+        </div>
+
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 대본은 유튜브 <b>스크립트 표시 패널 원문</b>에서 오타·비문만 최소 보정. 원문 그대로는 <b>📜 원문</b> 탭.</p>
+    </section>
+  </div>
+
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 유튜브 스크립트 패널 그대로</h2>
+      <div class="script-head"><span class="hint">YouTube '스크립트 표시' 패널 원문(자동자막, 오탈자 포함) — 손대지 않고 보존</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:06</span><span>안녕하세요. 공감충전 과학 콘서트 진행을 맡은 최다원입니다.</span></li>
+        <li><span class="tt">0:12</span><span>2022년 말이 오픈 AI의 거대 언어 모델을 탑재한 채 GPT가</span></li>
+        <li><span class="tt">0:17</span><span>출시되면서 인류는 일대 변역을 맞이했습니다.이 생성형 AI 시대가</span></li>
+        <li><span class="tt">0:22</span><span>열린 건데요.이 생성형 AI는 데이터를 바탕으로 예측하거나 분류하는</span></li>
+        <li><span class="tt">0:27</span><span>짐러닝 수준을 넘어서이 스스로 결과물을 생성하는 창작의 영역까지</span></li>
+        <li><span class="tt">0:32</span><span>침투했습니다. 2000년대 스마트폰, 2010년대 SNS의 발달이 그러했듯이이 인공지능</span></li>
+        <li><span class="tt">0:40</span><span>AI는 이미 우리 사회 전반에 새로운 변화와 기회를 제공하는 구심점 역할을</span></li>
+        <li><span class="tt">0:46</span><span>하고 있는데요.이 그만큼 우리 인류의 고민과 도전 역시 커지고 있는 거죠.</span></li>
+        <li><span class="tt">0:51</span><span>넥스트 AI 모델은 무엇일까? 나는 인공지능 시대에서 살아남을 수 있을까? 인공지능 시대. 우리는 과연</span></li>
+        <li><span class="tt">0:59</span><span>예상하지 못할 미래에 어떻게 대비해야 하는지 고민해 보는 시간 가져보겠습니다.이</span></li>
+        <li><span class="tt">1:05</span><span>공감충전 과학 콘서트 오늘 강연을 이끌어 주실 분입니다. 뇌과학자</span></li>
+        <li><span class="tt">1:11</span><span>정재승 교수입니다.</span></li>
+        <li><span class="tt">1:20</span><span>안녕하세요. 카리스트 뇌인지 과학과 정재승입니다. 무엇보다도이 프로그램의</span></li>
+        <li><span class="tt">1:25</span><span>제목이 공감충전 과학 콘서트인데 그 과학 콘서트를 쓴 저자로서 굉장히</span></li>
+        <li><span class="tt">1:31</span><span>영광스럽게 생각하고또 이런 프로그램을 만들어 주셔서 또 진심으로 감사드립니다. 어 우리 모두는 지금</span></li>
+
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">출처: YouTube 스크립트 패널(자동자막). 전체 1174세그먼트 중 도입부(0:06~1:35) 발췌.</p>
+    </section>
+  </div>
+
+  <footer>키워드 기획 분석 · 2026-06-16 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../도입부분석_통합지침_(코워크용).md">통합지침</a><br>출처: <a href="https://www.youtube.com/watch?v=e-2UmgeTclg">YouTube — 안녕!MBC충북</a> · 썸끝 정답=좋음 · 내부 기획·학습용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='\u2713 \ubcf5\uc0ac\ub428';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

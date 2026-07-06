@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>독서습관 키워드 대시보드 - 뷰트랩</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  body { font-family: -apple-system, 'Segoe UI', 'Malgun Gothic', sans-serif; }
+  .grade-Good { background: #dcfce7; color: #166534; }
+  .grade-Great { background: #bbf7d0; color: #14532d; font-weight: 600; }
+  .grade-Normal { background: #e5e7eb; color: #374151; }
+  .grade-Bad { background: #fed7aa; color: #9a3412; }
+  .grade-Worst { background: #fecaca; color: #991b1b; }
+  .thumb { width: 96px; height: 54px; object-fit: cover; border-radius: 4px; background: #f3f4f6; }
+  .truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .toggle-btn.active { background: #10b981; color: white; }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<header class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
+  <div class="max-w-7xl mx-auto px-6 py-6">
+    <h1 class="text-2xl font-bold">독서습관 키워드 대시보드</h1>
+    <p class="text-emerald-50 mt-1 text-sm">키워드별 누적 데이터 · 메인 키워드: 독서습관 · 출처: 썸끝 · 마지막 빌드: 2026-05-25</p>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+  <section>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white rounded-xl p-4 shadow-sm"><div class="text-xs text-slate-500">추적 키워드</div><div class="text-2xl font-bold mt-1" id="stat-keywords">-</div></div>
+      <div class="bg-white rounded-xl p-4 shadow-sm"><div class="text-xs text-slate-500">총 캡처 횟수</div><div class="text-2xl font-bold mt-1" id="stat-captures">-</div></div>
+      <div class="bg-white rounded-xl p-4 shadow-sm"><div class="text-xs text-slate-500">누적 영상 수(최신)</div><div class="text-2xl font-bold mt-1" id="stat-videos">-</div></div>
+      <div class="bg-white rounded-xl p-4 shadow-sm"><div class="text-xs text-slate-500">누적 조회수(최신)</div><div class="text-2xl font-bold mt-1" id="stat-views">-</div></div>
+    </div>
+  </section>
+
+  <section class="bg-white rounded-xl shadow-sm p-6">
+    <div class="flex items-baseline justify-between mb-4">
+      <h2 class="text-lg font-bold">단어별 비교</h2>
+      <select id="compare-metric" class="border rounded-lg px-3 py-1.5 text-sm">
+        <option value="views_sum">조회수 합계 (기본)</option>
+        <option value="total_videos">총 영상 수</option>
+        <option value="views_avg">조회수 평균</option>
+        <option value="views_median">조회수 중앙값</option>
+        <option value="views_max">조회수 최대값</option>
+        <option value="filter_passed">필터 통과 영상 수</option>
+      </select>
+    </div>
+    <canvas id="compare-chart" height="80"></canvas>
+    <div class="overflow-x-auto mt-6">
+      <table class="min-w-full text-sm">
+        <thead class="bg-slate-100 text-slate-600"><tr>
+          <th class="px-3 py-2 text-left">키워드</th>
+          <th class="px-3 py-2 text-right">총 영상</th>
+          <th class="px-3 py-2 text-right">조회수 합계</th>
+          <th class="px-3 py-2 text-right">조회수 평균</th>
+          <th class="px-3 py-2 text-right">조회수 중앙값</th>
+          <th class="px-3 py-2 text-right">조회수 최대</th>
+          <th class="px-3 py-2 text-right">필터 통과</th>
+          <th class="px-3 py-2 text-right">통과율</th>
+        </tr></thead>
+        <tbody id="compare-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="flex items-baseline justify-between mb-3">
+      <h2 class="text-lg font-bold">키워드 목록</h2>
+      <input id="kw-search" placeholder="키워드 검색..." class="border rounded-lg px-3 py-1.5 text-sm w-56">
+    </div>
+    <div id="keyword-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </section>
+
+  <section id="detail-section" class="hidden bg-white rounded-xl shadow-sm p-6">
+    <div class="flex items-baseline justify-between mb-4">
+      <h2 class="text-xl font-bold"><span id="detail-name">-</span> 상세</h2>
+      <button onclick="document.getElementById('detail-section').classList.add('hidden')" class="text-sm text-slate-500 hover:text-slate-800">닫기 ✕</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+        <div class="text-xs font-semibold text-emerald-800 mb-2">조회수 범위</div>
+        <div class="text-sm space-y-1">
+          <div>합계: <span class="font-bold" id="range-views-sum">-</span></div>
+          <div>평균값: <span class="font-bold" id="range-views-avg">-</span></div>
+          <div>중앙값: <span class="font-bold" id="range-views-median">-</span></div>
+          <div>최대값: <span class="font-bold text-rose-600" id="range-views-max">-</span></div>
+        </div>
+      </div>
+      <div class="bg-sky-50 border border-sky-200 rounded-lg p-4">
+        <div class="text-xs font-semibold text-sky-800 mb-2">영상 정보</div>
+        <div class="text-sm space-y-1">
+          <div>총 영상수: <span class="font-bold" id="range-videos">-</span></div>
+          <div>필터 통과: <span class="font-bold text-emerald-700" id="range-filter">-</span></div>
+          <div>통과율: <span class="font-bold" id="range-rate">-</span></div>
+        </div>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+        <div class="text-xs font-semibold text-amber-800 mb-2">검색 정보</div>
+        <div class="text-sm space-y-1">
+          <div>검색일: <span class="font-bold" id="range-date">-</span></div>
+          <div>키워드 분류: <span class="font-bold" id="range-cat">-</span></div>
+          <div>메모: <span class="font-bold text-slate-600" id="range-note">-</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3 mb-4">
+      <div class="flex border rounded-lg overflow-hidden text-sm">
+        <button id="mode-filtered" class="toggle-btn active px-3 py-1.5">필터 적용 (Good/Great)</button>
+        <button id="mode-all" class="toggle-btn px-3 py-1.5">전체 영상</button>
+      </div>
+      <input id="vid-search" placeholder="제목/채널 검색..." class="border rounded-lg px-3 py-1.5 text-sm flex-1">
+      <select id="sort-by" class="border rounded-lg px-3 py-1.5 text-sm">
+        <option value="views">조회수↓</option>
+        <option value="rank">순번순</option>
+        <option value="subscribers">구독자↓</option>
+      </select>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-sm">
+        <thead class="bg-slate-100 text-slate-600"><tr>
+          <th class="px-3 py-2 text-left">#</th>
+          <th class="px-3 py-2 text-left">제목</th>
+          <th class="px-3 py-2 text-right">조회수</th>
+          <th class="px-3 py-2 text-left">채널</th>
+          <th class="px-3 py-2 text-right">구독자</th>
+          <th class="px-3 py-2 text-center">기여도</th>
+          <th class="px-3 py-2 text-center">성과도</th>
+          <th class="px-3 py-2 text-right">게시일</th>
+        </tr></thead>
+        <tbody id="video-tbody"></tbody>
+      </table>
+    </div>
+    <div id="video-count" class="text-xs text-slate-500 mt-2"></div>
+  </section>
+
+  <section class="bg-white rounded-xl shadow-sm p-6">
+    <h2 class="text-lg font-bold mb-4">🎯 콘텐츠 기획 방향 (지침)</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+      <div class="bg-rose-50 border border-rose-200 rounded-lg p-4">
+        <div class="text-xs font-semibold text-rose-800 mb-2">[현상] 문제 인식</div>
+        <p class="text-sm text-slate-700">도파민으로 폰만 보는 상황<br>책읽는 습관과 환경 부재</p>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+        <div class="text-xs font-semibold text-amber-800 mb-2">[욕구] 시청자 욕구</div>
+        <p class="text-sm text-slate-700">도파민 중독에서 벗어나<br>좋은 독서습관 만들고 싶음</p>
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+        <div class="text-xs font-semibold text-emerald-800 mb-2">[계획] 솔루션</div>
+        <p class="text-sm text-slate-700">책읽는 환경과 습관을 위한<br>이북리더기 추천</p>
+      </div>
+    </div>
+
+    <h3 class="text-base font-bold mb-3 mt-6">📝 원고 드리블 (검증된 데이터 기반)</h3>
+    <div class="space-y-2">
+      <div class="flex items-start gap-3">
+        <div class="bg-rose-100 text-rose-700 font-bold text-xs px-2 py-1 rounded shrink-0">1</div>
+        <div class="flex-1 bg-rose-50 border border-rose-200 rounded-lg p-3">
+          <div class="font-semibold text-sm text-rose-800">도입부 - 도파민 디톡스 후킹</div>
+          <div class="text-sm text-slate-700 mt-1">"7일간 도파민 없이 살아봤더니..." <span class="text-xs text-emerald-600 font-semibold">← 836만 조회수 검증</span></div>
+        </div>
+      </div>
+      <div class="text-center text-slate-400 text-sm">↓</div>
+      <div class="flex items-start gap-3">
+        <div class="bg-amber-100 text-amber-700 font-bold text-xs px-2 py-1 rounded shrink-0">2</div>
+        <div class="flex-1 bg-amber-50 border border-amber-200 rounded-lg p-3">
+          <div class="font-semibold text-sm text-amber-800">문제 인식 - 시청자 공감</div>
+          <div class="text-sm text-slate-700 mt-1">"매일 폰만 보는 나, 책 한 권 끝까지 못 읽어요"</div>
+        </div>
+      </div>
+      <div class="text-center text-slate-400 text-sm">↓</div>
+      <div class="flex items-start gap-3">
+        <div class="bg-sky-100 text-sky-700 font-bold text-xs px-2 py-1 rounded shrink-0">3</div>
+        <div class="flex-1 bg-sky-50 border border-sky-200 rounded-lg p-3">
+          <div class="font-semibold text-sm text-sky-800">전환 - 핵심 솔루션</div>
+          <div class="text-sm text-slate-700 mt-1">"뇌과학으로 입증된 도파민 중독 이용한 독서 습관 만드는 법" <span class="text-xs text-emerald-600 font-semibold">← 190만 조회수 검증</span></div>
+        </div>
+      </div>
+      <div class="text-center text-slate-400 text-sm">↓</div>
+      <div class="flex items-start gap-3">
+        <div class="bg-emerald-100 text-emerald-700 font-bold text-xs px-2 py-1 rounded shrink-0">4</div>
+        <div class="flex-1 bg-emerald-50 border border-emerald-200 rounded-lg p-3">
+          <div class="font-semibold text-sm text-emerald-800">계획 - 제품 솔루션</div>
+          <div class="text-sm text-slate-700 mt-1">"이북리더기 + 독서 환경 + 책 추천"</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+    <h2 class="text-lg font-bold text-amber-900 mb-2">💡 검증된 후킹 워딩 (조회수 기준)</h2>
+    <p class="text-sm text-amber-800 mb-3">100만 조회수 이상 영상의 후킹 패턴을 카드별로 확인하고, 본인 영상 기획에 응용하세요.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="hook-list"></div>
+  </section>
+
+  <footer class="text-center text-xs text-slate-400 py-4">
+    데이터 출처: <a href="https://app.viewtrap.com/video-search" target="_blank" class="text-emerald-600 hover:underline">뷰트랩 (Viewtrap)</a> · 저장 폴더: C:\Dev\bizpt\뷰트랩 정리\단어\뷰트랩의 단어 조회수 찾기\독서습관_키워드_조회
+  </footer>
+</main>
+
+<script>
+const DATA = [
+  {
+    "name": "독서습관", "category": "핵심", "captures_count": 1, "first_capture": "2026-05-25", "last_capture": "2026-05-25",
+    "latest_total_videos": 191, "latest_views_sum": 14842000, "latest_views_avg": 77700, "latest_views_median": 26720, "latest_views_max": 2561484,
+    "filter_passed": 24, "note": "메인 키워드 · 최승필 독서교육전문가 콘텐츠 강세",
+    "videos_all": [
+      {rank:1,title:"절대 실패하지 않는 독서 습관 만들기ㅣ최승필 독서교육전문가, '공부머리 독서법' 저자ㅣ인생질문 39번",views:2561484,channel:"세바시 인생질문",subscribers:700000,contribution:"Good",performance:"Good",published_at:"21.12.21"},
+      {rank:2,title:"뇌과학으로 입증된 도파민 중독 이용한 독서 습관 만드는 법",views:1908165,channel:"콥튜브",subscribers:30900,contribution:"Good",performance:"Good",published_at:"23.11.14"},
+      {rank:3,title:"천재 남매 쇼 야노와 사유리 야노의 독서 습관 - 성공을 부르는 1급 비밀, 독서",views:1414697,channel:"KBS 다큐",subscribers:2750000,contribution:"Good",performance:"Normal",published_at:"21.01.28"},
+      {rank:4,title:"40년째 매일 책 읽고 알아낸 독서를 해야하는 이유 (최승필 독서교육전문가 1부)",views:1100332,channel:"데일리어썸",subscribers:273000,contribution:"Good",performance:"Good",published_at:"24.12.17"},
+      {rank:5,title:"책과 담쌓은 아이도 평생 책을 읽게 만드는 독서 습관 만드는 가장 쉬운 방법 (최승필 2부)",views:741264,channel:"데일리어썸",subscribers:273000,contribution:"Good",performance:"Good",published_at:"25.03.25"},
+      {rank:6,title:"[#유퀴즈온더블럭] 2025년에는 다독왕이 될 테야 독서의 중요성과 책 잘 읽는 법",views:980315,channel:"디글 :Diggle",subscribers:4280000,contribution:"Good",performance:"Worst",published_at:"25.01.19"},
+      {rank:7,title:"[아이스크림 홈런 2.0] 독서가 취미가 되는 습관_독서습관 챌린지 편",views:746052,channel:"아이스크림 홈런",subscribers:149000,contribution:"Good",performance:"Good",published_at:"22.11.23"},
+      {rank:8,title:"다독보다 중요한 건 정독! 독서에 숨겨진 속도의 비밀",views:638054,channel:"EBSDocumentary",subscribers:5380000,contribution:"Good",performance:"Worst",published_at:"24.10.14"},
+      {rank:9,title:"만화, 영상만 보는 우리 아이 독서 습관 어떻게 만들까 - '아홉살 독서 수업' 한미화 작가",views:461398,channel:"NOL 인터파크투어",subscribers:131000,contribution:"Good",performance:"Good",published_at:"19.09.27"},
+      {rank:10,title:"초등&중학생 자녀를 둔 부모님이 반드시 알아야 할 독서 교육법 (#나민애 서울대 교수)",views:201413,channel:"육퇴한밤",subscribers:128000,contribution:"Good",performance:"Good",published_at:"24.06.25"},
+      {rank:11,title:"독서 습관 가장 쉽고 빠르게 만드는 1가지 (feat. 과학적)",views:185951,channel:"독서연구소",subscribers:345000,contribution:"Good",performance:"Bad",published_at:"25.10.14"},
+      {rank:12,title:"📖 '이걸' 잘 활용하면 자녀의 독서습관 잡을 수 있습니다",views:221035,channel:"조작가의 스몰빅클래스",subscribers:242000,contribution:"Good",performance:"Normal",published_at:"21.01.27"},
+      {rank:13,title:"독서 습관은 딱 4가지만 있으면 무조건 생깁니다! (ft. 온라인 독서모임)",views:49360,channel:"읽고 쓰는 최숲",subscribers:30000,contribution:"Good",performance:"Normal",published_at:"24.08.27"},
+      {rank:14,title:"책 읽는게 제일 재밌는 사람의 하루 | 독서가 습관이 되는 방법 | 독서 브이로그",views:51109,channel:"next chapter",subscribers:5510,contribution:"Great",performance:"Great",published_at:"26.03.14"},
+      {rank:15,title:"뇌과학으로 밝혀낸 도파민 중독 이용한 독서 습관 만드는 법",views:64564,channel:"이게다뇌탓",subscribers:8740,contribution:"Good",performance:"Good",published_at:"25.11.04"}
+    ]
+  },
+  {
+    "name": "책읽는 습관", "category": "핵심", "captures_count": 1, "first_capture": "2026-05-25", "last_capture": "2026-05-25",
+    "latest_total_videos": 192, "latest_views_sum": 16830000, "latest_views_avg": 87600, "latest_views_median": 28272, "latest_views_max": 2561478,
+    "filter_passed": 26, "note": "동의 키워드 · 너진똑 콘텐츠 강세",
+    "videos_all": [
+      {rank:1,title:"절대 실패하지 않는 독서 습관 만들기 (세바시)",views:2561478,channel:"세바시 인생질문",subscribers:700000,contribution:"Good",performance:"Good",published_at:"21.12.21"},
+      {rank:2,title:"책을 읽어야 하는 '진짜' 이유",views:2411505,channel:"너진똑 NJT BOOK",subscribers:1560000,contribution:"Good",performance:"Good",published_at:"21.02.13"},
+      {rank:3,title:"뇌과학으로 입증된 도파민 중독 이용한 독서 습관 만드는 법",views:1908165,channel:"콥튜브",subscribers:30900,contribution:"Good",performance:"Good",published_at:"23.11.14"},
+      {rank:4,title:"아직도 책을 꼭 사서 읽는 이유? 유현준만의 독서 방법",views:1477477,channel:"셜록현준",subscribers:1440000,contribution:"Good",performance:"Good",published_at:"22.11.30"},
+      {rank:5,title:"40년째 매일 책 읽고 알아낸 독서를 해야하는 이유",views:1100332,channel:"데일리어썸",subscribers:273000,contribution:"Good",performance:"Good",published_at:"24.12.17"},
+      {rank:6,title:"(Kor, Jpn) 책읽는 아이를 위해 반드시 지켜야 할 독서교육의 5가지 원칙 (세바시 1204회)",views:1018422,channel:"세바시 강연",subscribers:2200000,contribution:"Good",performance:"Bad",published_at:"20.07.22"},
+      {rank:7,title:"[습관playlist] 매일 30분씩 책 읽을 때 듣기 좋은 음악",views:1049394,channel:"포엘스 4LS",subscribers:6980,contribution:"Good",performance:"Good",published_at:"21.08.21"},
+      {rank:8,title:"책과 담쌓은 아이도 평생 책을 읽게 만드는 독서 습관",views:741264,channel:"데일리어썸",subscribers:273000,contribution:"Good",performance:"Good",published_at:"25.03.25"},
+      {rank:9,title:"초등 · 중학 부모님 필수 영상! 책 읽는 아이로 키우는 독서 습관 교육법 (서울대 나민애 교수)",views:313919,channel:"스튜디오S",subscribers:148000,contribution:"Good",performance:"Good",published_at:"24.05.24"},
+      {rank:10,title:"700권 읽고 마침내 깨달은 '진짜' 책 읽고 기억하는 법",views:297994,channel:"다독독",subscribers:12400,contribution:"Good",performance:"Good",published_at:"25.07.09"},
+      {rank:11,title:"나를 변화시키는 좋은 습관 _책 읽는 다락방 J",views:260688,channel:"책읽는다락방 J",subscribers:253000,contribution:"Good",performance:"Normal",published_at:"21.05.28"},
+      {rank:12,title:"인생을 바꾸는 [아주 작은 습관의 힘] 오디오북 | 요약 | 자기계발 책 추천",views:171908,channel:"배나영의 Voice Plus+",subscribers:31100,contribution:"Good",performance:"Good",published_at:"24.12.12"},
+      {rank:13,title:"[육아] 상위 0.1% 영유아기 아이의 책 읽기 습관 만드는 부모의 노하우",views:122379,channel:"육아는아빠가",subscribers:13000,contribution:"Good",performance:"Good",published_at:"25.08.19"},
+      {rank:14,title:"같은 책을 10번 읽으면 벌어지는 놀라운 일이 생깁니다",views:149311,channel:"이기는 법",subscribers:29400,contribution:"Good",performance:"Good",published_at:"25.10.18"}
+    ]
+  },
+  {
+    "name": "도파민 중독", "category": "핵심", "captures_count": 1, "first_capture": "2026-05-25", "last_capture": "2026-05-25",
+    "latest_total_videos": 192, "latest_views_sum": 19850000, "latest_views_avg": 103400, "latest_views_median": 87641, "latest_views_max": 2458488,
+    "filter_passed": 30, "note": "문제 인식 · 키 콘텐츠 핵심 진입점",
+    "videos_all": [
+      {rank:1,title:"쾌락에 절여지면 '이렇게' 됨ㅣ도파민이 인간에게 미치는 영향",views:2458488,channel:"교양만두",subscribers:1160000,contribution:"Good",performance:"Good",published_at:"23.05.04"},
+      {rank:2,title:"도파민에 박살난 MZ의 뇌, 유일한 회복방법(몰입 황농문 교수)",views:1999790,channel:"라이프해커,자청",subscribers:438000,contribution:"Good",performance:"Good",published_at:"23.10.19"},
+      {rank:3,title:"뇌과학으로 입증된 도파민 중독 이용한 독서 습관 만드는 법",views:1908169,channel:"콥튜브",subscribers:30900,contribution:"Good",performance:"Good",published_at:"23.11.14"},
+      {rank:4,title:"쾌락에는 고통이라는 대가가 따른다.. 도파민 중독 탈출하는 4가지 방법 (애나 렘키)",views:1876751,channel:"인간개조 용광로",subscribers:176000,contribution:"Good",performance:"Good",published_at:"23.09.28"},
+      {rank:5,title:"정신 차려 보니 숏폼만 5시간 봤다? 도파민 중독 증세 (귀하신몸)",views:1851752,channel:"EBSDocumentary",subscribers:5380000,contribution:"Good",performance:"Bad",published_at:"24.11.14"},
+      {rank:6,title:"도파민에 중독된 뇌를 건강하게 되돌리는 법 (세바시)",views:1412756,channel:"세바시 인생질문",subscribers:700000,contribution:"Good",performance:"Good",published_at:"23.06.27"},
+      {rank:7,title:"[#유퀴즈] 도파민 팡팡! 터진다의 바로 그 도파민과 도박중독의 무시무시한 연관성",views:1323017,channel:"샾잉 #ing",subscribers:1590000,contribution:"Good",performance:"Normal",published_at:"24.03.17"},
+      {rank:8,title:"도파민 중독 l 집중력이 점점 떨어지는 우리, 뇌에 이상이 생기고 있는것은 아닐까?",views:1198926,channel:"효버드",subscribers:9000,contribution:"Good",performance:"Good",published_at:"23.07.15"},
+      {rank:9,title:"🧠 도파민 중독? 디톡스? 뇌과학자가 소개하는 뇌 해킹 방법 공개!",views:901046,channel:"조승연의 탐구생활",subscribers:1950000,contribution:"Good",performance:"Bad",published_at:"23.07.14"},
+      {rank:10,title:"숏폼 중독이 무서운 진짜 이유",views:729553,channel:"심리학 고양이",subscribers:0,contribution:"Good",performance:"Good",published_at:"26.02.12"},
+      {rank:11,title:"하루종일 유튜브 보느라 다른 일을 할 수 없는 나 - 도파민에 중독된 뇌는 퇴화된다고?",views:592517,channel:"EBS 컬렉션 - 사이언스",subscribers:1330000,contribution:"Good",performance:"Bad",published_at:"26.02.01"},
+      {rank:12,title:"먹어도 식사가 만족스럽지 못했던 이유 - 음식 중독에서 빠져 나오는 방법",views:585569,channel:"EBS 건강",subscribers:457000,contribution:"Good",performance:"Normal",published_at:"24.02.21"},
+      {rank:13,title:"내 삶이 더 나아지고 싶다면 고통을 선택해야한다? [고통의 과학]",views:610484,channel:"장동선의 궁금한 뇌",subscribers:723000,contribution:"Good",performance:"Normal",published_at:"23.08.07"},
+      {rank:14,title:"우리는 도파민에 대해 완전히 잘못 알고 있다? 그 오해와 진실",views:508955,channel:"EBS 컬렉션 - 사이언스",subscribers:1330000,contribution:"Good",performance:"Bad",published_at:"25.04.26"},
+      {rank:15,title:"내가 도파민 중독자? 일시적인 쾌감에 속지 마세요",views:466621,channel:"유 퀴즈 온 더 튜브",subscribers:1200000,contribution:"Good",performance:"Bad",published_at:"24.01.25"},
+      {rank:16,title:"[#유퀴즈온더블럭] 숏폼에 빠진 당신, 사실은 도파민 중독이 아닙니다",views:397832,channel:"샾잉 #ing",subscribers:1590000,contribution:"Good",performance:"Bad",published_at:"25.02.12"},
+      {rank:17,title:"평생 뇌가 굳지 않는 사람들의 비밀 - 도파민은 쾌락 호르몬이 아니다!",views:396168,channel:"EBSCulture",subscribers:2990000,contribution:"Great",performance:"Worst",published_at:"26.03.21"},
+      {rank:18,title:"숏폼에 빠지면 도파민 중독이라고? 사실이 아닙니다 (도박 중독 전문의)",views:439560,channel:"디글 클래식",subscribers:3350000,contribution:"Good",performance:"Worst",published_at:"24.01.25"}
+    ]
+  },
+  {
+    "name": "도파민 디톡스", "category": "핵심", "captures_count": 1, "first_capture": "2026-05-25", "last_capture": "2026-05-25",
+    "latest_total_videos": 175, "latest_views_sum": 35450000, "latest_views_avg": 202500, "latest_views_median": 56000, "latest_views_max": 8368530,
+    "filter_passed": 18, "note": "🚀 최강 후킹 - 836만 조회수 영상 보유",
+    "videos_all": [
+      {rank:1,title:"7일간 도파민 없이 살아보기",views:8368530,channel:"고재영",subscribers:1440000,contribution:"Normal",performance:"Good",published_at:"23.12.15"},
+      {rank:2,title:"한 남자의 도파민 중독 탈출기",views:7249109,channel:"The Play Button",subscribers:147000,contribution:"Good",performance:"Good",published_at:"23.10.30"},
+      {rank:3,title:"7일 동안 도파민 없이 살면 생기는 일",views:5377896,channel:"고재영",subscribers:1440000,contribution:"Normal",performance:"Good",published_at:"23.12.11"},
+      {rank:4,title:"도파민디톡스 불가구역 #한중커플 #일상브이로그",views:3345108,channel:"여단오",subscribers:464000,contribution:"Good",performance:"Good",published_at:"24.11.28"},
+      {rank:5,title:"쾌락에 절여지면 '이렇게' 됨ㅣ도파민이 인간에게 미치는 영향",views:2458504,channel:"교양만두",subscribers:1160000,contribution:"Good",performance:"Good",published_at:"23.05.04"},
+      {rank:6,title:"도파민에 박살난 MZ의 뇌, 유일한 회복방법(몰입 황농문 교수)",views:1999790,channel:"라이프해커,자청",subscribers:438000,contribution:"Good",performance:"Good",published_at:"23.10.19"},
+      {rank:7,title:"🧠 도파민 중독? 디톡스? 뇌과학자가 소개하는 뇌 해킹 방법 공개!",views:901046,channel:"조승연의 탐구생활",subscribers:1950000,contribution:"Good",performance:"Bad",published_at:"23.07.14"},
+      {rank:8,title:"일상 속 자극을 줄여보세요",views:614171,channel:"이연LEEYEON",subscribers:942000,contribution:"Good",performance:"Normal",published_at:"23.01.25"},
+      {rank:9,title:"내 삶이 더 나아지고 싶다면 고통을 선택해야한다? [고통의 과학]",views:610484,channel:"장동선의 궁금한 뇌",subscribers:723000,contribution:"Good",performance:"Normal",published_at:"23.08.07"},
+      {rank:10,title:"7일동안 도파민 디톡스 해보기 (성욕,야동 참기)",views:475570,channel:"황룡갑",subscribers:443000,contribution:"Normal",performance:"Normal",published_at:"24.03.10"},
+      {rank:11,title:"[#뿅뿅지구오락실3] 영지는 영석이형이 밉다… 도파민 중독자 영지씨의 눈물 나는 디지털 디톡스 도전기",views:437069,channel:"샾잉 #ing",subscribers:1590000,contribution:"Good",performance:"Bad",published_at:"25.09.28"},
+      {rank:12,title:"도파민에 중독된 뇌를 건강하게 되돌리는 법 (세바시)",views:1412756,channel:"세바시 인생질문",subscribers:700000,contribution:"Good",performance:"Good",published_at:"23.06.27"},
+      {rank:13,title:"도파민을 성공의 무기로 사용하는 법 | 도파민네이션 | 자기계발 | 동기부여",views:343915,channel:"북토크",subscribers:384000,contribution:"Good",performance:"Normal",published_at:"22.07.03"},
+      {rank:14,title:"심리학자, 뇌과학자들이 말하는 뇌를 깨우는 방법 - 도파민디톡스 6가지 비법",views:69663,channel:"마음대로 심리학",subscribers:30400,contribution:"Good",performance:"Good",published_at:"23.07.16"},
+      {rank:15,title:"도파민 디톡스의 엄청난 효과 | 스탠포드 신경과학 교수 - 앤드류 휴버맨",views:180102,channel:"슈퍼휴먼 프로젝트",subscribers:94600,contribution:"Good",performance:"Good",published_at:"23.04.10"},
+      {rank:16,title:"당신의 게으름을 없애는 법 - 도파민을 이용한 과학적 동기부여 (앤드류 휴버맨)",views:389755,channel:"슈퍼휴먼 프로젝트",subscribers:94600,contribution:"Good",performance:"Good",published_at:"23.06.04"}
+    ]
+  },
+  {
+    "name": "좋은 독서습관", "category": "핵심", "captures_count": 1, "first_capture": "2026-05-25", "last_capture": "2026-05-25",
+    "latest_total_videos": 145, "latest_views_sum": 13780000, "latest_views_avg": 95000, "latest_views_median": 43032, "latest_views_max": 2561484,
+    "filter_passed": 22, "note": "독서습관 변형 키워드",
+    "videos_all": [
+      {rank:1,title:"절대 실패하지 않는 독서 습관 만들기 (세바시)",views:2561484,channel:"세바시 인생질문",subscribers:700000,contribution:"Good",performance:"Good",published_at:"21.12.21"},
+      {rank:2,title:"책을 읽어야 하는 '진짜' 이유",views:2411518,channel:"너진똑 NJT BOOK",subscribers:1560000,contribution:"Good",performance:"Good",published_at:"21.02.13"},
+      {rank:3,title:"뇌과학으로 입증된 도파민 중독 이용한 독서 습관 만드는 법",views:1908186,channel:"콥튜브",subscribers:30900,contribution:"Good",performance:"Good",published_at:"23.11.14"},
+      {rank:4,title:"아직도 책을 꼭 사서 읽는 이유? 유현준만의 독서 방법",views:1477477,channel:"셜록현준",subscribers:1440000,contribution:"Good",performance:"Good",published_at:"22.11.30"},
+      {rank:5,title:"\"책 100권 읽을바엔 차라리...\" 서울대 강의에서만 가르치는 이것",views:1468570,channel:"지식인사이드",subscribers:3820000,contribution:"Good",performance:"Bad",published_at:"25.01.22"},
+      {rank:6,title:"천재 남매 쇼 야노와 사유리 야노의 독서 습관",views:1414698,channel:"KBS 다큐",subscribers:2750000,contribution:"Good",performance:"Normal",published_at:"21.01.28"},
+      {rank:7,title:"공개하지 말라는 요청, 그래도 공개하겠습니다. 부자들이 유독 독서를 열심히 하는 이유",views:1105599,channel:"지식인사이드",subscribers:3820000,contribution:"Normal",performance:"Bad",published_at:"23.08.08"},
+      {rank:8,title:"[#유퀴즈온더블럭] 2025년에는 다독왕이 될 테야",views:984292,channel:"디글 :Diggle",subscribers:4280000,contribution:"Good",performance:"Worst",published_at:"25.01.19"},
+      {rank:9,title:"책과 담쌓은 아이도 평생 책을 읽게 만드는 독서 습관 (최승필 2부)",views:741276,channel:"데일리어썸",subscribers:273000,contribution:"Good",performance:"Good",published_at:"25.03.25"},
+      {rank:10,title:"이거 안 하는 부자는 없다. 습관이 된 비결.",views:458613,channel:"하와이 대저택",subscribers:989000,contribution:"Good",performance:"Bad",published_at:"23.12.17"},
+      {rank:11,title:"\"이걸 알면 책 읽는 방법이 바뀌어요\" 절대 실패없는 독서 습관 만드는 법",views:218560,channel:"소울정",subscribers:216000,contribution:"Good",performance:"Normal",published_at:"25.03.21"},
+      {rank:12,title:"독서로 인생 역전한 사람들 1탄ㅣ 성공, 습관, 동기부여",views:44424,channel:"성장봇",subscribers:2030,contribution:"Good",performance:"Good",published_at:"21.09.15"}
+    ]
+  },
+  {
+    "name": "책읽는 환경", "category": "핵심", "captures_count": 1, "first_capture": "2026-05-25", "last_capture": "2026-05-25",
+    "latest_total_videos": 142, "latest_views_sum": 22340000, "latest_views_avg": 157300, "latest_views_median": 65053, "latest_views_max": 6075793,
+    "filter_passed": 20, "note": "환경 키워드 · 책읽기 환경 조성 관련",
+    "videos_all": [
+      {rank:1,title:"★[총, 균, 쇠] 설민석 강독 풀버전★ 인류 문명의 불평등에 대한 명쾌한 답과 통찰",views:6075793,channel:"tvN STORY",subscribers:1140000,contribution:"Good",performance:"Good",published_at:"19.12.13"},
+      {rank:2,title:"한 번만 읽어도 책 내용 다 기억하는 기적의 독서 메모 법 (김익한 교수)",views:2865361,channel:"세바시 인생질문",subscribers:700000,contribution:"Good",performance:"Good",published_at:"22.04.15"},
+      {rank:3,title:"절대 실패하지 않는 독서 습관 만들기 (세바시)",views:2561484,channel:"세바시 인생질문",subscribers:700000,contribution:"Good",performance:"Good",published_at:"21.12.21"},
+      {rank:4,title:"책을 읽어야 하는 '진짜' 이유",views:2411518,channel:"너진똑 NJT BOOK",subscribers:1560000,contribution:"Good",performance:"Good",published_at:"21.02.13"},
+      {rank:5,title:"독서는 '일'이어야만 한다 (최재천 교수 레전드 강연)",views:2088697,channel:"스터디언",subscribers:1990000,contribution:"Good",performance:"Good",published_at:"20.09.12"},
+      {rank:6,title:"😎 이 방법이면 1시간에 50쪽, 6시간이면 책 한 권 뚝딱 (독서 천재들의 책 읽기 비법)",views:2083890,channel:"김교수의 세 가지",subscribers:404000,contribution:"Good",performance:"Good",published_at:"21.04.09"},
+      {rank:7,title:"아직도 책을 꼭 사서 읽는 이유? 유현준만의 독서 방법",views:1477477,channel:"셜록현준",subscribers:1440000,contribution:"Good",performance:"Good",published_at:"22.11.30"},
+      {rank:8,title:"바다 탐험대 옥토넛 - 자기 전에 읽는 책 | 독서의 달 - 모음집",views:1434748,channel:"바다 탐험대 옥토넛",subscribers:415000,contribution:"Good",performance:"Good",published_at:"23.03.25"},
+      {rank:9,title:"[침묵의 봄] 설민석 강독 풀버전 - 세상을 변화시킨 환경학 최고의 고전",views:1326673,channel:"tvN STORY",subscribers:1140000,contribution:"Good",performance:"Good",published_at:"20.03.13"},
+      {rank:10,title:"[playlist] 초록이 짙어지던 어느 날, 책읽을 때 듣기좋은 가사없는 음악",views:687671,channel:"슬로어",subscribers:14600,contribution:"Good",performance:"Good",published_at:"24.05.03"},
+      {rank:11,title:"[#어쩌다어른] 수능 국어 만점 받은 방법 어떻게 하면 효과적으로 책을 읽을 수 있을까?",views:545870,channel:"tvN D ENT",subscribers:5350000,contribution:"Good",performance:"Worst",published_at:"25.02.25"},
+      {rank:12,title:"유시민이 말하는 '책 읽는 방법'ㅣ 아는 만큼 보이는 교양",views:430930,channel:"아만보!",subscribers:100000,contribution:"Good",performance:"Good",published_at:"24.11.13"},
+      {rank:13,title:"부모님들은 꼭 봐야하는 영상 내 아이가 스스로 책에 흥미를 갖게 하는 법",views:301995,channel:"EBSDocumentary",subscribers:5380000,contribution:"Good",performance:"Worst",published_at:"25.05.27"},
+      {rank:14,title:"유시민의 독서법 특강, 좋은 책은 어떻게 발견하는가",views:379190,channel:"아만보!",subscribers:100000,contribution:"Good",performance:"Good",published_at:"24.12.04"},
+      {rank:15,title:"TV도, 스마트폰도 쓰는데… 책을 좋아하는 아이로 키운 교사 엄마의 집",views:163005,channel:"그집아이",subscribers:12200,contribution:"Good",performance:"Good",published_at:"25.07.06"},
+      {rank:16,title:"책 읽을 수 밖에 없는 우리 집 독서환경은 이렇습니다 / 독서환경 만드는 5가지 방법",views:103566,channel:"어디든학교",subscribers:169000,contribution:"Good",performance:"Bad",published_at:"21.02.17"}
+    ]
+  },
+  {
+    "name": "스마트폰 중독", "category": "핵심", "captures_count": 1, "first_capture": "2026-05-25", "last_capture": "2026-05-25",
+    "latest_total_videos": 99, "latest_views_sum": 13350000, "latest_views_avg": 134800, "latest_views_median": 80753, "latest_views_max": 2845337,
+    "filter_passed": 15, "note": "도파민 관련 · 문제 인식 키워드",
+    "videos_all": [
+      {rank:1,title:"이거 없이 어떻게 살았냐",views:2845337,channel:"띱 Deep",subscribers:2170000,contribution:"Normal",performance:"Good",published_at:"24.11.02"},
+      {rank:2,title:"스마트폰 중독 간단 테스트.jpg",views:1732145,channel:"똘킹",subscribers:947000,contribution:"Good",performance:"Good",published_at:"23.06.10"},
+      {rank:3,title:"내가 설마...스마트폰 중독이라고? [스마트폰 중독 유형 체크 방법]",views:611516,channel:"행정안전부",subscribers:113000,contribution:"Good",performance:"Good",published_at:"19.10.28"},
+      {rank:4,title:"심각한 스마트폰 중독입니다",views:578752,channel:"김은하와 허휘수",subscribers:257000,contribution:"Good",performance:"Good",published_at:"25.10.03"},
+      {rank:5,title:"[다큐플렉스] 부모님들 필수 시청! 요즘 아이들의 과도한 스마트 기기 사용!",views:571135,channel:"엠뚜루마뚜루",subscribers:2940000,contribution:"Normal",performance:"Worst",published_at:"21.10.27"},
+      {rank:6,title:"스마트폰에 중독된 뇌, 약물 중독자의 뇌와 비슷하다? / YTN 사이언스",views:487837,channel:"YTN 사이언스",subscribers:853000,contribution:"Good",performance:"Normal",published_at:"16.12.20"},
+      {rank:7,title:"[full] 모두가 자식의 폰과 싸우고 있다 | 추적60분",views:428464,channel:"KBS 추적60분",subscribers:787000,contribution:"Normal",performance:"Bad",published_at:"26.05.22"},
+      {rank:8,title:"휴대폰 못하게 하자 이성 잃고 난동 부리기까지?! 휴대폰 중독으로 위기에 빠진 금쪽이",views:362171,channel:"채널A WORLD",subscribers:1320000,contribution:"Good",performance:"Bad",published_at:"24.11.14"},
+      {rank:9,title:"📲스마트폰 중독 테스트 시작",views:408563,channel:"삐야기",subscribers:749000,contribution:"Good",performance:"Bad",published_at:"26.01.30"},
+      {rank:10,title:"Why-최고다! 호기심딱지 시즌4 - 꽃도령 삼총사의 스마트폰 사용법",views:302676,channel:"EBS 키즈",subscribers:4890000,contribution:"Normal",performance:"Worst",published_at:"20.11.05"},
+      {rank:11,title:"내년부터 초중고 학생 교실에선 '스마트폰' 금지 (자막뉴스)",views:103089,channel:"SBS 뉴스",subscribers:5200000,contribution:"Good",performance:"Worst",published_at:"25.08.27"},
+      {rank:12,title:"인터넷을 많이 하면 아파요 | 스마트 캠페인 | 안전교육",views:263171,channel:"tomo note",subscribers:21000,contribution:"Good",performance:"Good",published_at:"20.06.12"},
+      {rank:13,title:"꼭!꼭! 약속해요 | 스마트폰 중독 예방 | 토모노트",views:255837,channel:"tomo note",subscribers:21000,contribution:"Good",performance:"Good",published_at:"20.05.15"},
+      {rank:14,title:"[서울시인터넷중독예방상담센터] 나의 첫 스마트폰",views:252752,channel:"시립보라매인터넷중독예방상담센터",subscribers:465,contribution:"Good",performance:"Good",published_at:"20.06.23"},
+      {rank:15,title:"스티브 잡스가 자녀에게 스마트폰 못쓰게 한 이유? 중학생들의 '스마트폰 3개월 쓰지 않기' 실험",views:259751,channel:"KBS시사",subscribers:644000,contribution:"Good",performance:"Bad",published_at:"19.07.18"},
+      {rank:16,title:"스마트폰에 중독되는 이유 & 벗어나는 방법",views:126928,channel:"정신과의사 뇌부자들",subscribers:319000,contribution:"Normal",performance:"Bad",published_at:"21.07.30"}
+    ]
+  }
+];
+
+const HOOKS = [
+  {phrase: "7일간 도파민 없이 살아보기", views: 8368530, ex: "고재영 (1.44M)"},
+  {phrase: "한 남자의 도파민 중독 탈출기", views: 7249109, ex: "The Play Button (147K)"},
+  {phrase: "★[총, 균, 쇠] 설민석 강독 풀버전★", views: 6075793, ex: "tvN STORY (1.14M)"},
+  {phrase: "한 번만 읽어도 책 내용 다 기억하는 기적의 독서 메모 법", views: 2865361, ex: "세바시 (700K)"},
+  {phrase: "이거 없이 어떻게 살았냐", views: 2845337, ex: "띱 Deep (2.17M)"},
+  {phrase: "절대 실패하지 않는 독서 습관 만들기", views: 2561484, ex: "세바시 (700K)"},
+  {phrase: "쾌락에 절여지면 '이렇게' 됨", views: 2458488, ex: "교양만두 (1.16M)"},
+  {phrase: "책을 읽어야 하는 '진짜' 이유", views: 2411505, ex: "너진똑 (1.56M)"},
+  {phrase: "이 방법이면 1시간에 50쪽, 6시간이면 책 한 권 뚝딱", views: 2083890, ex: "김교수의 세 가지 (404K)"},
+  {phrase: "독서는 '일'이어야만 한다", views: 2088697, ex: "스터디언 (1.99M)"},
+  {phrase: "도파민에 박살난 MZ의 뇌, 유일한 회복방법", views: 1999790, ex: "라이프해커,자청 (438K)"},
+  {phrase: "뇌과학으로 입증된 도파민 중독 이용한 독서 습관", views: 1908165, ex: "콥튜브 (30.9K)"},
+  {phrase: "쾌락에는 고통이라는 대가가 따른다", views: 1876751, ex: "인간개조 용광로 (176K)"},
+  {phrase: "정신 차려 보니 숏폼만 5시간 봤다?", views: 1851752, ex: "EBSDocumentary (5.38M)"},
+  {phrase: "스마트폰 중독 간단 테스트.jpg", views: 1732145, ex: "똘킹 (947K)"},
+  {phrase: "아직도 책을 꼭 사서 읽는 이유?", views: 1477477, ex: "셜록현준 (1.44M)"}
+];
+
+let currentKw = null, currentMode = 'filtered';
+let compareChart = null;
+
+function fmtKR(n) {
+  n = Number(n) || 0;
+  if (n >= 1e8) return (n/1e8).toFixed(1) + '억';
+  if (n >= 1e4) return (n/1e4).toFixed(1) + '만';
+  return n.toLocaleString();
+}
+function pct(a, b) { return b > 0 ? ((a/b)*100).toFixed(1) + '%' : '-'; }
+function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function renderSummary() {
+  document.getElementById('stat-keywords').textContent = DATA.length;
+  document.getElementById('stat-captures').textContent = DATA.reduce((s, k) => s + (k.captures_count || 0), 0);
+  document.getElementById('stat-videos').textContent = DATA.reduce((s, k) => s + (k.latest_total_videos || 0), 0).toLocaleString();
+  document.getElementById('stat-views').textContent = fmtKR(DATA.reduce((s, k) => s + (k.latest_views_sum || 0), 0));
+}
+
+function renderCompare() {
+  const metric = document.getElementById('compare-metric').value;
+  const map = {
+    views_sum: ['latest_views_sum', '조회수 합계'],
+    total_videos: ['latest_total_videos', '총 영상 수'],
+    views_avg: ['latest_views_avg', '조회수 평균'],
+    views_median: ['latest_views_median', '조회수 중앙값'],
+    views_max: ['latest_views_max', '조회수 최대값'],
+    filter_passed: ['filter_passed', '필터 통과 영상 수']
+  };
+  const [field, label] = map[metric];
+  const sorted = DATA.slice().sort((a, b) => b[field] - a[field]);
+  if (compareChart) compareChart.destroy();
+  compareChart = new Chart(document.getElementById('compare-chart'), {
+    type: 'bar',
+    data: {
+      labels: sorted.map(k => k.name),
+      datasets: [{ label: label, data: sorted.map(k => k[field]),
+        backgroundColor: ['#10b981', '#0ea5e9', '#f59e0b', '#ef4444', '#a855f7', '#ec4899', '#14b8a6'],
+        borderRadius: 6 }]
+    },
+    options: { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { ticks: { callback: v => fmtKR(v) } } } }
+  });
+  const tbody = document.getElementById('compare-tbody');
+  tbody.innerHTML = '';
+  for (const k of sorted) {
+    const tr = document.createElement('tr');
+    tr.className = 'border-b hover:bg-emerald-50 cursor-pointer';
+    tr.onclick = () => selectKeyword(k.name);
+    tr.innerHTML =
+      '<td class="px-3 py-2 font-semibold text-emerald-700">' + k.name + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + k.latest_total_videos.toLocaleString() + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums font-semibold">' + fmtKR(k.latest_views_sum) + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + fmtKR(k.latest_views_avg) + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + fmtKR(k.latest_views_median) + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums font-semibold text-rose-600">' + fmtKR(k.latest_views_max) + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums">' + k.filter_passed.toLocaleString() + '</td>' +
+      '<td class="px-3 py-2 text-right tabular-nums text-slate-500">' + pct(k.filter_passed, k.latest_total_videos) + '</td>';
+    tbody.appendChild(tr);
+  }
+}
+
+function renderKeywordCards(filter) {
+  const root = document.getElementById('keyword-cards');
+  root.innerHTML = '';
+  const filtered = DATA.filter(k => !filter || k.name.includes(filter));
+  if (filtered.length === 0) {
+    root.innerHTML = '<div class="text-slate-400 text-sm col-span-full">검색 결과가 없습니다.</div>';
+    return;
+  }
+  for (const k of filtered) {
+    const card = document.createElement('div');
+    card.className = 'bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition cursor-pointer border border-transparent hover:border-emerald-300';
+    card.innerHTML =
+      '<div class="flex items-baseline justify-between">' +
+        '<h3 class="text-xl font-bold text-slate-800">' + k.name + '</h3>' +
+        '<span class="text-xs text-slate-400">' + k.captures_count + '회 캡처</span>' +
+      '</div>' +
+      '<div class="text-xs text-slate-500 mt-1">' + k.first_capture + ' ~ ' + k.last_capture + '</div>' +
+      '<div class="mt-3 grid grid-cols-2 gap-2 text-sm">' +
+        '<div><span class="text-slate-500">총 영상</span> <span class="font-semibold">' + k.latest_total_videos.toLocaleString() + '</span></div>' +
+        '<div><span class="text-slate-500">조회 합계</span> <span class="font-semibold">' + fmtKR(k.latest_views_sum) + '</span></div>' +
+        '<div><span class="text-slate-500">조회 평균</span> <span class="font-semibold">' + fmtKR(k.latest_views_avg) + '</span></div>' +
+        '<div><span class="text-slate-500">최대 조회수</span> <span class="font-semibold text-rose-600">' + fmtKR(k.latest_views_max) + '</span></div>' +
+        '<div class="col-span-2"><span class="text-slate-500">필터 통과</span> <span class="font-semibold text-emerald-700">' + k.filter_passed + ' (' + pct(k.filter_passed, k.latest_total_videos) + ')</span></div>' +
+      '</div>' +
+      '<div class="mt-2 text-xs text-slate-500 italic">' + k.note + '</div>' +
+      '<div class="mt-3 text-xs text-emerald-700 hover:text-emerald-900">상세 보기 →</div>';
+    card.onclick = () => selectKeyword(k.name);
+    root.appendChild(card);
+  }
+}
+
+function selectKeyword(name) {
+  currentKw = DATA.find(k => k.name === name);
+  if (!currentKw) return;
+  document.getElementById('detail-section').classList.remove('hidden');
+  document.getElementById('detail-name').textContent = name;
+
+  document.getElementById('range-views-sum').textContent = fmtKR(currentKw.latest_views_sum);
+  document.getElementById('range-views-avg').textContent = fmtKR(currentKw.latest_views_avg);
+  document.getElementById('range-views-median').textContent = fmtKR(currentKw.latest_views_median);
+  document.getElementById('range-views-max').textContent = fmtKR(currentKw.latest_views_max);
+  document.getElementById('range-videos').textContent = currentKw.latest_total_videos.toLocaleString();
+  document.getElementById('range-filter').textContent = currentKw.filter_passed;
+  document.getElementById('range-rate').textContent = pct(currentKw.filter_passed, currentKw.latest_total_videos);
+  document.getElementById('range-date').textContent = currentKw.first_capture;
+  document.getElementById('range-cat').textContent = currentKw.category;
+  document.getElementById('range-note').textContent = currentKw.note;
+
+  renderVideoTable();
+  document.getElementById('detail-section').scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
+function renderVideoTable() {
+  const search = document.getElementById('vid-search').value.toLowerCase();
+  const sortBy = document.getElementById('sort-by').value;
+  let videos = currentKw.videos_all.slice();
+  if (currentMode === 'filtered') {
+    videos = videos.filter(v => (v.contribution === 'Good' || v.contribution === 'Great') && (v.performance === 'Good' || v.performance === 'Great'));
+  }
+  if (search) videos = videos.filter(v => v.title.toLowerCase().includes(search) || v.channel.toLowerCase().includes(search));
+  if (sortBy === 'views') videos.sort((a, b) => b.views - a.views);
+  else if (sortBy === 'subscribers') videos.sort((a, b) => b.subscribers - a.subscribers);
+  else videos.sort((a, b) => a.rank - b.rank);
+
+  const tbody = document.getElementById('video-tbody');
+  tbody.innerHTML = '';
+  for (const v of videos) {
+    const tr = document.createElement('tr');
+    tr.className = 'border-b hover:bg-slate-50';
+    tr.innerHTML =
+      '<td class="px-3 py-2 text-slate-400">' + v.rank + '</td>' +
+      '<td class="px-3 py-2 max-w-md"><div class="truncate-2">' + escapeHtml(v.title) + '</div></td>' +
+      '<td class="px-3 py-2 text-right tabular-nums font-semibold">' + v.views.toLocaleString() + '</td>' +
+      '<td class="px-3 py-2"><div class="font-medium">' + escapeHtml(v.channel) + '</div></td>' +
+      '<td class="px-3 py-2 text-right tabular-nums text-slate-500">' + fmtKR(v.subscribers) + '</td>' +
+      '<td class="px-3 py-2 text-center"><span class="px-2 py-0.5 rounded text-xs grade-' + v.contribution + '">' + (v.contribution || '-') + '</span></td>' +
+      '<td class="px-3 py-2 text-center"><span class="px-2 py-0.5 rounded text-xs grade-' + v.performance + '">' + (v.performance || '-') + '</span></td>' +
+      '<td class="px-3 py-2 text-right tabular-nums text-slate-500">' + v.published_at + '</td>';
+    tbody.appendChild(tr);
+  }
+  document.getElementById('video-count').textContent = videos.length + '개 영상 표시 (' + (currentMode === 'filtered' ? '필터 적용: 기여도/성과도 Good·Great' : '전체') + ')';
+  if (videos.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" class="px-3 py-6 text-center text-slate-400">조건에 맞는 영상이 없습니다.</td></tr>';
+  }
+}
+
+function renderHooks() {
+  const root = document.getElementById('hook-list');
+  root.innerHTML = '';
+  for (const h of HOOKS) {
+    const div = document.createElement('div');
+    div.className = 'bg-white border border-amber-200 rounded-lg p-3';
+    div.innerHTML =
+      '<div class="text-sm font-semibold text-slate-800">"' + h.phrase + '"</div>' +
+      '<div class="flex justify-between items-center mt-1">' +
+        '<span class="text-xs text-slate-500">' + h.ex + '</span>' +
+        '<span class="text-sm font-bold text-rose-600">' + fmtKR(h.views) + '</span>' +
+      '</div>';
+    root.appendChild(div);
+  }
+}
+
+document.getElementById('kw-search').addEventListener('input', e => renderKeywordCards(e.target.value));
+document.getElementById('compare-metric').addEventListener('change', renderCompare);
+document.getElementById('vid-search').addEventListener('input', renderVideoTable);
+document.getElementById('sort-by').addEventListener('change', renderVideoTable);
+document.getElementById('mode-filtered').addEventListener('click', () => {
+  currentMode = 'filtered';
+  document.getElementById('mode-filtered').classList.add('active');
+  document.getElementById('mode-all').classList.remove('active');
+  renderVideoTable();
+});
+document.getElementById('mode-all').addEventListener('click', () => {
+  currentMode = 'all';
+  document.getElementById('mode-all').classList.add('active');
+  document.getElementById('mode-filtered').classList.remove('active');
+  renderVideoTable();
+});
+
+renderSummary();
+renderCompare();
+renderKeywordCards('');
+renderHooks();
+</script>
+
+</body>
+</html>

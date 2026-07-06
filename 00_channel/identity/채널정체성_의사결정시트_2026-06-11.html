@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI문해력연구소 전환 — 의사결정 시트</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2; --accent:#ffd166; --accent-2:#06d6a0;
+    --warn:#ef476f; --info:#118ab2; --chip:#2a2f3a; --soft:#1b1f28;
+    --ai:#6ea8fe; --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#c4b5fd;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.7; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 28px 80px}
+  header.hero{padding:40px 36px;border-radius:20px;
+    background:radial-gradient(1200px 400px at 10% -10%,rgba(110,168,254,.22),transparent 50%),
+               radial-gradient(900px 380px at 110% 10%,rgba(255,209,102,.14),transparent 55%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line); position:relative; overflow:hidden}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.18em;color:var(--ai);
+    background:rgba(110,168,254,.12);border:1px solid rgba(110,168,254,.3);
+    padding:6px 12px;border-radius:999px; text-transform:uppercase}
+  h1{font-size:40px;line-height:1.22;margin:18px 0 8px;letter-spacing:-0.02em;font-weight:800}
+  h1 .ai{color:var(--ai)}
+  .lede{color:var(--muted);font-size:16px;margin:8px 0 22px;max-width:820px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:var(--chip);border:1px solid var(--line);color:var(--text);font-size:12.5px;padding:6px 12px;border-radius:999px}
+  .chip.ok{background:rgba(6,214,160,.14);border-color:rgba(6,214,160,.4);color:#7be3c0}
+  section{margin-top:46px}
+  h2{font-size:22px;letter-spacing:-.01em;margin:0 0 18px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:24px;border-radius:3px;background:var(--ai)}
+  h2 .num{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:.15em;margin-right:4px}
+  .grid{display:grid;gap:16px}
+  .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media(max-width:760px){.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}.wrap{padding:24px 16px 60px}h1{font-size:28px}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card.alt{background:var(--panel-2)}
+  .card.ok{border-left:3px solid var(--accent-2)}
+  .card.ai{border-left:3px solid var(--ai)}
+  .card.warn{border-left:3px solid var(--warn)}
+  .kpi{font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+  .quote-big{font-size:21px;line-height:1.5;color:#fff;font-weight:700;letter-spacing:-.01em;margin:8px 0}
+  .quote-big em{color:var(--accent);font-style:normal}
+  .quote-big .ai{color:var(--ai);font-style:normal}
+  table{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);font-size:13.7px;vertical-align:top;text-align:left}
+  th{background:var(--soft);color:#fff;font-weight:600;font-size:12.5px;letter-spacing:.04em}
+  tbody tr:nth-child(even){background:#161a22}
+  ul.clean{padding-left:18px;margin:6px 0}
+  ul.clean li{margin:4px 0;font-size:14px}
+  .small{font-size:12.5px;color:var(--muted)}
+  .anchor{position:sticky;top:0;background:rgba(15,17,21,.9);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);z-index:20;margin:-48px -28px 28px;padding:14px 28px;display:flex;flex-wrap:wrap;gap:16px}
+  .anchor a{color:var(--muted);font-size:13px;text-decoration:none}
+  .anchor a:hover{color:#fff}
+  .anchor a.k{color:var(--ai)}
+  /* 의사결정 카드 */
+  .dec{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px;position:relative}
+  .dec .dnum{position:absolute;top:-12px;left:18px;background:var(--ai);color:#0b1220;font-weight:800;font-size:12.5px;letter-spacing:.06em;padding:3px 11px;border-radius:999px}
+  .dec h3{margin:8px 0 4px;font-size:17px;color:#fff}
+  .dec .ctx{color:var(--muted);font-size:13.3px;margin-bottom:12px}
+  .opts{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+  @media(max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{background:var(--panel-2);border:1px solid var(--line);border-radius:11px;padding:13px 15px}
+  .opt.rec{border-color:rgba(255,209,102,.5);background:#1b1812}
+  .opt .ot{font-weight:700;color:#fff;font-size:14.5px;margin-bottom:3px}
+  .opt .od{font-size:13px;color:var(--muted)}
+  .recbadge{display:inline-block;font-size:10.5px;letter-spacing:.1em;color:var(--accent);background:rgba(255,209,102,.12);border:1px solid rgba(255,209,102,.35);border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+  .impact{margin-top:12px;font-size:12.7px;color:#cfd3db;background:#0c0e13;border:1px dashed #2a3040;border-radius:9px;padding:9px 12px}
+  .impact b{color:var(--ai)}
+  .pick{margin-top:10px;font-size:13px;color:var(--muted)}
+  .pick .box{display:inline-block;min-width:200px;border-bottom:1.5px dashed #3a4150;color:#fff;padding:0 6px}
+  .pill{display:inline-block;padding:2px 9px;border-radius:6px;font-size:11px;font-weight:600;margin-right:4px}
+  .pill.now{background:rgba(110,168,254,.16);color:var(--ai)}
+  .pill.opt{background:rgba(196,181,253,.16);color:#c4b5fd}
+  .footer{margin-top:56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .footer a{color:var(--ai)}
+  .signature{font-size:22px;font-weight:800;letter-spacing:-.02em;color:#fff;margin:6px 0}
+  .signature .y{color:var(--accent)}
+  code{background:#0c0e13;border:1px solid #232836;border-radius:5px;padding:1px 6px;font-size:12.5px;color:#cdd3dd}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="card ok" style="border-left:3px solid var(--accent-2);margin-bottom:24px">
+    <div class="kpi">✅ 결정 완료 (2026-06-13) — 이 시트는 기록으로 보존</div>
+    <div class="quote-big" style="font-size:18px">최종 채널명: <em>AI보다 읽는 사람</em> · D1~D11 전부 해소</div>
+    <p class="small">중간 후보 "AI문해력연구소"는 폐기되고 최종 채널명 <b>AI보다 읽는 사람</b>으로 확정. 아래 11개 결정란은 당시 검토 기록이며, 확정값은 다음과 같다(SSOT = <code>AI보다 읽는사람.MD</code>):</p>
+    <table style="margin-top:10px">
+      <tbody>
+        <tr><th style="width:22%">D1 유산 처리</th><td>"그럼에도 / 한 페이지" <b>전면 폐기</b> (구 정체성 HTML만 아카이브)</td></tr>
+        <tr><th>D2 슬로건</th><td>핵심 "AI는 답을 만든다. 읽는 사람은 질문을 만든다." · 태그라인 "책으로 생각하고, AI로 실행하다"</td></tr>
+        <tr><th>D3 시청자 호명</th><td>"읽는 사람들"</td></tr>
+        <tr><th>D4 사인오프</th><td>"AI는 답을, 읽는 사람은 질문을."</td></tr>
+        <tr><th>D5 컬러</th><td>골드 <code>#FFD166</code> 메인 + AI 블루 <code>#6EA8FE</code> 보조</td></tr>
+        <tr><th>D6 핸들</th><td><code>@readisbetterthanAI</code> (개설 시 확인)</td></tr>
+        <tr><th>D7 제목 포맷</th><td><code>[AI 현상], 그런데 [읽는 사람의 답] | EP##</code></td></tr>
+        <tr><th>D8 해시태그</th><td><code>#AI보다읽는사람 #AI활용법 #바이브코딩 #문해력 #AI시대독서</code></td></tr>
+        <tr><th>D9 발행/시즌</th><td>유지 — 매주 수요일 풀링 + 격주 일요일 쇼츠</td></tr>
+        <tr><th>D10 컨셉 축</th><td><b>6축으로 통합</b> — 독서·문해력·사고력·AI·바이브코딩·성장</td></tr>
+        <tr><th>D11 후속 범위</th><td>정체성+기준+신규부터 전면 전파 (완성된 개별 영상 대본은 레거시 보존)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="anchor">
+    <a href="#fixed" class="k">✅ 확정</a>
+    <a href="#voice">브랜드 보이스 D1–D5</a>
+    <a href="#setup">채널 셋업 D6–D9</a>
+    <a href="#structure">정체성·실행 D10–D11</a>
+    <a href="#apply">일괄 반영 매핑</a>
+  </nav>
+
+  <header class="hero">
+    <span class="eyebrow">Decision Sheet · Channel Rebrand</span>
+    <h1>채널 리브랜드 — 의사결정 시트 <span class="small" style="font-size:16px">(결정 완료)</span></h1>
+    <p class="lede">채널명을 다시 정하면서 슬로건·사인오프·시청자 호명·핸들 등 <b>이름에 묶여 있던 자산</b>을 함께 결정한 기록.
+      당시 중간 후보는 "AI문해력연구소"였으나, 최종 채널명은 <b>AI보다 읽는 사람</b>으로 확정됐다(상단 요약 참조). 아래 11개 결정란은 검토 기록으로 보존한다.</p>
+    <div class="meta-row">
+      <span class="chip ok">✅ 최종 채널명: AI보다 읽는 사람</span>
+      <span class="chip ok">✅ 완전 리브랜드</span>
+      <span class="chip ok">✅ 바이브코딩 = 정기 기둥</span>
+      <span class="chip ok">✅ D1~D11 해소</span>
+      <span class="chip">작성: 2026-06-11 / 확정: 2026-06-13</span>
+    </div>
+  </header>
+
+  <!-- ===== 확정 요약 ===== -->
+  <section id="fixed">
+    <h2><span class="num">A</span>이미 확정된 것 (재확인용)</h2>
+    <div class="card ok">
+      <div class="quote-big"><span class="ai">AI는 답을 만든다.</span> 읽는 사람은 <em>질문을 만든다.</em></div>
+      <div class="grid cols-3" style="margin-top:8px">
+        <div><div class="kpi">채널명</div><b>AI보다 읽는 사람</b><div class="small">"AI보다 깊이 읽는 사람이 앞선다"는 메시지를 이름에 직접 담음. (중간 후보 'AI문해력연구소'는 폐기)</div></div>
+        <div><div class="kpi">전환 강도</div><b>완전 리브랜드</b><div class="small">AI·바이브코딩이 표면, 문해력·책이 토대·귀결.</div></div>
+        <div><div class="kpi">바이브코딩</div><b>정기 콘텐츠 기둥</b><div class="small">구 '별도 사업 후보'를 이 채널로 통합.</div></div>
+      </div>
+      <p class="small" style="margin-top:10px">→ 6축·결 3그룹·콘텐츠 모델·표준 멘트의 단일 출처(SSOT)는 <code>AI보다 읽는사람.MD</code> / <code>채널정체성_AI보다읽는사람_2026-06-13.html</code>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 브랜드 보이스 ===== -->
+  <section id="voice">
+    <h2><span class="num">B</span>브랜드 보이스 — D1~D5</h2>
+
+    <div class="dec">
+      <span class="dnum">D1 · 유산 처리</span>
+      <h3>"그럼에도 / 한 페이지 / 그럼에도 클럽" 을 어디까지 남길까</h3>
+      <p class="ctx">새 이름엔 "그럼에도"도 "한 페이지"도 없다. 기존 슬로건·사인오프·시청자 호명이 전부 이 단어들에 묶여 있어, 남길 범위를 먼저 정해야 D3·D4·D5가 따라온다.</p>
+      <div class="opts">
+        <div class="opt rec">
+          <div class="ot">① "한 페이지"만 유지 <span class="recbadge">★ 추천</span></div>
+          <div class="od">이름=AI문해력연구소, 사인오프="오늘도, 한 페이지." 행동 DNA만 승계. '그럼에도'는 제목 후크 수사로만. 시청자 호명=연구원.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">② 완전 교체 (연구소 톤)</div>
+          <div class="od">그럼에도·한 페이지·그럼에도 클럽 전부 정리. 사인오프·슬로건도 연구소 톤으로 새로. 가장 깔끔한 AI 정체성, 기존 자산 단절.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">③ 둘 다 유지</div>
+          <div class="od">이름만 AI문해력연구소로 바꾸고 슬로건·사인오프·클럽 호명은 기존 그대로. 톤 충돌(연구소 vs 감성) 감수.</div>
+        </div>
+      </div>
+      <div class="impact">영향: <b>채널_기본정보.md</b> §0·§2·§6·§8·§9 + <b>전환 HTML</b> 사인오프. "그럼에도" 문자열 약 12곳.</div>
+      <div class="pick">결정 → <span class="box">&nbsp;</span></div>
+    </div>
+
+    <div class="dec">
+      <span class="dnum">D2 · 핵심/표면 슬로건</span>
+      <h3>채널을 한 줄로 말하면</h3>
+      <p class="ctx">검색·About·인트로·썸네일에 반복 노출되는 핵심 문구. 핵심(불변)·표면(AI 후크)·연구소 태그 3종으로 운용 권장.</p>
+      <div class="opts">
+        <div class="opt rec">
+          <div class="ot">핵심(유지) <span class="recbadge">★ 추천</span></div>
+          <div class="od">"AI는 답을 주고, 책은 질문을 만든다."</div>
+        </div>
+        <div class="opt rec">
+          <div class="ot">표면(AI) <span class="recbadge">★ 추천</span></div>
+          <div class="od">"AI를 잘 쓰는 사람은, 결국 읽는 사람이다."</div>
+        </div>
+        <div class="opt">
+          <div class="ot">연구소 태그</div>
+          <div class="od">"AI 시대의 문해력을 연구합니다."</div>
+        </div>
+        <div class="opt">
+          <div class="ot">대안</div>
+          <div class="od">"좋은 프롬프트는, 좋은 문장에서 나온다." / "읽는 만큼, AI를 씁니다."</div>
+        </div>
+      </div>
+      <div class="impact">영향: <b>채널_기본정보.md</b> §0 슬로건, §2 About. <b>전환 HTML</b> Hero.</div>
+      <div class="pick">결정 → 핵심 <span class="box">&nbsp;</span> · 표면 <span class="box">&nbsp;</span></div>
+    </div>
+
+    <div class="dec">
+      <span class="dnum">D3 · 시청자 호명</span>
+      <h3>시청자를 뭐라고 부를까 (6개월 고정)</h3>
+      <p class="ctx">매 영상 반복되는 호명. 채널 정체성을 강화하는 장치.</p>
+      <div class="opts">
+        <div class="opt rec">
+          <div class="ot">연구원 <span class="recbadge">★ 추천</span></div>
+          <div class="od">"연구원 여러분" — 연구소 컨셉과 정합, 시청자를 함께 탐구하는 멤버로. 재미·소속감.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">독자분들</div>
+          <div class="od">중립·안전. 책 토대를 강조하되 연구소 색은 약함.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">그럼에도 클럽 (유지)</div>
+          <div class="od">D1=③일 때만. 기존 커뮤니티 호명 승계.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">직접 입력</div>
+          <div class="od">예: "연구소 식구" / "리터러시 클럽" 등.</div>
+        </div>
+      </div>
+      <div class="impact">영향: <b>채널_기본정보.md</b> §0·§2·§8. <b>전환 HTML</b> 결 3그룹 톤.</div>
+      <div class="pick">결정 → <span class="box">&nbsp;</span></div>
+    </div>
+
+    <div class="dec">
+      <span class="dnum">D4 · 시그니처 사인오프</span>
+      <h3>매 영상 마지막 한 마디 (D1과 정합)</h3>
+      <p class="ctx">변동 적을수록 강력한 자산. D1에서 "한 페이지"를 남기면 ①, 완전 교체면 ②~③.</p>
+      <div class="opts">
+        <div class="opt rec">
+          <div class="ot">① "오늘도, 한 페이지." <span class="recbadge">★ 추천(D1①)</span></div>
+          <div class="od">행동 DNA 승계. 이름은 연구소, 끝맺음은 행동.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">② "읽는 만큼, AI를 잘 씁니다."</div>
+          <div class="od">채널 논지를 한 줄로. 연구소 톤·완전 교체형.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">③ "더 나은 질문을 위해 — AI문해력연구소."</div>
+          <div class="od">채널명 직접 노출형. 브랜드 각인 강함.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">직접 입력</div>
+          <div class="od">자유 작성.</div>
+        </div>
+      </div>
+      <div class="impact">영향: <b>채널_기본정보.md</b> §0·§6-2·§8·§9. <b>전환 HTML</b> footer.</div>
+      <div class="pick">결정 → <span class="box">&nbsp;</span></div>
+    </div>
+
+    <div class="dec">
+      <span class="dnum">D5 · 대표 컬러</span>
+      <h3>AI 블루를 정식 채택할까</h3>
+      <p class="ctx">기존 4색(딥블랙·골드·그린·레드)에 AI 보조색 추가 여부. 멀티페이지 색 토큰(--pain/growth/value/rec)은 공통 유지가 하드 룰.</p>
+      <div class="opts">
+        <div class="opt rec">
+          <div class="ot">골드 유지 + AI 블루 보조 <span class="recbadge">★ 추천</span></div>
+          <div class="od">강조=골드 <code>#FFD166</code> 유지, AI 강조만 블루 <code>#6EA8FE</code> 추가. 기존 120여 HTML과 호환.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">블루를 메인 강조로</div>
+          <div class="od">연구소=테크 톤. 골드→블루 전면 교체. 기존 자산 대량 수정 발생.</div>
+        </div>
+      </div>
+      <div class="impact">영향: <b>채널_기본정보.md</b> §0·§5. 전면 교체 시 기존 HTML 색 토큰 다수.</div>
+      <div class="pick">결정 → <span class="box">&nbsp;</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 채널 셋업 ===== -->
+  <section id="setup">
+    <h2><span class="num">C</span>채널 셋업 — D6~D9</h2>
+
+    <div class="dec">
+      <span class="dnum">D6 · 핸들 @</span>
+      <h3>YouTube 핸들 (URL이 됨 · 나중에 바꾸기 어려움)</h3>
+      <p class="ctx">개설 직후 확정. 사용 가능한 첫 번째로 결정.</p>
+      <div class="opts">
+        <div class="opt rec">
+          <div class="ot">@ai.literacy.lab <span class="recbadge">★ 추천</span></div>
+          <div class="od">AI literacy lab 직역. 검색 친화·연구소(lab) 톤 일치.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">@ai.munhae</div>
+          <div class="od">AI문해(력) 한글 발음. 국내 검색 대응.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">@ailiteracylab</div>
+          <div class="od">점 없는 형태(가독 단순).</div>
+        </div>
+        <div class="opt">
+          <div class="ot">@read.to.prompt</div>
+          <div class="od">"읽어야 잘 시킨다" 컨셉형. 논지 직결, 명시성 낮음.</div>
+        </div>
+      </div>
+      <div class="impact">영향: <b>채널_기본정보.md</b> §1-2 핸들 표 전면 교체.</div>
+      <div class="pick">결정 → <span class="box">&nbsp;</span></div>
+    </div>
+
+    <div class="dec">
+      <span class="dnum">D7 · 제목 표준 포맷</span>
+      <h3>영상 제목 골격</h3>
+      <p class="ctx">기존 골격은 "그럼에도"에 의존. D1 결과에 맞춰 선택.</p>
+      <div class="opts">
+        <div class="opt rec">
+          <div class="ot">연구소형 <span class="recbadge">★ 추천</span></div>
+          <div class="od"><code>[AI 현상] — 그래서 [읽기/문해력] | EP##</code><br>예: "챗GPT가 다 답해줘도 — 그래서 문해력 | EP01"</div>
+        </div>
+        <div class="opt">
+          <div class="ot">그럼에도 유지형</div>
+          <div class="od"><code>[흐름] · 그럼에도 [선택] | EP##</code> — D1=③일 때.</div>
+        </div>
+      </div>
+      <div class="impact">영향: <b>채널_기본정보.md</b> §6-1.</div>
+      <div class="pick">결정 → <span class="box">&nbsp;</span></div>
+    </div>
+
+    <div class="dec">
+      <span class="dnum">D8 · 고정 해시태그</span>
+      <h3>매 영상 고정 5개</h3>
+      <p class="ctx">채널 검색·연관 알고리즘 강화. 이름 변경 반영 필요.</p>
+      <div class="opts">
+        <div class="opt rec">
+          <div class="ot">AI 세트 <span class="recbadge">★ 추천</span></div>
+          <div class="od"><code>#AI문해력연구소 #AI활용법 #바이브코딩 #프롬프트문해력 #AI시대독서</code></div>
+        </div>
+        <div class="opt">
+          <div class="ot">직접 조정</div>
+          <div class="od">예: #챗GPT #문해력 #독서법 추가/교체.</div>
+        </div>
+      </div>
+      <div class="impact">영향: <b>채널_기본정보.md</b> §6-2·§6-3.</div>
+      <div class="pick">결정 → <span class="box">&nbsp;</span></div>
+    </div>
+
+    <div class="dec">
+      <span class="dnum">D9 · 발행 주기 · 시즌 구조</span>
+      <h3>업로드 리듬을 그대로 둘까</h3>
+      <p class="ctx">기존: 매주 수요일 풀링 + 격주 일요일 쇼츠 / 시즌 12편.</p>
+      <div class="opts">
+        <div class="opt rec">
+          <div class="ot">유지 <span class="recbadge">★ 추천</span></div>
+          <div class="od">리듬·시즌제 그대로. "시즌" 명칭만 유지(또는 "기수"로 연구소 톤 변형 가능).</div>
+        </div>
+        <div class="opt">
+          <div class="ot">조정</div>
+          <div class="od">발행 요일·빈도·시즌 단위 변경.</div>
+        </div>
+      </div>
+      <div class="impact">영향: <b>채널_기본정보.md</b> §0·§7.</div>
+      <div class="pick">결정 → <span class="box">&nbsp;</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 정체성·실행 ===== -->
+  <section id="structure">
+    <h2><span class="num">D</span>정체성 구조 · 실행 범위 — D10~D11</h2>
+
+    <div class="dec">
+      <span class="dnum">D10 · 8축 드롭/통합 승인</span>
+      <h3>구 컨셉 3개를 AI 축에 양보할까</h3>
+      <p class="ctx">새 8축은 ①바이브코딩 ②AI활용법 ③프롬프트문해력 ④AI시대 사고력 ⑤자기개발 ⑥책읽는이유 ⑦문해력 ⑧지적호기심·재미. 신규 ①~④가 들어오며 일부 구 축이 빠진다.</p>
+      <div class="opts">
+        <div class="opt rec">
+          <div class="ot">승인 <span class="recbadge">★ 추천</span></div>
+          <div class="od">지적허영심 · 책 읽는 방법 · 책 읽는 습관 → ①~④에 자리 양보(필요 시 ⑤~⑧에 흡수).</div>
+        </div>
+        <div class="opt">
+          <div class="ot">보류/수정</div>
+          <div class="od">특정 축은 살리고 싶음 — 어느 것을 남길지 지정.</div>
+        </div>
+      </div>
+      <div class="impact">영향: <b>프로젝트_방향성.md</b> §1.1 · <b>전환 HTML</b> §05.</div>
+      <div class="pick">결정 → <span class="box">&nbsp;</span></div>
+    </div>
+
+    <div class="dec">
+      <span class="dnum">D11 · 후속 전환 범위</span>
+      <h3>나머지 ~48개 파일을 어떻게 칠까</h3>
+      <p class="ctx">SSOT 2종 외 CLAUDE.md §3·총괄기획·index.html SPA·대본기준·에이전트·BGM 등이 아직 책 중심.</p>
+      <div class="opts">
+        <div class="opt rec">
+          <div class="ot">단계적 (주차 묶음) <span class="recbadge">★ 추천</span></div>
+          <div class="od">1주 정체성 확산(채널정체성 HTML·CLAUDE.md·총괄기획) → 2~3주 콘텐츠(풀링·키·바이브코딩 시리즈) → 4주+ 연계(readingtree·에이전트·BGM). 묶음마다 승인.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">일괄</div>
+          <div class="od">한 번에 전 파일 전환(대규모·검수 부담 큼).</div>
+        </div>
+      </div>
+      <div class="impact">영향: 전환 HTML §07 체크리스트 전체.</div>
+      <div class="pick">결정 → <span class="box">&nbsp;</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 일괄 반영 매핑 ===== -->
+  <section id="apply">
+    <h2><span class="num">E</span>일괄 반영 매핑 — 결정 → 파일</h2>
+    <p class="lede" style="margin-bottom:14px">시트를 채우면, 결정별로 아래 파일을 한 번에 갱신한다. <span class="pill now">즉시</span> = 이번 반영, <span class="pill opt">후속</span> = D11 묶음.</p>
+    <table>
+      <thead><tr><th style="width:18%">결정</th><th style="width:42%">바뀌는 파일 · 위치</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>D1 유산 / D3 호명 / D4 사인오프</td><td><code>채널_기본정보.md</code> §0·§2·§6·§8·§9 · <code>전환 HTML</code> footer/Hero</td><td><span class="pill now">즉시</span> "그럼에도" 문자열 일괄 치환</td></tr>
+        <tr><td>D2 슬로건</td><td><code>채널_기본정보.md</code> §0·§2 · <code>전환 HTML</code> Hero · <code>프로젝트_방향성.md</code> §1</td><td><span class="pill now">즉시</span></td></tr>
+        <tr><td>D5 컬러</td><td><code>채널_기본정보.md</code> §0·§5</td><td><span class="pill now">즉시</span> 전면 교체 시 후속</td></tr>
+        <tr><td>D6 핸들</td><td><code>채널_기본정보.md</code> §1-2</td><td><span class="pill now">즉시</span></td></tr>
+        <tr><td>D7 제목포맷 / D8 해시태그</td><td><code>채널_기본정보.md</code> §6-1·§6-2·§6-3</td><td><span class="pill now">즉시</span></td></tr>
+        <tr><td>D9 발행/시즌</td><td><code>채널_기본정보.md</code> §0·§7</td><td><span class="pill now">즉시</span></td></tr>
+        <tr><td>D10 8축</td><td><code>프로젝트_방향성.md</code> §1.1 · <code>전환 HTML</code> §05</td><td><span class="pill now">즉시</span></td></tr>
+        <tr><td>D11 후속 범위</td><td>CLAUDE.md §3 · 총괄기획/* · index.html · 대본기준 · .claude/agents/* · BGM</td><td><span class="pill opt">후속</span> 묶음 승인</td></tr>
+      </tbody>
+    </table>
+    <div class="card warn" style="margin-top:16px">
+      <div class="kpi">사용법</div>
+      <p class="small">이 시트의 각 <b>결정 →</b> 빈칸에 고른 옵션 번호/문구를 적어(또는 채팅으로 "D1=①, D2=핵심·표면 추천, D6=@ai.literacy.lab …" 식으로) 주면, 위 매핑대로 3개 파일에 일괄 반영한다. 미정 항목은 추천값(★)으로 임시 채워 진행 후 나중에 교체 가능.</p>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div>
+      <div class="signature">AI는 답을, <span class="y">읽는 사람은 질문을.</span></div>
+      <div class="small">채널 정체성 전환 의사결정 시트 — 2026-06-11 작성 / 2026-06-13 결정 완료</div>
+    </div>
+    <div class="small">
+      관련:
+      <a href="채널정체성_전환_AI문해력_2026-06-11.html">전환 기획서</a> ·
+      <a href="README.md">정체성 자료 인덱스</a> ·
+      <a href="채널정체성_그럼에도불구하고.html">구 정체성 마스터</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

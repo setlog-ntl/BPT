@@ -1,81 +1,43 @@
-# 비즈니스PT 학습 정리 (BPT)
+# bizpt — 「바이브코딩 치트키」 🔑 유튜브 제작 OS
 
-비즈니스PT 강의를 수강하면서 정리한 개인 학습 아카이브. 강의 내용·필사 노트·개인 synthesis를 주제별로 구조화하여 HTML로 관리합니다.
+> 채널의 영상 1편 전 과정(기획→검증→패키징→대본→소스→제작→편집→업로드→성과분석)을 **S0~S9 파이프라인**으로 지휘하는 저장소.
+> **Repo**: <https://github.com/habitree/BPT> · v2 전면개편: 2026-07-06 (`overhaul/youtube-os` — 상세 이력 `90_archive/2026-07_전면개편/`)
 
-**Repo**: <https://github.com/habitree/BPT>
+## 시작하기
 
-## 바로 보기
-
-`index.html`을 브라우저로 **더블클릭만 하면** 바로 열립니다. 별도 서버 불필요 — 모든 콘텐츠가 단일 파일에 임베드되어 있고, 라우팅은 hash 기반으로 동작합니다.
-
-```
-index.html  ← 더블클릭
-```
-
-## 주요 페이지
-
-| 섹션 | 내용 |
+| 무엇을 하려면 | 어디로 |
 |---|---|
-| 정리 문서 · 내 관점의 전체 프레임 | 학습 synthesis. 강의들을 내 언어로 재구성 |
-| 정리 문서 · 용어 정리 | 비즈니스PT 학습 사전 (17개 용어) |
-| 정리 문서 · 주제 시스템 | AI / 책 주제와 하위 주제 매핑 |
-| 강의 정리 · 1강 종합 정리 | 1-4강·1-5강 + 4.12·4.16 필사 노트 주제별 통합 (15개 섹션) |
-| 도구 · 트래픽 계산기 | 매출 → 깔때기 역산 인터랙티브 계산기. 시나리오 저장·불러오기·JSON 내보내기 지원 |
+| **세션 시작 (Claude Code)** | [`CLAUDE.md`](CLAUDE.md) — 자동 로딩 진입점 (하드 룰·파이프라인 지도·에이전트 맵) |
+| 영상 1편 만들기 | [`10_system/운영매뉴얼.md`](10_system/운영매뉴얼.md) — "영상 1편의 일생" 1페이지 |
+| 채널 변수 확인 (채널명·아이템·보이스) | [`00_channel/channel_config.md`](00_channel/channel_config.md) — 변수 SSOT |
+| 지시 → 담당 찾기 | [`10_system/registry.md`](10_system/registry.md) — 스테이지 라우팅 |
+| 전략("왜") | [`프로젝트_방향성.md`](프로젝트_방향성.md) |
+| SPA 열람 | [`index.html`](index.html) — hash 라우팅 단일 페이지 (GitHub Pages) |
 
-## 폴더 구조
+## 저장소 구조 (숫자 = 파이프라인 흐름)
 
 ```
-bizpt/
-├── index.html              # SPA 진입점 (단일 파일, 모든 콘텐츠 임베드)
-├── content/                # 편집용 원본 HTML (페이지별)
-│   ├── about.html
-│   ├── my-framework.html
-│   ├── glossary.html
-│   ├── topic-system.html
-│   ├── lecture-1.html
-│   └── traffic-calculator.html
-├── raw/                    # 원본 자료 (필사 노트 전사, 영상 캡처 재구성)
-│   ├── _이미지-인덱스.md
-│   ├── 2026-04-12_비즈니스PT-시작/
-│   ├── 2026-04-16_트래픽-시스템-정리/
-│   ├── 2026-04-18_1주차-4강/
-│   ├── 2026-04-18_1주차-5강/
-│   ├── 2026-04-18_커리큘럼-overview/
-│   └── 2026-04-18_사용자-synthesis/
-└── assets/                 # 편집용 외부 CSS/JS (참고용, index.html은 모두 inline)
-    ├── css/style.css
-    └── js/app.js
+00_channel/    채널 전략 — channel_config(변수 SSOT)·identity·okr·series
+10_system/     파이프라인 OS — registry·stages(S0~S9)·guides·templates(T1~14)·checklists(G1~5)·prompts·cowork_prompts
+20_research/   시장·시청자 데이터 — topics(주제뱅크)·keywords(뷰트랩·API)·comments(댓글분석)·competitors·audience(언어뱅크)
+30_videos/     ★ 영상 단위 폴더 (1 video = 1 project) — _index.md 현황 보드 + NNN_슬러그/
+40_assets/     공용 제작 자산 — bgm·fonts·brand·prompts(생성 뱅크)·자산_라이브러리(ID 카탈로그)
+50_knowledge/  교육 축 — 비즈니스PT 강의 정리(lectures)·reference (파이프라인 룰의 지식 공급원)
+60_tools/      도구 — check_links.py(링크체커)·youtube_api(수집 3종)·shorts_pipeline
+90_archive/    동결 보관 — _redirect_map.md(구→신 경로 전수)
+raw/           강의 필사 원본 (불변)
+docs/          SPA 전시실 — item/(SPA 직접 참조 3파일 잔류)
+대본/           SPA 잔류 룰북 2종(_기획기준) + 대용량 미디어 원본(키컨텐츠)
+content/·assets/  SPA 지원 파일
 ```
 
-## 자료 처리 원칙
+## 핵심 규칙 3줄
 
-- **필사 노트 사진** — 원문을 그대로 전사해 `raw/`에 보관.
-- **강의 영상 캡처** — 원본 슬라이드 레이아웃·문구를 그대로 옮기지 않고, 개념만 추출해 내 언어·도식으로 재구성.
+1. **패키징 퍼스트** — 제목·썸네일(G2 사용자 승인) 전에 대본을 쓰지 않는다.
+2. **변수는 channel_config 참조만** — 아이템·시리즈·보이스를 시스템 문서에 하드코딩하지 않는다.
+3. **삭제 금지·md 원천** — 제거는 `90_archive/` 이동, HTML은 md의 뷰. 이동 시 링크체커(`python 60_tools/check_links.py`) 신규 사망 0건.
 
-## 기술 스택
-
-- 순수 HTML / CSS / JavaScript (빌드 없음)
-- 모던 다크 테마
-- SPA 라우팅 (hash 기반, `<template>` 요소 활용)
-- localStorage (트래픽 계산기 시나리오 저장용)
-
-## 개발 로컬 서버 (선택)
-
-별도 서버 없이도 동작하지만, `content/*.html`을 독립적으로 테스트하려면 정적 서버로 열면 편리합니다.
-
-```bash
-# Python
-cd bizpt
-python -m http.server 5173
-
-# Node
-npx serve .
-```
-
-브라우저에서 `http://localhost:5173` 접속.
-
-## 라이선스 / 저작권
-
-- 학습 목적의 개인 정리 문서입니다.
-- 강의 영상 캡처는 원본을 직접 전재하지 않으며, 개념을 재구성하여 반영합니다.
-- 강의 원본 콘텐츠의 저작권은 비즈니스PT 강의 제작자에게 있습니다.
+## 변경 이력
+| 날짜 | 변경 |
+|---|---|
+| 2026-07-06 | **v2 전면 재작성** — 유튜브 제작 OS 구조 반영 (전면개편 PHASE 7). v1(학습 아카이브 안내) 이력은 git 히스토리 |

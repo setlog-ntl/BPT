@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>댓글 분석 · "책 100권 읽을바엔 차라리..." 서울대 강의에서만 가르치는 이것 (지식인사이드)</title>
+<style>
+  :root{
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#c4b5fd;
+    --bg:#f5f3ee; --panel:#ffffff; --panel-2:#faf8f3; --line:#e7e3da;
+    --text:#1f2430; --muted:#5d6470; --brand:#2f5d62; --brand2:#3a7a82;
+    --shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px 80px}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:980px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;
+    background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:700}
+  .nbtn.src{color:var(--pain);margin-left:auto}
+  header{margin:18px 0 26px}
+  .eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--brand2);font-weight:800;margin-bottom:10px}
+  h1{font-size:24px;line-height:1.38;margin:0 0 16px;font-weight:800;letter-spacing:-.01em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13.5px;color:var(--muted);align-items:center}
+  .meta b{color:var(--text)}
+  .meta .dot{width:4px;height:4px;border-radius:50%;background:#c7c1b4;display:inline-block}
+  .meta .angle{background:#eef5f0;border:1px solid #cfe4d8;color:#256b54;border-radius:7px;padding:2px 10px;font-weight:700}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:26px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+  .sec-no{font-size:11.5px;font-weight:800;color:var(--brand2);letter-spacing:.1em;margin-bottom:5px}
+  h2{font-size:19px;margin:0 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .top3{background:linear-gradient(135deg,#2f5d62,#244b50);border:none;color:#fff}
+  .top3 .sec-no{color:#bfe0d9}.top3 h2{color:#fff}.top3 .lead{color:#d6e6e1}
+  .t3{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-top:1px solid rgba(255,255,255,.14)}
+  .t3:first-of-type{border-top:none}
+  .t3 .rank{flex:0 0 auto;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:17px;background:var(--value);color:#5a4410}
+  .t3 .rank.r2{background:#d7dde3;color:#33414d}.t3 .rank.r3{background:#e6b894;color:#5a3410}
+  .t3 .body{flex:1}
+  .t3 .txt{font-size:14.5px;color:#f3f8f6;line-height:1.6}
+  .t3 .sig{display:inline-flex;gap:10px;margin-top:8px;font-size:12px;color:#bfe0d9;flex-wrap:wrap}
+  .t3 .sig b{color:var(--value);font-weight:800}
+  .t3 .sig .tag{background:rgba(255,255,255,.14);padding:2px 9px;border-radius:6px;font-weight:600;color:#eafff8}
+  .idage{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .idage .blk h3{font-size:14px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .agebars{display:flex;flex-direction:column;gap:8px}
+  .ab{display:grid;grid-template-columns:46px 1fr 38px;gap:10px;align-items:center;font-size:13px}
+  .ab .lab{font-weight:700}
+  .ab .track{height:8px;background:#eef0ee;border-radius:5px;overflow:hidden}
+  .ab .fill{height:100%;border-radius:5px;background:var(--brand2)}
+  .ab .pct{text-align:right;font-weight:800;color:var(--brand);font-size:12.5px}
+  .core{margin-top:10px;font-size:12.5px;color:var(--muted)}.core b{color:var(--brand)}
+  .sigchips{display:flex;flex-wrap:wrap;gap:7px}
+  .sigchip{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12.5px}
+  .sigchip b{color:var(--brand);font-weight:800}
+  .idnote{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.55}
+  .rsn{margin-bottom:15px;padding-bottom:15px;border-bottom:1px dashed var(--line)}
+  .rsn:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .rsn-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;gap:12px}
+  .rsn-top .name{font-weight:800;font-size:15px}
+  .rsn-top .name .rk{color:var(--brand2);margin-right:6px}
+  .rsn-top .val{font-size:12.5px;color:var(--muted);font-weight:700;white-space:nowrap}
+  .rsn-track{height:22px;background:#eef0ee;border-radius:7px;overflow:hidden}
+  .rsn-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;
+    padding-right:9px;color:#173b33;font-weight:800;font-size:12px;min-width:34px}
+  .rsn-ev{margin-top:8px;font-size:12.5px;color:#3a414c;background:var(--panel-2);
+    border-left:3px solid var(--brand2);border-radius:0 8px 8px 0;padding:8px 12px}
+  .rsn-ev .q{color:#2a3038}.rsn-ev .by{color:var(--muted);font-size:11.5px}
+  .rsn-memo{margin-top:6px;font-size:12px;line-height:1.5;padding:7px 11px;border-radius:8px}
+  .rsn-memo.bm{background:#eef5f1;border-left:3px solid var(--growth);color:#1d5e49}
+  .rsn-memo.hk{background:#f4f1fb;border-left:3px solid var(--rec);color:#4a3a86}
+  .rsn-memo b{font-weight:800}
+  .angle-box{background:linear-gradient(135deg,#f3f7f4,#eef5f0);border:1px solid #cfe4d8;border-radius:14px;padding:20px 22px;margin-top:18px}
+  .angle-box h3{margin:0 0 12px;font-size:15px;font-weight:800;color:var(--brand)}
+  .angle-box .grp{margin-bottom:14px}
+  .angle-box .grp:last-child{margin-bottom:0}
+  .angle-box .gl{font-size:12.5px;font-weight:800;letter-spacing:.02em;margin-bottom:7px;display:inline-block;padding:3px 10px;border-radius:7px}
+  .angle-box .gl.bm{background:#d8efe3;color:#1d5e49}
+  .angle-box .gl.hk{background:#e6ddf7;color:#4a3a86}
+  .angle-box ul{margin:0;padding-left:18px;font-size:13px;color:#384049}
+  .angle-box li{margin-bottom:6px;line-height:1.55}
+  .angle-box li b{color:var(--brand)}
+  .angle-box .hk li b{color:#5b48a0}
+  .more .q2{border-left:3px solid var(--line);padding:9px 14px;margin-bottom:9px;font-size:13.5px;background:var(--panel-2);border-radius:0 8px 8px 0}
+  .more .q2 .by{display:block;margin-top:5px;font-size:11.5px;color:var(--muted)}
+  .more .q2 .by b{color:var(--pain)}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;line-height:1.8}
+  .note{background:#fbf6e9;border:1px solid #ecd9a8;border-left:5px solid var(--value);
+    border-radius:10px;padding:13px 16px;font-size:12.5px;color:#6b5a2e;margin-top:14px}
+  .note b{color:#9a7716}
+  @media(max-width:720px){.idage{grid-template-columns:1fr}h1{font-size:20px}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="분석.html">← 도입부 분석</a>
+  <a class="nbtn src" href="https://www.youtube.com/watch?v=y1TbIFlTNoY" target="_blank" rel="noopener">🔗 유튜브 원본</a>
+</nav>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">YouTube 댓글 시청자 분석 · 지식인사이드</div>
+    <h1>"책 100권 읽을바엔 차라리..." 서울대 강의에서만 가르치는 이것</h1>
+    <div class="meta">
+      <span><b>채널</b> 지식인사이드</span><span class="dot"></span>
+      <span><b>구독자</b> 387만</span><span class="dot"></span>
+      <span><b>조회수</b> 149만</span><span class="dot"></span>
+      <span><b>게시</b> 2025.1.22 (약 1년 전)</span><span class="dot"></span>
+      <span><b>분석 댓글</b> 368개(인기순)</span><span class="dot"></span>
+      <span class="angle">분석 각도 · 경쟁·벤치마크 + 후크 발굴</span>
+    </div>
+  </header>
+
+  <section class="top3">
+    <div class="sec-no">★ 대표댓글 · 추천 많은 순 TOP 3</div>
+    <h2>이 영상의 얼굴이 된 댓글 3개</h2>
+    <p class="lead">좋아요가 가장 많이 눌린 댓글 = 시청자 다수가 가장 공감한 지점.</p>
+    <div class="t3"><div class="rank ">1</div><div class="body">
+      <div class="txt">"최고의 어휘력은 상대방의 수준에 맞춰 이해할 수 있는 단어를 쓰는 것 — 그게 현자의 모습이라 봅니다"</div>
+      <div class="sig"><span>👍 <b>1.6천</b></span><span class="tag">어휘력=배려 통찰</span><span>1년 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r2">2</div><div class="body">
+      <div class="txt">"누가 그러더라고요, 인간은 자기가 아프면 책을 읽는다고. 몸보다 마음이 아파서 책을 펴는 것 같아요. 혼자 끙끙대며 뭘 어째야 할지 모를 때 소설 하나 읽고 위로받고 공감하고 다시 일어선다"</div>
+      <div class="sig"><span>👍 <b>867</b></span><span class="tag">독서=위로 (정서 페인)</span><span>1년 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r3">3</div><div class="body">
+      <div class="txt">"내가 많이 알아도 상대방이 모르면 답답해서 안 쓰게 되더라고요"</div>
+      <div class="sig"><span>👍 <b>834</b></span><span class="tag">소통 어휘 공감</span><span>1년 전</span></div>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="sec-no">정체성 · 추정 연령 (간략)</div>
+    <h2>누가 보는가</h2>
+    <div class="idage">
+      <div class="blk">
+        <h3>추정 연령대</h3>
+        <div class="agebars">
+          <div class="ab"><span class="lab">10대</span><div class="track"><div class="fill" style="width:8%"></div></div><span class="pct">8%</span></div>
+          <div class="ab"><span class="lab">20대</span><div class="track"><div class="fill" style="width:24%"></div></div><span class="pct">24%</span></div>
+          <div class="ab"><span class="lab">30대</span><div class="track"><div class="fill" style="width:30%"></div></div><span class="pct">30%</span></div>
+          <div class="ab"><span class="lab">40대</span><div class="track"><div class="fill" style="width:22%"></div></div><span class="pct">22%</span></div>
+          <div class="ab"><span class="lab">50대+</span><div class="track"><div class="fill" style="width:16%"></div></div><span class="pct">16%</span></div>
+          </div>
+        <div class="core">핵심 시청층 <b>20·30대 (폭넓음)</b> · 대형 지식채널(387만)답게 폭넓은 성인층 · 학부모·직장인 신호가 상위</div>
+      </div>
+      <div class="blk">
+        <h3>정체성 대표 신호 (댓글 자기소개)</h3>
+        <div class="sigchips">
+          <span class="sigchip">학부모·자녀(30~50대) <b>8</b></span>
+          <span class="sigchip">직장인(20~40대) <b>5</b></span>
+          <span class="sigchip">고등학생(10대) <b>1</b></span>
+          <span class="sigchip">대학·대학원(20대) <b>1</b></span>
+          <span class="sigchip">연령 직접언급(20·30대) <b>3</b></span>
+        </div>
+        <div class="idnote">대형 채널이라 표본 대비 자기보고는 옅지만 학부모·직장인이 상위. '어휘력·소통·감정 표현' 같은 성인 사회생활 맥락이 지배적 → 20~40대 폭넓게.</div>
+      </div>
+    </div>
+    <div class="note"><b>추정 주의:</b> 유튜브 실제 연령 통계는 채널 소유자만 열람 가능. 위 수치는 댓글 자기소개·말투·영상 주제·채널 성격 기반 <b>추정치</b>입니다.</div>
+  </section>
+
+  <section>
+    <div class="sec-no">02 · 시청 이유 (핵심)</div>
+    <h2>왜 이 영상을 보는가</h2>
+    <p class="lead">368개 댓글 키워드 집계(중복 허용). 순위 · 비중% · 근거 댓글.</p>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">①</span>동기·감사·공감</span><span class="val">74건 · 20%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:100%;background:var(--growth);color:#173b33">74</div></div>
+      <div class="rsn-ev"><span class="q">"최고의 어휘력은 상대방 수준에 맞춰 이해할 수 있는 단어를 쓰는 것 — 그게 현자의 모습"</span> <span class="by">— 👍 1.6천</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">②</span>이해·기억·체화</span><span class="val">37건 · 10%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:50%;background:#4cc4e0;color:#173b33">37</div></div>
+      <div class="rsn-ev"><span class="q">"헐·대박 대신, 내가 어떤 부분에서 감탄했는지 멋있다고 느꼈는지 탄식했는지를 표현하라는 거군요"</span> <span class="by">— 👍 681</span></div>
+      <div class="rsn-memo hk"><b>→ 후크 후보:</b> "'대박'만 쓰는 당신 — 감정이 둔해지는 이유" 후크.</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">③</span>시험·공부·실력</span><span class="val">24건 · 7%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:32%;background:var(--brand2);color:#173b33">24</div></div>
+      <div class="rsn-ev"><span class="q">"내 아이 셋 중 책을 많이 읽은 아이가 생각을 제일 많이 하고 어휘력이 좋아요"</span> <span class="by">— 👍 28</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">④</span>완독·집중·포기</span><span class="val">12건 · 3%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:16%;background:#9aa0aa;color:#173b33">12</div></div>
+      <div class="rsn-ev"><span class="q">"쇼츠·릴스에 익숙해져 한 콘텐츠를 끝까지 보기 힘들었는데, 내용도 음성도 좋아 집중해서 봤다"</span> <span class="by">— 👍 65</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑤</span>습관·꾸준함</span><span class="val">10건 · 3%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:14%;background:var(--rec);color:#fff">10</div></div>
+      <div class="rsn-ev"><span class="q">"직장생활하며 우울·무기력에서 도망치는 수단으로 책을 읽었다. 매일 읽었고 한 해 22권"</span> <span class="by">— 👍 149</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑥</span>책 추천·고르기</span><span class="val">10건 · 3%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:14%;background:var(--pain);color:#fff">10</div></div>
+      <div class="rsn-ev"><span class="q">"책 읽기는 오감을 깨우고 벼리는 작업 같아요. 골라주신 시를 울며 넘겼다"</span> <span class="by">— 👍 42</span></div>
+    </div>
+
+    <div class="angle-box">
+      <h3>🎯 분석 각도 · 경쟁·벤치마크 + 후크 발굴</h3>
+      <div class="grp">
+        <span class="gl bm">경쟁 · 벤치마크 (우리 채널 관점)</span>
+        <ul>
+        <li><b>387만 대형 채널·조회 149만</b>인데 최다 반응이 <b>'어휘력=배려'(상대 수준에 맞춰 쓰는 게 현자)</b> — '몸값'을 <b>지적 과시가 아닌 소통력</b>으로 재정의. bizpt 지적허영심·문해력 8축과 직결.</li>
+        <li>TOP2(👍867)가 <b>'아프면 책을 편다'(독서=위로)</b> — 자기계발 톤인데도 <b>정서 페인</b>이 상위. 결1·결2 모두 정서 후크가 먹힘.</li>
+        <li>핵심('대박' 대신 감정을 쪼개 표현)을 시청자가 <b>스스로 요약·재전파</b>(👍681). bizpt도 '한 문장 핵심'을 댓글이 받아쓰게 설계하면 도달 확장.</li>
+        </ul>
+      </div>
+      <div class="grp hk">
+        <span class="gl hk">🪝 후크 발굴 (시청이유 → 카피 후보)</span>
+        <ul class="hk">
+        <li><b>(어휘=배려 20%)</b> "어휘력 자랑이 아니다 — 상대 눈높이에 맞추는 게 진짜 고수"</li>
+        <li><b>(감정 표현)</b> "'대박'만 쓰는 당신 — 감정이 둔해지는 이유"</li>
+        <li><b>(위로)</b> "마음이 아플 때 사람들이 책을 펴는 이유"</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="more">
+    <div class="sec-no">03 · 더 보기</div>
+    <h2>그 외 대표 댓글</h2>
+    <div class="q2"><span>"헐·대박 대신 내가 어떤 부분에서 감탄·멋·탄식을 느꼈는지 표현하라는 거군요 — 영상 핵심을 직접 요약"</span><span class="by">👍 <b>681</b> · 핵심 재전파</span></div>
+    <div class="q2"><span>"천성이 고급스러운 사람은 좋지만, 고급스러워 보이려 미쳐있는 사람은 우스워 보인다. 미묘한 차이"</span><span class="by">👍 <b>427</b> · 과시 경계</span></div>
+    <div class="q2"><span>"'감정의 표현을 한두 개로 줄이면 실제 우리 감정도 둔화된다'는 말씀이 좋네요"</span><span class="by">👍 <b>417</b> · 핵심 인용</span></div>
+  </section>
+
+  <footer>
+    분석 대상: https://www.youtube.com/watch?v=y1TbIFlTNoY · 지식인사이드<br>
+    데이터: 인기순 상위 댓글 368개 (크롬 브라우저 직접 수집) · 연령대는 댓글 기반 추정치<br>
+    생성일: 2026-06-09 · bizpt / 도입부분석 · 키워드기획
+  </footer>
+</div>
+</body>
+</html>

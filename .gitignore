@@ -35,3 +35,13 @@ venv/
 .env
 .env.local
 secrets.*
+
+# ── 전면개편 D-009: 신규 원본 미디어 차단 (기존 추적분은 이력 보존·유지) ──
+30_videos/**/05_production/촬영본/
+30_videos/**/05_production/음성원본/
+40_assets/**/원본/
+*.psd
+
+# YouTube API 도구 로컬 산출물 (키·캐시·로그)
+60_tools/youtube_api/_cache/
+60_tools/youtube_api/_logs/

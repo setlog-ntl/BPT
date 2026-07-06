@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제목 · 썸네일 문구 고도화 — 바이브코딩 무작정 따라하기 (개발자 아닌데 말로 앱 만들기)</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#a78bfa; --ai:#6ea8fe;
+    --bg:#0d1117; --surface:#161b22; --surface2:#1c2230; --line:#2a313c;
+    --tx:#e6edf3; --tx2:#9aa7b4; --tx3:#6b7785;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.65;padding:32px 18px 80px}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+  h1 .sub{display:block;font-size:14px;font-weight:500;color:var(--tx2);margin-top:8px}
+  h2{font-size:19px;font-weight:700;margin:40px 0 16px;padding-left:12px;border-left:4px solid var(--ai)}
+  h3{font-size:15px;font-weight:700;margin:0 0 4px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 8px}
+  .chip{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--surface2);color:var(--tx2);border:1px solid var(--line)}
+  .chip.ai{color:var(--ai);border-color:#24507e}
+  .guard{background:rgba(239,71,111,.08);border:1px solid rgba(239,71,111,.35);border-radius:14px;padding:18px 20px;margin:22px 0}
+  .guard b{color:var(--pain)}
+  .gtable{width:100%;border-collapse:collapse;margin-top:12px;font-size:13.5px}
+  .gtable td{padding:8px 10px;border:1px solid var(--line);vertical-align:top}
+  .gtable td:first-child{color:var(--pain);width:46%}
+  .gtable td:last-child{color:var(--growth)}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .card.pick{border-color:var(--growth);box-shadow:0 0 0 1px var(--growth) inset}
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;margin-bottom:10px}
+  .b-a{background:rgba(110,168,254,.15);color:var(--ai)}
+  .b-b{background:rgba(6,214,160,.15);color:var(--growth)}
+  .b-c{background:rgba(167,139,250,.18);color:var(--rec)}
+  .b-d{background:rgba(255,209,102,.16);color:var(--value)}
+  .title-main{font-size:18px;font-weight:800;letter-spacing:-.02em;margin:2px 0 8px}
+  .count{font-size:12px;color:var(--tx3);font-weight:600}
+  .note{font-size:13px;color:var(--tx2);margin-top:8px}
+  .note b{color:var(--tx)}
+  .steps{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+  .steps th{background:var(--surface2);color:var(--tx2);font-weight:700;padding:8px 10px;border:1px solid var(--line);text-align:left}
+  .steps td{padding:8px 10px;border:1px solid var(--line);vertical-align:top;color:var(--tx2)}
+  .steps td b{color:var(--tx)}
+  .steps td:first-child{color:var(--ai);font-weight:700;width:7%;text-align:center}
+  /* 썸네일 목업 */
+  .thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:8px}
+  .thumb{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .thumb-img{position:relative;aspect-ratio:16/9;display:flex;align-items:stretch;background:linear-gradient(120deg,#15264a,#1b2f63 55%,#241048)}
+  .thumb-txt{flex:1;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;z-index:2}
+  .tag{display:inline-block;align-self:flex-start;font-size:11px;font-weight:700;background:#0a1730;color:var(--ai);padding:3px 8px;border-radius:5px;margin-bottom:8px}
+  .head{font-size:23px;font-weight:900;line-height:1.18;letter-spacing:-.03em;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.5)}
+  .head .hl{color:var(--value)}
+  .head .hl2{color:var(--growth)}
+  .head .hl3{color:var(--pain)}
+  .head .hl4{color:var(--ai)}
+  .person{position:absolute;right:0;top:0;bottom:0;width:42%;background:radial-gradient(circle at 60% 40%,#2a3340,#10151c);clip-path:polygon(18% 0,100% 0,100% 100%,0 100%);display:flex;align-items:flex-end;justify-content:center}
+  .person::after{content:"";width:46%;height:70%;background:#3a4654;border-radius:50% 50% 0 0;opacity:.55}
+  .time{position:absolute;right:8px;bottom:8px;z-index:3;font-size:11px;font-weight:700;background:rgba(0,0,0,.75);color:#fff;padding:2px 6px;border-radius:4px}
+  .thumb-cap{padding:11px 14px;background:var(--surface);font-size:12.5px;color:var(--tx2)}
+  .thumb-cap b{color:var(--tx)}
+  .flow{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;font-size:14px;line-height:2.1}
+  .flow .step{color:var(--tx)}
+  .flow .ar{color:var(--growth);font-weight:800;margin:0 8px}
+  .flow .x{color:var(--pain);font-weight:700}
+  .flow .o{color:var(--growth);font-weight:700}
+  .flow .key{color:var(--value);font-weight:800}
+  .ref{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+  .ref .thumb{flex:0 0 300px}
+  .ref ul{margin:0;padding-left:18px;font-size:14px;color:var(--tx2);line-height:1.9}
+  .ref ul b{color:var(--tx)}
+  .seo{font-family:ui-monospace,monospace;font-size:12.5px;color:var(--ai);background:#0a1730;border:1px solid #14305e;border-radius:10px;padding:12px 14px;word-spacing:4px;line-height:1.8}
+  .next{font-size:14px;color:var(--tx2);line-height:1.9}
+  .next b{color:var(--value)}
+  footer{margin-top:48px;font-size:12px;color:var(--tx3);border-top:1px solid var(--line);padding-top:16px}
+  /* 탭 */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 4px;border-bottom:1px solid var(--line)}
+  .tab-btn{appearance:none;border:1px solid var(--line);border-bottom:none;background:var(--surface);color:var(--tx2);
+    font-family:inherit;font-size:14px;font-weight:700;padding:11px 18px;border-radius:10px 10px 0 0;cursor:pointer;transition:all .15s}
+  .tab-btn:hover{color:var(--tx);background:var(--surface2)}
+  .tab-btn.active{color:var(--ai);background:var(--bg);border-color:var(--ai);border-bottom:2px solid var(--bg);position:relative;top:1px}
+  .tab-panel{display:none;animation:fade .2s ease}
+  .tab-panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  /* 유튜브 제목 카드 */
+  .yt{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:16px}
+  .yt.pick{border-color:var(--growth);box-shadow:0 0 0 1px var(--growth) inset}
+  .yt-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .yt-no{font-size:13px;font-weight:800;color:var(--ai);background:#0a1730;border:1px solid #14305e;padding:3px 10px;border-radius:6px}
+  .yt-axis{font-size:12px;font-weight:700;color:var(--tx2)}
+  .yt-row{margin:10px 0}
+  .yt-lab{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--tx3);text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+  .yt-lab .c{font-size:11px;color:var(--ai);background:#0a1730;border:1px solid #14305e;padding:1px 7px;border-radius:999px;font-weight:700}
+  .yt-main{font-size:18px;font-weight:800;letter-spacing:-.02em;color:#fff;line-height:1.4}
+  .yt-full{font-size:13.5px;color:var(--tx);background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:11px 13px;line-height:1.7;word-break:keep-all}
+  .yt-full .tag{color:var(--ai);font-weight:600}
+  .yt-full .vc{color:var(--value);font-weight:800}
+  .copy-btn{appearance:none;border:1px solid var(--line);background:var(--surface2);color:var(--tx2);font-family:inherit;
+    font-size:12px;font-weight:700;padding:5px 11px;border-radius:7px;cursor:pointer;transition:all .15s;margin-left:auto}
+  .copy-btn:hover{color:var(--growth);border-color:var(--growth)}
+  .copy-btn.done{color:var(--growth);border-color:var(--growth)}
+  .yt-note{font-size:12.5px;color:var(--tx2);margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+  .yt-note b{color:var(--tx)}
+  .rule{background:rgba(110,168,254,.07);border:1px solid rgba(110,168,254,.3);border-radius:12px;padding:14px 18px;margin:10px 0 20px;font-size:13.5px;color:var(--tx2);line-height:1.8}
+  .rule b{color:var(--ai)}
+  /* 설명문구 */
+  .desc-box{white-space:pre-wrap;word-break:keep-all;background:var(--surface);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;font-size:14px;line-height:1.85;color:var(--tx);font-family:inherit}
+  .desc-box .dh{color:var(--growth);font-weight:800}
+  .desc-box a{color:var(--ai);text-decoration:none;font-weight:600}
+  .desc-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .desc-bar .copy-btn{margin-left:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>제목 · 썸네일 문구 고도화 — 바이브코딩 무작정 따라하기
+    <span class="sub">풀링 콘텐츠 · 6축: AI·바이브코딩(입구)·문해력·사고력·성장 · 결: ①(메인)+②③ · 종착지: 시리즈 구독 → 키(이북리더기) · 근거: 통합_AI무작정따라하기_V3.html</span>
+  </h1>
+  <div class="meta">
+    <span class="chip ai">#바이브코딩</span>
+    <span class="chip">제목 디벨롭 8단계</span>
+    <span class="chip">썸네일 6단계</span>
+    <span class="chip">35자 메인 한계</span>
+    <span class="chip">답 숨김(⑤)</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="t-dev">🧪 제목·썸네일 디벨롭</button>
+    <button class="tab-btn" data-tab="t-yt">▶ 유튜브 적용 제목 5개</button>
+    <button class="tab-btn" data-tab="t-desc">📝 유튜브 설명문구</button>
+  </div>
+
+  <!-- ===== 탭 1 : 디벨롭 ===== -->
+  <div class="tab-panel active" id="t-dev">
+
+  <div class="guard">
+    <h3>⚠️ 진정성 가드 — 이 주제의 최대 리스크</h3>
+    <p style="font-size:14px;color:var(--tx2)">채널 룰(CLAUDE.md §4.4)은 <b>AI 적대 프레임</b>과 <b>단순 클릭베이트·치트키 과장</b>을 금지한다. "코드 0줄·말로 만든다"는 사실이지만 <b style="color:var(--pain)">"개발자 필요 없다 / 코딩 끝났다"</b>식 적대·도발로 쓰지 않는다. 본편의 진짜 메시지 = <b style="color:var(--growth)">"비개발자라 더 쉽게 설명한다 = 문해력이 무기"</b>. 제목·썸네일은 호기심·자기투영으로 끌되, <b>본편에 있는 약속만</b>(말로 만들지만 "말로만 다 되진 않는다"까지 정직).</p>
+    <table class="gtable">
+      <tr><td>"코딩 이제 안 배워도 됩니다" / "개발자 필요 없는 시대"</td><td>"코딩 몰라도, 말로 앱이 만들어졌어요" / "개발자가 아니라서 더 쉽게"</td></tr>
+      <tr><td>적대·도발로 클릭 → 본질(문해력) 배신</td><td>호기심·자기투영("나도 되나?")으로 클릭 → 본질로 착지</td></tr>
+      <tr><td>"3분 만에 앱 완성" 과장 / 실패 장면 숨김</td><td>"말로만 다 되진 않아요"까지 정직 → 신뢰가 자산</td></tr>
+    </table>
+  </div>
+
+  <h2>1. 기존 자산 분석 — 제작 완료된 썸네일 2종</h2>
+  <div class="ref">
+    <div class="thumb" style="flex:0 0 320px">
+      <div class="thumb-img">
+        <div class="thumb-txt">
+          <span class="tag">AI 로고 군 + 카파시</span>
+          <div class="head"><span class="hl4">바이브코딩</span><br>그게 뭔데?</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">12:00</div>
+      </div>
+      <div class="thumb-cap">「바이브코딩 그게 뭔데?」 + 「무작정 따라하기 / 바이브코딩이 뭔데???」<br>OpenAI·Claude·Gemini·Cursor 로고 + <b>"바이브코딩 창시자 안드레아 카파시"</b></div>
+    </div>
+    <ul>
+      <li><b>강점:</b> 로고 군 + 카파시 인물 = <b>권위·시의성</b> 시각 증명이 강함. "그게 뭔데?"가 호기심 갭(⑤ 답 숨김)을 이미 충족.</li>
+      <li><b>약점 1 — 단어 풀이 좁다:</b> "바이브코딩"은 아직 <b>생소어</b>라 검색 풀이 작다(③-1 위반 소지). 모르는 사람은 클릭 동기가 약함 → <b>"코딩 몰라도 / 말로 앱"</b> 같은 일상어 병행이 풀을 넓힌다.</li>
+      <li><b>약점 2 — 시청자 자기투영 부족:</b> "그게 뭔데?"는 대상이 추상적. 본편의 최강 무기인 <b>"개발자가 아닌데"</b>(댓글① 신뢰 포인트)가 헤드에 없다 → 결 ① 자기투영을 못 건다.</li>
+      <li><b>결론:</b> 기존 2종은 <b>"호기심(그게 뭔데)" 축</b>으로 유지·재활용하고, <b>"비개발자 면죄부/증명" 축</b>을 신규로 추가해 A/B로 돌린다(§3).</li>
+    </ul>
+  </div>
+
+  <h2>2. 제목 후보 (8단계 디벨롭 · 메인 35자 이내)</h2>
+  <div class="grid g2">
+    <div class="card pick">
+      <span class="badge b-b">A안 · 비개발자 증명 (메인·1차 업로드)</span>
+      <div class="title-main">개발자도 아닌데 앱을 만들었습니다 (코드 한 줄도 안 썼어요)</div>
+      <span class="count">메인 17자 + 괄호 · 1차 추천</span>
+      <p class="note">본편 최강 무기(개발자 아님=무기) 직격 + <b>"한 줄도 안 썼다"</b>(④ 의외성·⑤ 어떻게? 답 숨김). 결 ① 자기투영("나도?") 최강. 적대 0.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-a">B안 · 호기심·일상어 (그게 뭔데 축)</span>
+      <div class="title-main">코딩 1도 모르는데, 말로 했더니 앱이 만들어졌어요</div>
+      <span class="count">메인 24자 · A/B 교체</span>
+      <p class="note">"바이브코딩" 생소어를 <b>"코딩 1도 모르는데 / 말로"</b> 일상어로 풀어 검색 풀 확대(③-1). 결 ① 입문자 흡수력 최강.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-d">C안 · 면죄부 질문형 (⭐ 005 패턴 정합)</span>
+      <div class="title-main">아직도 앱 만들려면 코딩 배워야 하는 줄 아세요?</div>
+      <span class="count">메인 23자 · 강력 후보</span>
+      <p class="note">"아직도 ~줄 아세요?" = 자기점검 즉발(005 검증 패턴). 본편 "코딩의 입구가 사라졌다"와 직결. 결 ②③ 흡수.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-c">D안 · 권위·트렌드 (카파시 활용)</span>
+      <div class="title-main">OpenAI 창립멤버가 말한 "이제 모두가 프로그래머다"</div>
+      <span class="count">메인 25자 · 시의성 실험</span>
+      <p class="note">권위(카파시)+충격 단언을 인용형으로. 기존 썸네일 로고·인물 자산과 정합. 단, 개인가치 차용형이라 <b>에버그린성은 약함</b> → 트렌드 시점 한정.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-b">E안 · 검증 프레임 (직접 해봤다)</span>
+      <div class="title-main">요즘 난리난 '바이브코딩', 비개발자도 되는지 해봤습니다</div>
+      <span class="count">메인 25자 · 시리즈 입구</span>
+      <p class="note">트렌드어("요즘 난리난")+검증 프레임("해봤습니다")으로 신뢰. "바이브코딩"을 쓰되 "비개발자도 되는지"로 자기투영 보강.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-a">F안 · 반전·정직 (차별 실험)</span>
+      <div class="title-main">말로만 하면 앱이 만들어진다고요? 직접 해보니…</div>
+      <span class="count">메인 23자 · 정직 톤</span>
+      <p class="note">과장 대신 <b>"직접 해보니…"</b>로 정직 톤(본편 "말로만 다 되진 않는다"와 정합). 낚시 피로감 큰 시청자에게 차별.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:22px">A안에 적용한 8단계 추적 (메인 후보 근거)</h3>
+  <table class="steps">
+    <tr><th>단계</th><th>방법</th><th>A안에 어떻게 적용했나</th></tr>
+    <tr><td>①</td><td>교차 조합</td><td>기존 썸네일 "무작정 따라하기" + 본편 후크 "제가 만들었어요, 근데 개발자 아니에요"를 제목으로 합성</td></tr>
+    <tr><td>②</td><td>쉬운 단어</td><td><b>바이브코딩 → "앱을 만들었다" / 코드 안 씀</b> — 생소어를 중학생 일상어로</td></tr>
+    <tr><td>③-1</td><td>넓은 용어</td><td>"바이브코딩"(좁은 풀) → "개발자·앱·코딩"(넓은 풀)로 검색 커버 확대</td></tr>
+    <tr><td>④</td><td>강조 수식어</td><td><b>"코드 한 줄도 안 썼어요"</b> = 의외성 수식 (전설적인·역대급류 대신 사실 기반)</td></tr>
+    <tr><td>⑤</td><td>답 숨김</td><td><b>"어떻게 만들었는지(=말로·AI로)"를 제목에 안 풀어</b> 머릿속 물음표 유지</td></tr>
+    <tr><td>⑥⑦</td><td>트렌드·핫비디오</td><td>"~했습니다 (괄호 반전)" = 검증된 호기심 갭 형태. <b>라이브 뷰트랩 캡처 후 확정(보류)</b></td></tr>
+    <tr><td>⑧</td><td>강력 단어</td><td><b>보류</b> — "미쳤다·역대급" 등 임의 선적용 금지(데이터 누적 후 사후)</td></tr>
+  </table>
+  <p class="next" style="margin-top:14px">→ 1차 <b>A안</b>(비개발자 증명) 업로드 → 1주일 내 <b>B(일상어)·C(면죄부 질문)</b>로 A/B 교체(6주차 3개 제작·교체 룰). <b>③-1·③-2·⑥</b>은 뷰트랩 조회수 데이터 확보 후 최종 확정.</p>
+
+  <h2>3. 썸네일 문구 고도화 ⭐ — 비개발자 증명 · 호기심(그게 뭔데) 2축</h2>
+  <p class="next" style="margin:0 0 18px">두 축으로 헤드를 변주한다. <b style="color:var(--growth)">축 1 (비개발자 증명)</b>은 "나도 할 수 있겠다"는 자기투영을, <b style="color:var(--ai)">축 2 (호기심·그게 뭔데)</b>는 기존 자산(로고·카파시)을 살려 궁금증을 건다. 헤드는 <b>두 줄 12~16자 / 한 줄 7~10자</b>, 보조 1줄은 작게(헤드 50%)·긍정 착지 전담. 핵심어 <b>1개만</b> 색강조.</p>
+
+  <!-- 축 1 : 비개발자 증명 -->
+  <h3 style="font-size:16px;margin:0 0 4px;color:var(--growth)">축 1 · 비개발자 증명 — "개발자 아닌데 만들었다" (결 ①, A안 강화)</h3>
+  <p class="note" style="margin:0 0 14px">규칙: ①<b>"개발자 아닌데 / 코드 0줄"</b>을 핵심어로 깔고(=<span style="color:var(--growth)">--growth</span> 색강조) ②결과물(앱)을 함께 보여 증명 ③보조 1줄로 자기투영 착지. 적대·과장 금지.</p>
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card pick">
+      <span class="badge b-b">1-A · 최강 추천 (가장 구체)</span>
+      <div class="title-main">개발자 아닌데 / 앱 만들었어요</div>
+      <span class="count">헤드 두 줄: 「<span style="color:var(--growth)">개발자 아닌데</span> / 앱 만들었어요」 (7+7자)</span>
+      <p class="note">핵심어 <b style="color:var(--growth)">"개발자 아닌데"</b>만 강조. 본편 후크 그대로 박제 → 자기투영 즉발. 보조: <b style="color:var(--value)">"코드는 한 줄도 안 썼어요"</b>.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-b">1-B · 의외성 극대 (코드 0줄)</span>
+      <div class="title-main">코드 0줄로 / 만든 앱</div>
+      <span class="count">헤드 두 줄: 「<span style="color:var(--value)">코드 0줄</span>로 / 만든 앱」 (5+4자)</span>
+      <p class="note"><b style="color:var(--value)">"코드 0줄"</b> 숫자 충격. 짧고 강함. 보조: <b style="color:var(--growth)">"개발자 아니어도 됩니다"</b>.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-b">1-C · 일상어 흡수 (결 ① 입문)</span>
+      <div class="title-main">코딩 1도 모르는데 / 됐어요</div>
+      <span class="count">헤드 두 줄: 「<span style="color:var(--growth)">코딩 1도 모르는데</span> / 됐어요」 (9+4자)</span>
+      <p class="note"><b style="color:var(--growth)">"1도 모르는데"</b> = 입문자 공감어. 보조: <b style="color:var(--value)">"말로 시켰더니 끝"</b>.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-b">1-D · 정직 톤 (차별 실험)</span>
+      <div class="title-main">말로만 다 될까? / 해봤습니다</div>
+      <span class="count">헤드 두 줄: 「말로만 <span style="color:var(--pain)">다 될까?</span> / 해봤습니다」 (8+5자)</span>
+      <p class="note">과장 대신 검증 톤. <b style="color:var(--pain)">"다 될까?"</b>로 의심까지 정직. 보조: <b style="color:var(--growth)">"되는 것과 안 되는 것"</b>.</p>
+    </div>
+  </div>
+
+  <!-- 축 2 : 호기심 (그게 뭔데) -->
+  <h3 style="font-size:16px;margin:24px 0 4px;color:var(--ai)">축 2 · 호기심 (그게 뭔데) — 기존 자산 재활용 (결 ②③, D·E안 강화)</h3>
+  <p class="note" style="margin:0 0 14px">규칙: ①로고 군 + 카파시 인물(기존 자산) 유지 ②<b>"그게 뭔데?"</b> 궁금증 갭 ③보조 1줄로 일상어 풀이(검색 풀 확대). 핵심어 <span style="color:var(--ai)">--ai</span> 색강조.</p>
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card pick">
+      <span class="badge b-c">2-A · 기존 자산 정합 (메인)</span>
+      <div class="title-main">바이브코딩, / 그게 뭔데?</div>
+      <span class="count">헤드 두 줄: 「<span style="color:var(--ai)">바이브코딩</span>, / 그게 뭔데?」 (5+5자)</span>
+      <p class="note">기존 썸네일 그대로 활용. 보조: <b style="color:var(--growth)">"말로 앱 만드는 법"</b> 추가로 일상어 풀 확대(약점 보강).</p>
+    </div>
+    <div class="card">
+      <span class="badge b-c">2-B · 권위 부착 (카파시)</span>
+      <div class="title-main">"이제 모두가 / 프로그래머다"</div>
+      <span class="count">헤드 두 줄: 「"이제 <span style="color:var(--ai)">모두가</span> / 프로그래머다"」 (5+6자)</span>
+      <p class="note">카파시 인용 + 인물 컷. 보조: <b style="color:var(--value)">"OpenAI 창립멤버의 말"</b>. 권위로 시의성 확보.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-c">2-C · 입구 소멸 (개념 충격)</span>
+      <div class="title-main">코딩의 입구가 / 사라졌다</div>
+      <span class="count">헤드 두 줄: 「코딩의 <span style="color:var(--ai)">입구</span>가 / 사라졌다」 (6+4자)</span>
+      <p class="note">본편 핵심 메시지("소수의 언어, 입구가 사라짐") 직접 시각화. 보조: <b style="color:var(--growth)">"이제 말로 시킨다"</b>.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-c">2-D · 외계어 공감 (그게 뭔데 변주)</span>
+      <div class="title-main">"깃허브? 파이썬? / 그게 뭔데??"</div>
+      <span class="count">헤드 두 줄: 「깃허브? 파이썬? / <span style="color:var(--pain)">그게 뭔데??</span>」 (8+6자)</span>
+      <p class="note">본편 공감 포인트(전문 용어=외계어) 그대로. <b style="color:var(--pain)">"그게 뭔데??"</b> 강조. 보조: <b style="color:var(--growth)">"몰라도 만들 수 있어요"</b>.</p>
+    </div>
+  </div>
+
+  <!-- 고도화 목업 4종 -->
+  <h3 style="font-size:15px;margin:24px 0 8px">고도화 목업 (좌상단 문구 · 핵심어 1개만 색강조)</h3>
+  <div class="thumbs">
+    <div class="thumb">
+      <div class="thumb-img">
+        <div class="thumb-txt">
+          <span class="tag">AI 무작정 따라하기</span>
+          <div class="head"><span class="hl2">개발자 아닌데</span><br>앱 만들었어요</div>
+          <div style="font-size:12.5px;color:var(--value);margin-top:8px;font-weight:700">코드는 한 줄도 안 썼어요</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">12:00</div>
+      </div>
+      <div class="thumb-cap"><b>1-A 증명 (메인)</b> · 핵심어 <span style="color:var(--growth)">"개발자 아닌데"</span> 강조 · 결 ① 자기투영</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-img" style="background:linear-gradient(120deg,#3a2f10,#1c1606)">
+        <div class="thumb-txt">
+          <span class="tag" style="background:#332a10;color:var(--value)">AI로 앱 만들기</span>
+          <div class="head"><span class="hl">코드 0줄</span>로<br>만든 앱</div>
+          <div style="font-size:12.5px;color:var(--growth);margin-top:8px;font-weight:700">개발자 아니어도 됩니다</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">12:00</div>
+      </div>
+      <div class="thumb-cap"><b>1-B 의외성</b> · <span style="color:var(--value)">"코드 0줄"</span> 숫자 충격 · 짧고 강함</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-img">
+        <div class="thumb-txt">
+          <span class="tag">AI 로고 + 카파시</span>
+          <div class="head"><span class="hl4">바이브코딩</span>,<br>그게 뭔데?</div>
+          <div style="font-size:12.5px;color:var(--growth);margin-top:8px;font-weight:700">말로 앱 만드는 법</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">12:00</div>
+      </div>
+      <div class="thumb-cap"><b>2-A 호기심 (기존 자산)</b> · <span style="color:var(--ai)">"바이브코딩"</span> + 일상어 보조로 풀 확대</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-img" style="background:linear-gradient(120deg,#2a1f3d,#161226)">
+        <div class="thumb-txt">
+          <span class="tag" style="background:#221a35;color:var(--rec)">AI 시대 코딩</span>
+          <div class="head">깃허브? 파이썬?<br><span class="hl3">그게 뭔데??</span></div>
+          <div style="font-size:12.5px;color:var(--growth);margin-top:8px;font-weight:700">몰라도 만들 수 있어요</div>
+        </div>
+        <div class="person"></div>
+        <div class="time">12:00</div>
+      </div>
+      <div class="thumb-cap"><b>2-D 외계어 공감</b> · <span style="color:var(--pain)">"그게 뭔데??"</span> 강조 · 입문자 공감</div>
+    </div>
+  </div>
+  <p class="next" style="margin-top:14px">색 토큰: <span style="color:var(--growth)">증명·해결 = --growth</span> / <span style="color:var(--value)">강조 1단어·숫자 = --value</span> / <span style="color:var(--ai)">바이브코딩·AI = 블루</span> / <span style="color:var(--pain)">외계어·의심 = --pain</span>. 로봇·위협 이미지 금지, 결과물 화면(완성 앱) + 인물(개발자 아님 강조) 원칙.</p>
+
+  <!-- 조합 매트릭스 -->
+  <h3 style="font-size:15px;margin:26px 0 8px">헤드 × 보조 1줄 조합 매트릭스 (썸네일 1장 = 헤드 1 + 보조 1)</h3>
+  <table class="gtable" style="font-size:13px">
+    <tr style="background:var(--surface2)">
+      <td style="color:var(--tx2);width:34%">헤드 (큰 글씨, 핵심어 색강조)</td>
+      <td style="color:var(--tx2);width:33%">보조 1줄 (작게, 긍정 착지)</td>
+      <td style="color:var(--tx2);width:33%">결·용도</td>
+    </tr>
+    <tr><td style="color:var(--tx)"><span style="color:var(--growth)">개발자 아닌데</span> 앱 만들었어요</td><td style="color:var(--value)">코드는 한 줄도 안 썼어요</td><td style="color:var(--tx2)">① · <b style="color:var(--value)">1차 업로드 메인</b></td></tr>
+    <tr><td style="color:var(--tx)"><span style="color:var(--value)">코드 0줄</span>로 만든 앱</td><td style="color:var(--growth)">개발자 아니어도 됩니다</td><td style="color:var(--tx2)">① · A/B 교체 1</td></tr>
+    <tr><td style="color:var(--tx)"><span style="color:var(--ai)">바이브코딩</span>, 그게 뭔데?</td><td style="color:var(--growth)">말로 앱 만드는 법</td><td style="color:var(--tx2)">②③ · A/B 교체 2 (기존 자산)</td></tr>
+    <tr><td style="color:var(--tx)">깃허브? 파이썬? <span style="color:var(--pain)">그게 뭔데??</span></td><td style="color:var(--growth)">몰라도 만들 수 있어요</td><td style="color:var(--tx2)">① · 입문 공감 실험</td></tr>
+    <tr><td style="color:var(--tx)">"이제 <span style="color:var(--ai)">모두가</span> 프로그래머다"</td><td style="color:var(--value)">OpenAI 창립멤버의 말</td><td style="color:var(--tx2)">②③ · 권위·트렌드 실험</td></tr>
+  </table>
+  <p class="note" style="margin-top:12px">운영: <b>1차 = 1-A(비개발자 증명 메인)</b> → 1주일 내 <b>2-A(호기심·기존 자산)</b>·<b>1-B(코드 0줄)</b>로 6주차 3개 교체 룰. 보조 1줄은 헤드와 같은 축일 필요 없음(헤드=호기심 + 보조=일상어 풀이가 검색·자기투영 동시 충족).</p>
+
+  <div class="guard" style="background:rgba(6,214,160,.06);border-color:rgba(6,214,160,.3)">
+    <h3 style="color:var(--growth)">✅ 고도화 체크 — 마감 전</h3>
+    <p style="font-size:13.5px;color:var(--tx2)">• 핵심어 <b>1개만</b> 색강조(2개 이상 = 시선 분산 NG) &nbsp;•&nbsp; 헤드 자수 두 줄 12~16 / 한 줄 7~10 준수 &nbsp;•&nbsp; <b style="color:var(--pain)">코딩 끝났다·개발자 필요없다·3분완성</b> 0건(적대·과장 금지) &nbsp;•&nbsp; "말로 만든다"는 본편에서 <b>"말로만 다 되진 않는다"</b>까지 정직히 보여줌(낚시 아님) &nbsp;•&nbsp; 보조 1줄은 항상 <b style="color:var(--growth)">긍정·일상어 착지</b> &nbsp;•&nbsp; 결과물(완성 앱 화면) 시각 증명, 로봇·위협 이미지 금지</p>
+  </div>
+
+  <h2>4. 시리즈·키콘텐츠 연결</h2>
+  <div class="flow">
+    <div class="step"><b>[썸네일·제목]</b> "개발자 아닌데 앱을?" → "나도 되나?"(자기투영)</div>
+    <div class="step"><span class="ar">↓</span>비결 = AI 사용법 자체 <span class="x">❌</span> / 원하는 걸 쉽고 또렷하게 설명하는 힘 <span class="o">⭕</span></div>
+    <div class="step"><span class="ar">↓</span>"같은 AI 시켜도 왜 결과가 갈리지?" <span style="color:var(--tx3);font-size:12px">← C·F안이 이 지점을 선점</span></div>
+    <div class="step"><span class="ar">↓</span>설명력 ← 사고력 ← 문해력 ← <span class="key">독서</span> (본편 "책, 책, 책을 읽읍시다")</div>
+    <div class="step"><span class="ar">↓</span>시리즈 구독·신뢰 축적(직접 판매 0) → 강의 비판매 = 진정성 자산</div>
+    <div class="step"><span class="ar">↓</span><b>[키콘텐츠 진입]</b> 오래·깊이 읽는 환경 → <span style="color:var(--value)">이북리더기</span> → readtree</div>
+  </div>
+
+  <h2>5. SEO 보강 &amp; 다음 단계</h2>
+  <div class="seo">바이브코딩 vibe coding AI앱만들기 코딩없이앱만들기 비개발자 코드없이 자연어코딩 챗GPT앱 클로드 커서 cursor AI독학 앱개발 카파시 karpathy 노코드 #바이브코딩 #AI앱만들기</div>
+  <p class="next" style="margin-top:14px">남은 단계: <b>⑥⑦ 라이브 뷰트랩 캡처</b>("바이브코딩 / 코딩없이 앱 / 비개발자 코딩" 조회수로 A·B·E안 최종 확정) → <b>제목 35자 후 ~100자</b> 검색 키워드로 보강(위 SEO 라인) → 30초 도입부 후크와 수미상관 점검("개발자 아니라서 더 쉽게" → 마무리 "쉽게 설명하는 힘=문해력" 회수).</p>
+
+  </div><!-- /t-dev -->
+
+  <!-- ===== 탭 2 : 유튜브 적용 제목 ===== -->
+  <div class="tab-panel" id="t-yt">
+
+    <h2 style="border-left-color:var(--growth)">▶ 유튜브에 바로 넣는 실제 제목 5개</h2>
+    <div class="rule">
+      세팅 규칙 — <b>① 첫 단어 = "바이브코딩"</b> (검색 노출 핵심어 선점) &nbsp;·&nbsp; <b>② 앞 30자 = 메인 제목</b> (유튜브에서 안 잘리는 구간, 클릭을 만드는 문구) &nbsp;·&nbsp; <b>③ 30자 이후 ~ 100자 = #검색어</b> (SEO 해시태그로만 채움). 각 카드의 <b>전체 제목</b>을 그대로 복사해 유튜브 제목란에 붙여넣으면 됩니다. <span style="color:var(--value)">⑧ 강력단어(미쳤다·역대급 등)는 데이터 누적 후 사후 적용 — 현재 보류.</span>
+    </div>
+
+    <div class="yt pick">
+      <div class="yt-head"><span class="yt-no">제목 1 · 메인 추천</span><span class="yt-axis">비개발자 증명 (A안) · 결 ①</span>
+        <button class="copy-btn" data-copy="바이브코딩, 개발자 아닌데 앱 만들었어요 (코드 0줄) #바이브코딩 #AI앱만들기 #코딩없이앱만들기 #비개발자 #노코드 #자연어코딩 #AI독학 #챗GPT앱 #vibecoding">전체 복사</button></div>
+      <div class="yt-row"><div class="yt-lab">메인 제목 <span class="c">30자</span></div><div class="yt-main">바이브코딩, 개발자 아닌데 앱 만들었어요 (코드 0줄)</div></div>
+      <div class="yt-row"><div class="yt-lab">전체 (제목 + #검색어) <span class="c">총 98자</span></div>
+        <div class="yt-full"><span class="vc">바이브코딩, 개발자 아닌데 앱 만들었어요 (코드 0줄)</span> <span class="tag">#바이브코딩 #AI앱만들기 #코딩없이앱만들기 #비개발자 #노코드 #자연어코딩 #AI독학 #챗GPT앱 #vibecoding</span></div></div>
+      <div class="yt-note">본편 최강 무기(개발자 아님=무기) 직격 + "코드 0줄" 의외성. 답(어떻게=말로/AI) 숨김. <b>1차 업로드 추천.</b></div>
+    </div>
+
+    <div class="yt">
+      <div class="yt-head"><span class="yt-no">제목 2</span><span class="yt-axis">일상어 호기심 (B안) · 결 ① 입문</span>
+        <button class="copy-btn" data-copy="바이브코딩으로 코딩 1도 몰라도 말로 앱 만들기 #바이브코딩 #자연어코딩 #AI앱만들기 #코딩없이앱만들기 #챗GPT앱 #AI독학 #비개발자 #노코드 #생성형AI #초보코딩">전체 복사</button></div>
+      <div class="yt-row"><div class="yt-lab">메인 제목 <span class="c">26자</span></div><div class="yt-main">바이브코딩으로 코딩 1도 몰라도 말로 앱 만들기</div></div>
+      <div class="yt-row"><div class="yt-lab">전체 (제목 + #검색어) <span class="c">총 95자</span></div>
+        <div class="yt-full"><span class="vc">바이브코딩으로 코딩 1도 몰라도 말로 앱 만들기</span> <span class="tag">#바이브코딩 #자연어코딩 #AI앱만들기 #코딩없이앱만들기 #챗GPT앱 #AI독학 #비개발자 #노코드 #생성형AI #초보코딩</span></div></div>
+      <div class="yt-note">생소어를 "코딩 1도 몰라도 / 말로" 일상어로 풀어 <b>검색 풀 확대</b>(③-1). A/B 교체 1순위.</div>
+    </div>
+
+    <div class="yt">
+      <div class="yt-head"><span class="yt-no">제목 3</span><span class="yt-axis">입구 소멸 단언 (C안) · 결 ②③</span>
+        <button class="copy-btn" data-copy="바이브코딩, 이제 앱은 코딩 안 배워도 됩니다 #바이브코딩 #코딩없이앱만들기 #노코드 #비개발자 #AI앱만들기 #자연어코딩 #앱개발 #AI독학 #AI코딩 #프로그래밍">전체 복사</button></div>
+      <div class="yt-row"><div class="yt-lab">메인 제목 <span class="c">25자</span></div><div class="yt-main">바이브코딩, 이제 앱은 코딩 안 배워도 됩니다</div></div>
+      <div class="yt-row"><div class="yt-lab">전체 (제목 + #검색어) <span class="c">총 92자</span></div>
+        <div class="yt-full"><span class="vc">바이브코딩, 이제 앱은 코딩 안 배워도 됩니다</span> <span class="tag">#바이브코딩 #코딩없이앱만들기 #노코드 #비개발자 #AI앱만들기 #자연어코딩 #앱개발 #AI독학 #AI코딩 #프로그래밍</span></div></div>
+      <div class="yt-note">"코딩의 입구가 사라졌다"를 단언형으로. <b>적대 아님</b>("코딩 끝"이 아니라 "안 배워도 된다"=가능성).</div>
+    </div>
+
+    <div class="yt">
+      <div class="yt-head"><span class="yt-no">제목 4</span><span class="yt-axis">권위·트렌드 (D안) · 카파시</span>
+        <button class="copy-btn" data-copy="바이브코딩 뜻? '이제 모두가 프로그래머다' #바이브코딩 #카파시 #karpathy #AI앱만들기 #자연어코딩 #코딩없이앱만들기 #비개발자 #노코드 #vibecoding">전체 복사</button></div>
+      <div class="yt-row"><div class="yt-lab">메인 제목 <span class="c">24자</span></div><div class="yt-main">바이브코딩 뜻? '이제 모두가 프로그래머다'</div></div>
+      <div class="yt-row"><div class="yt-lab">전체 (제목 + #검색어) <span class="c">총 94자</span></div>
+        <div class="yt-full"><span class="vc">바이브코딩 뜻? '이제 모두가 프로그래머다'</span> <span class="tag">#바이브코딩 #카파시 #karpathy #AI앱만들기 #자연어코딩 #코딩없이앱만들기 #비개발자 #노코드 #vibecoding</span></div></div>
+      <div class="yt-note">"바이브코딩 뜻?" 검색 의도 직격 + 카파시 인용 권위. 기존 썸네일(로고·인물)과 정합. 시의성 한정.</div>
+    </div>
+
+    <div class="yt">
+      <div class="yt-head"><span class="yt-no">제목 5</span><span class="yt-axis">검증·정직 (E·F안) · 신뢰</span>
+        <button class="copy-btn" data-copy="바이브코딩 직접 해봤습니다, 비개발자도 진짜 될까? #바이브코딩 #AI앱만들기 #비개발자 #코드없이 #커서 #클로드 #자연어코딩 #코딩없이앱만들기 #노코드 #AI독학">전체 복사</button></div>
+      <div class="yt-row"><div class="yt-lab">메인 제목 <span class="c">28자</span></div><div class="yt-main">바이브코딩 직접 해봤습니다, 비개발자도 진짜 될까?</div></div>
+      <div class="yt-row"><div class="yt-lab">전체 (제목 + #검색어) <span class="c">총 92자</span></div>
+        <div class="yt-full"><span class="vc">바이브코딩 직접 해봤습니다, 비개발자도 진짜 될까?</span> <span class="tag">#바이브코딩 #AI앱만들기 #비개발자 #코드없이 #커서 #클로드 #자연어코딩 #코딩없이앱만들기 #노코드 #AI독학</span></div></div>
+      <div class="yt-note">"직접 해봤습니다 / 진짜 될까?" 검증·정직 톤(본편 "말로만 다 되진 않는다"와 정합). 낚시 피로층에 차별.</div>
+    </div>
+
+    <div class="rule" style="background:rgba(6,214,160,.06);border-color:rgba(6,214,160,.3);color:var(--tx2)">
+      <b style="color:var(--growth)">운영 팁</b> — 1차 <b>제목 1</b> 업로드 → 1주일 내 <b>제목 2·3</b>로 A/B 교체(6주차 룰). 해시태그는 5개 제목이 키워드를 돌려쓰므로, 영상 설명란 첫 줄에도 동일 #검색어를 한 번 더 넣으면 SEO 중복 커버. <b>#바이브코딩</b>은 5개 전부 1번 태그로 고정(채널 시리즈 묶음).
+    </div>
+
+  </div><!-- /t-yt -->
+
+  <!-- ===== 탭 3 : 유튜브 설명문구 ===== -->
+  <div class="tab-panel" id="t-desc">
+
+    <h2 style="border-left-color:var(--growth)">📝 유튜브 영상 설명란 (그대로 복사)</h2>
+    <div class="rule">
+      설명란 <b>첫 2~3줄</b>이 검색·미리보기에 노출되는 핵심 구간이라 후크 문장을 앞에 뒀습니다. &nbsp;·&nbsp; <b>타임스탬프</b>는 V3 대본 챕터 기준(편집 후 실제 시간으로 보정 필요) &nbsp;·&nbsp; 링크 2개(<b>linkmap.biz</b> / <b>read.habitree.io</b>)는 본편의 "위트 자기홍보 2회" 룰에 맞춰 자연스럽게 배치 &nbsp;·&nbsp; 강의 비판매·채널 사인오프 포함.
+    </div>
+
+    <div class="desc-bar">
+      <span class="yt-no">전체 설명문구</span>
+      <button class="copy-btn" data-copy-el="desc-body">📋 설명문구 전체 복사</button>
+    </div>
+
+    <div class="desc-box" id="desc-body">개발자도 아닌데, 코드는 한 줄도 안 쓰고 앱을 만들었습니다.
+
+전문가 채널은 구독해뒀지만 어려워서 못 따라가셨던 분들을 위해, AI에게 '말'로 시켜서 앱을 만들고 공유까지 하는 과정을 같은 눈높이로 풀었습니다. 개발자가 아니라서, 오히려 더 쉽게 알려드릴 수 있어요.
+
+■ 이 영상에서 다루는 것
+· 개발자가 아니어도 앱을 만들 수 있게 된 이유 (안드레아 카파시의 '바이브코딩')
+· '코딩'이라는 소수의 언어, 그 입구가 사라진 이야기 (Software 1.0 → 3.0)
+· 말로 앱 만들기 라이브 데모 — 그리고 "말로만 다 되진 않는다"는 정직한 현실
+· 안 될 때 AI에게 "왜?"라고 되묻는 법
+· 비개발자의 진짜 무기 = 원하는 걸 쉽게 설명하는 힘(문해력)
+
+■ 타임스탬프
+0:00 개발자 아닌데, 이거 제가 만들었어요
+0:35 "이런 거 있으면 좋겠다"는데, 개발이 벽
+2:05 카파시 등장 + 혼자 더듬더듬 만들어온 이야기
+3:50 바이브코딩이란? 코딩의 입구가 사라졌다
+5:50 말로 앱 만들기 라이브 데모 + 배포
+8:20 비개발자의 무기 = 쉬운 설명 → "책을 읽읍시다"
+9:55 이 시리즈의 약속 (강의 안 팝니다)
+11:00 앞으로 같이 만들 것들 + 마무리
+
+■ 영상에 나온 서비스
+🔗 원클릭 배포·공유, LINKMAP → https://linkmap.biz
+  서버도 코드도 몰라도, 가입하면 클릭 한 번으로 배포되고 공유 링크까지 나와요.
+🌳 읽기 습관을 만드는 곳, habitree → https://read.habitree.io
+  잘 읽는 사람이 잘 설명하고, 잘 설명하는 사람이 잘 만듭니다. 책, 책, 책을 읽읍시다.
+
+■ 이 시리즈는요
+강의를 팔지 않습니다. 결제 유도도 없어요. 여기서 같이, 무료로 만들어요.
+막히는 장면도, 안 되는 것도 안 자르고 그대로 보여드립니다.
+구독해두시면 다음 편부터 같이 만들 수 있어요.
+
+AI는 답을 만들고, 읽는 사람은 질문을 만듭니다.
+같이, 무작정 따라합시다. — AI보다 읽는 사람
+
+#바이브코딩 #AI앱만들기 #코딩없이앱만들기 #비개발자 #노코드 #자연어코딩 #AI독학 #챗GPT앱 #vibecoding #카파시</div>
+
+    <div class="rule" style="background:rgba(6,214,160,.06);border-color:rgba(6,214,160,.3);color:var(--tx2);margin-top:16px">
+      <b style="color:var(--growth)">체크</b> — 첫 줄 후크(노출 구간) ✓ · 링크 2개 자연 배치(과장·강매 없음) ✓ · 강의 비판매 선언 ✓ · AI 적대 0 ✓ · 채널 사인오프 ✓ · 해시태그 #바이브코딩 1번 고정 ✓. <b>업로드 후</b> 편집된 실제 타임스탬프로 0:00 줄들을 보정하세요.
+    </div>
+
+  </div><!-- /t-desc -->
+
+  <footer>SSOT: 대본기획_기준.md §8.6 (제목 8단계) · 5-1강_제목_디벨롭_8단계.md · 근거: 통합_AI무작정따라하기_V3.html · 형식 정합: 005_AI시대 살아남는/제목썸네일_기획.html · 채널: AI보다 읽는 사람 — "AI는 답을, 읽는 사람은 질문을"</footer>
+</div>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+  document.querySelectorAll('.copy-btn').forEach(btn=>{
+    btn.addEventListener('click',async()=>{
+      const txt = btn.dataset.copyEl
+        ? (document.getElementById(btn.dataset.copyEl).innerText)
+        : btn.dataset.copy;
+      const done=()=>{const t=btn.textContent;btn.textContent='✓ 복사됨';btn.classList.add('done');
+        setTimeout(()=>{btn.textContent=t;btn.classList.remove('done');},1600);};
+      try{
+        await navigator.clipboard.writeText(txt); done();
+      }catch(e){
+        const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);
+        ta.select();document.execCommand('copy');ta.remove(); done();
+      }
+    });
+  });
+</script>
+</body>
+</html>

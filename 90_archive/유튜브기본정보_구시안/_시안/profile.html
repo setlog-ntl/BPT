@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:800px;height:800px;overflow:hidden}
+  .canvas{width:800px;height:800px;position:relative;
+    background:
+      radial-gradient(420px 360px at 50% 64%, rgba(255,209,102,.22), transparent 62%),
+      radial-gradient(900px 500px at 50% 120%, rgba(255,209,102,.10), transparent 60%),
+      linear-gradient(180deg,#13161d 0%,#0f1115 100%);
+    font-family:'Pretendard',sans-serif;display:flex;flex-direction:column;
+    align-items:center;justify-content:center}
+  .book{filter:drop-shadow(0 18px 40px rgba(255,209,102,.28))}
+  .word{margin-top:46px;text-align:center;line-height:1.16}
+  .word .l1{font-size:52px;font-weight:800;color:#e7e9ee;letter-spacing:-.02em}
+  .word .l2{font-size:64px;font-weight:900;color:#ffd166;letter-spacing:-.02em;
+    text-shadow:0 4px 24px rgba(255,209,102,.35)}
+  .dots{margin-top:18px;color:#ffd166;font-size:40px;letter-spacing:8px;opacity:.85}
+</style></head>
+<body><div class="canvas">
+  <svg class="book" width="300" height="210" viewBox="0 0 300 210">
+    <defs>
+      <linearGradient id="pageGlow" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fff4d6"/><stop offset="1" stop-color="#ffd166"/>
+      </linearGradient>
+      <linearGradient id="pageDark" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3a3f4d"/><stop offset="1" stop-color="#222734"/>
+      </linearGradient>
+    </defs>
+    <!-- left dark page -->
+    <path d="M150 40 C110 18 60 14 18 30 L18 184 C60 168 110 172 150 192 Z" fill="url(#pageDark)" stroke="#4a5161" stroke-width="1.5"/>
+    <!-- right glowing page -->
+    <path d="M150 40 C190 18 240 14 282 30 L282 184 C240 168 190 172 150 192 Z" fill="url(#pageGlow)"/>
+    <!-- spine -->
+    <rect x="147" y="40" width="6" height="152" rx="3" fill="#5a6172"/>
+    <!-- text lines on glowing page -->
+    <g stroke="#caa544" stroke-width="3" stroke-linecap="round" opacity=".55">
+      <line x1="178" y1="78" x2="258" y2="70"/>
+      <line x1="178" y1="100" x2="258" y2="92"/>
+      <line x1="178" y1="122" x2="240" y2="116"/>
+    </g>
+  </svg>
+  <div class="word"><div class="l1">그럼에도</div><div class="l2">한 페이지</div></div>
+  <div class="dots">···</div>
+</div></body></html>

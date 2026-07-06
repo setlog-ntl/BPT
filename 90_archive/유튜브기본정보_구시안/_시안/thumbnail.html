@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1280px;height:720px;overflow:hidden}
+  .canvas{width:1280px;height:720px;position:relative;
+    background:linear-gradient(120deg,#0c0e13 0%,#0f1115 100%);
+    font-family:'Pretendard',sans-serif;overflow:hidden}
+  /* left 60% visual */
+  .left{position:absolute;left:0;top:0;width:60%;height:100%;
+    background:radial-gradient(420px 420px at 42% 52%, rgba(255,209,102,.20), transparent 64%);
+    display:flex;align-items:center;justify-content:center}
+  .book{filter:drop-shadow(0 30px 60px rgba(255,209,102,.30))}
+  /* right 40% text */
+  .right{position:absolute;right:0;top:0;width:40%;height:100%;
+    background:linear-gradient(90deg, transparent, rgba(10,12,16,.55) 30%, #0a0c10 60%);
+    display:flex;flex-direction:column;justify-content:center;padding:0 56px 0 26px}
+  .label{position:absolute;left:40px;top:38px;font-size:24px;font-weight:800;color:#ffd166;
+    border:2px solid rgba(255,209,102,.55);border-radius:8px;padding:6px 14px;letter-spacing:.04em}
+  .flow{font-size:34px;color:#9aa3b2;font-weight:600;margin-bottom:14px}
+  .head{line-height:1.12}
+  .head .g{display:block;font-size:96px;font-weight:900;color:#ffd166;letter-spacing:-.03em;
+    text-shadow:0 4px 22px rgba(255,209,102,.35)}
+  .head .w{display:block;font-size:62px;font-weight:800;color:#e7e9ee;letter-spacing:-.02em;margin-top:6px}
+</style></head>
+<body><div class="canvas">
+  <div class="label">S1 · EP01</div>
+  <div class="left">
+    <svg class="book" width="430" height="300" viewBox="0 0 300 210">
+      <defs>
+        <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff4d6"/><stop offset="1" stop-color="#ffd166"/></linearGradient>
+        <linearGradient id="pd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#363b48"/><stop offset="1" stop-color="#1d212c"/></linearGradient>
+      </defs>
+      <path d="M150 40 C110 18 60 14 18 30 L18 184 C60 168 110 172 150 192 Z" fill="url(#pd)" stroke="#454c5c" stroke-width="1.2"/>
+      <path d="M150 40 C190 18 240 14 282 30 L282 184 C240 168 190 172 150 192 Z" fill="url(#pg)"/>
+      <rect x="147" y="40" width="6" height="152" rx="3" fill="#565d6e"/>
+      <g stroke="#caa544" stroke-width="3" stroke-linecap="round" opacity=".5">
+        <line x1="178" y1="78" x2="258" y2="70"/><line x1="178" y1="100" x2="258" y2="92"/><line x1="178" y1="122" x2="240" y2="116"/>
+      </g>
+    </svg>
+  </div>
+  <div class="right">
+    <div class="flow">AI가 다 답해줘도</div>
+    <div class="head"><span class="g">그럼에도</span><span class="w">책을 읽는 이유</span></div>
+  </div>
+</div></body></html>

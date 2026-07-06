@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>수식어 대시보드 — 핫 비디오 2026-06-05</title>
+<style>
+  :root{
+    --bg:#0f1115; --card:#1a1d24; --card2:#222632; --line:#2c313d;
+    --txt:#e8eaf0; --sub:#9aa3b2; --accent:#ff5470; --accent2:#4f8cff;
+    --A:#ff5470; --B:#b07cff; --C:#ff9f43; --D:#4f8cff; --E:#ffd23f; --F:#ff6b6b; --G:#22c1a4; --H:#5ad17a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;padding:24px;max-width:1180px;margin:0 auto}
+  header{margin-bottom:20px}
+  h1{font-size:24px;font-weight:800;letter-spacing:-.5px}
+  .sub{color:var(--sub);font-size:13px;margin-top:6px}
+  .stats{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 18px;flex:1;min-width:130px}
+  .stat .n{font-size:26px;font-weight:800;color:var(--accent)}
+  .stat .l{font-size:12px;color:var(--sub);margin-top:2px}
+  .toolbar{display:flex;gap:10px;align-items:center;margin:14px 0;flex-wrap:wrap}
+  #search{flex:1;min-width:200px;background:var(--card);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px 14px;font-size:14px}
+  #search::placeholder{color:#6b7280}
+  .hint{font-size:12px;color:var(--sub)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+  .cat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;border-top:3px solid var(--c)}
+  .cat h2{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .cat .code{font-size:11px;font-weight:800;background:var(--c);color:#0f1115;border-radius:6px;padding:2px 7px}
+  .cat .cdesc{font-size:12px;color:var(--sub);margin:6px 0 12px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:6px 10px 6px 12px;font-size:13px;cursor:pointer;transition:.12s;user-select:none}
+  .chip:hover{border-color:var(--c);transform:translateY(-1px)}
+  .chip .cnt{font-size:11px;font-weight:700;color:#0f1115;background:var(--c);border-radius:999px;min-width:20px;height:18px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px}
+  .chip.rec{border-style:dashed;opacity:.92}
+  .chip.rec .cnt{background:var(--line);color:var(--sub)}
+  .section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+  .section h2{font-size:16px;margin-bottom:12px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+  th{color:var(--sub);font-weight:600;font-size:12px}
+  .before{color:var(--sub)}
+  .after b{color:var(--accent)}
+  .bar{display:flex;align-items:center;gap:8px;margin:5px 0}
+  .bar .bw{font-size:13px;width:120px;text-align:right;flex-shrink:0}
+  .bar .bg{height:16px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px}
+  .bar .bn{font-size:12px;color:var(--sub)}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;transition:.25s;opacity:0;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+  footer{color:var(--sub);font-size:12px;margin-top:24px;text-align:center}
+  a{color:var(--accent2)}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔥 수식어 대시보드</h1>
+  <div class="sub">뷰트랩 핫 비디오 <b>2026-06-05</b> · 432개 제목 분석 · 강조 수식어 풀 &nbsp;|&nbsp; 칩을 클릭하면 단어가 복사됩니다</div>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="n">432</div><div class="l">분석한 핫 비디오</div></div>
+  <div class="stat"><div class="n">148</div><div class="l">수식어 사용 제목 (34.3%)</div></div>
+  <div class="stat"><div class="n">8</div><div class="l">의미 카테고리</div></div>
+  <div class="stat"><div class="n" id="totalWords">—</div><div class="l">수집 수식어</div></div>
+</div>
+
+<div class="toolbar">
+  <input id="search" placeholder="🔎 수식어 검색 (예: 충격, 무섭게, 절대...)">
+  <span class="hint">⭐ = 빈도는 낮아도 추천하는 신선한 수식어</span>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="section">
+  <h2>📈 최빈 수식어 TOP 15</h2>
+  <div id="ranking"></div>
+</div>
+
+<div class="section">
+  <h2>🔁 제목 변환 예시 (Before → After)</h2>
+  <table>
+    <tr><th>Before (밋밋)</th><th>After (수식어 적용)</th></tr>
+    <tbody id="examples"></tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>🧩 제목 조합 공식</h2>
+  <p style="font-size:14px;color:var(--sub);line-height:1.9">
+    <code style="background:var(--card2);padding:3px 8px;border-radius:6px;color:var(--txt)">[지목/시점] + [정도/감정 수식어] + [핵심 명사] + [지목]</code><br>
+    예) <b>요즘</b> · <b>무섭게 오르는</b> · 종목들의 · <b>공통점</b><br>
+    예) <b>결국</b> · <b>충격적인</b> · 근황 &nbsp;&nbsp;|&nbsp;&nbsp; 예) <b>당신이</b> · <b>절대 하면 안 되는</b> · 습관 · 3가지
+  </p>
+</div>
+
+<div class="toast" id="toast">복사됨!</div>
+
+<footer>
+  생성: 2026-06-06 · 원본: 핫비디오_원본_영상목록_2026-06-05.csv · 상세: 수식어_마스터.md<br>
+  썸네일 미리보기 = https://i.ytimg.com/vi/{영상ID}/mqdefault.jpg
+</footer>
+
+<script>
+const CATS = [
+  {code:"A", title:"충격·감정 폭발", color:"var(--A)", desc:"감정을 터뜨리는 가장 강력한 후킹",
+   items:[["충격 / 충격적",26],["소름 / 소름돋는",5],["난리",4],["경악",2],["눈물",2],["폭발",2],["분노",1],["깜짝",1]]},
+  {code:"B", title:"의외·반전", color:"var(--B)", desc:"예상을 뒤집어 호기심 갭 생성",
+   items:[["반전 / 대반전",4],["사실은",2],["숨겨진 / 숨은",2],["의외의 ⭐",0],["알고보니 ⭐",0],["뜻밖의 ⭐",0]]},
+  {code:"C", title:"긴급·시점", color:"var(--C)", desc:"지금 당장의 긴박감",
+   items:[["결국",6],["지금",4],["당장",4],["이제 / 이젠",4],["드디어",2],["돌연",2],["오늘",2],["갑자기",1],["긴급",1],["속보",1],["비상 / 초비상",2]]},
+  {code:"D", title:"정도·강조 부사", color:"var(--D)", desc:"강도를 극대화 (최다 빈도군)",
+   items:[["진짜",17],["절대",15],["무조건",10],["미친 / 미친듯이",6],["완전(히)",5],["싹 / 싹싹",5],["제대로",3],["너무",2],["그냥",2],["찐",1],["무섭게 ⭐",0]]},
+  {code:"E", title:"최상·극단", color:"var(--E)", desc:"최고·역대급·극단",
+   items:[["가장",9],["역대급",3],["최초",2],["최고",2],["최강",1],["최악",1],["유일",1],["끝판왕",1],["제일",1]]},
+  {code:"F", title:"경고·위기·부정", color:"var(--F)", desc:"손실 회피 자극 (안 보면 손해)",
+   items:[["후회",4],["위기",3],["주의",3],["위험",2],["큰일",2],["망하는",2],["폭로",2],["파산",1]]},
+  {code:"G", title:"호기심·지목", color:"var(--G)", desc:"정보 감추기 / 시청자 호명",
+   items:[["이것",12],["요즘",5],["이거",4],["왜",4],["당신(이/의)",4],["바로",3],["비법",3],["정체",2],["비결",1],["이 사람",1],["역시",1]]},
+  {code:"H", title:"명령·필수 시청", color:"var(--H)", desc:"행동 지시",
+   items:[["꼭",14],["필수",6],["반드시",3],["모르면",1],["알아야",1]]},
+];
+const EXAMPLES = [
+  ["부자가 망하는 이유","부자가 망하는 <b>의외의</b> 이유 / <b>충격적인</b> 이유"],
+  ["주가 오르는 종목의 공통점","<b>무섭게</b> 오르는 종목들의 공통점 / <b>미친듯이</b> 오르는…"],
+  ["보톡스 트렌드","<b>완전히 달라진</b> 26년 보톡스 트렌드"],
+  ["다이소 꿀템 모음","<b>역대급</b> 다이소 꿀템 38가지 / 보이면 <b>꼭</b> 사세요"],
+  ["잠자기 습관","<b>절대</b> 하지 말아야 할 잠자기 습관"],
+  ["부업 하면 안되는 이유","<b>요즘</b> 부업 하면 안되는 <b>진짜</b> 이유"],
+];
+
+const cleanWord = s => s.replace(/⭐/g,"").split("/")[0].replace(/\(.*?\)/g,"").trim();
+const grid = document.getElementById('grid');
+let allItems = [];
+CATS.forEach(c=>{
+  c.items.forEach(it=>allItems.push({w:it[0],n:it[1],code:c.code,color:c.color}));
+  const max = Math.max(...c.items.map(i=>i[1]),1);
+  const chips = c.items.map(([w,n])=>{
+    const rec = n===0 ? ' rec':'';
+    return `<span class="chip${rec}" data-w="${cleanWord(w)}" title="복사: ${cleanWord(w)}">${w}<span class="cnt">${n||'·'}</span></span>`;
+  }).join('');
+  const el = document.createElement('div');
+  el.className='cat'; el.style.setProperty('--c',c.color);
+  el.innerHTML = `<h2><span class="code">${c.code}</span>${c.title}</h2><div class="cdesc">${c.desc}</div><div class="chips">${chips}</div>`;
+  grid.appendChild(el);
+});
+document.getElementById('totalWords').textContent = allItems.length;
+
+// ranking
+const rank = [...allItems].filter(i=>i.n>0).sort((a,b)=>b.n-a.n).slice(0,15);
+const rmax = rank[0].n;
+document.getElementById('ranking').innerHTML = rank.map(r=>`
+  <div class="bar"><div class="bw">${r.w}</div><div class="bg" style="width:${r.n/rmax*100*3.2}px;max-width:70%"></div><div class="bn">${r.n}</div></div>
+`).join('');
+
+// examples
+document.getElementById('examples').innerHTML = EXAMPLES.map(e=>`<tr><td class="before">${e[0]}</td><td class="after">${e[1]}</td></tr>`).join('');
+
+// copy
+const toast = document.getElementById('toast');
+document.addEventListener('click',e=>{
+  const chip = e.target.closest('.chip');
+  if(!chip) return;
+  const w = chip.dataset.w;
+  navigator.clipboard?.writeText(w).then(()=>{
+    toast.textContent = `복사됨: ${w}`; toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'),1100);
+  });
+});
+
+// search filter
+document.getElementById('search').addEventListener('input',e=>{
+  const q = e.target.value.trim();
+  document.querySelectorAll('.cat').forEach(cat=>{
+    let any=false;
+    cat.querySelectorAll('.chip').forEach(ch=>{
+      const hit = !q || ch.textContent.includes(q);
+      ch.style.display = hit?'':'none';
+      if(hit) any=true;
+    });
+    cat.style.display = any?'':'none';
+  });
+});
+</script>
+</body>
+</html>

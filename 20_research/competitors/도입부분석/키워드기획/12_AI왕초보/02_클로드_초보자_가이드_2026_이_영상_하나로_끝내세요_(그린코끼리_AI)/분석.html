@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — AI왕초보 / 클로드 초보자 가이드 2026 | 이 영상 하나로 끝내세요 (그린코끼리 AI)</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:24px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--ok)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}.tri{color:var(--warn);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:20px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · AI왕초보</p>
+    <h1>클로드 초보자 가이드 2026 | 이 영상 하나로 끝내세요.</h1>
+    <p class="sub">첫 문장부터 결론적 도발("무료 기능만 제대로 써도 챗GPT·제미나이에서 갈아탈 고민을 하게 된다") → 입문자·초보자 호명 + "무료 플랜 7가지, 이 영상 하나로 끝" 완결 약속 → 24초 만에 인트로를 끝내고 27초부터 실제 화면 시연에 돌입하는 초압축 실무형.</p>
+    <div class="chips"><span class="chip">키워드 · AI왕초보</span><span class="chip">채널 · 그린코끼리 AI (4.84만)</span><span class="chip">길이 · 27:07</span><span class="chip">조회 · 50.8만 (게시 2026-03-10)</span><span class="chip">선정 · 타채널참조 댓글분석 ✅</span><span class="chip">분석일 · 2026-07-05</span><span class="chip"><a href="https://www.youtube.com/watch?v=O6Lw_4Hh0mQ">▶ 원본 영상</a></span></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:84"><div class="num"><b>84</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">A</span></h3><p>유형: <b>결론 선공(비교 도발) + 완결 약속 + 즉시 실행</b> · 후크 핵심: "갈아타야 하나 고민하게 된다"는 비교 프레임을 0초에 던지고, "이 영상 하나로 끝"이라는 완결 약속으로 27분 시청을 정당화</p></div></div>
+      <div class="grid">
+        <div class="card"><div class="lab">후크 유형</div><div class="val">결론 선공(비교 도발) → 호명+완결 약속(7가지) → 즉시 실행(실화면)</div></div>
+        <div class="card"><div class="lab">첫 발화</div><div class="val">"클로드에서 제공하는 무료 기능들을 제대로 사용해 보면 지금 쓰고 있는 챗지피티나 제미나이에서 갈아타야 되는지 진지하게 고민하게 됩니다"</div></div>
+        <div class="card"><div class="lab">시각적 텐션</div><div class="val">✅ 높음 (18/20) — 우주 배경 모션 타이포 + 로고 그래픽 + 7가지 목차 카드 애니메이션 + 0:27부터 실화면 시연, 빠른 템포·효과음</div></div>
+        <div class="card"><div class="lab">타깃 적중</div><div class="val">🟢 높음 — 댓글 112개 중 30~40대 실무형 63%, "대충 쓰다 제대로 배웠다" 반응 다수 (댓글분석.html 참조)</div></div>
+      </div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:100%"></i></span><span class="pts">20/20</span></div>
+      <div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <div class="srow"><span class="nm">8축(타깃 키워드) 1개+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <div class="srow"><span class="nm">결론 먼저</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <div class="srow"><span class="nm">시각적 텐션</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:90%"></i></span><span class="pts">18/20</span></div>
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 <b>84/100 (A)</b> · 근거: 완결 약속이 이중("이 영상 하나로 확실히 이해" 0:12 + "영상이 끝나면 기본 활용법은 완전히 끝" 0:20). 호명 명시적("클로드 입문자와 초보자를 위해" 0:14). 키워드(클로드·무료 플랜·7가지 핵심 기능) 반복. 결론 선공 — 첫 문장이 곧 영상의 주장(갈아탈 만하다). 인트로가 24초에 종결되고 27초부터 실행 화면 — 30초 룰을 구조적으로 준수. ※ 8축은 독서 채널 8축이 아닌 <b>AI왕초보 타깃 키워드</b> 관점으로 채점.</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① 결론 선공 — "갈아탈 고민하게 된다" (비교 도발)</span><span class="arrow">→</span><span class="step">② 입문자·초보자 호명 + "무료 7가지" 예고</span><span class="arrow">→</span><span class="step turn">③ "이 영상 끝나면 완전히 끝" 완결 약속</span><span class="arrow">→</span><span class="step">④ 0:27 즉시 실행 — 사이트 접속·가입·설정</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:00–0:14</span></td><td>"무료 기능만 제대로 써도 챗GPT·제미나이에서 갈아탈지 진지하게 고민 → 왜 AI 잘 쓰는 사람들이 클로드를 외치는지 이 영상 하나로 이해"</td><td><span class="ok-i">✔</span> 우주(별) 배경 + 중앙 대형 모션 타이포 "제미나이에서 갈아타야 되는지"('제미나이' 파란 하이라이트) + OpenAI·Gemini 로고(0:05)</td><td>흰 번인 자막 — "제미나이에서 갈아타야 되는지"</td></tr>
+        <tr><td><span class="tt">0:14–0:24</span></td><td>"입문자·초보자를 위해 무료 플랜만으로 쓸 수 있는 7가지 핵심 기능을 하나씩 → 영상 끝나면 기본 활용법 완전히 끝 → 바로 시작"</td><td><span class="ok-i">✔</span> 좌측 대형 타이포("클로드 입문자와 초보자를 위해… 7가지 핵심 기능을") + 우측 코끼리 로고 카드에 목차 리스트가 줄줄이 채워지는 애니메이션(0:18)</td><td>흰 번인 자막 — "7가지 핵심 기능을 하나씩"</td></tr>
+        <tr><td><span class="tt">0:27–0:51</span></td><td>"클로드 메인 사이트 방문(링크는 아래) → 구글로 계속하기로 가입 → 가장 먼저 기본 설정부터"</td><td><span class="ok-i">✔</span> 실제 클로드 웹사이트 화면 녹화 — 요금제 3단 카드(Free $0 / Pro $17 / Max $100부터) 위 커서 이동(0:40)</td><td>흰 번인 자막 — "클로드의 기능들을 토대로 다뤄볼 것입니다."</td></tr>
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=<b>유튜브 '스크립트 표시' 패널 실제 대본</b>(자동자막, 전체 1340세그먼트) · <span class="ok-i">✔ 화면·번인 자막 캡처 확인</span>(0:05·0:18·0:40). 이미지 파일은 <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a> 참조.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (AI왕초보 기획)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight">
+        <li><b>결론 선공 비교 후크</b> — "지금 쓰는 것(챗GPT·제미나이)에서 갈아탈 고민을 하게 된다"로 기존 도구 사용자를 0초에 낚음 (비교 검색 수요 흡수)</li>
+        <li><b>개수 약속(7가지) + 완결 약속("하나로 끝")</b> — 긴 영상(27분)의 시청 부담을 '목차 카드 애니메이션'으로 시각화해 해소</li>
+        <li><b>24초 인트로 → 27초 실행</b> — 인트로에 군더더기 없이 곧장 실화면 시연 돌입, 초보자용 신뢰("따라만 하면 됨") 형성</li>
+        <li>제목·썸네일·첫 화면이 같은 약속("이 영상 하나로 끝내세요")을 3중 반복 — 클릭 전후 기대 일치</li>
+        <li>연도 명시(2026) — "기능이 자꾸 바뀐다"는 초보자 페인(댓글: "13:22 현재 사라진 기능")을 최신성으로 공략</li>
+      </ul></div>
+      <div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight">
+        <li>AI 왕초보 가이드 2026 | 이 영상 하나로 끝내세요 (무료로 되는 7가지)</li>
+        <li>챗GPT만 쓰던 사람이 클로드로 갈아탄 이유 — 무료 기능 7가지 직접 보여드립니다</li>
+      </ul></div></div></section>
+    <section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="no-i">N</span></td><td>AI 도구 튜토리얼 — 독서 무관</td></tr>
+        <tr><td>② 결 3그룹</td><td><span class="tri">△</span></td><td>독서 결은 아니나 '초보자·한 번에 끝내기' 완결 구조는 완독 결과 상동 (각도 변환)</td></tr>
+        <tr><td>③ 8축</td><td><span class="no-i">N</span></td><td>독서 8축 비해당 — AI왕초보 신규 키워드축</td></tr>
+        <tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>무관</td></tr>
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)"><b>결 어긋남(독서 채널 기준) — '각도 변환' 제한 차용</b>: 이 분석은 신규 <b>AI왕초보 키워드 기획</b>용. 결론 선공·완결 약속·즉시 실행의 3단 구조가 탁월해 통합지침 §1 예외(후크 기법 차용)로 선정. 선정 근거는 썸끝이 아닌 <a href="댓글분석.html">댓글 분석</a>(50.8만 조회·실무형 30~40대 63% 검증).</p></section>
+    <section><div class="note"><h3>⚙️ 대본·캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>✔ 실제 대본 확보 완료</b> — 유튜브 <b>'스크립트 표시' 패널</b>에서 직접 추출(자동자막, 전체 1340세그먼트 중 도입부 0:00~1:01 수록). 이 영상은 자동화 클릭으로 패널이 채워지지 않아 <b>사용자 실제 클릭(§5-2 폴백)</b>으로 로드 후 DOM 추출. 화면·번인 자막은 클로드-크롬으로 0:05·0:18·0:40 캡처 확인. 이미지 파일 저장은 환경 제약상 불가 → <a href="captures/_수동캡처_가이드.md">캡처 가이드</a>로 보완. 같은 폴더의 <a href="댓글분석.html">댓글분석.html</a>(112개 분석)과 세트.</p></div></section>
+  </div>
+
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="script-head"><span class="hint">유튜브 스크립트 패널 원문을 오타·비문(오인식)만 보정 → 맥락 단위 구분 → 구분별 대본 / 화면 / 자막</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:00–0:14</span><span class="utag">① 결론 선공 — 비교 도발 후크</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"클로드에서 제공하는 무료 기능들을 제대로 사용해 보면 지금 쓰고 있는 챗지피티나 제미나이에서 갈아타야 되는지 진지하게 고민하게 됩니다. 왜 AI를 잘 활용하는 사람들이 클로드를 외치고 있는지 이 영상 하나로 확실히 이해하게 되실 것입니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">우주(별) 배경 검은 화면 — 중앙 대형 모션 타이포 "제미나이에서 갈아타야 되는지"('제미나이'만 파란 하이라이트) + 하단에 OpenAI 로고·Gemini 스타 로고가 나란히 등장(0:05).</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">흰 번인 자막(중앙 하단) — "제미나이에서 갈아타야 되는지"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:14–0:24</span><span class="utag">② 호명 + 완결 약속 (7가지 예고)</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"클로드 입문자와 초보자를 위해 무료 플랜만으로 활용할 수 있는 일곱 가지 핵심 기능을 하나씩 모두 보여 드리겠습니다. 이 영상이 끝나면 클로드 기본 활용법은 완전히 끝입니다. 바로 시작하겠습니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">좌측 대형 타이포 "클로드 입문자와 초보자를 위해 / 무료 플랜만으로 활용할 수 있는 / 7가지 핵심 기능을"(핵심어 초록 하이라이트) + 우측 코끼리 로고 카드에 목차("클로드 시작하기 / 클로드 기본설정하기 / 웹검색, 확장사고, 연구 리서치모드 …")가 한 줄씩 채워지는 애니메이션(0:18).</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">흰 번인 자막 — "7가지 핵심 기능을 하나씩"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:27–1:01</span><span class="utag">③ 즉시 실행 — 접속·가입·기본 설정</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"클로드 메인 사이트에 방문할게요. 관련 링크는 영상 아래 남겨 놓았으니 참고하시면 되겠습니다. 이 영상은 클로드 초보자를 위한 영상으로 무료 플랜에서 사용할 수 있는 클로드의 기능들을 토대로 다뤄 볼 것입니다. 빠르게 시작하기 위해 '구글로 계속하기' 버튼을 클릭해서 시작할 수 있고 가입 후 화면으로 바로 넘어갈게요. 가장 먼저 클로드의 기본 설정부터 빠르게 살펴볼게요. 왼쪽 하단에 프로필 아이콘을 클릭하세요. 언어를 통해 원하는 언어가 있다면 자유롭게 변경하면 되고 상단에 설정을 클릭하세요."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">실제 클로드 웹사이트 화면 녹화 — 요금제 페이지 3단 카드(Free $0 / Pro $17 / Max $100부터) 위 커서 이동(0:40) → 가입·설정 화면으로 연속 시연.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">흰 번인 자막 — "클로드의 기능들을 토대로 다뤄볼 것입니다."</span></div>
+        </div>
+
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 보정 내역(오타·오인식만, 내용 유지): 채치피티→챗지피티 · 임문자→입문자 · "있는지이 영상"→"있는지 이 영상" · "드리겠습니다.이"→"드리겠습니다. 이" 등 띄어쓰기 오인식 교정. [음악] 표기는 원문 유지. 원문 그대로는 <b>📜 원문</b> 탭.</p>
+    </section>
+  </div>
+
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 유튜브 스크립트 패널 그대로</h2>
+      <div class="script-head"><span class="hint">YouTube '스크립트 표시' 패널 원문(자동자막, 오탈자 포함) — 손대지 않고 보존</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:00</span><span>클로드에서 제공하는 무료 기능들을</span></li>
+        <li><span class="tt">0:02</span><span>제대로 사용해 보면 지금 쓰고</span></li>
+        <li><span class="tt">0:03</span><span>[음악] 있는 채치피티나 제미나이에서</span></li>
+        <li><span class="tt">0:05</span><span>갈아타야 되는지 진지하게 고민하게</span></li>
+        <li><span class="tt">0:08</span><span>됩니다. 왜 AI를 잘 활용하는</span></li>
+        <li><span class="tt">0:10</span><span>사람들이 클로드를 외치고 있는지이</span></li>
+        <li><span class="tt">0:12</span><span>영상 하나로 확실히 이해하게 되실</span></li>
+        <li><span class="tt">0:14</span><span>것입니다. 클로드 임문자와 초보자를</span></li>
+        <li><span class="tt">0:16</span><span>위해 무료 플랜만으로 활용할 수 있는</span></li>
+        <li><span class="tt">0:18</span><span>일곱 가지 핵심 기능을 하나씩 모두</span></li>
+        <li><span class="tt">0:20</span><span>보여 드리겠습니다.이 영상이 끝나면</span></li>
+        <li><span class="tt">0:22</span><span>[음악]</span></li>
+        <li><span class="tt">0:22</span><span>클로드 기본 활용법은 완전히</span></li>
+        <li><span class="tt">0:24</span><span>끝입니다. 바로 시작하겠습니다.</span></li>
+        <li><span class="tt">0:27</span><span>클로드 메인 사이트에 방문할게요.</span></li>
+        <li><span class="tt">0:29</span><span>관련 링크는 영상 아래 남겨 놓았으니</span></li>
+        <li><span class="tt">0:32</span><span>참고하시면 되겠습니다.이 영상은</span></li>
+        <li><span class="tt">0:34</span><span>클로드 초보자를 위한 영상으로 무료</span></li>
+        <li><span class="tt">0:37</span><span>플랜에서 사용할 수 있는 클로드의</span></li>
+        <li><span class="tt">0:39</span><span>기능들을 토대로 다뤄 볼 것입니다.</span></li>
+        <li><span class="tt">0:42</span><span>빠르게 시작하기 위해 구글로 계속하기</span></li>
+        <li><span class="tt">0:44</span><span>버튼을 클릭해서 시작할 수 있고 가입</span></li>
+        <li><span class="tt">0:47</span><span>후 화면으로 바로 넘어갈게요. 가장</span></li>
+        <li><span class="tt">0:49</span><span>먼저 클로드의 기본 설정부터 빠르게</span></li>
+        <li><span class="tt">0:51</span><span>살펴볼게요. 왼쪽 하단에 프로필</span></li>
+        <li><span class="tt">0:54</span><span>아이콘을 클릭하세요. 언어를 통해</span></li>
+        <li><span class="tt">0:56</span><span>원하는 언어가 있다면 자유롭게</span></li>
+        <li><span class="tt">0:58</span><span>변경하면 되고 상단에 설정을</span></li>
+        <li><span class="tt">1:01</span><span>클릭하세요.</span></li>
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">출처: YouTube 스크립트 패널(자동자막, 한국어 자동 생성). 전체 1340세그먼트 중 도입부(0:00~1:01) 발췌. 챕터: 0:00 인트로 · 0:28 클로드 시작하기 · 0:50 클로드 기본설정하기 · 3:00 웹검색, 확장사고, 연구 리서치 · 7:40 클로드 프로젝트 · 12:05 클로드 아티펙트 · 15:20 클로드 커넥터.</p>
+    </section>
+  </div>
+
+  <footer>키워드 기획 분석 · 2026-07-05 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../도입부분석_통합지침_(코워크용).md">통합지침</a><br>출처: <a href="https://www.youtube.com/watch?v=O6Lw_4Hh0mQ">YouTube — 그린코끼리 AI</a> · 선정: 타채널참조 댓글분석(실무형 타깃 검증) · 내부 기획·학습용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='✓ 복사됨';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

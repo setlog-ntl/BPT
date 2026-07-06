@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<!-- 참조영상 수집 — 무라카미 하루키 (소설·글쓰기·루틴) v1 · 2026-06-09 · 링크/메타 Claude in Chrome 실제 검증 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>참조영상 · 무라카미 하루키 — 소설·글쓰기·루틴</title>
+<style>
+  :root{--pain:#ef476f;--growth:#06d6a0;--value:#ffd166;--rec:#c4b5fd;--bg:#f5f3ee;--panel:#ffffff;--panel-2:#faf8f3;--line:#e7e3da;--text:#1f2430;--muted:#5d6470;--brand:#2f5d62;--brand2:#3a7a82;--shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:1080px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:800;background:rgba(47,93,98,.08);border-color:var(--brand2)}
+  .nbtn.doc{margin-left:auto;color:var(--brand2)}
+  header{background:linear-gradient(135deg,#2f5d62 0%,#244b50 60%,#1d3c40 100%);color:#fff;padding:34px 0 30px;margin:18px 0 0;border-bottom:4px solid var(--value)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+  header .wrap{padding-bottom:0}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#bfe0d9;font-weight:800;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 10px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:#d6e6e1;font-size:14.5px;margin:0;max-width:760px}
+  .stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+  .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 20px;min-width:108px}
+  .stat .v{font-size:22px;font-weight:800;color:#fff;line-height:1}
+  .stat .l{font-size:12px;color:#bfe0d9;margin-top:5px}
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:26px 0 10px;box-shadow:var(--shadow)}
+  .intro h2{font-size:17px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .intro p{margin:0 0 10px;font-size:14px;color:#3a414c}
+  .intro .why{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .why .chip{font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand)}
+  .group{margin-top:34px}
+  .ghead{display:flex;align-items:center;gap:11px;margin:0 0 4px}
+  .gbadge{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px}
+  .ghead h2{font-size:19px;margin:0;font-weight:800}
+  .gdesc{font-size:13px;color:var(--muted);margin:2px 0 16px;padding-left:41px}
+  .vid{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+  .vthumb{position:relative;flex:0 0 280px;aspect-ratio:16/9;background:#0b0f14;text-decoration:none;display:block;overflow:hidden}
+  .vthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+  .vthumb:hover img{transform:scale(1.04);opacity:.9}
+  .vthumb .dur{position:absolute;right:8px;bottom:8px;background:rgba(15,20,28,.86);color:#fff;font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .vthumb .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(239,71,111,.92);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;padding-left:3px}
+  .vbody{flex:1;padding:15px 18px 16px;min-width:0}
+  .vtop{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .lang{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
+  .lang.ko{background:rgba(47,93,98,.12);color:var(--brand)}
+  .lang.en{background:rgba(196,181,252,.25);color:#7a5af0}
+  .vtitle{font-size:15.5px;font-weight:800;line-height:1.35;text-decoration:none;color:var(--text)}
+  .vtitle:hover{color:var(--brand)}
+  .vmeta{display:flex;flex-wrap:wrap;gap:5px 13px;font-size:11.5px;color:var(--muted);margin:7px 0 11px}
+  .vmeta b{color:var(--text)}
+  .vsec{font-size:12.8px;color:#3a414c;margin:0 0 8px;line-height:1.55}
+  .vsec .lab{display:inline-block;font-size:10.5px;font-weight:800;color:var(--brand2);background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+  .vquote{font-style:italic;color:#28303a;border-left:3px solid var(--value);padding:2px 0 2px 10px;margin:8px 0}
+  .vuse{font-size:12.8px;color:#1f2a2b;background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.3);border-radius:9px;padding:9px 12px;margin-top:10px;line-height:1.55}
+  .vuse .lab{background:var(--growth);color:#06352a;border:none}
+  .guide{background:linear-gradient(135deg,#fff 0%,#faf8f3 100%);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-top:38px;box-shadow:var(--shadow)}
+  .guide h2{font-size:19px;margin:0 0 4px;font-weight:800}
+  .guide .lead{color:var(--muted);font-size:13.5px;margin:0 0 18px}
+  .gtable{width:100%;border-collapse:collapse;font-size:13px}
+  .gtable th,.gtable td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .gtable th{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .gtable td b{color:var(--brand)}
+  .gtable tr:last-child td{border-bottom:none}
+  .axis{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line);color:var(--brand);margin:1px 2px 1px 0}
+  .note{background:rgba(255,209,102,.16);border:1px solid rgba(255,209,102,.5);border-radius:11px;padding:13px 16px;margin-top:18px;font-size:12.8px;color:#5a4a1a}
+  .note b{color:#7a5e10}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:34px;line-height:1.8}
+  @media(max-width:720px){h1{font-size:22px}.vid{flex-direction:column}.vthumb{flex-basis:auto;width:100%}.gdesc{padding-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="../_허브.html">← 참조영상 허브</a>
+  <a class="nbtn" href="https://www.youtube.com/results?search_query=무라카미+하루키+루틴+글쓰기" target="_blank" rel="noopener">🔎 유튜브에서 더 보기</a>
+  <a class="nbtn doc" href="../../../../10_system/cowork_prompts/유튜브_참조영상_수집.md">📋 작성 지침</a>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">참조영상 컬렉션 · 인물 (글로벌 · 작가)</div>
+    <h1>무라카미 하루키 — 소설 · 글쓰기 · 루틴</h1>
+    <p class="sub">한국에서 가장 사랑받는 외국 작가. 『상실의 시대』로 한 세대를 독서로 이끌었고, 동시에 <b style="color:#fff">'루틴의 화신'</b>입니다 — 새벽 기상, 글쓰기, 매일 10km 달리기를 30년 넘게. 읽기·쓰기·꾸준함을 잇는 자기관리의 표본.</p>
+    <div class="stats">
+      <div class="stat"><div class="v">8</div><div class="l">수집 영상</div></div>
+      <div class="stat"><div class="v">한국어</div><div class="l">소설가</div></div>
+      <div class="stat"><div class="v">약 63만</div><div class="l">합산 조회수</div></div>
+      <div class="stat"><div class="v">24.9만</div><div class="l">최고 (달리기 루틴)</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h2>왜 무라카미 하루키 = bizpt 레퍼런스인가</h2>
+    <p>하루키는 <b>'읽기→쓰기→꾸준함'</b>을 한 사람 안에서 보여준다. 십대 시절 미국 소설을 탐독한 독서가였고, 『직업으로서의 소설가』·『달리기를 말할 때 내가 하고 싶은 이야기』에서 <b>매일 같은 시간에 쓰고 달리는 루틴</b>을 설파한다. bizpt <b>'책 읽는 재미(소설)·글쓰기·책 읽는 습관(루틴)'</b> 축에 모두 닿으며, 특히 한국 독자층이 두터워 '소설 입구' 콘텐츠로 강력하다.</p>
+    <div class="why">
+      <span class="chip">결 ① 읽으려는 사람</span>
+      <span class="chip">결 ② 읽고 있는 사람</span>
+      <span class="chip">축: 책 읽는 재미</span>
+      <span class="chip">축: 책 읽는 습관</span>
+      <span class="chip">축: 문해력(글쓰기)</span>
+    </div>
+  </div>
+
+  <!-- A. 루틴·습관 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--brand)">A</span><h2>루틴 · 습관</h2></div>
+    <p class="gdesc">새벽 기상·달리기·글쓰기 30년 — '꾸준함'의 가장 매력적인 표본.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=aju60dPyNKM" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/aju60dPyNKM/hqdefault.jpg" alt="" loading="lazy"><span class="dur">24:51</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=aju60dPyNKM" target="_blank" rel="noopener">달리기 하면서 무슨 생각을 할까? | 하루키 작가 루틴의 비밀 | 이혜성의 1%북클럽</a></div>
+        <div class="vmeta"><span>채널 <b>이혜성의 1% 북클럽</b></span><span>조회 <b>약 24.9만</b></span><span>11개월 전</span><span>24:51</span></div>
+        <div class="vsec"><span class="lab">핵심</span>이 컬렉션 <b>최고 조회(24.9만)</b>. 『달리기를 말할 때…』를 바탕으로 하루키의 루틴·자기성찰을 푼다. 책×삶 연결의 정석.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 습관' — "작가의 루틴" 후크. 한 권의 에세이를 삶의 태도로 푸는 북클럽 포맷.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=qVpBnVbOCH8" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/qVpBnVbOCH8/hqdefault.jpg" alt="" loading="lazy"><span class="dur">11:49</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=qVpBnVbOCH8" target="_blank" rel="noopener">스티브 잡스와 무라카미 하루키의 놀라운 공통점 — 가장 작고 강력한 습관</a></div>
+        <div class="vmeta"><span>채널 <b>Peachy 피치</b></span><span>조회 <b>약 16.4만</b></span><span>1년 전</span><span>11:49</span></div>
+        <div class="vsec"><span class="lab">핵심</span>잡스와 하루키를 <b>'습관'</b>으로 묶는 다인물 콘텐츠(16.4만). 우리 허브의 교차 발상과 동일.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'다인물 공통점' 후크 — 잡스 컬렉션과 직접 교차해 시리즈화.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=0EciVWFKhmU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/0EciVWFKhmU/hqdefault.jpg" alt="" loading="lazy"><span class="dur">5:56</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=0EciVWFKhmU" target="_blank" rel="noopener">30년간 꾸준한 루틴으로, 점진적으로 나아가 성공한 남자 (오디오북)</a></div>
+        <div class="vmeta"><span>채널 <b>인간개조 용광로</b></span><span>조회 <b>약 2.2만</b></span><span>3년 전</span><span>5:56</span></div>
+        <div class="vsec"><span class="lab">핵심</span>하루키의 30년 루틴을 동기부여 오디오북으로. "점진적 꾸준함"의 메시지.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'자기개발·습관' 쇼츠 — "30년 꾸준함" 동기부여 클립.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. 글쓰기 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--value)">B</span><h2>글쓰기</h2></div>
+    <p class="gdesc">"계속 쓰기 위해 매일 한다" — 읽기 다음, 문해력 축의 작가 버전.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=KqdnHmFXsgs" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/KqdnHmFXsgs/hqdefault.jpg" alt="" loading="lazy"><span class="dur">11:38</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=KqdnHmFXsgs" target="_blank" rel="noopener">하루키는 계속 글 쓰기 위해 매일 OOO를 한다 [김태훈의 게으른 책읽기]</a></div>
+        <div class="vmeta"><span>채널 <b>NOL 인터파크투어</b></span><span>조회 <b>약 3.4만</b></span><span>6년 전</span><span>11:38</span></div>
+        <div class="vsec"><span class="lab">핵심</span>『직업으로서의 소설가』를 바탕으로 글쓰기·체력·꾸준함의 관계를 푼다. "쓰려면 몸을 만들어라."</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'문해력·글쓰기' — "쓰기는 체력" 의외성 후크. 김영하·피터슨 글쓰기론과 교차.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=1M-jwcPNXG8" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/1M-jwcPNXG8/hqdefault.jpg" alt="" loading="lazy"><span class="dur">1:15</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=1M-jwcPNXG8" target="_blank" rel="noopener">무라카미 하루키가 글쓰기를 위해 하는 것</a></div>
+        <div class="vmeta"><span>채널 <b>감뷰</b></span><span>조회 <b>약 3.7만</b></span><span>4년 전</span><span>1:15</span></div>
+        <div class="vsec"><span class="lab">핵심</span>1분 15초 짧은 클립 — 하루키의 글쓰기 습관 핵심만. 쇼츠형 전달.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>짧은 인용 쇼츠 포맷 벤치마크(1분대 구성).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. 책·소설 추천 -->
+  <div class="group">
+    <div class="ghead"><span class="gbadge" style="background:var(--rec)">C</span><h2>책 · 소설 추천</h2></div>
+    <p class="gdesc">하루키 입문 가이드 — '소설 읽는 재미'로 가는 입구.</p>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=Mp7JgEwkLVA" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/Mp7JgEwkLVA/hqdefault.jpg" alt="" loading="lazy"><span class="dur">16:47</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=Mp7JgEwkLVA" target="_blank" rel="noopener">[책추천] 무라카미 하루키 스페셜! 찐팬이 소개하는 하루키 책 11권</a></div>
+        <div class="vmeta"><span>채널 <b>아키노트</b></span><span>조회 <b>약 5.5만</b></span><span>2년 전</span><span>16:47</span></div>
+        <div class="vsec"><span class="lab">핵심</span>찐팬이 고른 하루키 책 11권 큐레이션. "한 작가 깊이 파기" 입문 가이드의 정석.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 추천' — "한 작가 입문 N권" 시리즈 포맷(작가별 가이드).</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=qkHmMX26a0U" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/qkHmMX26a0U/hqdefault.jpg" alt="" loading="lazy"><span class="dur">37:50</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=qkHmMX26a0U" target="_blank" rel="noopener">상실의 시대 - 노르웨이의 숲 (무라카미 하루키)</a></div>
+        <div class="vmeta"><span>채널 <b>김세라작가의 15분에 책 한 권</b></span><span>조회 <b>약 4.6만</b></span><span>1년 전</span><span>37:50</span></div>
+        <div class="vsec"><span class="lab">핵심</span>하루키 대표작 『상실의 시대』 해설. 한 세대를 독서로 이끈 '입문 소설'.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 재미' — 대표 소설 깊이 읽기. 소설 입문자(결 ①) 유입용.</div>
+      </div>
+    </div>
+
+    <div class="vid">
+      <a class="vthumb" href="https://www.youtube.com/watch?v=QrAe0Wbz7aA" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/QrAe0Wbz7aA/hqdefault.jpg" alt="" loading="lazy"><span class="dur">16:12</span><span class="play">▶</span></a>
+      <div class="vbody">
+        <div class="vtop"><span class="lang ko">한국어</span><a class="vtitle" href="https://www.youtube.com/watch?v=QrAe0Wbz7aA" target="_blank" rel="noopener">소설과는 또 다른 하루키의 에세이 『무라카미 하루키 잡문집』</a></div>
+        <div class="vmeta"><span>채널 <b>이교수의 책과 사람</b></span><span>조회 <b>약 2.2만</b></span><span>1년 전</span><span>16:12</span></div>
+        <div class="vsec"><span class="lab">핵심</span>소설가의 <b>에세이</b>를 소개 — 소설 너머 작가의 생각을 보여주는 입체적 접근.</div>
+        <div class="vuse"><span class="lab">📌 활용</span>'책 읽는 재미' — "소설가의 다른 얼굴(에세이)" 큐레이션 각도.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 종합 가이드 -->
+  <div class="guide">
+    <h2>🧭 종합 활용 가이드 — bizpt 축 매핑</h2>
+    <p class="lead">하루키 컬렉션을 어느 콘텐츠에, 어떤 후크로 쓸지. (8축 · 결 3그룹 기준)</p>
+    <table class="gtable">
+      <thead><tr><th style="width:22%">bizpt 축</th><th style="width:34%">연결 영상</th><th>후크·활용 아이디어</th></tr></thead>
+      <tbody>
+        <tr><td><span class="axis">책 읽는 습관</span></td><td>A1 달리기 루틴 · A3 30년</td><td>"작가의 루틴 = 꾸준함의 매력" 습관 콘텐츠</td></tr>
+        <tr><td><span class="axis">문해력(글쓰기)</span></td><td>B1 쓰기는 체력 · B2 글쓰기 습관</td><td>"읽기→쓰기→체력" 의외성 후크(김영하·피터슨 교차)</td></tr>
+        <tr><td><span class="axis">책 읽는 재미</span></td><td>C1 11권 · C2 상실의 시대</td><td>"작가 입문 가이드" — 소설 입문자 유입(결 ①)</td></tr>
+        <tr><td><span class="axis">다인물 교차</span></td><td>A2 잡스 X 하루키</td><td>"성공한 사람들의 공통 습관" 시리즈</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>진정성 체크(3기둥 ②):</b> 하루키는 <b>'소설 읽는 재미'</b>로 가는 가장 좋은 입구다. 자기계발 거장들이 '왜·어떻게 읽는가'라면, 하루키는 <b>'무엇을, 얼마나 즐겁게 읽는가'</b>를 채운다. 우리 채널의 결 3그룹 중 '읽으려는 사람'을 끌어들이는 정서적 후크로 최적.</div>
+  </div>
+
+  <footer>
+    bizpt / 타채널참조 · 참조영상 수집 — 무라카미 하루키 (소설·글쓰기·루틴)<br>
+    모든 링크·메타는 2026-06-09 Claude in Chrome로 실제 검증 · 조회수는 검증 시점 근사치<br>
+    허브: ../_허브.html · 지침: 10_system/cowork_prompts/유튜브_참조영상_수집.md
+  </footer>
+</div>
+</body>
+</html>

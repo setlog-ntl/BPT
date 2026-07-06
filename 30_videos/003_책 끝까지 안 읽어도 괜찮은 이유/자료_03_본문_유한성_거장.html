@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>③ 본문 · 유한성 + 거장 4인 · 책, 끝까지 안 읽어도 괜찮은 이유</title>
+<style>
+  :root{--bg:#0f1115;--panel:#171a21;--panel-2:#1e222b;--line:#262b36;--text:#e7e9ee;--muted:#9aa3b2;
+    --accent:#ffd166;--accent-2:#06d6a0;--warn:#ef476f;--pull:#5cc4e0;--edit:#06d6a0;--brief:#c4b5fd;--pain:#ef476f;--rec:#06d6a0;--value:#ffd166;}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 22px 90px}
+  a{color:var(--pull)} b,strong{color:#fff}
+  .angle-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;padding:12px;background:rgba(23,26,33,.92);border:1px solid var(--line);border-radius:12px;position:sticky;top:0;z-index:30;backdrop-filter:blur(8px)}
+  .abtn{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:12.5px;font-weight:600;transition:all .15s;white-space:nowrap}
+  .abtn:hover{transform:translateY(-1px);background:#252a36;border-color:#34394a}
+  .abtn .num{font-size:10.5px;opacity:.75;font-weight:800}
+  .abtn.home{color:var(--muted)}
+  .abtn.brief.active{background:rgba(196,181,253,.15);border-color:var(--brief);color:var(--brief)}
+  .abtn.hook.active{background:rgba(239,71,111,.15);border-color:var(--warn);color:#ff8aa5}
+  .abtn.body.active{background:rgba(92,196,224,.15);border-color:var(--pull);color:#7fd4ec}
+  .abtn.story.active{background:rgba(255,209,102,.15);border-color:var(--accent);color:var(--accent)}
+  .abtn.cta.active{background:rgba(6,214,160,.15);border-color:var(--edit);color:#33d8a3}
+  .abtn.pull.active{background:rgba(92,196,224,.15);border-color:var(--pull);color:#7fd4ec}
+  header.hero{padding:24px 28px;border-radius:16px;border:1px solid var(--line);margin-bottom:20px;
+    background:radial-gradient(900px 320px at 8% -20%,rgba(92,196,224,.16),transparent 55%),linear-gradient(180deg,#1a1e27,#13161d)}
+  .pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11.5px;font-weight:800;background:rgba(92,196,224,.16);color:#7fd4ec}
+  .timecode{font-size:12.5px;color:var(--accent);font-weight:700;background:rgba(255,209,102,.12);padding:3px 9px;border-radius:6px;margin-left:8px}
+  h1{font-size:24px;margin:12px 0 6px;letter-spacing:-.02em;font-weight:800}
+  .lede{color:var(--muted);font-size:14px;margin:0;max-width:840px}
+  section{margin-top:32px}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:21px;border-radius:3px;background:var(--pull)}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+  /* 유한성 viz */
+  .finite{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .fbar{margin:12px 0}
+  .fbar .ft{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+  .fbar .ft b{color:#fff} .fbar .ft .v{color:var(--muted);font-variant-numeric:tabular-nums}
+  .ftrack{height:24px;background:#0c0e13;border:1px solid #232838;border-radius:7px;overflow:hidden}
+  .ffill{height:100%;border-radius:7px;display:flex;align-items:center;padding-left:10px;font-size:11px;color:#0c0e13;font-weight:800}
+  .ffill.small{background:linear-gradient(90deg,#2b6f86,#5cc4e0);width:0.4%}
+  .ffill.big{background:linear-gradient(90deg,#7a6320,#ffd166);width:100%}
+  .fnote{font-size:13px;color:#c9cfd9;margin-top:10px;text-align:center}
+  .fnote b{color:var(--accent)}
+  /* 거장 카드 */
+  .masters{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:6px}
+  @media(max-width:820px){.masters{grid-template-columns:1fr}.wrap{padding:16px 14px 70px}h1{font-size:21px}}
+  .m{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--pull);border-radius:12px;padding:15px 17px}
+  .m .mh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .m .nm{font-size:16px;font-weight:800;color:#fff}
+  .m .ro{font-size:11.5px;color:var(--muted)}
+  .m .v{font-size:13.5px;color:#dfe3ea;margin-bottom:6px}
+  .m .q{font-size:12.5px;color:#c9cfd9;border-left:2px solid #313747;padding:3px 0 3px 10px;font-style:italic;margin-bottom:8px}
+  .m .src{font-size:11.5px;padding:4px 10px;border-radius:7px;background:rgba(92,196,224,.12);border:1px solid rgba(92,196,224,.32);color:#7fd4ec;text-decoration:none;font-weight:600}
+  .m.n1{border-left-color:var(--accent-2)} .m.n2{border-left-color:var(--value)} .m.n3{border-left-color:var(--brief)} .m.n4{border-left-color:var(--warn)}
+  .vis{background:#0c0e13;border:1px dashed #2a3040;border-radius:10px;padding:13px 16px;font-size:13px;color:#c9cfd9;margin-top:16px}
+  .vis b{color:#fff}
+  .warnline{font-size:12.5px;color:#d9b0bb;margin-top:10px}
+  .footnav{margin-top:38px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:600px){.footnav{grid-template-columns:1fr}}
+  .navcard{display:flex;align-items:center;gap:10px;justify-content:space-between;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text);transition:all .15s}
+  .navcard:hover{transform:translateY(-1px);border-color:#3a4150;background:#1b1f28}
+  .navcard .lab{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+  .navcard .tl{font-size:14px;font-weight:700;color:#fff;margin-top:2px}
+  .navcard.next{text-align:right;flex-direction:row-reverse}
+  .footer{margin-top:28px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:14px;display:flex;gap:14px;flex-wrap:wrap}
+  .footer a{color:var(--accent-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="angle-nav">
+    <a class="abtn home" href="통합_끝까지_안읽어도.html">📦 기획·대본</a>
+    <a class="abtn brief" href="자료_브리프.html">📋 브리프</a>
+    <a class="abtn hook" href="자료_01_제목_썸네일_후크.html"><span class="num">①</span> 제목·썸네일·후크</a>
+    <a class="abtn body" href="자료_02_본문_매몰비용.html"><span class="num">②</span> 매몰비용</a>
+    <a class="abtn body active" href="자료_03_본문_유한성_거장.html"><span class="num">③</span> 유한성·거장</a>
+    <a class="abtn story" href="자료_04_스토리_이동진_고백.html"><span class="num">④</span> 스토리</a>
+    <a class="abtn cta" href="자료_05_해결_결호명_CTA.html"><span class="num">⑤</span> 해결·CTA</a>
+    <a class="abtn pull" href="자료_뷰트랩_레퍼런스.html">🔎 뷰트랩·레퍼런스</a>
+  </nav>
+
+  <header class="hero">
+    <div><span class="pill">BODY · 본문 ②</span><span class="timecode">1:40–4:30</span></div>
+    <h1>③ 끝까지 안 읽어도 되는 이유 — 유한성 + 거장 4인</h1>
+    <p class="lede">7주차 §8.5.3 차용·출처·보강 3요소 집약 챕터. 거장마다 ①차용 ②출처 ③보강. 원본 <a href="정리본/03_본문_안읽어도_되는_이유.md">정리본/03</a>.</p>
+  </header>
+
+  <!-- 2-A 유한성 -->
+  <section>
+    <h2>2-A · 유한성 — 모든 책을 끝까지? 수학적으로 불가능</h2>
+    <p class="sub">평생 읽을 수 있는 책은 생각보다 적고, 세상엔 1억 권이 넘는다 → 선별이 합리.</p>
+    <div class="finite">
+      <div class="fbar">
+        <div class="ft"><b>마흔 이후 평생 읽는 책 (평균 독자 12권/년)</b><span class="v">약 500권</span></div>
+        <div class="ftrack"><div class="ffill small">500</div></div>
+      </div>
+      <div class="fbar">
+        <div class="ft"><b>세상의 책</b><span class="v">1억 3천만 권+</span></div>
+        <div class="ftrack"><div class="ffill big">130,000,000</div></div>
+      </div>
+      <div class="fnote">우리가 평생 읽는 건 그중 <b>0.0004%</b>. '시작한 책은 무조건 끝까지'는 남은 500자리를 <b>싫은 책에 낭비</b>하겠다는 말.</div>
+    </div>
+    <p class="sub" style="margin-top:14px"><b style="color:#fff">전환</b> — 질문이 바뀌어야 한다: '이 책을 끝냈나'가 아니라 <b style="color:#fff">'이 책이 내 500권 중 한 자리를 차지할 가치가 있나'</b>. <span style="color:var(--muted)">차용·출처: 미국 작가 <b style="color:#fff">팀 페리스</b> — 평생 읽을 책이 유한하니 끝까지 읽을 책을 더 까다롭게 고르라.</span></p>
+  </section>
+
+  <!-- 2-B 거장 -->
+  <section>
+    <h2>2-B · 거장들은 안 끌리면 즉시 덮는다</h2>
+    <p class="sub">"[국가]의 [인물]이 [내용]을…" + "제가 해보니" 보강. 출처 버튼 = 원본.</p>
+    <div class="masters">
+
+      <div class="m n1">
+        <div class="mh"><span class="nm">① 네이벌 라비칸트</span><span class="ro">미국 · 투자자</span></div>
+        <div class="v"><b>책을 잡지처럼.</b> 10~20권 동시에, 안 끌리면 즉시 내려놓기, 중간부터도. 완독 의무 0. 대신 <b>최고의 100권 재독</b>.</div>
+        <div class="q">"안 끌리면 즉시 내려놓아라." (Tim Ferriss Show #97)</div>
+        <div class="v" style="color:#9aa3b2">보강: "저도 머리맡에 3권을 두고 그날 끌리는 걸 펴요 → 오히려 매일 읽게 됐어요."</div>
+        <a class="src" href="https://tim.blog/2015/08/18/the-evolutionary-angel-naval-ravikant/" target="_blank" rel="noopener">출처 ↗</a>
+      </div>
+
+      <div class="m n2">
+        <div class="mh"><span class="nm">② 모티머 애들러</span><span class="ro">미국 · 『독서의 기술』</span></div>
+        <div class="v">독서 4단계(기초·<b>점검</b>·분석·신토피컬). 대부분의 책은 <b>점검 독서(훑어보기)</b> — 서문·목차·필요한 장만 보고 정독 여부 판단.</div>
+        <div class="q">"모든 책을 같은 강도로 읽지 마라. 대부분은 훑어보기로 충분하다."</div>
+        <div class="v" style="color:#9aa3b2">보강: "새 책은 1쪽부터가 아니라 목차→끌리는 장→서문 순. '완독'이 아니라 '발췌'가 기본값."</div>
+        <a class="src" href="https://fs.blog/how-to-read-a-book/" target="_blank" rel="noopener">출처 ↗</a>
+      </div>
+
+      <div class="m n3">
+        <div class="mh"><span class="nm">③ 탈레브 · 움베르토 에코</span><span class="ro">안티라이브러리</span></div>
+        <div class="v">안 읽은 책이 읽은 책보다 가치 있다. 에코는 <b>3만 권</b> 중 대부분 안 읽었고 그걸 <b>'안티라이브러리'</b>라 불렀다 — 안 읽은 책이야말로 자산.</div>
+        <div class="q">"읽은 책보다 안 읽은 책이 훨씬 가치 있다." (탈레브 『블랙 스완』)</div>
+        <div class="v" style="color:#9aa3b2">보강(readtree 떡밥): "안 읽은 책은 빚이 아니라 <b>가능성의 숲</b>."</div>
+        <a class="src" href="https://fs.blog/the-antilibrary/" target="_blank" rel="noopener">출처 ↗</a>
+      </div>
+
+      <div class="m n4">
+        <div class="mh"><span class="nm">④ 낸시 펄</span><span class="ro">미국 · 사서</span></div>
+        <div class="v"><b>50쪽 룰.</b> 50쪽까지 읽고 안 맞으면 미련 없이 덮어라(50세↑은 100−나이). 끝까지 읽을지 50쪽 안에 결정.</div>
+        <div class="q">"인생은 짧고 책은 많다. 50쪽 안에 결정하라."</div>
+        <div class="v" style="color:#9aa3b2">보강: "저는 '3장 룰'로 — 3장까지 안 끌리면 죄책감 없이 다음 책."</div>
+        <a class="src" href="https://reactormag.com/you-dont-have-to-finish-every-book-you-start/" target="_blank" rel="noopener">출처 ↗</a>
+      </div>
+
+    </div>
+
+    <div class="vis">🎬 참조이미지 → <code>02_유한성_거장들/</code> · 평생 500권 vs 세상 1.3억 권 인포그래픽 / 거장 4컷 카드(네이벌·애들러·에코 3만 권 서재·낸시 펄) / 자막카드 <b>"거장들의 공통점 = 완독하지 않는다"</b></div>
+    <p class="warnline">⚠️ 진정성 룰: 학자명·책명·연도를 발화에 과하게 욱여넣지 않는다(인지 비용↑). 핵심 출처만 발화, 상세는 <a href="자료_뷰트랩_레퍼런스.html">고정 댓글(뷰트랩·레퍼런스)</a>.</p>
+  </section>
+
+  <div class="footnav">
+    <a class="navcard" href="자료_02_본문_매몰비용.html"><div><div class="lab">← Prev</div><div class="tl">② 완독 강박의 정체</div></div></a>
+    <a class="navcard next" href="자료_04_스토리_이동진_고백.html"><div><div class="lab">Next →</div><div class="tl">④ 스토리 — 이동진 + 내 고백</div></div></a>
+  </div>
+
+  <div class="footer">
+    <span>원본 <a href="정리본/03_본문_안읽어도_되는_이유.md">정리본/03</a></span>
+    <span>근거 <a href="자료_뷰트랩_레퍼런스.html">뷰트랩·레퍼런스</a></span>
+    <span><a href="README.md">🧭 진입점</a></span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>풀링 주제 확장 · 바이브코딩·1인 제작 컨셉 · Creator Link Hub 연계</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2;
+    --accent:#ffd166; --accent-2:#06d6a0; --warn:#ef476f;
+    --pull:#5cc4e0; --info:#5cc4e0; --brief:#c4b5fd; --ai:#6ea8fe;
+    --make:#a78bfa;
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:var(--pull)}
+  .wrap{max-width:1280px;margin:0 auto;padding:24px 24px 140px}
+
+  .angle-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;padding:12px;
+    background:rgba(23,26,33,.92);border:1px solid var(--line);border-radius:12px;
+    position:sticky;top:0;z-index:30;backdrop-filter:blur(8px)}
+  .abtn{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:12.5px;font-weight:600;transition:all .15s;white-space:nowrap}
+  .abtn:hover{transform:translateY(-1px);background:#252a36;border-color:#34394a}
+  .abtn.home{color:var(--muted);background:transparent}
+  .abtn.make{border-color:rgba(167,139,250,.4);color:#d9ccff}
+
+  header.hero{padding:28px 32px;border-radius:18px;
+    background:radial-gradient(1200px 380px at 10% -10%,rgba(167,139,250,.20),transparent 50%),
+               radial-gradient(900px 360px at 110% 10%,rgba(6,214,160,.14),transparent 55%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line);margin-bottom:22px}
+  .eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.18em;color:var(--make);
+    background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);
+    padding:5px 11px;border-radius:999px;text-transform:uppercase}
+  h1{font-size:29px;line-height:1.25;margin:14px 0 10px;letter-spacing:-0.02em;font-weight:800}
+  .lede{color:var(--muted);font-size:14.5px;margin:6px 0 14px;max-width:980px}
+  .lede b{color:#cfd5e0}
+  .chain{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 12px;font-size:13px;font-weight:700}
+  .chain .node{padding:4px 10px;border-radius:8px;background:var(--panel-2);border:1px solid var(--line)}
+  .chain .node.in{color:#d9ccff;border-color:rgba(167,139,250,.4)}
+  .chain .node.base{color:#bff3e2;border-color:rgba(6,214,160,.4)}
+  .chain .node.end{color:#ffe6a8;border-color:rgba(255,209,102,.4)}
+  .chain .arr{color:var(--muted)}
+  .meta-row{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:#2a2f3a;border:1px solid var(--line);color:var(--text);
+    font-size:12px;padding:5px 10px;border-radius:999px}
+
+  .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 22px}
+  @media(max-width:760px){.stats-bar{grid-template-columns:repeat(2,1fr)}.wrap{padding:18px 14px 100px}h1{font-size:23px}}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .stat .lab{font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  .stat .val{font-size:22px;font-weight:800;color:#fff;margin-top:4px;font-variant-numeric:tabular-nums}
+  .stat .sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+  section{margin-top:38px;scroll-margin-top:78px}
+  h2{font-size:21px;letter-spacing:-.01em;margin:0 0 6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  h2::before{content:"";width:6px;height:24px;border-radius:3px;background:var(--make)}
+  h2.axis-end::before{background:var(--accent)}
+  h2.axis-base::before{background:var(--accent-2)}
+  h2 .num{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:.1em;margin-right:2px}
+  h2 .sec-tag{font-size:11px;background:var(--panel-2);color:var(--muted);padding:3px 9px;border-radius:6px;
+    border:1px solid var(--line);margin-left:auto;font-weight:600}
+  h2 .sec-tag.new{color:#d9ccff;border-color:rgba(167,139,250,.4)}
+  .axis-meta{color:var(--muted);font-size:13px;margin:2px 0 12px}
+  .axis-meta b{color:#cfd5e0}
+
+  .info-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+  .info-card.how{border-left:4px solid var(--accent-2)}
+  .info-card.warn{border-left:4px solid var(--warn)}
+  .info-card.make{border-left:4px solid var(--make)}
+
+  table{width:100%;border-collapse:collapse;margin:8px 0 4px;font-size:13px;background:var(--panel);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--panel-2);color:var(--muted);font-size:11.5px;letter-spacing:.04em;font-weight:700;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td.id{color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}
+  td.title{color:#fff;font-weight:600}
+  .tag{display:inline-block;font-size:10.5px;padding:2px 7px;border-radius:999px;border:1px solid var(--line);
+    background:var(--panel-2);color:var(--muted);font-weight:700;white-space:nowrap}
+  .tag.eg{color:#0c0e13;background:var(--growth);border-color:var(--growth)}
+  .tag.ss{color:#0c0e13;background:var(--value);border-color:var(--value)}
+  .tag.daily{color:var(--growth);border-color:rgba(6,214,160,.4)}
+  .tag.hero{color:var(--value);border-color:rgba(255,209,102,.4)}
+  .tag.g1{color:#cfe0ff;border-color:rgba(110,168,254,.45)}
+  .tag.g2{color:#bff3e2;border-color:rgba(6,214,160,.45)}
+  .tag.g3{color:#ffe6a8;border-color:rgba(255,209,102,.45)}
+  .vt{color:var(--accent);font-weight:600}
+  .src{color:#6b7384;font-size:11.5px}
+  .dup{color:var(--warn);font-weight:700}
+
+  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  code{background:#0c0e13;border:1px solid #2a3040;border-radius:5px;padding:1px 6px;font-size:12px;color:#cfd5e0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="angle-nav">
+    <a class="abtn home" href="#top">▲ 위로</a>
+    <a class="abtn" href="#how">사용법</a>
+    <a class="abtn make" href="#g1">G1 출시·배포</a>
+    <a class="abtn make" href="#g2">G2 스택·기능</a>
+    <a class="abtn make" href="#g3">G3 1인 SaaS</a>
+    <a class="abtn make" href="#g4">G4 읽고→만들기</a>
+    <a class="abtn" href="#appA">A 페이지 매핑</a>
+    <a class="abtn" href="#appB">B 중복 회피</a>
+    <a class="abtn" href="#appC">C 뷰트랩 키워드</a>
+  </nav>
+
+  <header class="hero" id="top">
+    <span class="eyebrow">PULLING TOPIC BANK · 확장판 2026-06-25 · Creator Link Hub 연계</span>
+    <h1>풀링 주제 확장 · "직접 만들고 → 배포 → 1인 제작" 컨셉 18개</h1>
+    <div class="chain">
+      <span class="node in">바이브코딩 · 직접 만들기 (입구)</span><span class="arr">→</span>
+      <span class="node base">읽고 · 생각하고 · 검증 (토대)</span><span class="arr">→</span>
+      <span class="node end">1인 SaaS · 기록·자산화 (귀결)</span>
+    </div>
+    <p class="lede">
+      개인 브랜드 페이지 <b>Creator Link Hub("코딩 몰라도 직접 만든 우리의 공간")</b> 컨셉에 맞춰, 기존 51개 뱅크에서 얇았던
+      <b>"직접 만들기·배포·1인 SaaS·읽고→만들기 연결"</b> 결을 18개로 새로 발굴했다.
+      페이지의 실제 서비스 <b>LINKMAP(원클릭 배포)·ReadTree(독서 습관)</b>, 실습 스택 <b>Next.js·Supabase·Stripe·Vercel</b>, 무료 전자책 <b>"바이브코딩으로 시작하는 1인 SaaS"</b>를 후크로 직역했다.
+      모든 주제는 <b>"만들어 보니 결국 읽고·생각하는 힘이 핵심"</b>으로 귀결시킨다 — 슬로건 <b>"AI는 답을 만든다. 읽는 사람은 질문을 만든다."</b>
+    </p>
+    <div class="meta-row">
+      <span class="chip">컨셉 원천: vibe-stater · Creator Link Hub</span>
+      <span class="chip">정체성: AI보다 읽는사람.MD</span>
+      <span class="chip">룰북: 대본기획_기준 §8.6·§8.7</span>
+      <span class="chip">짝꿍: 풀링주제_뱅크_AI보다읽는사람.html (51개)</span>
+    </div>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="lab">신규 주제</div><div class="val">18</div><div class="sub">기존 51개와 각도 중복 회피</div></div>
+    <div class="stat"><div class="lab">주력 축</div><div class="val">⑤ 바이브코딩</div><div class="sub">+ ④ AI · ⑥ 성장 · ① 독서 연결</div></div>
+    <div class="stat"><div class="lab">우선 결</div><div class="val">①→②→③</div><div class="sub">못 만드는 → 만드는 중 → 수익화</div></div>
+    <div class="stat"><div class="lab">페이지 직결</div><div class="val">LINKMAP·ReadTree</div><div class="sub">1차 판매·readtree 떡밥 연결</div></div>
+  </div>
+
+  <section id="how">
+    <h2><span class="num">§0</span> 사용법 <span class="sec-tag">주제 → 뷰트랩 → 댓글분석 → 디벨롭</span></h2>
+    <div class="info-card how">
+      <p style="margin:0">
+        <b>1)</b> 주제 1개 고르기 → <b>2)</b> 표의 <span class="vt">뷰트랩 키워드</span>로 검색(<code>app.viewtrap.com/video-search</code>) → <b>3)</b> 노출확률 <b>normal↑</b>·기여도/성과도 상위 영상에서 제목·썸네일 학습 + <b>대표 영상 댓글분석</b>(타채널참조 허브) → <b>4)</b> 제목 <b>8단계</b>(<code>§8.6</code>)·썸네일 <b>6단계</b>(<code>§8.7</code>) 디벨롭 → <b>5)</b> <code>대본/풀링컨텐츠/&lt;번호&gt;_&lt;주제&gt;/</code> 폴더 생성.
+      </p>
+    </div>
+    <div class="info-card make">
+      <p style="margin:0"><b>채널 가드(불변 안티컨셉)</b> — ① AI 적대 프레임 금지(긍정 구도) · ② 치트키·과장 약속 금지(만들기 후크여도 "쉽게 떼돈" ✕) · ③ <b>개발자 전용화 금지</b>(코드 못 짜는 사람도 데려간다 — 이 확장판의 핵심) · ④ 당위·감성 강매 금지("만들어 보니 읽기가 필요하더라"는 실용 동기로 책을 권한다).</p>
+    </div>
+    <div class="info-card warn">
+      <p style="margin:0"><b>범례</b> — 관심도: <span class="tag eg">에버그린</span> <span class="tag ss">시즌성</span> · 제작: <span class="tag daily">데일리</span> <span class="tag hero">히어로</span> · 결: <span class="tag g1">① 안/못씀</span> <span class="tag g2">② 쓰는중</span> <span class="tag g3">③ 더잘쓰기</span> · <span class="vt">뷰트랩 키워드</span>. <b>제작·SaaS 키워드는 신규</b> → 라이브 확인 필요(부록 C).</p>
+    </div>
+  </section>
+
+  <!-- G1 출시·배포 -->
+  <section id="g1">
+    <h2><span class="num">G1</span> 출시·배포의 쾌감 — 입구 후크 <span class="sec-tag new">4개 · 신규</span></h2>
+    <p class="axis-meta">"내가 만든 게 인터넷에 올라갔다"는 첫 성취 = 비개발자 유입 후크. 페이지 <b>"3분 만에 홈페이지 배포·구글 계정 하나로"</b> 직역. 우선 결: <b>① 안/못 쓰는</b>.</p>
+    <table>
+      <thead><tr><th>ID</th><th>제목 후보 (≤35자)</th><th>결</th><th>관심·제작</th><th>뷰트랩 키워드</th><th>근거(입구→귀결)</th></tr></thead>
+      <tbody>
+        <tr><td class="id">C01</td><td class="title">내가 만든 게 인터넷에 올라간 순간</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">바이브코딩 · 배포</td><td class="src">페이지 "원클릭 배포" 직역. 출시 쾌감 → 더 만들려면 기획·읽기</td></tr>
+        <tr><td class="id">C02</td><td class="title">구글 계정 하나로 홈페이지가 나왔습니다</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">홈페이지 만들기 · 노코드</td><td class="src">LINKMAP "구글 계정 하나면 OK" 직역. 진입장벽 0 후크</td></tr>
+        <tr><td class="id">C06</td><td class="title">개발자 친구도 놀란 비개발자의 결과물</td><td><span class="tag g1">①</span> <span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">비개발자 · 노코드</td><td class="src">권위 반전(부록A "개발자도 놀란"). "코딩 몰라도" 정체성 직결</td></tr>
+        <tr><td class="id">C12</td><td class="title">AI 시대, 보는 사람에서 만드는 사람으로</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">AI시대 · 창작</td><td class="src">소비→창작 전환. 채널 북극성(읽는 사람=만드는 사람) 변주</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- G2 스택·기능 -->
+  <section id="g2">
+    <h2><span class="num">G2</span> 스택·기능 붙이기 — 활용 단계 <span class="sec-tag new">4개 · 신규</span></h2>
+    <p class="axis-meta">DB·결제·배포를 "말로" 붙이는 체험. 페이지 실습 스택 <b>Supabase·Stripe·Vercel</b> 직역. "요구사항을 글로 쓰는 힘=문해력"으로 귀결. 우선 결: <b>② 쓰고 있는</b>.</p>
+    <table>
+      <thead><tr><th>ID</th><th>제목 후보 (≤35자)</th><th>결</th><th>관심·제작</th><th>뷰트랩 키워드</th><th>근거(입구→귀결)</th></tr></thead>
+      <tbody>
+        <tr><td class="id">C04</td><td class="title">코딩 못 하는데 결제 기능까지 붙였습니다</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">바이브코딩 · 결제연동</td><td class="src">Stripe 결제 체험. "여기까지 됐다" 의외성 후크</td></tr>
+        <tr><td class="id">C05</td><td class="title">AI한테 데이터베이스 만들어 달라 했더니</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">바이브코딩 · Supabase</td><td class="src">백엔드 입문 체험. 막히는 지점=용어 이해(문해력)</td></tr>
+        <tr><td class="id">C10</td><td class="title">배포가 자꾸 실패하는 진짜 이유</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">배포 실패 · 환경변수</td><td class="src">LINKMAP "환경변수 때문에 배포 막힐 때" 직역. 페인 직격</td></tr>
+        <tr><td class="id">C14</td><td class="title">내 손으로 만든 도구로 일했더니 달라진 것</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">업무 자동화 · AI활용</td><td class="src">본업(ERP/AX) 자동화 연결. 실무 효용 → 진정성 자산</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- G3 1인 SaaS -->
+  <section id="g3">
+    <h2 class="axis-end"><span class="num">G3</span> 1인 SaaS·수익화·운영 — 귀결(심화) <span class="sec-tag new">5개 · 신규</span></h2>
+    <p class="axis-meta">만든 다음의 현실 — 출시·수익·운영·기록. 페이지 무료 전자책 <b>"바이브코딩으로 시작하는 1인 SaaS"</b>·readtree 떡밥 직결. 우선 결: <b>③ 더 잘 쓰려는</b>.</p>
+    <table>
+      <thead><tr><th>ID</th><th>제목 후보 (≤35자)</th><th>결</th><th>관심·제작</th><th>뷰트랩 키워드</th><th>근거(입구→귀결)</th></tr></thead>
+      <tbody>
+        <tr><td class="id">C03</td><td class="title">월 매출 나오는 1인 서비스, 진짜 될까?</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">1인SaaS · 사이드프로젝트</td><td class="src">의심형(과장 금지 가드). 전자책 직역. 기획=읽고 생각</td></tr>
+        <tr><td class="id">C07</td><td class="title">직장 다니면서 만든 사이드 프로젝트 후기</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">사이드프로젝트 · 직장인</td><td class="src">직장인(본업 ERP PM) 1인칭. 결③ + 직장인 결 호명</td></tr>
+        <tr><td class="id">C08</td><td class="title">AI로 만든 서비스, 출시하고 벌어진 일</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">1인개발 · 창업</td><td class="src">출시 후 운영 현실(반전·진솔). 만들기≠끝</td></tr>
+        <tr><td class="id">C16</td><td class="title">전자책 한 권으로 시작한 1인 SaaS</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">전자책 · 디지털노마드</td><td class="src">기록·자산화→제품. 페이지 전자책·readtree 떡밥</td></tr>
+        <tr><td class="id">C18</td><td class="title">내 서비스에 사람이 처음 들어온 날</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">1인개발 · 창업일기</td><td class="src">첫 사용자 감성(성장·진정성). 같이 키우는 도구 컨셉</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- G4 읽고→만들기 -->
+  <section id="g4">
+    <h2 class="axis-base"><span class="num">G4</span> 읽고→만들기·검증 — 토대 다리 <span class="sec-tag new">5개 · 신규</span></h2>
+    <p class="axis-meta">만들기를 다시 읽기·생각·검증으로 되돌리는 다리 축 = 채널 정체성의 핵심. "코드 안 보고 만든 걸 어디까지 믿나"는 곧 <b>읽기=검증</b>. 우선 결: <b>①②③ 전반</b>.</p>
+    <table>
+      <thead><tr><th>ID</th><th>제목 후보 (≤35자)</th><th>결</th><th>관심·제작</th><th>뷰트랩 키워드</th><th>근거(입구→귀결)</th></tr></thead>
+      <tbody>
+        <tr><td class="id">C09</td><td class="title">내 생각을 서비스로 바꾸는 가장 빠른 길</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">바이브코딩 · 아이디어</td><td class="src">아이디어→제작. 생각 정리=읽고 쓰는 힘</td></tr>
+        <tr><td class="id">C11</td><td class="title">읽기만 하던 내가 만들기 시작한 이유</td><td><span class="tag g1">①</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">독서 · 자기계발</td><td class="src">독서→제작 연결(채널 북극성 직역). 1인칭 전환담</td></tr>
+        <tr><td class="id">C13</td><td class="title">혼자 말고 같이 만들면 생기는 일</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">사이드프로젝트 · 커뮤니티</td><td class="src">페이지 "같이 쓰고 같이 고치며" 직역. readtree 그룹 떡밥</td></tr>
+        <tr><td class="id">C15</td><td class="title">코드 안 보고 만든 서비스, 믿어도 될까</td><td><span class="tag g3">③</span></td><td><span class="tag eg">EG</span> <span class="tag hero">히어로</span></td><td class="vt">바이브코딩 · 코드리뷰</td><td class="src">읽기=검증. "읽는 사람" 메타포 직격. <span class="dup">⚠️V07 인접→검증·리스크 각도</span></td></tr>
+        <tr><td class="id">C17</td><td class="title">만들면서 배우는 게 왜 더 빠를까</td><td><span class="tag g2">②</span></td><td><span class="tag eg">EG</span> <span class="tag daily">데일리</span></td><td class="vt">자기계발 · 공부법</td><td class="src">제작기반 학습. 만들다 막히면 결국 읽고 이해</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 부록 A -->
+  <section id="appA">
+    <h2><span class="num">부록 A</span> Creator Link Hub 페이지 요소 → 주제 매핑 <span class="sec-tag">컨셉 직역</span></h2>
+    <table>
+      <thead><tr><th>페이지 요소</th><th>내용</th><th>본 확장판 적용</th></tr></thead>
+      <tbody>
+        <tr><td>슬로건</td><td>"코딩 몰라도 직접 만든 우리의 공간 · 읽고 만들고 연결"</td><td class="vt">C06 · C11 · C12</td></tr>
+        <tr><td>LINKMAP</td><td>원클릭 배포 · 구글 계정 하나 · 환경변수(AES-256)</td><td class="vt">C01 · C02 · C10</td></tr>
+        <tr><td>ReadTree</td><td>읽고 기록하면 독서나무 · AI 리포트 · 독서 그룹</td><td class="vt">C11 · C13 · C16</td></tr>
+        <tr><td>실습 스택</td><td>Next.js · Supabase · Stripe · Resend · Vercel</td><td class="vt">C04 · C05 · C10</td></tr>
+        <tr><td>전자책</td><td>"바이브코딩으로 시작하는 1인 SaaS"</td><td class="vt">C03 · C16</td></tr>
+        <tr><td>본업</td><td>제조 ERP PM · AX(AI 전환) 담당</td><td class="vt">C14 · C07</td></tr>
+        <tr><td>5단계 실습</td><td>기획·IA → Next.js → Supabase → Stripe → 배포</td><td class="vt">C09 · C04 · C05</td></tr>
+        <tr><td>커뮤니티</td><td>"같이 쓰고 같이 고치며 함께 키워가는 도구"</td><td class="vt">C13 · C18</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 부록 B -->
+  <section id="appB">
+    <h2><span class="num">부록 B</span> 기존 뱅크 중복 회피 <span class="sec-tag">V01~V10 대조</span></h2>
+    <table>
+      <thead><tr><th>기존 바이브코딩(뱅크)</th><th>각도</th><th>본 확장판 차별점</th></tr></thead>
+      <tbody>
+        <tr><td>V01 코딩 1도 몰라도 앱이 나왔다</td><td>진입장벽 해소(범용)</td><td class="src">C01·C02는 <b>배포·출시 순간</b>에 특화(구체 행동)</td></tr>
+        <tr><td>V04 개발자 없이 내 서비스 만든 후기</td><td>1인개발 결과물</td><td class="src">C08·C18은 <b>출시 이후 운영·첫 사용자</b>로 시점 이동</td></tr>
+        <tr><td>V05 AI코딩 막히는 이유</td><td>요구사항 못 씀</td><td class="src">C10은 <b>배포·환경변수</b>라는 구체 페인으로 한정</td></tr>
+        <tr><td>V07 코드도 읽을 줄 알아야</td><td>읽기=검증(원론)</td><td class="src">C15는 <b>"믿어도 되나" 리스크·검증</b> 각도로 분리</td></tr>
+        <tr><td>V09 바이브코딩 돈 버는 사람 차이</td><td>기획력 일반</td><td class="src">C03은 <b>1인 SaaS 월매출 가능성</b>(의심·검증형)</td></tr>
+        <tr><td>V10 기획서 글로 못 쓰면 AI도 못 만든다</td><td>글쓰기 전제</td><td class="src">C09는 <b>아이디어→제작 속도</b>로 긍정 전환</td></tr>
+      </tbody>
+    </table>
+    <p class="axis-meta">본 확장 18개는 뱅크 V01~V10과 <b>"행동의 구체성·시점·페인"으로 각도를 분리</b>했다. C15만 V07과 인접 — 채택 시 "검증·리스크" 각도 명시.</p>
+  </section>
+
+  <!-- 부록 C -->
+  <section id="appC">
+    <h2><span class="num">부록 C</span> 뷰트랩 검색 키워드 묶음 <span class="sec-tag">라이브 확인 대상</span></h2>
+    <div class="info-card">
+      <p style="margin:0 0 8px"><b>제작·SaaS 계열(신규 — 라이브 확인 필수)</b>: <code>바이브코딩</code> · <code>노코드</code> · <code>홈페이지 만들기</code> · <code>1인SaaS</code> · <code>사이드프로젝트</code> · <code>1인개발</code> · <code>비개발자</code> · <code>Supabase</code> · <code>배포</code> · <code>환경변수</code> · <code>업무 자동화</code> · <code>창업</code> · <code>디지털노마드</code> · <code>코드리뷰</code>.</p>
+      <p style="margin:0 0 8px"><b>계승 조회수(2026-05-16, 풀링 뱅크)</b>: 자기계발 <b>5952만</b> · 독서 <b>1.7억</b> · 작심삼일 <b>5450만</b> — G4(C11·C17) 독서·자기계발 키워드는 계승 데이터 활용.</p>
+      <p style="margin:0"><b>코워크 자동화</b>: <code>대본/_기획기준/뷰트랩_주제발굴_디벨롭_가이드.md §4 D</code> — "뷰트랩에서 [키워드] 검색하고 대시보드 갱신해줘". 댓글분석은 <code>타채널참조/_댓글분석_허브.html</code>에 누적.</p>
+    </div>
+  </section>
+
+  <footer>
+    근거: 컨셉 원천 <code>Creator Link Hub (vibe-stater-git-main-habitree-ai.vercel.app)</code> · 채널 정체성 SSOT <code>docs/채널정채성/AI보다 읽는사람.MD</code> · 룰북 <code>대본/_기획기준/대본기획_기준.md §8.6·§8.7</code> · 짝꿍 뱅크 <code>풀링주제_뱅크_AI보다읽는사람.html</code>(51개)<br>
+    ※ 모든 제목은 5주차 ⑤ 질문형 1차 디벨롭본 — 뷰트랩 검증 + 대표 영상 댓글분석 후 ③④⑥⑦ 추가 디벨롭. 채택·폴더 생성은 검증 후 결정. 확장 작성 2026-06-25.
+  </footer>
+
+</div>
+</body>
+</html>

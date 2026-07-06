@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>브리프 자료 · 책, 끝까지 안 읽어도 괜찮은 이유</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1e222b; --line:#262b36;
+    --text:#e7e9ee; --muted:#9aa3b2;
+    --accent:#ffd166; --accent-2:#06d6a0; --warn:#ef476f;
+    --pull:#5cc4e0; --brief:#c4b5fd;
+    --pain:#ef476f; --rec:#06d6a0; --value:#ffd166;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:24px 24px 100px}
+  a{color:var(--pull)}
+  b,strong{color:#fff}
+
+  .angle-nav{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px;padding:12px;
+    background:rgba(23,26,33,.92);border:1px solid var(--line);border-radius:12px;
+    position:sticky;top:0;z-index:30;backdrop-filter:blur(8px)}
+  .abtn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:all .15s;white-space:nowrap}
+  .abtn:hover{transform:translateY(-1px);background:#252a36;border-color:#34394a}
+  .abtn .num{font-size:11px;opacity:.75;font-weight:800}
+  .abtn.home{color:var(--muted);background:transparent}
+  .abtn.brief.active{background:rgba(196,181,253,.15);border-color:var(--brief);color:var(--brief)}
+  .abtn.hook.active{background:rgba(239,71,111,.15);border-color:var(--warn);color:#ff8aa5}
+  .abtn.body.active{background:rgba(92,196,224,.15);border-color:var(--pull);color:#7fd4ec}
+  .abtn.story.active{background:rgba(255,209,102,.15);border-color:var(--accent);color:var(--accent)}
+  .abtn.cta.active{background:rgba(6,214,160,.15);border-color:var(--edit);color:#33d8a3}
+  .abtn.pull.active{background:rgba(92,196,224,.15);border-color:var(--pull);color:#7fd4ec}
+  .abtn.home.active{background:#252a36;border-color:#3a4150;color:#fff}
+
+  header.hero{padding:26px 30px;border-radius:18px;
+    background:radial-gradient(1100px 360px at 10% -10%,rgba(196,181,253,.18),transparent 50%),
+               linear-gradient(180deg,#1a1e27 0%,#13161d 100%);
+    border:1px solid var(--line);margin-bottom:20px}
+  .eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.18em;color:var(--brief);
+    background:rgba(196,181,253,.12);border:1px solid rgba(196,181,253,.3);
+    padding:5px 11px;border-radius:999px;text-transform:uppercase}
+  h1{font-size:27px;line-height:1.25;margin:14px 0 6px;letter-spacing:-0.02em;font-weight:800}
+  .meta-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .chip{background:#2a2f3a;border:1px solid var(--line);color:var(--text);font-size:12px;padding:5px 10px;border-radius:999px}
+  .chip b{color:#fff}
+
+  .catch{margin:20px 0;padding:20px 24px;border-radius:14px;text-align:center;
+    background:linear-gradient(180deg,rgba(6,214,160,.10),rgba(255,209,102,.06));
+    border:1px solid rgba(6,214,160,.28)}
+  .catch .lab{font-size:11px;letter-spacing:.16em;color:var(--accent-2);text-transform:uppercase}
+  .catch .big{font-size:21px;font-weight:800;color:#fff;margin-top:8px;line-height:1.4}
+  .catch .sub{font-size:14px;color:#c9cfd9;margin-top:8px}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}.wrap{padding:18px 16px 80px}h1{font-size:23px}}
+  .cell{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .cell.full{grid-column:1/-1}
+  .cell .k{font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin:0 0 8px;font-weight:700}
+  .cell .k .hint{font-size:10.5px;color:#6b7384;text-transform:none;letter-spacing:0;font-weight:400;margin-left:6px}
+  .cell .v{font-size:14.5px;color:#e3e6ec}
+  .cell.brief-b{border-left:3px solid var(--brief)}
+
+  .beats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+  @media(max-width:760px){.beats{grid-template-columns:1fr}}
+  .beat{background:#0c0e13;border:1px solid #232838;border-radius:10px;padding:13px 15px}
+  .beat .bn{font-size:12px;font-weight:800;margin-bottom:5px}
+  .beat.b1 .bn{color:var(--pain)} .beat.b2 .bn{color:var(--value)} .beat.b3 .bn{color:var(--rec)}
+  .beat .bt{font-size:13px;color:#cfd5df}
+
+  h2{font-size:19px;margin:34px 0 12px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--brief)}
+  .tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .tbl th{background:var(--panel-2);color:#cfd5df;text-align:left;padding:10px 12px;font-size:12px;border-bottom:1px solid var(--line)}
+  .tbl td{padding:10px 12px;border-bottom:1px solid var(--line);color:#dfe3ea}
+  .tbl td:first-child{color:#fff;font-weight:600;white-space:nowrap}
+  .tbl tr:last-child td{border-bottom:none}
+
+  .footer{margin-top:42px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .footer a{color:var(--accent-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="angle-nav">
+    <a class="abtn home" href="통합_끝까지_안읽어도.html">📦 기획·대본</a>
+    <a class="abtn brief active">📋 브리프 (현재)</a>
+    <a class="abtn hook" href="자료_01_제목_썸네일_후크.html"><span class="num">①</span> 제목·썸네일·후크</a>
+    <a class="abtn body" href="자료_02_본문_매몰비용.html"><span class="num">②</span> 매몰비용</a>
+    <a class="abtn body" href="자료_03_본문_유한성_거장.html"><span class="num">③</span> 유한성·거장</a>
+    <a class="abtn story" href="자료_04_스토리_이동진_고백.html"><span class="num">④</span> 스토리</a>
+    <a class="abtn cta" href="자료_05_해결_결호명_CTA.html"><span class="num">⑤</span> 해결·CTA</a>
+    <a class="abtn pull" href="자료_뷰트랩_레퍼런스.html">🔎 뷰트랩·레퍼런스</a>
+  </nav>
+
+  <header class="hero">
+    <span class="eyebrow">BRIEF · EP003 · 완독 강박 버리기(P01)</span>
+    <h1>책, 끝까지 안 읽어도 괜찮은 이유</h1>
+    <div class="meta-row">
+      <span class="chip">풀링/8축: <b>책 읽는 방법</b>(+재미·습관)</span>
+      <span class="chip">메인 결: <b>완독 포기·효과없던 + ① 읽으려는</b></span>
+      <span class="chip">길이: <b>자유(미드폼 축약 가능)</b></span>
+    </div>
+  </header>
+
+  <div class="catch">
+    <div class="lab">한 줄 캐치</div>
+    <div class="big">"완독은 목표가 아니라, 가끔 일어나는 결과일 뿐이에요."</div>
+    <div class="sub">보조 — "153쪽에서 덮은 그 책은 실패가 아니라, 딱 153쪽만큼 당신 것이 된 거예요." <span style="color:#9aa3b2">(이동진 변주)</span></div>
+  </div>
+
+  <div class="grid">
+    <div class="cell full brief-b">
+      <div class="k">B1. 한 줄 정의</div>
+      <div class="v">"책은 끝까지 읽어야 한다"는 <b>단 하나의 믿음</b>이 사실은 사람을 책에서 멀어지게 만든다 — 완독 강박의 정체(<b>매몰비용 오류</b>)를 짚고, 거장들의 독서법(이동진·네이벌·애들러·탈레브)으로 <b>"완독은 목표가 아니라 가끔의 결과"</b>임을 증명해, 죄책감 없이 다시 책과 친해지게 하는 영상.</div>
+    </div>
+    <div class="cell brief-b">
+      <div class="k">B2. 풀링/키 + 8축</div>
+      <div class="v"><b>풀링.</b> 메인 8축 — <b>책 읽는 방법</b>. 서브 — 책 읽는 재미·습관. 알고리즘 유입, 종착지 = 구독·신뢰(직접 판매 X).</div>
+    </div>
+    <div class="cell brief-b">
+      <div class="k">B3. 메인 결 + 우선 기둥</div>
+      <div class="v">메인 — <b>완독 못 해 포기한·효과 없던 사람</b>(P01). 확장 — <b>① 읽으려는</b>(완독 부담에 시작도 못 하던 층) + ② 읽고 있는(죄책감 층). 단기 ② 책 풀링.</div>
+    </div>
+    <div class="cell brief-b">
+      <div class="k">B4. 수익화 종착지 <span class="hint">풀링은 직접 노출 X</span></div>
+      <div class="v">다음 키("끝까지 읽게 되는 책 고르는 법")에서 <b>이북리더기</b>(여러 권·발췌독 도구) 자연 등장. <b>readtree</b>는 "안 읽은 책=자산(안티라이브러리)·서재 트리" 메타포만. <b style="color:var(--warn)">직접 노출 0회.</b></div>
+    </div>
+    <div class="cell brief-b">
+      <div class="k">B5. 감정 코어 (3비트)</div>
+      <div class="beats">
+        <div class="beat b1"><div class="bn">① 정체</div><div class="bt">끝까지 읽으려는 압박 = 의지 아닌 <b>매몰비용 오류</b></div></div>
+        <div class="beat b2"><div class="bn">② 증명</div><div class="bt">평생 읽을 책은 유한 · <b>거장들도 안 끌리면 즉시 덮는다</b></div></div>
+        <div class="beat b3"><div class="bn">③ 해방</div><div class="bt">완독 버리면 더 읽게 됨 · 50쪽룰·점검독서·여러 권</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid" style="margin-top:14px">
+    <div class="cell full memo" style="border-left:3px solid var(--accent)">
+      <div class="k">B6. 자유 메모 <span class="hint">진정성·수미상관·회복 카드</span></div>
+      <div class="v">
+        <b>진정성 코어</b>: "나도 끝까지 못 읽고 덮은 책 ○권, 죄책감에 한동안 책을 멀리했다 → 완독을 버리니 더 자주 읽게 됐다"(1인칭 고백, <b style="color:var(--warn)">실제 책 제목으로 교체</b>).<br>
+        <b>수미상관</b>: 후크의 "덮어둔 책 죄책감"을 마무리에서 회수.<br>
+        <b>반론 카드</b>: 쇼펜하우어 "독서는 남의 머리로 생각하는 것" → "그래서 발췌독이라도 내 생각으로 소화".<br>
+        <b>시청 지속률 회복</b>: 1:30 매몰비용 · 2:30 평생 독서량 숫자 · 3:30 네이벌 · 4:30 에코 3만 권 · 5:30 이동진 닥끌오재.
+      </div>
+    </div>
+  </div>
+
+  <h2>핵심 결정 요약</h2>
+  <table class="tbl">
+    <tbody>
+      <tr><td>풀링/키</td><td><b>풀링</b> — 직접 판매 0, 구독·신뢰 축적</td></tr>
+      <tr><td>8축</td><td>책 읽는 방법(메인) · 책 읽는 재미·습관(서브)</td></tr>
+      <tr><td>결</td><td>완독 못 해 포기/효과 없던 사람 + ① 읽으려는</td></tr>
+      <tr><td>수익화 종착지</td><td>다음 키 → 이북리더기(직접 노출 0) / readtree = 안티라이브러리·서재 트리 떡밥</td></tr>
+      <tr><td>제목 후보</td><td>A「책, 끝까지 안 읽어도 괜찮은 이유」 · B「끝까지 읽지 마세요 — 완독 강박의 함정」 · C「끝까지 읽는데 왜 머리에 안 남을까」</td></tr>
+      <tr><td>차용 인물</td><td>이동진 · 네이벌 · 애들러 · 탈레브/에코 · 낸시 펄 · 팀 페리스 · 쇼펜하우어</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    <span>원본 <a href="정리본/00_브리프.md">정리본/00</a></span>
+    <span>룰북 <a href="../../대본/_기획기준/대본기획_기준.md">대본기획_기준.md</a></span>
+    <span><a href="../../대본/_기획기준/30초_후크_룰_체크리스트.md">30초 후크</a></span>
+    <span><a href="README.md">🧭 진입점</a></span>
+  </div>
+
+</div>
+</body>
+</html>

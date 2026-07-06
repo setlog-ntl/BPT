@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — 독서의 가치 / 40년째 매일 책 읽고 알아낸 독서를 해야하는 이유 (최승필)</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:25px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--warn) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--warn)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:21px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · 독서의 가치</p>
+    <h1>40년째 매일 책 읽고 알아낸 독서를 해야하는 이유 (최승필)</h1>
+    <p class="sub">'책을 읽지 않는 사회에선 전 세대가 꼰대가 된다'는 도발 단언으로 열고 → 생각의 견고함('무슨 충') 설명 → '책 한 권의 자기 갱신감은 무엇으로도 못 얻는다'는 통찰. 자기소개(40년 전문가)는 뒤로.</p>
+    <div class="chips"><span class="chip">키워드 · 독서의 가치</span><span class="chip">채널 · 데일리어썸 DAILY AWESOME</span><span class="chip">길이 · 22:15 (1부)</span><span class="chip">썸네일 · 좋음</span><span class="chip">분석일 · 2026-06-07</span><span class="chip"><a href="https://www.youtube.com/watch?v=tfrnbLp6rVA">▶ 원본 영상</a></span></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:74"><div class="num"><b>74</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">B</span></h3><p>유형: <b>도발 단언 + 통찰 + 권위</b> · 적합도 높음 · 후크 핵심: 도발 단언 → 견고한 생각/통찰 → 권위(40년 전문가, 〈공부머리 독서법〉 저자) 후치</p></div></div>
+      <div class="grid">
+        <div class="card"><div class="lab">후크 유형</div><div class="val">도발 단언 + 통찰 + 권위</div></div>
+        <div class="card"><div class="lab">첫 발화</div><div class="val">"책을 읽지 않는 사회에선 전 세대가 꼰대가 될 가능성이 굉장히 큽니다."</div></div>
+        <div class="card"><div class="lab">시각적 텐션</div><div class="val">⚠️ 중간 (12/20) — 인터뷰 talking-head 중심이지만 B-roll·인물소개 카드·빨간 챕터 제목으로 보강</div></div>
+        <div class="card"><div class="lab">우리 채널 적합도</div><div class="val">🟢 높음 — 권위(40년 전문가) + 강한 통찰 문구</div></div>
+      </div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:50%"></i></span><span class="pts">10/20</span></div>
+      <div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div>
+      <div class="srow"><span class="nm">8축 키워드 1개+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:100%"></i></span><span class="pts">20/20</span></div>
+      <div class="srow"><span class="nm">결론 먼저</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:100%"></i></span><span class="pts">20/20</span></div>
+      <div class="srow"><span class="nm">시각적 텐션</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div>
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 <b>74/100 (B)</b> · 근거: 도발 단언으로 강하게 열고(결론 먼저), 독서·생각(8축) 통찰. 다만 '시청자가 얻을 변화'는 약하고 결 호명은 간접적. 시각은 B-roll·카드로 중간.</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① 도발 단언</span><span class="arrow">→</span><span class="step">② 통찰(경계·자기 갱신)</span><span class="arrow">→</span><span class="step">③ 권위(자기소개)</span><span class="arrow">→</span><span class="step turn">④ 자기 서사</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:00–0:13</span></td><td>"안 읽는 사회에선 전 세대가 꼰대가 된다" 도발</td><td><span class="ok-i">✔</span> B-roll(창가에서 책에 필기하는 장면)</td><td>흰 글씨 "인간의 생각은요 굉장히 견고하고 단단합니다"</td></tr>
+        <tr><td><span class="tt">0:14–0:43</span></td><td>경계가 견고해지면 다른 생각을 못 받아들임 → '자기 갱신감'</td><td><span class="ok-i">✔</span> 인터뷰 talking-head(안경·책장 스튜디오)</td><td>흰 글씨 "'내 민주주의 알지 학교에서 다 배웠지'"</td></tr>
+        <tr><td><span class="tt">0:44–0:59</span></td><td>지적 수준이 드러난다 → 자기소개(독서교육전문가)</td><td><span class="ok-i">✔</span> 인터뷰 + 우측 인물소개 카드(이름·직함·저서)</td><td>흰 글씨 "공독서가라는 서점 운영하고 있는"</td></tr>
+        <tr><td><span class="tt">1:00–1:12</span></td><td>"전교 꼴찌였던" 자기 서사 시작</td><td><span class="ok-i">✔</span> 인터뷰 + 상단 빨간 박스 챕터 제목</td><td>흰 글씨 "저녁 먹고 쓰러져 자고" / 상단 "'전교 꼴찌에서 대치 강사까지' 책 1권이 가져온 변화?"</td></tr>
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=자막 추출 기반 · <span class="ok-i">✔ 화면·번인 자막 캡처 확인 완료</span>(클로드-크롬, 0:05·0:27·0:54·1:06). 이미지 파일은 <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a> 참조.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (그럼에도 불구하고)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight">
+        <li>'안 읽으면 꼰대가 된다'는 도발 단언으로 첫 문장을 세움</li>
+        <li>'책 한 권의 자기 갱신감' 같은 통찰 문구를 카드형 후크로 차용</li>
+        <li>자기소개를 도발 뒤로 미루는 구조(우리 콜드오픈과 동일)</li>
+        <li>인물소개 카드·상단 빨간 챕터 제목으로 정보·기대 동시 전달</li>
+      </ul></div>
+      <div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight">
+        <li>책 안 읽으면 '꼰대'가 되는 진짜 이유</li>
+        <li>책 한 권이 주는 '자기 갱신감' — 다른 걸로는 못 얻습니다</li>
+      </ul></div></div></section>
+    <section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="ok-i">Y</span></td><td>독서·책이 주제</td></tr>
+        <tr><td>② 결 3그룹</td><td><span class="ok-i">Y</span></td><td>권위(40년 전문가) + 통찰 문구</td></tr>
+        <tr><td>③ 8축</td><td><span class="ok-i">Y</span></td><td>독서·생각/태도 주제</td></tr>
+        <tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>디바이스 무관</td></tr>
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">3축 해당 = 결 맞음(직접 차용 가능).</p></section>
+    <section><div class="note"><h3>⚙️ 화면·자막 캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>✔ 화면·번인 자막 캡처 확인 완료</b> — 클로드-크롬으로 4개 맥락 단위(0:05·0:27·0:54·1:06)를 직접 보고 채웠습니다. <b>데일리어썸</b> 제작 인터뷰로, 도발 단언 구간은 B-roll, 본론은 인터뷰 talking-head, 자기소개엔 인물소개 카드, 서사 시작엔 상단 빨간 챕터 제목을 얹습니다. 이미지 파일 저장은 환경 제약상 불가 → <a href="captures/_수동캡처_가이드.md">캡처 가이드</a> 타임스탬프로 보완.</p></div></section>
+  </div>
+
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="script-head"><span class="hint">전체 대본을 오타·잘못된 단어만 보정 → 맥락 단위로 구분 → 구분별 대본 / 화면 / 자막 (전체 스크립트 누락 없음)</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:00–0:13</span><span class="utag">① 도발 단언</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"책을 읽지 않는 사회에서는 전 세대가 꼰대가 될 가능성이 굉장히 큽니다. 인간의 생각은 굉장히 견고하고 단단합니다. 자유롭게 바꿀 수 있을 것 같지만 사실 그렇지 않습니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">B-roll — 창가에서 노트에 필기하며 책을 읽는 인물(따뜻한 톤). 우하단 '데일리어썸' 워터마크.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">흰 글씨 번인 "인간의 생각은요 굉장히 견고하고 단단합니다"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:14–0:43</span><span class="utag">② 통찰: 경계와 자기 갱신</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"무슨무슨 '충'이라 부르게 되는 이유도 그 경계가 견고해져서 생기는 거예요. 경계가 견고해지면 나와 다른 생각·행동·입장을 가진 사람을 보면 이해가 안 됩니다. '내가 중력 알지, 민주주의 알지, 학교에서 다 배웠지' 싶지만, 교과서를 읽었다고 민주주의나 진화론을 이해한 게 아니에요. 책 한 권을 읽고 '내가 달라졌다'는 자기 갱신감, 이건 다른 무엇으로도 얻을 수 없어요."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">인터뷰 talking-head — 안경 쓴 화자, 뒤로 책꽂이·그림책 진열, 어두운 스튜디오 톤.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">흰 글씨 번인 "'내 민주주의 알지 학교에서 다 배웠지'" (인용 강조)</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:44–0:59</span><span class="utag">③ 자기소개(후치)</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"카톡만 봐도 그 사람의 지적 능력과 수준이 보이죠. 저는 남양주에서 '공독서가'라는 서점을 운영하는 독서교육전문가 최승필이라고 합니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">인터뷰 + 우측 인물소개 자막 카드 — "최승필 / 독서교육전문가 / 중앙대학교 문예창작학 / 저서 〈공부머리 독서법〉 / 〈공독서가〉 운영".</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">흰 글씨 번인 "공독서가라는 서점 운영하고 있는"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">1:00–1:12</span><span class="utag">④ 자기 서사</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"저는 학교 갔다 오면 하루 종일 놀다 저녁 먹고 쓰러져 자는 게 일이었고, 통지표엔 늘 '주의 산만하고 늘 먼 산만 본다'고 적혀 있었어요."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">인터뷰 + 상단 빨간 박스 챕터 제목 "'전교 꼴찌에서 대치 강사까지' 책 1권이 가져온 엄청난 변화?".</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">흰 글씨 번인 "저녁 먹고 쓰러져 자고"</span></div>
+        </div>
+
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 대본은 자막 패널 원문에서 <b>오타·잘못된 단어만</b> 보정. 원문 그대로는 <b>📜 원문</b> 탭.</p>
+    </section>
+  </div>
+
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 자막 패널 그대로</h2>
+      <div class="script-head"><span class="hint">YouTube 자막 패널 원문(자동자막, 오탈자 포함) — 손대지 않고 보존</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:00</span><span>책을 읽지 않는 사회에서는 전 세대가</span></li>
+        <li><span class="tt">0:02</span><span>꼰대가 될 가능성이 굉장히 큽니다</span></li>
+        <li><span class="tt">0:04</span><span>인간의 생각은요 굉장히 경고하고</span></li>
+        <li><span class="tt">0:06</span><span>단단합니다 우리가 이게 생각이니까</span></li>
+        <li><span class="tt">0:08</span><span>되게 자유롭게 바꿀 수 있을 것 같고</span></li>
+        <li><span class="tt">0:10</span><span>유연할 것 같은 느낌이 들잖아요 사실</span></li>
+        <li><span class="tt">0:13</span><span>그렇지 않습니다 무슨 무슨 충 이렇게</span></li>
+        <li><span class="tt">0:14</span><span>부르게 되는 이유도 뭐냐하면 그</span></li>
+        <li><span class="tt">0:16</span><span>경계가 견고해져서 생기는에요 경계가</span></li>
+        <li><span class="tt">0:18</span><span>견고해지는 나와 다른 생각 나와 다른</span></li>
+        <li><span class="tt">0:21</span><span>행동 나와 다른 입장을 가진 사람을</span></li>
+        <li><span class="tt">0:23</span><span>보면 이해가 안 되는 거예요 이런</span></li>
+        <li><span class="tt">0:24</span><span>생각이 드실 수 있어요 내 중력 알지</span></li>
+        <li><span class="tt">0:26</span><span>내 민주주의 알지 학교에서 다 배웠지</span></li>
+        <li><span class="tt">0:28</span><span>교과서는 지식 는 우리 나이 때는</span></li>
+        <li><span class="tt">0:31</span><span>이런 이런 지식을 알아야 해요 하는</span></li>
+        <li><span class="tt">0:32</span><span>지식 카탈로그 보입니다 교과서를</span></li>
+        <li><span class="tt">0:34</span><span>읽었다고 해서 우리가 민주주의를</span></li>
+        <li><span class="tt">0:36</span><span>이해하거나 진화론을 이해한게</span></li>
+        <li><span class="tt">0:38</span><span>아니에요이 한권을 읽고 났을 때 내가</span></li>
+        <li><span class="tt">0:40</span><span>달라졌다는 자 갱신과 있잖아요 이게</span></li>
+        <li><span class="tt">0:43</span><span>다른 그 무엇으로도 얻을 수가 없어</span></li>
+        <li><span class="tt">0:44</span><span>기회가 어떻게 되냐면 카톡을</span></li>
+        <li><span class="tt">0:46</span><span>보더라도이 사람의 지적 능력과 수준이</span></li>
+        <li><span class="tt">0:50</span><span>보이시어 저는 남양주에서 공독 서가는</span></li>
+        <li><span class="tt">0:54</span><span>서점 운영하고 있는 독서 교육 전문가</span></li>
+        <li><span class="tt">0:57</span><span>최승필이라고 합니다</span></li>
+        <li><span class="tt">1:00</span><span>저는 학교를 갔다 오면 나가서 하루</span></li>
+        <li><span class="tt">1:03</span><span>종일 놀다가 저녁 먹고 쓰러져 자고</span></li>
+        <li><span class="tt">1:05</span><span>다음날 나서 학교 가고 이게 제</span></li>
+        <li><span class="tt">1:07</span><span>일이었고 제</span></li>
+        <li><span class="tt">1:09</span><span>통지표에는 주위가 산만하고 항상</span></li>
+        <li><span class="tt">1:12</span><span>먼산을 바라보면 수업을 안 듣고 항상</span></li>
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">출처 원문: <a href="transcript.md">transcript.md</a></p>
+    </section>
+  </div>
+
+  <footer>키워드 기획 분석 · 2026-06-07 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../실행_플레이북.md">실행_플레이북</a><br>출처: <a href="https://www.youtube.com/watch?v=tfrnbLp6rVA">YouTube — 데일리어썸, 최승필 독서교육전문가 1부</a> · 내부 기획·학습 참고용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='✓ 복사됨';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

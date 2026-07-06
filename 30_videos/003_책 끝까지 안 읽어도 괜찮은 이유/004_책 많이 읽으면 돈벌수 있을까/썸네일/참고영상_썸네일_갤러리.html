@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>참고영상 썸네일 갤러리 · 책 많이 읽으면 돈 벌 수 있을까 · EP004</title>
+<style>
+  :root{--bg:#0f1115;--panel:#171a21;--panel-2:#1e222b;--line:#262b36;--text:#e7e9ee;--muted:#9aa3b2;
+    --accent:#ffd166;--accent-2:#06d6a0;--warn:#ef476f;--pull:#5cc4e0;--edit:#06d6a0;--brief:#c4b5fd;
+    --pain:#ef476f;--rec:#06d6a0;--growth:#06d6a0;--value:#ffd166;--info:#5cc4e0;}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1200px;margin:0 auto;padding:22px 22px 90px}
+  a{color:var(--pull)} b,strong{color:#fff}
+
+  .angle-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;padding:12px;background:rgba(23,26,33,.92);border:1px solid var(--line);border-radius:12px;position:sticky;top:0;z-index:30;backdrop-filter:blur(8px)}
+  .abtn{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:12.5px;font-weight:600;transition:all .15s;white-space:nowrap}
+  .abtn:hover{transform:translateY(-1px);background:#252a36;border-color:#34394a}
+  .abtn.home{color:var(--muted)}
+  .abtn.thumb.active{background:rgba(255,209,102,.15);border-color:var(--accent);color:var(--accent)}
+  .abtn.pull{color:#7fd4ec}
+
+  header.hero{padding:24px 28px;border-radius:16px;border:1px solid var(--line);margin-bottom:20px;
+    background:radial-gradient(900px 320px at 8% -20%,rgba(239,71,111,.16),transparent 55%),linear-gradient(180deg,#1a1e27,#13161d)}
+  .eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.18em;color:var(--pain);background:rgba(239,71,111,.12);border:1px solid rgba(239,71,111,.3);padding:5px 11px;border-radius:999px;text-transform:uppercase}
+  h1{font-size:25px;margin:13px 0 6px;letter-spacing:-.02em;font-weight:800}
+  .lede{color:var(--muted);font-size:14px;margin:0;max-width:900px}
+  .lede b{color:#fff}
+
+  section{margin-top:34px}
+  h2{font-size:19px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--accent)}
+  .ssub{color:var(--muted);font-size:13px;margin:0 0 14px}
+  .grouplab{font-size:12.5px;font-weight:800;letter-spacing:.04em;margin:20px 0 10px;padding:5px 12px;border-radius:8px;display:inline-block}
+  .grouplab.a{background:rgba(6,214,160,.14);color:#33d8a3}
+  .grouplab.b{background:rgba(92,196,224,.14);color:#7fd4ec}
+  .grouplab.c{background:rgba(239,71,111,.14);color:#ff8aa5}
+
+  .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:920px){.gal{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.gal{grid-template-columns:1fr}.wrap{padding:16px 14px 70px}h1{font-size:21px}}
+  .gcard{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden;text-decoration:none;color:var(--text);transition:all .15s}
+  .gcard:hover{transform:translateY(-2px);border-color:#3a4150;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .gcard.star{border-color:rgba(239,71,111,.5)}
+  .thumb{position:relative;aspect-ratio:16/9;background:#0c0e13;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s;background:rgba(0,0,0,.25)}
+  .gcard:hover .thumb .play{opacity:1}
+  .thumb .play span{width:46px;height:46px;border-radius:50%;background:rgba(239,71,111,.92);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
+  .thumb .num{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px}
+  .thumb .views{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.78);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .gbody{padding:12px 14px;display:flex;flex-direction:column;gap:5px;flex:1}
+  .gtt{font-size:14px;font-weight:700;color:#fff;line-height:1.4}
+  .gmeta{font-size:11.5px;color:var(--muted);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .badge{font-size:10px;font-weight:800;padding:1px 7px;border-radius:5px;background:rgba(6,214,160,.16);color:#33d8a3}
+  .badge.warn{background:rgba(239,71,111,.16);color:#ff8aa5}
+  .gmun{font-size:12.5px;color:#dfe3ea;background:#0c0e13;border:1px dashed #2a3040;border-radius:7px;padding:6px 9px;margin-top:2px}
+  .gmun b{color:var(--value)}
+  .glearn{font-size:11.5px;color:#9fb0c2;margin-top:auto;padding-top:4px}
+  .glearn b{color:#7be3c0}
+  .gcard.star .glearn b{color:#ff8aa5}
+
+  /* 문구뱅크 테이블 */
+  .tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .tbl th{background:var(--panel-2);color:#cfd5df;text-align:left;padding:10px 12px;font-size:12px;border-bottom:1px solid var(--line)}
+  .tbl td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:#dfe3ea}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl td.t{white-space:nowrap;color:#fff;font-weight:700}
+  .tbl b{color:#fff}
+  .pickrow b{color:var(--value)}
+  .pickrow.main td{background:rgba(239,71,111,.06)}
+
+  /* 색 토큰 시각화 */
+  .token-demo{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+  .tok{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:8px;font-size:12.5px;font-weight:700;border:1px solid rgba(255,255,255,.1)}
+  .tok .dot{width:14px;height:14px;border-radius:50%}
+
+  /* 학습 그리드 */
+  .learn{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  @media(max-width:760px){.learn{grid-template-columns:1fr}}
+  .lc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .lc h4{margin:0 0 6px;font-size:13.5px;color:#fff}
+  .lc p{margin:0;font-size:13px;color:#cfd5df}
+  .lc .pain{color:#ff8aa5} .lc .rec{color:#33d8a3} .lc .value{color:var(--value)}
+
+  /* 썸네일 시안 프리뷰 박스 */
+  .mock-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+  @media(max-width:760px){.mock-grid{grid-template-columns:1fr}}
+  .mock{border-radius:12px;overflow:hidden;border:1px solid var(--line);font-size:13px}
+  .mock-body{padding:8px 12px 12px;background:var(--panel)}
+  .mock-label{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--muted);margin:0 0 4px;text-transform:uppercase}
+  .mock-title{font-size:14px;font-weight:700;color:#fff;margin:0 0 4px;line-height:1.4}
+  .mock-sub{font-size:12px;color:#9fb0c2;margin:0}
+  .mock-canvas{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;padding:18px 20px;position:relative}
+  .mock-canvas .head{font-size:22px;font-weight:900;line-height:1.2;letter-spacing:-.02em;text-align:left;position:absolute;top:18px;left:20px;right:100px}
+  .mock-canvas .sub{font-size:11px;position:absolute;bottom:14px;left:20px;color:rgba(255,255,255,.7);font-weight:700}
+  .mock-canvas .num-l{font-size:52px;font-weight:900;line-height:1;position:absolute;left:20px;top:50%;transform:translateY(-50%);letter-spacing:-.03em}
+  .mock-canvas .num-r{font-size:52px;font-weight:900;line-height:1;position:absolute;right:20px;top:50%;transform:translateY(-50%);letter-spacing:-.03em}
+  .mock-canvas .vs{font-size:16px;font-weight:800;color:rgba(255,255,255,.5);position:absolute;left:50%;transform:translateX(-50%);top:50%;margin-top:-8px}
+  .mock-canvas .bar-r{position:absolute;right:20px;top:0;bottom:0;width:2px;background:rgba(255,255,255,.1)}
+  .mock-canvas .icon-area{font-size:28px;position:absolute;right:20px;top:18px;opacity:.7}
+
+  .note{margin-top:16px;border:1px solid rgba(92,196,224,.3);background:rgba(92,196,224,.06);border-radius:12px;padding:12px 16px;font-size:12.5px;color:#d3e6ee}
+  .note.warn{border-color:rgba(239,71,111,.3);background:rgba(239,71,111,.06);color:#f3d4dc}
+  .note.ok{border-color:rgba(6,214,160,.3);background:rgba(6,214,160,.06);color:#b8f0e0}
+
+  .footer{margin-top:34px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:14px;display:flex;gap:14px;flex-wrap:wrap}
+  .footer a{color:var(--accent-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="angle-nav">
+    <a class="abtn home" href="../정리본/00_브리프.md">브리프</a>
+    <a class="abtn pull" href="../정리본/01_후크_미리보기.md">제목·썸네일 6단계</a>
+    <a class="abtn thumb active">썸네일 참고 갤러리 (현재)</a>
+    <a class="abtn" href="참고영상_썸네일_레퍼런스.md">레퍼런스 MD</a>
+  </nav>
+
+  <header class="hero">
+    <span class="eyebrow">EP004 · THUMBNAIL · 부자독서·다독·자기개발</span>
+    <h1>참고영상 썸네일 갤러리</h1>
+    <p class="lede">키워드 <b>독서법 · 다독 · 자기개발독서</b> 맥락 고성과 썸네일. 앵글 <b>반론형(다독 신화 깨기)</b> / 8축 <b>자기개발</b> / 결 <b>③ 더 읽으려는(메인) + ① 읽으려는(흡수)</b>. 카드를 누르면 영상으로, 아래 <b>문구 뱅크·시안 프리뷰</b>에서 004 헤드 카피와 시안 방향을 고릅니다. 문서판 <a href="참고영상_썸네일_레퍼런스.md">참고영상_썸네일_레퍼런스.md</a>.</p>
+  </header>
+
+  <!-- 갤러리 A : 독서법·다독 고성과 -->
+  <section id="gallery">
+    <h2>고성과 참고 썸네일</h2>
+    <p class="ssub">성과도·기여도 Good 기준. 썸네일은 유튜브 실시간 로딩(인터넷 필요). ⭐ = 004 각도와 가장 가까움.</p>
+
+    <div class="grouplab a">A · 독서법·다독 (성과도 Good)</div>
+    <div class="gal">
+
+      <a class="gcard star" href="https://www.youtube.com/watch?v=mxJ2uo0h1Fc" target="_blank" rel="noopener">
+        <div class="thumb">
+          <img src="https://i.ytimg.com/vi/mxJ2uo0h1Fc/hqdefault.jpg" loading="lazy" alt="700권 읽고 깨달은 진짜 책 읽는 법">
+          <div class="num">1 ⭐</div><div class="views">30만</div><div class="play"><span>▶</span></div>
+        </div>
+        <div class="gbody">
+          <div class="gtt">700권 읽고 마침내 깨달은 '진짜' 책 읽고 기억하는 법</div>
+          <div class="gmeta"><span class="badge">Good</span> 다독독</div>
+          <div class="gmun">문구: <b>숫자(700권)</b> + 본질(진짜)</div>
+          <div class="glearn"><b>★우리 직결</b> "100권 읽었는데 진짜는?" — 숫자 권위를 역방향(많이 읽어도 안 된다)으로 활용</div>
+        </div>
+      </a>
+
+      <a class="gcard star" href="https://www.youtube.com/watch?v=fxdPHw8vhog" target="_blank" rel="noopener">
+        <div class="thumb">
+          <img src="https://i.ytimg.com/vi/fxdPHw8vhog/hqdefault.jpg" loading="lazy" alt="한 번만 읽어도 다 기억하는 독서 메모법 김익한">
+          <div class="num">2 ⭐</div><div class="views">286만</div><div class="play"><span>▶</span></div>
+        </div>
+        <div class="gbody">
+          <div class="gtt">한 번만 읽어도 책 내용 다 기억하는 기적의 독서 메모 법 (김익한)</div>
+          <div class="gmeta"><span class="badge">Good</span> 세바시</div>
+          <div class="gmun">문구: <b>반전 약속</b>(한 번만 읽어도) + 기적의</div>
+          <div class="glearn"><b>★우리 직결</b> "적게 읽어도 결과"의 반전 약속 구조 — B5 보조 캐치("3권 읽고 바뀐 사람") 시각화에 응용</div>
+        </div>
+      </a>
+
+      <a class="gcard star" href="https://www.youtube.com/watch?v=zU5aSn1oxjc" target="_blank" rel="noopener">
+        <div class="thumb">
+          <img src="https://i.ytimg.com/vi/zU5aSn1oxjc/hqdefault.jpg" loading="lazy" alt="일론 머스크도 배운 독서와 학습의 비밀">
+          <div class="num">3 ⭐</div><div class="views">109만</div><div class="play"><span>▶</span></div>
+        </div>
+        <div class="gbody">
+          <div class="gtt">일론 머스크도 배운 독서와 학습의 비밀</div>
+          <div class="gmeta"><span class="badge">Good</span> 북토크(이찬양)</div>
+          <div class="gmun">문구: <b>유명인</b>(일론 머스크) + 비밀</div>
+          <div class="glearn"><b>★우리 직결</b> 거장 차용(버핏·네이벌) 패턴 — <b>실루엣·아이콘 오마주만</b>(정면 사진 NG)</div>
+        </div>
+      </a>
+
+      <a class="gcard" href="https://www.youtube.com/watch?v=q44bFfJKE4o" target="_blank" rel="noopener">
+        <div class="thumb">
+          <img src="https://i.ytimg.com/vi/q44bFfJKE4o/hqdefault.jpg" loading="lazy" alt="몸값 올리는 독서법">
+          <div class="num">4</div><div class="views">211만</div><div class="play"><span>▶</span></div>
+        </div>
+        <div class="gbody">
+          <div class="gtt">'몸값 올리는 독서법' 최초 공개. 딱 1주만 따라해보세요</div>
+          <div class="gmeta"><span class="badge">Good</span> 내성적인 건물주</div>
+          <div class="gmun">문구: 이득(몸값↑) + 최초 공개 + <b>딱 1주만</b></div>
+          <div class="glearn"><b>학습</b> ④강조어·이득 약속·기간 한정</div>
+        </div>
+      </a>
+
+      <a class="gcard" href="https://www.youtube.com/watch?v=7aR7yStng0A" target="_blank" rel="noopener">
+        <div class="thumb">
+          <img src="https://i.ytimg.com/vi/7aR7yStng0A/hqdefault.jpg" loading="lazy" alt="절대 실패하지 않는 독서 습관 최승필">
+          <div class="num">5</div><div class="views">256만</div><div class="play"><span>▶</span></div>
+        </div>
+        <div class="gbody">
+          <div class="gtt">절대 실패하지 않는 독서 습관 만들기 (최승필)</div>
+          <div class="gmeta"><span class="badge">Good</span> 세바시</div>
+          <div class="gmun">문구: <b>부정 해소</b>(절대 실패 안 함) + 전문가</div>
+          <div class="glearn"><b>학습</b> ③-2 부정 프레임 · "실패=권수 강박 때문" 공감 연결</div>
+        </div>
+      </a>
+
+      <a class="gcard" href="https://www.youtube.com/watch?v=uXfPLzYMgTE" target="_blank" rel="noopener">
+        <div class="thumb">
+          <img src="https://i.ytimg.com/vi/uXfPLzYMgTE/hqdefault.jpg" loading="lazy" alt="책을 읽어야 하는 진짜 이유 너진똑">
+          <div class="num">6</div><div class="views">241만</div><div class="play"><span>▶</span></div>
+        </div>
+        <div class="gbody">
+          <div class="gtt">책을 읽어야 하는 '진짜' 이유 (너진똑)</div>
+          <div class="gmeta"><span class="badge">Good</span> 너진똑 NJT BOOK</div>
+          <div class="gmun">문구: <b>본질형</b>(진짜 이유, 답 숨김)</div>
+          <div class="glearn"><b>학습</b> ⑤질문·본질·답숨김 — "진짜 이유" 패턴 우리 C안에 직결</div>
+        </div>
+      </a>
+
+      <a class="gcard" href="https://www.youtube.com/watch?v=mtvCzJRWEss" target="_blank" rel="noopener">
+        <div class="thumb">
+          <img src="https://i.ytimg.com/vi/mtvCzJRWEss/hqdefault.jpg" loading="lazy" alt="책 읽고 다 까먹던 사람도 기억력 좋아지는 독서법">
+          <div class="num">7</div><div class="views">14만</div><div class="play"><span>▶</span></div>
+        </div>
+        <div class="gbody">
+          <div class="gtt">책 읽고 다 까먹던 사람도 즉시 기억력 좋아지는 독서법</div>
+          <div class="gmeta"><span class="badge">Good</span> 읽고 쓰는 최숲</div>
+          <div class="gmun">문구: <b>타깃 호명</b>(다 까먹던 사람도) + 즉시</div>
+          <div class="glearn"><b>학습</b> ④공감·타깃 호명 — "100권 읽어도 제자리인 분께" 패턴 직결</div>
+        </div>
+      </a>
+
+      <a class="gcard" href="https://www.youtube.com/watch?v=xdvQ8-f-Mqw" target="_blank" rel="noopener">
+        <div class="thumb">
+          <img src="https://i.ytimg.com/vi/xdvQ8-f-Mqw/hqdefault.jpg" loading="lazy" alt="육군사관학교 독서특강 이지영">
+          <div class="num">8</div><div class="views">210만</div><div class="play"><span>▶</span></div>
+        </div>
+        <div class="gbody">
+          <div class="gtt">[육군사관학교 독서특강] 반드시 책을 읽어야 하는 이유 (이지영)</div>
+          <div class="gmeta"><span class="badge">Good</span> 이지영</div>
+          <div class="gmun">문구: 권위(육사·이지영) + <b>반드시</b></div>
+          <div class="glearn"><b>학습</b> ⑤권위·당위 구성 — 우리는 반론형이므로 "반드시 ○○"의 역방향 활용</div>
+        </div>
+      </a>
+
+      <a class="gcard" href="https://www.youtube.com/watch?v=eTFy8RnUkoU" target="_blank" rel="noopener">
+        <div class="thumb">
+          <img src="https://i.ytimg.com/vi/eTFy8RnUkoU/hqdefault.jpg" loading="lazy" alt="How Bill Gates reads books">
+          <div class="num">9</div><div class="play"><span>▶</span></div>
+        </div>
+        <div class="gbody">
+          <div class="gtt">How Bill Gates reads books</div>
+          <div class="gmeta">클립</div>
+          <div class="gmun">문구: <b>권위 인물</b>(게이츠) + 독서법</div>
+          <div class="glearn"><b>학습</b> 권위형 실루엣 오마주 구성 참고 — 버핏·네이벌 실루엣 시안에 활용</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="note warn">⚠️ 썸네일·조회수·URL은 뷰트랩 라이브 검색(2026-06-08) 기준 — 업로드 변경·삭제 시 이미지가 안 보일 수 있음. 인용·캡처 시 화면 권리 주의(출처 고정 댓글). 거장 인물 사진은 <b>실루엣·아이콘 오마주만</b> 사용(저작권 안전 원칙).</div>
+  </section>
+
+  <!-- 썸네일 3개 시안 프리뷰 -->
+  <section id="mock">
+    <h2>A/B 3개 시안 프리뷰 (제작 가이드)</h2>
+    <p class="ssub">1차 업로드 A안 → 1주일 내 B/C로 교체(3개 제작·교체 룰). 디자인 도구: <code>대본/썸네일에디터.html</code></p>
+
+    <div class="mock-grid">
+
+      <!-- A: 공감형 -->
+      <div class="mock">
+        <div class="mock-canvas" style="background:linear-gradient(135deg,#1c1f29 0%,#0c0e13 100%);">
+          <div class="head" style="color:#fff;">
+            <span style="color:#ef476f;font-size:26px;">100권</span><br>
+            <span style="font-size:18px;color:#e7e9ee;">읽어도 안 바뀌는</span><br>
+            <span style="color:#ffd166;font-size:18px;">이유</span>
+          </div>
+          <div class="sub" style="color:#06d6a0;">권수가 아니었어요</div>
+          <div class="icon-area">📚</div>
+        </div>
+        <div class="mock-body">
+          <div class="mock-label">A안 — 공감형 (메인)</div>
+          <div class="mock-title">쌓인 책 더미 + 텅 빈 메모 노트 클로즈업</div>
+          <div class="mock-sub">결 ③ 정조준(허탈·조급 공감). 배경 bg-dark. "100권"=--pain, "이유"=--value, 보조=--growth. 페이스리스(손·책·메모 위주).</div>
+        </div>
+      </div>
+
+      <!-- B: 증거형 숫자 대비 -->
+      <div class="mock">
+        <div class="mock-canvas" style="background:linear-gradient(135deg,#1c1f29 0%,#0c0e13 100%);">
+          <div class="num-l" style="color:#ef476f;">100</div>
+          <div class="vs">vs</div>
+          <div class="num-r" style="color:#06d6a0;">3</div>
+          <div class="sub" style="color:rgba(255,255,255,.65);left:0;right:0;text-align:center;">바뀐 건 오른쪽</div>
+        </div>
+        <div class="mock-body">
+          <div class="mock-label">B안 — 증거형 (숫자 대비)</div>
+          <div class="mock-title">「100 vs 3」 숫자 대비</div>
+          <div class="mock-sub">좌 --pain "100" ↔ 우 --growth "3". 사이 "vs" 작게. 보조 "바뀐 건 오른쪽". B5 보조 캐치 시각화 — CTR 실험용.</div>
+        </div>
+      </div>
+
+      <!-- C: 반전형 -->
+      <div class="mock">
+        <div class="mock-canvas" style="background:linear-gradient(135deg,#1c1f29 0%,#0c0e13 100%);">
+          <div class="head" style="color:#fff;">
+            <span style="color:#ffd166;font-size:16px;">책 읽어서</span><br>
+            <span style="font-size:20px;">돈 번다는 말의</span><br>
+            <span style="color:#ef476f;font-size:22px;">함정</span>
+          </div>
+          <div class="sub" style="color:#5cc4e0;">통념 뒤집기 · 자기개발</div>
+          <div class="icon-area" style="opacity:.5;">🎭</div>
+        </div>
+        <div class="mock-body">
+          <div class="mock-label">C안 — 반전형 (통념 직격)</div>
+          <div class="mock-title">거장 실루엣(버핏·네이벌 아이콘) + "함정"</div>
+          <div class="mock-sub">C안 제목 정합. "함정"=--pain. 결 ①(읽으려는·효용 기대) 흡수. 거장은 실루엣·아이콘 오마주만(사진 NG).</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="note ok">★ <b style="color:#fff">1차 업로드</b> A안(공감형) — 쌓인 책 더미 + 텅 빈 메모 + 「100권 읽어도 안 바뀌는 이유」. <b>1주일 후 B안</b>(숫자 대비 "100 vs 3") → <b>2주일 후 C안</b>(반전형) 교체. 성과 데이터 누적 후 최고 CTR안 고정.</div>
+  </section>
+
+  <!-- 문구 뱅크 -->
+  <section id="munbank">
+    <h2>문구 뱅크 — 004 적용</h2>
+    <p class="ssub">위 패턴에서 도출. 6주차: 이미지 45 · 문구 45 · 디자인 10. 헤드 7~10자(한 줄) / 12~16자(두 줄).</p>
+
+    <div class="token-demo">
+      <div class="tok" style="background:rgba(239,71,111,.12);border-color:rgba(239,71,111,.3);color:#ff8aa5"><div class="dot" style="background:#ef476f"></div>--pain #ef476f — "100권·다독·권수·강박"</div>
+      <div class="tok" style="background:rgba(6,214,160,.12);border-color:rgba(6,214,160,.3);color:#33d8a3"><div class="dot" style="background:#06d6a0"></div>--growth #06d6a0 — "3권·적용·복리"</div>
+      <div class="tok" style="background:rgba(255,209,102,.12);border-color:rgba(255,209,102,.3);color:#ffd166"><div class="dot" style="background:#ffd166"></div>--value #ffd166 — 강조어 1단어</div>
+      <div class="tok" style="background:rgba(92,196,224,.12);border-color:rgba(92,196,224,.3);color:#7fd4ec"><div class="dot" style="background:#5cc4e0"></div>--info #5cc4e0 — 자기개발 8축·시리즈</div>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>유형 (참고 #)</th><th>004 헤드 문구 후보</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr class="pickrow main"><td class="t">숫자 반전 (#1)</td><td><b>「100권 읽어도 안 바뀌는 이유」</b></td><td>숫자(100권) + 반전(안 바뀐다) ★A안 메인</td></tr>
+        <tr class="pickrow main"><td class="t">숫자 대비</td><td><b>「100 vs 3」</b> + 보조 "바뀐 건 오른쪽"</td><td>B5 보조 캐치 시각화 ★B안</td></tr>
+        <tr class="pickrow main"><td class="t">통념 직격 (#6)</td><td><b>「책 읽어서 돈 번다는 말의 함정」</b></td><td>C안 제목 정합 ★C안</td></tr>
+        <tr class="pickrow"><td class="t">타깃 호명 (#7)</td><td><b>「100권 읽어도 제자리인 분께」</b></td><td>결 ③ 정조준 · 보조 문구 후보</td></tr>
+        <tr class="pickrow"><td class="t">부정 해소 (#5)</td><td><b>「책 많이 읽어도 돈 못 버는 이유」</b></td><td>A안 제목 직결 · 부정 프레임</td></tr>
+        <tr class="pickrow"><td class="t">반전 약속 (#2)</td><td><b>「적게 읽고 더 바뀌는 사람의 차이」</b></td><td>결 ①③ 동시 흡수 · 보조 후보</td></tr>
+        <tr class="pickrow"><td class="t">거장 차용 (#3·#9)</td><td><b>「버핏·네이벌이 권수를 안 세는 이유」</b></td><td>실루엣·아이콘 오마주(사진 NG) · 반론 각도</td></tr>
+        <tr><td class="t">보조 문구</td><td>「권수가 아니었어요」</td><td>A안 제목 B5 캐치와 정합 · 보조 1줄 고정</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note" style="border-color:rgba(255,209,102,.3);background:rgba(255,209,102,.06);color:#efe3cf">
+      ★ <b style="color:#fff">1차 채택</b> — 메인 「100권 읽어도 안 바뀌는 이유」(공감형) + 보조 「권수가 아니었어요」(브리프 B5 캐치 정합).
+      A/B로 「100 vs 3」 숫자 대비형(#1 학습 역방향 활용).
+    </div>
+  </section>
+
+  <!-- 종합 학습 -->
+  <section id="learn">
+    <h2>종합 학습 (구성 공통점)</h2>
+    <div class="learn">
+      <div class="lc">
+        <h4>이미지 소재</h4>
+        <p>책 더미 클로즈업 + 텅 빈 메모 노트 / '100권 달성' 메모 / "100 vs 3" 숫자 대비. 거장 등장 시 <span class="pain">실루엣·아이콘만</span>(정면 사진 NG). 페이스리스(손·책·메모 위주).</p>
+      </div>
+      <div class="lc">
+        <h4>공통 후킹 패턴</h4>
+        <p>숫자 권위(#1 700권→우리 100권 역방향) · 반전 약속(#2) · 거장 차용(#3·#9) · 부정 해소(#5) · 본질·답숨김(#6) · 타깃 호명(#7) · 당위(#8).</p>
+      </div>
+      <div class="lc">
+        <h4>문구 위치·색 배분</h4>
+        <p>좌상단 큰 헤드(반전·타깃 호명). 우하단 보조(숫자·캐치). <span class="pain">실패·권수어</span> = --pain 빨강. <span class="rec">성장·적용어</span> = --growth 초록. <span class="value">강조 1단어</span> = --value 노랑.</p>
+      </div>
+      <div class="lc">
+        <h4>6단계 → 시안 매핑</h4>
+        <p>①확대(책 더미+메모 클로즈업) ②증명(100 vs 3) ③궁금증(왜 100권도 안 바뀌나?) ④공감(좌상단 허탈 이미지) ⑤시청층(2030~40 자기개발·다독 경험층) ⑥뷰트랩(본 §A 패턴 학습).</p>
+      </div>
+    </div>
+    <div class="note warn" style="margin-top:12px">
+      <b>진정성 라인 5금지 체크:</b> ① 검증 안 된 수익 숫자("이 방법으로 월 ○천") NG — "100권"은 브리프 B6 1인칭 고백 근거로만.
+      ② "충격/경악" 낚시 NG. ③ 저작권 인물 사진 NG → 실루엣·아이콘만. ④ 풀링에 상품 노출 NG. ⑤ "안 읽으면 망한다" 음모 톤 NG — 본 채널 톤은 면죄부·동반자.
+    </div>
+  </section>
+
+  <div class="footer">
+    <span>문서판 <a href="참고영상_썸네일_레퍼런스.md">참고영상_썸네일_레퍼런스.md</a></span>
+    <span>제목·썸네일 6단계 <a href="../정리본/01_후크_미리보기.md">정리본/01</a></span>
+    <span>브리프 <a href="../정리본/00_브리프.md">정리본/00</a></span>
+    <span>룰북 <a href="../../../_기획기준/대본기획_기준.md">§8.7 썸네일</a></span>
+    <span>썸네일 디자인 SSOT <a href="../../../썸네일지침/README.md">썸네일지침/README</a></span>
+    <span>작성 2026-06-08</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — AI왕초보 / Claude Code 왕초보 입문 튜토리얼 23가지 팁 (AI싱크클럽)</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:24px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--ok)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}.tri{color:var(--warn);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:20px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · AI왕초보</p>
+    <h1>Claude Code 왕초보 입문 튜토리얼 23가지 팁 | 클로드코드 설치 사용법 50분 강의 완전정복 2026 가이드</h1>
+    <p class="sub">받아갈 무료 자료(23팁 체크리스트·치트시트·템플릿)를 하이라이트 콜드오픈으로 먼저 보여주고 → "커서/코파일럿 써봤는데 아쉬웠던 분? AI 코딩이 처음인 분? 오늘 답을 드리겠습니다"로 호명 → 도구 한계 ✕ vs 클로드 코드 차별점 ✓ 비교 슬라이드 → 사례(2주→1시간)·23팁 3레벨 로드맵으로 50분 강의의 시청 부담을 해소하는 강의형.</p>
+    <div class="chips"><span class="chip">키워드 · AI왕초보</span><span class="chip">채널 · AI싱크클럽 (2.12만)</span><span class="chip">길이 · 47:37</span><span class="chip">조회 · 14.6만 (게시 2026-02-11)</span><span class="chip">선정 · 타채널참조 댓글분석 ✅</span><span class="chip">분석일 · 2026-07-05</span><span class="chip"><a href="https://www.youtube.com/watch?v=1_bRmkUvjHA">▶ 원본 영상</a></span></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:80"><div class="num"><b>80</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">A</span></h3><p>유형: <b>리드마그넷 콜드오픈 + 전환수요 호명 + 비교 슬라이드 + 로드맵</b> · 후크 핵심: '받을 자료'를 0초에 보여주고, 커서/코파일럿에 아쉬웠던 사람과 코딩 무경험자를 동시에 호명해 "오늘 답을 드리겠다"고 선언</p></div></div>
+      <div class="grid">
+        <div class="card"><div class="lab">후크 유형</div><div class="val">자료 선공개(콜드오픈) → 호명·답 선언 → 한계 vs 차별점 비교 → 사례·3레벨 로드맵</div></div>
+        <div class="card"><div class="lab">첫 발화</div><div class="val">(하이라이트 프리뷰) "제가 드릴 게 세 가지가 있습니다. 첫 번째는 우리가 이제 수업에서 같이 따라하게 될 23가지 팁 리스트가 있어요"</div></div>
+        <div class="card"><div class="lab">시각적 텐션</div><div class="val">✅ 중상 (14/20) — 하이라이트 콜드오픈 + 정돈된 비교·로드맵 슬라이드 + 곰 마스코트. 단 talking-head 없는 슬라이드 중심이라 정적</div></div>
+        <div class="card"><div class="lab">타깃 적중</div><div class="val">🟡 높음(단서有) — 30~40대 실무 입문자 60%. 단 댓글 페인: "왕초보 제목 대비 어려움(계산기 6시간)"·"AI 자막 부정확" (댓글분석.html 참조)</div></div>
+      </div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:90%"></i></span><span class="pts">18/20</span></div>
+      <div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:90%"></i></span><span class="pts">18/20</span></div>
+      <div class="srow"><span class="nm">8축(타깃 키워드) 1개+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <div class="srow"><span class="nm">결론 먼저</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:70%"></i></span><span class="pts">14/20</span></div>
+      <div class="srow"><span class="nm">시각적 텐션</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:70%"></i></span><span class="pts">14/20</span></div>
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 <b>80/100 (A)</b> · 근거: 약속 구체적("제가 오늘 답을 드리겠습니다" 0:31 + "이거 만들어 줘 하면 진짜 다 만들어 줍니다" 0:47 + 무료 자료 3종). 호명 이중(커서/코파일럿 아쉬웠던 분 + AI 코딩 처음인 분, 0:17–0:31). 결론("클로드 코드는 다르다")은 0:42 도달 — 콜드오픈·인사가 선행해 소폭 지연. 시각 텐션은 깔끔하나 슬라이드 위주로 정적. ※ 8축은 독서 채널 8축이 아닌 <b>AI왕초보 타깃 키워드</b> 관점으로 채점.</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① 콜드오픈 — 받을 자료 3종 미리보기</span><span class="arrow">→</span><span class="step">② 호명 — "커서/코파일럿 아쉬웠던 분? 처음인 분?"</span><span class="arrow">→</span><span class="step turn">③ 한계 ✕ vs 차별점 ✓ — "이거 만들어줘 → 진짜 만들어짐"</span><span class="arrow">→</span><span class="step">④ 사례(2주→1시간) + 23팁 3레벨 로드맵</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:00–0:11</span></td><td>(본편 발췌 프리뷰) "드릴 게 세 가지 — 수업에서 같이 따라할 23가지 팁 리스트, 초보자도 따라하게 구성, 클릭하면 진행률이 차오른다"</td><td><span class="ok-i">✔</span> '하이라이트' 청색 뱃지 + 실화면: 'Claude Code 입문 가이드' 무료 리소스 페이지 — 3개 카드(CLAUDE.md 템플릿/명령어 치트시트/23개 팁 체크리스트, 초록 하이라이트 박스) + 곰 마스코트(0:05)</td><td>파란 박스 자막 — "첫 번째는 우리가 수업에서 같이 따라하게 될 23가지 팁 리스트가 있어요"</td></tr>
+        <tr><td><span class="tt">0:17–0:53</span></td><td>"커서 아시나요? 코파일럿 아시나요? 써봤는데 아쉬웠던 분, 처음인데 어디서부터 할지 모르는 분 — 오늘 답을 드리겠습니다 → 다른 도구는 자동완성뿐, 큰 그림을 못 봄 → 클로드 코드는 프로젝트 전체를 이해하고 '이거 만들어 줘' 하면 진짜 다 만들어 준다(바이브 코딩)"</td><td><span class="ok-i">✔</span> 비교 슬라이드 — 타이틀 "Claude Code는 다르다" + «"이거 만들어줘" → 진짜 만들어짐» + 좌 '✕ 다른 도구들의 한계' vs 우 '✓ Claude Code의 차별점' 파란 카드(0:20)</td><td>파란 박스 자막 — "우리 혹시 커서라는 거 아시나요?"</td></tr>
+        <tr><td><span class="tt">0:53–1:12</span></td><td>"가장 좋다는 앤트로픽사의 클로드 코드 → 실제로 2주 걸릴 웹사이트를 3시간·2시간·1시간 만에 만든 사례 → 커서에서 넘어온 분들이 왜 못 벗어나는지 오늘 23가지 팁으로 입문부터 고급까지"</td><td><span class="ok-i">✔</span> 동일 비교 슬라이드 유지(1:15) — 사례·약속 내레이션 구간</td><td>파란 박스 자막 — "고급까지 한번 함께 할 수 있도록 하겠습니다"</td></tr>
+        <tr><td><span class="tt">1:12–1:49</span></td><td>"23가지 팁을 3레벨로 — 레벨1 기초(설치~첫 프로젝트, 이것만 해도 바로 써먹음) / 레벨2 중급(자동승인·플랜모드·익스텐디드 씽킹, 진짜 편해짐) / 레벨3 고급 맛보기(깃 워크트리·병렬 작업 6가지) → 오늘은 초급·중급 위주, 단계별로 알려드림"</td><td><span class="ok-i">✔</span> 로드맵 슬라이드 — "23가지 팁, 3레벨 구조 / 체계적인 학습 로드맵": Level 1 기초 7가지(바로 시작·10분 완성)/Level 2 중급 10가지(진짜 편해짐·90% 시간 활용)/Level 3 고급 6가지(맛보기) + '강의 자료 &amp; 치트시트 — 자료 받기' 버튼(1:30)</td><td>파란 박스 자막 — "이것만 하면 작업속도가 훨씬 빨라져요"</td></tr>
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=<b>유튜브 '스크립트 표시' 패널 실제 대본</b>(자동자막, 전체 960세그먼트) · <span class="ok-i">✔ 화면·번인 자막 캡처 확인</span>(0:05·0:20·1:15·1:30). 이미지 파일은 <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a> 참조.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (AI왕초보 기획)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight">
+        <li><b>리드마그넷 콜드오픈</b> — 구독·시청의 대가(체크리스트·치트시트·템플릿)를 0초에 시각적으로 선공개 → 자료 요청 댓글이 최대 참여 동력(댓글분석 ②)</li>
+        <li><b>전환 수요 호명</b> — "커서/코파일럿 써봤는데 아쉬웠던 분?"으로 기존 도구 사용자의 검색·비교 수요를 정조준</li>
+        <li><b>한계 ✕ vs 차별점 ✓ 비교 슬라이드</b> — "부품은 주는데 조립은 내 몫" 류 비유 + «"이거 만들어줘" → 진짜 만들어짐» 한 줄 요약</li>
+        <li><b>수치 사례 권위</b> — "2주 걸릴 웹사이트를 1시간 만에" 같은 극단 대비 사례로 본론 기대치 상승</li>
+        <li><b>23팁·3레벨 로드맵 시각화</b> — 50분 강의의 부담을 '레벨1만 해도 바로 써먹음(10분 완성)'으로 분해</li>
+        <li><b>반면교사</b> — 댓글 페인 2건 주의: '왕초보' 제목 대비 체감 난이도(→ 난이도·소요시간 사전 고지), AI 자막 부정확(→ 자막 검수 필수)</li>
+      </ul></div>
+      <div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight">
+        <li>AI 왕초보 입문 23가지 팁 | 설치부터 첫 결과물까지 (무료 체크리스트 제공)</li>
+        <li>커서 쓰다 아쉬웠던 분? 클로드 코드가 다른 이유 — 왕초보 3레벨 로드맵</li>
+      </ul></div></div></section>
+    <section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="no-i">N</span></td><td>AI 코딩 도구 튜토리얼 — 독서 무관</td></tr>
+        <tr><td>② 결 3그룹</td><td><span class="tri">△</span></td><td>독서 결은 아니나 '노베이스 입문·단계별 완주' 구조는 완독 로드맵과 상동 (각도 변환)</td></tr>
+        <tr><td>③ 8축</td><td><span class="no-i">N</span></td><td>독서 8축 비해당 — AI왕초보 신규 키워드축</td></tr>
+        <tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>무관</td></tr>
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)"><b>결 어긋남(독서 채널 기준) — '각도 변환' 제한 차용</b>: 신규 <b>AI왕초보 키워드 기획</b>용. 리드마그넷 콜드오픈과 전환수요 호명, 레벨 로드맵 설계가 차용 가치 높아 통합지침 §1 예외(후크 기법 차용)로 선정. 선정 근거는 썸끝이 아닌 <a href="댓글분석.html">댓글 분석</a>(비개발자 입문 수요·자료 요청 패턴 검증).</p></section>
+    <section><div class="note"><h3>⚙️ 대본·캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>✔ 실제 대본 확보 완료</b> — 유튜브 <b>'스크립트 표시' 패널</b>에서 직접 추출(자동자막, 전체 960세그먼트 중 도입부 0:00~1:49 수록. 이 영상 자동자막은 세그먼트가 문장 단위로 긴 형식). 화면·번인 자막은 클로드-크롬으로 0:05·0:20·1:15·1:30 캡처 확인. 이미지 파일 저장은 환경 제약상 불가 → <a href="captures/_수동캡처_가이드.md">캡처 가이드</a>로 보완. 같은 폴더의 <a href="댓글분석.html">댓글분석.html</a>(85개 분석)과 세트.</p></div></section>
+  </div>
+
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="script-head"><span class="hint">유튜브 스크립트 패널 원문을 오타·비문(오인식)만 보정 → 맥락 단위 구분 → 구분별 대본 / 화면 / 자막</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:00–0:11</span><span class="utag">① 콜드오픈 — 무료 자료 3종 선공개</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"…가야 되겠죠? 제가 드릴 게 세 가지가 있습니다. 첫 번째는 우리가 이제 수업에서 같이 따라하게 될 23가지 팁 리스트가 있어요. 이 팁 리스트는요, 초보자분도 따라할 수 있게끔 제가 구성했습니다. 여기다 따라오시면, 클릭하시면요, 이렇게 진행률이 차오릅니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">'하이라이트' 청색 뱃지(좌상단) + 실화면: 'Claude Code 입문 가이드' 무료 리소스 웹페이지(다크) — CLAUDE.md 템플릿 / 명령어 치트시트 / 23개 팁 체크리스트 3개 카드(체크리스트에 초록 하이라이트), 우하단 곰 마스코트(0:05).</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">파란 박스 흰 글씨 — "첫 번째는 우리가 수업에서 같이 따라하게 될 23가지 팁 리스트가 있어요"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:17–0:53</span><span class="utag">② 호명 + 한계 vs 차별점 (문제→해결)</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"안녕하세요. AI 싱크클럽입니다. 우리 혹시 이제 커서라는 거 아시나요? 아니면 코파일럿 아시나요? 혹시 써 봤는데 뭔가 아쉬웠던 분들, 이게 최선인가 싶었던 분들, 아니면 AI 코딩 도구가 처음인데 어디서부터 어떻게 시작해야 할지 모르겠는 분 — 제가 오늘 답을 드리겠습니다. 다른 도구들은요, 자동 완성을 해 주는데 큰 그림을 못 봐요. 뭐 파일 하나 잘 만드는데 프로젝트 전체를 이해 못해요. 결국 내가 다 챙겨야 돼요. 그래서 이걸 '뭘 만들어라'고 하면 못 시키죠. 부품 주는데 조립은 내 몫인 것처럼요. 하지만 제가 오늘 알려 드릴 클로드 코드는 다릅니다. 프로젝트 전체를 이해하고 여러 파일을 동시에 수정하고 테스트까지 돌려 봐요. 자, '이거 만들어 줘' 하면 진짜 다 만들어 줍니다. 처음부터 끝까지요. 이걸 우리가 흔히 바이브 코딩이라 하죠."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">비교 슬라이드 — 대형 타이틀 "Claude Code는 다르다" + «"이거 만들어줘" → 진짜 만들어짐» 카드 + 좌 '✕ 다른 도구들의 한계'(Cursor/Copilot: 자동완성은 좋지만…/파일 하나만 보고 큰 그림을 못 봄/결국 개발자가 문맥을 다 챙겨야 함) vs 우 '✓ Claude Code의 차별점'(프로젝트 전체 구조를 완벽히 이해/여러 파일을 동시에 수정하고 조율/처음부터 끝까지 주도적으로 완성) 파란 카드(0:20).</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">파란 박스 자막 — "우리 혹시 커서라는 거 아시나요?"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">0:53–1:12</span><span class="utag">③ 권위·사례 + 약속</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"그중에서 가장 좋다고 하는 앤트로픽사에서 나온 클로드 코드로 우리 한번 가 볼 수 있도록 하겠습니다. 실제로 2주 걸릴 웹사이트를 3시간, 2시간, 1시간 만에 만든 사례도 있어요. 커서에서 넘어온 분들이 왜 클로드 코드에서 못 벗어나는지, 오늘 23가지 팁으로 입문부터 고급까지 한번 함께 할 수 있도록 하겠습니다."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">동일 비교 슬라이드 유지(1:15) — 내레이션으로 사례·약속 전달.</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">파란 박스 자막 — "고급까지 한번 함께 할 수 있도록 하겠습니다"</span></div>
+        </div>
+
+        <div class="unit">
+          <div class="uhd"><span class="time">1:12–1:49</span><span class="utag">④ 23팁 3레벨 로드맵 (시청 설계)</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">"자, 23가지 팁을 3레벨로 정리했어요. 레벨 1 기초 — 설치부터 첫 프로젝트까지. 처음 시작하시는 분들은요, 여기서부터요. 이것만 해도 바로 써먹을 수 있어요. 레벨 2 중급이죠 — 자동승인, 플랜모드, 익스텐디드 씽킹. 이것만 알면 작업 속도가 훨씬 빨라져요. 이제 기초에서 조금 써보고 여러 가지 팁이 필요하다 그러면 이 중급부터 봐야 됩니다. 진짜 편해지는 기능들이 많아요. 레벨 3 고급 맛보기 — 자, 깃 워크트리라든지 아니면 병렬 작업, 익숙해지신 분들을 위한 팁을 제가 여섯 가지로 준비했습니다. 오늘 맛보여 드릴 거예요. 오늘은 초급·중급 위주로 좀 많이 다루게 될 거고, 처음 하시는 분들 위해서 제가 단계별로 어떻게 해야 되는지 알려 드릴 거예요."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">로드맵 슬라이드 — "23가지 팁, 3레벨 구조 / 체계적인 학습 로드맵": Level 1 기초 7가지("바로 시작"·10분 완성) / Level 2 중급 10가지("진짜 편해짐"·90%의 시간 활용) / Level 3 고급 6가지("맛보기"·전문가 수준) + 우측 '강의 자료 &amp; 치트시트 — 영상 설명란에서 PDF 다운로드, 자료 받기 버튼'(1:30).</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">파란 박스 자막 — "이것만 하면 작업속도가 훨씬 빨라져요"</span></div>
+        </div>
+
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 보정 내역(오타·오인식만, 내용 유지): AI 싱거클럽→AI 싱크클럽 · 코파일러스→코파일럿 · "뭔가 아셨던"→"뭔가 아쉬웠던"(패널 챕터명으로 확인) · 어리서부터→어디서부터 · "문 주는데 조립은 내모신"→"부품 주는데 조립은 내 몫인" · "파일여"→"여러 파일을"(슬라이드 문구로 확인) · 처음부터까지→처음부터 끝까지 · 앤트로피사→앤트로픽사 · "2주 권리 웹사이트 3세시간 2두시간"→"2주 걸릴 웹사이트를 3시간, 2시간" · 인문부터→입문부터 · extend디드 think킹→익스텐디드 씽킹 · 깃워크 트리스→깃 워크트리 · 중국→중급 · 진행들이 차오랍니다→진행률이 차오릅니다. 원문 그대로는 <b>📜 원문</b> 탭.</p>
+    </section>
+  </div>
+
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 유튜브 스크립트 패널 그대로</h2>
+      <div class="script-head"><span class="hint">YouTube '스크립트 표시' 패널 원문(자동자막, 오탈자 포함, 문장 단위 긴 세그먼트) — 손대지 않고 보존</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:00</span><span>가야 되겠죠? 제가 드릴게 세 가지가 있습니다. 첫 번째는 우리가 이제 수업에서 같이 따라하게 될 23가지</span></li>
+        <li><span class="tt">0:05</span><span>팁 [음악] 리스트가 있어요.이 팁 리스트는요 초보자분도 따라할 수 있게끔 제가 구성했습니다. 여기다 따라오시면 클릭하시면요. 이렇게</span></li>
+        <li><span class="tt">0:11</span><span>진행들이 차오랍니다.</span></li>
+        <li><span class="tt">0:17</span><span>안녕하세요. AI 싱거클럽입니다. 우리 혹시 이제 커서라는 거 아시나요? 아니면 코파일러스 아시나요? 혹시 써 봤는데 뭔가</span></li>
+        <li><span class="tt">0:24</span><span>아셨던 분들, 이게 최선인가 싶었던 분들, 아니면 AI 코딩 도구가 처음인데 어리서부터 어떻게 시작해야</span></li>
+        <li><span class="tt">0:31</span><span>할지 모르겠는 분 제가 오늘 답을 드리겠습니다. 다른 도구들은요. 자동 완성을 해 주는데 큰 그림을 못</span></li>
+        <li><span class="tt">0:36</span><span>봐요. 뭐 파일 하나 잘 만드는데 프로젝트 전체를 이해 못해요. 결국 내가 다 챙겨야 돼요. 그래서 이걸</span></li>
+        <li><span class="tt">0:42</span><span>뭘 만들어라고 하면 못 시키죠. 문 주는데 조립은 내모신 것처럼요. 하지만 제가 오늘 알려 드릴 클로드</span></li>
+        <li><span class="tt">0:47</span><span>코드는 다릅니다. 프로젝트 전체를 이해하고 파일여 동시에 수정하고 테스트까지 돌려 봐요. 자, 이거</span></li>
+        <li><span class="tt">0:53</span><span>만들어 줘 하면 진짜 다 만들어 줍니다. 처음부터까지 요걸 우리가 흔히 바이브 코딩이라 하죠. 그중에서 가장 좋다고 하는 앤트로피사에서 나온</span></li>
+        <li><span class="tt">1:00</span><span>클러드 코드에 우리 한번가 볼 수 있도록 하겠습니다. 실제로 2주 권리 웹사이트 3세시간 2두시간 한시간</span></li>
+        <li><span class="tt">1:06</span><span>만에 만든 사례도 있어요. [음악] 커서에서 넘어온 분들이 왜 클로드 코드에서 못 벗어나는지 오늘 23가지</span></li>
+        <li><span class="tt">1:12</span><span>팁으로 인문부터 고급까지 한번 함께 할 수 있도록 하겠습니다. 자 23가지 팁을 3 레벨로 정리했어요.</span></li>
+        <li><span class="tt">1:18</span><span>레벨 1 기초 설치부터 첫 프로젝트까지 처음 시작하시는 분들은요 여기서부터요. 이것만 해도 바로</span></li>
+        <li><span class="tt">1:25</span><span>써먹을 수 있어요. 레벨 2 중급이죠. 자동승인 플랜모드 extend디드 think킹 이것만 알면 작업 속도가 훨씬 빨라져요.</span></li>
+        <li><span class="tt">1:31</span><span>이제 기초에서 조금 써보고 여러 가지 좀 pt 필요하다 그러면이 중국부터 봐야 됩니다. 진짜 편해지는 기능들이</span></li>
+        <li><span class="tt">1:37</span><span>많아요. 레벨 3 고급 맛보기. 자, 깃워크 트리스라든지 아니면 병렬 작업. 익숙해신 분들을 위한 팁을</span></li>
+        <li><span class="tt">1:43</span><span>제가 조금 여섯 가지로 준비했습니다. 맛보기. 오늘 맛보 드릴 거예요. 오늘은 초급 중국 위주로 좀 많이</span></li>
+        <li><span class="tt">1:49</span><span>다루게 될 거고 처음 하시는 분들 위해서 제가 단계별로 어떻게 해야 되는지 제가 알려 드릴 거예요.</span></li>
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">출처: YouTube 스크립트 패널(자동자막, 한국어 자동 생성). 전체 960세그먼트 중 도입부(0:00~1:49) 발췌. 패널 섹션: 0:00 자료 소개 — 23가지 팁 체크리스트, 치트시트, 템플릿 · 0:17 인트로 — Cursor/Copilot 써봤는데 아쉬웠던 분? · 1:18 3레벨 구조 소개 + 무료 자료 안내.</p>
+    </section>
+  </div>
+
+  <footer>키워드 기획 분석 · 2026-07-05 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../도입부분석_통합지침_(코워크용).md">통합지침</a><br>출처: <a href="https://www.youtube.com/watch?v=1_bRmkUvjHA">YouTube — AI싱크클럽</a> · 선정: 타채널참조 댓글분석(비개발자 입문 수요 검증) · 내부 기획·학습용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='✓ 복사됨';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

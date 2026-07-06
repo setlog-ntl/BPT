@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 기획 분석 — AI시대 살아남는 / "이런 인간만 살아남습니다" AI 시대 주목받는 한가지 역량 (노정석 대표·소울정)</title>
+<style>
+  :root{--panel:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e7e9f0;--brand:#4f46e5;--brand2:#7c3aed;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--na:#9ca3af;--soft:#f5f6fb;--chip:#eef0fb;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f6;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#0ea5e9 130%);color:#fff;border-radius:20px;padding:30px 32px;box-shadow:0 18px 40px -18px rgba(79,70,229,.6);}
+  .hero .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin:0 0 8px}
+  .hero h1{margin:0;font-size:24px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+  .hero .sub{margin:10px 0 0;opacity:.92;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  .chip a{color:#fff;text-decoration:underline}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:20px;box-shadow:0 6px 20px -16px rgba(15,18,34,.4)}
+  h2{font-size:15px;letter-spacing:.02em;margin:0 0 16px;display:flex;align-items:center;gap:9px;color:#3730a3;text-transform:uppercase}
+  h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .lab{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}.card .val{font-size:15px;font-weight:600}
+  .verdict{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#eef2ff,#faf5ff);border:1px solid #e0e7ff;border-radius:14px;padding:16px 20px;margin-bottom:18px;flex-wrap:wrap}
+  .score-ring{flex:0 0 auto;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%), #e5e7eb 0);display:grid;place-items:center;position:relative}
+  .score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+  .score-ring .num{position:relative;text-align:center;line-height:1.05}.score-ring .num b{font-size:30px;font-weight:800;color:#111}.score-ring .num small{display:block;font-size:11px;color:var(--muted)}
+  .grade{font-weight:800;color:var(--ok)}
+  .verdict .vtxt{flex:1;min-width:220px}.verdict .vtxt h3{margin:0 0 4px;font-size:18px}.verdict .vtxt p{margin:0;color:#4b5563;font-size:14px}
+  .srow{display:grid;grid-template-columns:170px 28px 1fr 54px;gap:10px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+  .srow:first-of-type{border-top:0}.srow .nm{font-weight:600;font-size:14px}
+  .bar{height:10px;border-radius:6px;background:#edeef4;overflow:hidden}.bar>i{display:block;height:100%;border-radius:6px}
+  .b-ok>i{background:linear-gradient(90deg,#22c55e,#16a34a)}.b-warn>i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+  .b-bad>i{background:linear-gradient(90deg,#f87171,#dc2626)}
+  .pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#374151;font-size:13px}.badge{font-size:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:#4b5563;font-size:12px;text-transform:uppercase}
+  td .tt,.tt{font-variant-numeric:tabular-nums;font-weight:700;color:#3730a3;white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .step{background:#fff;border:1.5px solid #e0e7ff;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600}
+  .arrow{color:#c4b5fd;font-weight:800}.step.hook{border-color:#fbbf24;background:#fffbeb}.step.turn{border-color:#34d399;background:#ecfdf5}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mini h4{margin:0 0 8px;font-size:13px;color:#3730a3}
+  ul.tight{margin:0;padding-left:18px}ul.tight li{margin:5px 0;font-size:13.5px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px}.note h3{margin:0 0 8px;font-size:14px;color:#9a3412}.note a{color:#9a3412}
+  .ok-i{color:var(--ok);font-weight:700}.no-i{color:var(--bad);font-weight:700}.na-i{color:var(--na);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}footer a{color:var(--brand)}
+  .tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .tab-btn{appearance:none;border:1px solid var(--line);background:#fff;color:#4b5563;font:inherit;font-weight:700;font-size:14px;padding:10px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px -10px rgba(15,18,34,.5)}
+  .tab-btn:hover{border-color:#c7d2fe;color:#3730a3}.tab-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+  .tab-panel{display:none}.tab-panel.active{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .script-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 2px 14px}
+  .script-head .hint{font-size:12.5px;color:var(--muted)}
+  .copybtn{appearance:none;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .script{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 6px}
+  .unit{padding:16px 20px;border-bottom:1px solid #eef0f6}.unit:last-child{border-bottom:0}
+  .unit .uhd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .unit .time{font-weight:800;font-size:14px;color:#3730a3;font-variant-numeric:tabular-nums}
+  .unit .utag{font-size:12px;font-weight:700;color:#6d28d9;background:#f5f3ff;border:1px solid #ede9fe;border-radius:7px;padding:2px 9px}
+  .unit .ln{display:flex;gap:9px;margin:5px 0;font-size:14px;line-height:1.75}
+  .unit .ln .k{flex:0 0 40px;color:var(--muted);font-weight:700}
+  .unit .ln.script-line .k{color:var(--brand)}.unit .ln.script-line .v{font-weight:600}
+  .unit .ln .v{flex:1}
+  .sl{margin:0;padding:0;list-style:none}.sl li{display:flex;gap:12px;padding:6px 2px;border-bottom:1px solid #f1f2f7;font-size:13.5px}.sl li:last-child{border-bottom:0}.sl .tt{flex:0 0 46px}
+  @media(max-width:680px){.grid,.cols{grid-template-columns:1fr}.srow{grid-template-columns:120px 24px 1fr 46px}.hero h1{font-size:20px}.wrap{padding:16px 12px 48px}section{padding:18px 16px}}
+  @media print{body{background:#fff}section,.hero{box-shadow:none}.tabs{display:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">키워드 기획 · 도입부 원고 분석 · AI시대 살아남는</p>
+    <h1>"이런 인간만 살아남습니다" AI 시대에 진짜 주목받는 한가지 역량 (노정석 대표)</h1>
+    <p class="sub">"AI는 학습 괴물이다", "명함 싹 버리고 다 같이 학생이 되어야 한다", "CEO·의사·식당 아주머니·택시기사 모두 AI 앞에선 1학년" 같은 강한 단언을 콜드오픈 몽타주로 쏟아내며, AI 시대 진짜 역량은 '학습력'이라고 못 박는 대담형.</p>
+    <div class="chips"><span class="chip">키워드 · AI시대 살아남는</span><span class="chip">채널 · 소울정 (22.6만)</span><span class="chip">길이 · 47:53</span><span class="chip">조회 · 21.5만</span><span class="chip">썸끝 · 정답=좋음 ✅</span><span class="chip">분석일 · 2026-06-16</span><span class="chip"><a href="https://www.youtube.com/watch?v=d8mvVt7EkXA">▶ 원본 영상</a></span></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="report">📊 분석 리포트</button>
+    <button class="tab-btn" data-tab="script">📝 대본 타임라인</button>
+    <button class="tab-btn" data-tab="raw">📜 원문</button>
+  </nav>
+
+  <div class="tab-panel active" id="tab-report">
+    <section>
+      <h2><span class="n">1</span> 한 줄 요약 &amp; 후크 점수</h2>
+      <div class="verdict"><div class="score-ring" style="--p:74"><div class="num"><b>74</b><small>/100</small></div></div>
+        <div class="vtxt"><h3>등급 <span class="grade">B</span></h3><p>유형: &lt;b&gt;강한 단언 콜드오픈 몽타주 + '학습력' 한 가지 역량&lt;/b&gt; · 결 △(자기계발·AI) · 후크 핵심: "다 같이 학생이 되어야"라는 도발적 단정</p></div></div>
+      <div class="grid">
+<div class="card"><div class="lab">후크 유형</div><div class="val">강한 단언 콜드오픈 몽타주 + 학습력</div></div><div class="card"><div class="lab">첫 발화</div><div class="val">"AI는 학습 괴물이야 — 우리 옆에 학습 괴물이 앉아 있는 거야"</div></div><div class="card"><div class="lab">시각적 텐션</div><div class="val">✅ 콜드오픈 자막 몽타주 + 2인 대담</div></div><div class="card"><div class="lab">우리 채널 적합도</div><div class="val">🟡 △ — 학습·사고력은 인접, 책 직접 아님(각도 변환)</div></div>
+      </div>
+    </section>
+    <section><h2><span class="n">2</span> 30초 후크 룰 채점</h2>
+      <div class="srow"><span class="nm">약속한 변화·결과</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <div class="srow"><span class="nm">결 호명 1회+</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <div class="srow"><span class="nm">8축 키워드 1개+</span><span class="badge">⚠️</span><span class="bar b-warn"><i style="width:60%"></i></span><span class="pts">12/20</span></div>
+      <div class="srow"><span class="nm">결론 먼저</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:80%"></i></span><span class="pts">16/20</span></div>
+      <div class="srow"><span class="nm">시각적 텐션</span><span class="badge">✅</span><span class="bar b-ok"><i style="width:70%"></i></span><span class="pts">14/20</span></div>
+
+      <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">합계 &lt;b&gt;74/100 (B)&lt;/b&gt; · 근거: "명함 버리고 다 같이 학생", "CEO·택시기사 다 1학년" 같은 강한 단정을 콜드오픈으로 먼저 던져 텐션·핵심(학습력)을 즉시 제시. 책·독서(8축)와는 거리.</p></section>
+    <section><h2><span class="n">3</span> 후크 구조 흐름</h2>
+      <div class="flow"><span class="step hook">① 강한 단언 몽타주 — "AI는 학습 괴물"</span><span class="arrow">→</span><span class="step ">② "다 같이 학생이 되어야" — 학습력이 핵심</span><span class="arrow">→</span><span class="step turn">③ 어떻게 공부할 것인가(노정석 대담)</span></div></section>
+    <section><h2><span class="n">4</span> 도입부 타임라인 — 음성 × 화면 × 연출</h2>
+      <table><thead><tr><th>구간</th><th>음성(요지)</th><th>화면/컷</th><th>번인 자막</th></tr></thead><tbody>
+        <tr><td><span class="tt">0:00–0:33</span></td><td>(콜드오픈) "AI는 학습 괴물이야. 한 달을 1년처럼 살아야 한다 — 세상의 속도가 그렇다. 가만히 있으면 퇴보, 미치게 뛰어야"</td><td><span class="na-i">◻</span> 캡처 대기 (보완 예정)</td><td>캡처 대기</td></tr>
+        <tr><td><span class="tt">0:39–1:11</span></td><td>"'AI는 이런 거 못 하잖아'라는 멍청함이 전염되지 않게 하라. 기술 발전은 단기엔 불평등, 장기엔 사회를 풍요롭게"</td><td><span class="na-i">◻</span> 캡처 대기 (보완 예정)</td><td>캡처 대기</td></tr>
+        <tr><td><span class="tt">1:12–1:30</span></td><td>"'AI 시대 한 달에 1년처럼 살겠다' — 명함 싹 버리고 다 같이 학생이 되어야. CEO·의사·식당 아주머니·택시기사 다 AI 앞에선 1학년"</td><td><span class="na-i">◻</span> 캡처 대기 (보완 예정)</td><td>캡처 대기</td></tr>
+
+      </tbody></table>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">음성=<b>스크립트 패널 실제 대본</b>(자동자막). 영상 프레임은 환경 제약으로 자동 캡처 불가 → ◻(보완 예정), <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a> 참조.</p></section>
+    <section><h2><span class="n">5</span> 차용 포인트 (그럼에도 불구하고)</h2>
+      <div class="cols"><div class="mini"><h4>연출·구성 차용</h4><ul class="tight"><li>강한 단언("학습 괴물", "다 같이 학생")을 콜드오픈 몽타주로 쏟아 텐션 극대화</li><li>"AI는 이런 거 못 하잖아"라는 통념을 '멍청함의 전염'으로 규정해 반박</li><li>직급·직업 불문 '다 1학년'이라는 평등 프레임으로 보편 공감</li></ul></div>
+      <div class="mini"><h4>우리 채널용 제목 변형안</h4><ul class="tight"><li>AI 시대, 책 읽는 사람만이 '학습 괴물'을 이긴다</li><li>다시 학생이 되어야 한다 — 독서가 가장 빠른 학습법</li></ul></div></div></section>
+    <section><h2><span class="n">6</span> 채널 적합도 4축</h2>
+      <table><thead><tr><th>축</th><th>해당</th><th>메모</th></tr></thead><tbody>
+        <tr><td>① 좋아하는 책</td><td><span class="no-i">N</span></td><td>대담(책 직접 주제 아님)</td></tr>
+        <tr><td>② 결 3그룹</td><td><span class="na-i">△</span></td><td>학습·성장 동기는 인접, 독서 결 약함</td></tr>
+        <tr><td>③ 8축</td><td><span class="na-i">△</span></td><td>AI·학습력(사고력 인접)</td></tr>
+        <tr><td>④ 이북리더기·readtree</td><td><span class="no-i">N</span></td><td>무관</td></tr>
+
+      </tbody></table>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">직접 결 약함(△). '학습력=생존 역량'은 우리 독서·사고력 메시지와 통함 → 각도 변환해 후크 기법 차용.</p></section>
+    <section><div class="note"><h3>⚙️ 대본·캡처 상태</h3>
+      <p style="margin:0;font-size:13px"><b>✔ 실제 대본 확보</b> — 스크립트 패널에서 도입부(0:00~1:30) 추출(462세그먼트 중 발췌). 영상 프레임은 환경 제약(백그라운드 탭 디코드 스로틀)으로 자동 캡처 불가 → ◻(보완 예정). <a href="captures/_수동캡처_가이드.md">수동 캡처 가이드</a>의 &t= 링크로 보완.</p></div></section>
+  </div>
+
+  <div class="tab-panel" id="tab-script">
+    <section>
+      <h2><span class="n">📝</span> 대본 타임라인 — 맥락 단위 원고 분석</h2>
+      <div class="script-head"><span class="hint">유튜브 스크립트 패널 원문을 내용 최대 유지·오타/비문만 보정 → 맥락 단위 구분 → 구분별 대본 / 화면 / 자막</span><button class="copybtn" id="copyScript">⧉ 정리본 복사</button></div>
+      <div class="script">
+        <div class="unit">
+          <div class="uhd"><span class="time">0:00–0:33</span><span class="utag">① 강한 단언 콜드오픈 몽타주</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">(콜드오픈) "AI를 힘으로 쓰고 있냐는 거야. 지금까지 들었던 AI 이야기 중 가장 명확했어 — AI는 학습 괴물이야. 우리 옆에 학습 괴물이 앉아 있는 거야." "AI의 본질은 학습이기 때문에… 확실한 건 나보단 훨씬 뛰어나, 내 선생님이구나." "한 달을 1년처럼 어떻게 살아가야 하나? 그건 제가 정의하는 게 아니라 세상의 속도가 그래요. 가만히 있으면 퇴보, 어떻게든 미치게 뛰어야죠."</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">(추정) 콜드오픈 자막 강조 몽타주 + 2인 대담 — 캡처 대기 (보완 예정)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">캡처 대기</span></div>
+        </div>
+        <div class="unit">
+          <div class="uhd"><span class="time">0:39–1:11</span><span class="utag">② 통념 반박 + 기술 발전관</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">그래서 제가 농담 삼아, 누가 '에이 AI는 이런 거 못 하잖아'라고 하면 '그 멍청함이 전염되지 않게 격리하라'고 얘기하거든요. 기술의 발전을 보면 단기적으로는 불평등을 만들지만 장기적으로는 사회 전체를 풍요롭게 해요. 지금은 우리가 꿈꾸는 것을 옆에서 마음껏 펼쳐 줄 '나의 사만다(AI)'가 하나씩 다 있는 거니까요.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">캡처 대기 (보완 예정)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">캡처 대기</span></div>
+        </div>
+        <div class="unit">
+          <div class="uhd"><span class="time">1:12–1:30</span><span class="utag">③ "다 같이 학생이 되어야"</span></div>
+          <div class="ln script-line"><span class="k">대본</span><span class="v">대표님 인스타 보니까 'AI 시대, 한 달에 1년처럼 살겠다'고 다짐 글을 써 놓으셨던데요. 결론부터 말하면, 지금 명함 싹 버리고 다 같이 학생이 되어야 돼. CEO·의사 상관없이 식당 아주머니, 택시기사 아저씨, 우리 집 강아지까지 — 지금 AI 앞에서는 다 1학년이거든. 다 학생이 되어야 되는 때인 거야.</span></div>
+          <div class="ln"><span class="k">화면</span><span class="v">캡처 대기 (보완 예정)</span></div>
+          <div class="ln"><span class="k">자막</span><span class="v">캡처 대기</span></div>
+        </div>
+
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">※ 대본은 유튜브 <b>스크립트 표시 패널 원문</b>에서 오타·비문만 최소 보정. 원문 그대로는 <b>📜 원문</b> 탭.</p>
+    </section>
+  </div>
+
+  <div class="tab-panel" id="tab-raw">
+    <section>
+      <h2><span class="n">📜</span> 원문 — 유튜브 스크립트 패널 그대로</h2>
+      <div class="script-head"><span class="hint">YouTube '스크립트 표시' 패널 원문(자동자막, 오탈자 포함) — 손대지 않고 보존</span><button class="copybtn" id="copyRaw">⧉ 원문 복사</button></div>
+      <ul class="sl">
+        <li><span class="tt">0:00</span><span>AI를 힘으로 쓰고 있냐는 [음악] 거야. 지금까지 내가 들었던 AI에 대한 모든 이야기 중에 가장</span></li>
+        <li><span class="tt">0:05</span><span>명확했어. AI는 학습 괴물이야. 우리 옆에 학습 괴물이 앉아 있는 거야. 근데 그 괴물로 볼게 아니라</span></li>
+        <li><span class="tt">0:11</span><span>선생님 안녕하세요. 근데 이번 한 달 동안 공부를 하면서 느낀 점 한 가지는 여기를 움직이는 [음악] 키는</span></li>
+        <li><span class="tt">0:16</span><span>AI의 본질은 학습을 통한이기 때문에 사실 제가 AI 공부 시작한 거는</span></li>
+        <li><span class="tt">0:22</span><span>굉장히 오래 전이에요. 확실한 건 나보단 훨씬 뛰어나. [웃음] 내 선생님이구나. 한 달에 1년처럼 어떻게 살아가야</span></li>
+        <li><span class="tt">0:28</span><span>되는 것인가? 한 달을 1년처럼 사실은 그거는 제가 정의하는게 아니라</span></li>
+        <li><span class="tt">0:33</span><span>그냥 세상의 속도가 지금 그래요. 가만히 있으면 퇴야 되는 거네요. 어떻게든 뛰어가야 되는 거 미치게 뛰어야죠. 예. [웃음]</span></li>
+        <li><span class="tt">0:39</span><span>그래서 제가 농담 삼아서 누가 에이 AI는 이런 거 못 하잖아라고 얘기하는 사람이 있으면 그 멍청함이</span></li>
+        <li><span class="tt">0:45</span><span>전염되지 않게 저현하라고 제가 얘기하거든요.이 [웃음] 기술의 발전을 보면요. 단기적으로는</span></li>
+        <li><span class="tt">0:52</span><span>불평등을 만들지만 [음악] 장기적으로는 사회 전체를 풍요롭게 해요. 진짜 유토피아 기다리고 있는 거는</span></li>
+        <li><span class="tt">0:58</span><span>그렇죠. 그 지금은 꿈꾸면 꿈꾸는 수단들을 옆에서 마음껏 펼쳐 줄 수</span></li>
+        <li><span class="tt">1:03</span><span>있는 나의 싸만다가 다 하나씩 있는 거니까 그냥 그 앞에서는 우리 모두 다 헌불해야 돼요.</span></li>
+        <li><span class="tt">1:12</span><span>장님 인스타 보니까 AI 시대 한 달에 1년처럼 살겠다 이렇게 다친문을 써 놓으셨던데</span></li>
+        <li><span class="tt">1:18</span><span>그래서 병이 났어. 병이. 진짜 무슨 말이에요? 물론부터 말하면 지금 명함 싹 버리고 다 같이 학생이 되어야 돼. CEO</span></li>
+        <li><span class="tt">1:24</span><span>의사 변화 상관없이 식당 아주머니, 택시기사 아저씨 우리 집 보기까지 지금 AI 앞에서는 다 1학년이거든.</span></li>
+        <li><span class="tt">1:30</span><span>다 학생이 되어야 되는 땐 거야. 나이 얘기하려고 오늘 진짜 흥분했어. 어떤 식으로 공부해야 되는 건지 한</span></li>
+
+      </ul>
+      <p style="margin:10px 4px 0;font-size:12px;color:var(--muted)">출처: YouTube 스크립트 패널(자동자막). 전체 462세그먼트 중 도입부(0:00~1:30) 발췌.</p>
+    </section>
+  </div>
+
+  <footer>키워드 기획 분석 · 2026-06-16 · 기준 <a href="../../../작업지침서.md">작업지침서</a> · <a href="../../../도입부분석_통합지침_(코워크용).md">통합지침</a><br>출처: <a href="https://www.youtube.com/watch?v=d8mvVt7EkXA">YouTube — 소울정</a> · 썸끝 정답=좋음 · 내부 기획·학습용</footer>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function grab(sel){var out=[];document.querySelectorAll(sel).forEach(function(s){var t=s.querySelector('.time, .tt');var v=s.querySelector('.script-line .v')||s.querySelector('span:last-child');var tg=s.querySelector('.utag');out.push((t?t.textContent.trim()+'  ':'')+(tg?'['+tg.textContent.trim()+'] ':'')+(v?v.textContent.trim():''));});return out.join('\n');}
+function cp(btn,sel){if(!btn)return;btn.addEventListener('click',function(){var text=grab(sel);var lbl=btn.textContent;var d=function(){btn.textContent='\u2713 \ubcf5\uc0ac\ub428';setTimeout(function(){btn.textContent=lbl;},1500);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(d);}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);d();}});}
+cp(document.getElementById('copyScript'),'#tab-script .unit');
+cp(document.getElementById('copyRaw'),'#tab-raw .sl li');
+</script>
+</body>
+</html>

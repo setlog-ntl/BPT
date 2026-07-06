@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>댓글 분석 · 책을 읽었는데 기억이 안 나신다고요? 1년에 책 160권 읽는 북튜버가 책을 요약하는 방법 (겨울서점 Winter Bookstore (김겨울))</title>
+<style>
+  :root{
+    --pain:#ef476f; --growth:#06d6a0; --value:#ffd166; --rec:#c4b5fd;
+    --bg:#f5f3ee; --panel:#ffffff; --panel-2:#faf8f3; --line:#e7e3da;
+    --text:#1f2430; --muted:#5d6470; --brand:#2f5d62; --brand2:#3a7a82;
+    --shadow:0 2px 10px rgba(31,36,48,.06),0 8px 28px rgba(31,36,48,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px 80px}
+  .topnav{display:flex;flex-wrap:wrap;gap:10px;max-width:980px;margin:0 auto;padding:18px 20px 0}
+  .nbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:10px;
+    background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s}
+  .nbtn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .nbtn.home{color:var(--brand);font-weight:700}
+  .nbtn.src{color:var(--pain);margin-left:auto}
+  header{margin:18px 0 26px}
+  .eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--brand2);font-weight:800;margin-bottom:10px}
+  h1{font-size:24px;line-height:1.38;margin:0 0 16px;font-weight:800;letter-spacing:-.01em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13.5px;color:var(--muted);align-items:center}
+  .meta b{color:var(--text)}
+  .meta .dot{width:4px;height:4px;border-radius:50%;background:#c7c1b4;display:inline-block}
+  .meta .angle{background:#eef5f0;border:1px solid #cfe4d8;color:#256b54;border-radius:7px;padding:2px 10px;font-weight:700}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:26px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+  .sec-no{font-size:11.5px;font-weight:800;color:var(--brand2);letter-spacing:.1em;margin-bottom:5px}
+  h2{font-size:19px;margin:0 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .top3{background:linear-gradient(135deg,#2f5d62,#244b50);border:none;color:#fff}
+  .top3 .sec-no{color:#bfe0d9}.top3 h2{color:#fff}.top3 .lead{color:#d6e6e1}
+  .t3{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-top:1px solid rgba(255,255,255,.14)}
+  .t3:first-of-type{border-top:none}
+  .t3 .rank{flex:0 0 auto;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:17px;background:var(--value);color:#5a4410}
+  .t3 .rank.r2{background:#d7dde3;color:#33414d}.t3 .rank.r3{background:#e6b894;color:#5a3410}
+  .t3 .body{flex:1}
+  .t3 .txt{font-size:14.5px;color:#f3f8f6;line-height:1.6}
+  .t3 .sig{display:inline-flex;gap:10px;margin-top:8px;font-size:12px;color:#bfe0d9;flex-wrap:wrap}
+  .t3 .sig b{color:var(--value);font-weight:800}
+  .t3 .sig .tag{background:rgba(255,255,255,.14);padding:2px 9px;border-radius:6px;font-weight:600;color:#eafff8}
+  .idage{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .idage .blk h3{font-size:14px;margin:0 0 10px;font-weight:800;color:var(--brand)}
+  .agebars{display:flex;flex-direction:column;gap:8px}
+  .ab{display:grid;grid-template-columns:46px 1fr 38px;gap:10px;align-items:center;font-size:13px}
+  .ab .lab{font-weight:700}
+  .ab .track{height:8px;background:#eef0ee;border-radius:5px;overflow:hidden}
+  .ab .fill{height:100%;border-radius:5px;background:var(--brand2)}
+  .ab .pct{text-align:right;font-weight:800;color:var(--brand);font-size:12.5px}
+  .core{margin-top:10px;font-size:12.5px;color:var(--muted)}.core b{color:var(--brand)}
+  .sigchips{display:flex;flex-wrap:wrap;gap:7px}
+  .sigchip{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12.5px}
+  .sigchip b{color:var(--brand);font-weight:800}
+  .idnote{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.55}
+  .rsn{margin-bottom:15px;padding-bottom:15px;border-bottom:1px dashed var(--line)}
+  .rsn:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .rsn-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;gap:12px}
+  .rsn-top .name{font-weight:800;font-size:15px}
+  .rsn-top .name .rk{color:var(--brand2);margin-right:6px}
+  .rsn-top .val{font-size:12.5px;color:var(--muted);font-weight:700;white-space:nowrap}
+  .rsn-track{height:22px;background:#eef0ee;border-radius:7px;overflow:hidden}
+  .rsn-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;
+    padding-right:9px;color:#173b33;font-weight:800;font-size:12px;min-width:34px}
+  .rsn-ev{margin-top:8px;font-size:12.5px;color:#3a414c;background:var(--panel-2);
+    border-left:3px solid var(--brand2);border-radius:0 8px 8px 0;padding:8px 12px}
+  .rsn-ev .q{color:#2a3038}.rsn-ev .by{color:var(--muted);font-size:11.5px}
+  .rsn-memo{margin-top:6px;font-size:12px;line-height:1.5;padding:7px 11px;border-radius:8px}
+  .rsn-memo.bm{background:#eef5f1;border-left:3px solid var(--growth);color:#1d5e49}
+  .rsn-memo.hk{background:#f4f1fb;border-left:3px solid var(--rec);color:#4a3a86}
+  .rsn-memo b{font-weight:800}
+  .angle-box{background:linear-gradient(135deg,#f3f7f4,#eef5f0);border:1px solid #cfe4d8;border-radius:14px;padding:20px 22px;margin-top:18px}
+  .angle-box h3{margin:0 0 12px;font-size:15px;font-weight:800;color:var(--brand)}
+  .angle-box .grp{margin-bottom:14px}
+  .angle-box .grp:last-child{margin-bottom:0}
+  .angle-box .gl{font-size:12.5px;font-weight:800;letter-spacing:.02em;margin-bottom:7px;display:inline-block;padding:3px 10px;border-radius:7px}
+  .angle-box .gl.bm{background:#d8efe3;color:#1d5e49}
+  .angle-box .gl.hk{background:#e6ddf7;color:#4a3a86}
+  .angle-box ul{margin:0;padding-left:18px;font-size:13px;color:#384049}
+  .angle-box li{margin-bottom:6px;line-height:1.55}
+  .angle-box li b{color:var(--brand)}
+  .angle-box .hk li b{color:#5b48a0}
+  .more .q2{border-left:3px solid var(--line);padding:9px 14px;margin-bottom:9px;font-size:13.5px;background:var(--panel-2);border-radius:0 8px 8px 0}
+  .more .q2 .by{display:block;margin-top:5px;font-size:11.5px;color:var(--muted)}
+  .more .q2 .by b{color:var(--pain)}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;line-height:1.8}
+  .note{background:#fbf6e9;border:1px solid #ecd9a8;border-left:5px solid var(--value);
+    border-radius:10px;padding:13px 16px;font-size:12.5px;color:#6b5a2e;margin-top:14px}
+  .note b{color:#9a7716}
+  @media(max-width:720px){.idage{grid-template-columns:1fr}h1{font-size:20px}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nbtn home" href="분석.html">← 도입부 분석</a>
+  <a class="nbtn src" href="https://www.youtube.com/watch?v=oPpN1J_7J0k" target="_blank" rel="noopener">🔗 유튜브 원본</a>
+</nav>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">YouTube 댓글 시청자 분석 · 겨울서점 Winter Bookstore (김겨울)</div>
+    <h1>책을 읽었는데 기억이 안 나신다고요? 1년에 책 160권 읽는 북튜버가 책을 요약하는 방법</h1>
+    <div class="meta">
+      <span><b>채널</b> 겨울서점 Winter Bookstore (김겨울)</span><span class="dot"></span>
+      <span><b>구독자</b> 29.1만</span><span class="dot"></span>
+      <span><b>조회수</b> 70.0만</span><span class="dot"></span>
+      <span><b>게시</b> 2021.6.15 (약 4년 전)</span><span class="dot"></span>
+      <span><b>분석 댓글</b> 315개(인기순)</span><span class="dot"></span>
+      <span class="angle">분석 각도 · 경쟁·벤치마크 + 후크 발굴</span>
+    </div>
+  </header>
+
+  <section class="top3">
+    <div class="sec-no">★ 대표댓글 · 추천 많은 순 TOP 3</div>
+    <h2>이 영상의 얼굴이 된 댓글 3개</h2>
+    <p class="lead">좋아요가 가장 많이 눌린 댓글 = 시청자 다수가 가장 공감한 지점.</p>
+    <div class="t3"><div class="rank ">1</div><div class="body">
+      <div class="txt">"(요약) 책을 기억하고 싶을 때: 1.되도록 종이책으로 읽는다 2.책에 적극 표시 + 노트 메모 3.비슷한 분야 여러 권 읽기. 논픽션 요약법: 목차로 전체 구조 파악…"</div>
+      <div class="sig"><span>👍 <b>1.6천</b></span><span class="tag">자발적 영상 요약</span><span>4년 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r2">2</div><div class="body">
+      <div class="txt">"우리가 겨울님께 던지는 질문 대다수는 겨울님이 쓰신 «독서의 기쁨»에 다 있어요. 이 요약을 «독서의 기쁨»으로 해보는 거 완전 강추"</div>
+      <div class="sig"><span>👍 <b>960</b></span><span class="tag">저자 책 추천·팬심</span><span>4년 전</span></div>
+    </div></div>
+    <div class="t3"><div class="rank r3">3</div><div class="body">
+      <div class="txt">"그래 읽었을 때는 재미있었다니까... 무슨 내용이냐고 물어보지 마... 마지막만 머릿속에 있으니까..."</div>
+      <div class="sig"><span>👍 <b>462</b></span><span class="tag">기억 안 남 페인(유머)</span><span>4년 전</span></div>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="sec-no">정체성 · 추정 연령 (간략)</div>
+    <h2>누가 보는가</h2>
+    <div class="idage">
+      <div class="blk">
+        <h3>추정 연령대</h3>
+        <div class="agebars">
+          <div class="ab"><span class="lab">10대</span><div class="track"><div class="fill" style="width:12%"></div></div><span class="pct">12%</span></div>
+          <div class="ab"><span class="lab">20대</span><div class="track"><div class="fill" style="width:38%"></div></div><span class="pct">38%</span></div>
+          <div class="ab"><span class="lab">30대</span><div class="track"><div class="fill" style="width:28%"></div></div><span class="pct">28%</span></div>
+          <div class="ab"><span class="lab">40대</span><div class="track"><div class="fill" style="width:15%"></div></div><span class="pct">15%</span></div>
+          <div class="ab"><span class="lab">50대+</span><div class="track"><div class="fill" style="width:7%"></div></div><span class="pct">7%</span></div>
+          </div>
+        <div class="core">핵심 시청층 <b>20·30대</b> · 20~30대 약 66% · 김겨울(북튜버) 특유의 젊은 지적 독서 애호가·대학생층</div>
+      </div>
+      <div class="blk">
+        <h3>정체성 대표 신호 (댓글 자기소개)</h3>
+        <div class="sigchips">
+          <span class="sigchip">대학·대학원(20대) <b>6</b></span>
+          <span class="sigchip">수험생(10대) <b>3</b></span>
+          <span class="sigchip">취준생(20대) <b>2</b></span>
+          <span class="sigchip">학부모·자녀(30~50대) <b>2</b></span>
+          <span class="sigchip">고등학생(10대) <b>1</b></span>
+        </div>
+        <div class="idnote">자기보고가 대학생·취준생 등 20대에 몰리고, 종이책·전자책 같은 '독서 도구'를 깊게 논하는 애호가 톤 → 20~30대 지적 독서층이 핵심.</div>
+      </div>
+    </div>
+    <div class="note"><b>추정 주의:</b> 유튜브 실제 연령 통계는 채널 소유자만 열람 가능. 위 수치는 댓글 자기소개·말투·영상 주제·채널 성격 기반 <b>추정치</b>입니다.</div>
+  </section>
+
+  <section>
+    <div class="sec-no">02 · 시청 이유 (핵심)</div>
+    <h2>왜 이 영상을 보는가</h2>
+    <p class="lead">315개 댓글 키워드 집계(중복 허용). 순위 · 비중% · 근거 댓글.</p>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">①</span>이해·기억·체화</span><span class="val">115건 · 37%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:100%;background:var(--growth);color:#173b33">115</div></div>
+      <div class="rsn-ev"><span class="q">"책을 기억하고 싶을 때: 종이책으로 읽기, 적극 표시+노트 메모, 비슷한 분야 여러 권 읽기"</span> <span class="by">— 👍 1.6천</span></div>
+      <div class="rsn-memo hk"><b>→ 후크 후보:</b> "읽었는데 기억 안 나는 게 정상" — 결2 핵심 페인 후크.</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">②</span>동기·감사·커뮤니티</span><span class="val">85건 · 27%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:74%;background:#4cc4e0;color:#173b33">85</div></div>
+      <div class="rsn-ev"><span class="q">"주변에 책 읽고 대화할 사람이 없어서 겨울님 유튜브가 (소중해요)"</span> <span class="by">— 👍 94</span></div>
+      <div class="rsn-memo bm"><b>→ 벤치마크:</b> '독서 대화 상대 부재'가 페인 — readtree 커뮤니티 수요와 직결.</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">③</span>완독·집중(전자책)</span><span class="val">16건 · 5%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:14%;background:var(--brand2);color:#173b33">16</div></div>
+      <div class="rsn-ev"><span class="q">"최근 전자책으로 싹 바꾸고 나서 책 읽을 때는 너무 재밌고 좋은데, 완독은…"</span> <span class="by">— 👍 22</span></div>
+      <div class="rsn-memo bm"><b>→ 벤치마크:</b> 전자책 전환이 완독률에 미치는 영향 — 이북리더기 메시지 검증 포인트.</div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">④</span>시험·공부·실력</span><span class="val">15건 · 5%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:13%;background:#9aa0aa;color:#173b33">15</div></div>
+      <div class="rsn-ev"><span class="q">"종이책을 압도적으로 많이 읽는데, 중요한 이유가 '책의 위치 감각'이에요! (대학생)"</span> <span class="by">— 👍 115</span></div>
+    </div>
+    <div class="rsn">
+      <div class="rsn-top"><span class="name"><span class="rk">⑤</span>책 추천·고르기</span><span class="val">12건 · 4%</span></div>
+      <div class="rsn-track"><div class="rsn-fill" style="width:10%;background:var(--rec);color:#fff">12</div></div>
+      <div class="rsn-ev"><span class="q">"종이책과 전자책의 가장 큰 차이는 활성화되는 뇌의 부분이 다르다고 한다"</span> <span class="by">— 👍 13</span></div>
+    </div>
+
+    <div class="angle-box">
+      <h3>🎯 분석 각도 · 경쟁·벤치마크 + 후크 발굴</h3>
+      <div class="grp">
+        <span class="gl bm">경쟁 · 벤치마크 (우리 채널 관점)</span>
+        <ul>
+        <li><b>이해·기억·체화 37%</b>가 압도 — '읽었는데 기억 안 남'(결2 핵심 페인)에 <b>요약·기록법</b>으로 답. 댓글이 자발적 영상 요약(👍1.6천)으로 도배 = '저장각' 실용 콘텐츠의 힘.</li>
+        <li><b>종이책 vs 전자책 논쟁이 댓글에서 활발</b>(위치 감각·뇌 활성화·'전자책 바꾸니 완독률 변화') — <b>이북리더기(1차 아이템) 시장의 진짜 찬반 인사이트</b>가 그대로 노출. bizpt 1차 아이템 메시지 설계에 직접 활용.</li>
+        <li>'주변에 책 얘기할 사람이 없어서 겨울님 유튜브가 소중'(👍94) — <b>독서 대화 상대 부재</b>가 페인. readtree 커뮤니티 수요와 직결.</li>
+        </ul>
+      </div>
+      <div class="grp hk">
+        <span class="gl hk">🪝 후크 발굴 (시청이유 → 카피 후보)</span>
+        <ul class="hk">
+        <li><b>(기억 37%)</b> "읽었는데 기억 안 나는 게 정상 — 160권 북튜버의 요약법"</li>
+        <li><b>(종이 vs 전자·이북리더기)</b> "종이책이 기억에 남는 진짜 이유, 그럼 전자책은?"</li>
+        <li><b>(커뮤니티)</b> "책 얘기할 사람이 없다면 — 함께 읽고 남기는 법"</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="more">
+    <div class="sec-no">03 · 더 보기</div>
+    <h2>그 외 대표 댓글</h2>
+    <div class="q2"><span>"포브스 선정 '책 읽고 요약하기를 가장 깔끔하게 알려주는 김겨울 1위'"</span><span class="by">👍 <b>357</b> · 신뢰·유머 칭찬</span></div>
+    <div class="q2"><span>"간혹 좋아하는 픽션은 기억을 일부러 희석시키고 싶어요. 다시 읽을 때 처음 읽는 기분으로 즐기려고ㅠㅠ"</span><span class="by">👍 <b>307</b> · 애독자 감성</span></div>
+    <div class="q2"><span>"같은 분야 비슷한 책 여러 권 읽기.. 책 업이 아닌 이상 이게 베스트. 기록·정리가 주가 되지 않는 독서"</span><span class="by">👍 <b>200</b> · 실용 균형 관점</span></div>
+  </section>
+
+  <footer>
+    분석 대상: https://www.youtube.com/watch?v=oPpN1J_7J0k · 겨울서점 Winter Bookstore (김겨울)<br>
+    데이터: 인기순 상위 댓글 315개 (크롬 브라우저 직접 수집) · 연령대는 댓글 기반 추정치<br>
+    생성일: 2026-06-09 · bizpt / 도입부분석 · 키워드기획
+  </footer>
+</div>
+</body>
+</html>
